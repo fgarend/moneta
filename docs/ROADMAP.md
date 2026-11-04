@@ -1,6 +1,6 @@
 # Roadmap
 
-**Now:** 1.2, the pipeline's second group: containers.
+**Now:** 1.3, the pipeline's third group: static checks.
 
 What needs to be created, in order. The order follows what is needed next, so a new
 need can change it. Open questions are asked when their step arrives, and each shows
@@ -18,31 +18,68 @@ what is recommended today, to be argued again at that moment.
 Each group as in `docs/decisions/process.md`. `make check` runs only what exists, and
 grows with each group.
 
-Done: 1.1, the floor.
+The checks, for every group: `lint`, `types`, `test`, `stories` and `package`, fastest
+first. `make check` runs them in that order, all of them even if one fails, and ends
+with one line per check saying whether it passed. Continuous integration has one box
+per check, with the same name, in parallel, so `make <box>` repeats a red box.
 
-- **1.2 · Containers.** `Makefile`, `infra/`, `package.json` with `"license": "MIT"`,
-  `pnpm-workspace.yaml` and the lockfile. `docs/updating.md`, which joins `Read first`
-  in `CLAUDE.md`, with updates run per family of pieces. The images build, a clean
-  install works, and the release age rule refuses a package too new.
+Done: 1.1, the floor. 1.2, containers.
+
 - **1.3 · Static checks.** Biome and `tsconfig*`, formatting what exists, with a minimal
   `Button` as the first source file. `isolatedDeclarations` is off, as `cva` depends on
-  inference. A planted type error and a planted lint error are refused.
+  inference. A planted type error and a planted lint error are refused. To ask: whether
+  a `ci.yml` with only the checks arrives here, rather than in 1.6 (recommended: yes). To
+  ask: whether `make lint` goes through a `package.json` script of the same name, or calls
+  the tool itself, one layer fewer but with long commands in the `Makefile`; pnpm's own
+  commands are already called directly. To ask: where the loop of `make check`'s summary
+  lives, which runs on the machine, so not in Node. To ask: a `make add PACKAGE=…`, so
+  `docs/updating.md` no longer sends anyone around the `Makefile` (recommended: yes). Time
+  one `make lint` once dependencies are real: each run copies the image's `node_modules`
+  into a temporary volume, and a read-only mount of the image's folder may avoid that.
 - **1.4 · Stories and browsers.** `.storybook/`, `vitest.config.ts`, a story for `Button`,
   `update-screenshots`, `docs/accessibility.md`, which joins `Read first`, and
-  `docs/accessibility-script.md`. Tests for the accessibility table, the workspace, and
-  coverage at 100% on own pieces only. Checks for forced colours, text spacing, a class
-  scan on own pieces, and a story per file in `ui/`, with one place for the stories'
-  list. A broken story and an axe failure, planted, are refused in 3 browsers, and each
-  check fails on a planted story.
+  `docs/accessibility-script.md`. Tests for the accessibility table and the workspace.
+  Checks for forced colours, text spacing, a class scan on own pieces, and a story per
+  file in `ui/`, with one place for the stories' list. A broken story and an axe failure,
+  planted, are refused in 3 browsers, and each check fails on a planted story.
+  - `test` runs the logic and the repository's checks, in Node. `stories` runs everything
+    in a browser. Nothing runs twice.
+  - Each measures its own coverage, at 100% on own pieces only: `test` the logic in
+    `src/lib/` and the package's entry, `stories` everything else but `ui/`, so a new
+    folder cannot go unmeasured. A check of the repository holds these rules, and each
+    keeps its own report.
+  - Planted, each fails one check only: a logic bug, a broken component, a line with no
+    test in each area, a file nobody imports in each area, and a new folder. Tried on
+    another codebase, not yet on this one. shadcn's `cn` needs a test of its own, and the
+    entry must import in Node.
+  - Coverage says a line ran, not that anything looked at it. A story checks what it
+    shows in `play`. Own code stays out of `ui/`, which coverage does not see.
 - **1.5 · Build and package.** `build-package`, `check-package`, and the tests of the
   build and the package. The layout shadcn's aliases expect: `src/components/ui/`,
   `src/components/`, `src/lib/`, `src/hooks/` and `src/styles/`. Imports through
   `package.json#imports` with a custom condition, which must not be called `source`. The
-  package installs in a test consumer, and a broken export is refused.
+  package installs in a test consumer, and a broken export is refused. `package` keeps
+  the tarball it tested, which is the file a release publishes. To ask: `dist/` out of
+  git, since delivery is by tarball (recommended: yes).
 - **1.6 · CI and release.** `ci.yml`, `audit.yml`, `check-release`, `extract-release-notes`,
   the workflows' test, `docs/releasing.md` and the changelog. Local tests pass, and the
   rest is declared untested until the owner's push. **`check-pins`, 912 lines, is
-  questioned here:** it works as it is, and could be dropped.
+  questioned here:** it works as it is, and could be dropped (recommended: drop it, and
+  check the pins by hand at the start of each item). To ask: whether the release part waits until just
+  before 3.2, when it is first used (recommended: yes).
+  - **A release is automatic.** A push to `main` whose last commit starts with
+    `chore: release v` calls `release.yml` from `ci.yml`, in the same run, only if every
+    box passed: `verify`, `build`, `publish`, `pages`. Only `publish` and `pages` write.
+    `verify` refuses a version that differs from `package.json`, already has a tag, or
+    has no changelog ready, and runs the audit. The tag is created by `publish`, so a
+    failed check spends no version.
+  - Only pull requests cancel an earlier run, so a newer push never cuts a release.
+  - **`audit.yml` stays.** GitHub's documentation says its dependency graph does not read
+    a lockfile written as two YAML documents, pnpm 12's default with a pinned version, so
+    Dependabot alerts may not come. What `docs/decisions/delivery.md` says of them gets
+    that caveat.
+  - Untested until the push: how GitHub draws a skipped reusable workflow, the
+    expression that cancels only pull requests, and a failure halfway through `publish`.
 
 ## 2. Base and theme
 
@@ -127,8 +164,9 @@ The library's reason, and the hardest test of the look: exact values, a real min
 stepped cents. It comes when something needs it, like any piece, so a need can bring it
 before the families above.
 
-- **5.1 · `formatMoney`, Amount and Delta.** To ask: money as a decimal string
-  (recommended: yes). To ask: whether Amount colours gain and loss by default or by
+- **5.1 · `formatMoney`, Amount and Delta.** Their stories check the exact text in the 3
+  browsers, since coverage counts `formatMoney` in Node, where formatting may differ. To
+  ask: money as a decimal string (recommended: yes). To ask: whether Amount colours gain and loss by default or by
   choice of who uses it (recommended: by choice).
 
 ## 6. 1.0
@@ -158,7 +196,7 @@ No order between them. Each becomes an item when its time comes.
 - **The browsers Moneta supports.** Nothing states them. Tailwind 4 sets a floor.
 - **A module of composed components.** shadcn's blocks and `sidebar` are the start.
 - **Image vulnerability scan.** The system packages inside the images.
-- **Update bot.** It would not see shadcn's registry either.
+- **Update bot.** Left out for now, as `docs/decisions/tooling.md` says.
 - **Storybook's accepted advisories.** Check whether they still apply when carried.
 - **Storybook's deprecated loader.** It goes when Storybook moves.
 - **pnpm's update notice.** `updateNotifier` turns it off.

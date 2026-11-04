@@ -9,6 +9,7 @@ steps, each decided with the user before it is made.
 1. `docs/ROADMAP.md`: where the work is now, and everything planned or deferred,
    in order.
 2. `docs/decisions/`: what holds today, by topic, and why.
+3. `docs/updating.md`: when and how versions move.
 
 ## The rule
 
@@ -85,7 +86,8 @@ gives the right result:
 
 ## The rhythm of a step
 
-1. Propose the step and list its open points.
+1. Propose the step and list its open points. An item from milestone 2 on starts with
+   `make outdated`, and the proposal says what it found, as `docs/updating.md` asks.
 2. The user decides them, one at a time.
 3. Write the tests and show them failing. In a step without code, write the
    checks or the document to review instead.

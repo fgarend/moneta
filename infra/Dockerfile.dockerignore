@@ -1,0 +1,6 @@
+# What the build of infra/Dockerfile receives from the repository root: only what installs the dependencies.
+# The code is mounted by each command instead.
+*
+!package.json
+!pnpm-lock.yaml
+!pnpm-workspace.yaml

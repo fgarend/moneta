@@ -8,10 +8,9 @@ How decisions are kept, and how the work moves.
 
 - **Only three things get in:** what deviates from shadcn, what is costly to reverse,
   and what cannot be read from the code. The rest is in the code and its history.
-- **Files by topic, stating what holds today.** `base.md`, `theme.md`,
-  `components.md`, `accessibility.md`, `tooling.md`, `delivery.md` and `process.md`,
-  each born when first needed. A file is edited in place when a choice changes, and
-  says why, with the alternatives that were weighed when they matter.
+- **Files by topic, stating what holds today,** listed in `README.md`, each born when
+  first needed. A file is edited in place when a choice changes, and says why, with the
+  alternatives that were weighed when they matter.
 - **Each file ends with a `History`:** one sentence per change. Past 10 lines it is
   condensed, and points to the file's older versions in git.
 
@@ -45,3 +44,4 @@ rest.
 ## History
 
 - 2026-11-04: Written, with the repository.
+- 2026-11-04: The list of files moved to `README.md`, the index of this folder.

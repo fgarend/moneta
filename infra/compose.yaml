@@ -1,0 +1,31 @@
+# Where and how each command runs: the image, what is mounted, and whether the code can be written.
+# The Makefile chooses the service; what runs is the command it passes. Values come from infra/settings.env.
+name: moneta
+
+x-build: &build
+  context: ..
+  dockerfile: infra/Dockerfile
+  args:
+    PLAYWRIGHT_IMAGE: ${PLAYWRIGHT_IMAGE:?set in infra/settings.env}
+    PNPM_IMAGE: ${PNPM_IMAGE:?set in infra/settings.env}
+
+services:
+  # The tools, checking only: the code is read-only, over the dependencies of the image. The folder node_modules of the
+  # machine is hidden, so the image's own is used.
+  tools:
+    image: moneta:deps
+    build: { <<: *build, target: deps }
+    volumes:
+      - ..:/app:ro
+      - /app/node_modules
+
+  # Installs the dependencies into the machine's node_modules and the lockfile.
+  install:
+    image: moneta:base
+    build: { <<: *build, target: base }
+    volumes:
+      - ..:/app
+      - pnpm-store:/pnpm-store
+
+volumes:
+  pnpm-store:

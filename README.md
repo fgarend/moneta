@@ -11,6 +11,11 @@ Being set up: there is no code or release yet. Where the work is, and what comes
 next, is in [`docs/ROADMAP.md`](docs/ROADMAP.md). The choices made so far are in
 [`docs/decisions/`](docs/decisions/).
 
+## Working on it
+
+Every command runs in a container, so it needs Docker with Compose, and Make. `make help`
+lists the commands.
+
 ## License
 
 [MIT](LICENSE).

@@ -1,0 +1,11 @@
+# Project settings for pnpm: only those that differ from its defaults.
+# Versions published less than 7 days ago are refused (minutes).
+minimumReleaseAge: 10080
+# A version whose publish time the registry does not give is refused, not let past the release age.
+minimumReleaseAgeIgnoreMissingTime: false
+# Peer dependencies are not installed on their own: the versions used here are declared in devDependencies.
+autoInstallPeers: false
+# Dependencies are saved with their exact version.
+saveExact: true
+# pnpm's store, a volume in make install and a cache in the image's build.
+storeDir: /pnpm-store
