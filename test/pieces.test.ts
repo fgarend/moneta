@@ -1,8 +1,7 @@
-import { readFile } from "node:fs/promises";
 import { describe, expect, it } from "vitest";
-import { root, sourceFiles } from "./sources.ts";
+import { sources } from "./sources.js";
 
-const inUi = /^src\/components\/ui\/(?<name>[^/]+)\.tsx$/u;
+const inUi = /^\/src\/components\/ui\/(?<name>[^/]+)\.tsx$/u;
 const extension = /\.tsx$/u;
 const testOrStory = /\.(?:stories|test)\.tsx?$/u;
 // Tailwind's arbitrary values, on the utilities that set spacing or colour.
@@ -28,28 +27,25 @@ describe("arbitraryClasses", () => {
 });
 
 // Own pieces take spacing and colour from the theme. What comes from shadcn is left as it comes.
-it("uses no arbitrary spacing or colour in own pieces", async () => {
-  const files = await sourceFiles();
-  const own = files.filter(
-    (path) =>
-      !(path.startsWith("src/components/ui/") || testOrStory.test(path)),
-  );
-  const found: string[] = [];
-  for (const path of own) {
-    // biome-ignore lint/performance/noAwaitInLoops: a few small files, read in order.
-    const code = await readFile(new URL(path, root), "utf8");
-    found.push(...arbitraryClasses(code).map((name) => `${path}: ${name}`));
-  }
+it("uses no arbitrary spacing or colour in own pieces", () => {
+  const found = Object.entries(sources)
+    .filter(
+      ([path]) =>
+        !(path.startsWith("/src/components/ui/") || testOrStory.test(path)),
+    )
+    .flatMap(([path, code]) =>
+      arbitraryClasses(code).map((name) => `${path}: ${name}`),
+    );
 
   expect(found).toEqual([]);
 });
 
 // Coverage does not see ui/, so a story is what says each of its files draws.
-it("has a story for each file in ui/", async () => {
-  const files = await sourceFiles();
-  const missing = files
+it("has a story for each file in ui/", () => {
+  const paths = Object.keys(sources);
+  const missing = paths
     .filter((path) => inUi.test(path) && !testOrStory.test(path))
-    .filter((path) => !files.includes(path.replace(extension, ".stories.tsx")));
+    .filter((path) => !paths.includes(path.replace(extension, ".stories.tsx")));
 
   expect(missing).toEqual([]);
 });

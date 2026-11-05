@@ -178,6 +178,9 @@ No order between them. Each becomes an item when its time comes.
   `make stories` to check one test slows the work, with the time measured.
 - **The look of Storybook's own interface.** The colours, fonts and mark around the stories.
   Weighed before the gallery is published, in 3.2.
+- **Biome's `noTailwindArbitraryValue`.** It may replace the class scan in `test/pieces.test.ts`,
+  which is a long regular expression of our own. It is a nursery rule today, and whether it finds the
+  same classes was not tried. Weighed with the first own piece that has classes.
 - **pnpm's update notice.** `updateNotifier` turns it off.
 
 Dropped: tokens for what is written by hand, the `body`'s margin and repeated hidden

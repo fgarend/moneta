@@ -61,46 +61,14 @@
   },
   "overrides": [
     {
-      // A test takes a piece's stories as one module, as Storybook composes them. These files never reach the package.
-      "includes": ["**/*.test.tsx", ".storybook/**"],
-      "linter": { "rules": { "performance": { "noNamespaceImport": "off" } } }
-    },
-    {
-      // In a test, a long function is a describe block grouping short cases, text in JSX is test data, and a component
-      // declared only for the test is never hot reloaded.
-      "includes": ["**/*.test.ts", "**/*.test.tsx"],
-      "linter": {
-        "rules": {
-          "complexity": { "noExcessiveLinesPerFunction": "off" },
-          "style": {
-            "noJsxLiterals": "off",
-            "useComponentExportOnlyModules": "off"
-          }
-        }
-      }
-    },
-    {
       // Vitest reads its settings, and Storybook its own and each piece's stories, from a default export.
       "includes": ["vitest.config.ts", ".storybook/**", "**/*.stories.tsx"],
       "linter": { "rules": { "style": { "noDefaultExport": "off" } } }
     },
     {
-      // The repository's scripts and test settings run on Node: they read files, print and set the exit code. Node runs
-      // them as they are, so they import each other by their .ts names.
-      "includes": ["scripts/**", "test/**", "vitest.config.ts"],
-      "linter": {
-        "rules": {
-          "correctness": {
-            "noNodejsModules": "off",
-            "noProcessGlobal": "off",
-            "useImportExtensions": {
-              "level": "on",
-              "options": { "extensionMappings": {} }
-            }
-          },
-          "suspicious": { "noConsole": "off" }
-        }
-      }
+      // The repository's checks run on Node, and read its files.
+      "includes": ["test/**"],
+      "linter": { "rules": { "correctness": { "noNodejsModules": "off" } } }
     }
   ]
 }

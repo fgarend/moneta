@@ -1,6 +1,6 @@
 import { readFile } from "node:fs/promises";
 import { expect, it } from "vitest";
-import { root } from "./sources.ts";
+import { root } from "./sources.js";
 
 const criterionRow = /^\| (?<id>\d\.\d+\.\d+) /gmu;
 
@@ -76,7 +76,7 @@ it("says how each criterion of the target is checked", async () => {
 // Without it, axe stops at WCAG 2.1 and says nothing of target size.
 it("runs axe by the rules of the target", async () => {
   const preview = await readFile(
-    new URL(".storybook/preview.tsx", root),
+    new URL(".storybook/preview.ts", root),
     "utf8",
   );
 

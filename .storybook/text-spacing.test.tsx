@@ -36,18 +36,17 @@ function cutElements(root: Element): string[] {
     .map((element) => element.outerHTML);
 }
 
+// This project has only this file, in a page of its own, so the style stays for all of it.
+const style = document.createElement("style");
+style.textContent = spacing;
+document.head.append(style);
+
 it.each(stories.map((story) => [story.id, story] as const))(
   "keeps %s whole with WCAG's text spacing",
   async (_id, Story) => {
-    const style = document.createElement("style");
-    style.textContent = spacing;
-    document.head.append(style);
     const screen = await render(<Story />);
     await document.fonts.ready;
 
     expect(cutElements(screen.container)).toEqual([]);
-
-    await screen.unmount();
-    style.remove();
   },
 );

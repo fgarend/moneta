@@ -32,10 +32,10 @@ types: ## The types, with TypeScript: the library's code, then everything around
 	$(RUN) tools sh -c 'pnpm exec tsc && pnpm exec tsc -p tsconfig.tools.json'
 
 test: ## Logic and the repository's checks, in Node, with the coverage of src/lib and the package's entry
-	$(RUN) tools pnpm exec vitest run --project node --coverage
+	$(RUN) tools pnpm exec vitest run --coverage
 
 stories: ## Every story in the browsers, with axe, its screenshot and the coverage of everything else but ui/
-	$(RUN) tools pnpm exec vitest run --mode stories --project '!node' --coverage
+	$(RUN) tools pnpm exec vitest run --mode stories --coverage
 
 ##@ Development
 
@@ -48,8 +48,9 @@ install: ## Install what package.json lists, updating pnpm-lock.yaml and node_mo
 format: ## Format the files and apply the safe lint fixes, in place
 	$(RUN) tools-write pnpm exec biome check --write
 
+# Vitest never removes the screenshot of a renamed or deleted story, so the folder goes first.
 update-screenshots: ## Write the approved screenshots again, to review a visual change in the diff
-	$(RUN) tools-write node scripts/update-screenshots.ts
+	$(RUN) tools-write sh -c 'rm -rf .storybook/__screenshots__ && pnpm exec vitest run --mode stories --project visual --update'
 
 storybook: ## Serve the gallery of stories at http://localhost:6006 (STORYBOOK_PORT), until stopped with Ctrl+C
 	$(RUN) --service-ports storybook

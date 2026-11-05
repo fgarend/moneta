@@ -1,7 +1,13 @@
-// Test settings. make test runs the project node, and make stories every other, with --mode stories.
+// Test settings. make test runs the project on Node, and make stories, with --mode stories, those in a browser.
 import { storybookTest } from "@storybook/addon-vitest/vitest-plugin";
 import { playwright } from "@vitest/browser-playwright";
-import { defineConfig, type ViteUserConfig } from "vitest/config";
+import {
+  defineConfig,
+  type TestProjectInlineConfiguration,
+  type ViteUserConfig,
+} from "vitest/config";
+
+type Browser = "chromium" | "firefox" | "webkit";
 
 const notCode = ["**/*.test.{ts,tsx}", "**/*.stories.tsx", "**/*.d.ts"];
 const logic = ["src/lib/**/*.{ts,tsx}", "src/index.ts"];
@@ -15,35 +21,68 @@ const coverageAreas = {
   },
 };
 
-const storySetup = ".storybook/vitest.setup.ts";
-const inBrowser = {
-  enabled: true,
-  provider: playwright(),
-  headless: true,
-  // Every screenshot at one width: Tailwind's xl, and Playwright's own default. Vitest's would be a phone's.
-  viewport: { width: 1280, height: 800 },
-  // A failing test's screenshot would land among the approved ones.
-  screenshotFailures: false,
-};
-// Functions, so each project gets objects of its own: Vitest writes each project's name into its instances, and
+const everyBrowser: Browser[] = ["chromium", "firefox", "webkit"];
+
+// A function, so each project gets objects of its own: Vitest writes each project's name into its instances, and
 // projects that share one take each other's tests.
-function chromium(): typeof inBrowser & {
-  instances: { browser: "chromium" }[];
-} {
-  return { ...inBrowser, instances: [{ browser: "chromium" }] };
-}
-function everyBrowser(): typeof inBrowser & {
-  instances: { browser: "chromium" | "firefox" | "webkit" }[];
-} {
+function inBrowsers(
+  browsers: Browser[],
+  provider = playwright(),
+): NonNullable<NonNullable<TestProjectInlineConfiguration["test"]>["browser"]> {
   return {
-    ...inBrowser,
-    instances: [
-      { browser: "chromium" },
-      { browser: "firefox" },
-      { browser: "webkit" },
-    ],
+    enabled: true,
+    provider,
+    headless: true,
+    // Every screenshot at one width: Tailwind's xl, and Playwright's own default. Vitest's would be a phone's.
+    viewport: { width: 1280, height: 800 },
+    // A failing test's screenshot would land among the approved ones.
+    screenshotFailures: false,
+    instances: browsers.map((browser) => ({ browser })),
   };
 }
+
+// A check that goes through every story, from its one test file in .storybook/.
+function everyStory(
+  name: string,
+  browsers: Browser[],
+  provider = playwright(),
+): TestProjectInlineConfiguration {
+  return {
+    test: {
+      name,
+      include: [`.storybook/${name}.test.tsx`],
+      browser: inBrowsers(browsers, provider),
+      setupFiles: [".storybook/vitest.setup.ts"],
+    },
+  };
+}
+
+function storyProjects(): TestProjectInlineConfiguration[] {
+  return [
+    // Every story, with axe checking it and its play function checking what it shows.
+    {
+      plugins: [storybookTest()],
+      test: { name: "storybook", browser: inBrowsers(everyBrowser) },
+    },
+    // Every story tagged visual, against its approved screenshot.
+    everyStory("visual", ["chromium"]),
+    everyStory("text-spacing", everyBrowser),
+    // WebKit's emulation answers the media query but forces no colours.
+    everyStory(
+      "forced-colors",
+      ["chromium", "firefox"],
+      playwright({ contextOptions: { forcedColors: "active" } }),
+    ),
+  ];
+}
+
+// Logic and the repository's checks.
+const nodeProject: TestProjectInlineConfiguration = {
+  test: {
+    name: "node",
+    include: ["src/**/*.test.ts", "test/**/*.test.ts"],
+  },
+};
 
 export { coverageAreas };
 
@@ -59,57 +98,7 @@ export default defineConfig(({ mode }): ViteUserConfig => {
         reportsDirectory: `coverage/${check}`,
         thresholds: { 100: true },
       },
-      projects: [
-        // Logic and the repository's checks, on Node.
-        {
-          test: {
-            name: "node",
-            include: [
-              "src/**/*.test.ts",
-              "scripts/**/*.test.ts",
-              "test/**/*.test.ts",
-            ],
-            environment: "node",
-          },
-        },
-        // Every story, in the three browsers, with axe checking it and its play function checking what it shows.
-        {
-          plugins: [storybookTest({ configDir: ".storybook" })],
-          test: { name: "storybook", browser: everyBrowser() },
-        },
-        // Every story tagged visual, against its approved screenshot.
-        {
-          test: {
-            name: "visual",
-            include: [".storybook/visual.test.tsx"],
-            browser: chromium(),
-            setupFiles: [storySetup],
-          },
-        },
-        {
-          test: {
-            name: "text-spacing",
-            include: [".storybook/text-spacing.test.tsx"],
-            browser: everyBrowser(),
-            setupFiles: [storySetup],
-          },
-        },
-        {
-          test: {
-            name: "forced-colors",
-            include: [".storybook/forced-colors.test.tsx"],
-            browser: {
-              ...inBrowser,
-              provider: playwright({
-                contextOptions: { forcedColors: "active" },
-              }),
-              // WebKit's emulation answers the media query but forces no colours.
-              instances: [{ browser: "chromium" }, { browser: "firefox" }],
-            },
-            setupFiles: [storySetup],
-          },
-        },
-      ],
+      projects: check === "stories" ? storyProjects() : [nodeProject],
     },
   };
 });

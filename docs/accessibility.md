@@ -5,8 +5,8 @@ The target is **WCAG 2.2, level AA**, for a piece used as documented. Why is in
 product conform by itself: the app answers for its names, titles, language and content.
 
 **Every piece's proposal and report go through this page:** which criteria apply, which
-have a check and which do not. Saying so is the point: axe finds on average 57% of
-issues, by its own count, and has no rule for 1.4.11 or 2.4.7.
+have a check and which do not. Saying so is the point, since axe passing says little by
+itself.
 
 ## How each criterion is checked
 

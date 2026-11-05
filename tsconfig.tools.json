@@ -1,19 +1,11 @@
-// TypeScript settings for what runs around the library: the scripts, the tests, the stories and the settings of both.
+// TypeScript settings for what runs around the library: the tests, the stories and the settings of both.
 {
   "extends": "./tsconfig.json",
-  "include": [
-    "scripts",
-    "test",
-    "vitest.config.ts",
-    ".storybook",
-    "src/**/*.stories.tsx"
-  ],
+  "include": ["test", "vitest.config.ts", ".storybook", "src/**/*.stories.tsx"],
   "exclude": [],
   "compilerOptions": {
     // Node's APIs, and Vite's client types, which declare import.meta.glob.
     "types": ["node", "vite/client"],
-    // Node runs the scripts as they are, so they import each other by their .ts names.
-    "allowImportingTsExtensions": true,
     // Storybook's own declaration files do not pass TypeScript 7 yet. Our use of them is still checked.
     "skipLibCheck": true
   }

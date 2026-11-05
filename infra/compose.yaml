@@ -35,7 +35,7 @@ services:
     image: moneta:deps
     build: { <<: *build, target: deps }
     init: true
-    command: pnpm exec storybook dev --host 0.0.0.0 --port ${STORYBOOK_PORT} --no-open --ci
+    command: pnpm exec storybook dev --host 0.0.0.0 --port ${STORYBOOK_PORT} --ci
     ports:
       - ${STORYBOOK_PORT:?set in infra/settings.env}:${STORYBOOK_PORT}
     volumes:

@@ -1,8 +1,7 @@
-import { readFile } from "node:fs/promises";
 import { matchesGlob } from "node:path";
 import { describe, expect, it } from "vitest";
-import { coverageAreas } from "../vitest.config.ts";
-import { root, sourceFiles } from "./sources.ts";
+import { coverageAreas } from "../vitest.config.js";
+import { sources } from "./sources.js";
 
 const hintPattern = /istanbul ignore[^*]*\*\//gu;
 // The end of a range needs none: its start says why.
@@ -38,18 +37,13 @@ describe("what each check's coverage measures", () => {
 });
 
 // A line no test can reach is left out of the coverage only with the reason beside it, in a comment esbuild keeps.
-it("says why each line left out of the coverage needs no test", async () => {
-  const files = await sourceFiles();
-  const unexplained: string[] = [];
-  for (const path of files) {
-    // biome-ignore lint/performance/noAwaitInLoops: a few small files, read in order.
-    const code = await readFile(new URL(path, root), "utf8");
-    for (const [hint] of code.matchAll(hintPattern)) {
-      if (!explained.test(hint)) {
-        unexplained.push(`${path}: ${hint}`);
-      }
-    }
-  }
+it("says why each line left out of the coverage needs no test", () => {
+  const unexplained = Object.entries(sources).flatMap(([path, code]) =>
+    [...code.matchAll(hintPattern)]
+      .map(([hint]) => hint)
+      .filter((hint) => !explained.test(hint))
+      .map((hint) => `${path}: ${hint}`),
+  );
 
   expect(unexplained).toEqual([]);
 });

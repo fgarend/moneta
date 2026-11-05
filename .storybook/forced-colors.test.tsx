@@ -44,7 +44,5 @@ it.each(stories.map((story) => [story.id, story] as const))(
 
     expect(withoutEdge(screen.container)).toEqual([]);
     expect(offColourIcons(screen.container)).toEqual([]);
-
-    await screen.unmount();
   },
 );

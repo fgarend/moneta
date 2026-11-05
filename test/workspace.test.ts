@@ -1,6 +1,6 @@
 import { readFile } from "node:fs/promises";
 import { expect, it } from "vitest";
-import { root } from "./sources.ts";
+import { root } from "./sources.js";
 
 const ignoreMissingTime =
   /^minimumReleaseAgeIgnoreMissingTime:\s*(?<value>\S+)\s*$/mu;
