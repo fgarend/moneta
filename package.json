@@ -9,5 +9,10 @@
     "url": "git+https://github.com/fgarend/moneta.git"
   },
   "type": "module",
-  "packageManager": "pnpm@12.16.1"
+  "packageManager": "pnpm@12.16.1",
+  "devDependencies": {
+    "@biomejs/biome": "2.6.3",
+    "@types/react": "19.3.0",
+    "typescript": "7.0.2"
+  }
 }

@@ -1,0 +1,62 @@
+// Lint and format settings.
+{
+  "$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
+  // What .gitignore lists is left out.
+  "vcs": { "enabled": true, "clientKind": "git", "useIgnoreFile": true },
+  "files": {
+    // pnpm writes its own lockfile.
+    "includes": ["**", "!pnpm-lock.yaml"]
+  },
+  // Biome's default style, with the indentation from .editorconfig.
+  "formatter": { "useEditorconfig": true },
+  // Markdown stays as written: Biome pads every table, so one edit rewrites it, and it removes the blank line after one.
+  "markdown": { "formatter": { "enabled": false } },
+  "linter": {
+    // Rules for frameworks and libraries this repository does not use. A domain is turned back on
+    // by the roadmap item that brings its tool in.
+    "domains": {
+      "astro": "none",
+      "drizzle": "none",
+      "next": "none",
+      "playwright": "none",
+      "qwik": "none",
+      "reactNative": "none",
+      "solid": "none",
+      "svelte": "none",
+      "tailwind": "none",
+      "tanstackQuery": "none",
+      "turborepo": "none",
+      "vue": "none"
+    },
+    "rules": {
+      // Every stable rule. Each one turned off or adjusted says why.
+      "preset": "all",
+      "style": {
+        // Choosing between two values, as in JSX, reads best as a ternary. noNestedTernary stays on.
+        "noTernary": "off"
+      },
+      "performance": {
+        // It allows a handler declared in the component, which changes identity just the same, and it
+        // flags handlers on DOM elements, where identity does not matter. Memoization is a convention.
+        "noJsxPropsBind": "off"
+      },
+      "complexity": {
+        // noPropertyAccessFromIndexSignature asks for brackets on keys that may be missing.
+        "useLiteralKeys": "off"
+      },
+      "suspicious": {
+        // Biome does not see that noUncheckedIndexedAccess makes an indexed read possibly undefined,
+        // so it would flag the very checks that handle it.
+        "noUnnecessaryConditions": "off"
+      },
+      "correctness": {
+        // Node's module rules ask for .js in relative imports of TypeScript. Mapping only .ts and .tsx
+        // leaves CSS imports alone, which forceJsExtensions would turn into .js.
+        "useImportExtensions": {
+          "level": "on",
+          "options": { "extensionMappings": { "ts": "js", "tsx": "js" } }
+        }
+      }
+    }
+  }
+}

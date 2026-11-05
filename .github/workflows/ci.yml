@@ -1,0 +1,28 @@
+# The checks of make check, one box per check, on every push to main and every pull request. A red box is repeated on
+# the machine by the make target of the same name. The list must stay CHECKS of the Makefile.
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    # ARM, as the machines the screenshots will be approved on.
+    runs-on: ubuntu-24.04-arm
+    strategy:
+      # A box that fails does not cancel the others, so every problem shows at once.
+      fail-fast: false
+      matrix:
+        check: [lint, types]
+    steps:
+      - name: Check out the commit
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Run make ${{ matrix.check }}
+        run: make ${{ matrix.check }}

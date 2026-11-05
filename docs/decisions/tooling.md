@@ -17,8 +17,14 @@ How the repository runs, and how its versions are chosen.
   release of that version. pnpm enforces it for packages, and refuses a version whose publish
   time is missing. Images are checked by hand.
 - **Development dependencies have exact versions,** so every update shows in a diff.
+- **A dependency enters through pnpm's command line,** with `make add`, never by editing
+  `package.json`.
 - **Updates are made by hand,** at the start of each roadmap item from milestone 2 on, as
   `docs/updating.md` says.
+- **`make check` runs every check, even after one fails,** and ends with one line per check.
+  Continuous integration has one box per check, with the same name, in parallel.
+- **The `Makefile` calls each tool itself,** with no `package.json` scripts, and holds the loop
+  of `make check`, which runs on the machine, so not in Node.
 
 ## Why
 
@@ -32,6 +38,11 @@ How the repository runs, and how its versions are chosen.
 - **By hand,** since the alternatives below cost more than they save. **What it costs:** the
   moment can be forgotten, which leaves versions one item older. Known vulnerabilities do not
   wait for it.
+- **One box per check,** so a red box says what failed, and `make <box>` repeats it. Each box
+  builds the images on a fresh machine, so a run costs more in machine time, though not in
+  waiting, since the boxes run together.
+- **The command line for a dependency,** since it takes the newest version past the release age
+  and saves it exact, which a hand edit may not.
 
 ## Alternatives considered
 
@@ -51,7 +62,14 @@ How the repository runs, and how its versions are chosen.
   often when releases come close together.
 - **A check in continuous integration that fails on a new version.** It would turn a box red
   with no change in the code.
+- **One step that runs `make check` in continuous integration.** Less to keep in step, but a
+  failure would be found in the log, not by a box's name.
+- **`package.json` scripts between the `Makefile` and each tool.** A second name for the same
+  command, and a change to one rebuilds the image's install.
+- **`make check`'s loop in a shell script.** A cleaner `Makefile`, but one more file and a second
+  way of writing scripts, for a few lines.
 
 ## History
 
 - 2026-11-04: Written, with the containers.
+- 2026-11-04: Static checks and their boxes in continuous integration.

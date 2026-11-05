@@ -1,6 +1,6 @@
 # Roadmap
 
-**Now:** 1.3, the pipeline's third group: static checks.
+**Now:** 1.4, the pipeline's fourth group: stories and browsers.
 
 What needs to be created, in order. The order follows what is needed next, so a new
 need can change it. Open questions are asked when their step arrives, and each shows
@@ -23,22 +23,12 @@ first. `make check` runs them in that order, all of them even if one fails, and 
 with one line per check saying whether it passed. Continuous integration has one box
 per check, with the same name, in parallel, so `make <box>` repeats a red box.
 
-Done: 1.1, the floor. 1.2, containers.
+Done: 1.1, the floor. 1.2, containers. 1.3, static checks.
 
-- **1.3 · Static checks.** Biome and `tsconfig*`, formatting what exists, with a minimal
-  `Button` as the first source file. `isolatedDeclarations` is off, as `cva` depends on
-  inference. A planted type error and a planted lint error are refused. To ask: whether
-  a `ci.yml` with only the checks arrives here, rather than in 1.6 (recommended: yes). To
-  ask: whether `make lint` goes through a `package.json` script of the same name, or calls
-  the tool itself, one layer fewer but with long commands in the `Makefile`; pnpm's own
-  commands are already called directly. To ask: where the loop of `make check`'s summary
-  lives, which runs on the machine, so not in Node. To ask: a `make add PACKAGE=…`, so
-  `docs/updating.md` no longer sends anyone around the `Makefile` (recommended: yes). Time
-  one `make lint` once dependencies are real: each run copies the image's `node_modules`
-  into a temporary volume, and a read-only mount of the image's folder may avoid that.
 - **1.4 · Stories and browsers.** `.storybook/`, `vitest.config.ts`, a story for `Button`,
   `update-screenshots`, `docs/accessibility.md`, which joins `Read first`, and
-  `docs/accessibility-script.md`. Tests for the accessibility table and the workspace.
+  `docs/accessibility-script.md`. Tests for the accessibility table and the workspace, which
+  also refuses a development dependency with no exact version.
   Checks for forced colours, text spacing, a class scan on own pieces, and a story per
   file in `ui/`, with one place for the stories' list. A broken story and an axe failure,
   planted, are refused in 3 browsers, and each check fails on a planted story.
@@ -52,6 +42,10 @@ Done: 1.1, the floor. 1.2, containers.
     test in each area, a file nobody imports in each area, and a new folder. Tried on
     another codebase, not yet on this one. shadcn's `cn` needs a test of its own, and the
     entry must import in Node.
+  - Each new check joins `CHECKS` in the `Makefile` and the boxes of `ci.yml`. Time `make lint`
+    with the tree this brings: each run copies the image's `node_modules` into a temporary
+    volume, and a read-only mount of the image's folder may avoid that. With 3 dependencies it
+    took about 1 s.
   - Coverage says a line ran, not that anything looked at it. A story checks what it
     shows in `play`. Own code stays out of `ui/`, which coverage does not see.
 - **1.5 · Build and package.** `build-package`, `check-package`, and the tests of the
@@ -61,9 +55,9 @@ Done: 1.1, the floor. 1.2, containers.
   package installs in a test consumer, and a broken export is refused. `package` keeps
   the tarball it tested, which is the file a release publishes. To ask: `dist/` out of
   git, since delivery is by tarball (recommended: yes).
-- **1.6 · CI and release.** `ci.yml`, `audit.yml`, `check-release`, `extract-release-notes`,
-  the workflows' test, `docs/releasing.md` and the changelog. Local tests pass, and the
-  rest is declared untested until the owner's push. **`check-pins`, 912 lines, is
+- **1.6 · Release.** `audit.yml`, `check-release`, `extract-release-notes`, the workflows' test,
+  which compares the boxes of `ci.yml` with `CHECKS`, `docs/releasing.md` and the changelog.
+  Local tests pass, and the rest is declared untested until the owner's push. **`check-pins`, 912 lines, is
   questioned here:** it works as it is, and could be dropped (recommended: drop it, and
   check the pins by hand at the start of each item). To ask: whether the release part waits until just
   before 3.2, when it is first used (recommended: yes).

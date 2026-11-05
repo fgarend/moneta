@@ -34,11 +34,12 @@ diff does not show.
 
 ## How
 
-**A dependency,** in a container, then `make check`:
+**A dependency** always enters through pnpm's command line, never by editing
+`package.json`. This takes the newest version past the release age, and saves it exact. Add
+`@<version>` for a specific one. Then `make check`:
 
 ```sh
-docker compose --env-file infra/settings.env -f infra/compose.yaml run --rm --build install \
-  pnpm add -D <package>@<version>
+make add PACKAGE=<package>
 ```
 
 **A pinned image,** in `infra/settings.env`, then `make check`. Take a version past the
@@ -59,3 +60,10 @@ For pnpm's image, `packageManager` in `package.json` moves to the same version, 
 
 - **The images in `infra/settings.env`,** at the same moments: a newer version, and a new
   digest under the same tag, which means the image was rebuilt.
+- **The year of `target` and `lib` in `tsconfig.json`.** It moves up once all of that year's
+  features are widely available in Baseline. For ES2024, two are still missing, and each
+  prints `high` once it is:
+
+  ```sh
+  docker run --rm moneta:base node -e 'fetch("https://cdn.jsdelivr.net/npm/web-features/data.json").then((r) => r.json()).then(({ features }) => { for (const id of ["resizable-buffers", "atomics-wait-async"]) console.log(id, features[id].status.baseline); })'
+  ```

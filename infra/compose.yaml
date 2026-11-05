@@ -19,6 +19,14 @@ services:
       - ..:/app:ro
       - /app/node_modules
 
+  # The same tools, writing the code: make format.
+  tools-write:
+    image: moneta:deps
+    build: { <<: *build, target: deps }
+    volumes:
+      - ..:/app
+      - /app/node_modules
+
   # Installs the dependencies into the machine's node_modules and the lockfile.
   install:
     image: moneta:base
