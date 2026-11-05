@@ -23,6 +23,17 @@ How the repository runs, and how its versions are chosen.
   `docs/updating.md` says.
 - **`make check` runs every check, even after one fails,** and ends with one line per check.
   Continuous integration has one box per check, with the same name, in parallel.
+- **Stories run in Storybook, and every test in Vitest,** the browsers through Playwright:
+  Chromium, Firefox and WebKit. `test` runs logic and the repository's checks in Node, and
+  `stories` everything in a browser, so nothing runs twice.
+- **Coverage is 100% on own pieces, each part measured by one check:** `test` measures
+  `src/lib/` and the package's entry, and `stories` everything else but `ui/`, naming what it
+  leaves out, so a new folder cannot go unmeasured. Until there is code of that kind, it
+  measures nothing, and its rules were proved on planted files.
+- **Screenshots are taken at one width, 1280 px,** in Chromium, for each story tagged `visual`.
+  They are approved in the commit that changes them.
+- **Accepted advisories are listed in `audit.ignore`,** in `pnpm-workspace.yaml`, each with its
+  reason and what ends it.
 - **The `Makefile` calls each tool itself,** with no `package.json` scripts, and holds the loop
   of `make check`, which runs on the machine, so not in Node.
 
@@ -41,6 +52,11 @@ How the repository runs, and how its versions are chosen.
 - **One box per check,** so a red box says what failed, and `make <box>` repeats it. Each box
   builds the images on a fresh machine, so a run costs more in machine time, though not in
   waiting, since the boxes run together.
+- **1280 px,** since it is Tailwind's `xl`, and Playwright's own default. Vitest's default is a
+  phone's width, of no use to a library with a sidebar.
+- **Coverage split by check,** so each part is measured by the tests meant for it, and a line
+  with no test turns one box red. Coverage says a line ran, not that anything looked at it,
+  so a story checks what it shows in `play`.
 - **The command line for a dependency,** since it takes the newest version past the release age
   and saves it exact, which a hand edit may not.
 
@@ -69,7 +85,14 @@ How the repository runs, and how its versions are chosen.
 - **`make check`'s loop in a shell script.** A cleaner `Makefile`, but one more file and a second
   way of writing scripts, for a few lines.
 
+- **One `tsconfig` for everything.** Simpler, but the library would see Node's types and pass
+  with code that breaks in an app. Three, with the stories apart, would only separate files
+  that need the same types.
+- **Coverage measured in one run of both checks.** No saving in parallel boxes, and a line
+  with no test would turn two boxes red.
+
 ## History
 
 - 2026-11-04: Written, with the containers.
 - 2026-11-04: Static checks and their boxes in continuous integration.
+- 2026-11-05: Stories, browsers, coverage and screenshots.

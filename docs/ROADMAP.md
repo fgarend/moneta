@@ -1,6 +1,6 @@
 # Roadmap
 
-**Now:** 1.4, the pipeline's fourth group: stories and browsers.
+**Now:** 1.5, the pipeline's fifth group: build and package.
 
 What needs to be created, in order. The order follows what is needed next, so a new
 need can change it. Open questions are asked when their step arrives, and each shows
@@ -23,36 +23,14 @@ first. `make check` runs them in that order, all of them even if one fails, and 
 with one line per check saying whether it passed. Continuous integration has one box
 per check, with the same name, in parallel, so `make <box>` repeats a red box.
 
-Done: 1.1, the floor. 1.2, containers. 1.3, static checks.
+Done: 1.1, the floor. 1.2, containers. 1.3, static checks. 1.4, stories and browsers.
 
-- **1.4 · Stories and browsers.** `.storybook/`, `vitest.config.ts`, a story for `Button`,
-  `update-screenshots`, `docs/accessibility.md`, which joins `Read first`, and
-  `docs/accessibility-script.md`. Tests for the accessibility table and the workspace, which
-  also refuses a development dependency with no exact version.
-  Checks for forced colours, text spacing, a class scan on own pieces, and a story per
-  file in `ui/`, with one place for the stories' list. A broken story and an axe failure,
-  planted, are refused in 3 browsers, and each check fails on a planted story.
-  - `test` runs the logic and the repository's checks, in Node. `stories` runs everything
-    in a browser. Nothing runs twice.
-  - Each measures its own coverage, at 100% on own pieces only: `test` the logic in
-    `src/lib/` and the package's entry, `stories` everything else but `ui/`, so a new
-    folder cannot go unmeasured. A check of the repository holds these rules, and each
-    keeps its own report.
-  - Planted, each fails one check only: a logic bug, a broken component, a line with no
-    test in each area, a file nobody imports in each area, and a new folder. Tried on
-    another codebase, not yet on this one. shadcn's `cn` needs a test of its own, and the
-    entry must import in Node.
-  - Each new check joins `CHECKS` in the `Makefile` and the boxes of `ci.yml`. Time `make lint`
-    with the tree this brings: each run copies the image's `node_modules` into a temporary
-    volume, and a read-only mount of the image's folder may avoid that. With 3 dependencies it
-    took about 1 s.
-  - Coverage says a line ran, not that anything looked at it. A story checks what it
-    shows in `play`. Own code stays out of `ui/`, which coverage does not see.
 - **1.5 · Build and package.** `build-package`, `check-package`, and the tests of the
   build and the package. The layout shadcn's aliases expect: `src/components/ui/`,
   `src/components/`, `src/lib/`, `src/hooks/` and `src/styles/`. Imports through
   `package.json#imports` with a custom condition, which must not be called `source`. The
-  package installs in a test consumer, and a broken export is refused. `package` keeps
+  package installs in a test consumer, and a broken export is refused. The entry must import in
+  Node, as `test` measures it. `package` keeps
   the tarball it tested, which is the file a release publishes. To ask: `dist/` out of
   git, since delivery is by tarball (recommended: yes).
 - **1.6 · Release.** `audit.yml`, `check-release`, `extract-release-notes`, the workflows' test,
@@ -78,7 +56,8 @@ Done: 1.1, the floor. 1.2, containers. 1.3, static checks.
 ## 2. Base and theme
 
 - **2.1 · The first `shadcn add`: `button` and `sidebar`,** with what they bring, untouched
-  and tagged. shadcn's `Button` replaces the minimal one, and each file gets its story.
+  and tagged. shadcn's `Button` replaces the minimal one, and each file gets its story. shadcn's `cn` needs a test of
+  its own, the first code the coverage of `test` measures.
   `components.json` is written by hand, as `init` refuses a library, on React Aria,
   recorded in `docs/decisions/base.md`, with shadcn's MIT notice. React Aria, Lucide and
   Tailwind are peers. Lint is turned off on `ui/`, with one read of its findings per
@@ -191,8 +170,14 @@ No order between them. Each becomes an item when its time comes.
 - **A module of composed components.** shadcn's blocks and `sidebar` are the start.
 - **Image vulnerability scan.** The system packages inside the images.
 - **Update bot.** Left out for now, as `docs/decisions/tooling.md` says.
-- **Storybook's accepted advisories.** Check whether they still apply when carried.
-- **Storybook's deprecated loader.** It goes when Storybook moves.
+- **Storybook's accepted advisories.** They go when its docgen plugin moves to `glob` 14.0.2
+  or later, as `pnpm-workspace.yaml` says.
+- **Storybook's deprecated loader.** Every test run warns `DEP0205`, and it goes when Storybook
+  moves. Vitest also warns of 11 `SIGTERM` listeners, with this many browser projects.
+- **`make watch`.** Repeats the tests on each saved file. Weighed when running all of
+  `make stories` to check one test slows the work, with the time measured.
+- **The look of Storybook's own interface.** The colours, fonts and mark around the stories.
+  Weighed before the gallery is published, in 3.2.
 - **pnpm's update notice.** `updateNotifier` turns it off.
 
 Dropped: tokens for what is written by hand, the `body`'s margin and repeated hidden

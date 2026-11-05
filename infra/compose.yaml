@@ -11,20 +11,35 @@ x-build: &build
 
 services:
   # The tools, checking only: the code is read-only, over the dependencies of the image. The folder node_modules of the
-  # machine is hidden, so the image's own is used.
+  # machine is hidden, so the image's own is used. A failing visual test writes its images to .vitest, and
+  # the coverage its report to coverage, the only folders they may write.
   tools:
     image: moneta:deps
     build: { <<: *build, target: deps }
     volumes:
       - ..:/app:ro
       - /app/node_modules
+      - ../.vitest:/app/.vitest
+      - ../coverage:/app/coverage
 
-  # The same tools, writing the code: make format.
+  # The same tools, writing the code: make format and make update-screenshots.
   tools-write:
     image: moneta:deps
     build: { <<: *build, target: deps }
     volumes:
       - ..:/app
+      - /app/node_modules
+
+  # Serves the gallery of stories, with a port of its own.
+  storybook:
+    image: moneta:deps
+    build: { <<: *build, target: deps }
+    init: true
+    command: pnpm exec storybook dev --host 0.0.0.0 --port ${STORYBOOK_PORT} --no-open --ci
+    ports:
+      - ${STORYBOOK_PORT:?set in infra/settings.env}:${STORYBOOK_PORT}
+    volumes:
+      - ..:/app:ro
       - /app/node_modules
 
   # Installs the dependencies into the machine's node_modules and the lockfile.

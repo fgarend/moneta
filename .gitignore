@@ -14,3 +14,9 @@ node_modules/
 # Environment files with secrets: never versioned.
 .env
 .env.*
+
+# The images a failing visual test writes, to look at
+.vitest/
+
+# The reports make test and make stories write
+coverage/

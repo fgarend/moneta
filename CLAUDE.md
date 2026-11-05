@@ -10,6 +10,7 @@ steps, each decided with the user before it is made.
    in order.
 2. `docs/decisions/`: what holds today, by topic, and why.
 3. `docs/updating.md`: when and how versions move.
+4. `docs/accessibility.md`: how each WCAG criterion is checked.
 
 ## The rule
 

@@ -7,5 +7,17 @@ minimumReleaseAgeIgnoreMissingTime: false
 autoInstallPeers: false
 # Dependencies are saved with their exact version.
 saveExact: true
+# Build scripts of dependencies, refused unless listed true here. esbuild's only checks the binary that arrives as its
+# own package, so it is refused, said out loud so pnpm does not stop to ask.
+allowBuilds:
+  esbuild: false
+# Advisories reviewed and accepted, by their GitHub code, each with its reason.
+audit:
+  ignore:
+    # glob and minimatch, through Storybook's docgen plugin, whose latest version still depends on glob 13. Both slow
+    # down a search of files whose pattern an attacker writes. The plugin only searches the components' own files, and
+    # nothing of it reaches the package. They go when the plugin moves to glob 14.0.2 or later.
+    - GHSA-3g3m-2fjr-6pw4
+    - GHSA-g3hv-75wg-m249
 # pnpm's store, a volume in make install and a cache in the image's build.
 storeDir: /pnpm-store

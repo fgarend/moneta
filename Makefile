@@ -3,13 +3,13 @@
 # infra/settings.env. Must work with GNU Make 3.81, the version that ships with macOS.
 
 COMPOSE := docker compose --env-file infra/settings.env -f infra/compose.yaml
-# Runs a command in a service, building its image first. The code is mounted read-only, and the folder mounted over it
+# Runs a command in a service, building its image first. The code is mounted read-only, and the folders mounted over it
 # must exist in it first, even in a fresh clone.
-RUN := mkdir -p node_modules && $(COMPOSE) run --rm --build
+RUN := mkdir -p node_modules .vitest coverage && $(COMPOSE) run --rm --build
 # What make check runs, fastest first. .github/workflows/ci.yml has one box per name.
-CHECKS := lint types
+CHECKS := lint types test stories
 
-.PHONY: help check $(CHECKS) install add format images clean outdated audit
+.PHONY: help check $(CHECKS) install add format update-screenshots storybook images clean outdated audit
 
 help: ## List the commands
 	@awk 'BEGIN {FS = ":.*## "} /^##@ / {printf "\n%s\n", substr($$0, 5); next} \
@@ -28,8 +28,14 @@ check: ## Every check below, before a commit. Runs them all, then says which fai
 lint: ## Formatting and lint rules, with Biome
 	$(RUN) tools pnpm exec biome ci --error-on-warnings
 
-types: ## The types, with TypeScript
-	$(RUN) tools pnpm exec tsc
+types: ## The types, with TypeScript: the library's code, then everything around it
+	$(RUN) tools sh -c 'pnpm exec tsc && pnpm exec tsc -p tsconfig.tools.json'
+
+test: ## Logic and the repository's checks, in Node, with the coverage of src/lib and the package's entry
+	$(RUN) tools pnpm exec vitest run --project node --coverage
+
+stories: ## Every story in the browsers, with axe, its screenshot and the coverage of everything else but ui/
+	$(RUN) tools pnpm exec vitest run --mode stories --project '!node' --coverage
 
 ##@ Development
 
@@ -41,6 +47,12 @@ install: ## Install what package.json lists, updating pnpm-lock.yaml and node_mo
 
 format: ## Format the files and apply the safe lint fixes, in place
 	$(RUN) tools-write pnpm exec biome check --write
+
+update-screenshots: ## Write the approved screenshots again, to review a visual change in the diff
+	$(RUN) tools-write node scripts/update-screenshots.ts
+
+storybook: ## Serve the gallery of stories at http://localhost:6006 (STORYBOOK_PORT), until stopped with Ctrl+C
+	$(RUN) --service-ports storybook
 
 images: ## Build the images every command runs in
 	$(COMPOSE) build

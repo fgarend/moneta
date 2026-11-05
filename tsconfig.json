@@ -1,6 +1,8 @@
 // TypeScript settings. Only types are checked: the build decides what is emitted.
 {
   "include": ["src"],
+  // What runs around the library has its own settings, in tsconfig.tools.json, so the library never sees Node's types.
+  "exclude": ["src/**/*.stories.tsx"],
   "compilerOptions": {
     "noEmit": true,
 
