@@ -1,6 +1,6 @@
 # Roadmap
 
-**Now:** 1.5, the pipeline's fifth group: build and package.
+**Now:** 1.6, the pipeline's last group: the release.
 
 What needs to be created, in order. The order follows what is needed next, so a new
 need can change it. Open questions are asked when their step arrives, and each shows
@@ -23,16 +23,9 @@ first. `make check` runs them in that order, all of them even if one fails, and 
 with one line per check saying whether it passed. Continuous integration has one box
 per check, with the same name, in parallel, so `make <box>` repeats a red box.
 
-Done: 1.1, the floor. 1.2, containers. 1.3, static checks. 1.4, stories and browsers.
+Done: 1.1, the floor. 1.2, containers. 1.3, static checks. 1.4, stories and browsers. 1.5,
+build and package.
 
-- **1.5 · Build and package.** `build-package`, `check-package`, and the tests of the
-  build and the package. The layout shadcn's aliases expect: `src/components/ui/`,
-  `src/components/`, `src/lib/`, `src/hooks/` and `src/styles/`. Imports through
-  `package.json#imports` with a custom condition, which must not be called `source`. The
-  package installs in a test consumer, and a broken export is refused. The entry must import in
-  Node, as `test` measures it. `package` keeps
-  the tarball it tested, which is the file a release publishes. To ask: `dist/` out of
-  git, since delivery is by tarball (recommended: yes).
 - **1.6 · Release.** `audit.yml`, `check-release`, `extract-release-notes`, the workflows' test,
   which compares the boxes of `ci.yml` with `CHECKS`, `docs/releasing.md` and the changelog.
   Local tests pass, and the rest is declared untested until the owner's push. **`check-pins`, 912 lines, is
@@ -58,6 +51,15 @@ Done: 1.1, the floor. 1.2, containers. 1.3, static checks. 1.4, stories and brow
 - **2.1 · The first `shadcn add`: `button` and `sidebar`,** with what they bring, untouched
   and tagged. shadcn's `Button` replaces the minimal one, and each file gets its story. shadcn's `cn` needs a test of
   its own, the first code the coverage of `test` measures.
+  - The layout shadcn's aliases expect arrives here, each folder with its first file:
+    `src/components/ui/`, `src/components/`, `src/lib/`, `src/hooks/` and `src/styles/`.
+  - Imports through `package.json#imports`, with `#components/*`, `#hooks/*` and `#lib/*` and
+    a custom condition, `moneta-source`, which must not be called `source`.
+  - Tried on a copy in 1.5, using an alias in the minimal `Button`. These passed: the types
+    under `nodenext`, the build, Node on `dist/`, the stories with `resolve.conditions` at the
+    root of `vitest.config.ts`, and the gallery with it in `.storybook/main.ts`. An alias to a
+    missing file was refused. A test in Node importing by alias failed even with that setting,
+    not yet diagnosed. `shadcn add` itself was not tried.
   `components.json` is written by hand, as `init` refuses a library, on React Aria,
   recorded in `docs/decisions/base.md`, with shadcn's MIT notice. React Aria, Lucide and
   Tailwind are peers. Lint is turned off on `ui/`, with one read of its findings per
@@ -182,6 +184,9 @@ No order between them. Each becomes an item when its time comes.
   which is a long regular expression of our own. It is a nursery rule today, and whether it finds the
   same classes was not tried. Weighed with the first own piece that has classes.
 - **pnpm's update notice.** `updateNotifier` turns it off.
+- **The lowest version of each peer in `package`.** It tests only the version in
+  `devDependencies`, so the floor of a range is a promise. `react` 19.0.0 was tried once, on
+  2026-11-05, with only the minimal `Button`. Weighed when there are more pieces.
 
 Dropped: tokens for what is written by hand, the `body`'s margin and repeated hidden
 titles, since Tailwind's utilities, preflight and `sr-only` dissolve them.

@@ -17,8 +17,8 @@ How the repository runs, and how its versions are chosen.
   release of that version. pnpm enforces it for packages, and refuses a version whose publish
   time is missing. Images are checked by hand.
 - **Development dependencies have exact versions,** so every update shows in a diff.
-- **A dependency enters through pnpm's command line,** with `make add`, never by editing
-  `package.json`.
+- **A dependency enters through pnpm's command line,** never by editing `package.json`, with
+  the commands in `docs/updating.md`. A peer's range is the one thing set as it is written.
 - **Updates are made by hand,** at the start of each roadmap item from milestone 2 on, as
   `docs/updating.md` says.
 - **`make check` runs every check, even after one fails,** and ends with one line per check.
@@ -27,9 +27,15 @@ How the repository runs, and how its versions are chosen.
   Chromium, Firefox and WebKit. `test` runs logic and the repository's checks in Node, and
   `stories` everything in a browser, so nothing runs twice.
 - **Coverage is 100% on own pieces, each part measured by one check:** `test` measures
-  `src/lib/` and the package's entry, and `stories` everything else but `ui/`, naming what it
-  leaves out, so a new folder cannot go unmeasured. Until there is code of that kind, it
-  measures nothing, and its rules were proved on planted files.
+  `src/lib/`, and `stories` everything else but `ui/`, naming what it leaves out, so a new
+  folder cannot go unmeasured. Until there is code of that kind, it measures nothing, and its
+  rules were proved on planted files.
+- **The build is TypeScript alone,** one file per module, with no bundler, and `dist/` stays
+  out of git.
+- **`package` checks what an app receives.** It packs the build into `.package/`, keeps that
+  tarball, and a Vitest test installs it in a throwaway app. The test looks at what it holds,
+  imports every piece in Node, and checks the types as a bundler and as Node resolve them, with
+  `skipLibCheck` off and the strictest options an app may choose.
 - **Screenshots are taken at one width, 1280 px,** in Chromium, for each story tagged `visual`.
   They are approved in the commit that changes them.
 - **Accepted advisories are listed in `audit.ignore`,** in `pnpm-workspace.yaml`, each with its
@@ -58,7 +64,13 @@ How the repository runs, and how its versions are chosen.
   with no test turns one box red. Coverage says a line ran, not that anything looked at it,
   so a story checks what it shows in `play`.
 - **The command line for a dependency,** since it takes the newest version past the release age
-  and saves it exact, which a hand edit may not.
+  and saves it exact, which a hand edit may not. A peer's range installs nothing, so that reason
+  does not reach it.
+- **The package's check as a test,** since `test/` already has Node's types and its lint settings,
+  and a failure comes with the name of what broke. **What it costs:** a test that installs packages
+  needs the registry and a longer time limit, and depends on what the `Makefile` built before it.
+- **`dist/` out of git,** since the tarball is built when it is needed, and a change in `src/` is
+  not repeated in the diff in files nobody reviews.
 
 ## Alternatives considered
 
@@ -90,9 +102,21 @@ How the repository runs, and how its versions are chosen.
   that need the same types.
 - **Coverage measured in one run of both checks.** No saving in parallel boxes, and a line
   with no test would turn two boxes red.
+- **The package's check as a Node script.** It worked before, but needs its own folder, settings
+  and tests.
+- **A fixed folder for the throwaway app.** It cannot know which pieces exist, and would repeat the
+  versions.
+- **`publint` and `arethetypeswrong`.** Two more tools to update for what the app already tries for
+  real. They have rules for mistakes the app's test may not think of, so they are weighed again
+  if an error in the package gets past it.
+- **The build's options in the `Makefile`.** One file less, but the options would have no comment,
+  and a test beside the code would enter the tarball.
+- **`make add`, and a `make add-peer`.** Both are rare, and a target only wraps the command. Their
+  cost is a long command, kept in `docs/updating.md`, that `make help` does not show.
 
 ## History
 
 - 2026-11-04: Written, with the containers.
 - 2026-11-04: Static checks and their boxes in continuous integration.
 - 2026-11-05: Stories, browsers, coverage and screenshots.
+- 2026-11-05: The build and the package's check, and `make add` removed.

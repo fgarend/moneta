@@ -20,3 +20,7 @@ node_modules/
 
 # The reports make test and make stories write
 coverage/
+
+# What make package writes: the build, and the tarball it tested, which is what gets delivered
+dist/
+.package/

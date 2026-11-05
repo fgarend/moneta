@@ -22,6 +22,18 @@ services:
       - ../.vitest:/app/.vitest
       - ../coverage:/app/coverage
 
+  # The same tools, building the package and installing it in a throwaway app: the code stays read-only, the build and the
+  # tarball are the only folders they may write, and pnpm's store keeps what the app downloads.
+  package:
+    image: moneta:deps
+    build: { <<: *build, target: deps }
+    volumes:
+      - ..:/app:ro
+      - /app/node_modules
+      - ../dist:/app/dist
+      - ../.package:/app/.package
+      - pnpm-store:/pnpm-store
+
   # The same tools, writing the code: make format and make update-screenshots.
   tools-write:
     image: moneta:deps

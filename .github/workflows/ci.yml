@@ -18,7 +18,7 @@ jobs:
       # A box that fails does not cancel the others, so every problem shows at once.
       fail-fast: false
       matrix:
-        check: [lint, types, test, stories]
+        check: [lint, types, test, stories, package]
     steps:
       - name: Check out the commit
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1

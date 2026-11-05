@@ -9,6 +9,13 @@
     "url": "git+https://github.com/fgarend/moneta.git"
   },
   "type": "module",
+  "exports": {
+    "./ui/*": "./dist/components/ui/*.js"
+  },
+  "files": [
+    "dist"
+  ],
+  "sideEffects": false,
   "packageManager": "pnpm@12.16.1",
   "devDependencies": {
     "@biomejs/biome": "2.6.3",
@@ -28,5 +35,8 @@
     "vite": "8.3.5",
     "vitest": "5.0.5",
     "vitest-browser-react": "2.3.0"
+  },
+  "peerDependencies": {
+    "react": "^19.0.0"
   }
 }

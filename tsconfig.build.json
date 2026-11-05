@@ -1,0 +1,11 @@
+// TypeScript settings for the build: what enters the package, and where it is written.
+{
+  "extends": "./tsconfig.json",
+  "exclude": ["src/**/*.stories.tsx", "src/**/*.test.ts"],
+  "compilerOptions": {
+    "noEmit": false,
+    "rootDir": "src",
+    "outDir": "dist",
+    "declaration": true
+  }
+}

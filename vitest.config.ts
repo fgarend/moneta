@@ -10,7 +10,7 @@ import {
 type Browser = "chromium" | "firefox" | "webkit";
 
 const notCode = ["**/*.test.{ts,tsx}", "**/*.stories.tsx", "**/*.d.ts"];
-const logic = ["src/lib/**/*.{ts,tsx}", "src/index.ts"];
+const logic = ["src/lib/**/*.{ts,tsx}"];
 // What each check's coverage measures, at 100%, each by its own tests, with nothing run twice. stories names what it
 // leaves out, so a new folder cannot go unmeasured. shadcn's files in ui/ are not ours to cover.
 const coverageAreas = {
@@ -81,8 +81,26 @@ const nodeProject: TestProjectInlineConfiguration = {
   test: {
     name: "node",
     include: ["src/**/*.test.ts", "test/**/*.test.ts"],
+    exclude: ["test/consumer/**"],
   },
 };
+
+// The tarball in a throwaway app, which installs packages, so its time limits allow for a slow registry.
+const consumerProject: TestProjectInlineConfiguration = {
+  test: {
+    name: "package",
+    include: ["test/consumer/*.test.ts"],
+    hookTimeout: 180_000,
+    testTimeout: 60_000,
+  },
+};
+
+function projectsOf(mode: string): TestProjectInlineConfiguration[] {
+  if (mode === "stories") {
+    return storyProjects();
+  }
+  return mode === "package" ? [consumerProject] : [nodeProject];
+}
 
 export { coverageAreas };
 
@@ -98,7 +116,7 @@ export default defineConfig(({ mode }): ViteUserConfig => {
         reportsDirectory: `coverage/${check}`,
         thresholds: { 100: true },
       },
-      projects: check === "stories" ? storyProjects() : [nodeProject],
+      projects: projectsOf(mode),
     },
   };
 });

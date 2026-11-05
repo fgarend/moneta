@@ -1,0 +1,19 @@
+// TypeScript settings of the throwaway app in make package: a bundler's app, with the strictest choices one may make, so
+// the package's declarations are checked too (skipLibCheck off), and Moneta's types hold in any app.
+{
+  "include": ["check.ts"],
+  "compilerOptions": {
+    "noEmit": true,
+    "target": "es2023",
+    "lib": ["es2023", "dom"],
+    "types": [],
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "jsx": "react-jsx",
+    "strict": true,
+    "noUncheckedIndexedAccess": true,
+    "exactOptionalPropertyTypes": true,
+    "verbatimModuleSyntax": true,
+    "skipLibCheck": false
+  }
+}

@@ -39,7 +39,17 @@ diff does not show.
 `@<version>` for a specific one. Then `make check`:
 
 ```sh
-make add PACKAGE=<package>
+docker compose --env-file infra/settings.env -f infra/compose.yaml run --rm --build install \
+  pnpm add -D <package>
+```
+
+**A peer** is a range chosen here, which installs nothing, so it is set as it is written. Its
+version for development enters as above. `pnpm add --save-peer` is not used, since it raises
+the range to the newest version and turns the exact development version into a range:
+
+```sh
+docker compose --env-file infra/settings.env -f infra/compose.yaml run --rm --build install \
+  pnpm pkg set "peerDependencies.<package>=<range>"
 ```
 
 **A pinned image,** in `infra/settings.env`, then `make check`. Take a version past the

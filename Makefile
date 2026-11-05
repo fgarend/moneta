@@ -5,11 +5,11 @@
 COMPOSE := docker compose --env-file infra/settings.env -f infra/compose.yaml
 # Runs a command in a service, building its image first. The code is mounted read-only, and the folders mounted over it
 # must exist in it first, even in a fresh clone.
-RUN := mkdir -p node_modules .vitest coverage && $(COMPOSE) run --rm --build
+RUN := mkdir -p node_modules .vitest coverage dist .package && $(COMPOSE) run --rm --build
 # What make check runs, fastest first. .github/workflows/ci.yml has one box per name.
-CHECKS := lint types test stories
+CHECKS := lint types test stories package
 
-.PHONY: help check $(CHECKS) install add format update-screenshots storybook images clean outdated audit
+.PHONY: help check $(CHECKS) install format update-screenshots storybook images clean outdated audit
 
 help: ## List the commands
 	@awk 'BEGIN {FS = ":.*## "} /^##@ / {printf "\n%s\n", substr($$0, 5); next} \
@@ -31,16 +31,17 @@ lint: ## Formatting and lint rules, with Biome
 types: ## The types, with TypeScript: the library's code, then everything around it
 	$(RUN) tools sh -c 'pnpm exec tsc && pnpm exec tsc -p tsconfig.tools.json'
 
-test: ## Logic and the repository's checks, in Node, with the coverage of src/lib and the package's entry
+test: ## Logic and the repository's checks, in Node, with the coverage of src/lib
 	$(RUN) tools pnpm exec vitest run --coverage
 
 stories: ## Every story in the browsers, with axe, its screenshot and the coverage of everything else but ui/
 	$(RUN) tools pnpm exec vitest run --mode stories --coverage
 
-##@ Development
+package: ## The build, packed into .package, with that tarball installed and checked in a throwaway app
+	$(RUN) package sh -c 'rm -rf dist/* .package/* && pnpm exec tsc -p tsconfig.build.json && \
+		pnpm pack --pack-destination .package && pnpm exec vitest run --mode package && ls .package/*'
 
-add: ## Add a development dependency, at its newest version past the release age. PACKAGE=name, or name@version
-	$(RUN) install pnpm add -D $(PACKAGE)
+##@ Development
 
 install: ## Install what package.json lists, updating pnpm-lock.yaml and node_modules
 	$(RUN) install pnpm install
