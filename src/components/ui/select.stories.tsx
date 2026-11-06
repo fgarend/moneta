@@ -14,6 +14,8 @@ const placeholder = "Choose an account";
 const savings = "Savings";
 const checking = "Checking";
 
+const controlHeight = 36;
+
 const meta = {
   title: "UI/Select",
   component: Select,
@@ -39,6 +41,11 @@ type Story = StoryObj<typeof meta>;
 
 const Default: Story = {
   play: async ({ canvasElement }) => {
+    const control = canvasElement.querySelector<HTMLElement>(
+      '[data-slot="select-trigger"]',
+    );
+
+    await expect(control?.offsetHeight).toBe(controlHeight);
     const trigger = within(canvasElement).getByRole("button", {
       name: new RegExp(name, "u"),
     });

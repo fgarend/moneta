@@ -7,6 +7,8 @@ const balance = "Balance";
 const history = "History";
 const content = "Balance 1,250.00";
 
+const controlHeight = 36;
+
 const meta = {
   title: "UI/Tabs",
   component: Tabs,
@@ -29,6 +31,11 @@ type Story = StoryObj<typeof meta>;
 
 const Default: Story = {
   play: async ({ canvasElement }) => {
+    const control = canvasElement.querySelector<HTMLElement>(
+      '[data-slot="tabs-list"]',
+    );
+
+    await expect(control?.offsetHeight).toBe(controlHeight);
     const canvas = within(canvasElement);
 
     await expect(

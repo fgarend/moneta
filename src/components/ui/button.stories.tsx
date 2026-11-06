@@ -6,7 +6,11 @@ import { Button, LinkButton } from "./button.js";
 // (name, role, value) is checked here and by axe, and 1.4.3 (contrast) and 2.5.8 (target size) by axe at rest, in the light
 // theme. Not checked: 1.4.11 (contrast of its edges), 2.4.7 (focus visible), its other variants, and real screen readers.
 const label = "Pay";
-const defaultHeight = 32;
+const defaultHeight = 36;
+const smallHeight = 32;
+const largeHeight = 40;
+// What --gold paints, as it is the one name here that shadcn does not have.
+const gold = "rgb(240, 189, 42)";
 
 const meta = {
   title: "UI/Button",
@@ -26,6 +30,33 @@ const Default: Story = {
     await expect(button).toHaveAttribute("type", "button");
     // Its own height, so the theme and Tailwind reach what every story draws.
     await expect(button.offsetHeight).toBe(defaultHeight);
+  },
+};
+
+const Small: Story = {
+  args: { size: "sm" },
+  play: async ({ canvasElement }) => {
+    const button = within(canvasElement).getByRole("button", { name: label });
+
+    await expect(button.offsetHeight).toBe(smallHeight);
+  },
+};
+
+const Large: Story = {
+  args: { size: "lg" },
+  play: async ({ canvasElement }) => {
+    const button = within(canvasElement).getByRole("button", { name: label });
+
+    await expect(button.offsetHeight).toBe(largeHeight);
+  },
+};
+
+const Gold: Story = {
+  args: { variant: "gold" },
+  play: async ({ canvasElement }) => {
+    const button = within(canvasElement).getByRole("button", { name: label });
+
+    await expect(getComputedStyle(button).backgroundColor).toBe(gold);
   },
 };
 
@@ -54,7 +85,7 @@ const MergesClasses: Story = {
     const button = within(canvasElement).getByRole("button", { name: "Pay" });
 
     await expect(button).toHaveClass("h-12");
-    await expect(button).not.toHaveClass("h-8");
+    await expect(button).not.toHaveClass("h-9");
   },
 };
 
@@ -68,4 +99,4 @@ const Link: Story = {
 };
 
 export default meta;
-export { Default, Disabled, Link, MergesClasses, Submit };
+export { Default, Disabled, Gold, Large, Link, MergesClasses, Small, Submit };

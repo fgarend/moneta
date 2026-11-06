@@ -31,7 +31,7 @@ A piece with no gap listed may still have some.
 | `avatar` | raw | |
 | `badge` | raw | |
 | `breadcrumb` | raw | **Default text:** "breadcrumb" and "More" |
-| `button` | raw | |
+| `button` | raw | **Edited:** default 36 px, `sm` 32 and `lg` 40, with the variant `gold` |
 | `button-group` | raw | |
 | `card` | raw | |
 | `checkbox` | raw | **Code:** draws a check when indeterminate, and does not grow for its children. **Lint:** a deprecated React Aria import |
@@ -42,18 +42,18 @@ A piece with no gap listed may still have some.
 | `empty` | raw | |
 | `field` | raw | **Code:** does not link its description or error, which its story does by hand. **Lint:** an array index as a key |
 | `hover-card` | raw | **Code:** its dialog has no name unless given `aria-label`. Opening by focus or hover is not checked |
-| `input` | raw | |
-| `input-group` | raw | A click on an addon focusing the input is not checked, as that story failed at random in Firefox |
+| `input` | raw | **Edited:** 36 px |
+| `input-group` | raw | **Edited:** 36 px. A click on an addon focusing the input is not checked, as that story failed at random in Firefox |
 | `item` | raw | **axe:** its group has a list role, with links and buttons and no list items |
 | `kbd` | raw | |
 | `label` | raw | **lint:** an unused import |
-| `native-select` | raw | |
-| `pagination` | raw | **Default text:** "pagination", "Previous", "Next", "Go to previous page", "Go to next page" and "More pages" |
+| `native-select` | raw | **Edited:** 36 px, and `sm` 32 |
+| `pagination` | raw | **Edited:** its ellipsis follows the 36 px of a button. **Default text:** "pagination", "Previous", "Next", "Go to previous page", "Go to next page" and "More pages" |
 | `popover` | raw | **Code:** its title does not name it |
 | `progress` | raw | **Code:** indeterminate draws the bar at 100%, as complete |
 | `radio-group` | raw | **Code:** an item does not grow for its children. **Lint:** a deprecated React Aria import |
 | `scroll-area` | raw | **axe:** takes no focus when nothing in it can, so the keyboard cannot scroll it |
-| `select` | raw | **forced colours:** the chevron keeps its own colour, in Chromium |
+| `select` | raw | **Edited:** default 36 px, and `sm` 32. **forced colours:** the chevron keeps its own colour, in Chromium |
 | `separator` | raw | |
 | `sheet` | raw | **Default text:** "Close" |
 | `skeleton` | raw | |
@@ -61,8 +61,8 @@ A piece with no gap listed may still have some.
 | `spinner` | raw | **Default text:** "Loading". **Code:** spins with no regard for reduced motion |
 | `switch` | raw | **Code:** does not grow for its children. **Lint:** a deprecated React Aria import |
 | `table` | raw | **Code:** its caption is a `figcaption` with no `figure` |
-| `tabs` | raw | **Edited:** its inactive text reads `muted-foreground`, as `foreground/60` is 3.89:1 on our `muted` |
+| `tabs` | raw | **Edited:** 36 px, and its inactive text reads `muted-foreground`, as `foreground/60` is 3.89:1 on our `muted` |
 | `textarea` | raw | |
-| `toggle` | raw | |
+| `toggle` | raw | **Edited:** default 36 px, `sm` 32 and `lg` 40 |
 | `toggle-group` | raw | |
 | `tooltip` | raw | **Code:** its trigger breaks with a Fragment as a child. While open, React Aria stops Esc from reaching what is around it, so in an overlay the first Esc closes only the tooltip |

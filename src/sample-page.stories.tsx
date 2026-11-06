@@ -175,13 +175,13 @@ function PageHeader() {
       </div>
       <Input
         aria-label="Search payments"
-        className="w-60"
+        className="h-10 w-60"
         placeholder="Search payments"
       />
-      <Button aria-label="Notices" size="icon" variant="outline">
+      <Button aria-label="Notices" size="icon-lg" variant="outline">
         <Bell />
       </Button>
-      <Button>
+      <Button size="lg" variant="gold">
         <Plus />
         New payment
       </Button>
@@ -301,7 +301,7 @@ function SidePanels() {
         </CardHeader>
         <CardContent className="flex flex-col gap-2">
           <Input aria-label="Amount" placeholder="$0.00" />
-          <Select aria-label="Group" placeholder="Group">
+          <Select aria-label="Group" className="w-full" placeholder="Group">
             <SelectTrigger>
               <SelectValue />
             </SelectTrigger>

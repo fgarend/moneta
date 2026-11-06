@@ -6,6 +6,8 @@ const name = "Account";
 const savings = "Savings";
 const checking = "Checking";
 
+const controlHeight = 36;
+
 const meta = {
   title: "UI/Native Select",
   component: NativeSelect,
@@ -26,6 +28,11 @@ type Story = StoryObj<typeof meta>;
 
 const Default: Story = {
   play: async ({ canvasElement }) => {
+    const control = canvasElement.querySelector<HTMLElement>(
+      '[data-slot="native-select"]',
+    );
+
+    await expect(control?.offsetHeight).toBe(controlHeight);
     const select = within(canvasElement).getByRole("combobox", { name });
 
     await expect(select).toHaveValue(checking);

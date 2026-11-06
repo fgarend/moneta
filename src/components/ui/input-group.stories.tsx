@@ -13,6 +13,8 @@ const name = "Amount in the account's currency";
 const currency = "USD";
 const clear = "Clear";
 
+const controlHeight = 36;
+
 const meta = {
   title: "UI/Input Group",
   component: InputGroup,
@@ -37,6 +39,11 @@ type Story = StoryObj<typeof meta>;
 
 const Default: Story = {
   play: async ({ canvasElement }) => {
+    const control = canvasElement.querySelector<HTMLElement>(
+      '[data-slot="input-group"]',
+    );
+
+    await expect(control?.offsetHeight).toBe(controlHeight);
     const canvas = within(
       within(canvasElement).getByRole("group", { name: group }),
     );

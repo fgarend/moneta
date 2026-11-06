@@ -10,6 +10,12 @@ gets its number.
 
 - The theme's light colours and radius are Moneta's, in place of shadcn's default: warm paper, white cards, a graphite
   sidebar and one gold accent, as `--gold`. Dark is still shadcn's default.
+- Controls are taller: `Button`, `Input`, `InputGroup`, `NativeSelect`, `Select`, `Tabs` and `Toggle` are 36 px by default,
+  32 at `size="sm"`, and 40 at `size="lg"` where they have one. A screen with a height of its own may need adjusting.
+
+### Added
+
+- `Button`'s `variant="gold"`.
 
 ### Fixed
 

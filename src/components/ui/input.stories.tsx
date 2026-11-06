@@ -4,6 +4,8 @@ import { Input } from "./input.js";
 
 const name = "Reference";
 
+const controlHeight = 36;
+
 const meta = {
   title: "UI/Input",
   component: Input,
@@ -15,6 +17,11 @@ type Story = StoryObj<typeof meta>;
 
 const Default: Story = {
   play: async ({ canvasElement }) => {
+    const control = canvasElement.querySelector<HTMLElement>(
+      '[data-slot="input"]',
+    );
+
+    await expect(control?.offsetHeight).toBe(controlHeight);
     await expect(
       within(canvasElement).getByRole("textbox", { name }),
     ).toBeEnabled();
