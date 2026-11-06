@@ -69,6 +69,16 @@
       // The repository's checks run on Node, and read its files.
       "includes": ["test/**"],
       "linter": { "rules": { "correctness": { "noNodejsModules": "off" } } }
+    },
+    {
+      // shadcn's files stay as they come, so an update merges cleanly. Each had one read of its findings on arrival.
+      "includes": [
+        "src/components/ui/*.tsx",
+        "!src/components/ui/*.stories.tsx"
+      ],
+      "linter": { "enabled": false },
+      "formatter": { "enabled": false },
+      "assist": { "enabled": false }
     }
   ]
 }

@@ -9,12 +9,14 @@ Where the library lives, how it is received, and under what terms.
   `package.json` of whoever uses it points to on GitHub. It is not published to a
   registry. A local link is left out until the daily work needs it.
 - **Pieces are imported by path,** as `@fgarend/moneta/ui/button`. There is no root entry.
-- **An app brings the peers.** Today that is `react`, at `^19.0.0`. A peer enters when the
-  code in the package first imports it.
+- **An app brings the peers,** whose second copy would silently lose shared state: `react` and
+  `react-dom` at `^19.0.0`, and `react-aria-components` at `^1.22.1`. A peer enters when the code in
+  the package first imports it, with the version installed then as its floor.
+- **Helpers come with the package, at exact versions:** `cn` and `class-variance-authority`.
 - **The license is MIT,** for everything in this repository.
 - **Code copied from shadcn keeps its notice.** shadcn/ui is MIT, which asks that its
-  copyright and permission notice stay with copies of its code. We add that notice in
-  the commit of the first `shadcn add`.
+  copyright and permission notice stay with copies of its code. `LICENSE` holds its copyright
+  line beside ours, under the same permission text, and is always packed.
 
 ### GitHub settings
 
@@ -47,6 +49,12 @@ looks every week.
 - **By path,** since there is no central file to keep with each new piece, and shadcn's files
   already import each other this way. **What it costs:** imports are longer, and a piece's path
   is part of the public API, so moving a file breaks whoever uses it.
+- **The tested version as the floor of other peers,** since only that one is tested, and widening a
+  range later breaks nobody. **What it costs:** an app on an older version gets a warning, or a
+  refusal in npm, though the pieces may work there.
+- **Exact helpers,** since two copies cost size and break nothing, and an app then receives what
+  `package` tested. **What it costs:** an app with another version carries two copies, and a fix in
+  them needs a release of Moneta.
 - **Any React 19,** so an app need not update React because of Moneta. **What it costs:**
   `package` tests only the version in `devDependencies`, so the floor is a promise, measured
   once. A range refuses nothing either: outside it, pnpm only warns.
@@ -77,3 +85,4 @@ only on the owner's push.
 - 2026-11-04: Written, with the repository and its settings.
 - 2026-11-05: Imports by path, and the first peer.
 - 2026-11-05: What the alerts rest on.
+- 2026-11-06: shadcn's notice, React Aria as a peer, and the helpers.

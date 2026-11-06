@@ -16,12 +16,16 @@ it("refuses a version whose publish time is missing", async () => {
   expect(workspace.match(ignoreMissingTime)?.groups?.["value"]).toBe("false");
 });
 
-// A range would let an update in with no diff, which is the point of saving versions exact.
-it("gives every development dependency an exact version", async () => {
-  const { devDependencies } = JSON.parse(
+// A range would let an update in with no diff, which is the point of saving versions exact, and an app would receive
+// a version package never tested.
+it("gives every dependency an exact version", async () => {
+  const { dependencies, devDependencies } = JSON.parse(
     await readFile(new URL("package.json", root), "utf8"),
-  ) as { devDependencies: Record<string, string> };
-  const notExact = Object.entries(devDependencies)
+  ) as {
+    dependencies?: Record<string, string>;
+    devDependencies: Record<string, string>;
+  };
+  const notExact = Object.entries({ ...dependencies, ...devDependencies })
     .filter(([, version]) => !exactVersion.test(version))
     .map(([name, version]) => `${name} ${version}`);
 

@@ -37,7 +37,8 @@ How the repository runs, and how its versions are chosen.
 - **`package` checks what an app receives.** It packs the build into `.package/`, keeps that
   tarball, and a Vitest test installs it in a throwaway app. The test looks at what it holds,
   imports every piece in Node, and checks the types as a bundler and as Node resolve them, with
-  `skipLibCheck` off and the strictest options an app may choose.
+  `skipLibCheck` off. `exactOptionalPropertyTypes` is off here and there, since shadcn's code and
+  React Aria's own types do not pass it.
 - **Screenshots are taken at one width, 1280 px,** in Chromium, for each story tagged `visual`.
   They are approved in the commit that changes them.
 - **Accepted advisories are listed in `audit.ignore`,** in `pnpm-workspace.yaml`, each with its
@@ -126,6 +127,9 @@ How the repository runs, and how its versions are chosen.
   documentation denies.
 - **The boxes read from the `Makefile` by continuous integration.** One list and no test, but
   one more job to build the matrix, and the names no longer show in `ci.yml`.
+- **`exactOptionalPropertyTypes` on.** It tells a missing property from an `undefined` one, which own
+  pieces lose. Across all 61 of shadcn's pieces, it gave 29 errors in 18 files, and 13 in the
+  dependencies' types, so it would mean those edits and `skipLibCheck`, and no untouched commit would pass.
 - **`make add`, and a `make add-peer`.** Both are rare, and a target only wraps the command. Their
   cost is a long command, kept in `docs/updating.md`, that `make help` does not show.
 
@@ -136,3 +140,4 @@ How the repository runs, and how its versions are chosen.
 - 2026-11-05: Stories, browsers, coverage and screenshots.
 - 2026-11-05: The build and the package's check, and `make add` removed.
 - 2026-11-05: The weekly audit, the test of the boxes, and actions in the hand checks.
+- 2026-11-06: `exactOptionalPropertyTypes` off.

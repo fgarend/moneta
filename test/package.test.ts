@@ -31,6 +31,13 @@ it("installs each peer here as well", () => {
   expect(missing).toEqual([]);
 });
 
+// shadcn's license asks that its notice stay with copies of its code, and LICENSE is always packed.
+it("keeps shadcn's copyright with the code copied from it", async () => {
+  const license = await readFile(new URL("LICENSE", root), "utf8");
+
+  expect(license).toContain("Copyright (c) 2023 shadcn");
+});
+
 // So an app's bundler can leave out the pieces it does not import. The app in make package cannot see this.
 it("tells bundlers that importing a piece has no side effects", () => {
   expect(manifest.sideEffects).toBe(false);

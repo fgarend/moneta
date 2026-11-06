@@ -43,6 +43,8 @@ docker compose --env-file infra/settings.env -f infra/compose.yaml run --rm --bu
   pnpm add -D <package>
 ```
 
+**A dependency of the package,** which an app receives, enters the same way without `-D`.
+
 **A peer** is a range chosen here, which installs nothing, so it is set as it is written. Its
 version for development enters as above. `pnpm add --save-peer` is not used, since it raises
 the range to the newest version and turns the exact development version into a range:
@@ -79,6 +81,14 @@ gh api repos/<action>/commits/<tag> --jq .sha
 
 - **The images in `infra/settings.env`,** at the same moments: a newer version, and a new
   digest under the same tag, which means the image was rebuilt.
+- **The shadcn CLI and its registry,** at the same moments: a newer CLI, past the release age, moves
+  in the command below. The registry has no version, so what changed in a piece is only seen here:
+
+  ```sh
+  docker compose --env-file infra/settings.env -f infra/compose.yaml run --rm --build install \
+    pnpm dlx shadcn@4.23.0 add <piece> --diff
+  ```
+
 - **The actions in `.github/workflows/`,** at the same moments: a newer version. A pin is a
   commit, so a tag moved later changes nothing here.
 - **The year of `target` and `lib` in `tsconfig.json`.** It moves up once all of that year's

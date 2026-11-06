@@ -1,4 +1,4 @@
-// TypeScript settings of the throwaway app in make package: a bundler's app, with the strictest choices one may make, so
+// TypeScript settings of the throwaway app in make package: a bundler's app, with strict choices, so
 // the package's declarations are checked too (skipLibCheck off), and Moneta's types hold in any app.
 {
   "include": ["check.ts"],
@@ -12,7 +12,6 @@
     "jsx": "react-jsx",
     "strict": true,
     "noUncheckedIndexedAccess": true,
-    "exactOptionalPropertyTypes": true,
     "verbatimModuleSyntax": true,
     "skipLibCheck": false
   }

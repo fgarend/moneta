@@ -40,8 +40,8 @@ shadcn's pieces and theme, untouched, as a package, with no choice of look yet.
   since a tag named after a piece does not find the files that came with it.
   `git log -1 --grep='^chore(shadcn):' -- <file>` finds a file's last import, which was tried on
   simple files.
-  - Two commits. First `button`, with `components.json`, the dependencies and the peers it uses,
-    replacing the minimal one. Then the other 40.
+  - Two commits. `button`, with `components.json`, the dependencies and the peers it uses, is done.
+    Next, the other 40.
   - Of the 62 in the registry on 2026-11-06, 21 stay out. `sidebar`, `combobox` and `calendar` wait
     for their study, under Deferred. `carousel`, `chart`, `drawer`, `input-otp`, `message-scroller`,
     `questionnaire`, `resizable` and `sonner` bring packages of their own. `attachment`, `bubble`,
@@ -81,8 +81,7 @@ shadcn's pieces and theme, untouched, as a package, with no choice of look yet.
     `skipLibCheck` off. Measured on 2026-11-06 with all 61 of shadcn's pieces: on, 29 errors in 18
     files and 13 in the dependencies' types. Off, none of those in `src/`, and 1 in the dependencies'
     types, not identified, which the pieces of this item do not reach.
-  - To ask: where shadcn's MIT notice goes (recommended: its copyright line in `LICENSE`, which is
-    always packed). To ask: `noUnusedLocals` off, as `alert-dialog` and `label` fail it untouched
+  - To ask: `noUnusedLocals` off, as `alert-dialog` and `label` fail it untouched
     (recommended: yes, if Biome's rule covers own pieces). To ask: where the list of raw and reviewed
     pieces lives (recommended: `docs/pieces.md`).
 - **2.3 · `theme.css`, shadcn's default, untouched,** as `@fgarend/moneta/theme.css`, with the

@@ -17,10 +17,10 @@
     // React's automatic JSX runtime: no React import in each file.
     "jsx": "react-jsx",
 
-    // Every check TypeScript offers, but isolatedDeclarations, as cva depends on inference.
+    // Every check TypeScript offers, but isolatedDeclarations, as cva depends on inference, and
+    // exactOptionalPropertyTypes, which shadcn's code and React Aria's types do not pass.
     "strict": true,
     "noUncheckedIndexedAccess": true,
-    "exactOptionalPropertyTypes": true,
     "noImplicitOverride": true,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,

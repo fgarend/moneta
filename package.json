@@ -12,6 +12,20 @@
   "exports": {
     "./ui/*": "./dist/components/ui/*.js"
   },
+  "imports": {
+    "#components/*": {
+      "moneta-source": "./src/components/*.tsx",
+      "default": "./dist/components/*.js"
+    },
+    "#hooks/*": {
+      "moneta-source": "./src/hooks/*.ts",
+      "default": "./dist/hooks/*.js"
+    },
+    "#lib/*": {
+      "moneta-source": "./src/lib/*.ts",
+      "default": "./dist/lib/*.js"
+    }
+  },
   "files": [
     "dist"
   ],
@@ -29,6 +43,7 @@
     "@vitest/coverage-istanbul": "5.0.5",
     "playwright": "1.64.1",
     "react": "19.3.1",
+    "react-aria-components": "1.22.1",
     "react-dom": "19.3.1",
     "storybook": "10.6.5",
     "typescript": "7.0.2",
@@ -37,6 +52,12 @@
     "vitest-browser-react": "2.3.0"
   },
   "peerDependencies": {
-    "react": "^19.0.0"
+    "react": "^19.0.0",
+    "react-aria-components": "^1.22.1",
+    "react-dom": "^19.0.0"
+  },
+  "dependencies": {
+    "class-variance-authority": "0.7.1",
+    "cn": "0.5.1"
   }
 }
