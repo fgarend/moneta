@@ -110,8 +110,8 @@ looks every week.
 ## Not tested yet
 
 `v0.0.1` ran the whole path on 2026-11-06: the tag, the immutable release, its tarball installed from its address and
-imported in Node, and the gallery on Pages. Still not tested: a failure halfway through `publish`, a second release
-replacing the gallery, a pull request cancelling an earlier run, and an app drawing a piece from a release's tarball.
+imported in Node, and the gallery on Pages. `v0.1.0` ran it again the same day. Still not tested: a failure halfway
+through `publish`, a pull request cancelling an earlier run, and an app drawing a piece from a release's tarball.
 
 ## History
 

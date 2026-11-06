@@ -1,6 +1,6 @@
 # Roadmap
 
-**Now:** 3.2, release 0.1.0.
+**Now:** 4.5, our `theme.css`, light and dark.
 
 **The goal:** Moneta is the source of truth for components. An app consumes final pieces and builds
 its screens and regions from them, writing no class of its own. What it lacks is added here, not there.
@@ -51,8 +51,7 @@ Done: 3.4, one import, with ready-made styles, as `docs/decisions/delivery.md` s
 3.3, the release's part of the pipeline, as `docs/releasing.md` and `docs/decisions/delivery.md` say.
 3.7, a rehearsal, `v0.0.1`, published on its second run, the first having stopped before spending the number.
 3.6, what is written matches what exists, with the README's install, use and how far changing the look reaches.
-
-- **3.2 · Release 0.1.0,** by the owner, with how to install and use it, and which pieces are raw.
+3.2, release 0.1.0, published on 2026-11-06 with all 41 pieces raw.
 
 Dropped: 3.1, `Sidebar`, `AppLayout` and providers, moved to 4.6, after a study of its own.
 
