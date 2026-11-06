@@ -18,8 +18,14 @@ How decisions are kept, and how the work moves.
 
 - **One family of pieces is one roadmap item.** It may take several commits.
 - **A release comes when something needs one,** not per component.
-- **Every `shadcn add` is committed untouched and tagged,** so that commit is the merge
-  base for updates, and `git log` is the list of our edits.
+- **First in use, then refined.** Moneta starts as shadcn untouched, as a package, and the look and
+  the review of each piece arrive version by version.
+- **A shadcn piece is raw until reviewed,** and listed with its known gaps. 1.0 needs every piece
+  reviewed. **What it costs:** until then, the repository is public and a raw piece can be used,
+  so the list warns and does not stop anyone.
+- **Every `shadcn add` is committed untouched, under a fixed message,** `chore(shadcn): add <piece>`,
+  with the CLI's version and the style in its body. So that commit is the merge base for updates,
+  and `git log` is the list of our edits. A file's last import is found by its message.
 - **The pipeline arrives in one step, by groups,** carried from what already works
   rather than decided tool by tool. Each group is one commit, and is run for real, as
   far as it reaches: planted failures, a minimal `Button` once there is code, and its
@@ -44,6 +50,10 @@ rest.
 - **A single file.** It would grow without a shape, and mix unrelated topics.
 - **Deciding the pipeline tool by tool.** It would spend time on tools that have no
   opinion about the base.
+- **The look before the first use.** The piece is finished sooner, but what fails is found last.
+- **Reviewing the pieces an app needs before the first release.** Safer, but it delays first use
+  by a theme, stories and edits per piece.
+- **A tag per `shadcn add`.** A tag named after a piece does not find the files that came with it.
 - **The release's part with the rest of the pipeline.** Complete sooner, but written months
   before it could run.
 
@@ -52,3 +62,4 @@ rest.
 - 2026-11-04: Written, with the repository.
 - 2026-11-04: The list of files moved to `README.md`, the index of this folder.
 - 2026-11-05: The release's part waits until just before its first use.
+- 2026-11-06: First in use, then refined. Raw pieces, and a fixed message in place of tags.

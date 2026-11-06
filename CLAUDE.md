@@ -26,6 +26,8 @@ gives the right result:
 
 - **It does not override:** WCAG 2.2 AA, money shown exactly, no arbitrary spacing or
   colour in own pieces, no default text in a piece, fictitious data.
+- **Raw until reviewed.** A shadcn piece may enter untouched, listed as raw with its known gaps.
+  WCAG and default text are what its review answers for, and 1.0 needs every piece reviewed.
 - **It must make sense, both ways.** A difference from a reference is not by itself a
   reason to edit. The default theme is meant to be beautiful, and whoever uses Moneta
   can replace it, so what carries its look, such as the gold, the sidebar and the
