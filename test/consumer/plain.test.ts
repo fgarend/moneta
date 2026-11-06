@@ -17,6 +17,7 @@ const fontFile = /\.woff2$/u;
 const peerInstalled = /^(?:react-aria-components|lucide-react)@/u;
 const tailwindInstalled = /^tailwindcss@/u;
 const readsTheme = /\.bg-primary\{background-color:var\(--primary\)/u;
+const readsFont = /font-family:var\(--font\)/u;
 
 let app = "";
 let css = "";
@@ -101,4 +102,9 @@ it("brings the font's files", () => {
 // Ready-made classes that read the theme's variables are what lets an app change the look with no Tailwind of its own.
 it("keeps the classes reading the theme's values", () => {
   expect(css).toMatch(readsTheme);
+});
+
+// Tailwind writes a theme's value in place, so a font set there could not be changed by an app.
+it("keeps the font in a variable an app can change", () => {
+  expect(css).toMatch(readsFont);
 });

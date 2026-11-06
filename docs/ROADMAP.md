@@ -81,11 +81,10 @@ with what is a real fault fixed as a recorded edit.
   shows both, and the contrast, forced colours and visual checks run in both. It starts
   from shadcn's list, and adds a name only when a page fails without it.
   The radius is shadcn's `small`, `--radius: 0.45rem`, chosen by the owner on shadcn/create, and
-  the font is decided here, among Geist, IBM Plex Sans and Inter, along with `--font-heading`, which nothing reads,
-  and how an app changes it, as `--font-sans` has no effect today, since `@theme inline` writes it literally. On 2026-11-06, of shadcn's fonts, `DM
+  the font is Geist, in `--font`. On 2026-11-06, of shadcn's fonts, `DM
   Sans` and `Raleway` had no tabular figures, and the others did. The sample page is the real
   test of `aria-nova`. The tests for contrast, fonts and the package's theme arrive here. A `type-*`
-  style loses to a base `text-sm`, so that class comes out as a recorded edit. Decided with the owner on 2026-11-06:
+  style reads as a recorded edit in the piece that uses it. Decided with the owner on 2026-11-06:
   - **The look:** in light, warm paper, white cards, a graphite sidebar and one gold accent. In dark, a graphite page,
     a darker sidebar and lighter cards. Gold stays the same in both, and the values are a draft until the sample page.
   - **The font:** Geist stays.
@@ -96,8 +95,7 @@ with what is a real fault fixed as a recorded edit.
   - **Focus:** shadcn's solid outline, widened to the sidebar's own ring, `Checkbox`, `Switch` and fields, with no gold
     halo. To test first: menus and options, focus returning from a dialog, and the other browsers. If those fail, it
     comes back as a question.
-  - **Text:** four styles, `type-display`, `type-amount-lg`, `type-amount` and `type-overline`, internal to the pieces.
-    They are not a promise to an app, and are not forced into `styles.css`.
+  - **Text and space:** a scale, in `docs/decisions/theme.md`, with five styles internal to the pieces.
   - **The order:** the sample page, the light theme with font and sizes, the dark theme, then the checks in both modes.
 - **4.6 (was 3.1) · `Sidebar`, `AppLayout` and providers,** starting with a study, which is what this
   item asks first: how each is defined, and where it lives. `sidebar` stayed out of the first delivery
@@ -131,7 +129,7 @@ with what is a real fault fixed as a recorded edit.
   see only the closed trigger. Forced colours' `:popover-open` finds nothing, as React Aria does not use the
   `popover` attribute.
 - **4.4 · The rest.** Tabs. Progress, Empty, Skeleton, Spinner, Breadcrumb,
-  Pagination, Collapsible, IconTile, StatGroup and AllocationBar, and `calendar` after a study like
+  Pagination, Collapsible, IconTile, StatGroup, as the sample page's summary strip draws it, and AllocationBar, and `calendar` after a study like
   4.6's.
 - **4.8 · Charts.** Chart, with shadcn's `chart-1` to `chart-5`, whose marks need 3:1 against the surface,
   under WCAG 1.4.11. To ask: where `recharts` goes (recommended: an entry of its own).

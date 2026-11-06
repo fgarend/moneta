@@ -26,11 +26,11 @@ The style sheet resets the whole page, and holds only the classes the pieces use
 Redefine the theme's variables after the import, outside any `@layer`, and again for dark:
 
 ```css
-:root { --primary: oklch(0.5 0.1 250); }
+:root { --primary: oklch(0.5 0.1 250); --font: "Your Font", sans-serif; }
 .dark { --primary: oklch(0.8 0.1 250); }
 ```
 
-The font cannot be changed this way yet.
+The font is the app's to load when it changes it.
 
 ## More
 

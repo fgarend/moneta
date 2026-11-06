@@ -16,8 +16,8 @@ Where the library lives, how it is received, and under what terms.
   font, as `README.md` shows. An app needs no Tailwind and no settings.
 - **An app changes the look by redefining the theme's variables,** after the import and outside any `@layer`, and
   again under `.dark`, measured on 2026-11-06. Before the import, or in a layer, nothing happens, and with `:root`
-  alone the light value also holds in dark. The font is the exception, until the roadmap's 4.5: `@theme inline`
-  writes it literally, so `--font-sans` has no effect.
+  alone the light value also holds in dark. The font is `--font`, as Tailwind writes
+  `--font-sans` in place, and an app that changes it loads its own.
 - **An app that still writes Tailwind's classes** uses `@import "tailwindcss";` and then
   `@import "@fgarend/moneta/theme.css";`. Without Tailwind first, the build passes and no class arrives.
   `@fgarend/moneta/fonts.css` is optional there. The theme also sets the page's border colour, background, text
@@ -124,3 +124,4 @@ through `publish`, a pull request cancelling an earlier run, and an app drawing 
 - 2026-11-06: An automatic release, of the tested tarball, with the gallery.
 - 2026-11-06: The rehearsal, `v0.0.1`.
 - 2026-11-06: The peers by name, and how far changing the look reaches.
+- 2026-11-06: The font as a variable.

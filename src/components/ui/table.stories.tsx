@@ -15,6 +15,10 @@ const amount = "Amount";
 const payee = "Fictitious rent";
 const paid = "1,250.00";
 
+const headSize = "13px";
+const cellSpacing = "12px";
+const edgeSpacing = "20px";
+
 const meta = {
   title: "UI/Table",
   component: Table,
@@ -49,6 +53,18 @@ const Default: Story = {
       canvas.getByRole("columnheader", { name: amount }),
     ).toBeVisible();
     await expect(canvas.getByRole("rowheader", { name: payee })).toBeVisible();
+    // The scale the theme sets: a quiet header, and rows with room.
+    await expect(
+      getComputedStyle(canvas.getByRole("columnheader", { name: amount }))
+        .fontSize,
+    ).toBe(headSize);
+    await expect(
+      getComputedStyle(canvas.getByRole("gridcell", { name: paid })).paddingTop,
+    ).toBe(cellSpacing);
+    await expect(
+      getComputedStyle(canvas.getByRole("rowheader", { name: payee }))
+        .paddingLeft,
+    ).toBe(edgeSpacing);
     await expect(canvas.getByRole("gridcell", { name: paid })).toBeVisible();
   },
 };

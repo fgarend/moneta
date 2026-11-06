@@ -33,7 +33,7 @@ A piece with no gap listed may still have some.
 | `breadcrumb` | raw | **Default text:** "breadcrumb" and "More" |
 | `button` | raw | **Edited:** default 36 px, `sm` 32 and `lg` 40, with the variant `gold` |
 | `button-group` | raw | |
-| `card` | raw | |
+| `card` | raw | **Edited:** reads the scale of text, with 20 px around its content |
 | `checkbox` | raw | **Code:** draws a check when indeterminate, and does not grow for its children. **Lint:** a deprecated React Aria import |
 | `collapsible` | raw | **Code:** its trigger has no style of its own |
 | `context-menu` | raw | |
@@ -60,7 +60,7 @@ A piece with no gap listed may still have some.
 | `slider` | raw | **Code:** drops its children. **Lint:** an array index as a key |
 | `spinner` | raw | **Default text:** "Loading". **Code:** spins with no regard for reduced motion |
 | `switch` | raw | **Code:** does not grow for its children. **Lint:** a deprecated React Aria import |
-| `table` | raw | **Code:** its caption is a `figcaption` with no `figure` |
+| `table` | raw | **Edited:** a quiet header and 12 px rows, with 20 px at each end. **Code:** its caption is a `figcaption` with no `figure` |
 | `tabs` | raw | **Edited:** 36 px, and its inactive text reads `muted-foreground`, as `foreground/60` is 3.89:1 on our `muted` |
 | `textarea` | raw | |
 | `toggle` | raw | **Edited:** default 36 px, `sm` 32 and `lg` 40 |

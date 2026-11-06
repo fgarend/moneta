@@ -12,10 +12,13 @@ gets its number.
   sidebar and one gold accent, as `--gold`. Dark is still shadcn's default.
 - Controls are taller: `Button`, `Input`, `InputGroup`, `NativeSelect`, `Select`, `Tabs` and `Toggle` are 36 px by default,
   32 at `size="sm"`, and 40 at `size="lg"` where they have one. A screen with a height of its own may need adjusting.
+- `Card` has 20 px around its content, and its title and description follow a scale of text. `Table` has a quieter header and
+  taller rows.
 
 ### Added
 
 - `Button`'s `variant="gold"`.
+- `--font`, to change the font, which had no way to be changed. An app that changes it loads its own.
 
 ### Fixed
 

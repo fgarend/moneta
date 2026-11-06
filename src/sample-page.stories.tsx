@@ -4,9 +4,7 @@
 // biome-ignore-all lint/style/useComponentExportOnlyModules: the page's parts are this story's own, and enter no package.
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import {
-  ArrowDownLeft,
   ArrowLeftRight,
-  ArrowUpRight,
   Bell,
   ChartLine,
   Download,
@@ -45,8 +43,22 @@ import {
   TableHeader,
   TableRow,
 } from "./components/ui/table.js";
-import { ToggleGroup, ToggleGroupItem } from "./components/ui/toggle-group.js";
+import {
+  Tabs,
+  TabsContent,
+  TabsList,
+  TabsTrigger,
+} from "./components/ui/tabs.js";
 
+interface NavigationItem {
+  name: string;
+  icon: typeof Home;
+  current?: boolean;
+}
+
+const displaySize = "32px";
+const amountSize = "24px";
+const tabular = "tabular-nums";
 const periods = ["Week", "Month", "Year"];
 const selectedPeriod = "Month";
 const foodUsed = 87;
@@ -55,6 +67,8 @@ const navigation = [
   { name: "Payments", icon: ArrowLeftRight },
   { name: "Budgets", icon: Target },
   { name: "Reports", icon: ChartLine },
+];
+const wealth = [
   { name: "Accounts", icon: Landmark },
   { name: "Portfolio", icon: Wallet },
 ];
@@ -63,25 +77,21 @@ const totals = [
     name: "Balance",
     amount: "$12,480.50",
     change: "+3.9% this month",
-    icon: Wallet,
   },
   {
     name: "Income",
     amount: "$8,450.00",
     change: "+5.8% this month",
-    icon: ArrowDownLeft,
   },
   {
     name: "Spending",
     amount: "$4,184.35",
     change: "−2.1% this month",
-    icon: ArrowUpRight,
   },
   {
     name: "Invested",
     amount: "$96,300.00",
     change: "+1.6% this month",
-    icon: ChartLine,
   },
 ];
 const payments = [
@@ -141,44 +151,56 @@ const budgets = [
   { name: "Leisure", used: 42 },
 ];
 
+function NavigationLinks({ items }: { items: NavigationItem[] }) {
+  return (
+    <ul className="flex flex-col gap-1">
+      {items.map(({ name, icon: Icon, current }) => (
+        <li key={name}>
+          <a
+            aria-current={current ? "page" : undefined}
+            className="flex items-center gap-2 rounded-md px-2 py-2 outline-1 outline-transparent hover:bg-sidebar-accent aria-[current=page]:bg-sidebar-accent aria-[current=page]:font-medium aria-[current=page]:text-sidebar-accent-foreground"
+            href="#sample"
+          >
+            <Icon aria-hidden="true" className="size-4" />
+            {name}
+          </a>
+        </li>
+      ))}
+    </ul>
+  );
+}
+
 function Navigation() {
   return (
     <nav
       aria-label="Main"
       className="w-60 shrink-0 bg-sidebar px-3 py-4 text-sm text-sidebar-foreground"
     >
-      <p className="px-2 pb-4 font-semibold">Moneta</p>
-      <ul className="flex flex-col gap-1">
-        {navigation.map(({ name, icon: Icon, current }) => (
-          <li key={name}>
-            <a
-              aria-current={current ? "page" : undefined}
-              className="flex items-center gap-2 rounded-md px-2 py-2 outline-1 outline-transparent hover:bg-sidebar-accent aria-[current=page]:bg-sidebar-accent aria-[current=page]:font-medium aria-[current=page]:text-sidebar-accent-foreground"
-              href="#sample"
-            >
-              <Icon aria-hidden="true" className="size-4" />
-              {name}
-            </a>
-          </li>
-        ))}
-      </ul>
+      <p className="px-2 pb-6 font-semibold">Moneta</p>
+      <NavigationLinks items={navigation} />
+      <p className="px-2 pt-6 pb-2 text-xs text-sidebar-foreground/70">
+        Wealth
+      </p>
+      <NavigationLinks items={wealth} />
     </nav>
   );
 }
 
 function PageHeader() {
   return (
-    <header className="flex flex-wrap items-center gap-2">
+    <header className="flex flex-wrap items-end gap-3">
       <div className="min-w-0 flex-1">
-        <p className="text-xs text-muted-foreground">Saturday, October 24</p>
-        <h1 className="text-3xl font-semibold tracking-tight">Overview</h1>
+        <p className="mb-1 text-xs text-muted-foreground">
+          Saturday, October 24
+        </p>
+        <h1 className="type-display">Overview</h1>
       </div>
       <Input
         aria-label="Search payments"
         className="h-10 w-60"
         placeholder="Search payments"
       />
-      <Button aria-label="Notices" size="icon-lg" variant="outline">
+      <Button aria-label="Notices" size="icon-lg" variant="ghost">
         <Bell />
       </Button>
       <Button size="lg" variant="gold">
@@ -191,45 +213,40 @@ function PageHeader() {
 
 function Totals() {
   return (
-    <section aria-label="October summary" className="flex flex-col gap-3">
+    <section aria-label="October summary" className="flex flex-col gap-4">
       <div className="flex flex-wrap items-center justify-between gap-2">
-        <h2 className="text-lg font-semibold">October summary</h2>
-        <ToggleGroup
-          aria-label="Period"
-          defaultSelectedKeys={[selectedPeriod]}
-          selectionMode="single"
-          variant="outline"
-        >
+        <h2 className="text-lg/6 font-semibold">October summary</h2>
+        <Tabs defaultSelectedKey={selectedPeriod}>
+          <TabsList aria-label="Period">
+            {periods.map((period) => (
+              <TabsTrigger className="px-3" id={period} key={period}>
+                {period}
+              </TabsTrigger>
+            ))}
+          </TabsList>
           {periods.map((period) => (
-            <ToggleGroupItem id={period} key={period}>
-              {period}
-            </ToggleGroupItem>
+            <TabsContent className="hidden" id={period} key={period} />
           ))}
-        </ToggleGroup>
+        </Tabs>
       </div>
-      <div className="grid grid-cols-2 gap-3 lg:grid-cols-4">
-        {totals.map(({ name, amount, change, icon: Icon }) => (
-          <Card key={name}>
-            <CardContent>
-              <p className="flex items-center justify-between text-xs text-muted-foreground">
-                {name}
-                <Icon aria-hidden="true" className="size-4" />
-              </p>
-              <p className="mt-1 text-2xl font-semibold tabular-nums">
-                {amount}
-              </p>
-              <p className="mt-1 text-xs text-muted-foreground">{change}</p>
-            </CardContent>
-          </Card>
-        ))}
-      </div>
+      <Card className="py-0">
+        <div className="grid grid-cols-2 divide-x lg:grid-cols-4">
+          {totals.map(({ name, amount, change }) => (
+            <div className="p-5" key={name}>
+              <p className="type-label text-muted-foreground">{name}</p>
+              <p className="mt-1 type-amount-lg">{amount}</p>
+              <p className="mt-2 text-xs text-muted-foreground">{change}</p>
+            </div>
+          ))}
+        </div>
+      </Card>
     </section>
   );
 }
 
 function Payments() {
   return (
-    <Card className="lg:col-span-2">
+    <Card className="gap-3 pb-0 lg:col-span-2">
       <CardHeader>
         <CardTitle>Recent payments</CardTitle>
         <CardDescription>The last three days</CardDescription>
@@ -244,27 +261,27 @@ function Payments() {
           </Button>
         </CardAction>
       </CardHeader>
-      <CardContent>
+      <CardContent className="border-t px-0">
         <Table aria-label="Recent payments">
           <TableHeader>
             <TableHead isRowHeader={true}>Description</TableHead>
             <TableHead>Group</TableHead>
             <TableHead>Day</TableHead>
-            <TableHead>State</TableHead>
+            <TableHead>Status</TableHead>
             <TableHead className="text-right">Amount</TableHead>
           </TableHeader>
           <TableBody>
             {payments.map(({ name, group, day, state, amount }) => (
               <TableRow id={name} key={name}>
-                <TableCell className="font-medium">{name}</TableCell>
+                <TableCell>{name}</TableCell>
                 <TableCell className="text-muted-foreground">{group}</TableCell>
                 <TableCell className="text-muted-foreground">{day}</TableCell>
                 <TableCell>
-                  <Badge variant={state === "Paid" ? "secondary" : "outline"}>
-                    {state}
-                  </Badge>
+                  {state === "Paid" ? null : (
+                    <Badge variant="outline">{state}</Badge>
+                  )}
                 </TableCell>
-                <TableCell className="text-right font-medium tabular-nums">
+                <TableCell className="text-right type-amount">
                   {amount}
                 </TableCell>
               </TableRow>
@@ -283,10 +300,10 @@ function SidePanels() {
         <CardHeader>
           <CardTitle>Budgets</CardTitle>
         </CardHeader>
-        <CardContent className="flex flex-col gap-3">
+        <CardContent className="flex flex-col gap-4">
           {budgets.map(({ name, used }) => (
             <div className="flex flex-col gap-1" key={name}>
-              <p className="flex justify-between text-xs">
+              <p className="flex justify-between type-label">
                 <span>{name}</span>
                 <span className="tabular-nums">{used}%</span>
               </p>
@@ -299,7 +316,7 @@ function SidePanels() {
         <CardHeader>
           <CardTitle>Quick entry</CardTitle>
         </CardHeader>
-        <CardContent className="flex flex-col gap-2">
+        <CardContent className="flex flex-col gap-3">
           <Input aria-label="Amount" placeholder="$0.00" />
           <Select aria-label="Group" className="w-full" placeholder="Group">
             <SelectTrigger>
@@ -310,7 +327,7 @@ function SidePanels() {
               <SelectItem>Home</SelectItem>
             </SelectContent>
           </Select>
-          <div className="flex justify-end gap-2">
+          <div className="mt-1 flex justify-end gap-2">
             <Button variant="outline">Clear</Button>
             <Button>Save</Button>
           </div>
@@ -322,12 +339,15 @@ function SidePanels() {
 
 function SamplePage() {
   return (
-    <div className="flex min-h-screen bg-background text-foreground">
+    <div
+      className="flex min-h-screen bg-background font-sans text-foreground"
+      data-testid="sample-font"
+    >
       <Navigation />
-      <main className="flex min-w-0 max-w-6xl flex-1 flex-col gap-6 p-8">
+      <main className="mx-auto flex w-full min-w-0 max-w-7xl flex-1 flex-col gap-10 px-12 pt-10 pb-16">
         <PageHeader />
         <Totals />
-        <div className="grid gap-4 lg:grid-cols-3">
+        <div className="grid gap-4 lg:grid-cols-3 lg:items-start">
           <Payments />
           <SidePanels />
         </div>
@@ -373,6 +393,25 @@ const Default: Story = {
       canvas.getByRole("progressbar", { name: "Food" }),
     ).toHaveAttribute("aria-valuenow", String(foodUsed));
     await expect(canvas.getByRole("textbox", { name: "Amount" })).toBeVisible();
+    // The text styles, each with what no Tailwind step gives alone.
+    await expect(
+      getComputedStyle(canvas.getByRole("heading", { level: 1 })).fontSize,
+    ).toBe(displaySize);
+    await expect(
+      getComputedStyle(canvas.getByText("$12,480.50")).fontVariantNumeric,
+    ).toBe(tabular);
+    await expect(
+      getComputedStyle(canvas.getByText("$12,480.50")).fontSize,
+    ).toBe(amountSize);
+    await expect(
+      getComputedStyle(recent.getByText("− $286.40")).fontVariantNumeric,
+    ).toBe(tabular);
+    // An app changes the font by one variable, which is what this checks.
+    canvasElement.style.setProperty("--font", "serif");
+    await expect(
+      getComputedStyle(canvas.getByTestId("sample-font")).fontFamily,
+    ).toBe("serif");
+    canvasElement.style.removeProperty("--font");
   },
 };
 

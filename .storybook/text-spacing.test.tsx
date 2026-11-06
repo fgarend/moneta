@@ -20,6 +20,7 @@ const hidden = "inset(50%)";
 // An area that scrolls lets everything be reached; any other has lost what does not fit.
 const reachable = ["auto", "scroll"];
 
+// The boxes that can lose a text, up to the first it can be scrolled to in, which keeps it within reach.
 function boxesAround(text: Node, root: Element): Element[] {
   const boxes: Element[] = [];
   for (
@@ -27,6 +28,10 @@ function boxesAround(text: Node, root: Element): Element[] {
     box && box !== root;
     box = box.parentElement
   ) {
+    const { overflowX, overflowY } = getComputedStyle(box);
+    if (reachable.includes(overflowX) || reachable.includes(overflowY)) {
+      break;
+    }
     boxes.push(box);
   }
   return boxes;

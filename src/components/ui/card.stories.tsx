@@ -17,6 +17,10 @@ const content = "Balance 1,250.00";
 const action = "Details";
 const footer = "Updated today";
 
+const titleSize = "15px";
+const descriptionSize = "13px";
+const cardSpacing = "20px";
+
 const meta = {
   title: "UI/Card",
   component: Card,
@@ -45,6 +49,18 @@ const Default: Story = {
     const canvas = within(canvasElement);
 
     await expect(canvas.getByText(title)).toBeVisible();
+    // The scale of text and space the theme sets, which Card reads.
+    await expect(getComputedStyle(canvas.getByText(title)).fontSize).toBe(
+      titleSize,
+    );
+    await expect(getComputedStyle(canvas.getByText(description)).fontSize).toBe(
+      descriptionSize,
+    );
+    await expect(
+      getComputedStyle(
+        canvasElement.querySelector('[data-slot="card"]') as Element,
+      ).paddingTop,
+    ).toBe(cardSpacing);
     await expect(canvas.getByText(description)).toBeVisible();
     await expect(canvas.getByText(content)).toBeVisible();
     await expect(canvas.getByText(footer)).toBeVisible();

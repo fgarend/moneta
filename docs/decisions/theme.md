@@ -16,6 +16,18 @@ The look Moneta has by default, which whoever uses it can replace. How an app re
 - **Controls are 36 px by default, 40 for a page's main actions and 32 for dense ones,** by each piece's `cva`, with `xs` left
   as shadcn has it. `docs/pieces.md` marks each edit.
 - **Gold is a variant of `Button`,** so an app names it and writes no colour.
+- **The font is Geist, in `--font`,** which `--font-sans` reads, so an app can change it. `--font-heading` stays as shadcn writes
+  it, costing nothing unused, so a piece that reads it later still finds it.
+- **A scale of text and of space,** so sizes are chosen once. Text, with line heights on a 4 px grid but the title's: 32/40 for a
+  page's title, 24/32 for an amount of note, 18/24 for a section, 15/22 for a card's title, 14/20 for the body, 13/20 for a
+  label and 12/16 for a caption. Space, in multiples of 4 px: 8 to 12 within a group, 16 to 20 in a card, 16 between cards,
+  40 between sections, and 40 to 48 around a page. Inside is smaller than between, so what belongs together reads together.
+- **One emphasis at each level.** 600 for titles and amounts of note, 500 for an amount in a row, 400 for the rest.
+- **Five text styles, internal to the pieces:** `type-display`, `type-amount-lg`, `type-amount`, `type-title` and
+  `type-label`. They are `@utility`, as shadcn's guide says, and Tailwind writes only those a piece uses, so an app on
+  `styles.css` reaches them through a piece. The rest of the scale is Tailwind's own steps.
+- **`Card` reads the scale, and has 20 px around its content.** **`Table` has a quiet header and 12 px rows,** with 20 px at each
+  end, so a table in a card lines up with the card's title.
 - **Dark is still shadcn's default,** until the roadmap's 4.5 designs it.
 
 ## Why
@@ -23,6 +35,11 @@ The look Moneta has by default, which whoever uses it can replace. How an app re
 - **Graphite and paper,** since the dark sidebar beside light content is what gives a screen its identity, and a white
   sidebar reads as any app on shadcn. An app that wants one changes `--sidebar-*`.
 - **One gold,** kept for little, so it still means something. It fails as text on paper, at 1.66:1, so it is a fill.
+- **A scale, and not sizes chosen one by one.** An earlier version of this page had an amount at 30 px above a 28 px title, and
+  spaces all alike, and read as unprofessional. **What it costs:** two edited pieces, and 13 and 15 px, which Tailwind has no
+  steps for.
+- **Internal text styles,** since an app is to end with no class of its own, and a name an app writes is a name to keep. **What
+  it costs:** an app on `styles.css` has no page title or amount in these styles until `PageHeader` and `Amount` arrive.
 - **Three heights.** **What it costs:** 8 edited files to merge when shadcn updates them, and an app has to ask for `lg` until a
   `PageHeader` does it.
 - **A stronger `--input`.** **What it costs:** a control's border is more marked than the prototype's, and `Switch`'s
@@ -34,6 +51,10 @@ The look Moneta has by default, which whoever uses it can replace. How an app re
   sample page on 2026-11-06.
 - **32 px, `aria-nova`'s default.** No edit, but a page's main action loses its presence.
 - **`--spacing`.** No edit, but the whole screen grew 14% taller, with rows and icons too.
+- **Twelve text styles,** as an earlier library had. Most of them only repeated Tailwind's steps.
+- **`type-overline`, capitals with wide tracking, for a group's title.** The prototype has it, but it reads as a template, so a plain
+  caption does the job.
+- **The text styles forced into `styles.css`.** 111 bytes, measured, but they would be names to keep forever.
 
 - **shadcn's neutrals with gold alone.** No work, but it still reads as shadcn.
 - **A white sidebar by default.** Calmer, but with less identity.
@@ -44,3 +65,4 @@ The look Moneta has by default, which whoever uses it can replace. How an app re
 
 - 2026-11-06: Written, with the light colours.
 - 2026-11-06: Control heights and the gold variant.
+- 2026-11-06: The font as a variable, and the scale of text and space.
