@@ -2,9 +2,12 @@
 
 **Now:** 3.3, the release's part of the pipeline.
 
+**The goal:** Moneta is the source of truth for components. An app consumes final pieces and builds
+its screens and regions from them, writing no class of its own. What it lacks is added here, not there.
+
 **The order:** first in use, then refined. Moneta starts as shadcn untouched, delivered as a
-package, so an app can use it from the start. The look and the reviewed pieces arrive afterwards,
-version by version.
+package, so an app can use it from the start. The look, the missing pieces and the reviews arrive
+afterwards, version by version, and an app's classes shrink as they do.
 
 What needs to be created, in order. The order follows what is needed next, so a new
 need can change it. Open questions are asked when their step arrives, and each shows
@@ -62,13 +65,20 @@ Done: 3.4, one import, with ready-made styles, as `docs/decisions/delivery.md` s
 - **3.2 · Release 0.1.0,** by the owner, with how to install and use it, and which pieces are raw. To
   ask: whether the gallery is published with it (recommended: not yet, as it has only `button`).
 
-Dropped: 3.1, `Sidebar`, `AppLayout` and providers, moved to Deferred for a study of its own.
+Dropped: 3.1, `Sidebar`, `AppLayout` and providers, moved to 4.6, after a study of its own.
 
-## 4. Refinement
+## 4. Final pieces
+
+**Done when:** an app can build every screen from Moneta's pieces with no class of its own, and leaves
+Tailwind for `styles.css`. Until then, it keeps Tailwind only for the classes it still writes.
+
+**The measure:** the classes an app's screens write. On a real app on 2026-11-06, 1,683 uses in 47 of its
+59 screen files: 606 of text, 548 of layout, 192 of space and size, 140 of colour and surface, and 197
+others not sorted. Its own pieces beyond shadcn's also come here, as they hold no word of its domain.
 
 From here on, each change is a version, and an app updates when it wants. The look comes first, as
-it reaches every piece at once, and pieces follow as something needs them. Each item goes through
-the rule, with shadcn's name, and holds no word of any one app's domain. Where a reference
+it reaches every piece at once, and the order after it follows what is needed next. Each item goes
+through the rule, with shadcn's name where it has one, and holds no word of any one app's domain. Where a reference
 disagrees with this map, it is decided as the piece arrives. Stories that already state what must
 hold come over with each family. No reviewed piece has a default text, so shadcn's written strings
 become props.
@@ -98,24 +108,46 @@ with what is a real fault fixed as a recorded edit.
   - How many own text styles (recommended: the fewest a visual test justifies).
   - shadcn's focus rule, widened, with no gold halo (recommended: yes, after testing
     menus and options, mouse focus, and focus returning from a dialog).
+- **4.6 (was 3.1) · `Sidebar`, `AppLayout` and providers,** starting with a study, which is what this
+  item asks first: how each is defined, and where it lives. `sidebar` stayed out of the first delivery
+  for this. Until then, an app keeps what it has for its shell. What is known so far:
+  - shadcn's sidebar lacks `<nav>`, lists, `aria-current` and a skip link. Its trigger lacks
+    `aria-expanded`, its count sits outside the link's name, and it writes a cookie it
+    never reads. It loses the current page in forced colours.
+  - Esc does not close its mobile sheet from a link with a `tooltip`, and the sheet stays
+    open after navigating.
+  - An empty navigation and a tooltip on a collapsed item are to be settled.
+  - A check for reduced motion arrives with it, as shadcn's files have no `motion-reduce`.
+  - `use-mobile` falls under the coverage of `stories`, so it needs a story, or an exclusion.
+  - Its gradient and glow are to be asked (recommended: yes, by eye).
+  - To ask: links through whichever router is used (recommended: `RouterProvider`, after trying
+    `RouterConfig`, as `createLink` on a sidebar button reloaded the page on Enter).
+- **4.7 · Layout and text,** which shadcn does not have and most of an app's classes do: what replaces
+  `flex`, `gap-*` and `text-*`. Own code, the rule's third step, so a page shows the need first. To ask:
+  which pieces and their names, and how far their props go (recommended: the fewest that remove the most
+  classes, against a mini-language of layout to maintain).
 - **4.1 · Display.** Badge, deciding its finance colours on a dark surface, and its
   fixed height against text spacing. Card, Section, Table, weighing a `grid` role, Avatar
   with its group, Alert, Item, whose group has a list role with no list items, Separator,
   Stat and DescriptionList. Tables on phones are decided with the first table.
 - **4.2 · Actions and forms.** Button's variants, PageHeader, Input, InputGroup, Textarea,
   Field, which does not link its description or error, Select, Checkbox, which draws a
-  check when indeterminate, RadioGroup, Switch, Toggle, ToggleGroup, DateField, SearchField
-  and ChoiceCard. Field decides the contrast of the control's border against the 3:1 of
+  check when indeterminate, RadioGroup, Switch, Toggle, ToggleGroup, DateField, SearchField,
+  FilePicker, ChoiceCard, and `combobox` after a study like 4.6's. Field decides the contrast of the control's border against the 3:1 of
   WCAG 1.4.11. ToggleGroup weighs a segmented control against a radio in line.
 - **4.3 · Overlays.** Dialog, Sheet, Popover, DropdownMenu and Tooltip.
 - **4.4 · The rest.** Tabs, whose inactive text fails contrast through opacity and whose
   fixed height fails text spacing. Progress, Empty, Skeleton, Spinner, Breadcrumb,
-  Pagination, Collapsible, Calendar, IconTile, StatGroup and AllocationBar.
+  Pagination, Collapsible, IconTile, StatGroup and AllocationBar, and `calendar` after a study like
+  4.6's.
+- **4.8 · Charts.** Chart, with shadcn's `chart-1` to `chart-5`, whose marks need 3:1 against the surface,
+  under WCAG 1.4.11. To ask: where `recharts` goes (recommended: an entry of its own).
 
 Not to build: Sparkline, BottomNav (recommended, to confirm when a page first needs a
 bottom navigation), Accordion, Carousel, Command, Menubar, AI pieces and a TanStack table.
 
-Not placed yet, weighed if something needs them: FilePicker, KpiStrip and TickerChip.
+Not placed yet, weighed if something needs them: KpiStrip and TickerChip. The registry's other pieces
+that stayed out, in `docs/decisions/base.md`, enter the same way.
 
 ## 5. Money
 
@@ -148,9 +180,6 @@ No order between them. Each becomes an item when its time comes.
 - **The scale of the whole system.** A preference for larger text belongs to the whole
   system. Tailwind's spacing in `rem` answers part of it.
 - **Below the medium breakpoint in the screenshots.** They run at one width.
-- **Charts' colours and Chart.** shadcn has `chart-1` to `chart-5`, and their marks need
-  3:1 against the surface, under WCAG 1.4.11. To ask, with the first chart: where
-  `recharts` goes (recommended: an entry of its own).
 - **A top bar that stays in view.** When something needs it.
 - **Layers in the gallery.** Foundations, and groups beyond components. The name `gold`.
 - **Sizes and names to settle.** The icon's numeric size, and the tooltip's width and
@@ -172,20 +201,6 @@ No order between them. Each becomes an item when its time comes.
   which is a long regular expression of our own. It is a nursery rule today, and whether it finds the
   same classes was not tried. Weighed with the first own piece that has classes.
 - **pnpm's update notice.** `updateNotifier` turns it off.
-- **`sidebar`, `combobox` and `calendar`.** They stay out of the first delivery, to be studied with
-  time: how each is defined, and where it lives. Until then, an app composes what it needs locally
-  from the base pieces. `AppLayout` and the providers go with them. What is known so far:
-  - shadcn's sidebar lacks `<nav>`, lists, `aria-current` and a skip link. Its trigger lacks
-    `aria-expanded`, its count sits outside the link's name, and it writes a cookie it
-    never reads. It loses the current page in forced colours.
-  - Esc does not close its mobile sheet from a link with a `tooltip`, and the sheet stays
-    open after navigating.
-  - An empty navigation and a tooltip on a collapsed item are to be settled.
-  - A check for reduced motion arrives with it, as shadcn's files have no `motion-reduce`.
-  - `use-mobile` falls under the coverage of `stories`, so it needs a story, or an exclusion.
-  - Its gradient and glow are to be asked (recommended: yes, by eye).
-  - To ask: links through whichever router is used (recommended: `RouterProvider`, after trying
-    `RouterConfig`, as `createLink` on a sidebar button reloaded the page on Enter).
 - **The lowest version of each peer in `package`.** It tests only the version in
   `devDependencies`, so the floor of a range is a promise. `react` 19.0.0 was tried once, on
   2026-11-05, with only the minimal `Button`. Weighed when there are more pieces.

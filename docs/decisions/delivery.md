@@ -11,7 +11,7 @@ Where the library lives, how it is received, and under what terms.
 - **Pieces are imported by path,** as `@fgarend/moneta/ui/button`. There is no root entry.
 - **The usual way is one import,** `import "@fgarend/moneta/styles.css";`, with ready-made styles and the
   font. An app needs no Tailwind and no settings, and changes the look by redefining the theme's variables.
-- **An app with Tailwind that composes its own pieces** uses `@import "tailwindcss";` and then
+- **An app that still writes Tailwind's classes** uses `@import "tailwindcss";` and then
   `@import "@fgarend/moneta/theme.css";`. Without Tailwind first, the build passes and no class arrives.
   `@fgarend/moneta/fonts.css` is optional there. The theme also sets the page's border colour, background, text
   colour and font, and the dark mode through a `.dark` class, as shadcn's does.

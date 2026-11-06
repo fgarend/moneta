@@ -18,6 +18,9 @@ How decisions are kept, and how the work moves.
 
 - **One family of pieces is one roadmap item.** It may take several commits.
 - **A release comes when something needs one,** not per component.
+- **Moneta is the source of truth for components.** An app consumes final pieces, builds its screens and
+  regions from them, and writes no class of its own in the end. What it lacks is added here. **What it
+  costs:** own pieces shadcn does not have, such as layout and text, and less freedom in a screen.
 - **First in use, then refined.** Moneta starts as shadcn untouched, as a package, and the look and
   the review of each piece arrive version by version.
 - **A shadcn piece is raw until reviewed,** and listed with its known gaps. 1.0 needs every piece
@@ -50,6 +53,8 @@ rest.
 - **A single file.** It would grow without a shape, and mix unrelated topics.
 - **Deciding the pipeline tool by tool.** It would spend time on tools that have no
   opinion about the base.
+- **An app with Tailwind for good.** It is what shadcn expects, and it needs no pieces of layout, but each
+  screen decides its own spacing and colour.
 - **The look before the first use.** The piece is finished sooner, but what fails is found last.
 - **Reviewing the pieces an app needs before the first release.** Safer, but it delays first use
   by a theme, stories and edits per piece.
@@ -62,4 +67,5 @@ rest.
 - 2026-11-04: Written, with the repository.
 - 2026-11-04: The list of files moved to `README.md`, the index of this folder.
 - 2026-11-05: The release's part waits until just before its first use.
+- 2026-11-06: Moneta as the source of truth for components.
 - 2026-11-06: First in use, then refined. Raw pieces, and a fixed message in place of tags.

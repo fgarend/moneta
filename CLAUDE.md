@@ -1,8 +1,10 @@
 # Working on Moneta
 
 Moneta is a component library for money interfaces, on shadcn, in React and
-TypeScript. It is generic, and meant to be reused by any app. It is built in small
-steps, each decided with the user before it is made.
+TypeScript. It is generic, and meant to be reused by any app. It is the source of truth
+for components: an app consumes final pieces and builds its screens from them, and what
+it lacks is added here. It is built in small steps, each decided with the user before it
+is made.
 
 ## Read first
 
