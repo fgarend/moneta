@@ -34,6 +34,15 @@ services:
       - ../.package:/app/.package
       - pnpm-store:/pnpm-store
 
+  # The same tools, building the gallery: the code stays read-only, and the site is the only folder it may write.
+  gallery:
+    image: moneta:deps
+    build: { <<: *build, target: deps }
+    volumes:
+      - ..:/app:ro
+      - /app/node_modules
+      - ../storybook-static:/app/storybook-static
+
   # The same tools, writing the code: make format and make update-screenshots.
   tools-write:
     image: moneta:deps

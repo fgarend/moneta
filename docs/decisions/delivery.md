@@ -8,6 +8,9 @@ Where the library lives, how it is received, and under what terms.
 - **The package is `@fgarend/moneta`, delivered by a release's tarball,** which the
   `package.json` of whoever uses it points to on GitHub. It is not published to a
   registry. A local link is left out until the daily work needs it.
+- **A release is automatic,** from a commit `chore: release vX.Y.Z` on `main`, once every box has passed, as
+  `docs/releasing.md` says. It publishes the tarball the `package` box tested, with no second build.
+- **Each release publishes the gallery,** on GitHub Pages, around Storybook's own default look.
 - **Pieces are imported by path,** as `@fgarend/moneta/ui/button`. There is no root entry.
 - **The usual way is one import,** `import "@fgarend/moneta/styles.css";`, with ready-made styles and the
   font. An app needs no Tailwind and no settings, and changes the look by redefining the theme's variables.
@@ -41,7 +44,7 @@ on 2026-11-04.
 | Workflows | Read-only by default, and they cannot approve pull requests |
 | Security | Secret scanning, push protection, private vulnerability reporting and Dependabot alerts on |
 
-The Pages site is set up with the workflow that publishes it.
+Pages is turned on once, as `docs/releasing.md` says.
 
 Dependabot alerts work today on behaviour GitHub does not promise. Its documentation says its
 dependency graph does not read a lockfile written as two YAML documents, pnpm 12's default with
@@ -54,6 +57,13 @@ looks every week.
 - **A tarball,** because it needs no registry, and it can be pinned by address. **What it
   costs:** `dist/` is not in git, so a commit or a branch cannot be installed from GitHub, only
   a release or a tarball built locally.
+- **An automatic release from the first one,** since each change becomes a version from milestone 4 on. A rehearsal
+  at `v0.0.1` spends a number that does not matter on what can only run for real. **What it costs:** a workflow
+  written before it could run, and a `v0.0.1` that stays on the list of releases forever.
+- **The tarball the box tested,** so what an app installs is what passed. **What it costs:** one more step in `ci.yml`,
+  and the two workflows now share an artifact's name.
+- **The gallery with each release,** so the pieces can be seen from a link, with no clone and no Docker. **What it
+  costs:** one more job, two more actions and one more place to fail, after the version is already out.
 - **One import,** since using Moneta should take the dependency and one line, as Radix Themes does.
   **What it costs:** a class that is not in the ready-made sheet does not exist, so an app composing with
   classes needs the second way, and an app with another font carries the Geist unless it does too.
@@ -82,6 +92,10 @@ looks every week.
   open, but protects little, and mixes two terms.
 - **A parent component that imports the styles.** It would need rendering, and a component importing CSS
   fails in Node. It may come if something other than styles needs it, such as a router.
+- **The first release by hand,** with `gh release create` on the tarball of `make package`. Less to write before it
+  could run, but nothing ties the file to a commit, and the work comes back at the second release.
+- **Building the tarball again in the release.** The release stands apart, but runs everything twice, and what is
+  published is not the file that was tested.
 - **A root entry.** Shorter imports, but one more file to keep, for every piece.
 - **`^19.3.1`, only the version tested.** It would turn away earlier versions of React 19 with
   no reason today.
@@ -90,8 +104,9 @@ looks every week.
 
 ## Not tested yet
 
-The workflows, a release's tarball and the Pages site from this repository. They run
-only on the owner's push.
+All of `release.yml`, which runs only on the owner's push of a release commit. In particular: how GitHub draws the
+skipped job of a reusable workflow, a run's artifact read across that call, creating a `v*` tag under its ruleset, a
+failure halfway through `publish`, and Pages. `actionlint` found nothing on 2026-11-06.
 
 ## History
 
@@ -101,3 +116,4 @@ only on the owner's push.
 - 2026-11-06: shadcn's notice, React Aria as a peer, and the helpers.
 - 2026-11-06: The theme, the font and Tailwind as a peer.
 - 2026-11-06: One import, with ready-made styles.
+- 2026-11-06: An automatic release, of the tested tarball, with the gallery.

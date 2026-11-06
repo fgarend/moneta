@@ -24,3 +24,6 @@ coverage/
 # What make package writes: the build, and the tarball it tested, which is what gets delivered
 dist/
 .package/
+
+# What make storybook-build writes: the gallery a release publishes
+storybook-static/

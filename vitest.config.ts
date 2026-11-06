@@ -12,7 +12,7 @@ import {
 type Browser = "chromium" | "firefox" | "webkit";
 
 const notCode = ["**/*.test.{ts,tsx}", "**/*.stories.tsx", "**/*.d.ts"];
-const logic = ["src/lib/**/*.{ts,tsx}"];
+const logic = ["src/lib/**/*.{ts,tsx}", "scripts/**/*.ts"];
 // What each check's coverage measures, at 100%, each by its own tests, with nothing run twice. stories names what it
 // leaves out, so a new folder cannot go unmeasured. shadcn's files in ui/ are not ours to cover.
 const coverageAreas = {
@@ -83,7 +83,7 @@ function storyProjects(): TestProjectInlineConfiguration[] {
 const nodeProject: TestProjectInlineConfiguration = {
   test: {
     name: "node",
-    include: ["src/**/*.test.ts", "test/**/*.test.ts"],
+    include: ["src/**/*.test.ts", "scripts/**/*.test.ts", "test/**/*.test.ts"],
     exclude: ["test/consumer/**"],
   },
 };

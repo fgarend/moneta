@@ -5,11 +5,12 @@
 COMPOSE := docker compose --env-file infra/settings.env -f infra/compose.yaml
 # Runs a command in a service, building its image first. The code is mounted read-only, and the folders mounted over it
 # must exist in it first, even in a fresh clone.
-RUN := mkdir -p node_modules .vitest coverage dist .package && $(COMPOSE) run --rm --build
+RUN := mkdir -p node_modules .vitest coverage dist .package storybook-static && $(COMPOSE) run --rm --build
 # What make check runs, fastest first. .github/workflows/ci.yml has one box per name.
 CHECKS := lint types test stories package
 
-.PHONY: help check $(CHECKS) install format update-screenshots storybook images clean outdated audit
+.PHONY: help check $(CHECKS) check-release release-notes storybook-build install format update-screenshots storybook images clean \
+	outdated audit
 
 help: ## List the commands
 	@awk 'BEGIN {FS = ":.*## "} /^##@ / {printf "\n%s\n", substr($$0, 5); next} \
@@ -31,7 +32,7 @@ lint: ## Formatting and lint rules, with Biome
 types: ## The types, with TypeScript: the library's code, then everything around it
 	$(RUN) tools sh -c 'pnpm exec tsc && pnpm exec tsc -p tsconfig.tools.json'
 
-test: ## Logic and the repository's checks, in Node, with the coverage of src/lib
+test: ## Logic and the repository's checks, in Node, with the coverage of src/lib and scripts
 	$(RUN) tools pnpm exec vitest run --coverage
 
 stories: ## Every story in the browsers, with axe, its screenshot and the coverage of everything else but ui/
@@ -42,6 +43,18 @@ package: ## The build, packed into .package, with that tarball installed and che
 		mkdir dist/styles && cp src/styles/*.css dist/styles/ && \
 		pnpm exec tailwindcss -i dist/styles/build.css -o dist/styles/compiled.css --minify && rm dist/styles/build.css && \
 		pnpm pack --pack-destination .package && pnpm exec vitest run --mode package && ls .package/*'
+
+##@ Release
+
+check-release: ## Whether package.json's version can be released. VERSION=X.Y.Z also compares it with that
+	$(RUN) tools node scripts/check-release.ts $(VERSION)
+
+release-notes: ## Print a version's notes from CHANGELOG.md, and nothing else on standard output. VERSION=X.Y.Z
+	@$(COMPOSE) build --quiet tools >&2
+	@mkdir -p .vitest coverage && $(COMPOSE) run --rm -T tools node scripts/extract-release-notes.ts $(VERSION)
+
+storybook-build: ## Build the gallery as a static site in storybook-static, as each release publishes it
+	$(RUN) gallery sh -c 'rm -rf storybook-static/* && pnpm exec storybook build --output-dir storybook-static'
 
 ##@ Development
 

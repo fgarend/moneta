@@ -73,6 +73,16 @@
       "linter": { "rules": { "correctness": { "noNodejsModules": "off" } } }
     },
     {
+      // The release's scripts run on Node, read its files and answer on the command line.
+      "includes": ["scripts/**"],
+      "linter": {
+        "rules": {
+          "correctness": { "noNodejsModules": "off" },
+          "suspicious": { "noConsole": "off" }
+        }
+      }
+    },
+    {
       // shadcn's files stay as they come, so an update merges cleanly. Each had one read of its findings on arrival.
       "includes": [
         "src/components/ui/*.tsx",

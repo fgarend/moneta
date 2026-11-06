@@ -21,6 +21,8 @@ function measuredBy(path: string): string[] {
 describe("what each check's coverage measures", () => {
   it.each([
     ["src/lib/format.ts", ["test"]],
+    ["scripts/check-release.ts", ["test"]],
+    ["scripts/check-release.test.ts", []],
     ["src/components/amount.tsx", ["stories"]],
     ["src/hooks/use-thing.ts", ["stories"]],
     // A folder nobody has thought of yet still counts.

@@ -1,6 +1,6 @@
 # Roadmap
 
-**Now:** 3.3, the release's part of the pipeline.
+**Now:** 3.7, a rehearsal of the release.
 
 **The goal:** Moneta is the source of truth for components. An app consumes final pieces and builds
 its screens and regions from them, writing no class of its own. What it lacks is added here, not there.
@@ -48,21 +48,11 @@ What an app does with it happens in that app, and is not tracked here.
 
 Done: 3.4, one import, with ready-made styles, as `docs/decisions/delivery.md` says.
 3.5, a story for each of the 41 pieces, with what they measure in `docs/pieces.md`.
+3.3, the release's part of the pipeline, as `docs/releasing.md` and `docs/decisions/delivery.md` say.
 
-- **3.3 · The release's part of the pipeline,** just before its first use. `check-release`,
-  `extract-release-notes`, `docs/releasing.md` and the changelog. Local tests pass, and the rest
-  is declared untested until the owner's push. To ask: whether the first release goes by hand, with
-  `gh release create` on the tarball of `make package`, and all of this waits until releases repeat
-  (recommended: yes).
-  - **A release is automatic.** A push to `main` whose last commit starts with
-    `chore: release v` calls `release.yml` from `ci.yml`, in the same run, only if every
-    box passed: `verify`, `build`, `publish`, `pages`. Only `publish` and `pages` write.
-    `verify` refuses a version that differs from `package.json`, already has a tag, or
-    has no changelog ready, and runs the audit. The tag is created by `publish`, so a
-    failed check spends no version.
-  - Only pull requests cancel an earlier run, so a newer push never cuts a release.
-  - Untested until the push: how GitHub draws a skipped reusable workflow, the
-    expression that cancels only pull requests, and a failure halfway through `publish`.
+- **3.7 · A rehearsal, `v0.0.1`,** so the first run of `release.yml` spends a number that does not matter. The owner
+  turns Pages on, as `docs/releasing.md` says, then a commit `chore: release v0.0.1` runs the whole path. What
+  `docs/decisions/delivery.md` lists as not tested yet is looked at there. If it fails, `v0.0.2`.
 - **3.6 · What is written matches what exists,** before the first release. `README.md` says there is no code,
   goes in the tarball, and its links to `docs/` die there, so it gets how to install and use. `package.json` is at
   `0.0.0`, and no document says when it changes in a release by hand. `docs/accessibility.md` has old item numbers
@@ -73,8 +63,7 @@ Done: 3.4, one import, with ready-made styles, as `docs/decisions/delivery.md` s
   what `styles.css` cannot do, are not written, and were reported by a review, to be measured here, as is yarn
   1 and 4 not installing the peers. `delivery.md` says an app changes the look by redefining the theme's
   variables, but `--font-sans` is not one of them, as `@theme inline` writes the font literally in `compiled.css`.
-- **3.2 · Release 0.1.0,** by the owner, with how to install and use it, and which pieces are raw. To
-  ask: whether the gallery is published with it (recommended: to weigh again, now that every piece has a story).
+- **3.2 · Release 0.1.0,** by the owner, with how to install and use it, and which pieces are raw.
 
 Dropped: 3.1, `Sidebar`, `AppLayout` and providers, moved to 4.6, after a study of its own.
 
@@ -208,8 +197,10 @@ No order between them. Each becomes an item when its time comes.
   moves. Vitest also warns of 11 `SIGTERM` listeners, with this many browser projects.
 - **`make watch`.** Repeats the tests on each saved file. Weighed when running all of
   `make stories` to check one test slows the work, with the time measured.
-- **The look of Storybook's own interface.** The colours, fonts and mark around the stories.
-  Weighed before the gallery is published, in 3.2.
+- **The look of Storybook's own interface.** The colours, fonts and mark around the stories. The gallery
+  goes out with Storybook's default, and this is weighed again with the theme, in 4.5.
+- **`actionlint`.** Biome reads a workflow's YAML, but not GitHub's rules. It ran once by hand on 2026-11-06, with
+  nothing found, and would be one more image to keep. Weighed if a workflow fails on something it finds.
 - **Biome's `noTailwindArbitraryValue`.** It may replace the class scan in `test/pieces.test.ts`,
   which is a long regular expression of our own. It is a nursery rule today, and whether it finds the
   same classes was not tried. Weighed with the first own piece that has classes.

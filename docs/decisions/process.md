@@ -36,10 +36,9 @@ How decisions are kept, and how the work moves.
   of earlier decisions. A group's review shows: the unchanged files as a list, the
   edited ones as a diff against their origin, what stayed behind with its reason, and
   the commands' results.
-- **The release's part of the pipeline waits until just before its first use,** the one
+- **The release's part of the pipeline waited until just before its first use,** the one
   exception to arriving in one step. A tag cannot be deleted, so it could only run for real by
-  spending a version, and there is nothing to release before then. **What it costs:** the
-  pipeline is incomplete until then, and its design waits in the roadmap.
+  spending a version, and there was nothing to release before then.
 
 ## Why
 
@@ -69,3 +68,4 @@ rest.
 - 2026-11-05: The release's part waits until just before its first use.
 - 2026-11-06: Moneta as the source of truth for components.
 - 2026-11-06: First in use, then refined. Raw pieces, and a fixed message in place of tags.
+- 2026-11-06: The release's part arrived.

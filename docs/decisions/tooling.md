@@ -29,7 +29,7 @@ How the repository runs, and how its versions are chosen.
   Chromium, Firefox and WebKit. `test` runs logic and the repository's checks in Node, and
   `stories` everything in a browser, so nothing runs twice.
 - **Coverage is 100% on own pieces, each part measured by one check:** `test` measures
-  `src/lib/`, and `stories` everything else but `ui/`, naming what it leaves out, so a new
+  `src/lib/` and `scripts/`, and `stories` everything else but `ui/`, naming what it leaves out, so a new
   folder cannot go unmeasured. Until there is code of that kind, it measures nothing, and its
   rules were proved on planted files.
 - **The build is TypeScript alone,** one file per module, with no bundler, and `dist/` stays
@@ -148,3 +148,4 @@ How the repository runs, and how its versions are chosen.
 - 2026-11-06: The app of `package` builds with Vite.
 - 2026-11-06: Tailwind's command line for the ready-made style sheet.
 - 2026-11-06: A story per file in `ui/`, raw pieces too.
+- 2026-11-06: The release's scripts, covered with `src/lib/` by `test`.

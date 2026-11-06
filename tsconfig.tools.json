@@ -1,7 +1,13 @@
 // TypeScript settings for what runs around the library: the tests, the stories and the settings of both.
 {
   "extends": "./tsconfig.json",
-  "include": ["test", "vitest.config.ts", ".storybook", "src/**/*.stories.tsx"],
+  "include": [
+    "test",
+    "scripts",
+    "vitest.config.ts",
+    ".storybook",
+    "src/**/*.stories.tsx"
+  ],
   "exclude": [],
   "compilerOptions": {
     // Node's APIs, and Vite's client types, which declare import.meta.glob.
