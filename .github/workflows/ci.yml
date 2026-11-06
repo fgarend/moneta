@@ -41,6 +41,7 @@ jobs:
         with:
           name: vitest-attachments
           path: .vitest/attachments/
+          include-hidden-files: true
           if-no-files-found: ignore
           retention-days: 7
       # The tarball this box has just tested, so what is published is what passed.
@@ -50,6 +51,7 @@ jobs:
         with:
           name: package
           path: .package/*.tgz
+          include-hidden-files: true
           if-no-files-found: error
           retention-days: 7
 

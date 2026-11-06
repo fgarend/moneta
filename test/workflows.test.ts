@@ -12,6 +12,10 @@ const versionNote = /^ # v\d/u;
 const jobHeading = /^ {2}(?<job>[\w-]+):$/gmu;
 const writes = /^\s+[\w-]+: write$/mu;
 const workflows = ["audit", "ci", "release"];
+const uploadStep =
+  /uses: actions\/upload-artifact@[\s\S]*?(?=\n\s*- name:|\n\n|$)/gu;
+const hiddenPath = /^\s+path: \./mu;
+const keepsHidden = /^\s+include-hidden-files: true$/mu;
 
 async function namesIn(file: string, line: RegExp): Promise<string[]> {
   const text = await readFile(new URL(file, root), "utf8");
@@ -45,6 +49,19 @@ it.each(workflows)("pins each action of %s to a commit", async (name) => {
     .map(({ action }) => action);
 
   expect(loose).toEqual([]);
+});
+
+// By default the action leaves out any folder starting with a dot, and stops the run or, set to ignore, says nothing.
+it.each(workflows)("keeps a hidden folder that %s uploads", async (name) => {
+  const text = await readFile(
+    new URL(`.github/workflows/${name}.yml`, root),
+    "utf8",
+  );
+  const lost = [...text.matchAll(uploadStep)]
+    .map(([step]) => step)
+    .filter((step) => hiddenPath.test(step) && !keepsHidden.test(step));
+
+  expect(lost).toEqual([]);
 });
 
 // Publishing runs none of the project's code, and everything else runs with no right to write.

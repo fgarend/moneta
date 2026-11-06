@@ -36,7 +36,9 @@ these are Moneta's rules for that phase, which the pipeline cannot check:
 
 ## When a release run fails
 
-- **Before `publish`:** nothing was spent. Fix it in a new commit, whose message is again `chore: release vX.Y.Z`.
+- **Before `publish`:** nothing was spent, and the version stays free. Fix it in its own commit, then release again with
+  an empty commit, as a release is the last commit of a push: `git commit --allow-empty -m "chore: release vX.Y.Z"`.
+  Push the two together.
 - **In `publish`:** with no tag, re-run the failed jobs of the run, and delete the draft left behind on the releases page.
 - **In `pages`:** the release is out. Re-run the failed job, within a day, while the gallery's artifact lasts. After
   that, the next release publishes the gallery.
