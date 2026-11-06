@@ -18,9 +18,9 @@ What Moneta aims for, and how far its checks reach. How each criterion is checke
   checks from having a story, except for what an overlay draws when open, which they do not
   see until the roadmap's 4.3. Forced colours run in Chromium and Firefox, since WebKit's
   emulation answers the media query but forces no colours.
-- **Text spacing counts what the spacing itself pushes out,** comparing each element with and
-  without it. A touch area larger than its piece, or a fixed height with padding, overflows the
-  same with no spacing, and no text is lost.
+- **Text spacing measures where each text sits,** with the spacing and without it, against the
+  boxes around it that do not scroll. Only text counts, as that is what the criterion asks, so an
+  icon cut by a fixed height goes unseen.
 
 ## Why
 
@@ -40,9 +40,12 @@ run that passes says little by itself, so a list has to say what is left uncheck
 - **No stated level.** Nothing to check a piece against.
 - **Every raw piece only warns.** Simple, but nothing would ever fail for 40 pieces, and a clean
   one could get worse unseen.
-- **Checking only that an element's content fits it.** It reported 9 pieces, none with text lost.
+- **Checking that an element's content fits it.** It reported 9 pieces on 2026-11-06, none with text
+  lost, since a touch area or a fixed height with padding overflows the same with no spacing.
+- **Comparing that overflow with and without the spacing.** No false reports, but a text cut in a piece
+  whose touch area already overflows further went unseen, as a plant showed.
 
 ## History
 
 - 2026-11-05: Written, with the stories.
-- 2026-11-06: Gaps of raw pieces let off by check, and text spacing compared with and without it.
+- 2026-11-06: Gaps of raw pieces let off by check, and text spacing measured on the text.

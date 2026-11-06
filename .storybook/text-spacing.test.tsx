@@ -1,5 +1,5 @@
-// Every story with WCAG 1.4.12's text spacing, in every browser: nothing may be cut or spill out, so a piece gets this
-// check from having a story, with no test of its own.
+// Every story with WCAG 1.4.12's text spacing, in every browser: no text may be pushed out of a box around it, so a
+// piece gets this check from having a story, with no test of its own.
 import { expect, it } from "vitest";
 import { render } from "vitest-browser-react";
 import { stories } from "./stories.js";
@@ -20,19 +20,35 @@ const hidden = "inset(50%)";
 // An area that scrolls lets everything be reached; any other has lost what does not fit.
 const reachable = ["auto", "scroll"];
 
-// How far an element's content goes past it, where that loses something.
-function overflow(element: Element): number {
-  const { clipPath, overflowX, overflowY } = getComputedStyle(element);
-  if (clipPath === hidden) {
-    return 0;
+function boxesAround(text: Node, root: Element): Element[] {
+  const boxes: Element[] = [];
+  for (
+    let box = text.parentElement;
+    box && box !== root;
+    box = box.parentElement
+  ) {
+    boxes.push(box);
   }
+  return boxes;
+}
+
+function rectOf(text: Node): DOMRect {
+  const range = document.createRange();
+  range.selectNodeContents(text);
+  return range.getBoundingClientRect();
+}
+
+// How far a text goes past a box around it, where that loses it.
+function past(text: DOMRect, box: Element): number {
+  const { overflowX, overflowY } = getComputedStyle(box);
+  const edge = box.getBoundingClientRect();
   return Math.max(
     reachable.includes(overflowX)
       ? 0
-      : element.scrollWidth - element.clientWidth,
+      : Math.max(text.right - edge.right, edge.left - text.left),
     reachable.includes(overflowY)
       ? 0
-      : element.scrollHeight - element.clientHeight,
+      : Math.max(text.bottom - edge.bottom, edge.top - text.top),
   );
 }
 
@@ -41,18 +57,31 @@ const style = document.createElement("style");
 style.textContent = spacing;
 document.head.append(style);
 
-// Only what the spacing itself pushes out counts: a touch area larger than its piece, or a fixed height with padding,
-// overflows the same with no spacing at all, and loses no text.
-function cutBySpacing(root: Element): string[] {
-  const elements = [...root.querySelectorAll("*")].filter(
-    (element) => element.clientWidth > 0,
-  );
+// Only what the spacing itself pushes out counts, as a text may already pass a box, closed in a panel that opens.
+function cutBySpacing(root: Element): (string | null)[] {
+  const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
+  const texts: Node[] = [];
+  while (walker.nextNode()) {
+    const boxes = boxesAround(walker.currentNode, root);
+    const shown = !boxes.some(
+      (box) => getComputedStyle(box).clipPath === hidden,
+    );
+    if (shown && rectOf(walker.currentNode).width > 0) {
+      texts.push(walker.currentNode);
+    }
+  }
+  const distance = (text: Node): number =>
+    Math.max(
+      0,
+      ...boxesAround(text, root).map((box) => past(rectOf(text), box)),
+    );
+
   style.disabled = true;
-  const before = elements.map(overflow);
+  const before = texts.map(distance);
   style.disabled = false;
-  return elements
-    .filter((element, index) => overflow(element) > (before[index] ?? 0) + 1)
-    .map((element) => element.outerHTML);
+  return texts
+    .filter((text, index) => distance(text) > (before[index] ?? 0) + 1)
+    .map((text) => text.textContent);
 }
 
 it.each(stories.map((story) => [story.id, story] as const))(
