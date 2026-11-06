@@ -55,7 +55,7 @@ A piece with no gap listed may still have some.
 | `scroll-area` | raw | **axe:** takes no focus when nothing in it can, so the keyboard cannot scroll it |
 | `select` | raw | **forced colours:** the chevron keeps its own colour, in Chromium |
 | `separator` | raw | |
-| `sheet` | raw | **Default text:** "Close". **To confirm:** Esc from a link with a `tooltip` |
+| `sheet` | raw | **Default text:** "Close" |
 | `skeleton` | raw | |
 | `slider` | raw | **Code:** drops its children. **Lint:** an array index as a key |
 | `spinner` | raw | **Default text:** "Loading". **Code:** spins with no regard for reduced motion |
@@ -65,4 +65,4 @@ A piece with no gap listed may still have some.
 | `textarea` | raw | |
 | `toggle` | raw | |
 | `toggle-group` | raw | |
-| `tooltip` | raw | **Code:** its trigger breaks with a Fragment as a child |
+| `tooltip` | raw | **Code:** its trigger breaks with a Fragment as a child. While open, React Aria stops Esc from reaching what is around it, so in an overlay the first Esc closes only the tooltip |

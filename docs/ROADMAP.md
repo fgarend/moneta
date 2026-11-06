@@ -70,7 +70,9 @@ Done: 3.4, one import, with ready-made styles, as `docs/decisions/delivery.md` s
   4.6. `delivery.md` says the workflows never ran. `process.md` and `base.md` promise a commit per piece, unlike
   `55015aa`. Ten pieces have no family in milestone 4, though 1.0 needs them reviewed: AlertDialog, AspectRatio,
   ButtonGroup, ContextMenu, HoverCard, Kbd, Label, NativeSelect, ScrollArea and Slider. How to change the theme, and
-  what `styles.css` cannot do, are not written, and were reported by a review, to be measured here.
+  what `styles.css` cannot do, are not written, and were reported by a review, to be measured here, as is yarn
+  1 and 4 not installing the peers. `delivery.md` says an app changes the look by redefining the theme's
+  variables, but `--font-sans` is not one of them, as `@theme inline` writes the font literally in `compiled.css`.
 - **3.2 · Release 0.1.0,** by the owner, with how to install and use it, and which pieces are raw. To
   ask: whether the gallery is published with it (recommended: to weigh again, now that every piece has a story).
 
@@ -102,7 +104,7 @@ with what is a real fault fixed as a recorded edit.
   shows both, and the contrast, forced colours and visual checks run in both. It starts
   from shadcn's list, and adds a name only when a page fails without it.
   The radius is shadcn's `small`, `--radius: 0.45rem`, chosen by the owner on shadcn/create, and
-  the font is decided here, among Geist, IBM Plex Sans and Inter. On 2026-11-06, of shadcn's fonts, `DM
+  the font is decided here, among Geist, IBM Plex Sans and Inter, along with `--font-heading`, which nothing reads. On 2026-11-06, of shadcn's fonts, `DM
   Sans` and `Raleway` had no tabular figures, and the others did. The sample page is the real
   test of `aria-nova`. The tests for contrast, fonts and the package's theme arrive here. A `type-*`
   style loses to a base `text-sm`, so that class comes out as a recorded edit. To ask:
@@ -144,7 +146,9 @@ with what is a real fault fixed as a recorded edit.
   FilePicker, ChoiceCard, and `combobox` after a study like 4.6's. Field decides the contrast of the control's border against the 3:1 of
   WCAG 1.4.11. ToggleGroup weighs a segmented control against a radio in line.
 - **4.3 · Overlays.** Dialog, Sheet, Popover, DropdownMenu and Tooltip. Text spacing and forced colours reach
-  what an overlay draws when open, as today they see only its closed trigger.
+  what an overlay draws when open, in these and in AlertDialog, ContextMenu, HoverCard and Select, as today they
+  see only the closed trigger. Forced colours' `:popover-open` finds nothing, as React Aria does not use the
+  `popover` attribute.
 - **4.4 · The rest.** Tabs. Progress, Empty, Skeleton, Spinner, Breadcrumb,
   Pagination, Collapsible, IconTile, StatGroup and AllocationBar, and `calendar` after a study like
   4.6's.
@@ -189,6 +193,7 @@ No order between them. Each becomes an item when its time comes.
   system. Tailwind's spacing in `rem` answers part of it.
 - **Below the medium breakpoint in the screenshots.** They run at one width.
 - **A top bar that stays in view.** When something needs it.
+- **Right-to-left.** No piece in `ui/` has a rule for it, so chevrons do not flip. When an app needs it.
 - **Layers in the gallery.** Foundations, and groups beyond components. The name `gold`.
 - **Sizes and names to settle.** The icon's numeric size, and the tooltip's width and
   the name of its text.
