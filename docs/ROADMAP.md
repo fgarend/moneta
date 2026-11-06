@@ -85,18 +85,20 @@ with what is a real fault fixed as a recorded edit.
   and how an app changes it, as `--font-sans` has no effect today, since `@theme inline` writes it literally. On 2026-11-06, of shadcn's fonts, `DM
   Sans` and `Raleway` had no tabular figures, and the others did. The sample page is the real
   test of `aria-nova`. The tests for contrast, fonts and the package's theme arrive here. A `type-*`
-  style loses to a base `text-sm`, so that class comes out as a recorded edit. To ask:
-  - How to reach each change, tried in a browser on 2026-11-06, cheapest first. A token, as `--radius` or
-    `--primary`, works with no edit. `--spacing` makes `h-8` 40 px with no edit, and everything else
-    grows with it. A rule on `data-slot` in `@layer utilities` works with no edit, but an app's own class
-    no longer wins, and in `@layer components` or with `:where` it loses to the piece's. Beyond those,
-    an edit in the piece's `cva` keeps an app's class winning.
-  - How a mode is chosen (recommended: shadcn's `.dark` class, set by whoever uses Moneta,
-    with no switch or provider of ours).
-  - The default control at 40 px, against `nova`'s 32 (recommended: yes).
-  - How many own text styles (recommended: the fewest a visual test justifies).
-  - shadcn's focus rule, widened, with no gold halo (recommended: yes, after testing
-    menus and options, mouse focus, and focus returning from a dialog).
+  style loses to a base `text-sm`, so that class comes out as a recorded edit. Decided with the owner on 2026-11-06:
+  - **The look:** in light, warm paper, white cards, a graphite sidebar and one gold accent. In dark, a graphite page,
+    a darker sidebar and lighter cards. Gold stays the same in both, and the values are a draft until the sample page.
+  - **The font:** Geist stays.
+  - **Control heights:** 36 px by default, 40 for a page's main actions, 32 for dense ones. By editing each piece's
+    `cva`, as `--spacing` made a whole screen 14% taller on 2026-11-06.
+  - **The mode:** shadcn's `.dark` class, set by whoever uses Moneta, with `color-scheme: dark` in it, and no switch or
+    provider of ours. The README warns of a flash when the class comes late.
+  - **Focus:** shadcn's solid outline, widened to the sidebar's own ring, `Checkbox`, `Switch` and fields, with no gold
+    halo. To test first: menus and options, focus returning from a dialog, and the other browsers. If those fail, it
+    comes back as a question.
+  - **Text:** four styles, `type-display`, `type-amount-lg`, `type-amount` and `type-overline`, internal to the pieces.
+    They are not a promise to an app, and are not forced into `styles.css`.
+  - **The order:** the sample page, the light theme with font and sizes, the dark theme, then the checks in both modes.
 - **4.6 (was 3.1) · `Sidebar`, `AppLayout` and providers,** starting with a study, which is what this
   item asks first: how each is defined, and where it lives. `sidebar` stayed out of the first delivery
   for this. Until then, an app keeps what it has for its shell. What is known so far:
