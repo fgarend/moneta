@@ -1,6 +1,6 @@
 # Roadmap
 
-**Now:** 3.6, what is written matches what exists.
+**Now:** 3.2, release 0.1.0.
 
 **The goal:** Moneta is the source of truth for components. An app consumes final pieces and builds
 its screens and regions from them, writing no class of its own. What it lacks is added here, not there.
@@ -50,16 +50,8 @@ Done: 3.4, one import, with ready-made styles, as `docs/decisions/delivery.md` s
 3.5, a story for each of the 41 pieces, with what they measure in `docs/pieces.md`.
 3.3, the release's part of the pipeline, as `docs/releasing.md` and `docs/decisions/delivery.md` say.
 3.7, a rehearsal, `v0.0.1`, published on its second run, the first having stopped before spending the number.
+3.6, what is written matches what exists, with the README's install, use and how far changing the look reaches.
 
-- **3.6 · What is written matches what exists,** before the first release. `README.md` says there is no code,
-  goes in the tarball, and its links to `docs/` die there, so it gets how to install and use. `docs/accessibility.md` has old item numbers
-  and calls pieces that exist "none yet". `base.md` says three pieces wait under Deferred, which are in 4.2, 4.4 and
-  4.6. `process.md` and `base.md` promise a commit per piece, unlike
-  `55015aa`. Ten pieces have no family in milestone 4, though 1.0 needs them reviewed: AlertDialog, AspectRatio,
-  ButtonGroup, ContextMenu, HoverCard, Kbd, Label, NativeSelect, ScrollArea and Slider. How to change the theme, and
-  what `styles.css` cannot do, are not written, and were reported by a review, to be measured here, as is yarn
-  1 and 4 not installing the peers. `delivery.md` says an app changes the look by redefining the theme's
-  variables, but `--font-sans` is not one of them, as `@theme inline` writes the font literally in `compiled.css`.
 - **3.2 · Release 0.1.0,** by the owner, with how to install and use it, and which pieces are raw.
 
 Dropped: 3.1, `Sidebar`, `AppLayout` and providers, moved to 4.6, after a study of its own.
@@ -90,7 +82,8 @@ with what is a real fault fixed as a recorded edit.
   shows both, and the contrast, forced colours and visual checks run in both. It starts
   from shadcn's list, and adds a name only when a page fails without it.
   The radius is shadcn's `small`, `--radius: 0.45rem`, chosen by the owner on shadcn/create, and
-  the font is decided here, among Geist, IBM Plex Sans and Inter, along with `--font-heading`, which nothing reads. On 2026-11-06, of shadcn's fonts, `DM
+  the font is decided here, among Geist, IBM Plex Sans and Inter, along with `--font-heading`, which nothing reads,
+  and how an app changes it, as `--font-sans` has no effect today, since `@theme inline` writes it literally. On 2026-11-06, of shadcn's fonts, `DM
   Sans` and `Raleway` had no tabular figures, and the others did. The sample page is the real
   test of `aria-nova`. The tests for contrast, fonts and the package's theme arrive here. A `type-*`
   style loses to a base `text-sm`, so that class comes out as a recorded edit. To ask:
@@ -125,14 +118,15 @@ with what is a real fault fixed as a recorded edit.
   classes, against a mini-language of layout to maintain).
 - **4.1 · Display.** Badge, deciding its finance colours on a dark surface. Card, Section, Table, weighing
   a `grid` role, Avatar with its group, Alert, Item, whose group has a list role with no list items, Separator,
-  Stat and DescriptionList. Tables on phones are decided with the first table.
-- **4.2 · Actions and forms.** Button's variants, PageHeader, Input, InputGroup, Textarea,
+  Stat, DescriptionList, Kbd, AspectRatio and ScrollArea. Tables on phones are decided with the first table.
+- **4.2 · Actions and forms.** Button's variants, ButtonGroup, PageHeader, Input, InputGroup, Textarea, Label,
+  NativeSelect, Slider,
   Field, which does not link its description or error, Select, Checkbox, which draws a
   check when indeterminate, RadioGroup, Switch, Toggle, ToggleGroup, DateField, SearchField,
   FilePicker, ChoiceCard, and `combobox` after a study like 4.6's. Field decides the contrast of the control's border against the 3:1 of
   WCAG 1.4.11. ToggleGroup weighs a segmented control against a radio in line.
-- **4.3 · Overlays.** Dialog, Sheet, Popover, DropdownMenu and Tooltip. Text spacing and forced colours reach
-  what an overlay draws when open, in these and in AlertDialog, ContextMenu, HoverCard and Select, as today they
+- **4.3 · Overlays.** Dialog, AlertDialog, Sheet, Popover, HoverCard, DropdownMenu, ContextMenu and Tooltip. Text
+  spacing and forced colours reach what an overlay draws when open, in these and in Select, as today they
   see only the closed trigger. Forced colours' `:popover-open` finds nothing, as React Aria does not use the
   `popover` attribute.
 - **4.4 · The rest.** Tabs. Progress, Empty, Skeleton, Spinner, Breadcrumb,

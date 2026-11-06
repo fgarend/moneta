@@ -47,7 +47,7 @@ async function writeAppFiles(): Promise<void> {
   );
 }
 
-// An app's build from the tarball, as written in the package's documents, with what it wrote: its style sheet and files.
+// An app's build from the tarball, the second way `docs/decisions/delivery.md` gives, with what it wrote: its style sheet and files.
 async function buildApp(
   fromCode: string,
 ): Promise<{ css: string; files: string[] }> {

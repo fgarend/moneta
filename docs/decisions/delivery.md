@@ -13,12 +13,17 @@ Where the library lives, how it is received, and under what terms.
 - **Each release publishes the gallery,** on GitHub Pages, around Storybook's own default look.
 - **Pieces are imported by path,** as `@fgarend/moneta/ui/button`. There is no root entry.
 - **The usual way is one import,** `import "@fgarend/moneta/styles.css";`, with ready-made styles and the
-  font. An app needs no Tailwind and no settings, and changes the look by redefining the theme's variables.
+  font, as `README.md` shows. An app needs no Tailwind and no settings.
+- **An app changes the look by redefining the theme's variables,** after the import and outside any `@layer`, and
+  again under `.dark`, measured on 2026-11-06. Before the import, or in a layer, nothing happens, and with `:root`
+  alone the light value also holds in dark. The font is the exception, until the roadmap's 4.5: `@theme inline`
+  writes it literally, so `--font-sans` has no effect.
 - **An app that still writes Tailwind's classes** uses `@import "tailwindcss";` and then
   `@import "@fgarend/moneta/theme.css";`. Without Tailwind first, the build passes and no class arrives.
   `@fgarend/moneta/fonts.css` is optional there. The theme also sets the page's border colour, background, text
   colour and font, and the dark mode through a `.dark` class, as shadcn's does.
-- **An app brings the peers,** whose second copy would silently lose shared state: `react` and
+- **An app installs the peers by name,** in the one command `README.md` gives, since on 2026-11-06 only npm put them
+  in the app's `node_modules`, and pnpm, yarn 1 and yarn 4 did not. A second copy would silently lose shared state: `react` and
   `react-dom` at `^19.0.0`, `react-aria-components` at `^1.22.1`, `lucide-react` at `^1.65.0`, and `tailwindcss` at `^4.3.3`, optional, for the second way. A peer enters when the code in
   the package first imports it, with the version installed then as its floor.
 - **Helpers come with the package, at exact versions:** `cn`, `class-variance-authority`,
@@ -65,7 +70,8 @@ looks every week.
   costs:** one more job, two more actions and one more place to fail, after the version is already out.
 - **One import,** since using Moneta should take the dependency and one line, as Radix Themes does.
   **What it costs:** a class that is not in the ready-made sheet does not exist, so an app composing with
-  classes needs the second way, and an app with another font carries the Geist unless it does too.
+  classes needs the second way, and an app with another font carries the Geist unless it does too. Its reset
+  also reaches the whole page, so an app's own `h1` loses its size and weight.
 - **By path,** since there is no central file to keep with each new piece, and shadcn's files
   already import each other this way. **What it costs:** imports are longer, and a piece's path
   is part of the public API, so moving a file breaks whoever uses it.
@@ -117,3 +123,4 @@ replacing the gallery, a pull request cancelling an earlier run, and an app draw
 - 2026-11-06: One import, with ready-made styles.
 - 2026-11-06: An automatic release, of the tested tarball, with the gallery.
 - 2026-11-06: The rehearsal, `v0.0.1`.
+- 2026-11-06: The peers by name, and how far changing the look reaches.

@@ -7,8 +7,8 @@ What the library starts from.
 - **shadcn is the base,** on **React Aria,** in the style **`aria-nova`.**
 - **`components.json` is written by hand,** since `init` refuses a library: "We could not detect a
   supported framework".
-- **A piece enters through the CLI, at a pinned version,** today 4.23.0, in a commit of its own with
-  nothing edited, as `docs/decisions/process.md` says. The registry has no version, so the commit's
+- **A piece enters through the CLI, at a pinned version,** today 4.23.0, in a commit with its files
+  untouched, as `docs/decisions/process.md` says. The registry has no version, so the commit's
   date says when:
 
   ```sh
@@ -32,7 +32,7 @@ What the library starts from.
   `add` wrote no piece without `#lib/*`, though nothing uses it yet.
 - **41 of the registry's 62 pieces entered,** as they came, on 2026-11-06. Their state is in
   `docs/pieces.md`. These stayed out:
-  - `sidebar`, `combobox` and `calendar`, for a study of their own, under the roadmap's Deferred.
+  - `sidebar`, `combobox` and `calendar`, for a study of their own, in the roadmap's 4.6, 4.2 and 4.4.
   - `carousel`, `chart`, `drawer`, `input-otp`, `message-scroller`, `questionnaire`, `resizable` and
     `sonner`, which bring packages of their own.
   - `attachment`, `bubble`, `code-block`, `marker`, `message` and `trace`, for conversations and code.

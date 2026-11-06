@@ -2,9 +2,12 @@ import { readFile } from "node:fs/promises";
 import { expect, it } from "vitest";
 import { root } from "./sources.js";
 
+const markdownLink = /\]\((?<target>[^)]+)\)/gu;
+
 interface Manifest {
   devDependencies: Record<string, string>;
   peerDependencies?: Record<string, string>;
+  peerDependenciesMeta?: Record<string, { optional?: boolean }>;
   scripts?: Record<string, string>;
   sideEffects?: boolean | string[];
 }
@@ -41,4 +44,25 @@ it("keeps shadcn's copyright with the code copied from it", async () => {
 // So an app's bundler can leave out the pieces it does not import, and keeps the style sheets it does.
 it("tells bundlers that only its style sheets have side effects", () => {
   expect(manifest.sideEffects).toEqual(["**/*.css"]);
+});
+
+// An app reads it first, and most package managers do not install the peers by themselves.
+it("tells an app to install every peer it needs", async () => {
+  const readme = await readFile(new URL("README.md", root), "utf8");
+  const needed = Object.keys(manifest.peerDependencies ?? {}).filter(
+    (peer) => !manifest.peerDependenciesMeta?.[peer]?.optional,
+  );
+
+  expect(needed.filter((peer) => !readme.includes(` ${peer}`))).toEqual([]);
+});
+
+// It goes in the tarball, where only the package's own files exist.
+it("links from the README only to what the tarball holds, or to the web", async () => {
+  const readme = await readFile(new URL("README.md", root), "utf8");
+  const targets = [...readme.matchAll(markdownLink)].map(
+    ({ groups }) => groups?.["target"],
+  );
+
+  expect(targets.filter((target) => target?.startsWith("docs/"))).toEqual([]);
+  expect(targets).toContain("LICENSE");
 });

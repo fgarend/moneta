@@ -1,16 +1,43 @@
 # fgarend/moneta
 
-A component library for money interfaces, built on shadcn.
+A component library for money interfaces, built on shadcn. It is generic, and meant to be
+reused by any app. Before 1.0, most pieces are raw, as shadcn delivers them.
 
-It starts from how shadcn does each thing, and adds its own only when that makes
-sense. It is generic, and meant to be reused by any app.
+## Install
 
-## Status
+Take the file of a [release](https://github.com/fgarend/moneta/releases), with the peers:
 
-Being set up: there is no code or release yet. Where the work is, and what comes
-next, is in [`docs/ROADMAP.md`](docs/ROADMAP.md). Which pieces are raw or reviewed is in
-[`docs/pieces.md`](docs/pieces.md). The choices made so far are in
-[`docs/decisions/`](docs/decisions/).
+```sh
+pnpm add https://github.com/fgarend/moneta/releases/download/vX.Y.Z/fgarend-moneta-X.Y.Z.tgz \
+  react react-dom react-aria-components lucide-react
+```
+
+## Use
+
+```tsx
+import "@fgarend/moneta/styles.css";
+import { Button } from "@fgarend/moneta/ui/button";
+```
+
+The style sheet resets the whole page, and holds only the classes the pieces use.
+
+## Change the look
+
+Redefine the theme's variables after the import, outside any `@layer`, and again for dark:
+
+```css
+:root { --primary: oklch(0.5 0.1 250); }
+.dark { --primary: oklch(0.8 0.1 250); }
+```
+
+The font cannot be changed this way yet.
+
+## More
+
+The [gallery](https://fgarend.github.io/moneta/), the
+[state of each piece](https://github.com/fgarend/moneta/blob/main/docs/pieces.md), the
+[changelog](https://github.com/fgarend/moneta/blob/main/CHANGELOG.md) and the
+[roadmap](https://github.com/fgarend/moneta/blob/main/docs/ROADMAP.md).
 
 ## Working on it
 

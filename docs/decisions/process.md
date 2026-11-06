@@ -26,9 +26,10 @@ How decisions are kept, and how the work moves.
 - **A shadcn piece is raw until reviewed,** and listed with its known gaps. 1.0 needs every piece
   reviewed. **What it costs:** until then, the repository is public and a raw piece can be used,
   so the list warns and does not stop anyone.
-- **Every `shadcn add` is committed untouched, under a fixed message,** `chore(shadcn): add <piece>`,
-  with the CLI's version and the style in its body. So that commit is the merge base for updates,
-  and `git log` is the list of our edits. A file's last import is found by its message.
+- **Every `shadcn add` leaves its files untouched, in a commit under a fixed message,** `chore(shadcn): add …`,
+  with the CLI's version and the style in its body. It may hold several pieces, and what they need to work.
+  So that commit is the merge base for updates, and `git log` is the list of our edits. A file's last import is
+  the last commit under that message to touch it.
 - **The pipeline arrives in one step, by groups,** carried from what already works
   rather than decided tool by tool. Each group is one commit, and is run for real, as
   far as it reaches: planted failures, a minimal `Button` once there is code, and its
@@ -69,3 +70,4 @@ rest.
 - 2026-11-06: Moneta as the source of truth for components.
 - 2026-11-06: First in use, then refined. Raw pieces, and a fixed message in place of tags.
 - 2026-11-06: The release's part arrived.
+- 2026-11-06: An import may hold several pieces, as the second one did.
