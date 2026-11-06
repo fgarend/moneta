@@ -6,4 +6,9 @@ gets its number.
 
 ## [Unreleased]
 
-[Unreleased]: https://github.com/fgarend/moneta/commits/main
+## [0.0.1] - 2026-11-06
+
+A rehearsal of the release's path, not meant to be installed. Use a later version.
+
+[Unreleased]: https://github.com/fgarend/moneta/compare/v0.0.1...HEAD
+[0.0.1]: https://github.com/fgarend/moneta/tree/v0.0.1
