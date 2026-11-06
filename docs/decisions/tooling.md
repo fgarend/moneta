@@ -36,7 +36,8 @@ How the repository runs, and how its versions are chosen.
   out of git.
 - **`package` checks what an app receives.** It packs the build into `.package/`, keeps that
   tarball, and a Vitest test installs it in a throwaway app. The test looks at what it holds,
-  imports every piece in Node, and checks the types as a bundler and as Node resolve them, with
+  imports every piece in Node, builds a real app with Vite to see the theme's classes and values arrive,
+  and checks the types as a bundler and as Node resolve them, with
   `skipLibCheck` off. `exactOptionalPropertyTypes` is off here and there, since shadcn's code and
   React Aria's own types do not pass it.
 - **Screenshots are taken at one width, 1280 px,** in Chromium, for each story tagged `visual`.
@@ -145,3 +146,4 @@ How the repository runs, and how its versions are chosen.
 - 2026-11-05: The weekly audit, the test of the boxes, and actions in the hand checks.
 - 2026-11-06: `exactOptionalPropertyTypes` off.
 - 2026-11-06: `noUnusedLocals` off until 6.3, and stories per reviewed piece.
+- 2026-11-06: The app of `package` builds with Vite.

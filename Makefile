@@ -39,6 +39,7 @@ stories: ## Every story in the browsers, with axe, its screenshot and the covera
 
 package: ## The build, packed into .package, with that tarball installed and checked in a throwaway app
 	$(RUN) package sh -c 'rm -rf dist/* .package/* && pnpm exec tsc -p tsconfig.build.json && \
+		mkdir dist/styles && cp src/styles/*.css dist/styles/ && \
 		pnpm pack --pack-destination .package && pnpm exec vitest run --mode package && ls .package/*'
 
 ##@ Development

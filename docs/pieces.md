@@ -5,8 +5,8 @@ The state of each of shadcn's pieces in `src/components/ui/`, as `test/pieces.te
 - **raw:** as shadcn delivers it. It works, nobody has reviewed it, and it may fail WCAG 2.2 AA.
 - **reviewed:** it has what the roadmap's milestone 4 asks of a reviewed piece. 1.0 needs every piece here.
 
-Everything raw is also unchecked for contrast, focus and target size until the package has CSS, so the table does
-not repeat that. Gaps marked **lint** were read from Biome on 2026-11-06. Those marked **to confirm** come from an
+Everything raw is also unchecked for contrast, focus and target size, so the table does not repeat that. Only
+`button` has a story, in the light theme. Gaps marked **lint** were read from Biome on 2026-11-06. Those marked **to confirm** come from an
 earlier study, and were not measured again. A piece with no gap listed has simply not been looked at.
 
 | Piece | State | Known gaps |

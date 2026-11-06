@@ -9,10 +9,16 @@ Where the library lives, how it is received, and under what terms.
   `package.json` of whoever uses it points to on GitHub. It is not published to a
   registry. A local link is left out until the daily work needs it.
 - **Pieces are imported by path,** as `@fgarend/moneta/ui/button`. There is no root entry.
+- **An app's style sheet starts with Tailwind, then the theme,** `@import "tailwindcss";` and
+  `@import "@fgarend/moneta/theme.css";`. Without Tailwind first, the build passes and no class arrives.
+  `@fgarend/moneta/fonts.css` is optional. The theme also sets the page's border colour, background, text
+  colour and font, and the dark mode through a `.dark` class, as shadcn's does.
 - **An app brings the peers,** whose second copy would silently lose shared state: `react` and
-  `react-dom` at `^19.0.0`, `react-aria-components` at `^1.22.1` and `lucide-react` at `^1.65.0`. A peer enters when the code in
+  `react-dom` at `^19.0.0`, `react-aria-components` at `^1.22.1`, `lucide-react` at `^1.65.0` and `tailwindcss` at `^4.3.3`. A peer enters when the code in
   the package first imports it, with the version installed then as its floor.
-- **Helpers come with the package, at exact versions:** `cn` and `class-variance-authority`.
+- **Helpers come with the package, at exact versions:** `cn`, `class-variance-authority`,
+  `tw-animate-css`, and the font, `@fontsource-variable/geist`, under OFL-1.1, whose license an app
+  that publishes the font's files keeps with them.
 - **The license is MIT,** for everything in this repository.
 - **Code copied from shadcn keeps its notice.** shadcn/ui is MIT, which asks that its
   copyright and permission notice stay with copies of its code. `LICENSE` holds its copyright
@@ -86,3 +92,4 @@ only on the owner's push.
 - 2026-11-05: Imports by path, and the first peer.
 - 2026-11-05: What the alerts rest on.
 - 2026-11-06: shadcn's notice, React Aria as a peer, and the helpers.
+- 2026-11-06: The theme, the font and Tailwind as a peer.

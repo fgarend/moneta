@@ -3,9 +3,10 @@ import { expect, within } from "storybook/test";
 import { Button, LinkButton } from "./button.js";
 
 // shadcn's Button and LinkButton, on React Aria, which tests their keyboard and press behaviour itself. Of WCAG 2.2, 4.1.2
-// (name, role, value) is checked here and by axe. Not checked until there is CSS, in 2.2: 1.4.3 and 1.4.11 (contrast),
-// 2.4.7 (focus visible) and 2.5.8 (target size), as axe sees only the browser's own look. Not checked: real screen readers.
+// (name, role, value) is checked here and by axe, and 1.4.3 (contrast) and 2.5.8 (target size) by axe at rest, in the light
+// theme. Not checked: 1.4.11 (contrast of its edges), 2.4.7 (focus visible), its other variants, and real screen readers.
 const label = "Pay";
+const defaultHeight = 32;
 
 const meta = {
   title: "UI/Button",
@@ -22,6 +23,8 @@ const Default: Story = {
 
     // Inside a form, a button with no type would submit it.
     await expect(button).toHaveAttribute("type", "button");
+    // Its own height, so the theme and Tailwind reach what every story draws.
+    await expect(button.offsetHeight).toBe(defaultHeight);
   },
 };
 

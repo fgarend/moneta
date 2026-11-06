@@ -18,6 +18,13 @@ What the library starts from.
 
 - **`--overwrite` only when nothing there is edited,** as it replaces the file. Without it, an edit stays.
 - **`cn` is the npm package of that name,** as shadcn delivers it.
+- **The theme is shadcn's default for a new app,** in `src/styles/theme.css`, with `--radius` and every
+  colour as its CLI writes them. Only the imports differ. Tailwind's is the app's, and a `@source` lets
+  the app's Tailwind read the pieces, as it skips `node_modules`.
+- **`shadcn/tailwind.css` is copied, untouched, to `src/styles/shadcn.css`.** Our changes go in
+  `theme.css`, so an update replaces that file and its diff shows only shadcn's changes.
+- **The font is apart, in `src/styles/fonts.css`,** starting with shadcn's Geist. Which font stays is
+  decided in the roadmap's 4.5.
 - **Lint, format and import sorting are off on `src/components/ui/`,** with one read of each file's
   findings when it arrives. Their stories keep them on.
 - **The aliases are `#components/*`, `#hooks/*` and `#lib/*`, in `package.json#imports`,** with a custom
@@ -74,6 +81,10 @@ On the 41 files, with lint turned on for the read. What looks like a gap went in
 - **`aria-nova`,** chosen by the owner on shadcn/create. Its real test is the sample page.
 - **The CLI through `pnpm dlx`,** since it is used only to bring files, and installing it brings about
   200 packages.
+- **A copy of `shadcn/tailwind.css`,** since importing it brings the `shadcn` package, 163 more packages
+  in an app on 2026-11-06. **What it costs:** an update by hand, which `docs/updating.md` lists.
+- **The font apart,** since Moneta is generic, and an app with another font should not carry ours.
+  **What it costs:** one more import, and an app that forgets it falls back to a system font, silently.
 - **Lint off,** since a file that stays as it came merges cleanly. **What it costs:** real findings in
   shadcn's code show only in that one read.
 
@@ -83,8 +94,12 @@ On the 41 files, with lint turned on for the read. What looks like a gap went in
 - **`clsx` and `tailwind-merge` in a `lib/utils.ts`.** More mature than `cn`, but every piece would need
   an edited import, again at each `add`.
 - **Tags on each import.** See `docs/decisions/process.md`.
+- **`shadcn eject`.** It works, but puts the file inside the main style sheet, mixing shadcn's with ours,
+  and leaves an `@import` in the middle of it.
+- **The font inside the theme,** as shadcn's default does. Simpler, but every app carries it.
 
 ## History
 
 - 2026-11-06: Written, with the first `shadcn add`.
 - 2026-11-06: The other 40 pieces.
+- 2026-11-06: The default theme, the copy of shadcn's style sheet and the font.

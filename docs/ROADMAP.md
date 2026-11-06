@@ -1,6 +1,6 @@
 # Roadmap
 
-**Now:** 2.3, shadcn's default theme, untouched.
+**Now:** 3.3, the release's part of the pipeline.
 
 **The order:** first in use, then refined. Moneta starts as shadcn untouched, delivered as a
 package, so an app can use it from the start. The look and the reviewed pieces arrive afterwards,
@@ -36,14 +36,7 @@ build and package. 1.6, the audit and the workflows' test. The release's part is
 shadcn's pieces and theme, untouched, as a package, with no choice of look yet.
 
 Done: 2.1, the first `shadcn add`, 41 pieces, as `docs/decisions/base.md` and `docs/pieces.md` say.
-
-- **2.3 · `theme.css`, shadcn's default, untouched,** as `@fgarend/moneta/theme.css`, with the
-  `@source` that lets an app's Tailwind read the package. Tailwind becomes a peer, and the gallery
-  draws the pieces with it. `button`'s screenshot is approved again, and the checks of every story
-  start to see real styles. shadcn's default for a new app is 129 lines. `shadcn/tailwind.css` is
-  copied in (CLI 4.23.0 has `shadcn eject` for it, not tried), since importing it brings 226 packages.
-  An app needs `@import "tailwindcss"` first, or the build passes and no class arrives. To ask:
-  whether the default's Geist comes along (recommended: decided here, since it needs a dependency).
+2.3, shadcn's default theme, and the font apart, as the same file says.
 
 ## 3. First delivery
 
@@ -88,9 +81,15 @@ with what is a real fault fixed as a recorded edit.
   shows both, and the contrast, forced colours and visual checks run in both. It starts
   from shadcn's list, and adds a name only when a page fails without it.
   The radius is shadcn's `small`, `--radius: 0.45rem`, chosen by the owner on shadcn/create, and
-  the font is decided here (Geist was what the owner tried it with). The sample page is the real
+  the font is decided here, among Geist, IBM Plex Sans and Inter. On 2026-11-06, of shadcn's fonts, `DM
+  Sans` and `Raleway` had no tabular figures, and the others did. The sample page is the real
   test of `aria-nova`. The tests for contrast, fonts and the package's theme arrive here. A `type-*`
   style loses to a base `text-sm`, so that class comes out as a recorded edit. To ask:
+  - How to reach each change, tried in a browser on 2026-11-06, cheapest first. A token, as `--radius` or
+    `--primary`, works with no edit. `--spacing` makes `h-8` 40 px with no edit, and everything else
+    grows with it. A rule on `data-slot` in `@layer utilities` works with no edit, but an app's own class
+    no longer wins, and in `@layer components` or with `:where` it loses to the piece's. Beyond those,
+    an edit in the piece's `cva` keeps an app's class winning.
   - How a mode is chosen (recommended: shadcn's `.dark` class, set by whoever uses Moneta,
     with no switch or provider of ours).
   - The default control at 40 px, against `nova`'s 32 (recommended: yes).

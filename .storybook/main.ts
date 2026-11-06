@@ -1,5 +1,6 @@
 // Storybook's settings: the stories, with the accessibility and Vitest addons.
 import type { StorybookConfig } from "@storybook/react-vite";
+import tailwindcss from "@tailwindcss/vite";
 import { defaultClientConditions } from "vite";
 
 const config: StorybookConfig = {
@@ -11,6 +12,7 @@ const config: StorybookConfig = {
   // The aliases of package.json#imports point to the sources in the gallery.
   viteFinal: (vite) => ({
     ...vite,
+    plugins: [...(vite.plugins ?? []), tailwindcss()],
     resolve: {
       ...vite.resolve,
       conditions: ["moneta-source", ...defaultClientConditions],

@@ -11,6 +11,8 @@
   "formatter": { "useEditorconfig": true },
   // Markdown stays as written: Biome pads every table, so one edit rewrites it, and it removes the blank line after one.
   "markdown": { "formatter": { "enabled": false } },
+  // Tailwind's own at-rules in the style sheets.
+  "css": { "parser": { "tailwindDirectives": true } },
   "linter": {
     // Rules for frameworks and libraries this repository does not use. A domain is turned back on
     // by the roadmap item that brings its tool in.
@@ -74,7 +76,8 @@
       // shadcn's files stay as they come, so an update merges cleanly. Each had one read of its findings on arrival.
       "includes": [
         "src/components/ui/*.tsx",
-        "!src/components/ui/*.stories.tsx"
+        "!src/components/ui/*.stories.tsx",
+        "src/styles/shadcn.css"
       ],
       "linter": { "enabled": false },
       "formatter": { "enabled": false },

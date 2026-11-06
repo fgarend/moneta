@@ -6,7 +6,7 @@ interface Manifest {
   devDependencies: Record<string, string>;
   peerDependencies?: Record<string, string>;
   scripts?: Record<string, string>;
-  sideEffects?: boolean;
+  sideEffects?: boolean | string[];
 }
 
 const manifest = JSON.parse(
@@ -38,7 +38,7 @@ it("keeps shadcn's copyright with the code copied from it", async () => {
   expect(license).toContain("Copyright (c) 2023 shadcn");
 });
 
-// So an app's bundler can leave out the pieces it does not import. The app in make package cannot see this.
-it("tells bundlers that importing a piece has no side effects", () => {
-  expect(manifest.sideEffects).toBe(false);
+// So an app's bundler can leave out the pieces it does not import, and keeps the style sheets it does.
+it("tells bundlers that only its style sheets have side effects", () => {
+  expect(manifest.sideEffects).toEqual(["**/*.css"]);
 });

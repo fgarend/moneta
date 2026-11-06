@@ -1,0 +1,4 @@
+/* What every story draws with, as an app imports it. */
+@import "tailwindcss";
+@import "../src/styles/theme.css";
+@import "../src/styles/fonts.css";

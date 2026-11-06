@@ -1,5 +1,6 @@
 // Test settings. make test runs the project on Node, and make stories, with --mode stories, those in a browser.
 import { storybookTest } from "@storybook/addon-vitest/vitest-plugin";
+import tailwindcss from "@tailwindcss/vite";
 import { playwright } from "@vitest/browser-playwright";
 import { defaultClientConditions } from "vite";
 import {
@@ -49,6 +50,7 @@ function everyStory(
   provider = playwright(),
 ): TestProjectInlineConfiguration {
   return {
+    plugins: [tailwindcss()],
     test: {
       name,
       include: [`.storybook/${name}.test.tsx`],

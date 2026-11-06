@@ -89,6 +89,12 @@ gh api repos/<action>/commits/<tag> --jq .sha
     pnpm dlx shadcn@4.23.0 add <piece> --diff
   ```
 
+- **shadcn's style sheet,** whenever the CLI moves, with the new version. An update replaces the file:
+
+  ```sh
+  curl -fsS https://cdn.jsdelivr.net/npm/shadcn@4.23.0/dist/tailwind.css -o src/styles/shadcn.css
+  ```
+
 - **The actions in `.github/workflows/`,** at the same moments: a newer version. A pin is a
   commit, so a tag moved later changes nothing here.
 - **The year of `target` and `lib` in `tsconfig.json`.** It moves up once all of that year's
