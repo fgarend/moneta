@@ -43,8 +43,7 @@ on 2026-11-04.
 | Immutable releases | On, since a release's tarball gets pinned |
 | Workflows | Read-only by default, and they cannot approve pull requests |
 | Security | Secret scanning, push protection, private vulnerability reporting and Dependabot alerts on |
-
-Pages is turned on once, as `docs/releasing.md` says.
+| Pages | From GitHub Actions, and only `main` may publish, at `https://fgarend.github.io/moneta/` |
 
 Dependabot alerts work today on behaviour GitHub does not promise. Its documentation says its
 dependency graph does not read a lockfile written as two YAML documents, pnpm 12's default with
@@ -104,9 +103,9 @@ looks every week.
 
 ## Not tested yet
 
-All of `release.yml`, which runs only on the owner's push of a release commit. In particular: how GitHub draws the
-skipped job of a reusable workflow, a run's artifact read across that call, creating a `v*` tag under its ruleset, a
-failure halfway through `publish`, and Pages. `actionlint` found nothing on 2026-11-06.
+`v0.0.1` ran the whole path on 2026-11-06: the tag, the immutable release, its tarball installed from its address and
+imported in Node, and the gallery on Pages. Still not tested: a failure halfway through `publish`, a second release
+replacing the gallery, a pull request cancelling an earlier run, and an app drawing a piece from a release's tarball.
 
 ## History
 
@@ -117,3 +116,4 @@ failure halfway through `publish`, and Pages. `actionlint` found nothing on 2026
 - 2026-11-06: The theme, the font and Tailwind as a peer.
 - 2026-11-06: One import, with ready-made styles.
 - 2026-11-06: An automatic release, of the tested tarball, with the gallery.
+- 2026-11-06: The rehearsal, `v0.0.1`.

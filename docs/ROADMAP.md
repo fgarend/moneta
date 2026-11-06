@@ -1,6 +1,6 @@
 # Roadmap
 
-**Now:** 3.7, a rehearsal of the release.
+**Now:** 3.6, what is written matches what exists.
 
 **The goal:** Moneta is the source of truth for components. An app consumes final pieces and builds
 its screens and regions from them, writing no class of its own. What it lacks is added here, not there.
@@ -49,15 +49,12 @@ What an app does with it happens in that app, and is not tracked here.
 Done: 3.4, one import, with ready-made styles, as `docs/decisions/delivery.md` says.
 3.5, a story for each of the 41 pieces, with what they measure in `docs/pieces.md`.
 3.3, the release's part of the pipeline, as `docs/releasing.md` and `docs/decisions/delivery.md` say.
+3.7, a rehearsal, `v0.0.1`, published on its second run, the first having stopped before spending the number.
 
-- **3.7 · A rehearsal, `v0.0.1`,** so the first run of `release.yml` spends a number that does not matter. The owner
-  turns Pages on, as `docs/releasing.md` says, then a commit `chore: release v0.0.1` runs the whole path. What
-  `docs/decisions/delivery.md` lists as not tested yet is looked at there. If it fails, `v0.0.2`.
 - **3.6 · What is written matches what exists,** before the first release. `README.md` says there is no code,
-  goes in the tarball, and its links to `docs/` die there, so it gets how to install and use. `package.json` is at
-  `0.0.0`, and no document says when it changes in a release by hand. `docs/accessibility.md` has old item numbers
+  goes in the tarball, and its links to `docs/` die there, so it gets how to install and use. `docs/accessibility.md` has old item numbers
   and calls pieces that exist "none yet". `base.md` says three pieces wait under Deferred, which are in 4.2, 4.4 and
-  4.6. `delivery.md` says the workflows never ran. `process.md` and `base.md` promise a commit per piece, unlike
+  4.6. `process.md` and `base.md` promise a commit per piece, unlike
   `55015aa`. Ten pieces have no family in milestone 4, though 1.0 needs them reviewed: AlertDialog, AspectRatio,
   ButtonGroup, ContextMenu, HoverCard, Kbd, Label, NativeSelect, ScrollArea and Slider. How to change the theme, and
   what `styles.css` cannot do, are not written, and were reported by a review, to be measured here, as is yarn
