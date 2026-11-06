@@ -1,0 +1,3 @@
+/* What the ready-made compiled.css is made from, when the package is built. It reads only the pieces. */
+@import "tailwindcss" source(none);
+@import "./theme.css";

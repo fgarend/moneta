@@ -1,5 +1,4 @@
 // The tarball make package wrote, installed in a throwaway app, as an app would receive it.
-import { spawnSync } from "node:child_process";
 import {
   copyFile,
   mkdir,
@@ -11,19 +10,10 @@ import {
 } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
-import { fileURLToPath } from "node:url";
 import { beforeAll, expect, it } from "vitest";
 import { root, sources } from "../sources.js";
+import { manifest, packedTarball, run } from "./shared.js";
 
-interface Manifest {
-  devDependencies: Record<string, string>;
-  name: string;
-  peerDependencies: Record<string, string>;
-}
-
-const manifest = JSON.parse(
-  await readFile(new URL("package.json", root), "utf8"),
-) as Manifest;
 const inUi = /^\/src\/components\/ui\/(?<name>[^/.]+)\.tsx$/u;
 const packaged =
   /^package\/(?:package\.json|README\.md|LICENSE|dist\/.+\.(?:js|d\.ts|css))$/u;
@@ -36,18 +26,6 @@ const specifiers = Object.keys(sources).flatMap((path) => {
   const name = path.match(inUi)?.groups?.["name"];
   return name === undefined ? [] : [`${manifest.name}/ui/${name}`];
 });
-
-function run(
-  command: string,
-  args: string[],
-  cwd: string,
-): { status: number | null; output: string } {
-  const { status, stdout, stderr } = spawnSync(command, args, {
-    cwd,
-    encoding: "utf8",
-  });
-  return { status, output: stdout + stderr };
-}
 
 let app = "";
 let tarball = "";
@@ -97,14 +75,7 @@ createRoot(document.body).render(createElement(Button, null, "Pay"));
 }
 
 beforeAll(async () => {
-  const folder = fileURLToPath(new URL(".package/", root));
-  const tarballs = await readdir(folder);
-  if (tarballs.length !== 1) {
-    throw new Error(
-      `.package holds ${tarballs.length} files, and make package leaves one tarball there`,
-    );
-  }
-  tarball = join(folder, tarballs[0] ?? "");
+  tarball = await packedTarball();
 
   app = await mkdtemp(join(tmpdir(), "app-"));
   await writeFile(

@@ -33,10 +33,10 @@ How the repository runs, and how its versions are chosen.
   folder cannot go unmeasured. Until there is code of that kind, it measures nothing, and its
   rules were proved on planted files.
 - **The build is TypeScript alone,** one file per module, with no bundler, and `dist/` stays
-  out of git.
+  out of git. Tailwind's command line makes the ready-made style sheet, reading only `dist/`.
 - **`package` checks what an app receives.** It packs the build into `.package/`, keeps that
   tarball, and a Vitest test installs it in a throwaway app. The test looks at what it holds,
-  imports every piece in Node, builds a real app with Vite to see the theme's classes and values arrive,
+  imports every piece in Node, builds real apps with Vite, with and without Tailwind, to see the styles arrive,
   and checks the types as a bundler and as Node resolve them, with
   `skipLibCheck` off. `exactOptionalPropertyTypes` is off here and there, since shadcn's code and
   React Aria's own types do not pass it.
@@ -147,3 +147,4 @@ How the repository runs, and how its versions are chosen.
 - 2026-11-06: `exactOptionalPropertyTypes` off.
 - 2026-11-06: `noUnusedLocals` off until 6.3, and stories per reviewed piece.
 - 2026-11-06: The app of `package` builds with Vite.
+- 2026-11-06: Tailwind's command line for the ready-made style sheet.

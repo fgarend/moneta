@@ -1,0 +1,3 @@
+/* The one import an app with no Tailwind needs: the font and the ready-made styles. */
+@import "@fontsource-variable/geist";
+@import "./compiled.css";

@@ -43,6 +43,8 @@ Done: 2.1, the first `shadcn add`, 41 pieces, as `docs/decisions/base.md` and `d
 **Done when:** the package installs and works in a test consumer, with a version an app can pin.
 What an app does with it happens in that app, and is not tracked here.
 
+Done: 3.4, one import, with ready-made styles, as `docs/decisions/delivery.md` says.
+
 - **3.3 · The release's part of the pipeline,** just before its first use. `check-release`,
   `extract-release-notes`, `docs/releasing.md` and the changelog. Local tests pass, and the rest
   is declared untested until the owner's push. To ask: whether the first release goes by hand, with

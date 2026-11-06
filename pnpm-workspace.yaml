@@ -8,9 +8,11 @@ autoInstallPeers: false
 # Dependencies are saved with their exact version.
 saveExact: true
 # Build scripts of dependencies, refused unless listed true here. esbuild's only checks the binary that arrives as its
-# own package, so it is refused, said out loud so pnpm does not stop to ask.
+# own package, so it is refused, said out loud so pnpm does not stop to ask. @parcel/watcher's, through Tailwind's command
+# line, is for watching files, which make package does not do.
 allowBuilds:
   esbuild: false
+  "@parcel/watcher": false
 # Advisories reviewed and accepted, by their GitHub code, each with its reason.
 audit:
   ignore:
