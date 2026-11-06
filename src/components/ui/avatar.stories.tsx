@@ -35,7 +35,6 @@ const Default: Story = {
 
 // With no picture, the initials stand in for it.
 const Fallback: Story = {
-  parameters: { a11y: { test: "todo" } },
   args: {
     children: (
       <>

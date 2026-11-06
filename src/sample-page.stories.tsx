@@ -340,7 +340,7 @@ const meta = {
   title: "Sample/Page",
   component: SamplePage,
   // The gap of Select, written in docs/pieces.md, reaches the page that draws it.
-  tags: ["gap-forced-colors"],
+  tags: ["visual", "gap-forced-colors"],
   parameters: { layout: "fullscreen" },
 } satisfies Meta<typeof SamplePage>;
 

@@ -191,6 +191,8 @@ No order between them. Each becomes an item when its time comes.
   `make stories` to check one test slows the work, with the time measured.
 - **The look of Storybook's own interface.** The colours, fonts and mark around the stories. The gallery
   goes out with Storybook's default, and this is weighed again with the theme, in 4.5.
+- **The screenshots' tolerance.** Vitest's default let `--primary` move from `#2b2e33` to `#5a2b33` unseen on 2026-11-06,
+  while a stronger change fails. Contrast has its own test, but a small change of colour has none. Weighed if it bites.
 - **`actionlint`.** Biome reads a workflow's YAML, but not GitHub's rules. It ran once by hand on 2026-11-06, with
   nothing found, and would be one more image to keep. Weighed if a workflow fails on something it finds.
 - **Biome's `noTailwindArbitraryValue`.** It may replace the class scan in `test/pieces.test.ts`,

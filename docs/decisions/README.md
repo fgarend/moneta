@@ -9,8 +9,9 @@ What holds today, by topic, and why. Where the work is, and what comes next, is 
 | [`base.md`](base.md) | What the library starts from: shadcn, its base and its style |
 | [`delivery.md`](delivery.md) | Where the library lives, how it is received, its license and the GitHub settings |
 | [`process.md`](process.md) | How decisions are kept, and how the work moves |
+| [`theme.md`](theme.md) | The look Moneta has by default |
 | [`tooling.md`](tooling.md) | How the repository runs, and how versions are chosen |
 
 The state of each of shadcn's pieces is in [`../pieces.md`](../pieces.md).
 
-Still to be born, each when first needed: `theme.md` and `components.md`. A new file gets its line here in the commit that creates it.
+Still to be born, each when first needed: `components.md`. A new file gets its line here in the commit that creates it.

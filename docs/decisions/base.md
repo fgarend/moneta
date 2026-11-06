@@ -18,9 +18,8 @@ What the library starts from.
 
 - **`--overwrite` only when nothing there is edited,** as it replaces the file. Without it, an edit stays.
 - **`cn` is the npm package of that name,** as shadcn delivers it.
-- **The theme is shadcn's default for a new app,** in `src/styles/theme.css`, with `--radius` and every
-  colour as its CLI writes them. Only the imports differ. Tailwind's is the app's, and a `@source` lets
-  the app's Tailwind read the pieces, as it skips `node_modules`.
+- **The theme's shape is shadcn's,** in `src/styles/theme.css`, and its values are Moneta's, as `theme.md` says.
+  A `@source` lets the app's Tailwind read the pieces, as it skips `node_modules`.
 - **`shadcn/tailwind.css` is copied, untouched, to `src/styles/shadcn.css`.** Our changes go in
   `theme.css`, so an update replaces that file and its diff shows only shadcn's changes.
 - **The font is apart, in `src/styles/fonts.css`,** starting with shadcn's Geist. Which font stays is
@@ -103,3 +102,4 @@ On the 41 files, with lint turned on for the read. What looks like a gap went in
 - 2026-11-06: Written, with the first `shadcn add`.
 - 2026-11-06: The other 40 pieces.
 - 2026-11-06: The default theme, the copy of shadcn's style sheet and the font.
+- 2026-11-06: The theme's values moved to `theme.md`.

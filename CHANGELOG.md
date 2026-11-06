@@ -6,6 +6,15 @@ gets its number.
 
 ## [Unreleased]
 
+### Changed
+
+- The theme's light colours and radius are Moneta's, in place of shadcn's default: warm paper, white cards, a graphite
+  sidebar and one gold accent, as `--gold`. Dark is still shadcn's default.
+
+### Fixed
+
+- `Avatar`'s fallback and `Kbd` reach WCAG's contrast in light, and `Tabs`' inactive text keeps it on the new colours.
+
 ## [0.1.0] - 2026-11-06
 
 The first version for an app to use: shadcn's pieces as they come, on React Aria, with shadcn's default theme in light

@@ -19,7 +19,7 @@ same list. A pass says little here:
   see an open overlay's content, which axe does.
 - Nothing checks the keyboard, closing an overlay, the dark theme, target size beyond axe, or a long text.
 
-The other marks are not measured by a check. **Code:** read from the piece. **Default text:** written in the piece,
+**Edited** marks a change made to a raw piece, which an update of it has to keep. The other marks are not measured by a check. **Code:** read from the piece. **Default text:** written in the piece,
 with no prop, read from the code. **Lint:** read from Biome. **To confirm:** from an earlier study, not measured again.
 A piece with no gap listed may still have some.
 
@@ -28,7 +28,7 @@ A piece with no gap listed may still have some.
 | `alert` | raw | |
 | `alert-dialog` | raw | **lint:** an unused import |
 | `aspect-ratio` | raw | |
-| `avatar` | raw | **axe:** the fallback's text, `muted-foreground` on `muted`, is 4.34:1 |
+| `avatar` | raw | |
 | `badge` | raw | |
 | `breadcrumb` | raw | **Default text:** "breadcrumb" and "More" |
 | `button` | raw | |
@@ -45,7 +45,7 @@ A piece with no gap listed may still have some.
 | `input` | raw | |
 | `input-group` | raw | A click on an addon focusing the input is not checked, as that story failed at random in Firefox |
 | `item` | raw | **axe:** its group has a list role, with links and buttons and no list items |
-| `kbd` | raw | **axe:** its text, `muted-foreground` on `muted`, is 4.34:1 |
+| `kbd` | raw | |
 | `label` | raw | **lint:** an unused import |
 | `native-select` | raw | |
 | `pagination` | raw | **Default text:** "pagination", "Previous", "Next", "Go to previous page", "Go to next page" and "More pages" |
@@ -61,7 +61,7 @@ A piece with no gap listed may still have some.
 | `spinner` | raw | **Default text:** "Loading". **Code:** spins with no regard for reduced motion |
 | `switch` | raw | **Code:** does not grow for its children. **Lint:** a deprecated React Aria import |
 | `table` | raw | **Code:** its caption is a `figcaption` with no `figure` |
-| `tabs` | raw | |
+| `tabs` | raw | **Edited:** its inactive text reads `muted-foreground`, as `foreground/60` is 3.89:1 on our `muted` |
 | `textarea` | raw | |
 | `toggle` | raw | |
 | `toggle-group` | raw | |

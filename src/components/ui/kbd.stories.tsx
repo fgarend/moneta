@@ -9,7 +9,6 @@ const meta = {
   title: "UI/Kbd",
   component: KbdGroup,
   tags: ["raw"],
-  parameters: { a11y: { test: "todo" } },
   args: {
     children: (
       <>
