@@ -33,6 +33,12 @@ on 2026-11-04.
 
 The Pages site is set up with the workflow that publishes it.
 
+Dependabot alerts work today on behaviour GitHub does not promise. Its documentation says its
+dependency graph does not read a lockfile written as two YAML documents, pnpm 12's default with
+a pinned version, and that alerts may close. Ours is written that way, and on 2026-11-05 the graph
+listed 357 packages against 370 entries, with 2 alerts on `pnpm-lock.yaml`. So `audit.yml` also
+looks every week.
+
 ## Why
 
 - **A tarball,** because it needs no registry, and it can be pinned by address. **What it
@@ -70,3 +76,4 @@ only on the owner's push.
 
 - 2026-11-04: Written, with the repository and its settings.
 - 2026-11-05: Imports by path, and the first peer.
+- 2026-11-05: What the alerts rest on.

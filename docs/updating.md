@@ -11,9 +11,9 @@ make outdated
 ```
 
 It fails when it finds something to look at. The item's proposal says what it found.
-Whatever it reports is updated first, in commits of its own, and the images are checked by
-hand, below. Milestone 1 needs none of this, since each tool arrives at its latest version
-past the release age.
+Whatever it reports is updated first, in commits of its own, and the images and the actions
+are checked by hand, below. Milestone 1 needs none of this, since each tool arrives at its
+latest version past the release age.
 
 A release does not wait for this: what is outdated in the tools does not reach whoever
 uses Moneta. Vulnerabilities are a separate matter, for `make audit`.
@@ -64,12 +64,23 @@ docker buildx imagetools inspect <image>:<tag> --format '{{.Manifest.Digest}}'
 For pnpm's image, `packageManager` in `package.json` moves to the same version, followed by
 `make install`. Node moves only when Playwright's image does.
 
+**A pinned action,** in `.github/workflows/`, then `make check`. Take a version past the
+release age, by the date of its release, and write its tag's commit with the version in a
+comment. These two need `gh`, GitHub's command line, on the machine:
+
+```sh
+gh api repos/<action>/releases/latest --jq '"\(.tag_name) \(.published_at)"'
+gh api repos/<action>/commits/<tag> --jq .sha
+```
+
 ## Checks made by hand
 
 `make outdated` cannot see these.
 
 - **The images in `infra/settings.env`,** at the same moments: a newer version, and a new
   digest under the same tag, which means the image was rebuilt.
+- **The actions in `.github/workflows/`,** at the same moments: a newer version. A pin is a
+  commit, so a tag moved later changes nothing here.
 - **The year of `target` and `lib` in `tsconfig.json`.** It moves up once all of that year's
   features are widely available in Baseline. For ES2024, two are still missing, and each
   prints `high` once it is:

@@ -1,0 +1,22 @@
+# The known vulnerabilities in the dependencies, every week and by hand, as a red run. GitHub's own alerts read this
+# lockfile on behaviour it does not promise. GitHub stops a schedule after 60 days with no activity in the repository.
+name: audit
+
+on:
+  schedule:
+    - cron: "17 6 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    runs-on: ubuntu-24.04-arm
+    steps:
+      - name: Check out the commit
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Run make audit
+        run: make audit

@@ -1,6 +1,6 @@
 # Roadmap
 
-**Now:** 1.6, the pipeline's last group: the release.
+**Now:** 2.1, the first `shadcn add`.
 
 What needs to be created, in order. The order follows what is needed next, so a new
 need can change it. Open questions are asked when their step arrives, and each shows
@@ -24,27 +24,7 @@ with one line per check saying whether it passed. Continuous integration has one
 per check, with the same name, in parallel, so `make <box>` repeats a red box.
 
 Done: 1.1, the floor. 1.2, containers. 1.3, static checks. 1.4, stories and browsers. 1.5,
-build and package.
-
-- **1.6 · Release.** `audit.yml`, `check-release`, `extract-release-notes`, the workflows' test,
-  which compares the boxes of `ci.yml` with `CHECKS`, `docs/releasing.md` and the changelog.
-  Local tests pass, and the rest is declared untested until the owner's push. **`check-pins`, 912 lines, is
-  questioned here:** it works as it is, and could be dropped (recommended: drop it, and
-  check the pins by hand at the start of each item). To ask: whether the release part waits until just
-  before 3.2, when it is first used (recommended: yes).
-  - **A release is automatic.** A push to `main` whose last commit starts with
-    `chore: release v` calls `release.yml` from `ci.yml`, in the same run, only if every
-    box passed: `verify`, `build`, `publish`, `pages`. Only `publish` and `pages` write.
-    `verify` refuses a version that differs from `package.json`, already has a tag, or
-    has no changelog ready, and runs the audit. The tag is created by `publish`, so a
-    failed check spends no version.
-  - Only pull requests cancel an earlier run, so a newer push never cuts a release.
-  - **`audit.yml` stays.** GitHub's documentation says its dependency graph does not read
-    a lockfile written as two YAML documents, pnpm 12's default with a pinned version, so
-    Dependabot alerts may not come. What `docs/decisions/delivery.md` says of them gets
-    that caveat.
-  - Untested until the push: how GitHub draws a skipped reusable workflow, the
-    expression that cancels only pull requests, and a failure halfway through `publish`.
+build and package. 1.6, the audit and the workflows' test. The release's part is 3.3.
 
 ## 2. Base and theme
 
@@ -100,6 +80,18 @@ are approved by the owner in both modes, and the package installs and works in a
   - React Aria stays a peer, as a duplicate silently breaks links. To ask: links through
     whichever router is used (recommended: `RouterProvider`, after trying `RouterConfig`,
     as `createLink` on a sidebar button reloaded the page on Enter).
+- **3.3 · The release's part of the pipeline,** just before its first use. `check-release`,
+  `extract-release-notes`, `docs/releasing.md` and the changelog. Local tests pass, and the rest
+  is declared untested until the owner's push.
+  - **A release is automatic.** A push to `main` whose last commit starts with
+    `chore: release v` calls `release.yml` from `ci.yml`, in the same run, only if every
+    box passed: `verify`, `build`, `publish`, `pages`. Only `publish` and `pages` write.
+    `verify` refuses a version that differs from `package.json`, already has a tag, or
+    has no changelog ready, and runs the audit. The tag is created by `publish`, so a
+    failed check spends no version.
+  - Only pull requests cancel an earlier run, so a newer push never cuts a release.
+  - Untested until the push: how GitHub draws a skipped reusable workflow, the
+    expression that cancels only pull requests, and a failure halfway through `publish`.
 - **3.2 · Release 0.1.0,** by the owner, with the gallery and how to install and use it.
   An app needs `@import "tailwindcss"` first, or the build passes and no class arrives.
 

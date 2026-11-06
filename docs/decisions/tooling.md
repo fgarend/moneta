@@ -11,18 +11,20 @@ How the repository runs, and how its versions are chosen.
   sources. pnpm's binary is copied in from pnpm's official image.
 - **Images are pinned by tag and digest, in `infra/settings.env` only.** The tag keeps a pin
   readable, and the digest makes it immutable.
+- **Actions are pinned by commit,** with the version in a comment, as a tag can move.
 - **pnpm is the package manager,** at the version `packageManager` pins, with its image at
   the same version.
-- **No version younger than 7 days is used,** for packages and images alike, counted from the
-  release of that version. pnpm enforces it for packages, and refuses a version whose publish
-  time is missing. Images are checked by hand.
+- **No version younger than 7 days is used,** for packages, images and actions alike, counted
+  from the release of that version. pnpm enforces it for packages, and refuses a version whose
+  publish time is missing. Images and actions are checked by hand.
 - **Development dependencies have exact versions,** so every update shows in a diff.
 - **A dependency enters through pnpm's command line,** never by editing `package.json`, with
   the commands in `docs/updating.md`. A peer's range is the one thing set as it is written.
 - **Updates are made by hand,** at the start of each roadmap item from milestone 2 on, as
   `docs/updating.md` says.
 - **`make check` runs every check, even after one fails,** and ends with one line per check.
-  Continuous integration has one box per check, with the same name, in parallel.
+  Continuous integration has one box per check, with the same name, in parallel, and a test
+  compares the two lists.
 - **Stories run in Storybook, and every test in Vitest,** the browsers through Playwright:
   Chromium, Firefox and WebKit. `test` runs logic and the repository's checks in Node, and
   `stories` everything in a browser, so nothing runs twice.
@@ -40,6 +42,7 @@ How the repository runs, and how its versions are chosen.
   They are approved in the commit that changes them.
 - **Accepted advisories are listed in `audit.ignore`,** in `pnpm-workspace.yaml`, each with its
   reason and what ends it.
+- **`audit.yml` runs `make audit` every week,** and by hand, besides GitHub's alerts.
 - **The `Makefile` calls each tool itself,** with no `package.json` scripts, and holds the loop
   of `make check`, which runs on the machine, so not in Node.
 
@@ -55,6 +58,11 @@ How the repository runs, and how its versions are chosen.
 - **By hand,** since the alternatives below cost more than they save. **What it costs:** the
   moment can be forgotten, which leaves versions one item older. Known vulnerabilities do not
   wait for it.
+- **A weekly audit besides the alerts,** since GitHub's documentation says its alerts do not
+  read a lockfile like ours, though today they do, as `docs/decisions/delivery.md` says. If that
+  stops, nothing would announce it. **What it costs:** it repeats the alerts today, GitHub stops
+  a schedule after 60 days with no activity, and a failure only reaches whoever last changed
+  the schedule, with notifications on.
 - **One box per check,** so a red box says what failed, and `make <box>` repeats it. Each box
   builds the images on a fresh machine, so a run costs more in machine time, though not in
   waiting, since the boxes run together.
@@ -111,6 +119,13 @@ How the repository runs, and how its versions are chosen.
   if an error in the package gets past it.
 - **The build's options in the `Makefile`.** One file less, but the options would have no comment,
   and a test beside the code would enter the tarball.
+- **`check-pins`, a script comparing the pins with their newest versions.** 912 lines with its
+  tests, for 2 images and 2 actions, which a few commands answer. The hand check can be
+  forgotten, and the release's part will add actions, so it is weighed again if that hurts.
+- **Only GitHub's alerts for vulnerabilities.** One file less, resting on behaviour GitHub's
+  documentation denies.
+- **The boxes read from the `Makefile` by continuous integration.** One list and no test, but
+  one more job to build the matrix, and the names no longer show in `ci.yml`.
 - **`make add`, and a `make add-peer`.** Both are rare, and a target only wraps the command. Their
   cost is a long command, kept in `docs/updating.md`, that `make help` does not show.
 
@@ -120,3 +135,4 @@ How the repository runs, and how its versions are chosen.
 - 2026-11-04: Static checks and their boxes in continuous integration.
 - 2026-11-05: Stories, browsers, coverage and screenshots.
 - 2026-11-05: The build and the package's check, and `make add` removed.
+- 2026-11-05: The weekly audit, the test of the boxes, and actions in the hand checks.

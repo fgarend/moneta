@@ -27,6 +27,10 @@ How decisions are kept, and how the work moves.
   of earlier decisions. A group's review shows: the unchanged files as a list, the
   edited ones as a diff against their origin, what stayed behind with its reason, and
   the commands' results.
+- **The release's part of the pipeline waits until just before its first use,** the one
+  exception to arriving in one step. A tag cannot be deleted, so it could only run for real by
+  spending a version, and there is nothing to release before then. **What it costs:** the
+  pipeline is incomplete until then, and its design waits in the roadmap.
 
 ## Why
 
@@ -40,8 +44,11 @@ rest.
 - **A single file.** It would grow without a shape, and mix unrelated topics.
 - **Deciding the pipeline tool by tool.** It would spend time on tools that have no
   opinion about the base.
+- **The release's part with the rest of the pipeline.** Complete sooner, but written months
+  before it could run.
 
 ## History
 
 - 2026-11-04: Written, with the repository.
 - 2026-11-04: The list of files moved to `README.md`, the index of this folder.
+- 2026-11-05: The release's part waits until just before its first use.
