@@ -70,6 +70,20 @@ function storyProjects(): TestProjectInlineConfiguration[] {
     // Every story tagged visual, against its approved screenshot.
     everyStory("visual", ["chromium"]),
     everyStory("text-spacing", everyBrowser),
+    everyStory("focus", everyBrowser),
+    // The same file again in forced colours, in the browsers whose emulation forces them.
+    {
+      plugins: [tailwindcss()],
+      test: {
+        name: "focus-forced",
+        include: [".storybook/focus.test.tsx"],
+        browser: inBrowsers(
+          ["chromium", "firefox"],
+          playwright({ contextOptions: { forcedColors: "active" } }),
+        ),
+        setupFiles: [".storybook/vitest.setup.ts"],
+      },
+    },
     // WebKit's emulation answers the media query but forces no colours.
     everyStory(
       "forced-colors",

@@ -22,6 +22,7 @@ gets its number.
 
 ### Fixed
 
+- Keyboard focus is a solid outline, which stays in forced colours and reaches 3:1. It also reaches an app's own controls.
 - `Avatar`'s fallback and `Kbd` reach WCAG's contrast in light, and `Tabs`' inactive text keeps it on the new colours.
 
 ## [0.1.0] - 2026-11-06

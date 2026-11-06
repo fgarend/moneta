@@ -22,6 +22,7 @@ which is run by hand.
   before its `play`, so not at an open overlay.
 - **script:** by hand, in [`accessibility-script.md`](accessibility-script.md), whose last
   section says which runs there have been.
+- **test:** a test of its own, named in the notes.
 - **coming:** a check planned, with its roadmap item.
 - **app:** the app's to meet, as it depends on its words or its content.
 - **none yet:** no check, even where a raw piece does this. A piece's review brings it.
@@ -60,7 +61,7 @@ which is run by hand.
 | 2.4.4 Link Purpose (In Context) | axe, app | axe finds a link with no name; its words are the app's |
 | 2.4.5 Multiple Ways | app | |
 | 2.4.6 Headings and Labels | app | |
-| 2.4.7 Focus Visible | coming | With the focus rule of the theme (4.5) |
+| 2.4.7 Focus Visible | test | `.storybook/focus.test.tsx`, on 13 pieces, in 3 browsers and in forced colours |
 | 2.4.11 Focus Not Obscured (Minimum) | none yet | |
 | 2.5.1 Pointer Gestures | none yet | |
 | 2.5.2 Pointer Cancellation | none yet | |

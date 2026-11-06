@@ -17,7 +17,8 @@ same list. A pass says little here:
 
 - Text spacing and forced colours do not run a story's `play`, and look only inside its own container. So they never
   see an open overlay's content, which axe does.
-- Nothing checks the keyboard, closing an overlay, the dark theme, target size beyond axe, or a long text.
+- Nothing checks the keyboard beyond where focus lands, closing an overlay, the dark theme, target size beyond axe, or a long
+  text.
 
 **Edited** marks a change made to a raw piece, which an update of it has to keep. The other marks are not measured by a check. **Code:** read from the piece. **Default text:** written in the piece,
 with no prop, read from the code. **Lint:** read from Biome. **To confirm:** from an earlier study, not measured again.

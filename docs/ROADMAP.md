@@ -92,9 +92,7 @@ with what is a real fault fixed as a recorded edit.
     `cva`, as `--spacing` made a whole screen 14% taller on 2026-11-06.
   - **The mode:** shadcn's `.dark` class, set by whoever uses Moneta, with `color-scheme: dark` in it, and no switch or
     provider of ours. The README warns of a flash when the class comes late.
-  - **Focus:** shadcn's solid outline, widened to the sidebar's own ring, `Checkbox`, `Switch` and fields, with no gold
-    halo. To test first: menus and options, focus returning from a dialog, and the other browsers. If those fail, it
-    comes back as a question.
+  - **Focus:** shadcn's solid outline, widened, with no gold halo, as `docs/decisions/theme.md` says.
   - **Text and space:** a scale, in `docs/decisions/theme.md`, with five styles internal to the pieces.
   - **The order:** the sample page, the light theme with font and sizes, the dark theme, then the checks in both modes.
 - **4.6 (was 3.1) · `Sidebar`, `AppLayout` and providers,** starting with a study, which is what this

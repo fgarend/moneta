@@ -174,7 +174,7 @@ function Navigation() {
   return (
     <nav
       aria-label="Main"
-      className="w-60 shrink-0 bg-sidebar px-3 py-4 text-sm text-sidebar-foreground"
+      className="w-60 shrink-0 bg-sidebar px-3 py-4 text-sm text-sidebar-foreground [--ring:var(--sidebar-ring)]"
     >
       <p className="px-2 pb-6 font-semibold">Moneta</p>
       <NavigationLinks items={navigation} />

@@ -28,6 +28,8 @@ The look Moneta has by default, which whoever uses it can replace. How an app re
   `styles.css` reaches them through a piece. The rest of the scale is Tailwind's own steps.
 - **`Card` reads the scale, and has 20 px around its content.** **`Table` has a quiet header and 12 px rows,** with 20 px at each
   end, so a table in a card lines up with the card's title.
+- **Keyboard focus is a solid outline,** 2 px with 2 px of offset, in `--ring`, from one unlayered rule in the theme. It is
+  shadcn's own rule, widened to fields and to what keeps focus on a hidden input. An area on a dark surface sets its own `--ring`.
 - **Dark is still shadcn's default,** until the roadmap's 4.5 designs it.
 
 ## Why
@@ -42,6 +44,8 @@ The look Moneta has by default, which whoever uses it can replace. How an app re
   it costs:** an app on `styles.css` has no page title or amount in these styles until `PageHeader` and `Amount` arrive.
 - **Three heights.** **What it costs:** 8 edited files to merge when shadcn updates them, and an app has to ask for `lg` until a
   `PageHeader` does it.
+- **The solid outline,** since shadcn's ring is a shadow, gone in forced colours, and 2.96:1 at 50% on white. **What it costs:** a
+  rule on every page, which also reaches an app's own controls, and a more marked focus than a soft ring.
 - **A stronger `--input`.** **What it costs:** a control's border is more marked than the prototype's, and `Switch`'s
   track, which also reads it, is darker.
 
@@ -58,11 +62,14 @@ The look Moneta has by default, which whoever uses it can replace. How an app re
 
 - **shadcn's neutrals with gold alone.** No work, but it still reads as shadcn.
 - **A white sidebar by default.** Calmer, but with less identity.
+- **A gold halo for focus.** An earlier library had one, but it reaches 1.75:1 on white.
 - **`oklch`, as shadcn's default writes it.** Natural for its own palette, but ours was chosen in hex, and the contrast test
   would have to convert it.
+
 
 ## History
 
 - 2026-11-06: Written, with the light colours.
 - 2026-11-06: Control heights and the gold variant.
 - 2026-11-06: The font as a variable, and the scale of text and space.
+- 2026-11-06: Keyboard focus.

@@ -138,6 +138,31 @@
   }
 }
 
+/* Keyboard focus, as a solid outline, which a shadow ring is not in forced colours and fails 3:1 at 50%. Unlayered, so it
+   beats each piece's outline-none. shadcn's own rule, widened to fields and to what keeps focus on a hidden input. */
+:is(
+  button,
+  a[href],
+  input,
+  select,
+  textarea,
+  [role="button"],
+  [role="tab"],
+  [role="checkbox"],
+  [role="radio"],
+  [role="switch"],
+  [role="slider"]
+):focus-visible,
+:is(
+  [data-slot="checkbox"],
+  [data-slot="switch"],
+  [data-slot="radio-group-item"]
+)[data-focus-visible] {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+  --tw-ring-shadow: 0 0 #0000;
+}
+
 /* The scale of text the pieces read, with each line height on a 4 px grid but the title's. Internal: an app gets these
    through a piece, and no name here is a promise to it. */
 @utility type-display {
