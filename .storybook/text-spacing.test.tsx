@@ -15,25 +15,25 @@ const spacing = `
     margin-bottom: 2em !important;
   }
 `;
-// Hidden from the screen on purpose, for screen readers.
-const hidden = ".sr-only";
+// Hidden from the screen on purpose, for screen readers, as Tailwind's sr-only and React Aria both do it.
+const hidden = "inset(50%)";
 // An area that scrolls lets everything be reached; any other has lost what does not fit.
 const reachable = ["auto", "scroll"];
 
-function cutElements(root: Element): string[] {
-  return [...root.querySelectorAll("*")]
-    .filter((element) => !element.matches(hidden))
-    .filter((element) => {
-      const { overflowX, overflowY } = getComputedStyle(element);
-      return (
-        (!reachable.includes(overflowX) &&
-          element.scrollWidth > element.clientWidth + 1) ||
-        (!reachable.includes(overflowY) &&
-          element.scrollHeight > element.clientHeight + 1)
-      );
-    })
-    .filter((element) => element.clientWidth > 0)
-    .map((element) => element.outerHTML);
+// How far an element's content goes past it, where that loses something.
+function overflow(element: Element): number {
+  const { clipPath, overflowX, overflowY } = getComputedStyle(element);
+  if (clipPath === hidden) {
+    return 0;
+  }
+  return Math.max(
+    reachable.includes(overflowX)
+      ? 0
+      : element.scrollWidth - element.clientWidth,
+    reachable.includes(overflowY)
+      ? 0
+      : element.scrollHeight - element.clientHeight,
+  );
 }
 
 // This project has only this file, in a page of its own, so the style stays for all of it.
@@ -41,12 +41,26 @@ const style = document.createElement("style");
 style.textContent = spacing;
 document.head.append(style);
 
+// Only what the spacing itself pushes out counts: a touch area larger than its piece, or a fixed height with padding,
+// overflows the same with no spacing at all, and loses no text.
+function cutBySpacing(root: Element): string[] {
+  const elements = [...root.querySelectorAll("*")].filter(
+    (element) => element.clientWidth > 0,
+  );
+  style.disabled = true;
+  const before = elements.map(overflow);
+  style.disabled = false;
+  return elements
+    .filter((element, index) => overflow(element) > (before[index] ?? 0) + 1)
+    .map((element) => element.outerHTML);
+}
+
 it.each(stories.map((story) => [story.id, story] as const))(
   "keeps %s whole with WCAG's text spacing",
   async (_id, Story) => {
     const screen = await render(<Story />);
     await document.fonts.ready;
 
-    expect(cutElements(screen.container)).toEqual([]);
+    expect(cutBySpacing(screen.container)).toEqual([]);
   },
 );

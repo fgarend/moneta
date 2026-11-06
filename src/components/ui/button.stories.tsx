@@ -11,6 +11,7 @@ const defaultHeight = 32;
 const meta = {
   title: "UI/Button",
   component: Button,
+  tags: ["raw"],
   args: { children: label },
 } satisfies Meta<typeof Button>;
 

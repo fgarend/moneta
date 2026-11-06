@@ -36,7 +36,12 @@ it("runs in forced colours", () => {
   expect(matchMedia("(forced-colors: active)").matches).toBe(true);
 });
 
-it.each(stories.map((story) => [story.id, story] as const))(
+// A raw piece's gap, written down in docs/pieces.md, lets its story off until the piece is reviewed.
+const checked = stories.filter(
+  (story) => !story.tags.includes("gap-forced-colors"),
+);
+
+it.each(checked.map((story) => [story.id, story] as const))(
   "keeps %s legible in forced colours",
   async (_id, Story) => {
     const screen = await render(<Story />);

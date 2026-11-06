@@ -47,6 +47,7 @@ Done: 2.1, the first `shadcn add`, 41 pieces, as `docs/decisions/base.md` and `d
 What an app does with it happens in that app, and is not tracked here.
 
 Done: 3.4, one import, with ready-made styles, as `docs/decisions/delivery.md` says.
+3.5, a story for each of the 41 pieces, with what they measure in `docs/pieces.md`.
 
 - **3.3 · The release's part of the pipeline,** just before its first use. `check-release`,
   `extract-release-notes`, `docs/releasing.md` and the changelog. Local tests pass, and the rest
@@ -62,8 +63,16 @@ Done: 3.4, one import, with ready-made styles, as `docs/decisions/delivery.md` s
   - Only pull requests cancel an earlier run, so a newer push never cuts a release.
   - Untested until the push: how GitHub draws a skipped reusable workflow, the
     expression that cancels only pull requests, and a failure halfway through `publish`.
+- **3.6 · What is written matches what exists,** before the first release. `README.md` says there is no code,
+  goes in the tarball, and its links to `docs/` die there, so it gets how to install and use. `package.json` is at
+  `0.0.0`, and no document says when it changes in a release by hand. `docs/accessibility.md` has old item numbers
+  and calls pieces that exist "none yet". `base.md` says three pieces wait under Deferred, which are in 4.2, 4.4 and
+  4.6. `delivery.md` says the workflows never ran. `process.md` and `base.md` promise a commit per piece, unlike
+  `55015aa`. Ten pieces have no family in milestone 4, though 1.0 needs them reviewed: AlertDialog, AspectRatio,
+  ButtonGroup, ContextMenu, HoverCard, Kbd, Label, NativeSelect, ScrollArea and Slider. How to change the theme, and
+  what `styles.css` cannot do, are not written, and were reported by a review, to be measured here.
 - **3.2 · Release 0.1.0,** by the owner, with how to install and use it, and which pieces are raw. To
-  ask: whether the gallery is published with it (recommended: not yet, as it has only `button`).
+  ask: whether the gallery is published with it (recommended: to weigh again, now that every piece has a story).
 
 Dropped: 3.1, `Sidebar`, `AppLayout` and providers, moved to 4.6, after a study of its own.
 
@@ -126,18 +135,17 @@ with what is a real fault fixed as a recorded edit.
   `flex`, `gap-*` and `text-*`. Own code, the rule's third step, so a page shows the need first. To ask:
   which pieces and their names, and how far their props go (recommended: the fewest that remove the most
   classes, against a mini-language of layout to maintain).
-- **4.1 · Display.** Badge, deciding its finance colours on a dark surface, and its
-  fixed height against text spacing. Card, Section, Table, weighing a `grid` role, Avatar
-  with its group, Alert, Item, whose group has a list role with no list items, Separator,
+- **4.1 · Display.** Badge, deciding its finance colours on a dark surface. Card, Section, Table, weighing
+  a `grid` role, Avatar with its group, Alert, Item, whose group has a list role with no list items, Separator,
   Stat and DescriptionList. Tables on phones are decided with the first table.
 - **4.2 · Actions and forms.** Button's variants, PageHeader, Input, InputGroup, Textarea,
   Field, which does not link its description or error, Select, Checkbox, which draws a
   check when indeterminate, RadioGroup, Switch, Toggle, ToggleGroup, DateField, SearchField,
   FilePicker, ChoiceCard, and `combobox` after a study like 4.6's. Field decides the contrast of the control's border against the 3:1 of
   WCAG 1.4.11. ToggleGroup weighs a segmented control against a radio in line.
-- **4.3 · Overlays.** Dialog, Sheet, Popover, DropdownMenu and Tooltip.
-- **4.4 · The rest.** Tabs, whose inactive text fails contrast through opacity and whose
-  fixed height fails text spacing. Progress, Empty, Skeleton, Spinner, Breadcrumb,
+- **4.3 · Overlays.** Dialog, Sheet, Popover, DropdownMenu and Tooltip. Text spacing and forced colours reach
+  what an overlay draws when open, as today they see only its closed trigger.
+- **4.4 · The rest.** Tabs. Progress, Empty, Skeleton, Spinner, Breadcrumb,
   Pagination, Collapsible, IconTile, StatGroup and AllocationBar, and `calendar` after a study like
   4.6's.
 - **4.8 · Charts.** Chart, with shadcn's `chart-1` to `chart-5`, whose marks need 3:1 against the surface,

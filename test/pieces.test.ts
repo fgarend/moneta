@@ -3,13 +3,23 @@ import { describe, expect, it } from "vitest";
 import { root, sources } from "./sources.js";
 
 const inUi = /^\/src\/components\/ui\/(?<name>[^/]+)\.tsx$/u;
-const listRow = /^\| `(?<name>[a-z-]+)` \| (?<state>raw|reviewed) \|/gmu;
+const listRow =
+  /^\| `(?<name>[a-z-]+)` \| (?<state>raw|reviewed) \|(?<gaps>.*)\|$/gmu;
+// How a story is let off a check, and how docs/pieces.md names what that check found.
+const exemptions = [
+  { check: "axe", mark: /test: "todo"/u },
+  { check: "forced colours", mark: /"gap-forced-colors"/u },
+];
+const extension = /\.tsx$/u;
+const rawTag = /tags: \[[^\]]*"raw"/u;
 const testOrStory = /\.(?:stories|test)\.tsx?$/u;
 // Tailwind's arbitrary values, on the utilities that set spacing or colour.
 const arbitrary =
   /(?<![\w-])-?(?:p[xytblrse]?|m[xytblrse]?|gap(?:-[xy])?|space-[xy]|inset(?:-[xy])?|top|right|bottom|left|w|h|size|m(?:in|ax)-[wh]|indent|bg|text|border(?:-[xytblrse])?|ring|outline|fill|stroke|shadow|from|via|to|divide|decoration|accent|caret|placeholder)-\[[^\]\s]+\]/gu;
 
-async function listedPieces(): Promise<{ name?: string; state?: string }[]> {
+async function listedPieces(): Promise<
+  { name?: string; state?: string; gaps?: string }[]
+> {
   const list = await readFile(new URL("docs/pieces.md", root), "utf8");
   return [...list.matchAll(listRow)].map(({ groups }) => ({ ...groups }));
 }
@@ -56,12 +66,42 @@ it("lists each file in ui/, and only those, in docs/pieces.md", async () => {
   expect(new Set(listed)).toEqual(new Set(files));
 });
 
-// Coverage does not see ui/, so a story is what says a reviewed piece draws.
-it("has a story for each reviewed piece", async () => {
-  const missing = (await listedPieces())
-    .filter(({ state }) => state === "reviewed")
-    .map(({ name }) => `/src/components/ui/${name}.stories.tsx`)
-    .filter((path) => !Object.keys(sources).includes(path));
+// Coverage does not see ui/, so a story is what says each of its files draws, raw or reviewed.
+it("has a story for each file in ui/", () => {
+  const paths = Object.keys(sources);
+  const missing = paths
+    .filter((path) => inUi.test(path) && !testOrStory.test(path))
+    .filter((path) => !paths.includes(path.replace(extension, ".stories.tsx")));
 
   expect(missing).toEqual([]);
 });
+
+// The gallery and the list say the same of each piece.
+it("tags the story of each raw piece as raw, and of no other", async () => {
+  const wrong = (await listedPieces())
+    .filter(({ name, state }) => {
+      const story = sources[`/src/components/ui/${name}.stories.tsx`] ?? "";
+      return rawTag.test(story) !== (state === "raw");
+    })
+    .map(({ name }) => name);
+
+  expect(wrong).toEqual([]);
+});
+
+// A check lets a story off only for a gap written down, and a reviewed piece has none.
+it.each(exemptions)(
+  "says the same of $check in the stories and in docs/pieces.md",
+  async ({ check, mark }) => {
+    const wrong = (await listedPieces())
+      .filter(({ name, state, gaps = "" }) => {
+        const story = sources[`/src/components/ui/${name}.stories.tsx`] ?? "";
+        const exempt = mark.test(story);
+        return (
+          exempt !== gaps.includes(`**${check}:`) || (exempt && state !== "raw")
+        );
+      })
+      .map(({ name }) => name);
+
+    expect(wrong).toEqual([]);
+  },
+);

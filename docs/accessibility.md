@@ -13,11 +13,13 @@ itself.
 Every check here runs in `make check` and in continuous integration, except the script,
 which is run by hand.
 
-- **axe:** in every story, in the three browsers. A violation fails it. What it reports
-  as incomplete, such as text on a gradient, does not fail.
+- **axe:** in every story, in the three browsers. A violation fails it, unless it is a raw
+  piece's gap written in [`pieces.md`](pieces.md). What it reports as incomplete, such as text
+  on a gradient, does not fail.
 - **story:** a check in a story's `play` function.
 - **every story:** text spacing, and forced colours, which no criterion names but which
-  people rely on, on all stories.
+  people rely on, on all stories, with the same exception. They look at what a story draws
+  before its `play`, so not at an open overlay.
 - **script:** by hand, in [`accessibility-script.md`](accessibility-script.md), whose last
   section says which runs there have been.
 - **coming:** a check planned, with its roadmap item.

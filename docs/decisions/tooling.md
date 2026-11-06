@@ -133,7 +133,6 @@ How the repository runs, and how its versions are chosen.
   dependencies' types, so it would mean those edits and `skipLibCheck`, and no untouched commit would pass.
 - **`noUnusedLocals` on.** `alert-dialog` and `label` fail it untouched, and Biome reported all 5 kinds
   of unused code planted in own files on 2026-11-06. It returns in the roadmap's 6.3.
-- **A story per file in `ui/`, for raw pieces too.** Without CSS, 40 stories would prove little.
 - **`make add`, and a `make add-peer`.** Both are rare, and a target only wraps the command. Their
   cost is a long command, kept in `docs/updating.md`, that `make help` does not show.
 
@@ -148,3 +147,4 @@ How the repository runs, and how its versions are chosen.
 - 2026-11-06: `noUnusedLocals` off until 6.3, and stories per reviewed piece.
 - 2026-11-06: The app of `package` builds with Vite.
 - 2026-11-06: Tailwind's command line for the ready-made style sheet.
+- 2026-11-06: A story per file in `ui/`, raw pieces too.
