@@ -10,7 +10,7 @@ Where the library lives, how it is received, and under what terms.
   registry. A local link is left out until the daily work needs it.
 - **Pieces are imported by path,** as `@fgarend/moneta/ui/button`. There is no root entry.
 - **An app brings the peers,** whose second copy would silently lose shared state: `react` and
-  `react-dom` at `^19.0.0`, and `react-aria-components` at `^1.22.1`. A peer enters when the code in
+  `react-dom` at `^19.0.0`, `react-aria-components` at `^1.22.1` and `lucide-react` at `^1.65.0`. A peer enters when the code in
   the package first imports it, with the version installed then as its floor.
 - **Helpers come with the package, at exact versions:** `cn` and `class-variance-authority`.
 - **The license is MIT,** for everything in this repository.

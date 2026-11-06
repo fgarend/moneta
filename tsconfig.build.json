@@ -4,6 +4,8 @@
   "exclude": ["src/**/*.stories.tsx", "src/**/*.test.ts"],
   "compilerOptions": {
     "noEmit": false,
+    // What is built resolves as an app will: to dist.
+    "customConditions": [],
     "rootDir": "src",
     "outDir": "dist",
     "declaration": true

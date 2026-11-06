@@ -11,4 +11,6 @@ What holds today, by topic, and why. Where the work is, and what comes next, is 
 | [`process.md`](process.md) | How decisions are kept, and how the work moves |
 | [`tooling.md`](tooling.md) | How the repository runs, and how versions are chosen |
 
+The state of each of shadcn's pieces is in [`../pieces.md`](../pieces.md).
+
 Still to be born, each when first needed: `theme.md` and `components.md`. A new file gets its line here in the commit that creates it.

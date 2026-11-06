@@ -1,6 +1,6 @@
 # Roadmap
 
-**Now:** 2.1, the first `shadcn add`.
+**Now:** 2.3, shadcn's default theme, untouched.
 
 **The order:** first in use, then refined. Moneta starts as shadcn untouched, delivered as a
 package, so an app can use it from the start. The look and the reviewed pieces arrive afterwards,
@@ -35,55 +35,8 @@ build and package. 1.6, the audit and the workflows' test. The release's part is
 
 shadcn's pieces and theme, untouched, as a package, with no choice of look yet.
 
-- **2.1 · The first `shadcn add`: 41 pieces,** untouched, in commits named
-  `chore(shadcn): add <piece>` with the CLI's version and the style in the body. There are no tags,
-  since a tag named after a piece does not find the files that came with it.
-  `git log -1 --grep='^chore(shadcn):' -- <file>` finds a file's last import, which was tried on
-  simple files.
-  - Two commits. `button`, with `components.json`, the dependencies and the peers it uses, is done.
-    Next, the other 40.
-  - Of the 62 in the registry on 2026-11-06, 21 stay out. `sidebar`, `combobox` and `calendar` wait
-    for their study, under Deferred. `carousel`, `chart`, `drawer`, `input-otp`, `message-scroller`,
-    `questionnaire`, `resizable` and `sonner` bring packages of their own. `attachment`, `bubble`,
-    `code-block`, `marker`, `message` and `trace` are for conversations and code, though the registry
-    does not describe `marker`, so that one is a guess. `accordion` and `command` are not to be built.
-    `direction` fails the build, with TS2883, and `form` brings no file.
-  - Each piece is listed as raw or reviewed, with its known gaps. Only `button` gets a story here,
-    and the test of a story per file comes to mean one per reviewed piece.
-  - Imports through `package.json#imports`, with `#components/*`, `#hooks/*` and `#lib/*` and a
-    custom condition, `moneta-source`, which must not be called `source`. Without `#lib/*`, `add`
-    wrote no piece, though nothing here needs it yet. `cn` is the npm package of that name, as
-    shadcn delivers it, so it brings no code of ours to test.
-  - Tried on a copy in 1.5, using an alias in the minimal `Button`. These passed: the types
-    under `nodenext`, the build, Node on `dist/`, the stories with `resolve.conditions` at the
-    root of `vitest.config.ts`, and the gallery with it in `.storybook/main.ts`. An alias to a
-    missing file was refused. A test in Node importing by alias failed even with that setting,
-    not yet diagnosed.
-  - Tried on a copy on 2026-11-06, with shadcn 4.23.0 and `aria-nova`. `init` still refuses a
-    library. `add` accepts the `#` aliases and installs only `cn`, so `react-aria-components`,
-    `lucide-react` and `class-variance-authority` enter by command. With 44 pieces, a tarball of
-    33 KB passed the 4 tests of `package`.
-  - Tried behind a real app's own files on 2026-11-06, with 13 raw pieces in place of its copies and
-    its own tokens: no type errors, and 487 of its 511 tests pass. The other 24 come from 3 differences
-    in `Sheet`, `Table` and `Dialog`. Its CSS grew from 87 to 155 KB, as Tailwind reads every piece,
-    and its JavaScript from 1,120 to 1,147 KB.
-  - `components.json` is written by hand, as `init` refuses a library, on React Aria, recorded in
-    `docs/decisions/base.md`. The style is `aria-nova`, chosen by the owner on shadcn/create. Registry
-    code has no version or date, so the CLI is pinned and the date recorded, and `docs/updating.md`
-    gains a hand check for the CLI and the registry. Lint is turned off on `ui/`, with one read of its
-    findings per file.
-  - React Aria, with its `react-dom`, and Lucide are peers, since a second copy silently loses their
-    shared state: links in one, `LucideProvider` in the other. Their floor is the version installed
-    then, the only one tested, as widening a range later breaks nobody, and `react-dom` follows
-    `react`. `cn` and `class-variance-authority` are dependencies at exact versions, since two copies
-    of them cost size and break nothing, and an app then receives what `package` tested.
-  - `exactOptionalPropertyTypes` goes, here and in the app of `package`, which keeps
-    `skipLibCheck` off. Measured on 2026-11-06 with all 61 of shadcn's pieces: on, 29 errors in 18
-    files and 13 in the dependencies' types. Off, none of those in `src/`, and 1 in the dependencies'
-    types, not identified, which the pieces of this item do not reach.
-  - To ask: `noUnusedLocals` off, as `alert-dialog` and `label` fail it untouched
-    (recommended: yes, if Biome's rule covers own pieces). To ask: where the list of raw and reviewed
-    pieces lives (recommended: `docs/pieces.md`).
+Done: 2.1, the first `shadcn add`, 41 pieces, as `docs/decisions/base.md` and `docs/pieces.md` say.
+
 - **2.3 · `theme.css`, shadcn's default, untouched,** as `@fgarend/moneta/theme.css`, with the
   `@source` that lets an app's Tailwind read the package. Tailwind becomes a peer, and the gallery
   draws the pieces with it. `button`'s screenshot is approved again, and the checks of every story
@@ -126,7 +79,8 @@ hold come over with each family. No reviewed piece has a default text, so shadcn
 become props.
 
 **A piece is reviewed with:** its stories, its visual test and contrast in both modes, its
-accessibility report, its section in the guidelines, and the changelog.
+accessibility report, its section in the guidelines, the changelog, and its lint findings read again,
+with what is a real fault fixed as a recorded edit.
 
 - **4.5 (was 2.2) · Our `theme.css`, light and dark,** in shadcn's format, as a default that whoever
   uses Moneta can replace, with the sample page open in both, and `docs/guidelines.md` as
@@ -177,6 +131,10 @@ before the families above.
 
 - **6.1 · A stable API,** with every piece reviewed, and the accessibility script's first run, by the owner, with
   a screen reader and real zoom.
+- **6.3 · The stricter checks back,** since by then every piece has been read. `noUnusedLocals` returns,
+  and `alert-dialog` and `label` lose what they leave unused, in their reviews or here. To weigh again:
+  `exactOptionalPropertyTypes`, if React Aria's types pass it, and lint on `ui/`, against how much it
+  costs each update. Formatting stays off there, as it would rewrite every file shadcn sends.
 - **6.2 · Release 1.0.0.**
 
 ## Deferred

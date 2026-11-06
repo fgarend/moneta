@@ -8,7 +8,8 @@ sense. It is generic, and meant to be reused by any app.
 ## Status
 
 Being set up: there is no code or release yet. Where the work is, and what comes
-next, is in [`docs/ROADMAP.md`](docs/ROADMAP.md). The choices made so far are in
+next, is in [`docs/ROADMAP.md`](docs/ROADMAP.md). Which pieces are raw or reviewed is in
+[`docs/pieces.md`](docs/pieces.md). The choices made so far are in
 [`docs/decisions/`](docs/decisions/).
 
 ## Working on it

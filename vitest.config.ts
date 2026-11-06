@@ -1,6 +1,7 @@
 // Test settings. make test runs the project on Node, and make stories, with --mode stories, those in a browser.
 import { storybookTest } from "@storybook/addon-vitest/vitest-plugin";
 import { playwright } from "@vitest/browser-playwright";
+import { defaultClientConditions } from "vite";
 import {
   defineConfig,
   type TestProjectInlineConfiguration,
@@ -107,6 +108,8 @@ export { coverageAreas };
 export default defineConfig(({ mode }): ViteUserConfig => {
   const check = mode === "stories" ? "stories" : "test";
   return {
+    // The aliases of package.json#imports point to the sources here.
+    resolve: { conditions: ["moneta-source", ...defaultClientConditions] },
     test: {
       coverage: {
         provider: "istanbul",

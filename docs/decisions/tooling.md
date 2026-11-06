@@ -130,6 +130,9 @@ How the repository runs, and how its versions are chosen.
 - **`exactOptionalPropertyTypes` on.** It tells a missing property from an `undefined` one, which own
   pieces lose. Across all 61 of shadcn's pieces, it gave 29 errors in 18 files, and 13 in the
   dependencies' types, so it would mean those edits and `skipLibCheck`, and no untouched commit would pass.
+- **`noUnusedLocals` on.** `alert-dialog` and `label` fail it untouched, and Biome reported all 5 kinds
+  of unused code planted in own files on 2026-11-06. It returns in the roadmap's 6.3.
+- **A story per file in `ui/`, for raw pieces too.** Without CSS, 40 stories would prove little.
 - **`make add`, and a `make add-peer`.** Both are rare, and a target only wraps the command. Their
   cost is a long command, kept in `docs/updating.md`, that `make help` does not show.
 
@@ -141,3 +144,4 @@ How the repository runs, and how its versions are chosen.
 - 2026-11-05: The build and the package's check, and `make add` removed.
 - 2026-11-05: The weekly audit, the test of the boxes, and actions in the hand checks.
 - 2026-11-06: `exactOptionalPropertyTypes` off.
+- 2026-11-06: `noUnusedLocals` off until 6.3, and stories per reviewed piece.
