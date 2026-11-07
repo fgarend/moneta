@@ -87,7 +87,8 @@ with what is a real fault fixed as a recorded edit.
   style reads as a recorded edit in the piece that uses it. Decided with the owner on 2026-11-06:
   - **The look:** in light, warm paper, white cards, a graphite sidebar and one gold accent. In dark, decided on
     2026-11-07 after a graphite draft looked like two unrelated darks, a warm near-black page, a darker sidebar and lighter
-    cards. Gold stays the same in both.
+    cards. Gold stays the same in both. On 2026-11-07 the light text, dark button and sidebar were made warm too, so both
+    modes are one family.
   - **The font:** Geist stays.
   - **Control heights:** 36 px by default, 40 for a page's main actions, 32 for dense ones. By editing each piece's
     `cva`, as `--spacing` made a whole screen 14% taller on 2026-11-06.
