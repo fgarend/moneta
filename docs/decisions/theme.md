@@ -5,9 +5,9 @@ The look Moneta has by default, which whoever uses it can replace. How an app re
 
 ## What holds today
 
-- **In light: warm paper, white cards, a warm graphite sidebar and one gold accent.** The page is `#faf9f6`, the sidebar
-  `#32302c`, text `#262420`, and gold `#f0bd2a`, in shadcn's token names, plus `--gold` and `--gold-foreground`, as shadcn
-  has no slot for an accent that is neither `--primary` nor `--accent`.
+- **In light: the prototype's colours,** warm paper, white cards, a cool graphite sidebar and text, and one gold accent.
+  The page is `#faf9f6`, the sidebar `#303338`, text `#23262b`, and gold `#f0bd2a`, in shadcn's token names, plus `--gold`
+  and `--gold-foreground`, as shadcn has no slot for an accent that is neither `--primary` nor `--accent`.
 - **Values are written in hex,** as shadcn's customization guide keeps them, and `test/theme.test.ts` holds the pairs
   every piece paints to 4.5:1 for text and 3:1 for the rest.
 - **The radius is shadcn's `small`,** `0.45rem`, chosen by the owner on shadcn/create.
@@ -33,16 +33,14 @@ The look Moneta has by default, which whoever uses it can replace. How an app re
 - **In dark: a warm near-black, in small steps.** The page is `#1b1a18`, the sidebar a step darker at `#131210`, and a card a
   step lighter at `#25241f`, so what is nearer is lighter. Gold stays the same in both, and `color-scheme: dark` darkens the
   browser's own controls.
-- **Every colour is of one warm family, in both modes:** the surfaces, the text, the dark button and the sidebar.
 - **An app sets the mode, with the class `.dark`,** as shadcn does, with no switch or provider of ours.
 
 ## Why
 
 - **A warm dark,** since it is the paper's family, so both modes read as one product, and gold sits naturally on it.
-  **What it costs:** a warm tone may look brown on some screens, and the sidebar is only 1.08:1 from the page, so the item
-  marked and the text are what set it apart.
-- **Warm text and graphite in light too,** since the paper and lines were warm and the text, the dark button and the sidebar
-  were cool, so light mixed two families. **What it costs:** the change is subtle, and it reaches the text of every piece.
+  **What it costs:** the light sidebar `#303338` is still cool, a warm tone may look brown on some screens, and the sidebar is
+  only 1.08:1 from the page, so the item marked and the text are what set it apart.
+- **The prototype's light, as it is,** since warm paper against cool graphite is what keeps it from reading yellow.
 - **Graphite and paper,** since the dark sidebar beside light content is what gives a screen its identity, and a white
   sidebar reads as any app on shadcn. An app that wants one changes `--sidebar-*`.
 - **One gold,** kept for little, so it still means something. It fails as text on paper, at 1.66:1, so it is a fill.
@@ -72,7 +70,8 @@ The look Moneta has by default, which whoever uses it can replace. How an app re
 - **shadcn's neutrals with gold alone.** No work, but it still reads as shadcn.
 - **A white sidebar by default.** Calmer, but with less identity.
 - **A gold halo for focus.** An earlier library had one, but it reaches 1.75:1 on white.
-- **Only the light sidebar warm.** Less to change, but the sidebar would then differ from the dark button beside it.
+- **Warm text, dark button and sidebar in light,** so both modes were one warm family. Tried on 2026-11-07, and the owner
+  found it too yellow and too far from the prototypes.
 - **A graphite page in dark, `#303338`, with a near-black sidebar.** The light sidebar's colour, but the two darks did not
   read as one family, a mid grey dulled the content, and `--input` was at 3.14:1.
 - **A neutral near-black, `#1a1b1e`.** The same steps without warmth, but it is the dark many apps have, and colder than the paper.
@@ -89,4 +88,4 @@ The look Moneta has by default, which whoever uses it can replace. How an app re
 - 2026-11-06: The font as a variable, and the scale of text and space.
 - 2026-11-06: Keyboard focus.
 - 2026-11-07: The dark colours.
-- 2026-11-07: The light theme's graphites made warm.
+- 2026-11-07: Light made warm, and back to the prototype's the same day.
