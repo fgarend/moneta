@@ -1,6 +1,6 @@
 // Every story in forced colours, as Windows's contrast themes set, in the browsers whose emulation forces them. Fills
 // disappear there, so what marks a state has to be something else, and a piece gets this check from having a story.
-import { expect, it } from "vitest";
+import { expect, inject, it } from "vitest";
 import { render } from "vitest-browser-react";
 import { stories } from "./stories.js";
 
@@ -34,6 +34,15 @@ function offColourIcons(root: Element): string[] {
 
 it("runs in forced colours", () => {
   expect(matchMedia("(forced-colors: active)").matches).toBe(true);
+});
+
+it("draws in the mode of its project", async () => {
+  const [Story] = stories;
+  await render(<Story />);
+
+  expect(document.documentElement.classList.contains("dark")).toBe(
+    inject("mode") === "dark",
+  );
 });
 
 // A raw piece's gap, written down in docs/pieces.md, lets its story off until the piece is reviewed.

@@ -185,6 +185,9 @@ importers:
       '@storybook/addon-a11y':
         specifier: 10.6.5
         version: 10.6.5(storybook@10.6.5(@types/react@19.3.0)(react@19.3.1))
+      '@storybook/addon-themes':
+        specifier: 10.6.5
+        version: 10.6.5(storybook@10.6.5(@types/react@19.3.0)(react@19.3.1))
       '@storybook/addon-vitest':
         specifier: 10.6.5
         version: 10.6.5(@vitest/browser-playwright@5.0.5)(@vitest/browser@5.0.5(vite@8.3.5(@types/node@26.6.6)(esbuild@0.28.2)(jiti@2.7.0))(vitest@5.0.5))(react@19.3.1)(storybook@10.6.5(@types/react@19.3.0)(react@19.3.1))(vitest@5.0.5)
@@ -1118,6 +1121,11 @@ packages:
 
   '@storybook/addon-a11y@10.6.5':
     resolution: {integrity: sha512-7dEH3OHKdE+0zakqEy50KtfhPORIm1xnhWeehyROO1Ct7Rx9s7cYcx6edUZvh0tCuX5VhDnDmkvQV+dbrPDmCA==}
+    peerDependencies:
+      storybook: ^10.6.5
+
+  '@storybook/addon-themes@10.6.5':
+    resolution: {integrity: sha512-2x6M1vWafp/cDUJzGRkGpVpB6sF4VIuVgpPTyCfEOLtF3S7HaIBalnWqDJ0JvQ/t2e7qtUXKCHZ1C7gREdYOsw==}
     peerDependencies:
       storybook: ^10.6.5
 
@@ -3110,6 +3118,11 @@ snapshots:
       '@storybook/global': 5.0.0
       axe-core: 4.14.0
       storybook: 10.6.5(@types/react@19.3.0)(react@19.3.1)
+
+  '@storybook/addon-themes@10.6.5(storybook@10.6.5(@types/react@19.3.0)(react@19.3.1))':
+    dependencies:
+      storybook: 10.6.5(@types/react@19.3.0)(react@19.3.1)
+      ts-dedent: 2.3.0
 
   '@storybook/addon-vitest@10.6.5(@vitest/browser-playwright@5.0.5)(@vitest/browser@5.0.5(vite@8.3.5(@types/node@26.6.6)(esbuild@0.28.2)(jiti@2.7.0))(vitest@5.0.5))(react@19.3.1)(storybook@10.6.5(@types/react@19.3.0)(react@19.3.1))(vitest@5.0.5)':
     dependencies:

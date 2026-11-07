@@ -10,6 +10,8 @@ import {
 } from "vitest/config";
 
 type Browser = "chromium" | "firefox" | "webkit";
+// The colour mode a project runs every story in, as the gallery's toolbar sets it.
+type Mode = "light" | "dark";
 
 const notCode = ["**/*.test.{ts,tsx}", "**/*.stories.tsx", "**/*.d.ts"];
 const logic = ["src/lib/**/*.{ts,tsx}", "scripts/**/*.ts"];
@@ -43,32 +45,42 @@ function inBrowsers(
   };
 }
 
-// A check that goes through every story, from its one test file in .storybook/.
+// A check that goes through every story, from its one test file in .storybook/, in one mode.
 function everyStory(
   name: string,
   browsers: Browser[],
-  provider = playwright(),
+  { provider = playwright(), mode = "light" as Mode } = {},
 ): TestProjectInlineConfiguration {
   return {
     plugins: [tailwindcss()],
     test: {
-      name,
+      name: mode === "light" ? name : `${name}-${mode}`,
       include: [`.storybook/${name}.test.tsx`],
       browser: inBrowsers(browsers, provider),
       setupFiles: [".storybook/vitest.setup.ts"],
+      provide: { mode },
+    },
+  };
+}
+
+// Every story, with axe checking it and its play function checking what it shows, in one mode.
+function storybook(mode: Mode): TestProjectInlineConfiguration {
+  return {
+    plugins: [storybookTest({ initialGlobals: { theme: mode } })],
+    test: {
+      name: mode === "light" ? "storybook" : `storybook-${mode}`,
+      browser: inBrowsers(everyBrowser),
     },
   };
 }
 
 function storyProjects(): TestProjectInlineConfiguration[] {
   return [
-    // Every story, with axe checking it and its play function checking what it shows.
-    {
-      plugins: [storybookTest()],
-      test: { name: "storybook", browser: inBrowsers(everyBrowser) },
-    },
+    storybook("light"),
+    storybook("dark"),
     // Every story tagged visual, against its approved screenshot.
     everyStory("visual", ["chromium"]),
+    everyStory("visual", ["chromium"], { mode: "dark" }),
     everyStory("text-spacing", everyBrowser),
     everyStory("focus", everyBrowser),
     // The same file again in forced colours, in the browsers whose emulation forces them.
@@ -82,13 +94,15 @@ function storyProjects(): TestProjectInlineConfiguration[] {
           playwright({ contextOptions: { forcedColors: "active" } }),
         ),
         setupFiles: [".storybook/vitest.setup.ts"],
+        provide: { mode: "light" },
       },
     },
     // WebKit's emulation answers the media query but forces no colours.
-    everyStory(
-      "forced-colors",
-      ["chromium", "firefox"],
-      playwright({ contextOptions: { forcedColors: "active" } }),
+    ...(["light", "dark"] as const).map((mode) =>
+      everyStory("forced-colors", ["chromium", "firefox"], {
+        provider: playwright({ contextOptions: { forcedColors: "active" } }),
+        mode,
+      }),
     ),
   ];
 }

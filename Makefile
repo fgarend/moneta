@@ -66,7 +66,7 @@ format: ## Format the files and apply the safe lint fixes, in place
 
 # Vitest never removes the screenshot of a renamed or deleted story, so the folder goes first.
 update-screenshots: ## Write the approved screenshots again, to review a visual change in the diff
-	$(RUN) tools-write sh -c 'rm -rf .storybook/__screenshots__ && pnpm exec vitest run --mode stories --project visual --update'
+	$(RUN) tools-write sh -c 'rm -rf .storybook/__screenshots__ && pnpm exec vitest run --mode stories --project visual --project visual-dark --update'
 
 storybook: ## Serve the gallery of stories at http://localhost:6006 (STORYBOOK_PORT), until stopped with Ctrl+C
 	$(RUN) --service-ports storybook

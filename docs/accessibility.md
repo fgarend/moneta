@@ -13,12 +13,12 @@ itself.
 Every check here runs in `make check` and in continuous integration, except the script,
 which is run by hand.
 
-- **axe:** in every story, in the three browsers. A violation fails it, unless it is a raw
+- **axe:** in every story, in the three browsers, in light and in dark. A violation fails it, unless it is a raw
   piece's gap written in [`pieces.md`](pieces.md). What it reports as incomplete, such as text
   on a gradient, does not fail.
 - **story:** a check in a story's `play` function.
 - **every story:** text spacing, and forced colours, which no criterion names but which
-  people rely on, on all stories, with the same exception. They look at what a story draws
+  people rely on, on all stories, with the same exception. Forced colours run in both modes. They look at what a story draws
   before its `play`, so not at an open overlay.
 - **script:** by hand, in [`accessibility-script.md`](accessibility-script.md), whose last
   section says which runs there have been.
@@ -42,11 +42,11 @@ which is run by hand.
 | 1.3.5 Identify Input Purpose | none yet | With the form controls (4.2) |
 | 1.4.1 Use of Color | none yet | With the sidebar's current page (4.6) |
 | 1.4.2 Audio Control | app | |
-| 1.4.3 Contrast (Minimum) | axe, coming | axe on flat colours; the theme's pairs with 4.5 |
+| 1.4.3 Contrast (Minimum) | axe, test | axe on flat colours, and `test/theme.test.ts` on the theme's pairs, both modes |
 | 1.4.4 Resize Text | script | |
 | 1.4.5 Images of Text | app | |
 | 1.4.10 Reflow | coming, script | With the application's structure (4.6) |
-| 1.4.11 Non-text Contrast | coming | With the theme (4.5), Field (4.2) and charts (4.8) |
+| 1.4.11 Non-text Contrast | test, coming | `test/theme.test.ts` on borders and focus, both modes. Field (4.2) and charts (4.8) to come |
 | 1.4.12 Text Spacing | every story | All three browsers |
 | 1.4.13 Content on Hover or Focus | none yet | With Tooltip (4.3) |
 | 2.1.1 Keyboard | none yet | React Aria's in the raw pieces, and no story goes by keyboard; with each family's review |

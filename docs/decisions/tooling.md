@@ -42,6 +42,9 @@ How the repository runs, and how its versions are chosen.
   React Aria's own types do not pass it.
 - **Screenshots are taken at one width, 1280 px,** in Chromium, for each story tagged `visual`.
   They are approved in the commit that changes them.
+- **Colour runs in both modes:** axe, the screenshots and forced colours run every story again in dark, in a project of
+  their own. The gallery switches the mode with `@storybook/addon-themes`, which puts `.dark` on the page's root. A story
+  a test draws as a component runs no effect of Storybook's, so `.storybook/vitest.setup.ts` puts the class there itself.
 - **Accepted advisories are listed in `audit.ignore`,** in `pnpm-workspace.yaml`, each with its
   reason and what ends it.
 - **`audit.yml` runs `make audit` every week,** and by hand, besides GitHub's alerts.
@@ -79,6 +82,9 @@ How the repository runs, and how its versions are chosen.
 - **The package's check as a test,** since `test/` already has Node's types and its lint settings,
   and a failure comes with the name of what broke. **What it costs:** a test that installs packages
   needs the registry and a longer time limit, and depends on what the `Makefile` built before it.
+- **Dark as a project, and not a story per piece,** since one switch reaches every story, and the axe project is Storybook's
+  own pattern for it. Text spacing and focus stay in light, as they measure place and size, which the mode does not change.
+  **What it costs:** `make stories` went from 37 to 81 seconds on 2026-11-07, and a visual change is approved twice.
 - **`dist/` out of git,** since the tarball is built when it is needed, and a change in `src/` is
   not repeated in the diff in files nobody reviews.
 
@@ -133,6 +139,10 @@ How the repository runs, and how its versions are chosen.
   dependencies' types, so it would mean those edits and `skipLibCheck`, and no untouched commit would pass.
 - **`noUnusedLocals` on.** `alert-dialog` and `label` fail it untouched, and Biome reported all 5 kinds
   of unused code planted in own files on 2026-11-06. It returns in the roadmap's 6.3.
+- **A switch of our own,** a toolbar global and a decorator, about 10 lines. No dependency, but code to keep for what
+  Storybook's addon does, and its Tailwind guide uses.
+- **Dark axe in Chromium alone.** Half the added time, but on 2026-11-07 a planted dark colour failed `breadcrumb` only in
+  Firefox and WebKit, and `progress` not in Firefox.
 - **`make add`, and a `make add-peer`.** Both are rare, and a target only wraps the command. Their
   cost is a long command, kept in `docs/updating.md`, that `make help` does not show.
 
@@ -149,3 +159,4 @@ How the repository runs, and how its versions are chosen.
 - 2026-11-06: Tailwind's command line for the ready-made style sheet.
 - 2026-11-06: A story per file in `ui/`, raw pieces too.
 - 2026-11-06: The release's scripts, covered with `src/lib/` by `test`.
+- 2026-11-07: Colour checked in both modes, and the gallery's switch.
