@@ -30,16 +30,17 @@ The look Moneta has by default, which whoever uses it can replace. How an app re
   end, so a table in a card lines up with the card's title.
 - **Keyboard focus is a solid outline,** 2 px with 2 px of offset, in `--ring`, from one unlayered rule in the theme. It is
   shadcn's own rule, widened to fields and to what keeps focus on a hidden input. An area on a dark surface sets its own `--ring`.
-- **In dark: a warm near-black, in small steps.** The page is `#1b1a18`, the sidebar a step darker at `#131210`, and a card a
-  step lighter at `#25241f`, so what is nearer is lighter. Gold stays the same in both, and `color-scheme: dark` darkens the
+- **In dark: the prototype's graphite, near black, in small steps.** The page is `#1a1b1e`, the sidebar a step darker at
+  `#121316`, and a card a step lighter at `#232529`, so what is nearer is lighter. Text is `#f4f4f2`, as on the prototype's
+  sidebar. Gold stays the same in both, and `color-scheme: dark` darkens the
   browser's own controls.
 - **An app sets the mode, with the class `.dark`,** as shadcn does, with no switch or provider of ours.
 
 ## Why
 
-- **A warm dark,** since it is the paper's family, so both modes read as one product, and gold sits naturally on it.
-  **What it costs:** the light sidebar `#303338` is still cool, a warm tone may look brown on some screens, and the sidebar is
-  only 1.08:1 from the page, so the item marked and the text are what set it apart.
+- **A cool dark,** since the prototypes have no dark, and their graphite and the light text on it are what they have of one,
+  so both modes read as one product. **What it costs:** it is the dark many apps have, so gold carries the identity, the
+  paper's warmth is gone in dark, and the sidebar is only 1.08:1 from the page, so the item marked and the text set it apart.
 - **The prototype's light, as it is,** since warm paper against cool graphite is what keeps it from reading yellow.
 - **Graphite and paper,** since the dark sidebar beside light content is what gives a screen its identity, and a white
   sidebar reads as any app on shadcn. An app that wants one changes `--sidebar-*`.
@@ -74,7 +75,8 @@ The look Moneta has by default, which whoever uses it can replace. How an app re
   found it too yellow and too far from the prototypes.
 - **A graphite page in dark, `#303338`, with a near-black sidebar.** The light sidebar's colour, but the two darks did not
   read as one family, a mid grey dulled the content, and `--input` was at 3.14:1.
-- **A neutral near-black, `#1a1b1e`.** The same steps without warmth, but it is the dark many apps have, and colder than the paper.
+- **A warm near-black, `#1b1a18`,** the paper's family. Adopted on 2026-11-07, and dropped the same day, with the warm light,
+  as too yellow and too far from the prototypes.
 - **The sidebar the same as the page, with a line between.** The calmest, but the sidebar is no longer a surface of its own.
 - **A provider of ours for the mode.** An app writes less, but it is code to keep, for each framework.
 - **`oklch`, as shadcn's default writes it.** Natural for its own palette, but ours was chosen in hex, and the contrast test
@@ -89,3 +91,4 @@ The look Moneta has by default, which whoever uses it can replace. How an app re
 - 2026-11-06: Keyboard focus.
 - 2026-11-07: The dark colours.
 - 2026-11-07: Light made warm, and back to the prototype's the same day.
+- 2026-11-07: Dark from warm to the prototype's graphite.

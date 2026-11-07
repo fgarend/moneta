@@ -86,10 +86,10 @@ with what is a real fault fixed as a recorded edit.
   test of `aria-nova`. The tests for contrast, fonts and the package's theme arrive here. A `type-*`
   style reads as a recorded edit in the piece that uses it. Decided with the owner on 2026-11-06:
   - **The look:** in light, warm paper, white cards, a graphite sidebar and one gold accent. In dark, decided on
-    2026-11-07 after a graphite draft looked like two unrelated darks, a warm near-black page, a darker sidebar and lighter
+    2026-11-07 after a graphite draft looked like two unrelated darks, a near-black page, a darker sidebar and lighter
     cards. Gold stays the same in both. On 2026-11-07 the light text, dark button and sidebar were made warm too, and the
     owner found it too yellow and too far from the prototypes, so light went back to the prototype's values the same day.
-    Dark is reviewed again against them before 4.5 closes, as the prototypes have no dark.
+    Dark went from warm to the prototype's graphite the same day, as the prototypes have no dark of their own.
   - **The font:** Geist stays.
   - **Control heights:** 36 px by default, 40 for a page's main actions, 32 for dense ones. By editing each piece's
     `cva`, as `--spacing` made a whole screen 14% taller on 2026-11-06.
@@ -192,7 +192,8 @@ No order between them. Each becomes an item when its time comes.
 - **The look of Storybook's own interface.** The colours, fonts and mark around the stories. The gallery
   goes out with Storybook's default, and this is weighed again with the theme, in 4.5.
 - **The screenshots' tolerance.** Vitest's default let `--primary` move from `#2b2e33` to `#5a2b33` unseen on 2026-11-06,
-  while a stronger change fails. Contrast has its own test, but a small change of colour has none. Weighed if it bites.
+  while a stronger change fails. Contrast has its own test, but a small change of colour has none. It bit on 2026-11-07:
+  the whole dark palette, from warm to graphite, passed the dark screenshot unseen. To weigh next, after the colours.
 - **`actionlint`.** Biome reads a workflow's YAML, but not GitHub's rules. It ran once by hand on 2026-11-06, with
   nothing found, and would be one more image to keep. Weighed if a workflow fails on something it finds.
 - **Biome's `noTailwindArbitraryValue`.** It may replace the class scan in `test/pieces.test.ts`,

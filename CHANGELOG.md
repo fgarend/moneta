@@ -10,7 +10,7 @@ gets its number.
 
 - The theme's light colours and radius are Moneta's, in place of shadcn's default: warm paper, white cards, a graphite
   sidebar and one gold accent, as `--gold`.
-- The theme's dark colours are Moneta's: a warm near-black page, a darker sidebar and lighter cards, with `color-scheme: dark`.
+- The theme's dark colours are Moneta's: a graphite near-black page, a darker sidebar and lighter cards, with `color-scheme: dark`.
 - Controls are taller: `Button`, `Input`, `InputGroup`, `NativeSelect`, `Select`, `Tabs` and `Toggle` are 36 px by default,
   32 at `size="sm"`, and 40 at `size="lg"` where they have one. A screen with a height of its own may need adjusting.
 - `Card` has 20 px around its content, and its title and description follow a scale of text. `Table` has a quieter header and
