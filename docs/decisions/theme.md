@@ -30,10 +30,16 @@ The look Moneta has by default, which whoever uses it can replace. How an app re
   end, so a table in a card lines up with the card's title.
 - **Keyboard focus is a solid outline,** 2 px with 2 px of offset, in `--ring`, from one unlayered rule in the theme. It is
   shadcn's own rule, widened to fields and to what keeps focus on a hidden input. An area on a dark surface sets its own `--ring`.
-- **Dark is still shadcn's default,** until the roadmap's 4.5 designs it.
+- **In dark: a warm near-black, in small steps.** The page is `#1b1a18`, the sidebar a step darker at `#131210`, and a card a
+  step lighter at `#25241f`, so what is nearer is lighter. Gold stays the same in both, and `color-scheme: dark` darkens the
+  browser's own controls.
+- **An app sets the mode, with the class `.dark`,** as shadcn does, with no switch or provider of ours.
 
 ## Why
 
+- **A warm dark,** since it is the paper's family, so both modes read as one product, and gold sits naturally on it.
+  **What it costs:** the light sidebar `#303338` is still cool, a warm tone may look brown on some screens, and the sidebar is
+  only 1.08:1 from the page, so the item marked and the text are what set it apart.
 - **Graphite and paper,** since the dark sidebar beside light content is what gives a screen its identity, and a white
   sidebar reads as any app on shadcn. An app that wants one changes `--sidebar-*`.
 - **One gold,** kept for little, so it still means something. It fails as text on paper, at 1.66:1, so it is a fill.
@@ -63,6 +69,11 @@ The look Moneta has by default, which whoever uses it can replace. How an app re
 - **shadcn's neutrals with gold alone.** No work, but it still reads as shadcn.
 - **A white sidebar by default.** Calmer, but with less identity.
 - **A gold halo for focus.** An earlier library had one, but it reaches 1.75:1 on white.
+- **A graphite page in dark, `#303338`, with a near-black sidebar.** The light sidebar's colour, but the two darks did not
+  read as one family, a mid grey dulled the content, and `--input` was at 3.14:1.
+- **A neutral near-black, `#1a1b1e`.** The same steps without warmth, but it is the dark many apps have, and colder than the paper.
+- **The sidebar the same as the page, with a line between.** The calmest, but the sidebar is no longer a surface of its own.
+- **A provider of ours for the mode.** An app writes less, but it is code to keep, for each framework.
 - **`oklch`, as shadcn's default writes it.** Natural for its own palette, but ours was chosen in hex, and the contrast test
   would have to convert it.
 
@@ -73,3 +84,4 @@ The look Moneta has by default, which whoever uses it can replace. How an app re
 - 2026-11-06: Control heights and the gold variant.
 - 2026-11-06: The font as a variable, and the scale of text and space.
 - 2026-11-06: Keyboard focus.
+- 2026-11-07: The dark colours.

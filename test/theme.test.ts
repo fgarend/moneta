@@ -6,6 +6,7 @@ const text = 4.5;
 const nonText = 3;
 const hexColour = /^#[0-9a-f]{6}$/u;
 const lightBlock = /^:root \{(?<body>[^}]*)\}/mu;
+const darkBlock = /^\.dark \{(?<body>[^}]*)\}/mu;
 const declaration = /--(?<name>[\w-]+):\s*(?<value>[^;]+);/gu;
 
 const lowChannel = 0.039_28;
@@ -43,15 +44,21 @@ function contrast(one: string, other: string): number {
   return (lighter + ambient) / (darker + ambient);
 }
 
-async function lightTheme(): Promise<Record<string, string>> {
-  const theme = await readFile(new URL("src/styles/theme.css", root), "utf8");
-  const body = theme.match(lightBlock)?.groups?.["body"] ?? "";
+function declared(theme: string, block: RegExp): Record<string, string> {
+  const body = theme.match(block)?.groups?.["body"] ?? "";
   return Object.fromEntries(
     [...body.matchAll(declaration)].map(({ groups }) => [
       groups?.["name"],
       groups?.["value"],
     ]),
   );
+}
+
+// Dark holds only what changes, and takes the rest from light.
+async function themes(): Promise<Record<string, Record<string, string>>> {
+  const theme = await readFile(new URL("src/styles/theme.css", root), "utf8");
+  const light = declared(theme, lightBlock);
+  return { light, dark: { ...light, ...declared(theme, darkBlock) } };
 }
 
 describe("contrast", () => {
@@ -65,7 +72,7 @@ describe("contrast", () => {
 });
 
 // The pairs every piece paints, as axe only sees those a story draws, and only on flat colours.
-describe("the light theme", () => {
+describe.each(["light", "dark"])("the %s theme", (mode) => {
   it.each([
     ["foreground", "background", text],
     ["card-foreground", "card", text],
@@ -90,11 +97,19 @@ describe("the light theme", () => {
     ["sidebar-ring", "sidebar", nonText],
     ["sidebar-ring", "sidebar-accent", nonText],
   ])("has %s on %s at %d:1 or more", async (one, other, minimum) => {
-    const theme = await lightTheme();
+    const theme = (await themes())[mode] ?? {};
     const [first = "", second = ""] = [theme[one], theme[other]];
 
     expect(first).toMatch(hexColour);
     expect(second).toMatch(hexColour);
     expect(contrast(first, second)).toBeGreaterThanOrEqual(minimum);
   });
+});
+
+it("tells the browser its own controls are dark too", async () => {
+  const theme = await readFile(new URL("src/styles/theme.css", root), "utf8");
+
+  expect(theme.match(darkBlock)?.groups?.["body"]).toContain(
+    "color-scheme: dark",
+  );
 });

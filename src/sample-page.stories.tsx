@@ -337,10 +337,10 @@ function SidePanels() {
   );
 }
 
-function SamplePage() {
+function SamplePage({ dark = false }: { dark?: boolean }) {
   return (
     <div
-      className="flex min-h-screen bg-background font-sans text-foreground"
+      className={`flex min-h-screen bg-background font-sans text-foreground ${dark ? "dark" : ""}`}
       data-testid="sample-font"
     >
       <Navigation />
@@ -415,5 +415,8 @@ const Default: Story = {
   },
 };
 
+// The same page in dark, as a class on it, since a page's own mode is whoever uses Moneta's to set.
+const Dark: Story = { ...Default, args: { dark: true } };
+
 export default meta;
-export { Default };
+export { Dark, Default };

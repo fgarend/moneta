@@ -21,6 +21,11 @@ import { Button } from "@fgarend/moneta/ui/button";
 
 The style sheet resets the whole page, and holds only the classes the pieces use.
 
+## Dark
+
+Put the class `dark` on the page's root element, or on any part of the page, in whatever way the app chooses. Set it before the
+first paint, or the page flashes light.
+
 ## Change the look
 
 Redefine the theme's variables after the import, outside any `@layer`, and again for dark:
