@@ -41,7 +41,8 @@ How the repository runs, and how its versions are chosen.
   `skipLibCheck` off. `exactOptionalPropertyTypes` is off here and there, since shadcn's code and
   React Aria's own types do not pass it.
 - **Screenshots are taken at one width, 1280 px,** in Chromium, for each story tagged `visual`.
-  They are approved in the commit that changes them.
+  They are approved in the commit that changes them, and compared pixel by pixel, with no tolerance but the anti-aliasing
+  of edges, from the browsers' settings that every project shares.
 - **Colour runs in both modes:** axe, the screenshots and forced colours run every story again in dark, in a project of
   their own. The gallery switches the mode with `@storybook/addon-themes`, which puts `.dark` on the page's root. A story
   a test draws as a component runs no effect of Storybook's, so `.storybook/vitest.setup.ts` puts the class there itself.
@@ -73,6 +74,10 @@ How the repository runs, and how its versions are chosen.
   waiting, since the boxes run together.
 - **1280 px,** since it is Tailwind's `xl`, and Playwright's own default. Vitest's default is a
   phone's width, of no use to a library with a sidebar.
+- **Screenshots compared exactly,** since Vitest's default tolerance let a colour move unseen, `--primary` from `#2b2e33` to
+  `#5a2b33` on 2026-11-06 and the whole dark palette on 2026-11-07. Exact, they caught five planted changes, down to one
+  digit of hex, and passed five unchanged runs on 2026-11-08. **What it costs:** a browser that draws text a little
+  differently fails every screenshot at once, each to be approved again, and so does any change of colour.
 - **Coverage split by check,** so each part is measured by the tests meant for it, and a line
   with no test turns one box red. Coverage says a line ran, not that anything looked at it,
   so a story checks what it shows in `play`.
@@ -143,6 +148,10 @@ How the repository runs, and how its versions are chosen.
   Storybook's addon does, and its Tailwind guide uses.
 - **Dark axe in Chromium alone.** Half the added time, but on 2026-11-07 a planted dark colour failed `breadcrumb` only in
   Firefox and WebKit, and `progress` not in Firefox.
+- **Vitest's default tolerance, `threshold: 0.1`.** Nothing to approve again, but three changes of one digit, and the dark
+  palette from warm to graphite, passed it unseen.
+- **The tolerance at the screenshot's call.** Seen where it compares, but a screenshot written later would start at the
+  default.
 - **`make add`, and a `make add-peer`.** Both are rare, and a target only wraps the command. Their
   cost is a long command, kept in `docs/updating.md`, that `make help` does not show.
 
@@ -160,3 +169,4 @@ How the repository runs, and how its versions are chosen.
 - 2026-11-06: A story per file in `ui/`, raw pieces too.
 - 2026-11-06: The release's scripts, covered with `src/lib/` by `test`.
 - 2026-11-07: Colour checked in both modes, and the gallery's switch.
+- 2026-11-08: Screenshots compared exactly.

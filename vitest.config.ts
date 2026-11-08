@@ -41,6 +41,13 @@ function inBrowsers(
     viewport: { width: 1280, height: 800 },
     // A failing test's screenshot would land among the approved ones.
     screenshotFailures: false,
+    // Every pixel exactly, but the edges' anti-aliasing: the default, 0.1, let a whole palette pass unseen.
+    expect: {
+      toMatchScreenshot: {
+        comparatorName: "pixelmatch",
+        comparatorOptions: { threshold: 0 },
+      },
+    },
     instances: browsers.map((browser) => ({ browser })),
   };
 }

@@ -95,7 +95,8 @@ with what is a real fault fixed as a recorded edit.
     `cva`, as `--spacing` made a whole screen 14% taller on 2026-11-06.
   - **The mode:** shadcn's `.dark` class, set by whoever uses Moneta, with `color-scheme: dark` in it, and no switch or
     provider of ours. The README warns of a flash when the class comes late. The gallery switches it with
-    `@storybook/addon-themes`, and axe, screenshots and forced colours run in both, since 2026-11-07.
+    `@storybook/addon-themes`, and axe, screenshots and forced colours run in both, since 2026-11-07. Screenshots
+    compare exactly since 2026-11-08, as Vitest's default tolerance let a whole palette pass unseen.
   - **Focus:** shadcn's solid outline, widened, with no gold halo, as `docs/decisions/theme.md` says.
   - **Text and space:** a scale, in `docs/decisions/theme.md`, with five styles internal to the pieces.
   - **The order:** the sample page, the light theme with font and sizes, the dark theme, then the checks in both modes.
@@ -191,9 +192,8 @@ No order between them. Each becomes an item when its time comes.
   `make stories` to check one test slows the work, with the time measured.
 - **The look of Storybook's own interface.** The colours, fonts and mark around the stories. The gallery
   goes out with Storybook's default, and this is weighed again with the theme, in 4.5.
-- **The screenshots' tolerance.** Vitest's default let `--primary` move from `#2b2e33` to `#5a2b33` unseen on 2026-11-06,
-  while a stronger change fails. Contrast has its own test, but a small change of colour has none. It bit on 2026-11-07:
-  the whole dark palette, from warm to graphite, passed the dark screenshot unseen. To weigh next, after the colours.
+- **A focus test that failed once in WebKit.** "gives focus back to the trigger with its outline when a dialog closes"
+  failed in one full `make check` on 2026-11-08, and passed in the four runs after it. Weighed if it fails again.
 - **`actionlint`.** Biome reads a workflow's YAML, but not GitHub's rules. It ran once by hand on 2026-11-06, with
   nothing found, and would be one more image to keep. Weighed if a workflow fails on something it finds.
 - **Biome's `noTailwindArbitraryValue`.** It may replace the class scan in `test/pieces.test.ts`,
