@@ -218,8 +218,8 @@ before the families above. Dates come here too, as they share how a value is hel
   a screen reader and real zoom. With it, what a piece's state promises after 1.0, as Primer's Experimental,
   Ready and Deprecated do, a policy for deprecating, and a note in the changelog on how to move for each change
   that breaks.
-- **6.3 · The stricter checks back,** since by then every piece has been read. `noUnusedLocals` returns,
-  as lint already holds every piece. To weigh again: `exactOptionalPropertyTypes`, if React Aria's types pass it.
+- **6.3 · The stricter checks back,** since by then every piece has been read: `exactOptionalPropertyTypes`, if
+  React Aria's types pass it. `noUnusedLocals` came back on 2026-11-09.
 - **6.2 · Release 1.0.0,** with `check-release`'s rules for the numbers after it, as a change that breaks then
   moves the first number.
 
