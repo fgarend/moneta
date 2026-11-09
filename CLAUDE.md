@@ -65,8 +65,8 @@ gives the right result:
   pipeline this repository starts with is the one exception.
 - **Decisions are recorded when adopted,** by the commit that first depends on them,
   in the way `docs/decisions/process.md` says.
-- **Small steps.** One step at a time, one commit per step, each leaving the
-  repository working. Do not work ahead.
+- **Small steps.** One step at a time, one pull request per step, in commits that each
+  leave the repository working. Do not work ahead.
 - **Stay in scope.** Anything found along the way that is outside the step goes into
   the roadmap instead of being fixed on the side.
 - **Nothing discussed is lost.** Whatever is deferred in a conversation goes into
@@ -99,8 +99,8 @@ gives the right result:
 3. Write the tests and show them failing. In a step without code, write the
    checks or the document to review instead.
 4. Implement, then show the tests passing. `make check` passes before the pull request opens.
-5. The user approves each commit. Claude pushes the step's branch and opens its pull request,
-   and the user merges it once `checks` passes.
+5. The user approves each commit. Once the user says the step is aligned, Claude pushes its
+   branch and opens its pull request, and the user merges it once `checks` passes.
 
 `docs/ROADMAP.md` is updated in the commit of each step, so a new session can resume
 from it.

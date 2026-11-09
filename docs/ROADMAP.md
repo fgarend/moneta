@@ -1,6 +1,7 @@
 # Roadmap
 
-**Now:** 4.11, what an app's screens wait on, starting with Section.
+**Now:** 4.12, what a review of the repository found, starting with its fixes.
+Then 4.11, starting with Section.
 
 **The goal:** Moneta is the source of truth for components. An app consumes final pieces and builds
 its screens and regions from them, writing no class of its own. What it lacks is added here, not there.
@@ -72,12 +73,12 @@ yet, as Moneta exists apart from any app. A page or a prototype only shows which
 below came from a survey on 2026-11-08 of 16 component libraries, finance design systems, money libraries
 and a prototype.
 
-From here on, each change is a version, and an app updates when it wants. The look comes first, as
-it reaches every piece at once, and the order after it follows what is needed next. Each item goes
-through the rule, with shadcn's name where it has one, and holds no word of any one app's domain. Where a reference
-disagrees with this map, it is decided as the piece arrives. Stories that already state what must
-hold come over with each family. No reviewed piece has a default text, so shadcn's written strings
-become props.
+From here on, each step that changes what an app receives is a version, and an app updates when it wants. The
+look comes first, as it reaches every piece at once, and the order after it follows what is needed next. Each
+item goes through the rule, with shadcn's name where it has one, and holds no word of any one app's domain.
+Where a reference disagrees with this map, it is decided as the piece arrives. Stories that already state what
+must hold come over with each family. No reviewed piece has a default text, so shadcn's written strings become
+props.
 
 **A piece is reviewed with:** its stories, its visual test and contrast in both modes, its
 accessibility report, its section in the guidelines, the changelog, and its lint findings read again,
@@ -86,6 +87,35 @@ with what is a real fault fixed as a recorded edit.
 Done: 4.5, our `theme.css`, light and dark, with the checks in both modes, the guidelines and the gallery's frame, as
 `docs/decisions/theme.md` says.
 
+- **4.12 · What a review of the repository found,** on 2026-11-09, before 4.11. Its rules that contradicted each
+  other were decided in the step that found them. Each part below is a step of its own.
+  - **Fixes:**
+    - The changelog lacks `cn` 0.5.1 to 0.5.2, which an app receives. `docs/releasing.md` compares only
+      `src`, while `package.json`'s `dependencies` and `docs/guidelines.md` reach an app too.
+    - Slider's thumb shows no focus, read from the code and not run: React Aria marks the thumb with
+      `data-focus-visible` and hides its input, and the rule in `theme.css` names only checkbox, switch and
+      radio. It fails 2.4.7, which `docs/guidelines.md` says the theme answers on every control.
+  - **Facts out of date,** in one step of documentation:
+    - `docs/pieces.md` says nothing checks the dark theme. Button's mark leaves out its icon sizes, and
+      Pagination's "Previous" and "Next" have a prop. Slider's gap above is missing.
+    - This roadmap lists 5 checks, without `storybook-build`, says 8 pieces follow the scale, where the
+      guidelines name 7 and ToggleGroup follows it too, and lost item 2.2, which became 4.5. 4.9's question
+      of coming before the families is partly answered by 4.11.
+    - `docs/decisions/tooling.md` counts five checks, seven boxes and 2 actions, now 6, 8 and 5. It
+      leaves Dependabot out as commits go straight to `main`, says the release will add actions and that
+      coverage measures nothing, all past. Every command runs in a container, but `pending-version.sh` runs
+      on the runner.
+    - `docs/decisions/delivery.md` says the release checks nothing again, but it runs the audit.
+      `scripts/check-release.ts` says the release runs it, but only the pull request does.
+    - `docs/decisions/base.md` leaves the font to 4.5, which chose Geist, and counts 62 pieces in the
+      registry, where `docs/decisions/tooling.md` counts 61.
+    - `docs/decisions/delivery.md` and `docs/decisions/tooling.md` have 15 lines of History, past the 10
+      that `docs/decisions/process.md` allows.
+    - `docs/accessibility.md` says the focus test covers 13 pieces. It has 13 cases, 5 of them Button's.
+    - The sample page breaks the guidelines: a 40 px search field, 64 px at its end and 4 px gaps.
+    - `test/package.test.ts` says most package managers do not install the peers by themselves, where npm
+      and pnpm do, by default, and only npm puts them where the app imports them, as
+      `docs/decisions/delivery.md` says.
 - **4.11 · What an app's screens wait on,** before 4.6, decided by the owner on 2026-11-09, as an app keeps
   its own shell until 4.6, while these hold its screens back: Section, then a name for the close button of
   Sheet and Dialog, given by whoever uses them in place of the written "Close", then Link, then 5.1, then
@@ -127,7 +157,7 @@ Done: 4.5, our `theme.css`, light and dark, with the checks in both modes, the g
   bloat beside Tailwind, and Spectrum 2 dropped its own, so the question includes whether an app keeps
   Tailwind for layout alone.
 - **4.1 · Display.** Badge, deciding its finance colours on a dark surface, with tones for success, warning,
-  danger and information, and a dot. Card, Section, Table, weighing a `grid` role, with a column of numbers
+  danger and information, and a dot. Card. Section and Table, which come in 4.11, Table weighing a `grid` role, with a column of numbers
   aligned right, a total row, group rows with a subtotal, "—" for a missing value, a header that stays in
   view, rows selected, with a checkbox for all in the header, indeterminate when only some are, an action
   per row, child rows that open under their parent, a compact density and a container with a border. Avatar with its group, AvatarGroup, whose fallback's text an app measured at 4.34:1. Alert. Item, whose
@@ -139,7 +169,7 @@ Done: 4.5, our `theme.css`, light and dark, with the checks in both modes, the g
   NativeSelect, Slider,
   Field, which does not link its description or error, Select, Checkbox, which draws a
   check when indeterminate, RadioGroup, in a row as well, Checkbox and RadioGroup's items growing for their
-  label, which today they do not, Switch, Toggle, ToggleGroup, DateField, SearchField,
+  label, which today they do not, Switch, Toggle, ToggleGroup, DateField, which comes in 4.11, SearchField,
   FilePicker, ChoiceCard, and `combobox` after a study like 4.6's. Field decides the contrast of the control's border against the 3:1 of
   WCAG 1.4.11. ToggleGroup weighs a segmented control, SegmentedControl, against a radio in line. Also
   NumberField, DatePicker, DateRangePicker with presets such as the last 30 days, TimeField, a choice of
@@ -158,7 +188,7 @@ Done: 4.5, our `theme.css`, light and dark, with the checks in both modes, the g
   Skeleton, with one pattern for loading, error and empty, Spinner, Breadcrumb,
   Pagination, with a summary such as "1–20 of 142", Collapsible, IconTile, StatGroup, as the sample page's summary strip draws it, which is also
   what KpiStrip meant, and AllocationBar, and `calendar` after a study like
-  4.6's. Also Link, a link in text or a cell, known without colour alone, through the router's link, as
+  4.6's. Also Link, which comes in 4.11, a link in text or a cell, known without colour alone, through the router's link, as
   Button's `link` variant is a button. Steps, Banner, Meter, which says how much of a limit is used, unlike
   Progress, with a target's mark, a bar of actions fixed at the foot of the page, a list
   virtualised for thousands of rows, on React Aria's `Virtualizer`, and Toast. To ask for Toast: React

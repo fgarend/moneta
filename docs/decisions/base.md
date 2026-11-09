@@ -36,7 +36,7 @@ What the library starts from.
     `sonner`, which bring packages of their own.
   - `attachment`, `bubble`, `code-block`, `marker`, `message` and `trace`, for conversations and code.
     The registry does not describe `marker`, so that one is a guess.
-  - `accordion` and `command`, which the roadmap does not build.
+  - `accordion` and `command`, which the roadmap did not build then, and now asks again.
   - `direction`, which fails the build with TS2883, and `form`, which brings no file.
 - **`add` installs only `cn`** under a hand-written `components.json`, so the other packages enter by
   command.
