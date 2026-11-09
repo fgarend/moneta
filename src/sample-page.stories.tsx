@@ -27,6 +27,7 @@ import {
   CardTitle,
 } from "./components/card.js";
 import { Input } from "./components/input.js";
+import { Progress } from "./components/progress.js";
 import {
   Table,
   TableBody,
@@ -36,7 +37,6 @@ import {
   TableRow,
 } from "./components/table.js";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "./components/tabs.js";
-import { Progress } from "./components/ui/progress.js";
 import {
   Select,
   SelectContent,

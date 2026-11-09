@@ -1,29 +1,35 @@
-"use client"
+"use client";
 
-import * as React from "react"
-import { cn } from "cn"
+import { cn } from "cn";
+import {
+  type ComponentProps,
+  createContext,
+  type ReactNode,
+  useContext,
+  useMemo,
+} from "react";
 import {
   Label as LabelPrimitive,
-  ProgressBar as ProgressPrimitive,
   type LabelProps,
+  ProgressBar as ProgressPrimitive,
   type ProgressBarProps as ProgressPrimitiveProps,
-} from "react-aria-components"
+} from "react-aria-components";
 
 type ProgressContextValue = {
-  percentage?: number
-  isIndeterminate: boolean
-  valueText?: string
-}
+  percentage?: number;
+  isIndeterminate: boolean;
+  valueText?: string;
+};
 
-const ProgressContext = React.createContext<ProgressContextValue | null>(null)
+const ProgressContext = createContext<ProgressContextValue | null>(null);
 
 function useProgress() {
-  const context = React.useContext(ProgressContext)
+  const context = useContext(ProgressContext);
   if (!context) {
-    throw new Error("useProgress must be used within a Progress.")
+    throw new Error("useProgress must be used within a Progress.");
   }
 
-  return context
+  return context;
 }
 
 function ProgressContent({
@@ -32,12 +38,12 @@ function ProgressContent({
   isIndeterminate,
   valueText,
 }: ProgressContextValue & {
-  children?: React.ReactNode
+  children?: ReactNode;
 }) {
-  const context = React.useMemo(
+  const context = useMemo(
     () => ({ percentage, isIndeterminate, valueText }),
-    [percentage, isIndeterminate, valueText]
-  )
+    [percentage, isIndeterminate, valueText],
+  );
 
   return (
     <ProgressContext value={context}>
@@ -46,7 +52,7 @@ function ProgressContent({
         <ProgressIndicator />
       </ProgressTrack>
     </ProgressContext>
-  )
+  );
 }
 
 function Progress({
@@ -54,8 +60,8 @@ function Progress({
   children,
   ...props
 }: Omit<ProgressPrimitiveProps, "children" | "className"> & {
-  children?: React.ReactNode
-  className?: string
+  children?: ReactNode;
+  className?: string;
 }) {
   return (
     <ProgressPrimitive
@@ -73,28 +79,28 @@ function Progress({
         </ProgressContent>
       )}
     </ProgressPrimitive>
-  )
+  );
 }
 
-function ProgressTrack({ className, ...props }: React.ComponentProps<"span">) {
+function ProgressTrack({ className, ...props }: ComponentProps<"span">) {
   return (
     <span
       className={cn(
         "relative flex h-1 w-full items-center overflow-x-hidden rounded-full bg-muted",
-        className
+        className,
       )}
       data-slot="progress-track"
       {...props}
     />
-  )
+  );
 }
 
 function ProgressIndicator({
   className,
   style,
   ...props
-}: React.ComponentProps<"span">) {
-  const { percentage, isIndeterminate } = useProgress()
+}: ComponentProps<"span">) {
+  const { percentage } = useProgress();
 
   return (
     <span
@@ -102,11 +108,12 @@ function ProgressIndicator({
       className={cn("h-full bg-primary transition-all", className)}
       style={{
         ...style,
-        width: `${isIndeterminate ? 100 : (percentage ?? 0)}%`,
+        // React Aria leaves the percentage out only while the bar is indeterminate.
+        width: `${percentage ?? 100}%`,
       }}
       {...props}
     />
-  )
+  );
 }
 
 function ProgressLabel({ className, ...props }: LabelProps) {
@@ -116,35 +123,39 @@ function ProgressLabel({ className, ...props }: LabelProps) {
       data-slot="progress-label"
       {...props}
     />
-  )
+  );
 }
 
 function ProgressValue({
   className,
   children,
   ...props
-}: Omit<React.ComponentProps<"span">, "children"> & {
-  children?: (value: string) => React.ReactNode
+}: Omit<ComponentProps<"span">, "children"> & {
+  children?: (value: string) => ReactNode;
 }) {
-  const { valueText } = useProgress()
+  const { valueText } = useProgress();
+  const shown =
+    children !== undefined && valueText !== undefined
+      ? children(valueText)
+      : valueText;
   return (
     <span
       className={cn(
         "ml-auto text-sm text-muted-foreground tabular-nums",
-        className
+        className,
       )}
       data-slot="progress-value"
       {...props}
     >
-      {children && valueText != null ? children(valueText) : valueText}
+      {shown}
     </span>
-  )
+  );
 }
 
 export {
   Progress,
-  ProgressTrack,
   ProgressIndicator,
   ProgressLabel,
+  ProgressTrack,
   ProgressValue,
-}
+};

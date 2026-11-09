@@ -10,6 +10,7 @@
   },
   "type": "module",
   "exports": {
+    "./progress": "./dist/components/progress.js",
     "./native-select": "./dist/components/native-select.js",
     "./item": "./dist/components/item.js",
     "./input-group": "./dist/components/input-group.js",
