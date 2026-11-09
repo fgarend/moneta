@@ -76,6 +76,19 @@ it("has a story for each file in ui/", () => {
   expect(missing).toEqual([]);
 });
 
+// An app imports every piece by its name alone, so one of ours named as one of shadcn's would hide it.
+const anyPiece = /^\/src\/components\/(?:ui\/)?(?<name>[^/.]+)\.tsx$/u;
+
+it("names no own piece as one of shadcn's", () => {
+  const names = Object.keys(sources)
+    .filter((path) => !testOrStory.test(path))
+    .map((path) => path.match(anyPiece)?.groups?.["name"])
+    .filter((name) => name !== undefined);
+
+  expect(names.length).toBeGreaterThan(0);
+  expect(new Set(names).size).toBe(names.length);
+});
+
 // The gallery files each piece, shadcn's or our own, under shadcn's own groups, in the order its preview sorts them.
 const preview = await readFile(new URL(".storybook/preview.ts", root), "utf8");
 const sortedGroups = /"Components",\s*(?<groups>\[[^\]]*\])/u;

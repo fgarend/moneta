@@ -21,7 +21,9 @@ Where the library lives, how it is received, and under what terms.
 - **Each release publishes the gallery,** on GitHub Pages, in a frame with Moneta's name and the theme's colours, light or
   dark as the system prefers, in the system's font. `.storybook/themes.ts` repeats the colours, and a test keeps them the
   theme's.
-- **Pieces are imported by path,** as `@fgarend/moneta/ui/button`. There is no root entry.
+- **Pieces are imported by path, by their name alone,** as `@fgarend/moneta/button`, whoever wrote them. There is no
+  root entry. `package.json` exports shadcn's by a pattern, and each of ours by a line of its own, which Node and
+  TypeScript put before a pattern.
 - **The usual way is one import,** `import "@fgarend/moneta/styles.css";`, with ready-made styles and the
   font, as `README.md` shows. An app needs no Tailwind and no settings.
 - **An app changes the look by redefining the theme's variables,** after the import and outside any `@layer`, and
@@ -188,3 +190,4 @@ through `publish`, a pull request cancelling an earlier run, and an app drawing 
 - 2026-11-09: The number checked against the changelog.
 - 2026-11-09: Pull requests to `main`, and a release on each merge of a version with no tag.
 - 2026-11-09: A release is the last commit of its step's pull request.
+- 2026-11-09: Pieces imported by their name alone, with no `ui/`.

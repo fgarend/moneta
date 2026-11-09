@@ -16,7 +16,7 @@ pnpm add https://github.com/fgarend/moneta/releases/download/vX.Y.Z/fgarend-mone
 
 ```tsx
 import "@fgarend/moneta/styles.css";
-import { Button } from "@fgarend/moneta/ui/button";
+import { Button } from "@fgarend/moneta/button";
 ```
 
 The style sheet resets the whole page, and holds only the classes the pieces use.

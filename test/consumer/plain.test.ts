@@ -47,7 +47,7 @@ beforeAll(async () => {
     `import "${manifest.name}/styles.css";
 import { createElement } from "react";
 import { createRoot } from "react-dom/client";
-import { Button } from "${manifest.name}/ui/button";
+import { Button } from "${manifest.name}/button";
 createRoot(document.body).render(createElement(Button, null, "Pay"));
 `,
   );

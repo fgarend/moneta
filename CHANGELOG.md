@@ -12,6 +12,11 @@ gets its number.
   `SectionAction`, imported from `@fgarend/moneta/section`. Its title's level comes from the sections it sits in.
 - `docs/guidelines.md` says when to use `Section`, and how its title's level is set.
 
+### Changed
+
+- **Breaking:** every piece is imported by its name alone, with no `ui/`, as `@fgarend/moneta/button`. To upgrade,
+  replace `@fgarend/moneta/ui/` with `@fgarend/moneta/` in the app's imports.
+
 ## [0.3.0] - 2026-11-09
 
 Two rules of space and size in the guidelines, and keyboard focus on `Slider`'s thumb.

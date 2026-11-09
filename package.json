@@ -10,11 +10,11 @@
   },
   "type": "module",
   "exports": {
-    "./ui/*": "./dist/components/ui/*.js",
-    "./*": "./dist/components/*.js",
+    "./section": "./dist/components/section.js",
     "./styles.css": "./dist/styles/styles.css",
     "./theme.css": "./dist/styles/theme.css",
-    "./fonts.css": "./dist/styles/fonts.css"
+    "./fonts.css": "./dist/styles/fonts.css",
+    "./*": "./dist/components/ui/*.js"
   },
   "imports": {
     "#components/*": {

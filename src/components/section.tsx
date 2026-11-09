@@ -4,8 +4,8 @@ import { cn } from "cn";
 import { type ComponentProps, createContext, useContext } from "react";
 import { Heading, type HeadingProps } from "react-aria-components";
 
-// The level of the nearest section's title. Outside any, a title starts at 2, below the page's 1. Internal, as every
-// file here is public, until a second piece reads it.
+// The level of the nearest section's title. Outside any, a title starts at 2, below the page's 1. Internal until a
+// second piece reads it, as docs/decisions/components.md says.
 const SectionLevel = createContext(1);
 const deepest = 6;
 
