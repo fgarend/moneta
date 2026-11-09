@@ -6,6 +6,13 @@ import { expect, it, vi } from "vitest";
 import { userEvent } from "vitest/browser";
 import { render } from "vitest-browser-react";
 import { Button, LinkButton } from "../src/components/button.js";
+import {
+  Dialog,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "../src/components/dialog.js";
 import { Input } from "../src/components/input.js";
 import {
   Tabs,
@@ -16,13 +23,6 @@ import {
 import { Textarea } from "../src/components/textarea.js";
 import { Toggle } from "../src/components/toggle.js";
 import { Checkbox } from "../src/components/ui/checkbox.js";
-import {
-  Dialog,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "../src/components/ui/dialog.js";
 import {
   DropdownMenu,
   DropdownMenuItem,

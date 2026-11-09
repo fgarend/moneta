@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { expect, userEvent, within } from "storybook/test";
-import { settled } from "../../../.storybook/settled.js";
-import { Button } from "../button.js";
+import { settled } from "../../.storybook/settled.js";
+import { Button } from "./button.js";
 import {
   Dialog,
   DialogClose,
@@ -72,5 +72,38 @@ const Open: Story = {
   },
 };
 
+// With no close button in the corner, and the footer's instead.
+const CloseInFooter: Story = {
+  args: {
+    children: (
+      <>
+        <Button>{trigger}</Button>
+        <Dialog showCloseButton={false}>
+          <DialogHeader>
+            <DialogTitle>{title}</DialogTitle>
+          </DialogHeader>
+          <DialogFooter showCloseButton={true} />
+        </Dialog>
+      </>
+    ),
+  },
+  play: async ({ canvasElement }) => {
+    await userEvent.click(
+      within(canvasElement).getByRole("button", { name: trigger }),
+    );
+    const dialog = await within(document.body).findByRole("dialog", {
+      name: title,
+    });
+    await settled(dialog);
+
+    await expect(
+      within(dialog).getAllByRole("button", { name: close }),
+    ).toHaveLength(1);
+    await expect(
+      dialog.querySelector('[data-slot="dialog-footer"] button'),
+    ).toHaveTextContent(close);
+  },
+};
+
 export default meta;
-export { Default, Open };
+export { CloseInFooter, Default, Open };

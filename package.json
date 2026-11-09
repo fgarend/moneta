@@ -10,6 +10,7 @@
   },
   "type": "module",
   "exports": {
+    "./dialog": "./dist/components/dialog.js",
     "./toggle": "./dist/components/toggle.js",
     "./tabs": "./dist/components/tabs.js",
     "./button-group": "./dist/components/button-group.js",
