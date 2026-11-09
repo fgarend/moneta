@@ -8,8 +8,10 @@ Continuous integration creates them, never a person, and GitHub then refuses to 
 1. **Write the release.** Choose the number by the rules below, from what `Unreleased` lists in `CHANGELOG.md`. Move
    those entries to a new `## [X.Y.Z] - YYYY-MM-DD` section, with its link at the end, and move `version` in
    `package.json` to the same number.
-2. **Compare with the previous release,** so the changelog tells every change an app receives:
-   `git diff vA.B.C -- src`. The first release has no previous tag.
+2. **Compare with the previous release,** so the changelog tells every change an app receives, in what the
+   package holds: `git diff vA.B.C -- src package.json docs/guidelines.md README.md LICENSE`. In `package.json`, an
+   app receives `dependencies`, `peerDependencies` and `exports`, not `devDependencies`. The first release has no
+   previous tag.
 3. **Check and open the pull request.** `make check` and `make check-release` pass. Commit only the changelog and the
    version, as `chore: release vX.Y.Z`, on a branch of its own, and open its pull request under the same title. Its
    `version` job runs `make check-release`, as `package.json` holds a version with no tag.
