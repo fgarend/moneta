@@ -10,6 +10,7 @@
   },
   "type": "module",
   "exports": {
+    "./pagination": "./dist/components/pagination.js",
     "./toggle-group": "./dist/components/toggle-group.js",
     "./spinner": "./dist/components/spinner.js",
     "./skeleton": "./dist/components/skeleton.js",
