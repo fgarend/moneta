@@ -157,7 +157,8 @@
 :is(
   [data-slot="checkbox"],
   [data-slot="switch"],
-  [data-slot="radio-group-item"]
+  [data-slot="radio-group-item"],
+  [data-slot="slider-thumb"]
 )[data-focus-visible] {
   outline: 2px solid var(--ring);
   outline-offset: 2px;

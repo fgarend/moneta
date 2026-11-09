@@ -22,8 +22,8 @@ What the library starts from.
   A `@source` lets the app's Tailwind read the pieces, as it skips `node_modules`.
 - **`shadcn/tailwind.css` is copied, untouched, to `src/styles/shadcn.css`.** Our changes go in
   `theme.css`, so an update replaces that file and its diff shows only shadcn's changes.
-- **The font is apart, in `src/styles/fonts.css`,** starting with shadcn's Geist. Which font stays is
-  decided in the roadmap's 4.5.
+- **The font is apart, in `src/styles/fonts.css`,** starting with shadcn's Geist, which the roadmap's 4.5 kept, as
+  `theme.md` says.
 - **Lint, format and import sorting are off on `src/components/ui/`,** with one read of each file's
   findings when it arrives. Their stories keep them on.
 - **The aliases are `#components/*`, `#hooks/*` and `#lib/*`, in `package.json#imports`,** with a custom

@@ -5,7 +5,7 @@ The state of each of shadcn's pieces in `src/components/ui/`, as `test/pieces.te
 - **raw:** as shadcn delivers it. It works, nobody has reviewed it, and it may fail WCAG 2.2 AA.
 - **reviewed:** it has what the roadmap's milestone 4 asks of a reviewed piece. 1.0 needs every piece here.
 
-Every piece has a story, in the light theme, mostly in its default variant, and many of its parts are not drawn.
+Every piece has a story, run in light and in dark, mostly in its default variant, and many of its parts are not drawn.
 A story passes axe, text spacing and forced colours unless its row says otherwise. Each of these was measured on
 2026-11-06, in the browsers that check runs in, and lets that story off that check until the piece is reviewed:
 
@@ -17,11 +17,11 @@ same list. A pass says little here:
 
 - Text spacing and forced colours do not run a story's `play`, and look only inside its own container. So they never
   see an open overlay's content, which axe does.
-- Nothing checks the keyboard beyond where focus lands, closing an overlay, the dark theme, target size beyond axe, or a long
+- Nothing checks the keyboard beyond where focus lands, closing an overlay, target size beyond axe, or a long
   text.
 
 **Edited** marks a change made to a raw piece, which an update of it has to keep. The other marks are not measured by a check. **Code:** read from the piece. **Default text:** written in the piece,
-with no prop, read from the code. **Lint:** read from Biome. **To confirm:** from an earlier study, not measured again.
+with no prop or as a prop's default, read from the code. **Lint:** read from Biome. **To confirm:** from an earlier study, not measured again.
 A piece with no gap listed may still have some.
 
 | Piece | State | Known gaps |
@@ -32,7 +32,7 @@ A piece with no gap listed may still have some.
 | `avatar` | raw | |
 | `badge` | raw | |
 | `breadcrumb` | raw | **Default text:** "breadcrumb" and "More" |
-| `button` | raw | **Edited:** default 36 px, `sm` 32 and `lg` 40, with the variant `gold` |
+| `button` | raw | **Edited:** default 36 px, `sm` 32 and `lg` 40, the same for `icon`, `icon-sm` and `icon-lg`, with the variant `gold` |
 | `button-group` | raw | |
 | `card` | raw | **Edited:** reads the scale of text, with 20 px around its content |
 | `checkbox` | raw | **Code:** draws a check when indeterminate, and does not grow for its children. **Lint:** a deprecated React Aria import |

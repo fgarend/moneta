@@ -12,8 +12,9 @@ Where the library lives, how it is received, and under what terms.
   with a merge commit titled as the pull request, over its own commits rebased onto `main`, so each pull request is one
   group in the history. `ci.yml` checks pull requests only, as `main` then holds only what one tested.
 - **A release is automatic,** on each merge to `main` while `package.json` holds a version with no tag, as
-  `docs/releasing.md` says: the release's pull request, or the fix of one that failed before publishing. It builds and
-  tests the tarball it publishes, in the same run, and checks nothing else again. One release runs at a time.
+  `docs/releasing.md` says: a step's pull request, whose last commit is the release, or the fix of one that failed
+  before publishing. It runs the audit, builds and tests the tarball it publishes, in the same run, and checks nothing else again. One
+  release runs at a time.
 - **A release's number follows from its changelog,** as `docs/releasing.md` says: the one after the changelog's
   previous section, on the last number for only fixes and on the middle one otherwise. A section with no change is
   refused. The first number does not move before 1.0.
@@ -149,6 +150,8 @@ looks every week.
 - **The tarball the pull request's run kept.** No second `make package`, but the release must find that run, read its
   artifacts with more permissions, and the file expires.
 - **A release tried again by hand,** with `gh workflow run`, used once, for `v0.2.0`. It ran every check again.
+- **A pull request of its own for each release.** Easy to find, but with a version at the end of each step, every
+  step took two pull requests.
 - **A second, empty release commit,** as `v0.0.1` was tried again. Nothing to add to the workflows, but two commits of
   the same name confuse the history.
 - **Releasing whenever `package.json` holds a version with no tag.** Any push tries again on its own, but the rule is
@@ -177,18 +180,11 @@ through `publish`, a pull request cancelling an earlier run, and an app drawing 
 
 ## History
 
-- 2026-11-04: Written, with the repository and its settings.
-- 2026-11-05: Imports by path, and the first peer.
-- 2026-11-05: What the alerts rest on.
-- 2026-11-06: shadcn's notice, React Aria as a peer, and the helpers.
-- 2026-11-06: The theme, the font and Tailwind as a peer.
-- 2026-11-06: One import, with ready-made styles.
-- 2026-11-06: An automatic release, of the tested tarball, with the gallery.
-- 2026-11-06: The rehearsal, `v0.0.1`.
-- 2026-11-06: The peers by name, and how far changing the look reaches.
-- 2026-11-06: The font as a variable.
+- 2026-11-04 to 2026-11-06: The repository, imports by path, the peers, the helpers, the theme, one import, the
+  automatic release and its rehearsal, in the file's older versions in git.
 - 2026-11-08: The guidelines in the package.
 - 2026-11-08: Moneta's look on the gallery's frame.
 - 2026-11-09: A release tried again by hand.
 - 2026-11-09: The number checked against the changelog.
 - 2026-11-09: Pull requests to `main`, and a release on each merge of a version with no tag.
+- 2026-11-09: A release is the last commit of its step's pull request.

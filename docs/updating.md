@@ -43,11 +43,12 @@ docker compose --env-file infra/settings.env -f infra/compose.yaml run --rm --bu
   pnpm add -D <package>
 ```
 
-**A dependency of the package,** which an app receives, enters the same way without `-D`.
+**A dependency of the package,** which an app receives, enters the same way without `-D`, with a line in
+`CHANGELOG.md`'s `Unreleased` in the same commit, even when nothing changes for an app, so the next release says so.
 
-**A peer** is a range chosen here, which installs nothing, so it is set as it is written. Its
-version for development enters as above. `pnpm add --save-peer` is not used, since it raises
-the range to the newest version and turns the exact development version into a range:
+**A peer** is a range chosen here, which installs nothing, so it is set as it is written, and a new range takes a
+line in the changelog too. Its version for development enters as above. `pnpm add --save-peer` is not used, since it
+raises the range to the newest version and turns the exact development version into a range:
 
 ```sh
 docker compose --env-file infra/settings.env -f infra/compose.yaml run --rm --build install \

@@ -61,7 +61,7 @@ which is run by hand.
 | 2.4.4 Link Purpose (In Context) | axe, app | axe finds a link with no name; its words are the app's |
 | 2.4.5 Multiple Ways | app | |
 | 2.4.6 Headings and Labels | app | |
-| 2.4.7 Focus Visible | test | `.storybook/focus.test.tsx`, on 13 pieces, in 3 browsers and in forced colours |
+| 2.4.7 Focus Visible | test | `.storybook/focus.test.tsx`, on 12 pieces, in 3 browsers and in forced colours |
 | 2.4.11 Focus Not Obscured (Minimum) | none yet | |
 | 2.5.1 Pointer Gestures | none yet | |
 | 2.5.2 Pointer Cancellation | none yet | |

@@ -4,8 +4,9 @@ How the repository runs, and how its versions are chosen.
 
 ## What holds today
 
-- **Every command runs in a container.** Each mounts the code, read-only when it only
-  checks, so the image never holds a copy of it, and the machine needs only Docker and Make.
+- **Every command runs in a container,** but `scripts/pending-version.sh`, which `ci.yml` and `release.yml` run on
+  GitHub's machines to read the tags there. Each mounts the code, read-only when it only checks, so the image never
+  holds a copy of it, and the machine needs only Docker and Make.
 - **Every layer starts from Playwright's official image,** which brings Node, the browsers
   and their system packages, frozen by its digest. A build installs nothing from a system's
   sources. pnpm's binary is copied in from pnpm's official image.
@@ -32,7 +33,7 @@ How the repository runs, and how its versions are chosen.
   `stories` everything in a browser, so nothing runs twice.
 - **Coverage is 100% on own pieces, each part measured by one check:** `test` measures
   `src/lib/` and `scripts/`, and `stories` everything else but `ui/`, naming what it leaves out, so a new
-  folder cannot go unmeasured. Until there is code of that kind, it measures nothing, and its
+  folder cannot go unmeasured. Until there is own code outside `ui/`, `stories` measures nothing, and its
   rules were proved on planted files.
 - **The build is TypeScript alone,** one file per module, with no bundler, and `dist/` stays
   out of git. Tailwind's command line makes the ready-made style sheet, reading only `dist/`.
@@ -116,9 +117,8 @@ How the repository runs, and how its versions are chosen.
 - **The images pinned in the `Dockerfile`.** Where update bots look, but trying another image
   would mean editing it.
 - **A shorter release age.** One day only catches what is found very quickly.
-- **Dependabot's version updates.** They would open tested pull requests each month, but add
-  that flow to a repository whose commits go straight to `main`, and would not see shadcn's
-  registry or `infra/settings.env`, which stay by hand anyway.
+- **Dependabot's version updates.** They would open tested pull requests each month, but would not see
+  shadcn's registry or `infra/settings.env`, which stay by hand anyway.
 - **Looking at updates only before a release, or right after one.** The first adds change at
   the moment of publishing. The second has no moment before the first release, and comes too
   often when releases come close together.
@@ -146,22 +146,22 @@ How the repository runs, and how its versions are chosen.
 - **The build's options in the `Makefile`.** One file less, but the options would have no comment,
   and a test beside the code would enter the tarball.
 - **`check-pins`, a script comparing the pins with their newest versions.** 912 lines with its
-  tests, for 2 images and 2 actions, which a few commands answer. The hand check can be
-  forgotten, and the release's part will add actions, so it is weighed again if that hurts.
+  tests, for 2 images and 5 actions, which a few commands answer. The hand check can be
+  forgotten, and the release's part added actions, so it is weighed again if that hurts.
 - **Only GitHub's alerts for vulnerabilities.** One file less, resting on behaviour GitHub's
   documentation denies.
 - **The boxes read from the `Makefile` by continuous integration.** One list and no test, but
   one more job to build the matrix, and the names no longer show in `ci.yml`.
 - **A target per browser, `make stories-webkit`.** The box's name would stay its command, but the
-  five checks would become seven names.
-- **The seven boxes in one job, by `include`.** One job, but GitHub's documentation shows no matrix
+  six checks would become eight names.
+- **The eight boxes in one job, by `include`.** One job, but GitHub's documentation shows no matrix
   of `include` alone, and its rules let a later entry overwrite a value an earlier one added.
 - **Vitest's `--browser`.** It stops on a project with no instance of that browser, as the
   screenshots and forced colours have.
 - **A lower coverage in one browser.** Coverage says our code ran, which no browser changes, so a
   check left out of one browser is named, not hidden in a percentage.
 - **`exactOptionalPropertyTypes` on.** It tells a missing property from an `undefined` one, which own
-  pieces lose. Across all 61 of shadcn's pieces, it gave 29 errors in 18 files, and 13 in the
+  pieces lose. Across 61 of shadcn's pieces, tried on 2026-11-06, it gave 29 errors in 18 files, and 13 in the
   dependencies' types, so it would mean those edits and `skipLibCheck`, and no untouched commit would pass.
 - **`noUnusedLocals` on.** `alert-dialog` and `label` fail it untouched, and Biome reported all 5 kinds
   of unused code planted in own files on 2026-11-06. It returns in the roadmap's 6.3.
@@ -178,17 +178,8 @@ How the repository runs, and how its versions are chosen.
 
 ## History
 
-- 2026-11-04: Written, with the containers.
-- 2026-11-04: Static checks and their boxes in continuous integration.
-- 2026-11-05: Stories, browsers, coverage and screenshots.
-- 2026-11-05: The build and the package's check, and `make add` removed.
-- 2026-11-05: The weekly audit, the test of the boxes, and actions in the hand checks.
-- 2026-11-06: `exactOptionalPropertyTypes` off.
-- 2026-11-06: `noUnusedLocals` off until 6.3, and stories per reviewed piece.
-- 2026-11-06: The app of `package` builds with Vite.
-- 2026-11-06: Tailwind's command line for the ready-made style sheet.
-- 2026-11-06: A story per file in `ui/`, raw pieces too.
-- 2026-11-06: The release's scripts, covered with `src/lib/` by `test`.
+- 2026-11-04 to 2026-11-06: Containers, static checks, stories, coverage, screenshots, the build, the package's
+  check, the audit, the release's scripts and a story per file in `ui/`, in the file's older versions in git.
 - 2026-11-07: Colour checked in both modes, and the gallery's switch.
 - 2026-11-08: Screenshots compared exactly.
 - 2026-11-09: One `stories` box per browser, and why screenshots run in Chromium alone.

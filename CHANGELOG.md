@@ -6,6 +6,21 @@ gets its number.
 
 ## [Unreleased]
 
+## [0.3.0] - 2026-11-09
+
+Two rules of space and size in the guidelines, and keyboard focus on `Slider`'s thumb.
+
+### Changed
+
+- `cn` moves to 0.5.2, which changes nothing a piece draws or does.
+- `docs/guidelines.md` puts 4 px between a label and what it names, as a value or a bar.
+- `docs/guidelines.md` makes the controls in a row with a page's main action 40 px as well.
+
+### Fixed
+
+- `Slider`'s thumb shows keyboard focus, which it did not.
+- `docs/guidelines.md` names `Pagination` and `ToggleGroup` among the controls on the scale of sizes.
+
 ## [0.2.0] - 2026-11-09
 
 Moneta's own look, in light and dark, with taller controls and a visible keyboard focus.
@@ -51,7 +66,8 @@ and dark. `README.md` says how to install and use it.
 
 A rehearsal of the release's path, not meant to be installed. Use a later version.
 
-[Unreleased]: https://github.com/fgarend/moneta/compare/v0.2.0...HEAD
+[Unreleased]: https://github.com/fgarend/moneta/compare/v0.3.0...HEAD
+[0.3.0]: https://github.com/fgarend/moneta/compare/v0.2.0...v0.3.0
 [0.2.0]: https://github.com/fgarend/moneta/compare/v0.1.0...v0.2.0
 [0.1.0]: https://github.com/fgarend/moneta/compare/v0.0.1...v0.1.0
 [0.0.1]: https://github.com/fgarend/moneta/tree/v0.0.1

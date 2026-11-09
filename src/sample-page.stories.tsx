@@ -190,7 +190,7 @@ function PageHeader() {
   return (
     <header className="flex flex-wrap items-end gap-3">
       <div className="min-w-0 flex-1">
-        <p className="mb-1 text-xs text-muted-foreground">
+        <p className="mb-2 text-xs text-muted-foreground">
           Saturday, October 24
         </p>
         <h1 className="type-display">Overview</h1>
@@ -344,7 +344,7 @@ function SamplePage() {
       data-testid="sample-font"
     >
       <Navigation />
-      <main className="mx-auto flex w-full min-w-0 max-w-7xl flex-1 flex-col gap-10 px-12 pt-10 pb-16">
+      <main className="mx-auto flex w-full min-w-0 max-w-7xl flex-1 flex-col gap-10 px-12 py-10">
         <PageHeader />
         <Totals />
         <div className="grid gap-4 lg:grid-cols-3 lg:items-start">

@@ -31,6 +31,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "../src/components/ui/select.js";
+import { Slider } from "../src/components/ui/slider.js";
 import { Switch } from "../src/components/ui/switch.js";
 import {
   Tabs,
@@ -47,9 +48,9 @@ const withWidth = "2px";
 const ringShadow = /0px 0px 0px 3px/u;
 const closing = 5000;
 const forced = matchMedia("(forced-colors: active)").matches;
-// Checkbox, Radio and Switch keep focus on a hidden input, and draw on their label.
+// Checkbox, Radio, Switch and Slider keep focus on a hidden input, and draw on their label or thumb.
 const drawnBy =
-  '[data-slot="checkbox"],[data-slot="switch"],[data-slot="radio-group-item"]';
+  '[data-slot="checkbox"],[data-slot="switch"],[data-slot="radio-group-item"],[data-slot="slider-thumb"]';
 
 function focused(): Element {
   const element = document.activeElement as Element;
@@ -80,6 +81,7 @@ still.textContent =
 document.head.append(still);
 
 const pieces: [string, ReactElement][] = [
+  ["Slider", <Slider key="a" aria-label={label} defaultValue={50} />],
   ["Button", <Button key="a">{label}</Button>],
   [
     "Button outline",

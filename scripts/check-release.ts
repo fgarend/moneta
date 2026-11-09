@@ -2,7 +2,7 @@
 // dated section and link, with at least one change, and nothing is left under Unreleased. The version is the one after
 // the changelog's previous section: the last number when the section lists only fixes, and the middle one otherwise, as
 // docs/releasing.md says before 1.0. Run by make check-release, before pushing a release
-// commit, and by the release, which passes the version its commit names as the argument.
+// commit, and by ci.yml's version job, which passes the version scripts/pending-version.sh reads as the argument.
 import { readFile } from "node:fs/promises";
 import process from "node:process";
 

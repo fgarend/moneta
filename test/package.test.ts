@@ -46,7 +46,7 @@ it("tells bundlers that only its style sheets have side effects", () => {
   expect(manifest.sideEffects).toEqual(["**/*.css"]);
 });
 
-// An app reads it first, and most package managers do not install the peers by themselves.
+// An app reads it first, and only npm puts the peers where the app imports them, as docs/decisions/delivery.md says.
 it("tells an app to install every peer it needs", async () => {
   const readme = await readFile(new URL("README.md", root), "utf8");
   const needed = Object.keys(manifest.peerDependencies ?? {}).filter(
