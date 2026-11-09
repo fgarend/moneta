@@ -54,10 +54,7 @@ Done: 3.4, one import, with ready-made styles, as `docs/decisions/delivery.md` s
 3.6, what is written matches what exists, with the README's install, use and how far changing the look reaches.
 3.2, release 0.1.0, published on 2026-11-06 with all 41 pieces raw.
 3.8, a release's number follows from its changelog, as `docs/releasing.md` says.
-
-- **3.9 · The release apart from the checks.** Proposed on 2026-11-09, not decided: `ci.yml` only checks, once per
-  commit, and keeps the tarball it tested on `main`. A workflow of its own publishes it, by itself after a release
-  commit's checks pass, or by hand after a fix, with no check run twice. The alternative is a release only by hand.
+3.9, pull requests to `main`, and a release on each merge of a version with no tag, as `docs/decisions/delivery.md` says.
 
 Dropped: 3.1, `Sidebar`, `AppLayout` and providers, moved to 4.6, after a study of its own.
 

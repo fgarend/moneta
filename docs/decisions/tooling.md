@@ -25,7 +25,8 @@ How the repository runs, and how its versions are chosen.
 - **`make check` runs every check, even after one fails,** and ends with one line per check.
   Continuous integration has one box per check, with the same name, in parallel, and a test
   compares the two lists. `stories` has one box per browser, which `make stories BROWSER=webkit`
-  repeats. With no `BROWSER`, it runs the three at once.
+  repeats. With no `BROWSER`, it runs the three at once. `storybook-build`, the gallery a release publishes, is a
+  check too.
 - **Stories run in Storybook, and every test in Vitest,** the browsers through Playwright:
   Chromium, Firefox and WebKit. `test` runs logic and the repository's checks in Node, and
   `stories` everything in a browser, so nothing runs twice.
@@ -78,6 +79,8 @@ How the repository runs, and how its versions are chosen.
   On the machine, each browser alone took 25 to 45 seconds, and the three at once 93. **What it
   costs:** two more boxes, and each measures its coverage alone, so a line with no test turns
   three boxes red.
+- **The gallery's build as a check,** so a change that breaks it shows in its pull request, not at the next release,
+  after the merge. **What it costs:** about a minute more per pull request, and the release builds it again.
 - **Screenshots in Chromium alone,** since each browser draws a little differently and needs
   images of its own, as Playwright's documentation says, so all three would mean approving each
   visual change six times instead of two. One browser answers whether the look changed. **What it
@@ -189,3 +192,4 @@ How the repository runs, and how its versions are chosen.
 - 2026-11-07: Colour checked in both modes, and the gallery's switch.
 - 2026-11-08: Screenshots compared exactly.
 - 2026-11-09: One `stories` box per browser, and why screenshots run in Chromium alone.
+- 2026-11-09: The gallery's build as a check.

@@ -1,24 +1,19 @@
-# The checks of make check, one box per check, on every push to main, every pull request and every run started by
-# hand. A red box is repeated on the machine by the make target of the same name. The lists must stay CHECKS of the
-# Makefile, with stories in a job of its own, and everyBrowser of vitest.config.ts, as test/workflows.test.ts checks.
-# A push to main whose last commit starts with "chore: release v" also calls release.yml, once every box has passed. So
-# does a run started by hand on main, which tries again a release that failed before publishing.
+# The checks of make check, one box per check, on every pull request: main takes only what passed here, as its rule
+# requires the job checks. A red box is repeated on the machine by the make target of the same name. The lists must stay
+# CHECKS of the Makefile, with stories in a job of its own, and everyBrowser of vitest.config.ts, as
+# test/workflows.test.ts checks. release.yml publishes after the merge, and checks nothing again.
 name: ci
 
 on:
-  push:
-    branches: [main]
   pull_request:
-  workflow_dispatch:
 
 permissions:
   contents: read
 
-# Only pull requests cancel an earlier run. Each push has a group of its own, as a group also drops a run waiting in it,
-# so a newer push never cuts a release.
+# A newer push to the pull request cancels the run before it.
 concurrency:
-  group: ci-${{ github.event_name == 'pull_request' && github.ref || github.sha }}
-  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   check:
@@ -28,7 +23,7 @@ jobs:
       # A box that fails does not cancel the others, so every problem shows at once.
       fail-fast: false
       matrix:
-        check: [lint, types, test, package]
+        check: [lint, types, test, package, storybook-build]
     steps:
       - name: Check out the commit
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
@@ -36,16 +31,6 @@ jobs:
           persist-credentials: false
       - name: Run make ${{ matrix.check }}
         run: make ${{ matrix.check }}
-      # The tarball this box has just tested, so what is published is what passed.
-      - name: Keep the tarball for the release
-        if: "${{ matrix.check == 'package' && github.ref == 'refs/heads/main' && (github.event_name == 'workflow_dispatch' || (github.event_name == 'push' && startsWith(github.event.head_commit.message, 'chore: release v'))) }}"
-        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
-        with:
-          name: package
-          path: .package/*.tgz
-          include-hidden-files: true
-          if-no-files-found: error
-          retention-days: 7
 
   # The stories, one box per browser, so a red box names its browser, and re-running the failed jobs repeats only it.
   stories:
@@ -73,12 +58,38 @@ jobs:
           if-no-files-found: ignore
           retention-days: 7
 
-  release:
-    needs: [check, stories]
-    if: "${{ github.ref == 'refs/heads/main' && (github.event_name == 'workflow_dispatch' || (github.event_name == 'push' && startsWith(github.event.head_commit.message, 'chore: release v'))) }}"
-    # The most its jobs may ask for: each one asks only for what it needs.
-    permissions:
-      contents: write
-      pages: write
-      id-token: write
-    uses: ./.github/workflows/release.yml
+  # A pull request whose package.json holds a version with no tag releases it once merged, so its number and changelog
+  # are checked here, before the merge.
+  version:
+    runs-on: ubuntu-24.04-arm
+    steps:
+      - name: Check out the commit
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Check a pending release (make check-release)
+        run: |
+          version=$(scripts/pending-version.sh)
+          if [ -z "$version" ]; then
+            echo "package.json's version is released: this pull request releases nothing."
+          else
+            make check-release VERSION="$version"
+          fi
+
+  # The one job main's rule requires. GitHub counts a skipped job as passed, so this one always runs and fails unless
+  # every other job passed.
+  checks:
+    needs: [check, stories, version]
+    if: ${{ always() }}
+    runs-on: ubuntu-24.04-arm
+    steps:
+      - name: Pass only when every box passed
+        env:
+          RESULTS: ${{ join(needs.*.result, ' ') }}
+        run: |
+          for result in $RESULTS; do
+            if [ "$result" != success ]; then
+              echo "A job ended as $result: $RESULTS"
+              exit 1
+            fi
+          done

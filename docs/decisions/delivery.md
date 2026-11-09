@@ -8,10 +8,12 @@ Where the library lives, how it is received, and under what terms.
 - **The package is `@fgarend/moneta`, delivered by a release's tarball,** which the
   `package.json` of whoever uses it points to on GitHub. It is not published to a
   registry. A local link is left out until the daily work needs it.
-- **A release is automatic,** from a commit `chore: release vX.Y.Z` on `main`, once every box has passed, as
-  `docs/releasing.md` says. It publishes the tarball the `package` box tested, with no second build. One that failed
-  before publishing is tried again by a run of `ci.yml` started by hand on `main`, which takes the version from
-  `package.json`.
+- **Every change reaches `main` through a pull request,** whose job `checks` passed, up to date with `main`. It enters
+  with a merge commit titled as the pull request, over its own commits rebased onto `main`, so each pull request is one
+  group in the history. `ci.yml` checks pull requests only, as `main` then holds only what one tested.
+- **A release is automatic,** on each merge to `main` while `package.json` holds a version with no tag, as
+  `docs/releasing.md` says: the release's pull request, or the fix of one that failed before publishing. It builds and
+  tests the tarball it publishes, in the same run, and checks nothing else again. One release runs at a time.
 - **A release's number follows from its changelog,** as `docs/releasing.md` says: the one after the changelog's
   previous section, on the last number for only fixes and on the middle one otherwise. A section with no change is
   refused. The first number does not move before 1.0.
@@ -45,13 +47,13 @@ Where the library lives, how it is received, and under what terms.
 ### GitHub settings
 
 They cannot be read from the code, so they are written here. Read through GitHub's API
-on 2026-11-04.
+on 2026-11-04, and the merges and the ruleset `main` again on 2026-11-09.
 
 | Setting | Value |
 | --- | --- |
 | Issues, Wiki, Projects, Discussions | Off |
-| Pull requests | No merge commit. Squash and rebase allowed |
-| Ruleset `main` | The default branch cannot be deleted or rewritten, by anyone |
+| Pull requests | Merge commit only, titled as the pull request. A branch can be updated by rebase |
+| Ruleset `main` | The default branch cannot be deleted or rewritten, and takes changes only through a pull request whose `checks` passed, up to date with it, by anyone |
 | Ruleset `release tags` | Tags `v*` cannot be deleted, moved or rewritten, by anyone |
 | Immutable releases | On, since a release's tarball gets pinned |
 | Workflows | Read-only by default, and they cannot approve pull requests |
@@ -79,11 +81,21 @@ looks every week.
   is spent, and the changelog must say what each step holds. The previous version is the changelog's previous section,
   so the check needs no tags and runs the same on the machine. **What it costs:** a rule of our own to keep, which
   6.2 changes with 1.0, and the check trusts that section, while the tags are only checked for the new number.
-- **A release tried again by hand,** so each version has one release commit, and trying again is a step someone takes
-  on purpose. **What it costs:** the tag then points to the last commit on `main`, which may be the fix and not the
-  release commit, and the two workflows read the version in two ways.
-- **The tarball the box tested,** so what an app installs is what passed. **What it costs:** one more step in `ci.yml`,
-  and the two workflows now share an artifact's name.
+- **Pull requests to `main`,** so `main` never holds what failed, each check runs once, and a session's work never
+  leaves with another's. Vite and Vitest check pull requests and publish on the merge of a release commit, as here.
+  **What it costs:** a branch, a pull request and a wait for each step, and two pull requests open together often
+  conflict in the roadmap and the changelog, so one is updated and checked again.
+- **One job that the rule requires,** so renaming or adding a box never leaves a pull request waiting. It always runs,
+  as GitHub counts a skipped job as passed. **What it costs:** one more job, a few seconds long.
+- **Merge commits over rebased commits,** so each pull request is one group, `git log --first-parent` lists one line
+  per pull request, and its own commits stay as the user approved them. **What it costs:** one more commit per pull
+  request, and a branch updated by merge rather than rebase would cross the history, which no rule refuses.
+- **A release on a version with no tag,** so one rule says whether a pull request and a merge release, and trying
+  again after a fix is that fix's merge, with no second release commit and no command. `check-release` refuses a
+  release while `Unreleased` lists anything, so what reaches an app cannot slip in unlisted. **What it costs:** the
+  rule is not written in the history, and a release left failed is tried by each merge after it, red until it is fixed.
+- **The tarball built and tested in the release,** so what an app installs is what was tested, in the same run, with no
+  file taken from another run. **What it costs:** `make package` runs twice per version, in the pull request and here.
 - **The gallery with each release,** so the pieces can be seen from a link, with no clone and no Docker. **What it
   costs:** one more job, two more actions and one more place to fail, after the version is already out.
 - **One import,** since using Moneta should take the dependency and one line, as Radix Themes does.
@@ -126,6 +138,16 @@ looks every week.
   fails in Node. It may come if something other than styles needs it, such as a router.
 - **The first release by hand,** with `gh release create` on the tarball of `make package`. Less to write before it
   could run, but nothing ties the file to a commit, and the work comes back at the second release.
+- **Pushing straight to `main`,** checked after, as until 2026-11-09. Fewer steps, but `main` turned red, a retry ran
+  every check again, and twice another session's commit left with a push.
+- **Squash, or rebase with no merge commit.** Squash makes each pull request one commit, so an update and its step
+  would need two pull requests. Rebase alone keeps the commits but loses the groups.
+- **`ci.yml` on `main` too,** as a net if a merge went wrong. It would run every check twice.
+- **The release apart from the checks, and only by hand,** proposed the same day. It ran nothing twice, but needed the
+  result and the tarball of another run, and one more command per version.
+- **The tarball the pull request's run kept.** No second `make package`, but the release must find that run, read its
+  artifacts with more permissions, and the file expires.
+- **A release tried again by hand,** with `gh workflow run`, used once, for `v0.2.0`. It ran every check again.
 - **A second, empty release commit,** as `v0.0.1` was tried again. Nothing to add to the workflows, but two commits of
   the same name confuse the history.
 - **Releasing whenever `package.json` holds a version with no tag.** Any push tries again on its own, but the rule is
@@ -149,8 +171,8 @@ looks every week.
 
 `v0.0.1` ran the whole path on 2026-11-06: the tag, the immutable release, its tarball installed from its address and
 imported in Node, and the gallery on Pages. `v0.1.0` ran it again the same day. `v0.2.0` was the first tried again by
-hand, on 2026-11-09, after its checks failed. Still not tested: a failure halfway through `publish`, a pull request
-cancelling an earlier run, and an app drawing a piece from a release's tarball.
+hand, on 2026-11-09, after its checks failed. Still not tested: a release on a merge to `main`, a failure halfway
+through `publish`, a pull request cancelling an earlier run, and an app drawing a piece from a release's tarball.
 
 ## History
 
@@ -168,3 +190,4 @@ cancelling an earlier run, and an app drawing a piece from a release's tarball.
 - 2026-11-08: Moneta's look on the gallery's frame.
 - 2026-11-09: A release tried again by hand.
 - 2026-11-09: The number checked against the changelog.
+- 2026-11-09: Pull requests to `main`, and a release on each merge of a version with no tag.
