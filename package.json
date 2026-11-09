@@ -10,6 +10,7 @@
   },
   "type": "module",
   "exports": {
+    "./card": "./dist/components/card.js",
     "./aspect-ratio": "./dist/components/aspect-ratio.js",
     "./alert": "./dist/components/alert.js",
     "./label": "./dist/components/label.js",

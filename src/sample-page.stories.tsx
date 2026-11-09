@@ -17,8 +17,6 @@ import {
 } from "lucide-react";
 import { expect, within } from "storybook/test";
 import { Button } from "./components/button.js";
-import { Input } from "./components/input.js";
-import { Badge } from "./components/ui/badge.js";
 import {
   Card,
   CardAction,
@@ -26,7 +24,9 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
-} from "./components/ui/card.js";
+} from "./components/card.js";
+import { Input } from "./components/input.js";
+import { Badge } from "./components/ui/badge.js";
 import { Progress } from "./components/ui/progress.js";
 import {
   Select,
