@@ -10,6 +10,10 @@ gets its number.
 
 - `cn` moves to 0.5.2, which changes nothing a piece draws or does.
 
+### Fixed
+
+- `Slider`'s thumb shows keyboard focus, which it did not.
+
 ## [0.2.0] - 2026-11-09
 
 Moneta's own look, in light and dark, with taller controls and a visible keyboard focus.
