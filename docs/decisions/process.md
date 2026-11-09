@@ -37,8 +37,8 @@ How decisions are kept, and how the work moves.
   of earlier decisions. A group's review shows: the unchanged files as a list, the
   edited ones as a diff against their origin, what stayed behind with its reason, and
   the commands' results.
-- **Each piece starts with an analysis of its own, discussed before any code,** as a component library and
-  a design system would see it, apart from any app. It answers:
+- **Each piece made or changed starts with an analysis of its own, discussed before any code,** as a
+  component library and a design system would see it, apart from any app. It answers:
   - **Who it is:** what it is for, what it is not and what to use instead, and its name in shadcn, React Aria
     and other libraries.
   - **Where it sits:** its level, from token to piece, composed piece and region, what holds it and what it
@@ -104,4 +104,4 @@ rest.
 - 2026-11-06: First in use, then refined. Raw pieces, and a fixed message in place of tags.
 - 2026-11-06: The release's part arrived.
 - 2026-11-06: An import may hold several pieces, as the second one did.
-- 2026-11-09: Each piece starts with an analysis of its own.
+- 2026-11-09: Each piece made or changed starts with an analysis of its own.
