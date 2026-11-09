@@ -85,9 +85,9 @@ gives the right result:
   English. Talk to the user in Portuguese.
 - **Commit only when the user approves.** Conventional messages (`feat:`, `fix:`,
   `docs:`, `chore:`…). Never add `Co-Authored-By`, `Claude-Session` or any other
-  attribution trailer. The user reviews and pushes.
-- **Commit only your own work.** Another session may edit this checkout. Read the
-  diff of each file before staging, stage by path, and never run `git add -A`.
+  attribution trailer. The user merges.
+- **One branch per step,** from `main` up to date, kept on top of it by rebase, never
+  by merge. Stage by path, and never run `git add -A`.
 
 ## The rhythm of a step
 
@@ -96,8 +96,9 @@ gives the right result:
 2. The user decides them, one at a time.
 3. Write the tests and show them failing. In a step without code, write the
    checks or the document to review instead.
-4. Implement, then show the tests passing.
-5. The user reviews and approves the commit, then pushes.
+4. Implement, then show the tests passing. `make check` passes before the pull request opens.
+5. The user approves each commit. Claude pushes the step's branch and opens its pull request,
+   and the user merges it once `checks` passes.
 
 `docs/ROADMAP.md` is updated in the commit of each step, so a new session can resume
 from it.

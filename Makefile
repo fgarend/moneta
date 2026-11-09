@@ -7,9 +7,9 @@ COMPOSE := docker compose --env-file infra/settings.env -f infra/compose.yaml
 # must exist in it first, even in a fresh clone.
 RUN := mkdir -p node_modules .vitest coverage dist .package storybook-static && $(COMPOSE) run --rm --build
 # What make check runs, fastest first. .github/workflows/ci.yml has one box per name, and stories one per browser.
-CHECKS := lint types test stories package
+CHECKS := lint types test stories package storybook-build
 
-.PHONY: help check $(CHECKS) check-release release-notes storybook-build install format update-screenshots storybook images clean \
+.PHONY: help check $(CHECKS) check-release release-notes install format update-screenshots storybook images clean \
 	outdated audit
 
 help: ## List the commands
@@ -18,7 +18,7 @@ help: ## List the commands
 
 ##@ Checks
 
-check: ## Every check below, before a commit. Runs them all, then says which failed
+check: ## Every check below, before a pull request. Runs them all, then says which failed
 	@failed=0; summary=""; \
 	for name in $(CHECKS); do \
 		if $(MAKE) --no-print-directory $$name; then line="ok     $$name"; else line="failed $$name"; failed=1; fi; \
@@ -44,6 +44,9 @@ package: ## The build, packed into .package, with that tarball installed and che
 		pnpm exec tailwindcss -i dist/styles/build.css -o dist/styles/compiled.css --minify && rm dist/styles/build.css && \
 		pnpm pack --pack-destination .package && pnpm exec vitest run --mode package && ls .package/*'
 
+storybook-build: ## Build the gallery as a static site in storybook-static, as each release publishes it
+	$(RUN) gallery sh -c 'rm -rf storybook-static/* && pnpm exec storybook build --output-dir storybook-static'
+
 ##@ Release
 
 check-release: ## Whether package.json's version can be released. VERSION=X.Y.Z also compares it with that
@@ -52,9 +55,6 @@ check-release: ## Whether package.json's version can be released. VERSION=X.Y.Z 
 release-notes: ## Print a version's notes from CHANGELOG.md, and nothing else on standard output. VERSION=X.Y.Z
 	@$(COMPOSE) build --quiet tools >&2
 	@mkdir -p .vitest coverage && $(COMPOSE) run --rm -T tools node scripts/extract-release-notes.ts $(VERSION)
-
-storybook-build: ## Build the gallery as a static site in storybook-static, as each release publishes it
-	$(RUN) gallery sh -c 'rm -rf storybook-static/* && pnpm exec storybook build --output-dir storybook-static'
 
 ##@ Development
 

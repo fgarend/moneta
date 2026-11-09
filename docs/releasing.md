@@ -10,13 +10,14 @@ Continuous integration creates them, never a person, and GitHub then refuses to 
    `package.json` to the same number.
 2. **Compare with the previous release,** so the changelog tells every change an app receives:
    `git diff vA.B.C -- src`. The first release has no previous tag.
-3. **Check and push.** `make check` and `make check-release` pass. Commit only the changelog and the version, as
-   `chore: release vX.Y.Z`, and push. Nothing else is run by hand.
-4. **Continuous integration releases it.** Once every box has passed, `ci.yml` calls `release.yml`, in the same run:
-   - `verify` refuses a version with no X.Y.Z form, with a tag already, different from `package.json`, or with no
-     changelog ready, and one that is not the next by the rules below. Then it runs the audit.
-   - `build` builds the gallery and writes the notes from the changelog.
-   - `publish` creates the tag and the release, with the tarball the `package` box tested.
+3. **Check and open the pull request.** `make check` and `make check-release` pass. Commit only the changelog and the
+   version, as `chore: release vX.Y.Z`, on a branch of its own, and open its pull request under the same title. Its
+   `version` job runs `make check-release`, as `package.json` holds a version with no tag.
+4. **Merge it.** `release.yml` runs on every merge to `main`, and goes on only while the version has no tag:
+   - `pending` reads the version, and stops the run once it has a tag.
+   - `build` runs the audit, builds and tests the tarball with `make package`, builds the gallery and writes the notes
+     from the changelog. Nothing else is checked again, as the pull request was.
+   - `publish` creates the tag and the release, with that tarball.
    - `pages` publishes the gallery at `https://fgarend.github.io/moneta/`, replacing the previous one.
 5. **An app moves to the release,** in its own repository, when it wants, by the file on its page:
    `https://github.com/fgarend/moneta/releases/download/vX.Y.Z/fgarend-moneta-X.Y.Z.tgz`
@@ -40,9 +41,9 @@ changelog lists every change, or files a change under the right heading. That is
 
 ## When a release run fails
 
-- **Before `publish`:** nothing was spent, and the version stays free. Push the fix, if one is needed, in its own commit.
-  Then start the release again by hand on `main`, which checks everything once more and takes the version from
-  `package.json`: `gh workflow run ci.yml --ref main`. It releases `main` as it is, so nothing else is pushed in between.
+- **Before `publish`:** nothing was spent, and the version stays free. A failure that passes on its own, as a network
+  error, takes a re-run of the failed jobs. One that needs a fix takes a pull request, whose merge releases the version
+  again, as it still has no tag.
 - **In `publish`:** with no tag, re-run the failed jobs of the run, and delete the draft left behind on the releases page.
 - **In `pages`:** the release is out. Re-run the failed job, within a day, while the gallery's artifact lasts. After
   that, the next release publishes the gallery.

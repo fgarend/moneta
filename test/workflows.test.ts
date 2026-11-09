@@ -21,8 +21,8 @@ const uploadStep =
   /uses: actions\/upload-artifact@[\s\S]*?(?=\n\s*- name:|\n\n|$)/gu;
 const hiddenPath = /^\s+path: \./mu;
 const keepsHidden = /^\s+include-hidden-files: true$/mu;
-const ifLine = /^\s+if: (?<condition>.+)$/mu;
-const byHand = /^ {2}workflow_dispatch:$/mu;
+const trigger = /^ {2}[\w-]+:$/gmu;
+const alwaysRuns = /^ {4}if: \$\{\{ always\(\) \}\}$/mu;
 
 async function namesIn(file: string, line: RegExp): Promise<string[]> {
   const text = await readFile(new URL(file, root), "utf8");
@@ -102,48 +102,69 @@ it("lets only the release's publish and pages write", async () => {
   expect(writing).toEqual(["publish", "pages"]);
 });
 
-// A release is only what every box passed, so its job has to wait for them.
-it("releases from ci only after the checks, on a release commit", async () => {
-  const text = await readFile(
-    new URL(".github/workflows/ci.yml", root),
-    "utf8",
+// main takes only what a pull request tested, so the checks run on pull requests, and once.
+it("checks pull requests only", async () => {
+  const ci = await readFile(new URL(".github/workflows/ci.yml", root), "utf8");
+  const triggers = ci.slice(
+    ci.indexOf("\non:\n"),
+    ci.indexOf("\npermissions:"),
   );
-  const job = text.slice(text.indexOf("\n  release:\n"));
 
-  expect(job).toContain("needs: [check, stories]");
-  expect(job).toContain(
-    "startsWith(github.event.head_commit.message, 'chore: release v')",
-  );
-  expect(job).toContain("uses: ./.github/workflows/release.yml");
+  expect(triggers.match(trigger)?.map((line) => line.trim())).toEqual([
+    "pull_request:",
+  ]);
 });
 
-// A release that failed before publishing is tried again by hand, not by a second release commit, and only from main.
-it("tries a release again by hand, only on main", async () => {
+// main's rule requires this one job, so a box renamed or added never leaves a pull request waiting, and a box skipped
+// or cancelled, which GitHub would count as passed, fails it.
+it("ends in one job that passes only when every other job passed", async () => {
   const ci = await readFile(new URL(".github/workflows/ci.yml", root), "utf8");
+  const jobs = ci.slice(ci.indexOf("\njobs:\n"));
+  const names = [...jobs.matchAll(jobHeading)].map(
+    ({ groups }) => groups?.["job"],
+  );
+  const last = jobs.slice(jobs.indexOf("\n  checks:\n"));
+
+  expect(names.at(-1)).toBe("checks");
+  expect(last).toContain(`needs: [${names.slice(0, -1).join(", ")}]`);
+  expect(last).toMatch(alwaysRuns);
+  expect(last).toContain("join(needs.*.result, ' ')");
+});
+
+// The gallery is published with each release, so a pull request that breaks its build shows it before it merges.
+it("builds the gallery in make check, and so in every pull request", async () => {
+  expect(await namesIn("Makefile", checks)).toContain("storybook-build");
+});
+
+// A pull request that releases a version shows a wrong number or changelog before it merges.
+it("checks a pending release's number and changelog in its pull request", async () => {
+  const ci = await readFile(new URL(".github/workflows/ci.yml", root), "utf8");
+
+  expect(ci).toContain("scripts/pending-version.sh");
+  expect(ci).toContain("make check-release");
+});
+
+// A merge to main publishes the version package.json holds when it has no tag yet: the release's pull request, or the
+// fix of one that failed. One at a time, so two merges never publish the same version.
+it("releases on a merge to main, one at a time, without checking again", async () => {
   const release = await readFile(
     new URL(".github/workflows/release.yml", root),
     "utf8",
   );
-  const job = ci.slice(ci.indexOf("\n  release:\n"));
-
-  expect(ci).toMatch(byHand);
-  expect(job).toContain("github.ref == 'refs/heads/main'");
-  expect(job).toContain("github.event_name == 'workflow_dispatch'");
-  expect(release).toContain("package.json");
-});
-
-// The release takes the tarball the package box kept, so both must agree on which runs release.
-it("keeps the tarball on every run that releases", async () => {
-  const ci = await readFile(new URL(".github/workflows/ci.yml", root), "utf8");
-  const condition = (after: string): string | undefined =>
-    ci.slice(ci.indexOf(after)).match(ifLine)?.groups?.["condition"];
-
-  expect(condition("- name: Keep the tarball for the release")).toBe(
-    condition("\n  release:\n")?.replace(
-      "${{ ",
-      "${{ matrix.check == 'package' && ",
-    ),
+  const triggers = release.slice(
+    release.indexOf("\non:\n"),
+    release.indexOf("\npermissions:"),
   );
+
+  expect(triggers.match(trigger)?.map((line) => line.trim())).toEqual([
+    "push:",
+  ]);
+  expect(triggers).toContain("branches: [main]");
+  expect(release).toContain("scripts/pending-version.sh");
+  expect(release).toContain("cancel-in-progress: false");
+  expect(release).toContain("make package");
+  expect(release).toContain("make audit");
+  expect(release).not.toContain("make check-release");
 });
 
 // What the next release moves into its own section, and check-release looks for.
