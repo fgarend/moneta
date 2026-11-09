@@ -1,6 +1,10 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { expect, within } from "storybook/test";
-import { NativeSelect, NativeSelectOption } from "./native-select.js";
+import {
+  NativeSelect,
+  NativeSelectOptGroup,
+  NativeSelectOption,
+} from "./native-select.js";
 
 const name = "Account";
 const savings = "Savings";
@@ -51,5 +55,32 @@ const Disabled: Story = {
   },
 };
 
+// Options in groups, each with its own label.
+const Grouped: Story = {
+  args: {
+    children: (
+      <>
+        <NativeSelectOptGroup label="Everyday">
+          <NativeSelectOption>{checking}</NativeSelectOption>
+        </NativeSelectOptGroup>
+        <NativeSelectOptGroup label="Put aside">
+          <NativeSelectOption>{savings}</NativeSelectOption>
+        </NativeSelectOptGroup>
+      </>
+    ),
+  },
+  play: async ({ canvasElement }) => {
+    const groups = canvasElement.querySelectorAll("optgroup");
+
+    await expect([...groups].map((group) => group.label)).toEqual([
+      "Everyday",
+      "Put aside",
+    ]);
+    await expect(
+      within(canvasElement).getByRole("combobox", { name }),
+    ).toHaveValue(checking);
+  },
+};
+
 export default meta;
-export { Default, Disabled };
+export { Default, Disabled, Grouped };
