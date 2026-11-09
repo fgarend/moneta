@@ -32,6 +32,7 @@ gets its number.
 ### Fixed
 
 - `ItemGroup` no longer claims a list role, which its items did not fill, as axe found.
+- `SelectSeparator` is a line to see only, as a list of options may hold only options and groups, as axe found.
 
 ## [0.4.0] - 2026-11-09
 

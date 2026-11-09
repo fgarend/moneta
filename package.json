@@ -10,6 +10,7 @@
   },
   "type": "module",
   "exports": {
+    "./select": "./dist/components/select.js",
     "./slider": "./dist/components/slider.js",
     "./scroll-area": "./dist/components/scroll-area.js",
     "./progress": "./dist/components/progress.js",

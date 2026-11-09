@@ -29,6 +29,13 @@ import {
 import { Input } from "./components/input.js";
 import { Progress } from "./components/progress.js";
 import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "./components/select.js";
+import {
   Table,
   TableBody,
   TableCell,
@@ -37,13 +44,6 @@ import {
   TableRow,
 } from "./components/table.js";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "./components/tabs.js";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "./components/ui/select.js";
 
 interface NavigationItem {
   name: string;
