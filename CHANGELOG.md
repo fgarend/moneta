@@ -6,6 +6,10 @@ gets its number.
 
 ## [Unreleased]
 
+## [0.4.0] - 2026-11-09
+
+`Section`, the first piece of Moneta's own, and every piece imported by its name alone.
+
 ### Added
 
 - `Section`, a part of a page under one title, with no box: `SectionHeader`, `SectionTitle`, `SectionDescription` and
@@ -77,7 +81,8 @@ and dark. `README.md` says how to install and use it.
 
 A rehearsal of the release's path, not meant to be installed. Use a later version.
 
-[Unreleased]: https://github.com/fgarend/moneta/compare/v0.3.0...HEAD
+[Unreleased]: https://github.com/fgarend/moneta/compare/v0.4.0...HEAD
+[0.4.0]: https://github.com/fgarend/moneta/compare/v0.3.0...v0.4.0
 [0.3.0]: https://github.com/fgarend/moneta/compare/v0.2.0...v0.3.0
 [0.2.0]: https://github.com/fgarend/moneta/compare/v0.1.0...v0.2.0
 [0.1.0]: https://github.com/fgarend/moneta/compare/v0.0.1...v0.1.0
