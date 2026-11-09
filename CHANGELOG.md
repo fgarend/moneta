@@ -25,6 +25,7 @@ gets its number.
   field's props, so `className` is a string and hover handlers are gone. To upgrade, compute a class before passing it,
   and move a hover handler to an element around the piece.
 - `Switch`'s track is 18 px tall, from 18.4.
+- `InputGroupAddon` pulls a button or `kbd` 4 or 2 px toward the edge, from 4.8 and 2.4.
 - The titles of `AlertDialog`, `Card`, `Dialog`, `Empty` and `Sheet` read `--font-heading`, as shadcn's now do. It is
   the body's font, so nothing is drawn differently.
 

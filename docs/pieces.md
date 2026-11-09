@@ -45,7 +45,7 @@ A piece with no gap listed may still have some.
 | `field` | raw | **Code:** does not link its description or error, which its story does by hand. **Lint:** an array index as a key |
 | `hover-card` | raw | **Code:** its dialog has no name unless given `aria-label`. Opening by focus or hover is not checked |
 | `input` | raw | **Edited:** 36 px |
-| `input-group` | raw | **Edited:** 36 px. A click on an addon focusing the input is not checked, as that story failed at random in Firefox |
+| `input-group` | raw | **Edited:** 36 px |
 | `item` | raw | **axe:** its group has a list role, with links and buttons and no list items |
 | `kbd` | raw | |
 | `label` | raw | **lint:** an unused import |
