@@ -19,5 +19,16 @@ const Default: Story = {
   },
 };
 
+// Drawn as another element, here a link, which keeps the badge's look.
+const AsLink: Story = {
+  args: { render: (props) => <a href="#settled" {...props} /> },
+  play: async ({ canvasElement }) => {
+    const link = within(canvasElement).getByRole("link", { name: label });
+
+    await expect(link).toHaveAttribute("href", "#settled");
+    await expect(link).toHaveAttribute("data-slot", "badge");
+  },
+};
+
 export default meta;
-export { Default };
+export { AsLink, Default };

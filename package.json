@@ -10,6 +10,7 @@
   },
   "type": "module",
   "exports": {
+    "./badge": "./dist/components/badge.js",
     "./tooltip": "./dist/components/tooltip.js",
     "./table": "./dist/components/table.js",
     "./empty": "./dist/components/empty.js",

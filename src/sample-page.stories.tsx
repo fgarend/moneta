@@ -16,6 +16,7 @@ import {
   Wallet,
 } from "lucide-react";
 import { expect, within } from "storybook/test";
+import { Badge } from "./components/badge.js";
 import { Button } from "./components/button.js";
 import {
   Card,
@@ -34,7 +35,6 @@ import {
   TableHeader,
   TableRow,
 } from "./components/table.js";
-import { Badge } from "./components/ui/badge.js";
 import { Progress } from "./components/ui/progress.js";
 import {
   Select,
