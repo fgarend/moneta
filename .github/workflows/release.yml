@@ -1,6 +1,6 @@
-# A release, called by ci.yml on a release commit, in the same run, once every box has passed. verify and build run the
-# project's code and cannot write. publish and pages write, and run none of it. The tag is created by publish, so a
-# failed check spends no version. docs/releasing.md says what to do when a job fails.
+# A release, called by ci.yml on a release commit or in a run started by hand, in the same run, once every box has
+# passed. verify and build run the project's code and cannot write. publish and pages write, and run none of it. The
+# tag is created by publish, so a failed check spends no version. docs/releasing.md says what to do when a job fails.
 name: release
 
 on:
@@ -19,13 +19,20 @@ jobs:
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
-      - name: Read the version the commit names
+      # A run started by hand has no commit message, so it takes the version package.json holds.
+      - name: Read the version the commit names, or package.json in a run started by hand
         id: version
         env:
+          EVENT: ${{ github.event_name }}
           MESSAGE: ${{ github.event.head_commit.message }}
         run: |
-          subject=${MESSAGE%%$'\n'*}
-          version=${subject#chore: release v}
+          if [ "$EVENT" = workflow_dispatch ]; then
+            subject="package.json's version"
+            version=$(sed -n 's/^  "version": "\(.*\)",$/\1/p' package.json)
+          else
+            subject=${MESSAGE%%$'\n'*}
+            version=${subject#chore: release v}
+          fi
           if [[ ! $version =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
             echo "The commit names no version X.Y.Z: $subject"
             exit 1

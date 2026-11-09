@@ -1,13 +1,15 @@
-# The checks of make check, one box per check, on every push to main and every pull request. A red box is repeated on
-# the machine by the make target of the same name. The list must stay CHECKS of the Makefile, as
-# test/workflows.test.ts checks.
-# A push to main whose last commit starts with "chore: release v" also calls release.yml, once every box has passed.
+# The checks of make check, one box per check, on every push to main, every pull request and every run started by
+# hand. A red box is repeated on the machine by the make target of the same name. The list must stay CHECKS of the
+# Makefile, as test/workflows.test.ts checks.
+# A push to main whose last commit starts with "chore: release v" also calls release.yml, once every box has passed. So
+# does a run started by hand on main, which tries again a release that failed before publishing.
 name: ci
 
 on:
   push:
     branches: [main]
   pull_request:
+  workflow_dispatch:
 
 permissions:
   contents: read
@@ -46,7 +48,7 @@ jobs:
           retention-days: 7
       # The tarball this box has just tested, so what is published is what passed.
       - name: Keep the tarball for the release
-        if: "${{ matrix.check == 'package' && github.event_name == 'push' && startsWith(github.event.head_commit.message, 'chore: release v') }}"
+        if: "${{ matrix.check == 'package' && github.ref == 'refs/heads/main' && (github.event_name == 'workflow_dispatch' || (github.event_name == 'push' && startsWith(github.event.head_commit.message, 'chore: release v'))) }}"
         uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: package
@@ -57,7 +59,7 @@ jobs:
 
   release:
     needs: check
-    if: "${{ github.event_name == 'push' && github.ref == 'refs/heads/main' && startsWith(github.event.head_commit.message, 'chore: release v') }}"
+    if: "${{ github.ref == 'refs/heads/main' && (github.event_name == 'workflow_dispatch' || (github.event_name == 'push' && startsWith(github.event.head_commit.message, 'chore: release v'))) }}"
     # The most its jobs may ask for: each one asks only for what it needs.
     permissions:
       contents: write

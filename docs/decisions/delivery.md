@@ -9,7 +9,9 @@ Where the library lives, how it is received, and under what terms.
   `package.json` of whoever uses it points to on GitHub. It is not published to a
   registry. A local link is left out until the daily work needs it.
 - **A release is automatic,** from a commit `chore: release vX.Y.Z` on `main`, once every box has passed, as
-  `docs/releasing.md` says. It publishes the tarball the `package` box tested, with no second build.
+  `docs/releasing.md` says. It publishes the tarball the `package` box tested, with no second build. One that failed
+  before publishing is tried again by a run of `ci.yml` started by hand on `main`, which takes the version from
+  `package.json`.
 - **Each release publishes the gallery,** on GitHub Pages, in a frame with Moneta's name and the theme's colours, light or
   dark as the system prefers, in the system's font. `.storybook/themes.ts` repeats the colours, and a test keeps them the
   theme's.
@@ -70,6 +72,9 @@ looks every week.
 - **An automatic release from the first one,** since each change becomes a version from milestone 4 on. A rehearsal
   at `v0.0.1` spends a number that does not matter on what can only run for real. **What it costs:** a workflow
   written before it could run, and a `v0.0.1` that stays on the list of releases forever.
+- **A release tried again by hand,** so each version has one release commit, and trying again is a step someone takes
+  on purpose. **What it costs:** the tag then points to the last commit on `main`, which may be the fix and not the
+  release commit, and the two workflows read the version in two ways.
 - **The tarball the box tested,** so what an app installs is what passed. **What it costs:** one more step in `ci.yml`,
   and the two workflows now share an artifact's name.
 - **The gallery with each release,** so the pieces can be seen from a link, with no clone and no Docker. **What it
@@ -114,6 +119,12 @@ looks every week.
   fails in Node. It may come if something other than styles needs it, such as a router.
 - **The first release by hand,** with `gh release create` on the tarball of `make package`. Less to write before it
   could run, but nothing ties the file to a commit, and the work comes back at the second release.
+- **A second, empty release commit,** as `v0.0.1` was tried again. Nothing to add to the workflows, but two commits of
+  the same name confuse the history.
+- **Releasing whenever `package.json` holds a version with no tag.** Any push tries again on its own, but the rule is
+  hidden, and a push after a failure would publish what the changelog does not list.
+- **Re-running the failed jobs.** No commit and no new trigger, but the run checks out the old commit and its old
+  workflows, so a fix never reaches it.
 - **Building the tarball again in the release.** The release stands apart, but runs everything twice, and what is
   published is not the file that was tested.
 - **A root entry.** Shorter imports, but one more file to keep, for every piece.
@@ -126,7 +137,8 @@ looks every week.
 
 `v0.0.1` ran the whole path on 2026-11-06: the tag, the immutable release, its tarball installed from its address and
 imported in Node, and the gallery on Pages. `v0.1.0` ran it again the same day. Still not tested: a failure halfway
-through `publish`, a pull request cancelling an earlier run, and an app drawing a piece from a release's tarball.
+through `publish`, a pull request cancelling an earlier run, an app drawing a piece from a release's tarball, and a
+release tried again by hand, which `v0.2.0` is to be the first to take.
 
 ## History
 
@@ -142,3 +154,4 @@ through `publish`, a pull request cancelling an earlier run, and an app drawing 
 - 2026-11-06: The font as a variable.
 - 2026-11-08: The guidelines in the package.
 - 2026-11-08: Moneta's look on the gallery's frame.
+- 2026-11-09: A release tried again by hand.

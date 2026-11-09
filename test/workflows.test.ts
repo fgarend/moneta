@@ -16,6 +16,8 @@ const uploadStep =
   /uses: actions\/upload-artifact@[\s\S]*?(?=\n\s*- name:|\n\n|$)/gu;
 const hiddenPath = /^\s+path: \./mu;
 const keepsHidden = /^\s+include-hidden-files: true$/mu;
+const ifLine = /^\s+if: (?<condition>.+)$/mu;
+const byHand = /^ {2}workflow_dispatch:$/mu;
 
 async function namesIn(file: string, line: RegExp): Promise<string[]> {
   const text = await readFile(new URL(file, root), "utf8");
@@ -94,6 +96,35 @@ it("releases from ci only after the checks, on a release commit", async () => {
     "startsWith(github.event.head_commit.message, 'chore: release v')",
   );
   expect(job).toContain("uses: ./.github/workflows/release.yml");
+});
+
+// A release that failed before publishing is tried again by hand, not by a second release commit, and only from main.
+it("tries a release again by hand, only on main", async () => {
+  const ci = await readFile(new URL(".github/workflows/ci.yml", root), "utf8");
+  const release = await readFile(
+    new URL(".github/workflows/release.yml", root),
+    "utf8",
+  );
+  const job = ci.slice(ci.indexOf("\n  release:\n"));
+
+  expect(ci).toMatch(byHand);
+  expect(job).toContain("github.ref == 'refs/heads/main'");
+  expect(job).toContain("github.event_name == 'workflow_dispatch'");
+  expect(release).toContain("package.json");
+});
+
+// The release takes the tarball the package box kept, so both must agree on which runs release.
+it("keeps the tarball on every run that releases", async () => {
+  const ci = await readFile(new URL(".github/workflows/ci.yml", root), "utf8");
+  const condition = (after: string): string | undefined =>
+    ci.slice(ci.indexOf(after)).match(ifLine)?.groups?.["condition"];
+
+  expect(condition("- name: Keep the tarball for the release")).toBe(
+    condition("\n  release:\n")?.replace(
+      "${{ ",
+      "${{ matrix.check == 'package' && ",
+    ),
+  );
 });
 
 // What the next release moves into its own section, and check-release looks for.
