@@ -1,6 +1,6 @@
 # Roadmap
 
-**Now:** 4.6, `Sidebar`, `AppLayout` and providers, starting with a study.
+**Now:** 4.11, what an app's screens wait on, starting with Section.
 
 **The goal:** Moneta is the source of truth for components. An app consumes final pieces and builds
 its screens and regions from them, writing no class of its own. What it lacks is added here, not there.
@@ -83,6 +83,10 @@ with what is a real fault fixed as a recorded edit.
 Done: 4.5, our `theme.css`, light and dark, with the checks in both modes, the guidelines and the gallery's frame, as
 `docs/decisions/theme.md` says.
 
+- **4.11 · What an app's screens wait on,** before 4.6, decided by the owner on 2026-11-09, as an app keeps
+  its own shell until 4.6, while these hold its screens back: Section, then Link, then 5.1, then Table, then
+  DateField. Each is a step of its own, with what its family's item says of it. **What it costs:** a piece made
+  before 4.9 and 4.10 may need a touch when they arrive, and 4.6's study may change the space around Section.
 - **4.6 (was 3.1) · `Sidebar`, `AppLayout` and providers,** starting with a study, which is what this
   item asks first: how each is defined, and where it lives. `sidebar` stayed out of the first delivery
   for this. Until then, an app keeps what it has for its shell. What is known so far:
@@ -171,8 +175,8 @@ before the families above.
   browsers, since coverage counts `formatMoney` in Node, where formatting may differ. To
   ask: money as a decimal string (recommended: yes). To ask: whether Amount colours gain and loss by default or by
   choice of who uses it (recommended: by choice). To ask: which minus, U+2212, as an earlier library wrote it,
-  or the hyphen `Intl` writes in pt-BR. To ask: whether this comes before Stat, as Stat, Table and
-  AllocationBar show amounts.
+  or the hyphen `Intl` writes in pt-BR. It comes in 4.11, before Stat, Table and AllocationBar, which show
+  amounts.
 - **5.2 · MoneyInput,** on React Aria's `NumberField`. To ask: how its value leaves as a decimal string, as
   `NumberField` holds a `number`, and a paste of `1234.56` in pt-BR reads 123456.
 - **5.3 · CurrencySelect,** to choose a currency.
