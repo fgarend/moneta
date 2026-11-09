@@ -6,6 +6,11 @@ gets its number.
 
 ## [Unreleased]
 
+### Changed
+
+- The titles of `AlertDialog`, `Card`, `Dialog`, `Empty` and `Sheet` read `--font-heading`, as shadcn's now do. It is
+  the body's font, so nothing is drawn differently.
+
 ## [0.4.0] - 2026-11-09
 
 `Section`, the first piece of Moneta's own, and every piece imported by its name alone.
