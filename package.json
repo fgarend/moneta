@@ -10,6 +10,7 @@
   },
   "type": "module",
   "exports": {
+    "./kbd": "./dist/components/kbd.js",
     "./hover-card": "./dist/components/hover-card.js",
     "./collapsible": "./dist/components/collapsible.js",
     "./card": "./dist/components/card.js",
