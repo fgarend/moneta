@@ -6,6 +6,11 @@ gets its number.
 
 ## [Unreleased]
 
+## [0.5.0] - 2026-11-09
+
+Every piece under one rule, in one folder, with shadcn's updates merged three ways, and a few exports and utilities
+no app needs gone.
+
 ### Added
 
 - `--secondary-hover`, the fill of a secondary `Button` on hover, which an app can change with the others.
@@ -112,7 +117,8 @@ and dark. `README.md` says how to install and use it.
 
 A rehearsal of the release's path, not meant to be installed. Use a later version.
 
-[Unreleased]: https://github.com/fgarend/moneta/compare/v0.4.0...HEAD
+[Unreleased]: https://github.com/fgarend/moneta/compare/v0.5.0...HEAD
+[0.5.0]: https://github.com/fgarend/moneta/compare/v0.4.0...v0.5.0
 [0.4.0]: https://github.com/fgarend/moneta/compare/v0.3.0...v0.4.0
 [0.3.0]: https://github.com/fgarend/moneta/compare/v0.2.0...v0.3.0
 [0.2.0]: https://github.com/fgarend/moneta/compare/v0.1.0...v0.2.0
