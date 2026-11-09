@@ -9,6 +9,8 @@ gets its number.
 ### Changed
 
 - `cn` moves to 0.5.2, which changes nothing a piece draws or does.
+- `docs/guidelines.md` puts 4 px between a label and what it names, as a value or a bar.
+- `docs/guidelines.md` makes the controls in a row with a page's main action 40 px as well.
 
 ### Fixed
 

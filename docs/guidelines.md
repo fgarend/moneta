@@ -26,6 +26,7 @@ the version installed. It holds only what exists, and each reviewed piece adds i
 - **Controls are 36 px tall by default, 40 at `size="lg"` for a page's main action, and 32 at `size="sm"` for a dense
   place,** such as a table's row. That holds for `Button`, `Input`, `InputGroup`, `NativeSelect`, `Pagination`, `Select`,
   `Tabs`, `Toggle` and `ToggleGroup`, where each has the size. `xs` is shadcn's, outside this scale.
+- **The controls in a row with a page's main action are 40 px as well,** so the row lines up.
 - **The radius is `--radius`,** and every piece takes its corners from it.
 
 ## Text
@@ -39,8 +40,9 @@ the version installed. It holds only what exists, and each reviewed piece adds i
 
 ## Space
 
-- **In multiples of 4 px:** 8 to 12 within a group, 16 to 20 in a card, 16 between cards, 40 between sections, and 40 to
-  48 around a page. Inside is smaller than between, so what belongs together reads together.
+- **In multiples of 4 px:** 4 between a label and what it names, as a value or a bar, and between `Card`'s title and
+  description, 8 to 12 within a group, 16 to 20 in a card, 16 between cards, 40 between sections, and 40 to 48 around a
+  page. Inside is smaller than between, so what belongs together reads together.
 - **`Card` has 20 px around its content, and `Table` 12 px in a cell, with 20 at each end of a row,** so a table in a
   card lines up with the card's title.
 

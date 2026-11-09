@@ -1,7 +1,6 @@
 # Roadmap
 
-**Now:** 4.12, what a review of the repository found, starting with its fixes.
-Then 4.13, the conventions that cross pieces, and 4.11, starting with Section.
+**Now:** 4.13, the conventions that cross pieces. Then 4.11, starting with Section.
 
 **The goal:** Moneta is the source of truth for components. An app consumes final pieces and builds
 its screens and regions from them, writing no class of its own. What it lacks is added here, not there.
@@ -87,13 +86,8 @@ accessibility report, its section in the guidelines, the changelog, and its lint
 with what is a real fault fixed as a recorded edit.
 
 Done: 4.5 (was 2.2), our `theme.css`, light and dark, with the checks in both modes, the guidelines and the
-gallery's frame, as `docs/decisions/theme.md` says.
-
-- **4.12 · What a review of the repository found,** on 2026-11-09, before 4.11. Its rules that contradicted each
-  other were decided in the step that found them. The rest is one step, in one pull request, ending in 0.2.1, which
-  also carries `cn` 0.5.2.
-  - **The sample page against the guidelines:** a 40 px search field, 64 px at its end, and 4 px between a label
-    and its value, as `Card`'s header also has, where the guidelines say 8 to 12 within a group.
+gallery's frame, as `docs/decisions/theme.md` says. 4.12, what a review of the repository found on
+2026-11-09: facts out of date, `Slider`'s focus, and the sample page against the guidelines, in 0.3.0.
 
 - **4.13 · Conventions that cross pieces,** before Section, the first own piece, from a comparison with a generic
   guide to building a design system on 2026-11-09. Each is asked on its own, and recorded in
@@ -151,6 +145,7 @@ gallery's frame, as `docs/decisions/theme.md` says.
   their tokens, and the DTCG format reached a stable version, 2025.10.
 - **4.10 · One scale of sizes,** 4.5's 32, 36 and 40 px, on every piece, as only 9 follow it today. Badge,
   Avatar, Item, Checkbox, Switch and Table's rows do not, and Item's `default` and `sm` are the same.
+  Input has no `lg`, so a field in a row with a page's main action takes `h-10` by hand, as the sample page does.
   To ask: the names of the sizes for every piece, as Button has `xs`, `sm`, `default`, `lg` and `icon-*`.
 - **4.7 · Layout and text,** which shadcn does not have and most of an app's classes do: what replaces
   `flex`, `gap-*` and `text-*`. Own code, the rule's third step, so a page shows the need first. To ask:
@@ -256,6 +251,8 @@ No order between them. Each becomes an item when its time comes.
 - **The scale of the whole system.** A preference for larger text belongs to the whole
   system. Tailwind's spacing in `rem` answers part of it.
 - **Below the medium breakpoint in the screenshots.** They run at one width.
+- **Below 800 px in the screenshots.** A screenshot draws only the viewport's 800 px and leaves the rest of a
+  taller story white, so nothing below them is compared, as a block added to the sample page showed on 2026-11-09.
 - **A top bar that stays in view.** When something needs it.
 - **Right-to-left.** No piece in `ui/` has a rule for it, so chevrons do not flip. When an app needs it.
 - **Layers in the gallery.** Foundations, and groups beyond components. The name `gold`.
