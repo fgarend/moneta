@@ -6,7 +6,7 @@ COMPOSE := docker compose --env-file infra/settings.env -f infra/compose.yaml
 # Runs a command in a service, building its image first. The code is mounted read-only, and the folders mounted over it
 # must exist in it first, even in a fresh clone.
 RUN := mkdir -p node_modules .vitest coverage dist .package storybook-static && $(COMPOSE) run --rm --build
-# What make check runs, fastest first. .github/workflows/ci.yml has one box per name.
+# What make check runs, fastest first. .github/workflows/ci.yml has one box per name, and stories one per browser.
 CHECKS := lint types test stories package
 
 .PHONY: help check $(CHECKS) check-release release-notes storybook-build install format update-screenshots storybook images clean \
@@ -35,8 +35,8 @@ types: ## The types, with TypeScript: the library's code, then everything around
 test: ## Logic and the repository's checks, in Node, with the coverage of src/lib and scripts
 	$(RUN) tools pnpm exec vitest run --coverage
 
-stories: ## Every story in the browsers, with axe, its screenshot and the coverage of everything else but ui/
-	$(RUN) tools pnpm exec vitest run --mode stories --coverage
+stories: ## Every story in the browsers, with axe, its screenshot and the coverage of everything else but ui/. BROWSER=webkit runs one
+	$(RUN) tools pnpm exec vitest run --mode stories --coverage $(if $(BROWSER),--project '*($(BROWSER))')
 
 package: ## The build, packed into .package, with that tarball installed and checked in a throwaway app
 	$(RUN) package sh -c 'rm -rf dist/* .package/* && pnpm exec tsc -p tsconfig.build.json && \

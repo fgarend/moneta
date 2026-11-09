@@ -29,10 +29,11 @@ grows with each group.
 The checks, for every group: `lint`, `types`, `test`, `stories` and `package`, fastest
 first. `make check` runs them in that order, all of them even if one fails, and ends
 with one line per check saying whether it passed. Continuous integration has one box
-per check, with the same name, in parallel, so `make <box>` repeats a red box.
+per check, with the same name, in parallel, so `make <box>` repeats a red box. `stories` has one
+box per browser, repeated by `make stories BROWSER=<browser>`.
 
 Done: 1.1, the floor. 1.2, containers. 1.3, static checks. 1.4, stories and browsers. 1.5,
-build and package. 1.6, the audit and the workflows' test. The release's part is 3.3.
+build and package. 1.6, the audit and the workflows' test. 1.7, one `stories` box per browser. The release's part is 3.3.
 
 ## 2. The base, as shadcn delivers it
 

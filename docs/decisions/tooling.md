@@ -24,7 +24,8 @@ How the repository runs, and how its versions are chosen.
   `docs/updating.md` says.
 - **`make check` runs every check, even after one fails,** and ends with one line per check.
   Continuous integration has one box per check, with the same name, in parallel, and a test
-  compares the two lists.
+  compares the two lists. `stories` has one box per browser, which `make stories BROWSER=webkit`
+  repeats. With no `BROWSER`, it runs the three at once.
 - **Stories run in Storybook, and every test in Vitest,** the browsers through Playwright:
   Chromium, Firefox and WebKit. `test` runs logic and the repository's checks in Node, and
   `stories` everything in a browser, so nothing runs twice.
@@ -72,6 +73,15 @@ How the repository runs, and how its versions are chosen.
 - **One box per check,** so a red box says what failed, and `make <box>` repeats it. Each box
   builds the images on a fresh machine, so a run costs more in machine time, though not in
   waiting, since the boxes run together.
+- **One `stories` box per browser,** so a red box names its browser, and re-running the failed
+  jobs repeats only it. On 2026-11-09, the release of v0.2.0 stopped on a failure in WebKit alone.
+  On the machine, each browser alone took 25 to 45 seconds, and the three at once 93. **What it
+  costs:** two more boxes, and each measures its coverage alone, so a line with no test turns
+  three boxes red.
+- **Screenshots in Chromium alone,** since each browser draws a little differently and needs
+  images of its own, as Playwright's documentation says, so all three would mean approving each
+  visual change six times instead of two. One browser answers whether the look changed. **What it
+  costs:** a fault of drawing in Firefox or WebKit alone goes unseen.
 - **1280 px,** since it is Tailwind's `xl`, and Playwright's own default. Vitest's default is a
   phone's width, of no use to a library with a sidebar.
 - **Screenshots compared exactly,** since Vitest's default tolerance let a colour move unseen, `--primary` from `#2b2e33` to
@@ -139,6 +149,14 @@ How the repository runs, and how its versions are chosen.
   documentation denies.
 - **The boxes read from the `Makefile` by continuous integration.** One list and no test, but
   one more job to build the matrix, and the names no longer show in `ci.yml`.
+- **A target per browser, `make stories-webkit`.** The box's name would stay its command, but the
+  five checks would become seven names.
+- **The seven boxes in one job, by `include`.** One job, but GitHub's documentation shows no matrix
+  of `include` alone, and its rules let a later entry overwrite a value an earlier one added.
+- **Vitest's `--browser`.** It stops on a project with no instance of that browser, as the
+  screenshots and forced colours have.
+- **A lower coverage in one browser.** Coverage says our code ran, which no browser changes, so a
+  check left out of one browser is named, not hidden in a percentage.
 - **`exactOptionalPropertyTypes` on.** It tells a missing property from an `undefined` one, which own
   pieces lose. Across all 61 of shadcn's pieces, it gave 29 errors in 18 files, and 13 in the
   dependencies' types, so it would mean those edits and `skipLibCheck`, and no untouched commit would pass.
@@ -170,3 +188,4 @@ How the repository runs, and how its versions are chosen.
 - 2026-11-06: The release's scripts, covered with `src/lib/` by `test`.
 - 2026-11-07: Colour checked in both modes, and the gallery's switch.
 - 2026-11-08: Screenshots compared exactly.
+- 2026-11-09: One `stories` box per browser, and why screenshots run in Chromium alone.

@@ -1,9 +1,14 @@
 import { readFile } from "node:fs/promises";
 import { expect, it } from "vitest";
+import { everyBrowser } from "../vitest.config.js";
 import { root } from "./sources.js";
 
 const checks = /^CHECKS := (?<names>.+)$/mu;
 const boxes = /^ +check: \[(?<names>.+)\]$/mu;
+const browsers = /^ +browser: \[(?<names>.+)\]$/mu;
+const byBrowser = /^ +run: make stories BROWSER=\$\{\{ matrix\.browser \}\}$/mu;
+const attachmentsByBrowser =
+  /^ +name: vitest-attachments-\$\{\{ matrix\.browser \}\}$/mu;
 const separator = /[ ,]+/u;
 const usesLine = /^\s+(?:- )?uses: (?<action>\S+)(?<rest>.*)$/gmu;
 const pinned = /^[\w./-]+@[0-9a-f]{40}$/u;
@@ -28,11 +33,25 @@ async function namesIn(file: string, line: RegExp): Promise<string[]> {
   return names.split(separator);
 }
 
-// The list is written twice, and a check missing from continuous integration turns nothing red.
+// The list is written twice, and a check missing from continuous integration turns nothing red. stories has a job of
+// its own.
 it("has one box per check of make check, in its order", async () => {
   expect(await namesIn(".github/workflows/ci.yml", boxes)).toEqual(
-    await namesIn("Makefile", checks),
+    (await namesIn("Makefile", checks)).filter((name) => name !== "stories"),
   );
+});
+
+// One box per browser, so a red box names its browser, and the same command repeats it on the machine.
+it("has one stories box per browser the stories run in", async () => {
+  const ci = await readFile(new URL(".github/workflows/ci.yml", root), "utf8");
+  const job = ci.slice(ci.indexOf("\n  stories:\n"));
+
+  expect(await namesIn(".github/workflows/ci.yml", browsers)).toEqual(
+    everyBrowser,
+  );
+  expect(job).toMatch(byBrowser);
+  // An artifact's name is one per run, so each box keeps its screenshots under a name of its own.
+  expect(job).toMatch(attachmentsByBrowser);
 });
 
 // A tag can move, and a commit cannot, so what a workflow runs stays what was read.
@@ -91,7 +110,7 @@ it("releases from ci only after the checks, on a release commit", async () => {
   );
   const job = text.slice(text.indexOf("\n  release:\n"));
 
-  expect(job).toContain("needs: check");
+  expect(job).toContain("needs: [check, stories]");
   expect(job).toContain(
     "startsWith(github.event.head_commit.message, 'chore: release v')",
   );

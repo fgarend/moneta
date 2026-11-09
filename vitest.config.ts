@@ -140,7 +140,7 @@ function projectsOf(mode: string): TestProjectInlineConfiguration[] {
   return mode === "package" ? [consumerProject] : [nodeProject];
 }
 
-export { coverageAreas };
+export { coverageAreas, everyBrowser };
 
 export default defineConfig(({ mode }): ViteUserConfig => {
   const check = mode === "stories" ? "stories" : "test";
