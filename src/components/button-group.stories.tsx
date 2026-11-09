@@ -1,16 +1,19 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { expect, within } from "storybook/test";
-import { Button } from "../button.js";
+import { Button } from "./button.js";
 import {
   ButtonGroup,
   ButtonGroupSeparator,
   ButtonGroupText,
 } from "./button-group.js";
+import { Input } from "./input.js";
 
 const group = "Statement actions";
 const text = "Statement";
 const download = "Download";
 const print = "Print";
+const amount = "Amount";
+const amountId = "button-group-amount";
 
 const meta = {
   title: "Components/Form & Input/Button Group",
@@ -43,5 +46,30 @@ const Default: Story = {
   },
 };
 
+// The text drawn as another element, here the label of the field beside it.
+const TextAsLabel: Story = {
+  args: {
+    children: (
+      <>
+        <ButtonGroupText
+          render={({ children, ...props }) => (
+            <label htmlFor={amountId} {...props}>
+              {children}
+            </label>
+          )}
+        >
+          {amount}
+        </ButtonGroupText>
+        <Input id={amountId} />
+      </>
+    ),
+  },
+  play: async ({ canvasElement }) => {
+    await expect(
+      within(canvasElement).getByRole("textbox", { name: amount }),
+    ).toBeVisible();
+  },
+};
+
 export default meta;
-export { Default };
+export { Default, TextAsLabel };
