@@ -6,6 +6,7 @@ import { expect, it, vi } from "vitest";
 import { userEvent } from "vitest/browser";
 import { render } from "vitest-browser-react";
 import { Button, LinkButton } from "../src/components/button.js";
+import { Checkbox } from "../src/components/checkbox.js";
 import {
   Dialog,
   DialogDescription,
@@ -22,7 +23,6 @@ import {
 } from "../src/components/tabs.js";
 import { Textarea } from "../src/components/textarea.js";
 import { Toggle } from "../src/components/toggle.js";
-import { Checkbox } from "../src/components/ui/checkbox.js";
 import {
   DropdownMenu,
   DropdownMenuItem,

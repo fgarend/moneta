@@ -10,6 +10,7 @@
   },
   "type": "module",
   "exports": {
+    "./checkbox": "./dist/components/checkbox.js",
     "./sheet": "./dist/components/sheet.js",
     "./dialog": "./dist/components/dialog.js",
     "./toggle": "./dist/components/toggle.js",
