@@ -35,6 +35,8 @@ The look Moneta has by default, which whoever uses it can replace. How an app re
   sidebar. Gold stays the same in both, and `color-scheme: dark` darkens the
   browser's own controls.
 - **An app sets the mode, with the class `.dark`,** as shadcn does, with no switch or provider of ours.
+- **`docs/guidelines.md` says how to use the look,** in short rules for whoever builds a screen, with only what exists,
+  and a section for each reviewed piece. `test/guidelines.test.ts` checks that each variable it names is declared.
 
 ## Why
 
@@ -56,6 +58,9 @@ The look Moneta has by default, which whoever uses it can replace. How an app re
   rule on every page, which also reaches an app's own controls, and a more marked focus than a soft ring.
 - **A stronger `--input`.** **What it costs:** a control's border is more marked than the prototype's, and `Switch`'s
   track, which also reads it, is darker.
+- **A guide apart from this page,** since this page is for whoever keeps Moneta, with reasons and history, and whoever
+  builds a screen needs the rules alone. **What it costs:** the scale and the space are written twice, and a value changed
+  here is changed there by hand, as the test only catches a name.
 
 ## Alternatives considered
 
@@ -79,6 +84,10 @@ The look Moneta has by default, which whoever uses it can replace. How an app re
   as too yellow and too far from the prototypes.
 - **The sidebar the same as the page, with a line between.** The calmest, but the sidebar is no longer a surface of its own.
 - **A provider of ours for the mode.** An app writes less, but it is code to keep, for each framework.
+- **The guide as a page in the gallery.** Beside the pieces and already published, but harder for an agent to read.
+- **The planned rules in the guide too,** as the prototype's brand book has them: money's colours, amounts, writing and
+  icons. Direction sooner, but rules that no decision or piece holds yet.
+- **The guide with no test.** Simpler, but a renamed variable would live on in every app's copy.
 - **`oklch`, as shadcn's default writes it.** Natural for its own palette, but ours was chosen in hex, and the contrast test
   would have to convert it.
 
@@ -92,3 +101,4 @@ The look Moneta has by default, which whoever uses it can replace. How an app re
 - 2026-11-07: The dark colours.
 - 2026-11-07: Light made warm, and back to the prototype's the same day.
 - 2026-11-07: Dark from warm to the prototype's graphite.
+- 2026-11-08: The guidelines.

@@ -20,6 +20,7 @@ gets its number.
 
 - `Button`'s `variant="gold"`.
 - `--font`, to change the font, which had no way to be changed. An app that changes it loads its own.
+- `docs/guidelines.md`, in the package: how to use the theme's colours, sizes, text, space, focus and mode on a screen.
 
 ### Fixed
 

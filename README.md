@@ -40,6 +40,7 @@ The font is the app's to load when it changes it.
 ## More
 
 The [gallery](https://fgarend.github.io/moneta/), the
+[guidelines](https://github.com/fgarend/moneta/blob/main/docs/guidelines.md), also in the package at `docs/guidelines.md`, the
 [state of each piece](https://github.com/fgarend/moneta/blob/main/docs/pieces.md), the
 [changelog](https://github.com/fgarend/moneta/blob/main/CHANGELOG.md) and the
 [roadmap](https://github.com/fgarend/moneta/blob/main/docs/ROADMAP.md).

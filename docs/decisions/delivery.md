@@ -33,6 +33,7 @@ Where the library lives, how it is received, and under what terms.
 - **Code copied from shadcn keeps its notice.** shadcn/ui is MIT, which asks that its
   copyright and permission notice stay with copies of its code. `LICENSE` holds its copyright
   line beside ours, under the same permission text, and is always packed.
+- **`docs/guidelines.md` goes in the package,** beside the README, and links only to the web.
 
 ### GitHub settings
 
@@ -58,6 +59,9 @@ looks every week.
 
 ## Why
 
+- **The guidelines in the package,** so whoever uses Moneta, or an agent working for them, reads them in
+  `node_modules` with no network, and the copy is the one for the version installed. **What it costs:** a rule changed there
+  reaches an app, so it takes a line in the changelog.
 - **A tarball,** because it needs no registry, and it can be pinned by address. **What it
   costs:** `dist/` is not in git, so a commit or a branch cannot be installed from GitHub, only
   a release or a tarball built locally.
@@ -91,6 +95,7 @@ looks every week.
 
 ## Alternatives considered
 
+- **The guidelines only on GitHub.** Nothing more to pack, but the page shows `main`'s rules, not the installed version's.
 - **Publish to a registry.** More to set up, and not needed yet. The roadmap weighs it
   again when a tarball stops being enough.
 - **All rights reserved for our code, and MIT on shadcn's files.** It keeps the choice
@@ -125,3 +130,4 @@ through `publish`, a pull request cancelling an earlier run, and an app drawing 
 - 2026-11-06: The rehearsal, `v0.0.1`.
 - 2026-11-06: The peers by name, and how far changing the look reaches.
 - 2026-11-06: The font as a variable.
+- 2026-11-08: The guidelines in the package.

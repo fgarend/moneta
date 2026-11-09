@@ -16,7 +16,7 @@ import { manifest, packedTarball, run } from "./shared.js";
 
 const inUi = /^\/src\/components\/ui\/(?<name>[^/.]+)\.tsx$/u;
 const packaged =
-  /^package\/(?:package\.json|README\.md|LICENSE|dist\/.+\.(?:js|d\.ts|css))$/u;
+  /^package\/(?:package\.json|README\.md|LICENSE|docs\/guidelines\.md|dist\/.+\.(?:js|d\.ts|css))$/u;
 const testOrStory = /\.(?:stories|test)\./u;
 const clean = { status: 0, output: "" };
 const fontFile = /\.woff2$/u;
@@ -113,13 +113,14 @@ beforeAll(async () => {
   }
 });
 
-it("holds only the build, the manifest and the notices", () => {
+it("holds only the build, the manifest, the notices and the guidelines", () => {
   const { output } = run("tar", ["tzf", tarball], app);
   const entries = output.trim().split("\n");
 
   expect(
     entries.filter((entry) => !packaged.test(entry) || testOrStory.test(entry)),
   ).toEqual([]);
+  expect(entries).toContain("package/docs/guidelines.md");
 });
 
 it("imports every piece in Node", () => {

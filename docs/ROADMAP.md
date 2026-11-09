@@ -99,6 +99,8 @@ with what is a real fault fixed as a recorded edit.
     compare exactly since 2026-11-08, as Vitest's default tolerance let a whole palette pass unseen.
   - **Focus:** shadcn's solid outline, widened, with no gold halo, as `docs/decisions/theme.md` says.
   - **Text and space:** a scale, in `docs/decisions/theme.md`, with five styles internal to the pieces.
+  - **The guide:** `docs/guidelines.md`, rules of use with only what exists, in the package, with a test of the names
+    it gives, since 2026-11-08.
   - **The order:** the sample page, the light theme with font and sizes, the dark theme, then the checks in both modes.
 - **4.6 (was 3.1) · `Sidebar`, `AppLayout` and providers,** starting with a study, which is what this
   item asks first: how each is defined, and where it lives. `sidebar` stayed out of the first delivery
