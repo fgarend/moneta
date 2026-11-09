@@ -32,10 +32,9 @@ How decisions are kept, and how the work moves.
 - **A shadcn piece is raw until reviewed,** and listed with its known gaps. 1.0 needs every piece
   reviewed. **What it costs:** until then, the repository is public and a raw piece can be used,
   so the list warns and does not stop anyone.
-- **Every `shadcn add` leaves its files untouched, in a commit under a fixed message,** `chore(shadcn): add …`,
-  with the CLI's version and the style in its body. It may hold several pieces, and what they need to work.
-  So that commit is the merge base for updates, and `git log` is the list of our edits. A file's last import is
-  the last commit under that message to touch it.
+- **Every `shadcn add` keeps what the CLI wrote in `upstream/shadcn/`, the base of each update, and brings the piece
+  under the rule in the same commit,** under a fixed message, `chore(shadcn): add …`, with the CLI's version and the
+  style in its body. `docs/pieces.md` marks what our edits change, and `make shadcn-update` keeps them.
 - **The pipeline arrives in one step, by groups,** carried from what already works
   rather than decided tool by tool. Each group is one commit, and is run for real, as
   far as it reaches: planted failures, a minimal `Button` once there is code, and its
@@ -117,3 +116,4 @@ rest.
 - 2026-11-09: Every step that changes what an app receives ends in a version.
 - 2026-11-09: What a step is.
 - 2026-11-09: The analysis covers tokens, blocks and new variants, names the levels and says how users move.
+- 2026-11-09: A shadcn piece enters under the rule, with what the CLI wrote kept in `upstream/shadcn/`.

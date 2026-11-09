@@ -272,5 +272,5 @@ titles, since Tailwind's utilities, preflight and `sr-only` dissolve them.
 ## Not yet checked
 
 To be checked when each arrives: screen readers and real Windows High Contrast, the look
-beyond rest states, this map of pieces, a real upstream release merged, and a peer out
-of range.
+beyond rest states, this map of pieces, and a peer out of range. A real upstream release merged was
+checked on 2026-11-09, when `make shadcn-update` first ran.

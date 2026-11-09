@@ -162,8 +162,8 @@ How the repository runs, and how its versions are chosen.
 - **`exactOptionalPropertyTypes` on.** It tells a missing property from an `undefined` one, which own
   pieces lose. Across 61 of shadcn's pieces, tried on 2026-11-06, it gave 29 errors in 18 files, and 13 in the
   dependencies' types, so it would mean those edits and `skipLibCheck`, and no untouched commit would pass.
-- **`noUnusedLocals` on.** `alert-dialog` and `label` fail it untouched, and Biome reported all 5 kinds
-  of unused code planted in own files on 2026-11-06. It returns in the roadmap's 6.3.
+- **`noUnusedLocals` on.** `alert-dialog` and `label` failed it as they came, and Biome reported all 5 kinds
+  of unused code planted in own files on 2026-11-06. Since 4.15 nothing fails it, and it returns in the roadmap's 6.3.
 - **A switch of our own,** a toolbar global and a decorator, about 10 lines. No dependency, but code to keep for what
   Storybook's addon does, and its Tailwind guide uses.
 - **Dark axe in Chromium alone.** Half the added time, but on 2026-11-07 a planted dark colour failed `breadcrumb` only in

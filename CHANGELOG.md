@@ -6,6 +6,10 @@ gets its number.
 
 ## [Unreleased]
 
+### Fixed
+
+- `README.md` says what a raw piece is now: it meets the repository's checks, but nobody has reviewed it.
+
 ## [0.5.0] - 2026-11-09
 
 Every piece under one rule, in one folder, with shadcn's updates merged three ways, and a few exports and utilities
