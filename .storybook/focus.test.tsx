@@ -14,6 +14,7 @@ import {
   TabsTrigger,
 } from "../src/components/tabs.js";
 import { Textarea } from "../src/components/textarea.js";
+import { Toggle } from "../src/components/toggle.js";
 import { Checkbox } from "../src/components/ui/checkbox.js";
 import {
   Dialog,
@@ -40,7 +41,6 @@ import {
 } from "../src/components/ui/select.js";
 import { Slider } from "../src/components/ui/slider.js";
 import { Switch } from "../src/components/ui/switch.js";
-import { Toggle } from "../src/components/ui/toggle.js";
 import "./preview.css";
 
 const label = "Fictitious";
