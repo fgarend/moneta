@@ -5,7 +5,7 @@ import { Group, type GroupProps } from "react-aria-components"
 
 import { Button } from "#components/button"
 import { Input } from "#components/input"
-import { Textarea } from "#components/ui/textarea"
+import { Textarea } from "#components/textarea"
 
 function InputGroup({ className, ...props }: GroupProps) {
   return (

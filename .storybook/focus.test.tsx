@@ -7,6 +7,7 @@ import { userEvent } from "vitest/browser";
 import { render } from "vitest-browser-react";
 import { Button, LinkButton } from "../src/components/button.js";
 import { Input } from "../src/components/input.js";
+import { Textarea } from "../src/components/textarea.js";
 import { Checkbox } from "../src/components/ui/checkbox.js";
 import {
   Dialog,
@@ -39,7 +40,6 @@ import {
   TabsList,
   TabsTrigger,
 } from "../src/components/ui/tabs.js";
-import { Textarea } from "../src/components/ui/textarea.js";
 import { Toggle } from "../src/components/ui/toggle.js";
 import "./preview.css";
 
