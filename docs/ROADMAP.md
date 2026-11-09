@@ -87,15 +87,15 @@ Done: 4.5, our `theme.css`, light and dark, with the checks in both modes, the g
 `docs/decisions/theme.md` says.
 
 - **4.11 · What an app's screens wait on,** before 4.6, decided by the owner on 2026-11-09, as an app keeps
-  its own shell until 4.6, while these hold its screens back: Section, then Link, then 5.1, then Table, then
-  DateField. Each is a step of its own, with what its family's item says of it. **What it costs:** a piece made
-  before 4.9 and 4.10 may need a touch when they arrive, and 4.6's study may change the space around Section.
-  Decided by the owner on 2026-11-09, to be recorded by the first piece that depends on it: an own piece is
-  made of parts, as shadcn's are, and a piece that is only a value takes it as a prop. Its state and events
-  take React Aria's names, such as `isDisabled`, `onPress`, and an `onChange` that gives the value.
-  To ask, one at a time, before Section's analysis: how deep an analysis goes for a small piece, a fixed
-  shape for it, and where its result lives. Later: a page that puts the pieces together, a pre-release tried
-  in an app before a version, and a review of the whole after each family.
+  its own shell until 4.6, while these hold its screens back: Section, then a name for the close button of
+  Sheet and Dialog, given by whoever uses them in place of the written "Close", then Link, then 5.1, then
+  Table, then DateField. Each is a step of its own, with what its family's item says of it. **What it costs:**
+  a piece made before 4.9 and 4.10 may need a touch when they arrive, and 4.6's study may change the space
+  around Section. Decided by the owner on 2026-11-09, to be recorded by the first piece that depends on it: an
+  own piece is made of parts, as shadcn's are, and a piece that is only a value takes it as a prop. Its state
+  and events take React Aria's names, such as `isDisabled`, `onPress`, and an `onChange` that gives the value.
+  To ask later: a page that puts the pieces together, a pre-release tried in an app before a version, and a
+  review of the whole after each family.
 - **4.6 (was 3.1) · `Sidebar`, `AppLayout` and providers,** starting with a study, which is what this
   item asks first: how each is defined, and where it lives. `sidebar` stayed out of the first delivery
   for this. Until then, an app keeps what it has for its shell. What is known so far:
@@ -119,6 +119,7 @@ Done: 4.5, our `theme.css`, light and dark, with the checks in both modes, the g
   with `destructive`. To ask: whether this and 4.10 come before the families, as they reach every piece.
 - **4.10 · One scale of sizes,** 4.5's 32, 36 and 40 px, on every piece, as only 8 follow it today. Badge,
   Avatar, Item, Checkbox, Switch and Table's rows do not, and Item's `default` and `sm` are the same.
+  To ask: the names of the sizes for every piece, as Button has `xs`, `sm`, `default`, `lg` and `icon-*`.
 - **4.7 · Layout and text,** which shadcn does not have and most of an app's classes do: what replaces
   `flex`, `gap-*` and `text-*`. Own code, the rule's third step, so a page shows the need first. To ask:
   which pieces and their names, and how far their props go (recommended: the fewest that remove the most
@@ -151,7 +152,8 @@ Done: 4.5, our `theme.css`, light and dark, with the checks in both modes, the g
   spacing and forced colours reach what an overlay draws when open, in these and in Select, as today they
   see only the closed trigger. Forced colours' `:popover-open` finds nothing, as React Aria does not use the
   `popover` attribute. Toggletip, which opens on a click and on touch, as Tooltip does not open on touch,
-  so it is never the only place of a piece of information.
+  so it is never the only place of a piece of information. The name of Sheet's and Dialog's close button
+  comes before, in 4.11, and its review may change it.
 - **4.4 · The rest.** Tabs, with a count in a tab and tools to the right of its list. Progress, Empty,
   Skeleton, with one pattern for loading, error and empty, Spinner, Breadcrumb,
   Pagination, with a summary such as "1–20 of 142", Collapsible, IconTile, StatGroup, as the sample page's summary strip draws it, which is also

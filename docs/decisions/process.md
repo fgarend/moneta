@@ -56,9 +56,15 @@ How decisions are kept, and how the work moves.
     and what breaks for whoever uses it today.
   - **Its uses:** examples, discussed first, which then become its stories and tests.
 
-  Its research reads official sources and other libraries, and argues against its own recommendation. A
-  prototype or an app is a guide to criticize. **What it costs:** slower steps, chosen as others build on
-  each piece.
+  Every analysis keeps these points, in this order, and nothing else. Every point is answered, each as
+  deep as a mistake there would cost: by how many pieces and screens depend on it, and how costly it is to
+  change later. A point that does not apply says so in a line, and research goes deep only where there is
+  a real choice. Its research reads official sources and other libraries, and argues against its own
+  recommendation. A prototype or an app is a guide to criticize. Its result goes where it is read: when to
+  use the piece and what instead, in `docs/guidelines.md`; its contract, in its code; its uses, in its
+  stories; what is costly to change or cannot be read from the code, in `docs/decisions/components.md`;
+  and what is deferred, in the roadmap. **What it costs:** slower steps, chosen as others build on each
+  piece, and the whole of an analysis is kept nowhere, only its conclusions and the reasons for them.
 - **The release's part of the pipeline waited until just before its first use,** the one
   exception to arriving in one step. A tag cannot be deleted, so it could only run for real by
   spending a version, and there was nothing to release before then.
@@ -85,6 +91,9 @@ rest.
   before it could run.
 - **Analysing each piece alone.** Shorter, but neighbours may then do the same thing in different ways.
 - **Designing a whole family at once.** More coherent, but it works ahead of what is needed.
+- **Skipping the points a small piece does not need.** Shorter, but what was left out is not seen.
+- **A file per piece with its whole analysis.** Its reasoning stays together, but it repeats the code and
+  the stories, and grows stale as the piece changes.
 
 ## History
 
