@@ -68,6 +68,7 @@ The look Moneta has by default, which whoever uses it can replace. How an app re
   sample page on 2026-11-06.
 - **32 px, `aria-nova`'s default.** No edit, but a page's main action loses its presence.
 - **`--spacing`.** No edit, but the whole screen grew 14% taller, with rows and icons too.
+- **`DM Sans` or `Raleway`,** among shadcn's fonts. On 2026-11-06 they had no tabular figures, and the others did.
 - **Twelve text styles,** as an earlier library had. Most of them only repeated Tailwind's steps.
 - **`type-overline`, capitals with wide tracking, for a group's title.** The prototype has it, but it reads as a template, so a plain
   caption does the job.

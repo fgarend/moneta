@@ -1,6 +1,6 @@
 # Roadmap
 
-**Now:** 4.5, our `theme.css`, light and dark.
+**Now:** 4.6, `Sidebar`, `AppLayout` and providers, starting with a study.
 
 **The goal:** Moneta is the source of truth for components. An app consumes final pieces and builds
 its screens and regions from them, writing no class of its own. What it lacks is added here, not there.
@@ -75,33 +75,9 @@ become props.
 accessibility report, its section in the guidelines, the changelog, and its lint findings read again,
 with what is a real fault fixed as a recorded edit.
 
-- **4.5 (was 2.2) · Our `theme.css`, light and dark,** in shadcn's format, as a default that whoever
-  uses Moneta can replace, with the sample page open in both, and `docs/guidelines.md` as
-  an output of it. Dark is designed, and reviewed by the owner, not guessed. The gallery
-  shows both, and the contrast, forced colours and visual checks run in both. It starts
-  from shadcn's list, and adds a name only when a page fails without it.
-  The radius is shadcn's `small`, `--radius: 0.45rem`, chosen by the owner on shadcn/create, and
-  the font is Geist, in `--font`. On 2026-11-06, of shadcn's fonts, `DM
-  Sans` and `Raleway` had no tabular figures, and the others did. The sample page is the real
-  test of `aria-nova`. The tests for contrast, fonts and the package's theme arrive here. A `type-*`
-  style reads as a recorded edit in the piece that uses it. Decided with the owner on 2026-11-06:
-  - **The look:** in light, warm paper, white cards, a graphite sidebar and one gold accent. In dark, decided on
-    2026-11-07 after a graphite draft looked like two unrelated darks, a near-black page, a darker sidebar and lighter
-    cards. Gold stays the same in both. On 2026-11-07 the light text, dark button and sidebar were made warm too, and the
-    owner found it too yellow and too far from the prototypes, so light went back to the prototype's values the same day.
-    Dark went from warm to the prototype's graphite the same day, as the prototypes have no dark of their own.
-  - **The font:** Geist stays.
-  - **Control heights:** 36 px by default, 40 for a page's main actions, 32 for dense ones. By editing each piece's
-    `cva`, as `--spacing` made a whole screen 14% taller on 2026-11-06.
-  - **The mode:** shadcn's `.dark` class, set by whoever uses Moneta, with `color-scheme: dark` in it, and no switch or
-    provider of ours. The README warns of a flash when the class comes late. The gallery switches it with
-    `@storybook/addon-themes`, and axe, screenshots and forced colours run in both, since 2026-11-07. Screenshots
-    compare exactly since 2026-11-08, as Vitest's default tolerance let a whole palette pass unseen.
-  - **Focus:** shadcn's solid outline, widened, with no gold halo, as `docs/decisions/theme.md` says.
-  - **Text and space:** a scale, in `docs/decisions/theme.md`, with five styles internal to the pieces.
-  - **The guide:** `docs/guidelines.md`, rules of use with only what exists, in the package, with a test of the names
-    it gives, since 2026-11-08.
-  - **The order:** the sample page, the light theme with font and sizes, the dark theme, then the checks in both modes.
+Done: 4.5, our `theme.css`, light and dark, with the checks in both modes, the guidelines and the gallery's frame, as
+`docs/decisions/theme.md` says.
+
 - **4.6 (was 3.1) · `Sidebar`, `AppLayout` and providers,** starting with a study, which is what this
   item asks first: how each is defined, and where it lives. `sidebar` stayed out of the first delivery
   for this. Until then, an app keeps what it has for its shell. What is known so far:
@@ -192,8 +168,6 @@ No order between them. Each becomes an item when its time comes.
   moves. Vitest also warns of 11 `SIGTERM` listeners, with this many browser projects.
 - **`make watch`.** Repeats the tests on each saved file. Weighed when running all of
   `make stories` to check one test slows the work, with the time measured.
-- **The look of Storybook's own interface.** The colours, fonts and mark around the stories. The gallery
-  goes out with Storybook's default, and this is weighed again with the theme, in 4.5.
 - **A focus test that failed once in WebKit.** "gives focus back to the trigger with its outline when a dialog closes"
   failed in one full `make check` on 2026-11-08, and passed in the four runs after it. Weighed if it fails again.
 - **`actionlint`.** Biome reads a workflow's YAML, but not GitHub's rules. It ran once by hand on 2026-11-06, with

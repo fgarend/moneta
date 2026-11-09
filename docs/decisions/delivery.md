@@ -10,7 +10,9 @@ Where the library lives, how it is received, and under what terms.
   registry. A local link is left out until the daily work needs it.
 - **A release is automatic,** from a commit `chore: release vX.Y.Z` on `main`, once every box has passed, as
   `docs/releasing.md` says. It publishes the tarball the `package` box tested, with no second build.
-- **Each release publishes the gallery,** on GitHub Pages, around Storybook's own default look.
+- **Each release publishes the gallery,** on GitHub Pages, in a frame with Moneta's name and the theme's colours, light or
+  dark as the system prefers, in the system's font. `.storybook/themes.ts` repeats the colours, and a test keeps them the
+  theme's.
 - **Pieces are imported by path,** as `@fgarend/moneta/ui/button`. There is no root entry.
 - **The usual way is one import,** `import "@fgarend/moneta/styles.css";`, with ready-made styles and the
   font, as `README.md` shows. An app needs no Tailwind and no settings.
@@ -92,9 +94,17 @@ looks every week.
   base is MIT. One license keeps the repository simple. **What it costs:** the
   rights given for a published version cannot be taken back, and anyone may reuse the
   theme and its look. The owner accepted that.
+- **Moneta's look on the gallery's frame,** as it is Moneta's public face. **What it costs:** the colours are written
+  twice, the browser's tab still reads Storybook, which its code fixes, and in dark the accent is the field's edge, as
+  Storybook writes white on it, and the light graphite gave 1.65:1.
 
 ## Alternatives considered
 
+- **Storybook's own look on the gallery.** No code, but it reads as any Storybook.
+- **The frame in light only.** Half the code, but a system in dark gets a light frame, which Storybook's own does not do.
+- **Geist in the frame.** One font with the stories, but the frame does not load Moneta's fonts, and the colours carry
+  the identity.
+- **Gold as the frame's accent.** The theme's mark, but Storybook writes white on it, at 1.7:1.
 - **The guidelines only on GitHub.** Nothing more to pack, but the page shows `main`'s rules, not the installed version's.
 - **Publish to a registry.** More to set up, and not needed yet. The roadmap weighs it
   again when a tarball stops being enough.
@@ -131,3 +141,4 @@ through `publish`, a pull request cancelling an earlier run, and an app drawing 
 - 2026-11-06: The peers by name, and how far changing the look reaches.
 - 2026-11-06: The font as a variable.
 - 2026-11-08: The guidelines in the package.
+- 2026-11-08: Moneta's look on the gallery's frame.
