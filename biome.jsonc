@@ -4,8 +4,8 @@
   // What .gitignore lists is left out.
   "vcs": { "enabled": true, "clientKind": "git", "useIgnoreFile": true },
   "files": {
-    // pnpm writes its own lockfile.
-    "includes": ["**", "!pnpm-lock.yaml"]
+    // pnpm writes its own lockfile, and upstream/ keeps shadcn's files as they came, the base of each update.
+    "includes": ["**", "!pnpm-lock.yaml", "!upstream"]
   },
   // Biome's default style, with the indentation from .editorconfig.
   "formatter": { "useEditorconfig": true },
