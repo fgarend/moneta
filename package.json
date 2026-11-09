@@ -10,6 +10,7 @@
   },
   "type": "module",
   "exports": {
+    "./spinner": "./dist/components/spinner.js",
     "./skeleton": "./dist/components/skeleton.js",
     "./popover": "./dist/components/popover.js",
     "./kbd": "./dist/components/kbd.js",
