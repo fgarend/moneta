@@ -3,7 +3,7 @@ import { cva, type VariantProps } from "class-variance-authority"
 import { cn } from "cn"
 import { Link as LinkPrimitive, type LinkProps } from "react-aria-components"
 
-import { Separator } from "#components/ui/separator"
+import { Separator } from "#components/separator"
 
 function ItemGroup({ className, ...props }: React.ComponentProps<"div">) {
   return (
