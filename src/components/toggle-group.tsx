@@ -1,28 +1,33 @@
-"use client"
+"use client";
 
-import * as React from "react"
-import { type VariantProps } from "class-variance-authority"
-import { cn } from "cn"
+import type { VariantProps } from "class-variance-authority";
+import { cn } from "cn";
 import {
-  ToggleButtonGroup as ToggleGroupPrimitive,
-  ToggleButton as TogglePrimitive,
+  type CSSProperties,
+  createContext,
+  type ReactNode,
+  useContext,
+} from "react";
+import {
   type ToggleButtonGroupProps,
   type ToggleButtonProps,
-} from "react-aria-components"
+  ToggleButtonGroup as ToggleGroupPrimitive,
+  ToggleButton as TogglePrimitive,
+} from "react-aria-components";
 
-import { toggleVariants } from "#components/ui/toggle"
+import { toggleVariants } from "#components/ui/toggle";
 
-const ToggleGroupContext = React.createContext<
+const ToggleGroupContext = createContext<
   VariantProps<typeof toggleVariants> & {
-    spacing?: number
-    orientation?: "horizontal" | "vertical"
+    spacing?: number;
+    orientation?: "horizontal" | "vertical";
   }
 >({
   size: "default",
   variant: "default",
   spacing: 2,
   orientation: "horizontal",
-})
+});
 
 function ToggleGroup({
   className,
@@ -34,9 +39,9 @@ function ToggleGroup({
   ...props
 }: Omit<ToggleButtonGroupProps, "children"> &
   VariantProps<typeof toggleVariants> & {
-    spacing?: number
-    orientation?: "horizontal" | "vertical"
-    children?: React.ReactNode
+    spacing?: number;
+    orientation?: "horizontal" | "vertical";
+    children?: ReactNode;
   }) {
   return (
     <ToggleGroupPrimitive
@@ -45,12 +50,10 @@ function ToggleGroup({
       data-size={size}
       data-spacing={spacing}
       orientation={orientation}
-      style={
-        { "--gap": `calc(var(--spacing) * ${spacing})` } as React.CSSProperties
-      }
+      style={{ "--gap": `calc(var(--spacing) * ${spacing})` } as CSSProperties}
       className={cn(
         "group/toggle-group flex w-fit flex-row items-center gap-(--gap) rounded-lg data-[size=sm]:rounded-[min(var(--radius-md),10px)] data-vertical:flex-col data-vertical:items-stretch",
-        className
+        className,
       )}
       {...props}
     >
@@ -60,7 +63,7 @@ function ToggleGroup({
         {children}
       </ToggleGroupContext.Provider>
     </ToggleGroupPrimitive>
-  )
+  );
 }
 
 function ToggleGroupItem({
@@ -70,7 +73,7 @@ function ToggleGroupItem({
   size = "default",
   ...props
 }: ToggleButtonProps & VariantProps<typeof toggleVariants>) {
-  const context = React.useContext(ToggleGroupContext)
+  const context = useContext(ToggleGroupContext);
 
   return (
     <TogglePrimitive
@@ -84,13 +87,13 @@ function ToggleGroupItem({
           variant: context.variant || variant,
           size: context.size || size,
         }),
-        className
+        className,
       )}
       {...props}
     >
       {children}
     </TogglePrimitive>
-  )
+  );
 }
 
-export { ToggleGroup, ToggleGroupItem }
+export { ToggleGroup, ToggleGroupItem };
