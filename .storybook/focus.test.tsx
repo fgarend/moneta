@@ -5,42 +5,39 @@ import type { ReactElement } from "react";
 import { expect, it, vi } from "vitest";
 import { userEvent } from "vitest/browser";
 import { render } from "vitest-browser-react";
-import { Button, LinkButton } from "../src/components/ui/button.js";
-import { Checkbox } from "../src/components/ui/checkbox.js";
+import { Button, LinkButton } from "../src/components/button.js";
+import { Checkbox } from "../src/components/checkbox.js";
 import {
   Dialog,
   DialogDescription,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "../src/components/ui/dialog.js";
+} from "../src/components/dialog.js";
 import {
   DropdownMenu,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "../src/components/ui/dropdown-menu.js";
-import { Input } from "../src/components/ui/input.js";
-import {
-  RadioGroup,
-  RadioGroupItem,
-} from "../src/components/ui/radio-group.js";
+} from "../src/components/dropdown-menu.js";
+import { Input } from "../src/components/input.js";
+import { RadioGroup, RadioGroupItem } from "../src/components/radio-group.js";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "../src/components/ui/select.js";
-import { Slider } from "../src/components/ui/slider.js";
-import { Switch } from "../src/components/ui/switch.js";
+} from "../src/components/select.js";
+import { Slider } from "../src/components/slider.js";
+import { Switch } from "../src/components/switch.js";
 import {
   Tabs,
   TabsContent,
   TabsList,
   TabsTrigger,
-} from "../src/components/ui/tabs.js";
-import { Textarea } from "../src/components/ui/textarea.js";
-import { Toggle } from "../src/components/ui/toggle.js";
+} from "../src/components/tabs.js";
+import { Textarea } from "../src/components/textarea.js";
+import { Toggle } from "../src/components/toggle.js";
 import "./preview.css";
 
 const label = "Fictitious";

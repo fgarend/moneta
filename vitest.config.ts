@@ -16,12 +16,12 @@ type Mode = "light" | "dark";
 const notCode = ["**/*.test.{ts,tsx}", "**/*.stories.tsx", "**/*.d.ts"];
 const logic = ["src/lib/**/*.{ts,tsx}", "scripts/**/*.ts"];
 // What each check's coverage measures, at 100%, each by its own tests, with nothing run twice. stories names what it
-// leaves out, so a new folder cannot go unmeasured. shadcn's files in ui/ are not ours to cover.
+// leaves out, so a new folder cannot go unmeasured. Every piece is covered, shadcn's too, as docs/pieces.md says.
 const coverageAreas = {
   test: { include: logic, exclude: notCode },
   stories: {
     include: ["src/**/*.{ts,tsx}"],
-    exclude: [...notCode, ...logic, "src/components/ui/**"],
+    exclude: [...notCode, ...logic],
   },
 };
 

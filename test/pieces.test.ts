@@ -1,8 +1,7 @@
-import { readFile } from "node:fs/promises";
+import { readdir, readFile } from "node:fs/promises";
 import { describe, expect, it } from "vitest";
 import { root, sources } from "./sources.js";
 
-const inUi = /^\/src\/components\/ui\/(?<name>[^/]+)\.tsx$/u;
 const listRow =
   /^\| `(?<name>[a-z-]+)` \| (?<state>raw|reviewed) \|(?<gaps>.*)\|$/gmu;
 // How a story is let off a check, and how docs/pieces.md names what that check found.
@@ -24,8 +23,31 @@ async function listedPieces(): Promise<
   return [...list.matchAll(listRow)].map(({ groups }) => ({ ...groups }));
 }
 
+// CSS's own words, the parent's value and the system's colours, which no scale could hold.
+const cssWords = new Set([
+  "inherit",
+  "initial",
+  "unset",
+  "revert",
+  "Canvas",
+  "CanvasText",
+  "Field",
+  "FieldText",
+  "Highlight",
+  "HighlightText",
+  "GrayText",
+  "ButtonFace",
+  "ButtonText",
+  "LinkText",
+]);
+const bracketed = /\[(?<value>[^\]]+)\]$/u;
+
 function arbitraryClasses(code: string): string[] {
-  return [...code.matchAll(arbitrary)].map(([match]) => match);
+  return [...code.matchAll(arbitrary)]
+    .map(([match]) => match)
+    .filter(
+      (match) => !cssWords.has(match.match(bracketed)?.groups?.["value"] ?? ""),
+    );
 }
 
 describe("arbitraryClasses", () => {
@@ -37,18 +59,19 @@ describe("arbitraryClasses", () => {
     ['className="p-2 bg-primary text-sm"', []],
     // Neither spacing nor colour.
     ['className="grid-cols-[1fr_auto]"', []],
+    // A word of CSS's own, as the parent's value or a colour of the system, is no value made up.
+    ['className="max-h-[inherit]"', []],
+    ['className="bg-[Canvas] text-[CanvasText]"', []],
+    ['className="max-h-[inheritance]"', ["max-h-[inheritance]"]],
   ])("in %s finds %j", (code, found) => {
     expect(arbitraryClasses(code)).toEqual(found);
   });
 });
 
-// Own pieces take spacing and colour from the theme. What comes from shadcn is left as it comes.
-it("uses no arbitrary spacing or colour in own pieces", () => {
+// Every piece takes spacing and colour from the theme, shadcn's too.
+it("uses no arbitrary spacing or colour in a piece", () => {
   const found = Object.entries(sources)
-    .filter(
-      ([path]) =>
-        !(path.startsWith("/src/components/ui/") || testOrStory.test(path)),
-    )
+    .filter(([path]) => !testOrStory.test(path))
     .flatMap(([path, code]) =>
       arbitraryClasses(code).map((name) => `${path}: ${name}`),
     );
@@ -56,37 +79,44 @@ it("uses no arbitrary spacing or colour in own pieces", () => {
   expect(found).toEqual([]);
 });
 
-// The list says what state each of shadcn's pieces is in, so none may enter or stay unlisted.
-it("lists each file in ui/, and only those, in docs/pieces.md", async () => {
-  const files = Object.keys(sources)
-    .filter((path) => inUi.test(path) && !testOrStory.test(path))
-    .map((path) => path.match(inUi)?.groups?.["name"]);
+// Every piece, shadcn's or our own, by its name, with its file.
+const anyPiece = /^\/src\/components\/(?<name>[^/.]+)\.tsx$/u;
+const pieces = new Map(
+  Object.keys(sources)
+    .filter((path) => !testOrStory.test(path))
+    .flatMap((path) => {
+      const name = path.match(anyPiece)?.groups?.["name"];
+      return name === undefined ? [] : [[name, path] as const];
+    }),
+);
+
+function storyOf(name = ""): string {
+  const path = pieces.get(name) ?? "";
+  return sources[path.replace(extension, ".stories.tsx")] ?? "";
+}
+
+// The list says what state each piece is in, so none may enter or stay unlisted.
+it("lists every piece, and only those, in docs/pieces.md", async () => {
   const listed = (await listedPieces()).map(({ name }) => name);
 
-  expect(new Set(listed)).toEqual(new Set(files));
+  expect(new Set(listed)).toEqual(new Set(pieces.keys()));
 });
 
-// Coverage does not see ui/, so a story is what says each of its files draws, raw or reviewed.
-it("has a story for each file in ui/", () => {
-  const paths = Object.keys(sources);
-  const missing = paths
-    .filter((path) => inUi.test(path) && !testOrStory.test(path))
-    .filter((path) => !paths.includes(path.replace(extension, ".stories.tsx")));
+// A story is what says each piece draws, raw or reviewed.
+it("has a story for each piece", () => {
+  const missing = [...pieces.keys()].filter((name) => storyOf(name) === "");
 
   expect(missing).toEqual([]);
 });
 
-// An app imports every piece by its name alone, so one of ours named as one of shadcn's would hide it.
-const anyPiece = /^\/src\/components\/(?:ui\/)?(?<name>[^/.]+)\.tsx$/u;
+// A piece is shadcn's when upstream/shadcn/ holds it as last taken, the base of make shadcn-update.
+it("keeps shadcn's base only for a piece of that name", async () => {
+  const bases = (await readdir(new URL("upstream/shadcn/", root)))
+    .filter((file) => extension.test(file))
+    .map((file) => file.replace(extension, ""));
 
-it("names no own piece as one of shadcn's", () => {
-  const names = Object.keys(sources)
-    .filter((path) => !testOrStory.test(path))
-    .map((path) => path.match(anyPiece)?.groups?.["name"])
-    .filter((name) => name !== undefined);
-
-  expect(names.length).toBeGreaterThan(0);
-  expect(new Set(names).size).toBe(names.length);
+  expect(bases.length).toBeGreaterThan(0);
+  expect(bases.filter((name) => !pieces.has(name))).toEqual([]);
 });
 
 // The gallery files each piece, shadcn's or our own, under shadcn's own groups, in the order its preview sorts them.
@@ -99,7 +129,7 @@ const categories = JSON.parse(
   ),
 ) as string[];
 const storyTitle = /^ {2}title: "(?<title>[^"]+)",$/mu;
-const pieceStory = /^\/src\/components\/(?:ui\/)?[^/]+\.stories\.tsx$/u;
+const pieceStory = /^\/src\/components\/[^/]+\.stories\.tsx$/u;
 
 it("files the story of each piece under one of shadcn's groups", () => {
   expect(categories).toHaveLength(6);
@@ -123,7 +153,7 @@ it("files the story of each piece under one of shadcn's groups", () => {
 it("tags the story of each raw piece as raw, and of no other", async () => {
   const wrong = (await listedPieces())
     .filter(({ name, state }) => {
-      const story = sources[`/src/components/ui/${name}.stories.tsx`] ?? "";
+      const story = storyOf(name);
       return rawTag.test(story) !== (state === "raw");
     })
     .map(({ name }) => name);
@@ -137,7 +167,7 @@ it.each(exemptions)(
   async ({ check, mark }) => {
     const wrong = (await listedPieces())
       .filter(({ name, state, gaps = "" }) => {
-        const story = sources[`/src/components/ui/${name}.stories.tsx`] ?? "";
+        const story = storyOf(name);
         const exempt = mark.test(story);
         return (
           exempt !== gaps.includes(`**${check}:`) || (exempt && state !== "raw")

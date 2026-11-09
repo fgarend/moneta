@@ -16,8 +16,8 @@ import {
   Wallet,
 } from "lucide-react";
 import { expect, within } from "storybook/test";
-import { Badge } from "./components/ui/badge.js";
-import { Button } from "./components/ui/button.js";
+import { Badge } from "./components/badge.js";
+import { Button } from "./components/button.js";
 import {
   Card,
   CardAction,
@@ -25,16 +25,16 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
-} from "./components/ui/card.js";
-import { Input } from "./components/ui/input.js";
-import { Progress } from "./components/ui/progress.js";
+} from "./components/card.js";
+import { Input } from "./components/input.js";
+import { Progress } from "./components/progress.js";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "./components/ui/select.js";
+} from "./components/select.js";
 import {
   Table,
   TableBody,
@@ -42,13 +42,8 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "./components/ui/table.js";
-import {
-  Tabs,
-  TabsContent,
-  TabsList,
-  TabsTrigger,
-} from "./components/ui/tabs.js";
+} from "./components/table.js";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "./components/tabs.js";
 
 interface NavigationItem {
   name: string;

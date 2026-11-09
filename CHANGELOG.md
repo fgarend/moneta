@@ -6,6 +6,42 @@ gets its number.
 
 ## [Unreleased]
 
+## [0.5.0] - 2026-11-09
+
+Every piece under one rule, in one folder, with shadcn's updates merged three ways, and a few exports and utilities
+no app needs gone.
+
+### Added
+
+- `--secondary-hover`, the fill of a secondary `Button` on hover, which an app can change with the others.
+
+### Changed
+
+- **Breaking:** `Button` no longer exports `buttonVariants`, as an app writes no class of its own. To upgrade, use
+  `Button`, `LinkButton`, or `render` to change the element.
+- `Button`'s text at `size="sm"` is 12 px, Tailwind's `text-xs`, in place of 12.8.
+- `Tabs`'s triggers are as tall as their list, 1 px more than before.
+- `Toggle`'s text at `size="sm"` is 12 px, as `Button`'s.
+- **Breaking:** `Badge`, `ButtonGroup`, `Tabs` and `Toggle` no longer export `badgeVariants`, `buttonGroupVariants`,
+  `tabsListVariants` and `toggleVariants`, and `Dialog` and `Sheet` no longer export React Aria's types under names of
+  their own. To upgrade, use the pieces, and import `DialogProps` and `DialogTriggerProps` from `react-aria-components`.
+- **Breaking:** `Checkbox`, `RadioGroupItem` and `Switch` draw on React Aria's `CheckboxField` and `CheckboxButton`,
+  `RadioField` and `RadioButton`, and `SwitchField` and `SwitchButton`, as the older ones are deprecated. They take the
+  field's props, so `className` is a string and hover handlers are gone. To upgrade, compute a class before passing it,
+  and move a hover handler to an element around the piece.
+- `Switch`'s track is 18 px tall, from 18.4.
+- `InputGroupAddon` pulls a button or `kbd` 4 or 2 px toward the edge, from 4.8 and 2.4.
+- **Breaking:** the theme no longer brings shadcn's `scroll-fade-*`, `shimmer-*` and `no-scrollbar` utilities, which no
+  piece uses, as an app writes no class of its own. To upgrade, write the effect in the app's own style sheet.
+- The package keeps every piece in `dist/components/`, from `dist/components/ui/`, with no import changing.
+- The titles of `AlertDialog`, `Card`, `Dialog`, `Empty` and `Sheet` read `--font-heading`, as shadcn's now do. It is
+  the body's font, so nothing is drawn differently.
+
+### Fixed
+
+- `ItemGroup` no longer claims a list role, which its items did not fill, as axe found.
+- `SelectSeparator` is a line to see only, as a list of options may hold only options and groups, as axe found.
+
 ## [0.4.0] - 2026-11-09
 
 `Section`, the first piece of Moneta's own, and every piece imported by its name alone.
@@ -81,7 +117,8 @@ and dark. `README.md` says how to install and use it.
 
 A rehearsal of the release's path, not meant to be installed. Use a later version.
 
-[Unreleased]: https://github.com/fgarend/moneta/compare/v0.4.0...HEAD
+[Unreleased]: https://github.com/fgarend/moneta/compare/v0.5.0...HEAD
+[0.5.0]: https://github.com/fgarend/moneta/compare/v0.4.0...v0.5.0
 [0.4.0]: https://github.com/fgarend/moneta/compare/v0.3.0...v0.4.0
 [0.3.0]: https://github.com/fgarend/moneta/compare/v0.2.0...v0.3.0
 [0.2.0]: https://github.com/fgarend/moneta/compare/v0.1.0...v0.2.0

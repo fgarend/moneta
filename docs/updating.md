@@ -82,18 +82,15 @@ gh api repos/<action>/commits/<tag> --jq .sha
 
 - **The images in `infra/settings.env`,** at the same moments: a newer version, and a new
   digest under the same tag, which means the image was rebuilt.
-- **The shadcn CLI and its registry,** at the same moments: a newer CLI, past the release age, moves
-  in the command below. The registry has no version, so what changed in a piece is only seen here:
+- **shadcn's pieces and style sheet,** at the same moments. The registry has no version, so what changed is only
+  seen by taking it again. `make shadcn-update` merges what shadcn changed since `upstream/shadcn/` into our files,
+  three ways, one piece per call of the CLI, and ignores the `"use client"` line the CLI adds or drops at random.
+  What both changed is left marked in the file, to settle by hand, and the commit says how each was settled. A
+  newer CLI, past the release age, moves in `scripts/shadcn-update.sh`, which also takes its style sheet.
 
   ```sh
-  docker compose --env-file infra/settings.env -f infra/compose.yaml run --rm --build install \
-    pnpm dlx shadcn@4.23.0 add <piece> --diff
-  ```
-
-- **shadcn's style sheet,** whenever the CLI moves, with the new version. An update replaces the file:
-
-  ```sh
-  curl -fsS https://cdn.jsdelivr.net/npm/shadcn@4.23.0/dist/tailwind.css -o src/styles/shadcn.css
+  make shadcn-update
+  make shadcn-update PIECE=card
   ```
 
 - **The actions in `.github/workflows/`,** at the same moments: a newer version. A pin is a

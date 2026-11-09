@@ -22,8 +22,7 @@ Where the library lives, how it is received, and under what terms.
   dark as the system prefers, in the system's font. `.storybook/themes.ts` repeats the colours, and a test keeps them the
   theme's.
 - **Pieces are imported by path, by their name alone,** as `@fgarend/moneta/button`, whoever wrote them. There is no
-  root entry. `package.json` exports shadcn's by a pattern, and each of ours by a line of its own, which Node and
-  TypeScript put before a pattern.
+  root entry. `package.json` exports them by one pattern, `./*`, beside the style sheets' own keys.
 - **The usual way is one import,** `import "@fgarend/moneta/styles.css";`, with ready-made styles and the
   font, as `README.md` shows. An app needs no Tailwind and no settings.
 - **An app changes the look by redefining the theme's variables,** after the import and outside any `@layer`, and

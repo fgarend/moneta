@@ -4,8 +4,8 @@
   // What .gitignore lists is left out.
   "vcs": { "enabled": true, "clientKind": "git", "useIgnoreFile": true },
   "files": {
-    // pnpm writes its own lockfile.
-    "includes": ["**", "!pnpm-lock.yaml"]
+    // pnpm writes its own lockfile, and upstream/ keeps shadcn's files as they came, the base of each update.
+    "includes": ["**", "!pnpm-lock.yaml", "!upstream"]
   },
   // Biome's default style, with the indentation from .editorconfig.
   "formatter": { "useEditorconfig": true },
@@ -52,6 +52,9 @@
         "noUnnecessaryConditions": "off"
       },
       "correctness": {
+        // TypeScript already finds an import that does not exist, as Biome's docs say, and Biome resolves #components
+        // through package.json's default, the build, which is not there before one.
+        "noUnresolvedImports": "off",
         // Node's module rules ask for .js in relative imports of TypeScript. Mapping only .ts and .tsx
         // leaves CSS imports alone, which forceJsExtensions would turn into .js.
         "useImportExtensions": {
@@ -81,17 +84,6 @@
           "suspicious": { "noConsole": "off" }
         }
       }
-    },
-    {
-      // shadcn's files stay as they come, so an update merges cleanly. Each had one read of its findings on arrival.
-      "includes": [
-        "src/components/ui/*.tsx",
-        "!src/components/ui/*.stories.tsx",
-        "src/styles/shadcn.css"
-      ],
-      "linter": { "enabled": false },
-      "formatter": { "enabled": false },
-      "assist": { "enabled": false }
     }
   ]
 }

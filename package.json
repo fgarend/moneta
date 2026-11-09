@@ -1,6 +1,6 @@
 {
   "name": "@fgarend/moneta",
-  "version": "0.4.0",
+  "version": "0.5.0",
   "private": true,
   "description": "A component library for money interfaces, built on shadcn.",
   "license": "MIT",
@@ -10,11 +10,10 @@
   },
   "type": "module",
   "exports": {
-    "./section": "./dist/components/section.js",
     "./styles.css": "./dist/styles/styles.css",
     "./theme.css": "./dist/styles/theme.css",
     "./fonts.css": "./dist/styles/fonts.css",
-    "./*": "./dist/components/ui/*.js"
+    "./*": "./dist/components/*.js"
   },
   "imports": {
     "#components/*": {
