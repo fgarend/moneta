@@ -75,7 +75,7 @@ pieces is in [`../pieces.md`](../pieces.md), and how a piece is analysed is in [
 - **A fixed level per piece, or one always given by hand.** Simpler, but wrong or verbose once pieces nest.
 - **Section as a `region`,** as a prototype has, or with a prop to make it one.
 - **A count beside a section's title and a note at its foot,** as a prototype has. The count waits for Badge,
-  in 4.1, and the note for a use.
+  in the roadmap's Display, and the note for a use.
 
 ## History
 

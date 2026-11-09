@@ -35,7 +35,7 @@ these are Moneta's rules for that phase:
 - **The middle number:** anything an app may have to adapt to, marked **Breaking:** in the changelog with its upgrade
   steps, and anything new, including a new look.
 - **The last number:** only a fix, under **Fixed** or **Security**.
-- **The first number:** `1.0.0`, once, when the roadmap's milestone 6 says, which also sets the rules after it.
+- **The first number:** `1.0.0`, once, when the roadmap's Release 1.0.0 comes, which also sets the rules after it.
 
 `make check-release` holds the changelog to them: the version is the one after the previous section, one step on the
 last number when the new section lists only fixes, and on the middle one otherwise. It cannot tell whether the

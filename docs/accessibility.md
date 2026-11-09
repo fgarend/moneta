@@ -39,23 +39,23 @@ which is run by hand.
 | 1.3.2 Meaningful Sequence | script | |
 | 1.3.3 Sensory Characteristics | app | |
 | 1.3.4 Orientation | script | Nothing here locks it |
-| 1.3.5 Identify Input Purpose | none yet | With the form controls (4.2) |
-| 1.4.1 Use of Color | none yet | With the sidebar's current page (4.6) |
+| 1.3.5 Identify Input Purpose | none yet | With the form controls (Actions and forms) |
+| 1.4.1 Use of Color | none yet | With the sidebar's current page (Sidebar) |
 | 1.4.2 Audio Control | app | |
 | 1.4.3 Contrast (Minimum) | axe, test | axe on flat colours, and `test/theme.test.ts` on the theme's pairs, both modes |
 | 1.4.4 Resize Text | script | |
 | 1.4.5 Images of Text | app | |
-| 1.4.10 Reflow | story, coming, script | Section's story at 320 px, and the application's structure (4.6) |
-| 1.4.11 Non-text Contrast | test, coming | `test/theme.test.ts` on borders and focus, both modes. Field (4.2) and charts (4.8) to come |
+| 1.4.10 Reflow | story, coming, script | Section's story at 320 px, and the application's structure (Sidebar) |
+| 1.4.11 Non-text Contrast | test, coming | `test/theme.test.ts` on borders and focus, both modes. Field (Actions and forms) and charts (Charts) to come |
 | 1.4.12 Text Spacing | every story | All three browsers |
-| 1.4.13 Content on Hover or Focus | none yet | With Tooltip (4.3) |
+| 1.4.13 Content on Hover or Focus | none yet | With Tooltip (Overlays) |
 | 2.1.1 Keyboard | none yet | React Aria's in the raw pieces, and no story goes by keyboard; with each family's review |
-| 2.1.2 No Keyboard Trap | none yet, script | With the overlays (4.3) |
+| 2.1.2 No Keyboard Trap | none yet, script | With the overlays (Overlays) |
 | 2.1.4 Character Key Shortcuts | none yet | |
 | 2.2.1 Timing Adjustable | none yet | |
 | 2.2.2 Pause, Stop, Hide | none yet | |
 | 2.3.1 Three Flashes or Below Threshold | none yet | |
-| 2.4.1 Bypass Blocks | coming | The sidebar's skip link (4.6) |
+| 2.4.1 Bypass Blocks | coming | The sidebar's skip link (Sidebar) |
 | 2.4.2 Page Titled | app | |
 | 2.4.3 Focus Order | none yet | |
 | 2.4.4 Link Purpose (In Context) | axe, app | axe finds a link with no name; its words are the app's |
@@ -72,18 +72,18 @@ which is run by hand.
 | 3.1.1 Language of Page | app | |
 | 3.1.2 Language of Parts | app | |
 | 3.2.1 On Focus | none yet | |
-| 3.2.2 On Input | none yet | With the form controls (4.2) |
+| 3.2.2 On Input | none yet | With the form controls (Actions and forms) |
 | 3.2.3 Consistent Navigation | app | |
 | 3.2.4 Consistent Identification | app | |
 | 3.2.6 Consistent Help | app | |
-| 3.3.1 Error Identification | none yet | With the form controls (4.2) |
-| 3.3.2 Labels or Instructions | none yet | With the form controls (4.2) |
+| 3.3.1 Error Identification | none yet | With the form controls (Actions and forms) |
+| 3.3.2 Labels or Instructions | none yet | With the form controls (Actions and forms) |
 | 3.3.3 Error Suggestion | app | |
 | 3.3.4 Error Prevention (Legal, Financial, Data) | app | Heavy in a money interface: review and confirm |
 | 3.3.7 Redundant Entry | app | |
 | 3.3.8 Accessible Authentication (Minimum) | app | |
 | 4.1.2 Name, Role, Value | axe, story | |
-| 4.1.3 Status Messages | none yet | With Alert (4.1) |
+| 4.1.3 Status Messages | none yet | With Alert (Display) |
 
 ## Corner cases
 

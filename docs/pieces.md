@@ -5,7 +5,8 @@ The state of each piece, shadcn's and our own, as `test/pieces.test.ts` keeps it
 
 - **raw:** it meets the rule every piece meets, as `docs/decisions/components.md` says, but nobody has reviewed it, and
   it may fail WCAG 2.2 AA.
-- **reviewed:** it has what the roadmap's milestone 4 asks of a reviewed piece. 1.0 needs every piece here.
+- **reviewed:** it has its stories, its visual test and contrast in both modes, its accessibility report, its section
+  in the guidelines and its line in the changelog, and no default text. 1.0 needs every piece here.
 
 Every piece has stories, run in light and in dark, which draw every part and branch of its code, as coverage asks.
 A story passes axe, text spacing and forced colours unless its row says otherwise. Each of these was measured on

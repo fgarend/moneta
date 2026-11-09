@@ -21,7 +21,7 @@ How the repository runs, and how its versions are chosen.
 - **Development dependencies have exact versions,** so every update shows in a diff.
 - **A dependency enters through pnpm's command line,** never by editing `package.json`, with
   the commands in `docs/updating.md`. A peer's range is the one thing set as it is written.
-- **Updates are made by hand,** at the start of each roadmap item from milestone 2 on, as
+- **Updates are made by hand,** at the start of each roadmap item, as
   `docs/updating.md` says.
 - **`make check` runs every check, even after one fails,** and ends with one line per check.
   Continuous integration has one box per check, with the same name, in parallel, and a test

@@ -9,7 +9,7 @@ is made.
 ## Read first
 
 1. `docs/ROADMAP.md`: where the work is now, and everything planned or deferred,
-   in order.
+   in order, with each item's details in `docs/roadmap-notes.md`.
 2. `docs/decisions/`: what holds today, by topic, and why.
 3. `docs/updating.md`: when and how versions move.
 4. `docs/accessibility.md`: how each WCAG criterion is checked.
@@ -72,7 +72,7 @@ gives the right result:
 - **Stay in scope.** Anything found along the way that is outside the step goes into
   the roadmap instead of being fixed on the side.
 - **Nothing discussed is lost.** Whatever is deferred in a conversation goes into
-  `docs/ROADMAP.md` right away.
+  `docs/ROADMAP.md` right away, as a short line, with its details in `docs/roadmap-notes.md`.
 - **Test first.** Write the test cases, show them failing, then implement. For
   code copied from shadcn, that means a story that fails on our edit, not on a
   missing file. Do not test again what React Aria already tests. Behaviour that users
@@ -95,7 +95,7 @@ gives the right result:
 
 1. Propose the step and list its open points. A token, piece or block made or changed
    starts with its analysis, as `docs/decisions/process.md` says, discussed before any
-   code. An item from milestone 2 on starts with `make outdated`, and the proposal says
+   code. Every roadmap item starts with `make outdated`, and the proposal says
    what it found, as `docs/updating.md` asks.
 2. The user decides them, one at a time.
 3. Write the tests and show them failing. In a step without code, write the
@@ -104,8 +104,8 @@ gives the right result:
 5. The user approves each commit. Once the user says the step is aligned, Claude pushes its
    branch and opens its pull request, and the user merges it once `checks` passes.
 
-`docs/ROADMAP.md` is updated in the commit of each step, so a new session can resume
-from it.
+`docs/ROADMAP.md` and its notes are updated in the commit of each step, so a new session can resume
+from them.
 
 ## Talking to the user
 
