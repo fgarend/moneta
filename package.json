@@ -10,6 +10,7 @@
   },
   "type": "module",
   "exports": {
+    "./breadcrumb": "./dist/components/breadcrumb.js",
     "./avatar": "./dist/components/avatar.js",
     "./alert-dialog": "./dist/components/alert-dialog.js",
     "./pagination": "./dist/components/pagination.js",

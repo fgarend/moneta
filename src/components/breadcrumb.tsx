@@ -1,19 +1,19 @@
-"use client"
+"use client";
 
-import * as React from "react"
-import { cn } from "cn"
+import { cn } from "cn";
+import { ChevronRightIcon, MoreHorizontalIcon } from "lucide-react";
+import type { ComponentProps } from "react";
 import {
   Breadcrumb as BreadcrumbPrimitive,
+  type BreadcrumbProps,
   Breadcrumbs as BreadcrumbsPrimitive,
+  type BreadcrumbsProps,
   composeRenderProps,
   Link as LinkPrimitive,
-  type BreadcrumbProps,
-  type BreadcrumbsProps,
   type LinkProps,
-} from "react-aria-components"
-import { ChevronRightIcon, MoreHorizontalIcon } from "lucide-react"
+} from "react-aria-components";
 
-function Breadcrumb({ className, ...props }: React.ComponentProps<"nav">) {
+function Breadcrumb({ className, ...props }: ComponentProps<"nav">) {
   return (
     <nav
       aria-label="breadcrumb"
@@ -21,7 +21,7 @@ function Breadcrumb({ className, ...props }: React.ComponentProps<"nav">) {
       className={cn(className)}
       {...props}
     />
-  )
+  );
 }
 
 function BreadcrumbList<T extends object>({
@@ -33,11 +33,11 @@ function BreadcrumbList<T extends object>({
       data-slot="breadcrumb-list"
       className={cn(
         "flex flex-wrap items-center gap-1.5 text-sm wrap-break-word text-muted-foreground",
-        className
+        className,
       )}
       {...props}
     />
-  )
+  );
 }
 
 function BreadcrumbItem({
@@ -52,9 +52,9 @@ function BreadcrumbItem({
       className={cn("inline-flex items-center gap-1", className)}
       {...props}
     >
-      {composeRenderProps(children, (children, { isCurrent }) => (
+      {composeRenderProps(children, (resolved, { isCurrent }) => (
         <>
-          {children}
+          {resolved}
           {!isCurrent && (
             <span
               data-slot="breadcrumb-separator"
@@ -68,7 +68,7 @@ function BreadcrumbItem({
         </>
       ))}
     </BreadcrumbPrimitive>
-  )
+  );
 }
 
 function BreadcrumbLink({ className, render, ...props }: LinkProps) {
@@ -79,26 +79,23 @@ function BreadcrumbLink({ className, render, ...props }: LinkProps) {
       render={render}
       {...props}
     />
-  )
+  );
 }
 
-function BreadcrumbPage({ className, ...props }: React.ComponentProps<"span">) {
+// The current page, as React Aria's Link draws the last item of a path: a link that is marked and disabled.
+function BreadcrumbPage({ className, ...props }: Omit<LinkProps, "href">) {
   return (
-    <span
+    <LinkPrimitive
       data-slot="breadcrumb-page"
-      role="link"
-      aria-disabled="true"
       aria-current="page"
+      isDisabled={true}
       className={cn("font-normal text-foreground", className)}
       {...props}
     />
-  )
+  );
 }
 
-function BreadcrumbEllipsis({
-  className,
-  ...props
-}: React.ComponentProps<"span">) {
+function BreadcrumbEllipsis({ className, ...props }: ComponentProps<"span">) {
   return (
     <span
       data-slot="breadcrumb-ellipsis"
@@ -106,22 +103,21 @@ function BreadcrumbEllipsis({
       aria-hidden="true"
       className={cn(
         "flex size-5 items-center justify-center [&>svg]:size-4",
-        className
+        className,
       )}
       {...props}
     >
-      <MoreHorizontalIcon
-      />
+      <MoreHorizontalIcon />
       <span className="sr-only">More</span>
     </span>
-  )
+  );
 }
 
 export {
   Breadcrumb,
-  BreadcrumbList,
+  BreadcrumbEllipsis,
   BreadcrumbItem,
   BreadcrumbLink,
+  BreadcrumbList,
   BreadcrumbPage,
-  BreadcrumbEllipsis,
-}
+};
