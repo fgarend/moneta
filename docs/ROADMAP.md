@@ -27,7 +27,7 @@ what is recommended today, to be argued again at that moment.
 Each group as in `docs/decisions/process.md`. `make check` runs only what exists, and
 grows with each group.
 
-The checks, for every group: `lint`, `types`, `test`, `stories` and `package`, fastest
+The checks, for every group: `lint`, `types`, `test`, `stories`, `package` and `storybook-build`, fastest
 first. `make check` runs them in that order, all of them even if one fails, and ends
 with one line per check saying whether it passed. Continuous integration has one box
 per check, with the same name, in parallel, so `make <box>` repeats a red box. `stories` has one
@@ -42,6 +42,8 @@ shadcn's pieces and theme, untouched, as a package, with no choice of look yet.
 
 Done: 2.1, the first `shadcn add`, 41 pieces, as `docs/decisions/base.md` and `docs/pieces.md` say.
 2.3, shadcn's default theme, and the font apart, as the same file says.
+
+Dropped: 2.2, our `theme.css`, moved to 4.5.
 
 ## 3. First delivery
 
@@ -84,33 +86,15 @@ props.
 accessibility report, its section in the guidelines, the changelog, and its lint findings read again,
 with what is a real fault fixed as a recorded edit.
 
-Done: 4.5, our `theme.css`, light and dark, with the checks in both modes, the guidelines and the gallery's frame, as
-`docs/decisions/theme.md` says.
+Done: 4.5 (was 2.2), our `theme.css`, light and dark, with the checks in both modes, the guidelines and the
+gallery's frame, as `docs/decisions/theme.md` says.
 
 - **4.12 · What a review of the repository found,** on 2026-11-09, before 4.11. Its rules that contradicted each
   other were decided in the step that found them. The rest is one step, in one pull request, ending in 0.2.1, which
   also carries `cn` 0.5.2.
-  - **Facts out of date:**
-    - `docs/pieces.md` says nothing checks the dark theme. Button's mark leaves out its icon sizes, and
-      Pagination's "Previous" and "Next" have a prop.
-    - This roadmap lists 5 checks, without `storybook-build`, says 8 pieces follow the scale, where the
-      guidelines name 7 and ToggleGroup follows it too, and lost item 2.2, which became 4.5. 4.9's question
-      of coming before the families is partly answered by 4.11.
-    - `docs/decisions/tooling.md` counts five checks, seven boxes and 2 actions, now 6, 8 and 5. It
-      leaves Dependabot out as commits go straight to `main`, says the release will add actions and that
-      coverage measures nothing, all past. Every command runs in a container, but `pending-version.sh` runs
-      on the runner.
-    - `docs/decisions/delivery.md` says the release checks nothing again, but it runs the audit.
-      `scripts/check-release.ts` says the release runs it, but only the pull request does.
-    - `docs/decisions/base.md` leaves the font to 4.5, which chose Geist, and counts 62 pieces in the
-      registry, where `docs/decisions/tooling.md` counts 61.
-    - `docs/decisions/delivery.md` and `docs/decisions/tooling.md` have 15 lines of History, past the 10
-      that `docs/decisions/process.md` allows.
-    - `docs/accessibility.md` says the focus test covers 13 pieces. It has 13 cases, 5 of them Button's.
-    - The sample page breaks the guidelines: a 40 px search field, 64 px at its end and 4 px gaps.
-    - `test/package.test.ts` says most package managers do not install the peers by themselves, where npm
-      and pnpm do, by default, and only npm puts them where the app imports them, as
-      `docs/decisions/delivery.md` says.
+  - **The sample page against the guidelines:** a 40 px search field, 64 px at its end, and 4 px between a label
+    and its value, as `Card`'s header also has, where the guidelines say 8 to 12 within a group.
+
 - **4.13 · Conventions that cross pieces,** before Section, the first own piece, from a comparison with a generic
   guide to building a design system on 2026-11-09. Each is asked on its own, and recorded in
   `docs/decisions/components.md` by the first piece that depends on it:
@@ -158,14 +142,14 @@ Done: 4.5, our `theme.css`, light and dark, with the checks in both modes, the g
     recommended the `render` prop on 2026-11-09, which 4.13 decides.
   - To say: how an app gives React Aria its locale, through `I18nProvider`, as without it React Aria's own
     words follow the browser's language.
-- **4.9 · Colours of meaning,** as `--destructive` is the only one today: success, warning, information,
-  gain and loss, and a palette for categories and for the charts, in light and dark. To ask: which names,
-  in shadcn's format. To ask: whether a meaning stays a value of `variant`, as shadcn's `destructive` is, or
+- **4.9 · Colours of meaning,** as `--destructive` is the only one today: success, warning, information, gain
+  and loss, and a palette for categories and for the charts, in light and dark. To ask: which names, in
+  shadcn's format. To ask: whether a meaning stays a value of `variant`, as shadcn's `destructive` is, or
   becomes a prop of its own, such as `tone`, beside a `variant` for the style, which would edit each piece
-  with `destructive`. To ask: whether this and 4.10 come before the families, as they reach every piece.
-  To ask: a base palette under the semantic names, as Material 3, Spectrum and Carbon tier their tokens, and the
-  DTCG format reached a stable version, 2025.10.
-- **4.10 · One scale of sizes,** 4.5's 32, 36 and 40 px, on every piece, as only 8 follow it today. Badge,
+  with `destructive`. To ask: whether this and 4.10 come before the families, after 4.11's pieces, as they
+  reach every piece. To ask: a base palette under the semantic names, as Material 3, Spectrum and Carbon tier
+  their tokens, and the DTCG format reached a stable version, 2025.10.
+- **4.10 · One scale of sizes,** 4.5's 32, 36 and 40 px, on every piece, as only 9 follow it today. Badge,
   Avatar, Item, Checkbox, Switch and Table's rows do not, and Item's `default` and `sm` are the same.
   To ask: the names of the sizes for every piece, as Button has `xs`, `sm`, `default`, `lg` and `icon-*`.
 - **4.7 · Layout and text,** which shadcn does not have and most of an app's classes do: what replaces

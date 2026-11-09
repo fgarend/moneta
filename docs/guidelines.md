@@ -24,8 +24,8 @@ the version installed. It holds only what exists, and each reviewed piece adds i
 ## Size
 
 - **Controls are 36 px tall by default, 40 at `size="lg"` for a page's main action, and 32 at `size="sm"` for a dense
-  place,** such as a table's row. That holds for `Button`, `Input`, `InputGroup`, `NativeSelect`, `Select`, `Tabs` and
-  `Toggle`, where each has the size. `xs` is shadcn's, outside this scale.
+  place,** such as a table's row. That holds for `Button`, `Input`, `InputGroup`, `NativeSelect`, `Pagination`, `Select`,
+  `Tabs`, `Toggle` and `ToggleGroup`, where each has the size. `xs` is shadcn's, outside this scale.
 - **The radius is `--radius`,** and every piece takes its corners from it.
 
 ## Text

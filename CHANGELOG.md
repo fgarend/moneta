@@ -13,6 +13,7 @@ gets its number.
 ### Fixed
 
 - `Slider`'s thumb shows keyboard focus, which it did not.
+- `docs/guidelines.md` names `Pagination` and `ToggleGroup` among the controls on the scale of sizes.
 
 ## [0.2.0] - 2026-11-09
 

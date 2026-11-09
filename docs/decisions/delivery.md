@@ -13,7 +13,7 @@ Where the library lives, how it is received, and under what terms.
   group in the history. `ci.yml` checks pull requests only, as `main` then holds only what one tested.
 - **A release is automatic,** on each merge to `main` while `package.json` holds a version with no tag, as
   `docs/releasing.md` says: a step's pull request, whose last commit is the release, or the fix of one that failed
-  before publishing. It builds and tests the tarball it publishes, in the same run, and checks nothing else again. One
+  before publishing. It runs the audit, builds and tests the tarball it publishes, in the same run, and checks nothing else again. One
   release runs at a time.
 - **A release's number follows from its changelog,** as `docs/releasing.md` says: the one after the changelog's
   previous section, on the last number for only fixes and on the middle one otherwise. A section with no change is
@@ -180,16 +180,8 @@ through `publish`, a pull request cancelling an earlier run, and an app drawing 
 
 ## History
 
-- 2026-11-04: Written, with the repository and its settings.
-- 2026-11-05: Imports by path, and the first peer.
-- 2026-11-05: What the alerts rest on.
-- 2026-11-06: shadcn's notice, React Aria as a peer, and the helpers.
-- 2026-11-06: The theme, the font and Tailwind as a peer.
-- 2026-11-06: One import, with ready-made styles.
-- 2026-11-06: An automatic release, of the tested tarball, with the gallery.
-- 2026-11-06: The rehearsal, `v0.0.1`.
-- 2026-11-06: The peers by name, and how far changing the look reaches.
-- 2026-11-06: The font as a variable.
+- 2026-11-04 to 2026-11-06: The repository, imports by path, the peers, the helpers, the theme, one import, the
+  automatic release and its rehearsal, in the file's older versions in git.
 - 2026-11-08: The guidelines in the package.
 - 2026-11-08: Moneta's look on the gallery's frame.
 - 2026-11-09: A release tried again by hand.
