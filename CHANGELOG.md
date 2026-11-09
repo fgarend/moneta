@@ -17,6 +17,9 @@ gets its number.
 - `Button`'s text at `size="sm"` is 12 px, Tailwind's `text-xs`, in place of 12.8.
 - `Tabs`'s triggers are as tall as their list, 1 px more than before.
 - `Toggle`'s text at `size="sm"` is 12 px, as `Button`'s.
+- **Breaking:** `Badge`, `ButtonGroup`, `Tabs` and `Toggle` no longer export `badgeVariants`, `buttonGroupVariants`,
+  `tabsListVariants` and `toggleVariants`, and `Dialog` and `Sheet` no longer export React Aria's types under names of
+  their own. To upgrade, use the pieces, and import `DialogProps` and `DialogTriggerProps` from `react-aria-components`.
 - The titles of `AlertDialog`, `Card`, `Dialog`, `Empty` and `Sheet` read `--font-heading`, as shadcn's now do. It is
   the body's font, so nothing is drawn differently.
 

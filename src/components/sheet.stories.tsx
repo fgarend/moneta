@@ -1,10 +1,11 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { expect, userEvent, within } from "storybook/test";
-import { settled } from "../../../.storybook/settled.js";
-import { Button } from "../button.js";
+import { settled } from "../../.storybook/settled.js";
+import { Button } from "./button.js";
 import {
   Sheet,
   SheetClose,
+  SheetContent,
   SheetDescription,
   SheetFooter,
   SheetHeader,
@@ -72,5 +73,65 @@ const Open: Story = {
   },
 };
 
+// Opens it from a story's trigger and returns it settled.
+async function openSheet(canvasElement: HTMLElement): Promise<HTMLElement> {
+  await userEvent.click(
+    within(canvasElement).getByRole("button", { name: trigger }),
+  );
+  const sheet = await within(document.body).findByRole("dialog", {
+    name: title,
+  });
+  await settled(sheet);
+  return sheet;
+}
+
+// Through SheetContent, at its defaults: on the right, with a close button.
+const Content: Story = {
+  args: {
+    children: (
+      <>
+        <Button>{trigger}</Button>
+        <SheetContent>
+          <SheetHeader>
+            <SheetTitle>{title}</SheetTitle>
+          </SheetHeader>
+        </SheetContent>
+      </>
+    ),
+  },
+  play: async ({ canvasElement }) => {
+    const sheet = await openSheet(canvasElement);
+
+    await expect(sheet.closest('[data-side="right"]')).not.toBeNull();
+    await expect(
+      within(sheet).getByRole("button", { name: close }),
+    ).toBeInTheDocument();
+  },
+};
+
+// From the left, with no close button, so it closes by Esc or outside.
+const LeftWithNoClose: Story = {
+  args: {
+    children: (
+      <>
+        <Button>{trigger}</Button>
+        <Sheet side="left" showCloseButton={false}>
+          <SheetHeader>
+            <SheetTitle>{title}</SheetTitle>
+          </SheetHeader>
+        </Sheet>
+      </>
+    ),
+  },
+  play: async ({ canvasElement }) => {
+    const sheet = await openSheet(canvasElement);
+
+    await expect(sheet.closest('[data-side="left"]')).not.toBeNull();
+    await expect(
+      within(sheet).queryByRole("button", { name: close }),
+    ).not.toBeInTheDocument();
+  },
+};
+
 export default meta;
-export { Default, Open };
+export { Content, Default, LeftWithNoClose, Open };
