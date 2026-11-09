@@ -10,6 +10,7 @@
   },
   "type": "module",
   "exports": {
+    "./tooltip": "./dist/components/tooltip.js",
     "./table": "./dist/components/table.js",
     "./empty": "./dist/components/empty.js",
     "./breadcrumb": "./dist/components/breadcrumb.js",

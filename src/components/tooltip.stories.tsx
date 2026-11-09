@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { expect, userEvent, within } from "storybook/test";
-import { settled } from "../../../.storybook/settled.js";
-import { Button } from "../button.js";
+import { settled } from "../../.storybook/settled.js";
+import { Button } from "./button.js";
 import { Tooltip, TooltipTrigger } from "./tooltip.js";
 
 const trigger = "Fee";
@@ -52,5 +52,34 @@ const Open: Story = {
   },
 };
 
+// On each side of the trigger, with room around it so none flips, the arrow follows the side.
+function onSide(placement: "top" | "bottom" | "left" | "right"): Story {
+  return {
+    args: { placement },
+    decorators: [
+      (Story) => (
+        <div className="flex justify-center p-16">
+          <Story />
+        </div>
+      ),
+    ],
+    play: async ({ canvasElement }) => {
+      await userEvent.hover(canvasElement);
+      await userEvent.hover(
+        within(canvasElement).getByRole("button", { name: trigger }),
+      );
+      const tooltip = await within(document.body).findByRole("tooltip");
+      await settled(tooltip);
+
+      await expect(tooltip).toHaveAttribute("data-placement", placement);
+    },
+  };
+}
+
+const Top = onSide("top");
+const Bottom = onSide("bottom");
+const Left = onSide("left");
+const Right = onSide("right");
+
 export default meta;
-export { Default, Open };
+export { Bottom, Default, Left, Open, Right, Top };
