@@ -6,15 +6,21 @@ gets its number.
 
 ## [Unreleased]
 
+## [0.2.0] - 2026-11-09
+
+Moneta's own look, in light and dark, with taller controls and a visible keyboard focus.
+
 ### Changed
 
 - The theme's light colours and radius are Moneta's, in place of shadcn's default: warm paper, white cards, a graphite
   sidebar and one gold accent, as `--gold`.
 - The theme's dark colours are Moneta's: a graphite near-black page, a darker sidebar and lighter cards, with `color-scheme: dark`.
-- Controls are taller: `Button`, `Input`, `InputGroup`, `NativeSelect`, `Select`, `Tabs` and `Toggle` are 36 px by default,
-  32 at `size="sm"`, and 40 at `size="lg"` where they have one. A screen with a height of its own may need adjusting.
-- `Card` has 20 px around its content, and its title and description follow a scale of text. `Table` has a quieter header and
-  taller rows.
+- **Breaking:** controls are taller. `Button`, `Input`, `InputGroup`, `NativeSelect`, `Pagination`, `Select`, `Tabs` and
+  `Toggle` are 36 px by default, 32 at `size="sm"`, and 40 at `size="lg"` where they have one. To upgrade, check the screens
+  that give a row or a bar a height of their own. A control that must keep its old 32 px takes `size="sm"`, where it has one.
+- **Breaking:** `Card` has 20 px around its content, in place of 16, and its title and description follow a scale of text.
+  `Table` has a quieter header, 12 px cells and 20 px at each end of a row. To upgrade, check the screens that line something
+  up with a card's or a table's content.
 
 ### Added
 
@@ -45,6 +51,7 @@ and dark. `README.md` says how to install and use it.
 
 A rehearsal of the release's path, not meant to be installed. Use a later version.
 
-[Unreleased]: https://github.com/fgarend/moneta/compare/v0.1.0...HEAD
+[Unreleased]: https://github.com/fgarend/moneta/compare/v0.2.0...HEAD
+[0.2.0]: https://github.com/fgarend/moneta/compare/v0.1.0...v0.2.0
 [0.1.0]: https://github.com/fgarend/moneta/compare/v0.0.1...v0.1.0
 [0.0.1]: https://github.com/fgarend/moneta/tree/v0.0.1
