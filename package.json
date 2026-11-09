@@ -10,6 +10,7 @@
   },
   "type": "module",
   "exports": {
+    "./input": "./dist/components/input.js",
     "./separator": "./dist/components/separator.js",
     "./button": "./dist/components/button.js",
     "./section": "./dist/components/section.js",

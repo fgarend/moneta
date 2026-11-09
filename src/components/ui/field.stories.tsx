@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { expect, within } from "storybook/test";
+import { Input } from "../input.js";
 import {
   Field,
   FieldDescription,
@@ -8,7 +9,6 @@ import {
   FieldLegend,
   FieldSet,
 } from "./field.js";
-import { Input } from "./input.js";
 
 const legend = "Payment";
 const label = "Reference";

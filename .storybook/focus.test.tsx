@@ -6,6 +6,7 @@ import { expect, it, vi } from "vitest";
 import { userEvent } from "vitest/browser";
 import { render } from "vitest-browser-react";
 import { Button, LinkButton } from "../src/components/button.js";
+import { Input } from "../src/components/input.js";
 import { Checkbox } from "../src/components/ui/checkbox.js";
 import {
   Dialog,
@@ -19,7 +20,6 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "../src/components/ui/dropdown-menu.js";
-import { Input } from "../src/components/ui/input.js";
 import {
   RadioGroup,
   RadioGroupItem,
