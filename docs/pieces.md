@@ -1,6 +1,7 @@
 # Pieces
 
-The state of each of shadcn's pieces in `src/components/ui/`, as `test/pieces.test.ts` keeps it complete.
+The state of each piece, shadcn's and our own, as `test/pieces.test.ts` keeps it complete. A piece is shadcn's when
+`upstream/shadcn/` holds it as last taken.
 
 - **raw:** as shadcn delivers it. It works, nobody has reviewed it, and it may fail WCAG 2.2 AA.
 - **reviewed:** it has what the roadmap's milestone 4 asks of a reviewed piece. 1.0 needs every piece here.
@@ -53,6 +54,7 @@ A piece with no gap listed may still have some.
 | `popover` | raw | **Code:** its title does not name it |
 | `progress` | raw | **Code:** indeterminate draws the bar at 100%, as complete |
 | `radio-group` | raw | **Code:** an item does not grow for its children. **Lint:** a deprecated React Aria import |
+| `section` | reviewed | |
 | `scroll-area` | raw | **axe:** takes no focus when nothing in it can, so the keyboard cannot scroll it |
 | `select` | raw | **Edited:** default 36 px, and `sm` 32. **forced colours:** the chevron keeps its own colour, in Chromium |
 | `separator` | raw | |

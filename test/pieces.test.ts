@@ -1,8 +1,7 @@
-import { readFile } from "node:fs/promises";
+import { readdir, readFile } from "node:fs/promises";
 import { describe, expect, it } from "vitest";
 import { root, sources } from "./sources.js";
 
-const inUi = /^\/src\/components\/ui\/(?<name>[^/]+)\.tsx$/u;
 const listRow =
   /^\| `(?<name>[a-z-]+)` \| (?<state>raw|reviewed) \|(?<gaps>.*)\|$/gmu;
 // How a story is let off a check, and how docs/pieces.md names what that check found.
@@ -56,29 +55,47 @@ it("uses no arbitrary spacing or colour in own pieces", () => {
   expect(found).toEqual([]);
 });
 
-// The list says what state each of shadcn's pieces is in, so none may enter or stay unlisted.
-it("lists each file in ui/, and only those, in docs/pieces.md", async () => {
-  const files = Object.keys(sources)
-    .filter((path) => inUi.test(path) && !testOrStory.test(path))
-    .map((path) => path.match(inUi)?.groups?.["name"]);
+// Every piece, shadcn's or our own, by its name, with its file.
+const anyPiece = /^\/src\/components\/(?:ui\/)?(?<name>[^/.]+)\.tsx$/u;
+const pieces = new Map(
+  Object.keys(sources)
+    .filter((path) => !testOrStory.test(path))
+    .flatMap((path) => {
+      const name = path.match(anyPiece)?.groups?.["name"];
+      return name === undefined ? [] : [[name, path] as const];
+    }),
+);
+
+function storyOf(name = ""): string {
+  const path = pieces.get(name) ?? "";
+  return sources[path.replace(extension, ".stories.tsx")] ?? "";
+}
+
+// The list says what state each piece is in, so none may enter or stay unlisted.
+it("lists every piece, and only those, in docs/pieces.md", async () => {
   const listed = (await listedPieces()).map(({ name }) => name);
 
-  expect(new Set(listed)).toEqual(new Set(files));
+  expect(new Set(listed)).toEqual(new Set(pieces.keys()));
 });
 
-// Coverage does not see ui/, so a story is what says each of its files draws, raw or reviewed.
-it("has a story for each file in ui/", () => {
-  const paths = Object.keys(sources);
-  const missing = paths
-    .filter((path) => inUi.test(path) && !testOrStory.test(path))
-    .filter((path) => !paths.includes(path.replace(extension, ".stories.tsx")));
+// A story is what says each piece draws, raw or reviewed.
+it("has a story for each piece", () => {
+  const missing = [...pieces.keys()].filter((name) => storyOf(name) === "");
 
   expect(missing).toEqual([]);
 });
 
-// An app imports every piece by its name alone, so one of ours named as one of shadcn's would hide it.
-const anyPiece = /^\/src\/components\/(?:ui\/)?(?<name>[^/.]+)\.tsx$/u;
+// A piece is shadcn's when upstream/shadcn/ holds it as last taken, the base of make shadcn-update.
+it("keeps shadcn's base only for a piece of that name", async () => {
+  const bases = (await readdir(new URL("upstream/shadcn/", root)))
+    .filter((file) => extension.test(file))
+    .map((file) => file.replace(extension, ""));
 
+  expect(bases.length).toBeGreaterThan(0);
+  expect(bases.filter((name) => !pieces.has(name))).toEqual([]);
+});
+
+// An app imports every piece by its name alone, so one of ours named as one of shadcn's would hide it.
 it("names no own piece as one of shadcn's", () => {
   const names = Object.keys(sources)
     .filter((path) => !testOrStory.test(path))
@@ -123,7 +140,7 @@ it("files the story of each piece under one of shadcn's groups", () => {
 it("tags the story of each raw piece as raw, and of no other", async () => {
   const wrong = (await listedPieces())
     .filter(({ name, state }) => {
-      const story = sources[`/src/components/ui/${name}.stories.tsx`] ?? "";
+      const story = storyOf(name);
       return rawTag.test(story) !== (state === "raw");
     })
     .map(({ name }) => name);
@@ -137,7 +154,7 @@ it.each(exemptions)(
   async ({ check, mark }) => {
     const wrong = (await listedPieces())
       .filter(({ name, state, gaps = "" }) => {
-        const story = sources[`/src/components/ui/${name}.stories.tsx`] ?? "";
+        const story = storyOf(name);
         const exempt = mark.test(story);
         return (
           exempt !== gaps.includes(`**${check}:`) || (exempt && state !== "raw")

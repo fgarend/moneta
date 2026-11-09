@@ -3,9 +3,9 @@ import { cva, type VariantProps } from "class-variance-authority"
 import { cn } from "cn"
 import { Group, type GroupProps } from "react-aria-components"
 
-import { Button } from "#components/ui/button"
-import { Input } from "#components/ui/input"
-import { Textarea } from "#components/ui/textarea"
+import { Button } from "#components/button"
+import { Input } from "#components/input"
+import { Textarea } from "#components/textarea"
 
 function InputGroup({ className, ...props }: GroupProps) {
   return (

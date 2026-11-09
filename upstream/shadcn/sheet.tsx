@@ -11,7 +11,7 @@ import {
   type DialogTriggerProps as SheetTriggerPrimitiveProps,
 } from "react-aria-components"
 
-import { Button } from "#components/ui/button"
+import { Button } from "#components/button"
 import { XIcon } from "lucide-react"
 
 function SheetTrigger({ ...props }: SheetTriggerPrimitiveProps) {
