@@ -1,6 +1,6 @@
 # Roadmap
 
-**Now:** 4.13, the conventions that cross pieces, decided, in one step with Section, the first of 4.11.
+**Now:** 4.11, next a name for the close button of Sheet and Dialog.
 
 **The goal:** Moneta is the source of truth for components. An app consumes final pieces and builds
 its screens from them, writing no class of its own. What it lacks is added here, not there.
@@ -87,47 +87,19 @@ with what is a real fault fixed as a recorded edit.
 
 Done: 4.5 (was 2.2), our `theme.css`, light and dark, with the checks in both modes, the guidelines and the
 gallery's frame, as `docs/decisions/theme.md` says. 4.12, what a review of the repository found on
-2026-11-09: facts out of date, `Slider`'s focus, and the sample page against the guidelines, in 0.3.0.
+2026-11-09: facts out of date, `Slider`'s focus, and the sample page against the guidelines, in 0.3.0. 4.13, the
+conventions that cross pieces, with Section, the first of 4.11, in 0.4.0, as `docs/decisions/components.md` says.
 
-- **4.13 · Conventions that cross pieces,** before Section, the first own piece, from a comparison with a generic
-  guide to building a design system on 2026-11-09. One step with Section, decided on 2026-11-09, as Section is the
-  first piece that depends on them. Each is asked on its own, and recorded in `docs/decisions/components.md` by
-  Section:
-  - **Decided:** three levels, as shadcn names them. A token is a value of the theme and depends on nothing. A
-    piece takes its content from whoever uses it, shadcn's or our own, and uses tokens and other pieces. A block
-    brings a structure of pieces in place, such as a sidebar or a login form, and uses pieces and tokens.
-    Accessibility, language and formatting are rules across all three, not a level. A composed piece is not a
-    level of its own, as its line with a piece is vague and changes no rule.
-  - **Decided:** an own piece or block lives in `src/components/<name>.tsx`, beside `ui/`, where shadcn's CLI
-    puts what is not `ui`, and an app imports it as `@fgarend/moneta/<name>`, through an export `./*`, which
-    Node ranks below the exact keys and `./ui/*`. A piece of shadcn's stays in `ui/`, edited or not.
-  - **Decided:** a piece changes its element only through `render`, under React Aria's rule: the same type of
-    element, one element, with its props and ref passed on. Never `asChild` or `as`. A piece offers it only when
-    a need asks, passing React Aria's own on, or written as shadcn's `Badge` does.
-  - **Decided:** a title takes its level from where it sits, as a fixed default per piece is wrong once a
-    `Card` sits in a `Section`, as the sample page has. A `Section` counts one level more for what it holds, a
-    title outside any starts at 2, below the page's 1, and `level` given by hand wins. React Aria's `Heading`
-    draws it, and the context is own code, as React Aria has none. Section brings it, and every piece with a
-    title follows it at its review. React's context crosses portals, so a `Dialog` or `Sheet` starts again at 2.
-  - **Decided:** Moneta chooses no router. A piece with a link passes `href`, `routerOptions` and `render` on to
-    React Aria, so an app routes through `render` on each link, as React Aria's docs recommended on 2026-11-09, or
-    through `RouterProvider` once at its root. Table and GridList rows cannot be an `<a>`, so with a router they
-    navigate through `onAction`. The guidelines say both ways, with Link, in 4.11.
-  - **Decided, in `docs/decisions/process.md`:** the analysis covers each token, piece or block made or changed,
-    a new variant included. "Where it sits" names its level, and "Its cost" says how whoever uses it moves.
 - **4.14 · Motion, layers and icons,** which cross every piece and no item holds: durations and easing, with
   reduced motion on every piece, as Spinner spins regardless, the order of layers, as shadcn writes `z-50` on
   every overlay, and the icon's sizes.
 - **4.11 · What an app's screens wait on,** before 4.6, decided by the owner on 2026-11-09, as an app keeps
-  its own shell until 4.6, while these hold its screens back: Section, then a name for the close button of
-  Sheet and Dialog, given by whoever uses them in place of the written "Close", then Link, then 5.1, then
-  Table, then 5.5, then DateField. Each is a step of its own, with what its family's item says of it. **What
-  it costs:** a piece made before 4.9 and 4.10 may need a touch when they arrive, and 4.6's study may change
-  the space around Section. Decided by the owner on 2026-11-09, to be recorded by the first piece that depends
-  on it: an own piece is made of parts, as shadcn's are, and a piece that is only a value takes it as a prop.
-  Its state and events take React Aria's names, such as `isDisabled`, `onPress`, and an `onChange` that gives
-  the value. To ask later: a page that puts the pieces together, a pre-release tried in an app before a
-  version, and a review of the whole after each family.
+  its own shell until 4.6, while these hold its screens back: a name for the close button of Sheet and Dialog,
+  given by whoever uses them in place of the written "Close", then Link, then 5.1, then Table, then 5.5, then
+  DateField. Each is a step of its own, with what its family's item says of it. **What it costs:** a piece made
+  before 4.9 and 4.10 may need a touch when they arrive, and 4.6's study may change the space around Section.
+  To ask later: a page that puts the pieces together, a pre-release tried in an app before a version, and a
+  review of the whole after each family.
 - **4.6 (was 3.1) · `Sidebar`, `AppLayout` and providers,** starting with a study, which is what this
   item asks first: how each is defined, and where it lives. `sidebar` stayed out of the first delivery
   for this. Until then, an app keeps what it has for its shell. What is known so far:
@@ -140,7 +112,7 @@ gallery's frame, as `docs/decisions/theme.md` says. 4.12, what a review of the r
   - A check for reduced motion arrives with it, as shadcn's files have no `motion-reduce`.
   - `use-mobile` falls under the coverage of `stories`, so it needs a story, or an exclusion.
   - Its gradient and glow are to be asked (recommended: yes, by eye).
-  - Links through whichever router an app uses, as 4.13 decided: the sidebar passes `href`, `routerOptions`
+  - Links through whichever router an app uses, as `docs/decisions/components.md` says: the sidebar passes `href`, `routerOptions`
     and `render` on. `createLink` on a sidebar button reloaded the page on Enter, when it was tried.
   - To say: how an app gives React Aria its locale, through `I18nProvider`, as without it React Aria's own
     words follow the browser's language.
@@ -162,7 +134,9 @@ gallery's frame, as `docs/decisions/theme.md` says. 4.12, what a review of the r
   bloat beside Tailwind, and Spectrum 2 dropped its own, so the question includes whether an app keeps
   Tailwind for layout alone.
 - **4.1 · Display.** Badge, deciding its finance colours on a dark surface, with tones for success, warning,
-  danger and information, and a dot. Card, whose title is a `div`, to take a heading's level as 4.13 says. Section and Table, which come in 4.11, Table weighing a `grid` role, with a column of numbers
+  danger and information, and a dot, and a count beside a section's title. Card, whose title is a `div`, to take a heading's level as
+  `docs/decisions/components.md` says, deciding where code shared by pieces lives, and whether an app gets a
+  `Heading` that reads the level. Section, which came in 4.11, and Table, which comes in it, Table weighing a `grid` role, with a column of numbers
   aligned right, a total row, group rows with a subtotal, "—" for a missing value, a header that stays in
   view, rows selected, with a checkbox for all in the header, indeterminate when only some are, an action
   per row, child rows that open under their parent, a compact density and a container with a border. Avatar with its group, AvatarGroup, whose fallback's text an app measured at 4.34:1. Alert. Item, whose
@@ -185,7 +159,7 @@ gallery's frame, as `docs/decisions/theme.md` says. 4.12, what a review of the r
   with a server's errors through `validationErrors`, and how an app's form library connects, as Adobe documents
   React Hook Form and Zod. A form's states, such as dirty or touched, stay with that library or the app.
 - **4.3 · Overlays.** Dialog, AlertDialog, Sheet, whose `aria-label` stops at the layer behind and does not
-  name its dialog, Dialog and Sheet starting their title's level again at 2, as 4.13 says, Popover, HoverCard, DropdownMenu, ContextMenu and Tooltip. Text
+  name its dialog, Dialog and Sheet starting their title's level again at 2, as `docs/decisions/components.md` says, Popover, HoverCard, DropdownMenu, ContextMenu and Tooltip. Text
   spacing and forced colours reach what an overlay draws when open, in these and in Select, as today they
   see only the closed trigger. Forced colours' `:popover-open` finds nothing, as React Aria does not use the
   `popover` attribute. Toggletip, which opens on a click and on touch, as Tooltip does not open on touch,
@@ -262,6 +236,7 @@ No order between them. Each becomes an item when its time comes.
 - **Below 800 px in the screenshots.** A screenshot draws only the viewport's 800 px and leaves the rest of a
   taller story white, so nothing below them is compared, as a block added to the sample page showed on 2026-11-09.
 - **A top bar that stays in view.** When something needs it.
+- **A note at a section's foot,** for what holds for the whole section. When a page needs it.
 - **Right-to-left.** No piece in `ui/` has a rule for it, so chevrons do not flip. When an app needs it.
 - **Layers in the gallery.** Foundations, and groups beyond components. The name `gold`.
 - **Sizes and names to settle.** The tooltip's width and the name of its text.

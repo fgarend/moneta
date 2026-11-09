@@ -14,17 +14,18 @@ import { beforeAll, expect, it } from "vitest";
 import { root, sources } from "../sources.js";
 import { manifest, packedTarball, run } from "./shared.js";
 
-const inUi = /^\/src\/components\/ui\/(?<name>[^/.]+)\.tsx$/u;
+// A piece of shadcn's in ui/, imported as ui/<name>, or an own piece beside it, imported by its name.
+const piece = /^\/src\/components\/(?<name>(?:ui\/)?[^/.]+)\.tsx$/u;
 const packaged =
   /^package\/(?:package\.json|README\.md|LICENSE|docs\/guidelines\.md|dist\/.+\.(?:js|d\.ts|css))$/u;
 const testOrStory = /\.(?:stories|test)\./u;
 const clean = { status: 0, output: "" };
 const fontFile = /\.woff2$/u;
 
-// Each piece of ui/, from the sources, so a piece the package fails to offer is noticed.
+// Each piece, from the sources, so a piece the package fails to offer is noticed.
 const specifiers = Object.keys(sources).flatMap((path) => {
-  const name = path.match(inUi)?.groups?.["name"];
-  return name === undefined ? [] : [`${manifest.name}/ui/${name}`];
+  const name = path.match(piece)?.groups?.["name"];
+  return name === undefined ? [] : [`${manifest.name}/${name}`];
 });
 
 let app = "";

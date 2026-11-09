@@ -11,6 +11,7 @@
   "type": "module",
   "exports": {
     "./ui/*": "./dist/components/ui/*.js",
+    "./*": "./dist/components/*.js",
     "./styles.css": "./dist/styles/styles.css",
     "./theme.css": "./dist/styles/theme.css",
     "./fonts.css": "./dist/styles/fonts.css"

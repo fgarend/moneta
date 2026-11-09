@@ -6,6 +6,12 @@ gets its number.
 
 ## [Unreleased]
 
+### Added
+
+- `Section`, a part of a page under one title, with no box: `SectionHeader`, `SectionTitle`, `SectionDescription` and
+  `SectionAction`, imported from `@fgarend/moneta/section`. Its title's level comes from the sections it sits in.
+- `docs/guidelines.md` says when to use `Section`, and how its title's level is set.
+
 ## [0.3.0] - 2026-11-09
 
 Two rules of space and size in the guidelines, and keyboard focus on `Slider`'s thumb.
