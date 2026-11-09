@@ -90,6 +90,12 @@ Done: 4.5, our `theme.css`, light and dark, with the checks in both modes, the g
   its own shell until 4.6, while these hold its screens back: Section, then Link, then 5.1, then Table, then
   DateField. Each is a step of its own, with what its family's item says of it. **What it costs:** a piece made
   before 4.9 and 4.10 may need a touch when they arrive, and 4.6's study may change the space around Section.
+  Decided by the owner on 2026-11-09, to be recorded by the first piece that depends on it: an own piece is
+  made of parts, as shadcn's are, and a piece that is only a value takes it as a prop. Its state and events
+  take React Aria's names, such as `isDisabled`, `onPress`, and an `onChange` that gives the value.
+  To ask, one at a time, before Section's analysis: how deep an analysis goes for a small piece, a fixed
+  shape for it, and where its result lives. Later: a page that puts the pieces together, a pre-release tried
+  in an app before a version, and a review of the whole after each family.
 - **4.6 (was 3.1) · `Sidebar`, `AppLayout` and providers,** starting with a study, which is what this
   item asks first: how each is defined, and where it lives. `sidebar` stayed out of the first delivery
   for this. Until then, an app keeps what it has for its shell. What is known so far:
@@ -108,7 +114,9 @@ Done: 4.5, our `theme.css`, light and dark, with the checks in both modes, the g
     words follow the browser's language.
 - **4.9 · Colours of meaning,** as `--destructive` is the only one today: success, warning, information,
   gain and loss, and a palette for categories and for the charts, in light and dark. To ask: which names,
-  in shadcn's format. To ask: whether this and 4.10 come before the families, as they reach every piece.
+  in shadcn's format. To ask: whether a meaning stays a value of `variant`, as shadcn's `destructive` is, or
+  becomes a prop of its own, such as `tone`, beside a `variant` for the style, which would edit each piece
+  with `destructive`. To ask: whether this and 4.10 come before the families, as they reach every piece.
 - **4.10 · One scale of sizes,** 4.5's 32, 36 and 40 px, on every piece, as only 8 follow it today. Badge,
   Avatar, Item, Checkbox, Switch and Table's rows do not, and Item's `default` and `sm` are the same.
 - **4.7 · Layout and text,** which shadcn does not have and most of an app's classes do: what replaces

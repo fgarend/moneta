@@ -91,8 +91,10 @@ gives the right result:
 
 ## The rhythm of a step
 
-1. Propose the step and list its open points. An item from milestone 2 on starts with
-   `make outdated`, and the proposal says what it found, as `docs/updating.md` asks.
+1. Propose the step and list its open points. A piece starts with its analysis, as
+   `docs/decisions/process.md` says, discussed before any code. An item from milestone 2
+   on starts with `make outdated`, and the proposal says what it found, as
+   `docs/updating.md` asks.
 2. The user decides them, one at a time.
 3. Write the tests and show them failing. In a step without code, write the
    checks or the document to review instead.

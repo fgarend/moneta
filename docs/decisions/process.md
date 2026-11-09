@@ -37,6 +37,28 @@ How decisions are kept, and how the work moves.
   of earlier decisions. A group's review shows: the unchanged files as a list, the
   edited ones as a diff against their origin, what stayed behind with its reason, and
   the commands' results.
+- **Each piece starts with an analysis of its own, discussed before any code,** as a component library and
+  a design system would see it, apart from any app. It answers:
+  - **Who it is:** what it is for, what it is not and what to use instead, and its name in shadcn, React Aria
+    and other libraries.
+  - **Where it sits:** its level, from token to piece, composed piece and region, what holds it and what it
+    holds.
+  - **Its relations:** the pieces used with it, those to design with it, and those it could be confused
+    with. A neighbour is read up to its boundary with this piece, and keeps a step of its own.
+  - **Its contract:** its parts and props, by the library's conventions, its states, such as loading,
+    error, disabled, read-only and empty, its sizes and variants, the tokens it reads or asks for, what it
+    leaves to whoever uses it, its semantics and keyboard, and the WCAG criteria that apply.
+  - **Its text:** where each word it shows comes from, as it has none of its own, and how it reads in
+    another language.
+  - **Its behaviour:** on narrow and short screens, in density, with reduced motion, in light and dark, and
+    with nothing or too much in it.
+  - **Its cost:** which step of the rule it takes, what it weighs on a shadcn update, any new dependency,
+    and what breaks for whoever uses it today.
+  - **Its uses:** examples, discussed first, which then become its stories and tests.
+
+  Its research reads official sources and other libraries, and argues against its own recommendation. A
+  prototype or an app is a guide to criticize. **What it costs:** slower steps, chosen as others build on
+  each piece.
 - **The release's part of the pipeline waited until just before its first use,** the one
   exception to arriving in one step. A tag cannot be deleted, so it could only run for real by
   spending a version, and there was nothing to release before then.
@@ -61,6 +83,8 @@ rest.
 - **A tag per `shadcn add`.** A tag named after a piece does not find the files that came with it.
 - **The release's part with the rest of the pipeline.** Complete sooner, but written months
   before it could run.
+- **Analysing each piece alone.** Shorter, but neighbours may then do the same thing in different ways.
+- **Designing a whole family at once.** More coherent, but it works ahead of what is needed.
 
 ## History
 
@@ -71,3 +95,4 @@ rest.
 - 2026-11-06: First in use, then refined. Raw pieces, and a fixed message in place of tags.
 - 2026-11-06: The release's part arrived.
 - 2026-11-06: An import may hold several pieces, as the second one did.
+- 2026-11-09: Each piece starts with an analysis of its own.
