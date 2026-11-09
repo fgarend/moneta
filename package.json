@@ -10,6 +10,7 @@
   },
   "type": "module",
   "exports": {
+    "./item": "./dist/components/item.js",
     "./input-group": "./dist/components/input-group.js",
     "./field": "./dist/components/field.js",
     "./dropdown-menu": "./dist/components/dropdown-menu.js",

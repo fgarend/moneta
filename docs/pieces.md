@@ -46,7 +46,7 @@ A piece with no gap listed may still have some.
 | `hover-card` | raw | **Code:** its dialog has no name unless given `aria-label`. Opening by focus or hover is not checked |
 | `input` | raw | **Edited:** 36 px |
 | `input-group` | raw | **Edited:** 36 px |
-| `item` | raw | **axe:** its group has a list role, with links and buttons and no list items |
+| `item` | raw | |
 | `kbd` | raw | |
 | `label` | raw | **lint:** an unused import |
 | `native-select` | raw | **Edited:** 36 px, and `sm` 32 |

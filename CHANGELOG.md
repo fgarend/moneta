@@ -29,6 +29,10 @@ gets its number.
 - The titles of `AlertDialog`, `Card`, `Dialog`, `Empty` and `Sheet` read `--font-heading`, as shadcn's now do. It is
   the body's font, so nothing is drawn differently.
 
+### Fixed
+
+- `ItemGroup` no longer claims a list role, which its items did not fill, as axe found.
+
 ## [0.4.0] - 2026-11-09
 
 `Section`, the first piece of Moneta's own, and every piece imported by its name alone.
