@@ -23,8 +23,31 @@ async function listedPieces(): Promise<
   return [...list.matchAll(listRow)].map(({ groups }) => ({ ...groups }));
 }
 
+// CSS's own words, the parent's value and the system's colours, which no scale could hold.
+const cssWords = new Set([
+  "inherit",
+  "initial",
+  "unset",
+  "revert",
+  "Canvas",
+  "CanvasText",
+  "Field",
+  "FieldText",
+  "Highlight",
+  "HighlightText",
+  "GrayText",
+  "ButtonFace",
+  "ButtonText",
+  "LinkText",
+]);
+const bracketed = /\[(?<value>[^\]]+)\]$/u;
+
 function arbitraryClasses(code: string): string[] {
-  return [...code.matchAll(arbitrary)].map(([match]) => match);
+  return [...code.matchAll(arbitrary)]
+    .map(([match]) => match)
+    .filter(
+      (match) => !cssWords.has(match.match(bracketed)?.groups?.["value"] ?? ""),
+    );
 }
 
 describe("arbitraryClasses", () => {
@@ -36,6 +59,10 @@ describe("arbitraryClasses", () => {
     ['className="p-2 bg-primary text-sm"', []],
     // Neither spacing nor colour.
     ['className="grid-cols-[1fr_auto]"', []],
+    // A word of CSS's own, as the parent's value or a colour of the system, is no value made up.
+    ['className="max-h-[inherit]"', []],
+    ['className="bg-[Canvas] text-[CanvasText]"', []],
+    ['className="max-h-[inheritance]"', ["max-h-[inheritance]"]],
   ])("in %s finds %j", (code, found) => {
     expect(arbitraryClasses(code)).toEqual(found);
   });
