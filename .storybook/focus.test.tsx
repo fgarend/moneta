@@ -7,6 +7,12 @@ import { userEvent } from "vitest/browser";
 import { render } from "vitest-browser-react";
 import { Button, LinkButton } from "../src/components/button.js";
 import { Input } from "../src/components/input.js";
+import {
+  Tabs,
+  TabsContent,
+  TabsList,
+  TabsTrigger,
+} from "../src/components/tabs.js";
 import { Textarea } from "../src/components/textarea.js";
 import { Checkbox } from "../src/components/ui/checkbox.js";
 import {
@@ -34,12 +40,6 @@ import {
 } from "../src/components/ui/select.js";
 import { Slider } from "../src/components/ui/slider.js";
 import { Switch } from "../src/components/ui/switch.js";
-import {
-  Tabs,
-  TabsContent,
-  TabsList,
-  TabsTrigger,
-} from "../src/components/ui/tabs.js";
 import { Toggle } from "../src/components/ui/toggle.js";
 import "./preview.css";
 
