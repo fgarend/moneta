@@ -21,6 +21,7 @@ import {
 } from "../src/components/dropdown-menu.js";
 import { Input } from "../src/components/input.js";
 import { RadioGroup, RadioGroupItem } from "../src/components/radio-group.js";
+import { Slider } from "../src/components/slider.js";
 import { Switch } from "../src/components/switch.js";
 import {
   Tabs,
@@ -37,7 +38,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "../src/components/ui/select.js";
-import { Slider } from "../src/components/ui/slider.js";
 import "./preview.css";
 
 const label = "Fictitious";
