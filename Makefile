@@ -10,7 +10,7 @@ RUN := mkdir -p node_modules .vitest coverage dist .package storybook-static && 
 CHECKS := lint types test stories package storybook-build
 
 .PHONY: help check $(CHECKS) check-release release-notes install format update-screenshots storybook images clean \
-	outdated audit
+	outdated audit shadcn-update
 
 help: ## List the commands
 	@awk 'BEGIN {FS = ":.*## "} /^##@ / {printf "\n%s\n", substr($$0, 5); next} \
@@ -63,6 +63,9 @@ install: ## Install what package.json lists, updating pnpm-lock.yaml and node_mo
 
 format: ## Format the files and apply the safe lint fixes, in place
 	$(RUN) tools-write pnpm exec biome check --write
+
+shadcn-update: ## Take shadcn's updates into the pieces and shadcn.css by a three-way merge; PIECE=<name> takes one
+	$(RUN) -e PIECE=$(PIECE) tools-write scripts/shadcn-update.sh
 
 # Vitest never removes the screenshot of a renamed or deleted story, so the folder goes first.
 update-screenshots: ## Write the approved screenshots again, to review a visual change in the diff
