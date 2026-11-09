@@ -28,6 +28,7 @@ gets its number.
 - `InputGroupAddon` pulls a button or `kbd` 4 or 2 px toward the edge, from 4.8 and 2.4.
 - **Breaking:** the theme no longer brings shadcn's `scroll-fade-*`, `shimmer-*` and `no-scrollbar` utilities, which no
   piece uses, as an app writes no class of its own. To upgrade, write the effect in the app's own style sheet.
+- The package keeps every piece in `dist/components/`, from `dist/components/ui/`, with no import changing.
 - The titles of `AlertDialog`, `Card`, `Dialog`, `Empty` and `Sheet` read `--font-heading`, as shadcn's now do. It is
   the body's font, so nothing is drawn differently.
 

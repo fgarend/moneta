@@ -7,9 +7,9 @@ What the library starts from.
 - **shadcn is the base,** on **React Aria,** in the style **`aria-nova`.**
 - **`components.json` is written by hand,** since `init` refuses a library: "We could not detect a
   supported framework".
-- **A piece enters through the CLI, at a pinned version,** today 4.23.0, in a commit with its files
-  untouched, as `docs/decisions/process.md` says. The registry has no version, so the commit's
-  date says when:
+- **A piece enters through the CLI, at a pinned version,** today 4.23.0, into `src/components/` beside every
+  other piece, and its file as it came is kept in `upstream/shadcn/`, the base of each update. The registry has no
+  version, so the commit's date says when:
 
   ```sh
   docker compose --env-file infra/settings.env -f infra/compose.yaml run --rm --build install \
@@ -20,12 +20,13 @@ What the library starts from.
 - **`cn` is the npm package of that name,** as shadcn delivers it.
 - **The theme's shape is shadcn's,** in `src/styles/theme.css`, and its values are Moneta's, as `theme.md` says.
   A `@source` lets the app's Tailwind read the pieces, as it skips `node_modules`.
-- **`shadcn/tailwind.css` is copied, untouched, to `src/styles/shadcn.css`.** Our changes go in
-  `theme.css`, so an update replaces that file and its diff shows only shadcn's changes.
+- **`shadcn/tailwind.css` is copied to `src/styles/shadcn.css`,** with its base in `upstream/shadcn/` too. Our
+  values go in `theme.css`, and it keeps only what the pieces use: its `scroll-fade-*`, `shimmer-*` and `no-scrollbar`
+  utilities went, which no piece used, as an app writes no class of its own.
 - **The font is apart, in `src/styles/fonts.css`,** starting with shadcn's Geist, which the roadmap's 4.5 kept, as
   `theme.md` says.
-- **Lint, format and import sorting are off on `src/components/ui/`,** with one read of each file's
-  findings when it arrives. Their stories keep them on.
+- **Every piece meets the same rule, shadcn's too:** format, lint, coverage and no arbitrary class, as
+  `docs/decisions/components.md` says. An update from shadcn is a three-way merge, by `make shadcn-update`.
 - **The aliases are `#components/*`, `#hooks/*` and `#lib/*`, in `package.json#imports`,** with a custom
   condition, `moneta-source`, which must not be called `source`: sources here, `dist/` once built.
   `add` wrote no piece without `#lib/*`, though nothing uses it yet.
@@ -84,8 +85,9 @@ On the 41 files, with lint turned on for the read. What looks like a gap went in
   in an app on 2026-11-06. **What it costs:** an update by hand, which `docs/updating.md` lists.
 - **The font apart,** since Moneta is generic, and an app with another font should not carry ours.
   **What it costs:** one more import, and an app that forgets it falls back to a system font, silently.
-- **Lint off,** since a file that stays as it came merges cleanly. **What it costs:** real findings in
-  shadcn's code show only in that one read.
+- **One rule, and a merge for updates,** since where a piece came from is the repository's business, and shadcn's
+  pieces had 91 lint findings and 31 arbitrary classes, which no read on arrival fixed. **What it costs:** every update
+  is a merge, and what both changed is settled by hand.
 
 ## Alternatives considered
 
@@ -96,6 +98,10 @@ On the 41 files, with lint turned on for the read. What looks like a gap went in
 - **`shadcn eject`.** It works, but puts the file inside the main style sheet, mixing shadcn's with ours,
   and leaves an `@import` in the middle of it.
 - **The font inside the theme,** as shadcn's default does. Simpler, but every app carries it.
+- **shadcn's files as they came, with lint off,** as until 2026-11-09. An update replaced a file whole, but real findings
+  stayed, and an app saw where each piece came from.
+- **Keeping shadcn's utilities, with the features past Baseline allowed in lint.** Ready for a piece that wants them,
+  but against the browsers lint holds today, for what nothing used.
 
 ## History
 
@@ -103,3 +109,4 @@ On the 41 files, with lint turned on for the read. What looks like a gap went in
 - 2026-11-06: The other 40 pieces.
 - 2026-11-06: The default theme, the copy of shadcn's style sheet and the font.
 - 2026-11-06: The theme's values moved to `theme.md`.
+- 2026-11-09: Every piece under one rule, in one folder, with shadcn's updates merged three ways.

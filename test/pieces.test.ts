@@ -68,13 +68,10 @@ describe("arbitraryClasses", () => {
   });
 });
 
-// Own pieces take spacing and colour from the theme. What comes from shadcn is left as it comes.
-it("uses no arbitrary spacing or colour in own pieces", () => {
+// Every piece takes spacing and colour from the theme, shadcn's too.
+it("uses no arbitrary spacing or colour in a piece", () => {
   const found = Object.entries(sources)
-    .filter(
-      ([path]) =>
-        !(path.startsWith("/src/components/ui/") || testOrStory.test(path)),
-    )
+    .filter(([path]) => !testOrStory.test(path))
     .flatMap(([path, code]) =>
       arbitraryClasses(code).map((name) => `${path}: ${name}`),
     );
@@ -83,7 +80,7 @@ it("uses no arbitrary spacing or colour in own pieces", () => {
 });
 
 // Every piece, shadcn's or our own, by its name, with its file.
-const anyPiece = /^\/src\/components\/(?:ui\/)?(?<name>[^/.]+)\.tsx$/u;
+const anyPiece = /^\/src\/components\/(?<name>[^/.]+)\.tsx$/u;
 const pieces = new Map(
   Object.keys(sources)
     .filter((path) => !testOrStory.test(path))
@@ -122,17 +119,6 @@ it("keeps shadcn's base only for a piece of that name", async () => {
   expect(bases.filter((name) => !pieces.has(name))).toEqual([]);
 });
 
-// An app imports every piece by its name alone, so one of ours named as one of shadcn's would hide it.
-it("names no own piece as one of shadcn's", () => {
-  const names = Object.keys(sources)
-    .filter((path) => !testOrStory.test(path))
-    .map((path) => path.match(anyPiece)?.groups?.["name"])
-    .filter((name) => name !== undefined);
-
-  expect(names.length).toBeGreaterThan(0);
-  expect(new Set(names).size).toBe(names.length);
-});
-
 // The gallery files each piece, shadcn's or our own, under shadcn's own groups, in the order its preview sorts them.
 const preview = await readFile(new URL(".storybook/preview.ts", root), "utf8");
 const sortedGroups = /"Components",\s*(?<groups>\[[^\]]*\])/u;
@@ -143,7 +129,7 @@ const categories = JSON.parse(
   ),
 ) as string[];
 const storyTitle = /^ {2}title: "(?<title>[^"]+)",$/mu;
-const pieceStory = /^\/src\/components\/(?:ui\/)?[^/]+\.stories\.tsx$/u;
+const pieceStory = /^\/src\/components\/[^/]+\.stories\.tsx$/u;
 
 it("files the story of each piece under one of shadcn's groups", () => {
   expect(categories).toHaveLength(6);

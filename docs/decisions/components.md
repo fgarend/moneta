@@ -12,10 +12,10 @@ pieces is in [`../pieces.md`](../pieces.md), and how a piece is analysed is in [
   pieces in place, such as a sidebar or a login form, and uses pieces and tokens. Accessibility, language and
   formatting are rules across all three, not a level.
 - **An app imports every piece by its name alone,** as `@fgarend/moneta/button` and `@fgarend/moneta/section`, as
-  where a piece came from is the repository's business. No piece of ours takes the name of one of shadcn's, which
-  `test/pieces.test.ts` checks.
-- **An own piece or block lives in `src/components/<name>.tsx`.** shadcn's stay in `ui/` until 4.15 puts every piece
-  in one folder, under one rule.
+  where a piece came from is the repository's business.
+- **Every piece and block lives in `src/components/<name>.tsx`, shadcn's and our own, under one rule:** format, every
+  lint finding fixed with none left as an exception, coverage at 100%, and no arbitrary spacing or colour but CSS's
+  own words. A piece is shadcn's when `upstream/shadcn/` holds its base, which `make shadcn-update` merges from.
 - **An own piece is made of parts,** as shadcn's are, and a piece that is only a value takes it as a prop. Its state
   and events take React Aria's names, such as `isDisabled`, `onPress`, and an `onChange` that gives the value.
 - **A piece changes its element only through `render`,** under React Aria's rule: the same type of element, one
@@ -45,9 +45,9 @@ pieces is in [`../pieces.md`](../pieces.md), and how a piece is analysed is in [
 
 - **Three levels and not four,** as a composed piece's line with a piece is vague, Atomic Design's best known
   problem, and changes no rule: neither where a file lives, how it is imported, nor what tests it needs.
-- **By name alone,** as an app uses one library, whoever wrote each piece. **What it costs:** a line in `package.json`
-  for each piece of ours, which the package's test catches when missing, and an app that imported `ui/<name>` changes
-  its imports once.
+- **By name alone, from one folder,** as an app uses one library, whoever wrote each piece, and the rule is the same
+  for every piece, so nothing in the repository needs to know where one came from but its updates. **What it costs:**
+  an app that imported `ui/<name>` changes its imports once, and shadcn's updates come by a merge.
 - **`render`,** as React Aria has it on every component and shadcn's pieces use it, and its rule keeps the element's
   meaning, so a button cannot become a `div` unnoticed.
 - **A level from where it sits,** as a fixed default per piece is wrong once a `Card` sits in a `Section`, as the
@@ -70,6 +70,7 @@ pieces is in [`../pieces.md`](../pieces.md), and how a piece is analysed is in [
 - **`ui/<name>` for every piece,** with our pieces exported there too. Nothing breaks, but `ui` says little to an
   app, and inside it would mean shadcn's folder.
 - **Own pieces by name and shadcn's under `ui/`.** The first proposal, which told an app where each came from.
+- **Folders by origin, as `shadcn/` and `moneta/`.** Clear names, but only shadcn's would have kept another rule.
 - **`asChild` or `as`.** Any element for any other, which loses its meaning.
 - **A fixed level per piece, or one always given by hand.** Simpler, but wrong or verbose once pieces nest.
 - **Section as a `region`,** as a prototype has, or with a prop to make it one.
@@ -79,3 +80,4 @@ pieces is in [`../pieces.md`](../pieces.md), and how a piece is analysed is in [
 ## History
 
 - 2026-11-09: Written, with the conventions that cross pieces, and Section.
+- 2026-11-09: Every piece in one folder, under one rule, imported by its name alone.

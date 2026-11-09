@@ -21,51 +21,51 @@ same list. A pass says little here:
 - Nothing checks the keyboard beyond where focus lands, closing an overlay, target size beyond axe, or a long
   text.
 
-**Edited** marks a change made to a raw piece, which an update of it has to keep. The other marks are not measured by a check. **Code:** read from the piece. **Default text:** written in the piece,
-with no prop or as a prop's default, read from the code. **Lint:** read from Biome. **To confirm:** from an earlier study, not measured again.
+**Edited** marks a change to what a piece draws or does, beyond the rule every piece meets, which `make shadcn-update` keeps in its merge. The other marks are not measured by a check. **Code:** read from the piece. **Default text:** written in the piece,
+with no prop or as a prop's default, read from the code. **To confirm:** from an earlier study, not measured again.
 A piece with no gap listed may still have some.
 
 | Piece | State | Known gaps |
 | --- | --- | --- |
 | `alert` | raw | |
-| `alert-dialog` | raw | **lint:** an unused import |
+| `alert-dialog` | raw | |
 | `aspect-ratio` | raw | |
 | `avatar` | raw | |
-| `badge` | raw | |
-| `breadcrumb` | raw | **Default text:** "breadcrumb" and "More" |
+| `badge` | raw | **Edited:** `badgeVariants` is not exported |
+| `breadcrumb` | raw | **Edited:** the current page is React Aria's Link, marked and disabled. **Default text:** "breadcrumb" and "More" |
 | `button` | raw | **Edited:** default 36 px, `sm` 32 and `lg` 40, the same for `icon`, `icon-sm` and `icon-lg`, with the variant `gold`. `sm`'s text is 12 px, `secondary`'s hover reads `--secondary-hover`, and `buttonVariants` is not exported |
-| `button-group` | raw | |
+| `button-group` | raw | **Edited:** React Aria's `Group`, and `buttonGroupVariants` is not exported |
 | `card` | raw | **Edited:** reads the scale of text, with 20 px around its content |
-| `checkbox` | raw | **Code:** draws a check when indeterminate, and does not grow for its children. **Lint:** a deprecated React Aria import |
+| `checkbox` | raw | **Code:** draws a check when indeterminate, and does not grow for its children. **Edited:** on React Aria's `CheckboxField` and `CheckboxButton` |
 | `collapsible` | raw | **Code:** its trigger has no style of its own |
 | `context-menu` | raw | |
-| `dialog` | raw | **Default text:** "Close" |
+| `dialog` | raw | **Edited:** 16 px from each edge by `inset-x-4`, and React Aria's types are not exported. **Default text:** "Close" |
 | `dropdown-menu` | raw | |
 | `empty` | raw | |
-| `field` | raw | **Code:** does not link its description or error, which its story does by hand. **Lint:** an array index as a key |
+| `field` | raw | **Code:** does not link its description or error, which its story does by hand. **Edited:** React Aria's `Group` |
 | `hover-card` | raw | **Code:** its dialog has no name unless given `aria-label`. Opening by focus or hover is not checked |
 | `input` | raw | **Edited:** 36 px |
-| `input-group` | raw | **Edited:** 36 px |
-| `item` | raw | |
+| `input-group` | raw | **Edited:** 36 px, its addon is React Aria's `Group`, and pulls a button or `kbd` 4 or 2 px toward the edge |
+| `item` | raw | **Edited:** its group has no list role |
 | `kbd` | raw | |
-| `label` | raw | **lint:** an unused import |
+| `label` | raw | |
 | `native-select` | raw | **Edited:** 36 px, and `sm` 32 |
 | `pagination` | raw | **Edited:** its ellipsis follows the 36 px of a button. **Default text:** "pagination", "Previous", "Next", "Go to previous page", "Go to next page" and "More pages" |
 | `popover` | raw | **Code:** its title does not name it |
 | `progress` | raw | **Code:** indeterminate draws the bar at 100%, as complete |
-| `radio-group` | raw | **Code:** an item does not grow for its children. **Lint:** a deprecated React Aria import |
+| `radio-group` | raw | **Code:** an item does not grow for its children. **Edited:** on React Aria's `RadioField` and `RadioButton` |
 | `section` | reviewed | |
 | `scroll-area` | raw | **axe:** takes no focus when nothing in it can, so the keyboard cannot scroll it |
-| `select` | raw | **Edited:** default 36 px, and `sm` 32. **forced colours:** the chevron keeps its own colour, in Chromium |
+| `select` | raw | **Edited:** default 36 px, and `sm` 32, and its separator is hidden from screen readers. **forced colours:** the chevron keeps its own colour, in Chromium |
 | `separator` | raw | |
-| `sheet` | raw | **Default text:** "Close". **Code:** its `aria-label` stops at the layer behind and does not name its dialog |
+| `sheet` | raw | **Edited:** React Aria's types are not exported. **Default text:** "Close". **Code:** its `aria-label` stops at the layer behind and does not name its dialog |
 | `skeleton` | raw | |
-| `slider` | raw | **Code:** drops its children. **Lint:** an array index as a key |
+| `slider` | raw | **Code:** drops its children |
 | `spinner` | raw | **Default text:** "Loading". **Code:** spins with no regard for reduced motion |
-| `switch` | raw | **Code:** does not grow for its children. **Lint:** a deprecated React Aria import |
+| `switch` | raw | **Edited:** on React Aria's `SwitchField` and `SwitchButton`, with an 18 px track. **Code:** does not grow for its children |
 | `table` | raw | **Edited:** a quiet header and 12 px rows, with 20 px at each end. **Code:** its caption is a `figcaption` with no `figure` |
-| `tabs` | raw | **Edited:** 36 px, and its inactive text reads `muted-foreground`, as `foreground/60` is 3.89:1 on our `muted` |
+| `tabs` | raw | **Edited:** 36 px, and its inactive text reads `muted-foreground`, as `foreground/60` is 3.89:1 on our `muted`, its trigger is as tall as its list, and `tabsListVariants` is not exported |
 | `textarea` | raw | |
-| `toggle` | raw | **Edited:** default 36 px, `sm` 32 and `lg` 40 |
-| `toggle-group` | raw | |
+| `toggle` | raw | **Edited:** default 36 px, `sm` 32 and `lg` 40, `sm`'s text is 12 px, and `toggleVariants` is not exported |
+| `toggle-group` | raw | **Edited:** each item draws a `Toggle` |
 | `tooltip` | raw | **Code:** its trigger breaks with a Fragment as a child. While open, React Aria stops Esc from reaching what is around it, so in an overlay the first Esc closes only the tooltip |

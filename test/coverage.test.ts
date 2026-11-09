@@ -27,8 +27,6 @@ describe("what each check's coverage measures", () => {
     ["src/hooks/use-thing.ts", ["stories"]],
     // A folder nobody has thought of yet still counts.
     ["src/new-folder/thing.ts", ["stories"]],
-    // shadcn's files, whose lines are not ours to cover.
-    ["src/components/ui/button.tsx", []],
     ["src/components/amount.stories.tsx", []],
     ["src/lib/format.test.ts", []],
     ["src/css.d.ts", []],

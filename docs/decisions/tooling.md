@@ -31,10 +31,9 @@ How the repository runs, and how its versions are chosen.
 - **Stories run in Storybook, and every test in Vitest,** the browsers through Playwright:
   Chromium, Firefox and WebKit. `test` runs logic and the repository's checks in Node, and
   `stories` everything in a browser, so nothing runs twice.
-- **Coverage is 100% on own pieces, each part measured by one check:** `test` measures
-  `src/lib/` and `scripts/`, and `stories` everything else but `ui/`, naming what it leaves out, so a new
-  folder cannot go unmeasured. Until there is own code outside `ui/`, `stories` measures nothing, and its
-  rules were proved on planted files.
+- **Coverage is 100% on every piece, each part measured by one check:** `test` measures
+  `src/lib/` and `scripts/`, and `stories` everything else, naming what it leaves out, so a new
+  folder cannot go unmeasured.
 - **The build is TypeScript alone,** one file per module, with no bundler, and `dist/` stays
   out of git. Tailwind's command line makes the ready-made style sheet, reading only `dist/`.
 - **`package` checks what an app receives.** It packs the build into `.package/`, keeps that
@@ -184,3 +183,4 @@ How the repository runs, and how its versions are chosen.
 - 2026-11-08: Screenshots compared exactly.
 - 2026-11-09: One `stories` box per browser, and why screenshots run in Chromium alone.
 - 2026-11-09: The gallery's build as a check.
+- 2026-11-09: Coverage on every piece, shadcn's too.
