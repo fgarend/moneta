@@ -1,11 +1,13 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
+import { Receipt } from "lucide-react";
 import { expect, within } from "storybook/test";
-import { Button } from "../button.js";
+import { Button } from "./button.js";
 import {
   Empty,
   EmptyContent,
   EmptyDescription,
   EmptyHeader,
+  EmptyMedia,
   EmptyTitle,
 } from "./empty.js";
 
@@ -44,5 +46,35 @@ const Default: Story = {
   },
 };
 
+// What sits above the title: an image as it is, or an icon on a tile.
+function withMedia(variant?: "icon") {
+  return (
+    <EmptyHeader>
+      <EmptyMedia variant={variant}>
+        <Receipt aria-hidden={true} />
+      </EmptyMedia>
+      <EmptyTitle>{title}</EmptyTitle>
+    </EmptyHeader>
+  );
+}
+
+const WithMedia: Story = {
+  args: { children: withMedia() },
+  play: async ({ canvasElement }) => {
+    const media = canvasElement.querySelector('[data-slot="empty-icon"]');
+    await expect(media).toHaveAttribute("data-variant", "default");
+    await expect(media?.querySelector("svg")).toBeVisible();
+  },
+};
+
+const WithIcon: Story = {
+  args: { children: withMedia("icon") },
+  play: async ({ canvasElement }) => {
+    await expect(
+      canvasElement.querySelector('[data-slot="empty-icon"]'),
+    ).toHaveAttribute("data-variant", "icon");
+  },
+};
+
 export default meta;
-export { Default };
+export { Default, WithIcon, WithMedia };

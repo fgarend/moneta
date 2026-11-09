@@ -10,6 +10,7 @@
   },
   "type": "module",
   "exports": {
+    "./empty": "./dist/components/empty.js",
     "./breadcrumb": "./dist/components/breadcrumb.js",
     "./avatar": "./dist/components/avatar.js",
     "./alert-dialog": "./dist/components/alert-dialog.js",
