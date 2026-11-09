@@ -1,17 +1,20 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
+import { TriangleAlert } from "lucide-react";
 import { expect, userEvent, within } from "storybook/test";
-import { settled } from "../../../.storybook/settled.js";
-import { Button } from "../button.js";
+import { settled } from "../../.storybook/settled.js";
 import {
   AlertDialog,
   AlertDialogAction,
   AlertDialogCancel,
+  AlertDialogContent,
   AlertDialogDescription,
   AlertDialogFooter,
   AlertDialogHeader,
+  AlertDialogMedia,
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "./alert-dialog.js";
+import { Button } from "./button.js";
 
 const trigger = "Cancel the transfer";
 const title = "Cancel this transfer?";
@@ -73,5 +76,42 @@ const Open: Story = {
   },
 };
 
+// An icon above the title, through AlertDialogContent at its default size.
+const WithMedia: Story = {
+  args: {
+    children: (
+      <>
+        <Button>{trigger}</Button>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogMedia>
+              <TriangleAlert aria-hidden={true} />
+            </AlertDialogMedia>
+            <AlertDialogTitle>{title}</AlertDialogTitle>
+            <AlertDialogDescription>{description}</AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel>{cancel}</AlertDialogCancel>
+            <AlertDialogAction>{confirm}</AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </>
+    ),
+  },
+  play: async ({ canvasElement }) => {
+    const body = within(document.body);
+    await userEvent.click(
+      within(canvasElement).getByRole("button", { name: trigger }),
+    );
+    const dialog = await body.findByRole("alertdialog", { name: title });
+    await settled(dialog);
+
+    await expect(
+      dialog.querySelector('[data-slot="alert-dialog-media"] svg'),
+    ).toBeInTheDocument();
+    await expect(dialog.closest('[data-size="default"]')).not.toBeNull();
+  },
+};
+
 export default meta;
-export { Default, Open };
+export { Default, Open, WithMedia };

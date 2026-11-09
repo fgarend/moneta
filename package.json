@@ -10,6 +10,7 @@
   },
   "type": "module",
   "exports": {
+    "./alert-dialog": "./dist/components/alert-dialog.js",
     "./pagination": "./dist/components/pagination.js",
     "./toggle-group": "./dist/components/toggle-group.js",
     "./spinner": "./dist/components/spinner.js",
