@@ -10,6 +10,7 @@
   },
   "type": "module",
   "exports": {
+    "./label": "./dist/components/label.js",
     "./textarea": "./dist/components/textarea.js",
     "./input": "./dist/components/input.js",
     "./separator": "./dist/components/separator.js",
