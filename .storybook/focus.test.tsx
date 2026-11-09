@@ -15,6 +15,7 @@ import {
   DialogTrigger,
 } from "../src/components/dialog.js";
 import { Input } from "../src/components/input.js";
+import { RadioGroup, RadioGroupItem } from "../src/components/radio-group.js";
 import {
   Tabs,
   TabsContent,
@@ -28,10 +29,6 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "../src/components/ui/dropdown-menu.js";
-import {
-  RadioGroup,
-  RadioGroupItem,
-} from "../src/components/ui/radio-group.js";
 import {
   Select,
   SelectContent,
