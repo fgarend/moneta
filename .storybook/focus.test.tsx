@@ -14,6 +14,11 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "../src/components/dialog.js";
+import {
+  DropdownMenu,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "../src/components/dropdown-menu.js";
 import { Input } from "../src/components/input.js";
 import { RadioGroup, RadioGroupItem } from "../src/components/radio-group.js";
 import { Switch } from "../src/components/switch.js";
@@ -25,11 +30,6 @@ import {
 } from "../src/components/tabs.js";
 import { Textarea } from "../src/components/textarea.js";
 import { Toggle } from "../src/components/toggle.js";
-import {
-  DropdownMenu,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "../src/components/ui/dropdown-menu.js";
 import {
   Select,
   SelectContent,
