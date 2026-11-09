@@ -56,7 +56,7 @@ A piece with no gap listed may still have some.
 | `scroll-area` | raw | **axe:** takes no focus when nothing in it can, so the keyboard cannot scroll it |
 | `select` | raw | **Edited:** default 36 px, and `sm` 32. **forced colours:** the chevron keeps its own colour, in Chromium |
 | `separator` | raw | |
-| `sheet` | raw | **Default text:** "Close" |
+| `sheet` | raw | **Default text:** "Close". **Code:** its `aria-label` stops at the layer behind and does not name its dialog |
 | `skeleton` | raw | |
 | `slider` | raw | **Code:** drops its children. **Lint:** an array index as a key |
 | `spinner` | raw | **Default text:** "Loading". **Code:** spins with no regard for reduced motion |

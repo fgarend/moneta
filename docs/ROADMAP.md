@@ -97,6 +97,8 @@ Done: 4.5, our `theme.css`, light and dark, with the checks in both modes, the g
   - Its gradient and glow are to be asked (recommended: yes, by eye).
   - To ask: links through whichever router is used (recommended: `RouterProvider`, after trying
     `RouterConfig`, as `createLink` on a sidebar button reloaded the page on Enter).
+  - To say: how an app gives React Aria its locale, through `I18nProvider`, as without it React Aria's own
+    words follow the browser's language.
 - **4.9 · Colours of meaning,** as `--destructive` is the only one today: success, warning, information,
   gain and loss, and a palette for categories and for the charts, in light and dark. To ask: which names,
   in shadcn's format. To ask: whether this and 4.10 come before the families, as they reach every piece.
@@ -110,8 +112,9 @@ Done: 4.5, our `theme.css`, light and dark, with the checks in both modes, the g
   Tailwind for layout alone.
 - **4.1 · Display.** Badge, deciding its finance colours on a dark surface, with tones for success, warning,
   danger and information, and a dot. Card, Section, Table, weighing a `grid` role, with a column of numbers
-  aligned right, a total row, group rows with a subtotal, "—" for a missing value and a header that stays in
-  view. Avatar with its group, AvatarGroup, whose fallback's text an app measured at 4.34:1. Alert. Item, whose
+  aligned right, a total row, group rows with a subtotal, "—" for a missing value, a header that stays in
+  view, rows selected, with a checkbox for all in the header, indeterminate when only some are, an action
+  per row, child rows that open under their parent, a compact density and a container with a border. Avatar with its group, AvatarGroup, whose fallback's text an app measured at 4.34:1. Alert. Item, whose
   group has a list role with no list items, also as a list's row with an amount. Separator, Stat,
   DescriptionList, Kbd, AspectRatio, ScrollArea, Timeline and TickerChip. Tables on phones are decided with
   the first table.
@@ -119,25 +122,32 @@ Done: 4.5, our `theme.css`, light and dark, with the checks in both modes, the g
   as a currency's symbol, a screen reader does not read as part of the field's name, Textarea, Label,
   NativeSelect, Slider,
   Field, which does not link its description or error, Select, Checkbox, which draws a
-  check when indeterminate, RadioGroup, Switch, Toggle, ToggleGroup, DateField, SearchField,
+  check when indeterminate, RadioGroup, in a row as well, Checkbox and RadioGroup's items growing for their
+  label, which today they do not, Switch, Toggle, ToggleGroup, DateField, SearchField,
   FilePicker, ChoiceCard, and `combobox` after a study like 4.6's. Field decides the contrast of the control's border against the 3:1 of
   WCAG 1.4.11. ToggleGroup weighs a segmented control, SegmentedControl, against a radio in line. Also
   NumberField, DatePicker, DateRangePicker with presets such as the last 30 days, TimeField, a choice of
   many with removable chips, on React Aria's `TagGroup`, InputOTP, as `input-otp`, which brings a package of
-  its own, CopyButton, which says it copied in a status message, Toolbar, and a bar of actions on what is
-  selected. Select and NativeSelect say when to use each.
-- **4.3 · Overlays.** Dialog, AlertDialog, Sheet, Popover, HoverCard, DropdownMenu, ContextMenu and Tooltip. Text
+  its own, CopyButton, which says it copied in a status message, Toolbar, a bar of actions on what is
+  selected, a period switcher, previous and next around a label such as a month, and React Aria's
+  `ColorSwatchPicker`. Select and NativeSelect say when to use each.
+- **4.3 · Overlays.** Dialog, AlertDialog, Sheet, whose `aria-label` stops at the layer behind and does not
+  name its dialog, Popover, HoverCard, DropdownMenu, ContextMenu and Tooltip. Text
   spacing and forced colours reach what an overlay draws when open, in these and in Select, as today they
   see only the closed trigger. Forced colours' `:popover-open` finds nothing, as React Aria does not use the
   `popover` attribute. Toggletip, which opens on a click and on touch, as Tooltip does not open on touch,
   so it is never the only place of a piece of information.
-- **4.4 · The rest.** Tabs. Progress, Empty, Skeleton, Spinner, Breadcrumb,
-  Pagination, Collapsible, IconTile, StatGroup, as the sample page's summary strip draws it, which is also
+- **4.4 · The rest.** Tabs, with a count in a tab and tools to the right of its list. Progress, Empty,
+  Skeleton, with one pattern for loading, error and empty, Spinner, Breadcrumb,
+  Pagination, with a summary such as "1–20 of 142", Collapsible, IconTile, StatGroup, as the sample page's summary strip draws it, which is also
   what KpiStrip meant, and AllocationBar, and `calendar` after a study like
-  4.6's. Also Link, Steps, Banner, Meter, which says how much of a limit is used, unlike Progress, a list
+  4.6's. Also Link, a link in text or a cell, known without colour alone, through the router's link, as
+  Button's `link` variant is a button. Steps, Banner, Meter, which says how much of a limit is used, unlike
+  Progress, with a target's mark, a bar of actions fixed at the foot of the page, a list
   virtualised for thousands of rows, on React Aria's `Virtualizer`, and Toast. To ask for Toast: React
   Aria's is still `UNSTABLE_`, and shadcn's was announced for Base UI.
-- **4.8 · Charts.** Chart, as line, area, bars and donut, and BarList, a ranking in bars, with shadcn's
+- **4.8 · Charts.** Chart, as line, area, bars and donut, with a tooltip and a crosshair, and a reference
+  line such as an average, a ring for one value, and BarList, a ranking in bars, with shadcn's
   `chart-1` to `chart-5`, whose marks need 3:1 against the surface, under WCAG 1.4.11, and a table of the
   data beside each. To ask: where `recharts` goes (recommended: an entry of its own).
 
