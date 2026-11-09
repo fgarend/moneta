@@ -6,7 +6,7 @@ const name = "Share to save";
 const value = 40;
 
 const meta = {
-  title: "UI/Slider",
+  title: "Components/Form & Input/Slider",
   component: Slider,
   tags: ["raw"],
   args: { "aria-label": name, defaultValue: value },

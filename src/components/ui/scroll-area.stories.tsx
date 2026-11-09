@@ -16,7 +16,7 @@ const lines = [
 const last = "Eighth payment";
 
 const meta = {
-  title: "UI/Scroll Area",
+  title: "Components/Layout & Navigation/Scroll Area",
   component: ScrollArea,
   tags: ["raw"],
   parameters: { a11y: { test: "todo" } },

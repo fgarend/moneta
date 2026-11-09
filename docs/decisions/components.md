@@ -24,6 +24,10 @@ pieces is in [`../pieces.md`](../pieces.md), and how a piece is analysed is in [
   React's context crosses portals.
 - **Moneta chooses no router.** A piece with a link passes `href`, `routerOptions` and `render` on to React Aria, so
   an app routes through `render` on each link or through `RouterProvider` once at its root.
+- **The gallery groups the pieces by purpose, under shadcn's own groups,** as its docs list its components: Form &
+  Input, Layout & Navigation, Overlays & Dialogs, Feedback & Status, Display & Media, and Misc. Its first level is
+  `Components`, then `Sample`, and blocks and foundations will be levels of their own. A piece of ours goes in the
+  group of its purpose, beside shadcn's, and `test/pieces.test.ts` holds every story of a piece to one of them.
 
 ### Section
 
@@ -49,12 +53,18 @@ pieces is in [`../pieces.md`](../pieces.md), and how a piece is analysed is in [
   `section.tsx` until a second piece reads it.
 - **No router,** as Moneta knows no app, React Aria's docs recommended `render` on 2026-11-09, and `RouterProvider`
   still works. Table and GridList rows cannot be an `<a>`, so with a router they navigate through `onAction`.
+- **Groups by purpose,** as whoever builds a screen looks for something for a form or an overlay, not for where a
+  piece came from or its level, which are rules for this repository. shadcn's groups, as they are, as its users know
+  them. **What it costs:** some are odd, as Button in Form & Input and Toggle in Misc, and they differ from the
+  roadmap's families.
 - **No landmark,** as a page of sections would fill the list of landmarks, which the W3C asks to keep for what
   matters, and a screen reader's user moves by headings.
 
 ## Alternatives considered
 
 - **Token, piece, composed piece and region.** The roadmap's first proposal.
+- **The gallery by origin, `UI` and our own,** as its first stories had it from the folder's name, by level alone,
+  or by whether a piece is reviewed, which moves it, and its link, at its review.
 - **Own pieces in `ui/`.** One path, but our code mixed with shadcn's, file by file.
 - **`asChild` or `as`.** Any element for any other, which loses its meaning.
 - **A fixed level per piece, or one always given by hand.** Simpler, but wrong or verbose once pieces nest.

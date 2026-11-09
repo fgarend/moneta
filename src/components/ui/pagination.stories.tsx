@@ -17,7 +17,7 @@ const firstPage = "1";
 const currentPage = "2";
 
 const meta = {
-  title: "UI/Pagination",
+  title: "Components/Misc/Pagination",
   component: Pagination,
   tags: ["raw"],
   args: {

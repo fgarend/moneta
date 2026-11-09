@@ -5,7 +5,7 @@ import { Textarea } from "./textarea.js";
 const name = "Note on the payment";
 
 const meta = {
-  title: "UI/Textarea",
+  title: "Components/Form & Input/Textarea",
   component: Textarea,
   tags: ["raw"],
   args: { "aria-label": name },

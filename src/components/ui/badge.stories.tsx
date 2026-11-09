@@ -5,7 +5,7 @@ import { Badge } from "./badge.js";
 const label = "Settled";
 
 const meta = {
-  title: "UI/Badge",
+  title: "Components/Feedback & Status/Badge",
   component: Badge,
   tags: ["raw"],
   args: { children: label },

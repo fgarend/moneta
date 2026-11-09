@@ -9,7 +9,7 @@ const checking = "Checking";
 const controlHeight = 36;
 
 const meta = {
-  title: "UI/Native Select",
+  title: "Components/Form & Input/Native Select",
   component: NativeSelect,
   tags: ["raw"],
   args: {

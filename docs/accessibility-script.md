@@ -7,7 +7,7 @@ adds its rows here. Whatever fails goes into `docs/ROADMAP.md` as a fault to fix
 ## Before starting
 
 - `make storybook` serves the gallery. Open each story below on a page of its own,
-  `<http://localhost:6006/iframe.html?viewMode=story&id=ui-button--default>`, with its name
+  `<http://localhost:6006/iframe.html?viewMode=story&id=components-form-input-button--default>`, with its name
   after `id=`, so Tab stays in the story.
 - A story's own checks run as it opens, and may leave focus anywhere: click an empty part
   of the page once, to start from the top of it.
@@ -21,7 +21,7 @@ After that first click, leave the mouse alone.
 
 | Story | Do | Expect |
 | --- | --- | --- |
-| `ui-button--default` | Tab to the button | Focus reaches it, with a ring you can see whole |
+| `components-form-input-button--default` | Tab to the button | Focus reaches it, with a ring you can see whole |
 | | Tab onward | Focus leaves: nothing traps it |
 
 ## 2. VoiceOver, in Safari
@@ -31,7 +31,7 @@ item, and VO-Space bar acts on it.
 
 | Story | Do | Expect to hear |
 | --- | --- | --- |
-| `ui-button--default` | Move to the button | Its name once, and that it is a button |
+| `components-form-input-button--default` | Move to the button | Its name once, and that it is a button |
 
 ## 3. Zoom, in Safari and Chrome
 
@@ -39,7 +39,7 @@ With a window of 1280 by 800, Command-Plus to 200%, and then to 400%.
 
 | Story | Expect |
 | --- | --- |
-| `ui-button--default` | Nothing cut, and no sideways scrolling of the page |
+| `components-form-input-button--default` | Nothing cut, and no sideways scrolling of the page |
 
 Turn a phone or an emulated window to both orientations: every story works in both
 (WCAG 1.3.4).
@@ -52,13 +52,13 @@ tests here emulate it already, and only this is the real thing.
 
 | Story | Expect |
 | --- | --- |
-| `ui-button--default` | The button can be told from the page, and its focus ring seen |
+| `components-form-input-button--default` | The button can be told from the page, and its focus ring seen |
 
 ## 5. Touch, on a phone, if the gallery can be reached from one
 
 | Story | Do | Expect |
 | --- | --- | --- |
-| `ui-button--default` | Tap the button | It acts, and no tooltip or other state stays behind |
+| `components-form-input-button--default` | Tap the button | It acts, and no tooltip or other state stays behind |
 
 ## The runs
 

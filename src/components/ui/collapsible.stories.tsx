@@ -10,7 +10,7 @@ const trigger = "Fees";
 const content = "No fee applies to this transfer.";
 
 const meta = {
-  title: "UI/Collapsible",
+  title: "Components/Misc/Collapsible",
   component: Collapsible,
   tags: ["raw"],
   args: {

@@ -76,6 +76,36 @@ it("has a story for each file in ui/", () => {
   expect(missing).toEqual([]);
 });
 
+// The gallery files each piece, shadcn's or our own, under shadcn's own groups, in the order its preview sorts them.
+const preview = await readFile(new URL(".storybook/preview.ts", root), "utf8");
+const sortedGroups = /"Components",\s*(?<groups>\[[^\]]*\])/u;
+const categories = JSON.parse(
+  (preview.match(sortedGroups)?.groups?.["groups"] ?? "[]").replace(
+    /,\s*\]/u,
+    "]",
+  ),
+) as string[];
+const storyTitle = /^ {2}title: "(?<title>[^"]+)",$/mu;
+const pieceStory = /^\/src\/components\/(?:ui\/)?[^/]+\.stories\.tsx$/u;
+
+it("files the story of each piece under one of shadcn's groups", () => {
+  expect(categories).toHaveLength(6);
+  const wrong = Object.entries(sources)
+    .filter(([path]) => pieceStory.test(path))
+    .map(([path, story]) => [path, story.match(storyTitle)?.groups?.["title"]])
+    .filter(([, title = ""]) => {
+      const [level, category, name, ...rest] = title.split("/");
+      return (
+        level !== "Components" ||
+        !categories.includes(category ?? "") ||
+        name === undefined ||
+        rest.length > 0
+      );
+    });
+
+  expect(wrong).toEqual([]);
+});
+
 // The gallery and the list say the same of each piece.
 it("tags the story of each raw piece as raw, and of no other", async () => {
   const wrong = (await listedPieces())

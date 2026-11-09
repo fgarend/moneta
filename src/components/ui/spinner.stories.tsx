@@ -5,7 +5,7 @@ import { Spinner } from "./spinner.js";
 const name = "Sending the payment";
 
 const meta = {
-  title: "UI/Spinner",
+  title: "Components/Feedback & Status/Spinner",
   component: Spinner,
   tags: ["raw"],
   args: { "aria-label": name },

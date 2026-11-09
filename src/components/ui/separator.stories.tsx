@@ -3,7 +3,7 @@ import { expect, within } from "storybook/test";
 import { Separator } from "./separator.js";
 
 const meta = {
-  title: "UI/Separator",
+  title: "Components/Layout & Navigation/Separator",
   component: Separator,
   tags: ["raw"],
 } satisfies Meta<typeof Separator>;

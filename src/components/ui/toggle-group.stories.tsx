@@ -7,7 +7,7 @@ const month = "Month";
 const year = "Year";
 
 const meta = {
-  title: "UI/Toggle Group",
+  title: "Components/Misc/Toggle Group",
   component: ToggleGroup,
   tags: ["raw"],
   args: {

@@ -8,7 +8,7 @@ const trigger = "Fee";
 const content = "No fee applies to this transfer.";
 
 const meta = {
-  title: "UI/Tooltip",
+  title: "Components/Overlays & Dialogs/Tooltip",
   component: Tooltip,
   tags: ["raw"],
   args: { children: content },

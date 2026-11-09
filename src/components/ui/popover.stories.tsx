@@ -15,7 +15,7 @@ const title = "Rate used";
 const description = "One unit buys 1.25 units.";
 
 const meta = {
-  title: "UI/Popover",
+  title: "Components/Overlays & Dialogs/Popover",
   component: PopoverTrigger,
   tags: ["raw"],
   args: {

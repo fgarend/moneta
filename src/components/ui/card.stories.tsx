@@ -22,7 +22,7 @@ const descriptionSize = "13px";
 const cardSpacing = "20px";
 
 const meta = {
-  title: "UI/Card",
+  title: "Components/Display & Media/Card",
   component: Card,
   tags: ["raw"],
   args: {

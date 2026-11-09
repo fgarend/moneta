@@ -13,7 +13,7 @@ const accounts = "Accounts";
 const current = "Savings";
 
 const meta = {
-  title: "UI/Breadcrumb",
+  title: "Components/Layout & Navigation/Breadcrumb",
   component: Breadcrumb,
   tags: ["raw"],
   args: {

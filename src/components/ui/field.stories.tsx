@@ -19,7 +19,7 @@ const descriptionId = "field-reference-description";
 const errorId = "field-reference-error";
 
 const meta = {
-  title: "UI/Field",
+  title: "Components/Form & Input/Field",
   component: Field,
   tags: ["raw"],
   decorators: [

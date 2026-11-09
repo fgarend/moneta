@@ -5,7 +5,7 @@ import { Checkbox } from "./checkbox.js";
 const name = "Round up payments";
 
 const meta = {
-  title: "UI/Checkbox",
+  title: "Components/Form & Input/Checkbox",
   component: Checkbox,
   tags: ["raw"],
   args: { "aria-label": name },

@@ -238,7 +238,8 @@ No order between them. Each becomes an item when its time comes.
 - **A top bar that stays in view.** When something needs it.
 - **A note at a section's foot,** for what holds for the whole section. When a page needs it.
 - **Right-to-left.** No piece in `ui/` has a rule for it, so chevrons do not flip. When an app needs it.
-- **Layers in the gallery.** Foundations, and groups beyond components. The name `gold`.
+- **Layers in the gallery.** Foundations and blocks, beside `Components`, whose groups are shadcn's, as
+  `docs/decisions/components.md` says. The name `gold`.
 - **Sizes and names to settle.** The tooltip's width and the name of its text.
 - **Drawings beyond Lucide.** When something needs its own SVG.
 - **The browsers Moneta supports.** Nothing states them. Tailwind 4 sets a floor.

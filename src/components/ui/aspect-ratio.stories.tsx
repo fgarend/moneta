@@ -6,7 +6,7 @@ const content = "Receipt preview";
 const widescreen = 1.75;
 
 const meta = {
-  title: "UI/Aspect Ratio",
+  title: "Components/Display & Media/Aspect Ratio",
   component: AspectRatio,
   tags: ["raw"],
   args: { ratio: widescreen, children: content },

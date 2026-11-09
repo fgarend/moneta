@@ -14,7 +14,7 @@ const view = "View";
 const remove = "Remove";
 
 const meta = {
-  title: "UI/Context Menu",
+  title: "Components/Overlays & Dialogs/Context Menu",
   component: ContextMenuTrigger,
   tags: ["raw"],
   args: {

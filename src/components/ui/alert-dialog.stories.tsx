@@ -20,7 +20,7 @@ const cancel = "Keep it";
 const confirm = "Cancel it";
 
 const meta = {
-  title: "UI/Alert Dialog",
+  title: "Components/Overlays & Dialogs/Alert Dialog",
   component: AlertDialogTrigger,
   tags: ["raw"],
   args: {
