@@ -15,15 +15,11 @@ again at that moment. When an item is done, its notes go, as what holds then is 
 ## Before Sidebar: what an app's screens wait on
 
 The owner decided on 2026-11-09 that these come first, as an app keeps its own shell until Sidebar while these hold
-its screens back: the close button's name, Link, Money values, Table, Dates and DateField. Each is a step of its own,
-with what its family's item says of it. **What it costs:** a piece made before Colours of meaning and One scale of
-sizes may need a touch when they arrive, and Sidebar's study may change the space around Section. To ask later: a
-page that puts the pieces together, a pre-release tried in an app before a version, and a review of the whole after
-each family.
-
-## The close button's name
-
-Dialog and Sheet wrote "Close" themselves, which no reviewed piece may. Overlays' review may change what this decides.
+its screens back: the close button's name, done in 0.6.0, Link, Money values, Table, Dates and DateField. Each is a
+step of its own, with what its family's item says of it. **What it costs:** a piece made before Colours of meaning and
+One scale of sizes may need a touch when they arrive, and Sidebar's study may change the space around Section. To ask
+later: a page that puts the pieces together, a pre-release tried in an app before a version, and a review of the
+whole after each family.
 
 ## Link
 
@@ -176,6 +172,7 @@ with each family. No reviewed piece has a default text, so shadcn's written stri
 - Text spacing and forced colours reach what an overlay draws when open, in these and in Select, as today they see
   only the closed trigger. Forced colours' `:popover-open` finds nothing, as React Aria does not use the `popover`
   attribute.
+- The close button's name came before, in 0.6.0, and this review may change it.
 - Toggletip, which opens on a click and on touch, as Tooltip does not open on touch, so it is never the only place
   of a piece of information.
 
@@ -287,6 +284,8 @@ With `check-release`'s rules for the numbers after it, as a change that breaks t
 
 ## Done, in detail
 
+- **The close button's name,** in 0.6.0: Dialog, Sheet and DialogFooter take it from the app by `closeLabel`, which
+  TypeScript asks for while the button shows, as `test/close-label.test.ts` checks.
 - **Every piece under one rule,** in 0.5.0: every piece in `src/components/`, under the same format, lint, coverage
   and scale, shadcn's base kept in `upstream/shadcn/` and its updates merged three ways by `make shadcn-update`, as
   `docs/decisions/components.md` and `docs/decisions/base.md` say.

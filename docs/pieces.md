@@ -41,7 +41,7 @@ A piece with no gap listed may still have some.
 | `checkbox` | raw | **Code:** draws a check when indeterminate, and does not grow for its children. **Edited:** on React Aria's `CheckboxField` and `CheckboxButton` |
 | `collapsible` | raw | **Code:** its trigger has no style of its own |
 | `context-menu` | raw | |
-| `dialog` | raw | **Edited:** 16 px from each edge by `inset-x-4`, and React Aria's types are not exported. **Default text:** "Close" |
+| `dialog` | raw | **Edited:** 16 px from each edge by `inset-x-4`, and React Aria's types are not exported, and its close button's name comes from `closeLabel` |
 | `dropdown-menu` | raw | |
 | `empty` | raw | |
 | `field` | raw | **Code:** does not link its description or error, which its story does by hand. **Edited:** React Aria's `Group` |
@@ -60,7 +60,7 @@ A piece with no gap listed may still have some.
 | `scroll-area` | raw | **axe:** takes no focus when nothing in it can, so the keyboard cannot scroll it |
 | `select` | raw | **Edited:** default 36 px, and `sm` 32, and its separator is hidden from screen readers. **forced colours:** the chevron keeps its own colour, in Chromium |
 | `separator` | raw | |
-| `sheet` | raw | **Edited:** React Aria's types are not exported. **Default text:** "Close". **Code:** its `aria-label` stops at the layer behind and does not name its dialog |
+| `sheet` | raw | **Edited:** React Aria's types are not exported, and its close button's name comes from `closeLabel`. **Code:** its `aria-label` stops at the layer behind and does not name its dialog |
 | `skeleton` | raw | |
 | `slider` | raw | **Code:** drops its children |
 | `spinner` | raw | **Default text:** "Loading". **Code:** spins with no regard for reduced motion |

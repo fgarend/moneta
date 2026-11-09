@@ -59,19 +59,24 @@ function SheetOverlay({
   );
 }
 
+// The close button shows by default, and then needs its name, in the app's own words.
+type CloseButton =
+  | { showCloseButton?: true; closeLabel: string }
+  | { showCloseButton: false; closeLabel?: never };
+
 function Sheet({
   className,
   children,
   side = "right",
   showCloseButton = true,
+  closeLabel,
   ...props
 }: Omit<ModalOverlayPrimitiveProps, "className" | "children"> &
   Pick<ComponentProps<typeof ModalPrimitive>, "isDismissable"> & {
     className?: string;
     children: ReactNode;
     side?: "top" | "right" | "bottom" | "left";
-    showCloseButton?: boolean;
-  }) {
+  } & CloseButton) {
   return (
     <SheetOverlay {...props}>
       <ModalPrimitive
@@ -94,7 +99,7 @@ function Sheet({
               size="icon-sm"
             >
               <XIcon />
-              <span className="sr-only">Close</span>
+              <span className="sr-only">{closeLabel}</span>
             </SheetClose>
           ) : null}
         </SheetPrimitive>
@@ -103,26 +108,9 @@ function Sheet({
   );
 }
 
-function SheetContent({
-  className,
-  children,
-  side = "right",
-  showCloseButton = true,
-  ...props
-}: ComponentProps<typeof Sheet> & {
-  side?: "top" | "right" | "bottom" | "left";
-  showCloseButton?: boolean;
-}) {
-  return (
-    <Sheet
-      className={className}
-      side={side}
-      showCloseButton={showCloseButton}
-      {...props}
-    >
-      {children}
-    </Sheet>
-  );
+// The same as Sheet, under the name shadcn's other overlays give their content.
+function SheetContent(props: ComponentProps<typeof Sheet>) {
+  return <Sheet {...props} />;
 }
 
 function SheetHeader({ className, ...props }: ComponentProps<"div">) {

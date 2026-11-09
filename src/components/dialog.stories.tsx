@@ -16,8 +16,8 @@ const trigger = "Edit the note";
 const title = "Note on the payment";
 const description = "Only you see this note.";
 const done = "Done";
-// The piece's own name for its close button, with no prop to change it.
-const close = "Close";
+// The close button's name, which the app gives in its own words.
+const close = "Close the note";
 
 const meta = {
   title: "Components/Overlays & Dialogs/Dialog",
@@ -27,7 +27,7 @@ const meta = {
     children: (
       <>
         <Button>{trigger}</Button>
-        <Dialog>
+        <Dialog closeLabel={close}>
           <DialogHeader>
             <DialogTitle>{title}</DialogTitle>
             <DialogDescription>{description}</DialogDescription>
@@ -82,7 +82,7 @@ const CloseInFooter: Story = {
           <DialogHeader>
             <DialogTitle>{title}</DialogTitle>
           </DialogHeader>
-          <DialogFooter showCloseButton={true} />
+          <DialogFooter showCloseButton={true} closeLabel={close} />
         </Dialog>
       </>
     ),

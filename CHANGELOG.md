@@ -6,6 +6,12 @@ gets its number.
 
 ## [Unreleased]
 
+### Changed
+
+- **Breaking:** `Dialog`, `Sheet` and `DialogFooter` take the name of the close button they show from `closeLabel`, in
+  the app's own words, in place of the "Close" they wrote. TypeScript asks for it while the button shows. To upgrade,
+  pass `closeLabel`, or `showCloseButton={false}`.
+
 ### Fixed
 
 - `README.md` says what a raw piece is now: it meets the repository's checks, but nobody has reviewed it.
