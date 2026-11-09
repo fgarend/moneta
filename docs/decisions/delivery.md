@@ -74,9 +74,10 @@ looks every week.
 - **A tarball,** because it needs no registry, and it can be pinned by address. **What it
   costs:** `dist/` is not in git, so a commit or a branch cannot be installed from GitHub, only
   a release or a tarball built locally.
-- **An automatic release from the first one,** since each change becomes a version from milestone 4 on. A rehearsal
-  at `v0.0.1` spends a number that does not matter on what can only run for real. **What it costs:** a workflow
-  written before it could run, and a `v0.0.1` that stays on the list of releases forever.
+- **An automatic release from the first one,** since each step that changes what an app receives becomes a version
+  from milestone 4 on. A rehearsal at `v0.0.1` spends a number that does not matter on what can only run for real.
+  **What it costs:** a workflow written before it could run, and a `v0.0.1` that stays on the list of releases
+  forever.
 - **The number checked against the changelog,** so a number too small, too large or out of order is refused before it
   is spent, and the changelog must say what each step holds. The previous version is the changelog's previous section,
   so the check needs no tags and runs the same on the machine. **What it costs:** a rule of our own to keep, which
