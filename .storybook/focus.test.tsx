@@ -16,6 +16,7 @@ import {
 } from "../src/components/dialog.js";
 import { Input } from "../src/components/input.js";
 import { RadioGroup, RadioGroupItem } from "../src/components/radio-group.js";
+import { Switch } from "../src/components/switch.js";
 import {
   Tabs,
   TabsContent,
@@ -37,7 +38,6 @@ import {
   SelectValue,
 } from "../src/components/ui/select.js";
 import { Slider } from "../src/components/ui/slider.js";
-import { Switch } from "../src/components/ui/switch.js";
 import "./preview.css";
 
 const label = "Fictitious";

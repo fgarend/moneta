@@ -20,6 +20,11 @@ gets its number.
 - **Breaking:** `Badge`, `ButtonGroup`, `Tabs` and `Toggle` no longer export `badgeVariants`, `buttonGroupVariants`,
   `tabsListVariants` and `toggleVariants`, and `Dialog` and `Sheet` no longer export React Aria's types under names of
   their own. To upgrade, use the pieces, and import `DialogProps` and `DialogTriggerProps` from `react-aria-components`.
+- **Breaking:** `Checkbox`, `RadioGroupItem` and `Switch` draw on React Aria's `CheckboxField` and `CheckboxButton`,
+  `RadioField` and `RadioButton`, and `SwitchField` and `SwitchButton`, as the older ones are deprecated. They take the
+  field's props, so `className` is a string and hover handlers are gone. To upgrade, compute a class before passing it,
+  and move a hover handler to an element around the piece.
+- `Switch`'s track is 18 px tall, from 18.4.
 - The titles of `AlertDialog`, `Card`, `Dialog`, `Empty` and `Sheet` read `--font-heading`, as shadcn's now do. It is
   the body's font, so nothing is drawn differently.
 

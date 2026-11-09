@@ -10,6 +10,7 @@
   },
   "type": "module",
   "exports": {
+    "./switch": "./dist/components/switch.js",
     "./radio-group": "./dist/components/radio-group.js",
     "./checkbox": "./dist/components/checkbox.js",
     "./sheet": "./dist/components/sheet.js",
