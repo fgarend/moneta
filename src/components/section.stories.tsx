@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { expect, within } from "storybook/test";
+import { Button } from "./button.js";
 import {
   Section,
   SectionAction,
@@ -7,7 +8,6 @@ import {
   SectionHeader,
   SectionTitle,
 } from "./section.js";
-import { Button } from "./ui/button.js";
 import { Card, CardContent } from "./ui/card.js";
 
 const title = "Fictitious savings";

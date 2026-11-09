@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { expect, userEvent, within } from "storybook/test";
 import { settled } from "../../../.storybook/settled.js";
-import { Button } from "./button.js";
+import { Button } from "../button.js";
 import {
   Dialog,
   DialogClose,

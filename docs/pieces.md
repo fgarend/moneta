@@ -33,7 +33,7 @@ A piece with no gap listed may still have some.
 | `avatar` | raw | |
 | `badge` | raw | |
 | `breadcrumb` | raw | **Default text:** "breadcrumb" and "More" |
-| `button` | raw | **Edited:** default 36 px, `sm` 32 and `lg` 40, the same for `icon`, `icon-sm` and `icon-lg`, with the variant `gold` |
+| `button` | raw | **Edited:** default 36 px, `sm` 32 and `lg` 40, the same for `icon`, `icon-sm` and `icon-lg`, with the variant `gold`. `sm`'s text is 12 px, `secondary`'s hover reads `--secondary-hover`, and `buttonVariants` is not exported |
 | `button-group` | raw | |
 | `card` | raw | **Edited:** reads the scale of text, with 20 px around its content |
 | `checkbox` | raw | **Code:** draws a check when indeterminate, and does not grow for its children. **Lint:** a deprecated React Aria import |

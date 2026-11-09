@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { expect, within } from "storybook/test";
+import { Button } from "../button.js";
 import { Alert, AlertAction, AlertDescription, AlertTitle } from "./alert.js";
-import { Button } from "./button.js";
 
 const title = "Payment received";
 const description = "The transfer reached the savings account.";

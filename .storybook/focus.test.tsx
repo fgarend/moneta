@@ -5,7 +5,7 @@ import type { ReactElement } from "react";
 import { expect, it, vi } from "vitest";
 import { userEvent } from "vitest/browser";
 import { render } from "vitest-browser-react";
-import { Button, LinkButton } from "../src/components/ui/button.js";
+import { Button, LinkButton } from "../src/components/button.js";
 import { Checkbox } from "../src/components/ui/checkbox.js";
 import {
   Dialog,

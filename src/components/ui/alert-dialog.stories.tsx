@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { expect, userEvent, within } from "storybook/test";
 import { settled } from "../../../.storybook/settled.js";
+import { Button } from "../button.js";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -11,7 +12,6 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "./alert-dialog.js";
-import { Button } from "./button.js";
 
 const trigger = "Cancel the transfer";
 const title = "Cancel this transfer?";

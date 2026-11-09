@@ -16,8 +16,8 @@ import {
   Wallet,
 } from "lucide-react";
 import { expect, within } from "storybook/test";
+import { Button } from "./components/button.js";
 import { Badge } from "./components/ui/badge.js";
-import { Button } from "./components/ui/button.js";
 import {
   Card,
   CardAction,

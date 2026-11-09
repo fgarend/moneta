@@ -6,8 +6,15 @@ gets its number.
 
 ## [Unreleased]
 
+### Added
+
+- `--secondary-hover`, the fill of a secondary `Button` on hover, which an app can change with the others.
+
 ### Changed
 
+- **Breaking:** `Button` no longer exports `buttonVariants`, as an app writes no class of its own. To upgrade, use
+  `Button`, `LinkButton`, or `render` to change the element.
+- `Button`'s text at `size="sm"` is 12 px, Tailwind's `text-xs`, in place of 12.8.
 - The titles of `AlertDialog`, `Card`, `Dialog`, `Empty` and `Sheet` read `--font-heading`, as shadcn's now do. It is
   the body's font, so nothing is drawn differently.
 
