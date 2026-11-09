@@ -26,6 +26,14 @@ import {
   CardTitle,
 } from "./components/card.js";
 import { Input } from "./components/input.js";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "./components/table.js";
 import { Badge } from "./components/ui/badge.js";
 import { Progress } from "./components/ui/progress.js";
 import {
@@ -35,14 +43,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "./components/ui/select.js";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "./components/ui/table.js";
 import {
   Tabs,
   TabsContent,
