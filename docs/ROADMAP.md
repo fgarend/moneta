@@ -88,13 +88,13 @@ Done: 4.5, our `theme.css`, light and dark, with the checks in both modes, the g
 `docs/decisions/theme.md` says.
 
 - **4.12 · What a review of the repository found,** on 2026-11-09, before 4.11. Its rules that contradicted each
-  other were decided in the step that found them. Each part below is a step of its own.
+  other were decided in the step that found them. The rest is one step, in one pull request, ending in 0.2.1, which
+  also carries `cn` 0.5.2.
   - **Fixes:**
     - Slider's thumb shows no focus, read from the code and not run: React Aria marks the thumb with
       `data-focus-visible` and hides its input, and the rule in `theme.css` names only checkbox, switch and
-      radio. It fails 2.4.7, which `docs/guidelines.md` says the theme answers on every control. It ends in
-      0.2.1, which also carries `cn` 0.5.2.
-  - **Facts out of date,** in one step of documentation:
+      radio. It fails 2.4.7, which `docs/guidelines.md` says the theme answers on every control.
+  - **Facts out of date:**
     - `docs/pieces.md` says nothing checks the dark theme. Button's mark leaves out its icon sizes, and
       Pagination's "Previous" and "Next" have a prop. Slider's gap above is missing.
     - This roadmap lists 5 checks, without `storybook-build`, says 8 pieces follow the scale, where the

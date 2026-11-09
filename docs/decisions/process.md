@@ -16,6 +16,9 @@ How decisions are kept, and how the work moves.
 
 ### Steps
 
+- **A step is the smallest change worth a version or a review of its own:** a piece, a decision that crosses pieces,
+  or the small fixes of one item together. It is one pull request, in commits that each leave the repository working.
+  **What it costs:** a larger pull request, reviewed commit by commit.
 - **One family of pieces is one roadmap item, and each piece in it a step of its own.** A piece another item
   needs sooner moves to that item, and its family's item says so.
 - **Every step that changes what an app receives ends in a version:** its code, styles, delivered
@@ -93,6 +96,8 @@ rest.
 - **A tag per `shadcn add`.** A tag named after a piece does not find the files that came with it.
 - **The release's part with the rest of the pipeline.** Complete sooner, but written months
   before it could run.
+- **A step for each decision or fix.** Each was small, but a pull request and a version for each was more
+  ceremony than work.
 - **A release when something needs one.** Fewer versions, but a change can wait on `main` without
   reaching an app, as `cn` 0.5.2 did after 0.2.0.
 - **Analysing each piece alone.** Shorter, but neighbours may then do the same thing in different ways.
@@ -112,3 +117,4 @@ rest.
 - 2026-11-06: An import may hold several pieces, as the second one did.
 - 2026-11-09: Each piece made or changed starts with an analysis of its own.
 - 2026-11-09: Every step that changes what an app receives ends in a version.
+- 2026-11-09: What a step is.

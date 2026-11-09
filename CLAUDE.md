@@ -66,7 +66,9 @@ gives the right result:
 - **Decisions are recorded when adopted,** by the commit that first depends on them,
   in the way `docs/decisions/process.md` says.
 - **Small steps.** One step at a time, one pull request per step, in commits that each
-  leave the repository working. Do not work ahead.
+  leave the repository working. A step is the smallest change worth a version or a review
+  of its own: a piece, a decision that crosses pieces, or the small fixes of one item
+  together. Do not work ahead.
 - **Stay in scope.** Anything found along the way that is outside the step goes into
   the roadmap instead of being fixed on the side.
 - **Nothing discussed is lost.** Whatever is deferred in a conversation goes into

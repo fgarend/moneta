@@ -12,10 +12,10 @@ Continuous integration creates them, never a person, and GitHub then refuses to 
    package holds: `git diff vA.B.C -- src package.json docs/guidelines.md README.md LICENSE`. In `package.json`, an
    app receives `dependencies`, `peerDependencies` and `exports`, not `devDependencies`. The first release has no
    previous tag.
-3. **Check and open the pull request.** `make check` and `make check-release` pass. Commit only the changelog and the
-   version, as `chore: release vX.Y.Z`, on a branch of its own, and open its pull request under the same title. Its
-   `version` job runs `make check-release`, as `package.json` holds a version with no tag.
-4. **Merge it.** `release.yml` runs on every merge to `main`, and goes on only while the version has no tag:
+3. **Check, and commit it last.** `make check` and `make check-release` pass. Commit only the changelog and the
+   version, as `chore: release vX.Y.Z`, as the last commit of the step's pull request. Its `version` job runs
+   `make check-release`, as `package.json` holds a version with no tag.
+4. **Merge the step.** `release.yml` runs on every merge to `main`, and goes on only while the version has no tag:
    - `pending` reads the version, and stops the run once it has a tag.
    - `build` runs the audit, builds and tests the tarball with `make package`, builds the gallery and writes the notes
      from the changelog. Nothing else is checked again, as the pull request was.
