@@ -1,17 +1,17 @@
-import { cn } from "cn"
+import { cn } from "cn";
 import {
   Popover as PopoverPrimitive,
-  PreviewTrigger as PreviewTriggerPrimitive,
   type PopoverProps as PopoverPrimitiveProps,
+  PreviewTrigger as PreviewTriggerPrimitive,
   type PreviewTriggerProps,
-} from "react-aria-components"
+} from "react-aria-components";
 
 function HoverCardTrigger({ children, ...props }: PreviewTriggerProps) {
   return (
     <PreviewTriggerPrimitive data-slot="hover-card-trigger" {...props}>
       {children}
     </PreviewTriggerPrimitive>
-  )
+  );
 }
 
 function HoverCard({
@@ -21,7 +21,7 @@ function HoverCard({
   crossOffset = 0,
   ...props
 }: Omit<PopoverPrimitiveProps, "className"> & {
-  className?: string
+  className?: string;
 }) {
   return (
     <PopoverPrimitive
@@ -31,11 +31,11 @@ function HoverCard({
       crossOffset={crossOffset}
       className={cn(
         "z-50 w-64 origin-(--trigger-anchor-point) rounded-lg bg-popover p-2.5 text-sm text-popover-foreground shadow-md ring-1 ring-foreground/10 outline-hidden duration-100 data-entering:animate-in data-entering:fade-in-0 data-entering:zoom-in-95 data-exiting:animate-out data-exiting:fade-out-0 data-exiting:zoom-out-95 data-[placement=bottom]:slide-in-from-top-2 data-[placement=left]:slide-in-from-right-2 data-[placement=right]:slide-in-from-left-2 data-[placement=top]:slide-in-from-bottom-2",
-        className
+        className,
       )}
       {...props}
     />
-  )
+  );
 }
 
-export { HoverCard, HoverCardTrigger }
+export { HoverCard, HoverCardTrigger };
