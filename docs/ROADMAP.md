@@ -1,6 +1,6 @@
 # Roadmap
 
-**Now:** 4.11, next a name for the close button of Sheet and Dialog.
+**Now:** 4.15, one rule for every piece. Then 4.11, next a name for the close button of Sheet and Dialog.
 
 **The goal:** Moneta is the source of truth for components. An app consumes final pieces and builds
 its screens from them, writing no class of its own. What it lacks is added here, not there.
@@ -90,6 +90,20 @@ gallery's frame, as `docs/decisions/theme.md` says. 4.12, what a review of the r
 2026-11-09: facts out of date, `Slider`'s focus, and the sample page against the guidelines, in 0.3.0. 4.13, the
 conventions that cross pieces, with Section, the first of 4.11, in 0.4.0, as `docs/decisions/components.md` says.
 
+- **4.15 · One rule for every piece,** decided by the owner on 2026-11-09, as where a piece came from is the
+  repository's business, and every piece meets the same bar. Its own step, right after Section:
+  - One folder, `src/components/`, for every piece, shadcn's and our own, and `ui/` goes, with `components.json`
+    pointing shadcn's CLI there.
+  - Format and lint on every file. On 2026-11-09, shadcn's 41 files would all be formatted again, and lint found 91
+    findings in 14 rules, most of them mechanical, as 24 namespace imports and 20 imports with no `type`.
+  - What a raw piece still lacks, as a lint finding that is not mechanical, an arbitrary class, 31 of them in 15
+    files on 2026-11-09, or its coverage, is listed in `docs/pieces.md` until its review, as axe and forced colours
+    are, and the checks read that list.
+  - An update from shadcn is a three-way merge, by `git merge-file`, of our file with shadcn's piece as last taken
+    and as it comes now, both formatted first, so only what both changed is decided by hand. shadcn's piece as
+    last taken is kept in a folder of its own, outside `src/`, not built, tested or linted, as the registry serves
+    only its current version and shadcn's repository keeps a template its build turns into the style. To ask: the
+    folder's name, and whether a script runs the merge.
 - **4.14 · Motion, layers and icons,** which cross every piece and no item holds: durations and easing, with
   reduced motion on every piece, as Spinner spins regardless, the order of layers, as shadcn writes `z-50` on
   every overlay, and the icon's sizes.
