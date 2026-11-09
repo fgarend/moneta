@@ -47,7 +47,7 @@ Where the library lives, how it is received, and under what terms.
 ### GitHub settings
 
 They cannot be read from the code, so they are written here. Read through GitHub's API
-on 2026-11-04.
+on 2026-11-04, and the merges and the ruleset `main` again on 2026-11-09.
 
 | Setting | Value |
 | --- | --- |
