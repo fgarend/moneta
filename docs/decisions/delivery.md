@@ -52,7 +52,7 @@ on 2026-11-04, and the merges and the ruleset `main` again on 2026-11-09.
 | Setting | Value |
 | --- | --- |
 | Issues, Wiki, Projects, Discussions | Off |
-| Pull requests | Merge commit only, titled as the pull request. A branch can be updated by rebase |
+| Pull requests | Merge commit only, titled as the pull request. A branch can be updated by rebase, and is deleted on merge |
 | Ruleset `main` | The default branch cannot be deleted or rewritten, and takes changes only through a pull request whose `checks` passed, up to date with it, by anyone |
 | Ruleset `release tags` | Tags `v*` cannot be deleted, moved or rewritten, by anyone |
 | Immutable releases | On, since a release's tarball gets pinned |
