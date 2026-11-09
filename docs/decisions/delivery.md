@@ -12,6 +12,9 @@ Where the library lives, how it is received, and under what terms.
   `docs/releasing.md` says. It publishes the tarball the `package` box tested, with no second build. One that failed
   before publishing is tried again by a run of `ci.yml` started by hand on `main`, which takes the version from
   `package.json`.
+- **A release's number follows from its changelog,** as `docs/releasing.md` says: the one after the changelog's
+  previous section, on the last number for only fixes and on the middle one otherwise. A section with no change is
+  refused. The first number does not move before 1.0.
 - **Each release publishes the gallery,** on GitHub Pages, in a frame with Moneta's name and the theme's colours, light or
   dark as the system prefers, in the system's font. `.storybook/themes.ts` repeats the colours, and a test keeps them the
   theme's.
@@ -72,6 +75,10 @@ looks every week.
 - **An automatic release from the first one,** since each change becomes a version from milestone 4 on. A rehearsal
   at `v0.0.1` spends a number that does not matter on what can only run for real. **What it costs:** a workflow
   written before it could run, and a `v0.0.1` that stays on the list of releases forever.
+- **The number checked against the changelog,** so a number too small, too large or out of order is refused before it
+  is spent, and the changelog must say what each step holds. The previous version is the changelog's previous section,
+  so the check needs no tags and runs the same on the machine. **What it costs:** a rule of our own to keep, which
+  6.2 changes with 1.0, and the check trusts that section, while the tags are only checked for the new number.
 - **A release tried again by hand,** so each version has one release commit, and trying again is a step someone takes
   on purpose. **What it costs:** the tag then points to the last commit on `main`, which may be the fix and not the
   release commit, and the two workflows read the version in two ways.
@@ -123,6 +130,11 @@ looks every week.
   the same name confuse the history.
 - **Releasing whenever `package.json` holds a version with no tag.** Any push tries again on its own, but the rule is
   hidden, and a push after a failure would publish what the changelog does not list.
+- **The previous version from the last tag.** The real source, but it needs the tags fetched in continuous
+  integration and git in the container, and differs from the changelog only on a section never released.
+- **Only a step too small refused,** leaving a release of only fixes free to move the middle number. Looser, and it
+  misses the error the other way.
+- **Security apart from fixes,** on the middle number. It would oversize a release that only closes a hole.
 - **Re-running the failed jobs.** No commit and no new trigger, but the run checks out the old commit and its old
   workflows, so a fix never reaches it.
 - **Building the tarball again in the release.** The release stands apart, but runs everything twice, and what is
@@ -136,9 +148,9 @@ looks every week.
 ## Not tested yet
 
 `v0.0.1` ran the whole path on 2026-11-06: the tag, the immutable release, its tarball installed from its address and
-imported in Node, and the gallery on Pages. `v0.1.0` ran it again the same day. Still not tested: a failure halfway
-through `publish`, a pull request cancelling an earlier run, an app drawing a piece from a release's tarball, and a
-release tried again by hand, which `v0.2.0` is to be the first to take.
+imported in Node, and the gallery on Pages. `v0.1.0` ran it again the same day. `v0.2.0` was the first tried again by
+hand, on 2026-11-09, after its checks failed. Still not tested: a failure halfway through `publish`, a pull request
+cancelling an earlier run, and an app drawing a piece from a release's tarball.
 
 ## History
 
@@ -155,3 +167,4 @@ release tried again by hand, which `v0.2.0` is to be the first to take.
 - 2026-11-08: The guidelines in the package.
 - 2026-11-08: Moneta's look on the gallery's frame.
 - 2026-11-09: A release tried again by hand.
+- 2026-11-09: The number checked against the changelog.

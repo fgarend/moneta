@@ -14,7 +14,7 @@ Continuous integration creates them, never a person, and GitHub then refuses to 
    `chore: release vX.Y.Z`, and push. Nothing else is run by hand.
 4. **Continuous integration releases it.** Once every box has passed, `ci.yml` calls `release.yml`, in the same run:
    - `verify` refuses a version with no X.Y.Z form, with a tag already, different from `package.json`, or with no
-     changelog ready, and runs the audit.
+     changelog ready, and one that is not the next by the rules below. Then it runs the audit.
    - `build` builds the gallery and writes the notes from the changelog.
    - `publish` creates the tag and the release, with the tarball the `package` box tested.
    - `pages` publishes the gallery at `https://fgarend.github.io/moneta/`, replacing the previous one.
@@ -27,12 +27,16 @@ file is the one published.
 ## The number
 
 The numbers follow [Semantic Versioning 2.0.0](https://semver.org/). Before 1.0, it lets anything change at any time, so
-these are Moneta's rules for that phase, which the pipeline cannot check:
+these are Moneta's rules for that phase:
 
 - **The middle number:** anything an app may have to adapt to, marked **Breaking:** in the changelog with its upgrade
   steps, and anything new, including a new look.
-- **The last number:** only a fix.
-- **The first number:** `1.0.0`, once, when the roadmap's milestone 6 says.
+- **The last number:** only a fix, under **Fixed** or **Security**.
+- **The first number:** `1.0.0`, once, when the roadmap's milestone 6 says, which also sets the rules after it.
+
+`make check-release` holds the changelog to them: the version is the one after the previous section, one step on the
+last number when the new section lists only fixes, and on the middle one otherwise. It cannot tell whether the
+changelog lists every change, or files a change under the right heading. That is step 2's, and a person's.
 
 ## When a release run fails
 

@@ -53,6 +53,11 @@ Done: 3.4, one import, with ready-made styles, as `docs/decisions/delivery.md` s
 3.7, a rehearsal, `v0.0.1`, published on its second run, the first having stopped before spending the number.
 3.6, what is written matches what exists, with the README's install, use and how far changing the look reaches.
 3.2, release 0.1.0, published on 2026-11-06 with all 41 pieces raw.
+3.8, a release's number follows from its changelog, as `docs/releasing.md` says.
+
+- **3.9 · The release apart from the checks.** Proposed on 2026-11-09, not decided: `ci.yml` only checks, once per
+  commit, and keeps the tarball it tested on `main`. A workflow of its own publishes it, by itself after a release
+  commit's checks pass, or by hand after a fix, with no check run twice. The alternative is a release only by hand.
 
 Dropped: 3.1, `Sidebar`, `AppLayout` and providers, moved to 4.6, after a study of its own.
 
@@ -192,7 +197,8 @@ before the families above.
   and `alert-dialog` and `label` lose what they leave unused, in their reviews or here. To weigh again:
   `exactOptionalPropertyTypes`, if React Aria's types pass it, and lint on `ui/`, against how much it
   costs each update. Formatting stays off there, as it would rewrite every file shadcn sends.
-- **6.2 · Release 1.0.0.**
+- **6.2 · Release 1.0.0,** with `check-release`'s rules for the numbers after it, as a change that breaks then
+  moves the first number.
 
 ## Deferred
 
