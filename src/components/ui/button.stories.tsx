@@ -13,7 +13,7 @@ const largeHeight = 40;
 const gold = "rgb(240, 189, 42)";
 
 const meta = {
-  title: "UI/Button",
+  title: "Components/Form & Input/Button",
   component: Button,
   tags: ["raw"],
   args: { children: label },

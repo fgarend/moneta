@@ -14,7 +14,7 @@ const description = "Payments appear here once one is made.";
 const action = "Make a payment";
 
 const meta = {
-  title: "UI/Empty",
+  title: "Components/Feedback & Status/Empty",
   component: Empty,
   tags: ["raw"],
   args: {

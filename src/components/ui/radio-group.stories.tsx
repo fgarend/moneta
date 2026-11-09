@@ -7,7 +7,7 @@ const monthly = "Monthly";
 const yearly = "Yearly";
 
 const meta = {
-  title: "UI/Radio Group",
+  title: "Components/Form & Input/Radio Group",
   component: RadioGroup,
   tags: ["raw"],
   args: {

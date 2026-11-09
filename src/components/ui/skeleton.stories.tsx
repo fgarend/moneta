@@ -5,7 +5,7 @@ import { Skeleton } from "./skeleton.js";
 const name = "Balance on its way";
 
 const meta = {
-  title: "UI/Skeleton",
+  title: "Components/Feedback & Status/Skeleton",
   component: Skeleton,
   tags: ["raw"],
   args: { "aria-label": name, className: "h-4 w-32", role: "status" },

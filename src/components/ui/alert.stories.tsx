@@ -8,7 +8,7 @@ const description = "The transfer reached the savings account.";
 const action = "Review";
 
 const meta = {
-  title: "UI/Alert",
+  title: "Components/Feedback & Status/Alert",
   component: Alert,
   tags: ["raw"],
   args: {

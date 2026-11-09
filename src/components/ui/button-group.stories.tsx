@@ -13,7 +13,7 @@ const download = "Download";
 const print = "Print";
 
 const meta = {
-  title: "UI/Button Group",
+  title: "Components/Form & Input/Button Group",
   component: ButtonGroup,
   tags: ["raw"],
   args: {

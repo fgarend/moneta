@@ -16,7 +16,7 @@ const action = "Details";
 const linked = "Checking";
 
 const meta = {
-  title: "UI/Item",
+  title: "Components/Display & Media/Item",
   component: ItemGroup,
   tags: ["raw"],
   parameters: { a11y: { test: "todo" } },

@@ -6,7 +6,7 @@ const label = "Savings goal";
 const value = 40;
 
 const meta = {
-  title: "UI/Progress",
+  title: "Components/Feedback & Status/Progress",
   component: Progress,
   tags: ["raw"],
   args: {

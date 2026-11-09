@@ -14,17 +14,18 @@ import { beforeAll, expect, it } from "vitest";
 import { root, sources } from "../sources.js";
 import { manifest, packedTarball, run } from "./shared.js";
 
-const inUi = /^\/src\/components\/ui\/(?<name>[^/.]+)\.tsx$/u;
+// A piece, shadcn's in ui/ or our own beside it, which an app imports by its name alone, as where it came from is ours.
+const piece = /^\/src\/components\/(?:ui\/)?(?<name>[^/.]+)\.tsx$/u;
 const packaged =
   /^package\/(?:package\.json|README\.md|LICENSE|docs\/guidelines\.md|dist\/.+\.(?:js|d\.ts|css))$/u;
 const testOrStory = /\.(?:stories|test)\./u;
 const clean = { status: 0, output: "" };
 const fontFile = /\.woff2$/u;
 
-// Each piece of ui/, from the sources, so a piece the package fails to offer is noticed.
+// Each piece, from the sources, so a piece the package fails to offer is noticed.
 const specifiers = Object.keys(sources).flatMap((path) => {
-  const name = path.match(inUi)?.groups?.["name"];
-  return name === undefined ? [] : [`${manifest.name}/ui/${name}`];
+  const name = path.match(piece)?.groups?.["name"];
+  return name === undefined ? [] : [`${manifest.name}/${name}`];
 });
 
 let app = "";
@@ -58,7 +59,7 @@ async function buildApp(
 import "./main.css";
 import { createElement } from "react";
 import { createRoot } from "react-dom/client";
-import { Button } from "${manifest.name}/ui/button";
+import { Button } from "${manifest.name}/button";
 createRoot(document.body).render(createElement(Button, null, "Pay"));
 `,
   );

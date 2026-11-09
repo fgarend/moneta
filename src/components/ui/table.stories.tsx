@@ -20,7 +20,7 @@ const cellSpacing = "12px";
 const edgeSpacing = "20px";
 
 const meta = {
-  title: "UI/Table",
+  title: "Components/Display & Media/Table",
   component: Table,
   tags: ["raw"],
   args: {

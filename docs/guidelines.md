@@ -35,8 +35,8 @@ the version installed. It holds only what exists, and each reviewed piece adds i
 - **The scale,** in px of size and line height: 32/40 for a page's title, 24/32 for an amount of note, 18/24 for a
   section, 15/22 for a card's title, 14/20 for the body, 13/20 for a label and 12/16 for a caption.
 - **One emphasis at each level:** 600 for titles and amounts of note, 500 for an amount in a row, 400 for the rest.
-- **An app gets the scale through the pieces,** with no class of its own: `Card`'s title and description and `Table`'s
-  header already read it. A page's title and an amount have no piece yet.
+- **An app gets the scale through the pieces,** with no class of its own: `Section`'s and `Card`'s titles and
+  descriptions and `Table`'s header already read it. A page's title and an amount have no piece yet.
 
 ## Space
 
@@ -57,6 +57,17 @@ the version installed. It holds only what exists, and each reviewed piece adds i
 
 - **Put the class `dark` on the page's root, or on any part of the page,** before the first paint, or the page flashes
   light. Gold is the same in both modes.
+
+## Section
+
+- **A part of a page under one title, with no box of its own.** `Card` is for a group that needs a surface. A section
+  often holds cards.
+- **`SectionHeader` holds `SectionTitle`, and may hold a `SectionDescription` and a `SectionAction`,** such as tabs or a
+  button, which moves under the title when the header is narrow. The content follows the header, 16 px below it.
+- **A title's level comes from where it sits:** 2 at the top of a page, below the page's 1, and one more in each section
+  it sits in. `level` sets it by hand, where the page's outline needs another.
+- **It is no landmark,** so a page of sections keeps its landmarks few, and its titles give its structure.
+- **The page puts 40 px between sections,** as a section has no space around itself.
 
 ## Changing the look
 

@@ -6,7 +6,7 @@ const modifier = "Ctrl";
 const key = "K";
 
 const meta = {
-  title: "UI/Kbd",
+  title: "Components/Display & Media/Kbd",
   component: KbdGroup,
   tags: ["raw"],
   args: {

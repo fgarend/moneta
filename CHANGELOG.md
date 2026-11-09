@@ -6,6 +6,21 @@ gets its number.
 
 ## [Unreleased]
 
+## [0.4.0] - 2026-11-09
+
+`Section`, the first piece of Moneta's own, and every piece imported by its name alone.
+
+### Added
+
+- `Section`, a part of a page under one title, with no box: `SectionHeader`, `SectionTitle`, `SectionDescription` and
+  `SectionAction`, imported from `@fgarend/moneta/section`. Its title's level comes from the sections it sits in.
+- `docs/guidelines.md` says when to use `Section`, and how its title's level is set.
+
+### Changed
+
+- **Breaking:** every piece is imported by its name alone, with no `ui/`, as `@fgarend/moneta/button`. To upgrade,
+  replace `@fgarend/moneta/ui/` with `@fgarend/moneta/` in the app's imports.
+
 ## [0.3.0] - 2026-11-09
 
 Two rules of space and size in the guidelines, and keyboard focus on `Slider`'s thumb.
@@ -66,7 +81,8 @@ and dark. `README.md` says how to install and use it.
 
 A rehearsal of the release's path, not meant to be installed. Use a later version.
 
-[Unreleased]: https://github.com/fgarend/moneta/compare/v0.3.0...HEAD
+[Unreleased]: https://github.com/fgarend/moneta/compare/v0.4.0...HEAD
+[0.4.0]: https://github.com/fgarend/moneta/compare/v0.3.0...v0.4.0
 [0.3.0]: https://github.com/fgarend/moneta/compare/v0.2.0...v0.3.0
 [0.2.0]: https://github.com/fgarend/moneta/compare/v0.1.0...v0.2.0
 [0.1.0]: https://github.com/fgarend/moneta/compare/v0.0.1...v0.1.0

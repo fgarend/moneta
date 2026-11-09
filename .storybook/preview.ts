@@ -12,6 +12,25 @@ const preview: Preview = {
     }),
   ],
   parameters: {
+    // Pieces first, under shadcn's groups as its docs list its components, then the sample page, each in the
+    // alphabet's order. Storybook reads this as text, so it names no import, and test/pieces.test.ts reads it too.
+    options: {
+      storySort: {
+        method: "alphabetical",
+        order: [
+          "Components",
+          [
+            "Form & Input",
+            "Layout & Navigation",
+            "Overlays & Dialogs",
+            "Feedback & Status",
+            "Display & Media",
+            "Misc",
+          ],
+          "Sample",
+        ],
+      },
+    },
     // Any violation axe finds fails the story's test, by WCAG 2.2 AA, which the addon's default stops short of, and by
     // axe's best practices.
     a11y: {

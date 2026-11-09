@@ -8,7 +8,7 @@ const trigger = "Savings";
 const content = "Balance 1,250.00";
 
 const meta = {
-  title: "UI/Hover Card",
+  title: "Components/Overlays & Dialogs/Hover Card",
   component: HoverCardTrigger,
   tags: ["raw"],
   args: {

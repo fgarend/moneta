@@ -14,7 +14,7 @@ const view = "View";
 const remove = "Remove";
 
 const meta = {
-  title: "UI/Dropdown Menu",
+  title: "Components/Overlays & Dialogs/Dropdown Menu",
   component: DropdownMenuTrigger,
   tags: ["raw"],
   args: {

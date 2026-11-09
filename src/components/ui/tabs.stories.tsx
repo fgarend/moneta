@@ -10,7 +10,7 @@ const content = "Balance 1,250.00";
 const controlHeight = 36;
 
 const meta = {
-  title: "UI/Tabs",
+  title: "Components/Layout & Navigation/Tabs",
   component: Tabs,
   tags: ["raw"],
   args: {

@@ -7,7 +7,7 @@ const label = "Reference";
 const inputId = "label-reference";
 
 const meta = {
-  title: "UI/Label",
+  title: "Components/Form & Input/Label",
   component: Label,
   tags: ["raw"],
   args: { children: label, htmlFor: inputId },

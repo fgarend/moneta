@@ -5,7 +5,7 @@ import { Switch } from "./switch.js";
 const name = "Round up payments";
 
 const meta = {
-  title: "UI/Switch",
+  title: "Components/Form & Input/Switch",
   component: Switch,
   tags: ["raw"],
   args: { "aria-label": name },

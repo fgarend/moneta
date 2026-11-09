@@ -7,7 +7,7 @@ const label = "Hide amounts";
 const controlHeight = 36;
 
 const meta = {
-  title: "UI/Toggle",
+  title: "Components/Misc/Toggle",
   component: Toggle,
   tags: ["raw"],
   args: { children: label },

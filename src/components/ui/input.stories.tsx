@@ -7,7 +7,7 @@ const name = "Reference";
 const controlHeight = 36;
 
 const meta = {
-  title: "UI/Input",
+  title: "Components/Form & Input/Input",
   component: Input,
   tags: ["raw"],
   args: { "aria-label": name },

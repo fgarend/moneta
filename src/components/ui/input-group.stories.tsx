@@ -16,7 +16,7 @@ const clear = "Clear";
 const controlHeight = 36;
 
 const meta = {
-  title: "UI/Input Group",
+  title: "Components/Form & Input/Input Group",
   component: InputGroup,
   tags: ["raw"],
   args: {

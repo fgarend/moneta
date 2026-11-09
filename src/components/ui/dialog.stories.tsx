@@ -20,7 +20,7 @@ const done = "Done";
 const close = "Close";
 
 const meta = {
-  title: "UI/Dialog",
+  title: "Components/Overlays & Dialogs/Dialog",
   component: DialogTrigger,
   tags: ["raw"],
   args: {

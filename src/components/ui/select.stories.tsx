@@ -17,7 +17,7 @@ const checking = "Checking";
 const controlHeight = 36;
 
 const meta = {
-  title: "UI/Select",
+  title: "Components/Form & Input/Select",
   component: Select,
   tags: ["raw", "gap-forced-colors"],
   args: {

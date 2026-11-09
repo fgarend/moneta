@@ -20,7 +20,7 @@ const done = "Done";
 const close = "Close";
 
 const meta = {
-  title: "UI/Sheet",
+  title: "Components/Overlays & Dialogs/Sheet",
   component: SheetTrigger,
   tags: ["raw"],
   args: {
