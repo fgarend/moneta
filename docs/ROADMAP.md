@@ -219,8 +219,6 @@ No order between them. Each becomes an item when its time comes.
   moves. Vitest also warns of 11 `SIGTERM` listeners, with this many browser projects.
 - **`make watch`.** Repeats the tests on each saved file. Weighed when running all of
   `make stories` to check one test slows the work, with the time measured.
-- **A focus test that failed once in WebKit.** "gives focus back to the trigger with its outline when a dialog closes"
-  failed in one full `make check` on 2026-11-08, and passed in the four runs after it. Weighed if it fails again.
 - **`actionlint`.** Biome reads a workflow's YAML, but not GitHub's rules. It ran once by hand on 2026-11-06, with
   nothing found, and would be one more image to keep. Weighed if a workflow fails on something it finds.
 - **Biome's `noTailwindArbitraryValue`.** It may replace the class scan in `test/pieces.test.ts`,

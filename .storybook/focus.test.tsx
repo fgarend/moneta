@@ -73,8 +73,10 @@ function outlineOf(element: Element): {
 const solid = { style: "solid", width: withWidth, ring: false };
 
 // With no animation to wait for, as headless WebKit sometimes never ends a dialog's closing one, which says nothing of focus.
+// Nor a transition, which fades the outline's colour in over frames that a loaded WebKit spaced past a second.
 const still = document.createElement("style");
-still.textContent = "* { animation: none !important; }";
+still.textContent =
+  "* { animation: none !important; transition: none !important; }";
 document.head.append(still);
 
 const pieces: [string, ReactElement][] = [
@@ -208,8 +210,11 @@ it("gives focus back to the trigger with its outline when a dialog closes", asyn
     { timeout: closing },
   );
 
+  // React Aria gives focus back a frame after the dialog closes, and a loaded WebKit took up to 670 ms for that frame.
   const trigger = document.querySelector('[data-slot="button"]') as Element;
-  await vi.waitFor(() => expect(document.activeElement).toBe(trigger));
+  await vi.waitFor(() => expect(document.activeElement).toBe(trigger), {
+    timeout: closing,
+  });
   await vi.waitFor(() => expect(outlineOf(trigger)).toEqual(solid));
 });
 
