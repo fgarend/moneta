@@ -24,8 +24,8 @@ How decisions are kept, and how the work moves.
 - **Every step that changes what an app receives ends in a version:** its code, styles, delivered
   dependencies or guidelines. A step that changes only the repository makes none. **What it costs:** many
   small versions, which an app takes when it wants.
-- **Moneta is the source of truth for components.** An app consumes final pieces, builds its screens and
-  regions from them, and writes no class of its own in the end. What it lacks is added here. **What it
+- **Moneta is the source of truth for components.** An app consumes final pieces, builds its screens from
+  them, and writes no class of its own in the end. What it lacks is added here. **What it
   costs:** own pieces shadcn does not have, such as layout and text, and less freedom in a screen.
 - **First in use, then refined.** Moneta starts as shadcn untouched, as a package, and the look and
   the review of each piece arrive version by version.
@@ -43,12 +43,12 @@ How decisions are kept, and how the work moves.
   of earlier decisions. A group's review shows: the unchanged files as a list, the
   edited ones as a diff against their origin, what stayed behind with its reason, and
   the commands' results.
-- **Each piece made or changed starts with an analysis of its own, discussed before any code,** as a
-  component library and a design system would see it, apart from any app. It answers:
+- **Each token, piece or block made or changed, a new variant included, starts with an analysis of its own,
+  discussed before any code,** as a component library and a design system would see it, apart from any app. It
+  answers:
   - **Who it is:** what it is for, what it is not and what to use instead, and its name in shadcn, React Aria
     and other libraries.
-  - **Where it sits:** its level, from token to piece, composed piece and region, what holds it and what it
-    holds.
+  - **Where it sits:** its level, token, piece or block, what holds it and what it holds.
   - **Its relations:** the pieces used with it, those to design with it, and those it could be confused
     with. A neighbour is read up to its boundary with this piece, and keeps a step of its own.
   - **Its contract:** its parts and props, by the library's conventions, its states, such as loading,
@@ -59,7 +59,7 @@ How decisions are kept, and how the work moves.
   - **Its behaviour:** on narrow and short screens, in density, with reduced motion, in light and dark, and
     with nothing or too much in it.
   - **Its cost:** which step of the rule it takes, what it weighs on a shadcn update, any new dependency,
-    and what breaks for whoever uses it today.
+    what breaks for whoever uses it today, and how they move, in the upgrade steps the changelog will give.
   - **Its uses:** examples, discussed first, which then become its stories and tests.
 
   Every analysis keeps these points, in this order, and nothing else. Every point is answered, each as deep as
@@ -111,10 +111,9 @@ rest.
 - 2026-11-04: Written, with the repository.
 - 2026-11-04: The list of files moved to `README.md`, the index of this folder.
 - 2026-11-05: The release's part waits until just before its first use.
-- 2026-11-06: Moneta as the source of truth for components.
-- 2026-11-06: First in use, then refined. Raw pieces, and a fixed message in place of tags.
-- 2026-11-06: The release's part arrived.
-- 2026-11-06: An import may hold several pieces, as the second one did.
+- 2026-11-06: Moneta as the source of truth, first in use, then refined, with raw pieces and a fixed message.
+- 2026-11-06: The release's part arrived, and an import may hold several pieces.
 - 2026-11-09: Each piece made or changed starts with an analysis of its own.
 - 2026-11-09: Every step that changes what an app receives ends in a version.
 - 2026-11-09: What a step is.
+- 2026-11-09: The analysis covers tokens, blocks and new variants, names the levels and says how users move.

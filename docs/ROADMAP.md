@@ -1,9 +1,9 @@
 # Roadmap
 
-**Now:** 4.13, the conventions that cross pieces. Then 4.11, starting with Section.
+**Now:** 4.13, the conventions that cross pieces, decided, in one step with Section, the first of 4.11.
 
 **The goal:** Moneta is the source of truth for components. An app consumes final pieces and builds
-its screens and regions from them, writing no class of its own. What it lacks is added here, not there.
+its screens from them, writing no class of its own. What it lacks is added here, not there.
 
 **The order:** first in use, then refined. Moneta starts as shadcn untouched, delivered as a
 package, so an app can use it from the start. The look, the missing pieces and the reviews arrive
@@ -90,22 +90,31 @@ gallery's frame, as `docs/decisions/theme.md` says. 4.12, what a review of the r
 2026-11-09: facts out of date, `Slider`'s focus, and the sample page against the guidelines, in 0.3.0.
 
 - **4.13 · Conventions that cross pieces,** before Section, the first own piece, from a comparison with a generic
-  guide to building a design system on 2026-11-09. Each is asked on its own, and recorded in
-  `docs/decisions/components.md` by the first piece that depends on it:
-  - The levels, and the direction of what depends on what (recommended: token, piece, composed piece and region,
-    with accessibility, language and formatting as rules across all of them, as the guide's level of semantics
-    is not a level).
-  - Where an own piece lives and how an app imports it, as `package.json` exports only `./ui/*` and
-    `test/pieces.test.ts` takes `ui/` as shadcn's.
-  - Composition through the `render` prop, which React Aria has on every component since 1.15 and shadcn's
-    pieces already use, with no `asChild` or `as`.
-  - A heading's level, as HTML dropped its outline in 2022, React Aria's `Heading` takes the level as a prop,
-    and Card's title is a `div`: one rule for Section, Card, PageHeader and Dialog. Ariakit, Atlassian and
-    Polaris set it by context.
-  - A link through the router, as React Aria's docs now recommend its `render` prop, where 4.6 recommends
-    `RouterProvider`. Link, in 4.11, depends on it.
-  - In the analysis: "Where it sits" names a level from the first point, "Its cost" says how whoever uses a
-    piece moves when it changes, and whether a new variant or token goes through an analysis too.
+  guide to building a design system on 2026-11-09. One step with Section, decided on 2026-11-09, as Section is the
+  first piece that depends on them. Each is asked on its own, and recorded in `docs/decisions/components.md` by
+  Section:
+  - **Decided:** three levels, as shadcn names them. A token is a value of the theme and depends on nothing. A
+    piece takes its content from whoever uses it, shadcn's or our own, and uses tokens and other pieces. A block
+    brings a structure of pieces in place, such as a sidebar or a login form, and uses pieces and tokens.
+    Accessibility, language and formatting are rules across all three, not a level. A composed piece is not a
+    level of its own, as its line with a piece is vague and changes no rule.
+  - **Decided:** an own piece or block lives in `src/components/<name>.tsx`, beside `ui/`, where shadcn's CLI
+    puts what is not `ui`, and an app imports it as `@fgarend/moneta/<name>`, through an export `./*`, which
+    Node ranks below the exact keys and `./ui/*`. A piece of shadcn's stays in `ui/`, edited or not.
+  - **Decided:** a piece changes its element only through `render`, under React Aria's rule: the same type of
+    element, one element, with its props and ref passed on. Never `asChild` or `as`. A piece offers it only when
+    a need asks, passing React Aria's own on, or written as shadcn's `Badge` does.
+  - **Decided:** a title takes its level from where it sits, as a fixed default per piece is wrong once a
+    `Card` sits in a `Section`, as the sample page has. A `Section` counts one level more for what it holds, a
+    title outside any starts at 2, below the page's 1, and `level` given by hand wins. React Aria's `Heading`
+    draws it, and the context is own code, as React Aria has none. Section brings it, and every piece with a
+    title follows it at its review. React's context crosses portals, so a `Dialog` or `Sheet` starts again at 2.
+  - **Decided:** Moneta chooses no router. A piece with a link passes `href`, `routerOptions` and `render` on to
+    React Aria, so an app routes through `render` on each link, as React Aria's docs recommended on 2026-11-09, or
+    through `RouterProvider` once at its root. Table and GridList rows cannot be an `<a>`, so with a router they
+    navigate through `onAction`. The guidelines say both ways, with Link, in 4.11.
+  - **Decided, in `docs/decisions/process.md`:** the analysis covers each token, piece or block made or changed,
+    a new variant included. "Where it sits" names its level, and "Its cost" says how whoever uses it moves.
 - **4.14 · Motion, layers and icons,** which cross every piece and no item holds: durations and easing, with
   reduced motion on every piece, as Spinner spins regardless, the order of layers, as shadcn writes `z-50` on
   every overlay, and the icon's sizes.
@@ -131,9 +140,8 @@ gallery's frame, as `docs/decisions/theme.md` says. 4.12, what a review of the r
   - A check for reduced motion arrives with it, as shadcn's files have no `motion-reduce`.
   - `use-mobile` falls under the coverage of `stories`, so it needs a story, or an exclusion.
   - Its gradient and glow are to be asked (recommended: yes, by eye).
-  - To ask: links through whichever router is used (recommended: `RouterProvider`, after trying
-    `RouterConfig`, as `createLink` on a sidebar button reloaded the page on Enter). React Aria's docs
-    recommended the `render` prop on 2026-11-09, which 4.13 decides.
+  - Links through whichever router an app uses, as 4.13 decided: the sidebar passes `href`, `routerOptions`
+    and `render` on. `createLink` on a sidebar button reloaded the page on Enter, when it was tried.
   - To say: how an app gives React Aria its locale, through `I18nProvider`, as without it React Aria's own
     words follow the browser's language.
 - **4.9 · Colours of meaning,** as `--destructive` is the only one today: success, warning, information, gain
@@ -154,7 +162,7 @@ gallery's frame, as `docs/decisions/theme.md` says. 4.12, what a review of the r
   bloat beside Tailwind, and Spectrum 2 dropped its own, so the question includes whether an app keeps
   Tailwind for layout alone.
 - **4.1 · Display.** Badge, deciding its finance colours on a dark surface, with tones for success, warning,
-  danger and information, and a dot. Card. Section and Table, which come in 4.11, Table weighing a `grid` role, with a column of numbers
+  danger and information, and a dot. Card, whose title is a `div`, to take a heading's level as 4.13 says. Section and Table, which come in 4.11, Table weighing a `grid` role, with a column of numbers
   aligned right, a total row, group rows with a subtotal, "—" for a missing value, a header that stays in
   view, rows selected, with a checkbox for all in the header, indeterminate when only some are, an action
   per row, child rows that open under their parent, a compact density and a container with a border. Avatar with its group, AvatarGroup, whose fallback's text an app measured at 4.34:1. Alert. Item, whose
@@ -177,7 +185,7 @@ gallery's frame, as `docs/decisions/theme.md` says. 4.12, what a review of the r
   with a server's errors through `validationErrors`, and how an app's form library connects, as Adobe documents
   React Hook Form and Zod. A form's states, such as dirty or touched, stay with that library or the app.
 - **4.3 · Overlays.** Dialog, AlertDialog, Sheet, whose `aria-label` stops at the layer behind and does not
-  name its dialog, Popover, HoverCard, DropdownMenu, ContextMenu and Tooltip. Text
+  name its dialog, Dialog and Sheet starting their title's level again at 2, as 4.13 says, Popover, HoverCard, DropdownMenu, ContextMenu and Tooltip. Text
   spacing and forced colours reach what an overlay draws when open, in these and in Select, as today they
   see only the closed trigger. Forced colours' `:popover-open` finds nothing, as React Aria does not use the
   `popover` attribute. Toggletip, which opens on a click and on touch, as Tooltip does not open on touch,
