@@ -10,6 +10,7 @@
   },
   "type": "module",
   "exports": {
+    "./scroll-area": "./dist/components/scroll-area.js",
     "./progress": "./dist/components/progress.js",
     "./native-select": "./dist/components/native-select.js",
     "./item": "./dist/components/item.js",
