@@ -1,7 +1,7 @@
 # Roadmap
 
 **Now:** 4.12, what a review of the repository found, starting with its fixes.
-Then 4.11, starting with Section.
+Then 4.13, the conventions that cross pieces, and 4.11, starting with Section.
 
 **The goal:** Moneta is the source of truth for components. An app consumes final pieces and builds
 its screens and regions from them, writing no class of its own. What it lacks is added here, not there.
@@ -116,16 +116,36 @@ Done: 4.5, our `theme.css`, light and dark, with the checks in both modes, the g
     - `test/package.test.ts` says most package managers do not install the peers by themselves, where npm
       and pnpm do, by default, and only npm puts them where the app imports them, as
       `docs/decisions/delivery.md` says.
+- **4.13 · Conventions that cross pieces,** before Section, the first own piece, from a comparison with a generic
+  guide to building a design system on 2026-11-09. Each is asked on its own, and recorded in
+  `docs/decisions/components.md` by the first piece that depends on it:
+  - The levels, and the direction of what depends on what (recommended: token, piece, composed piece and region,
+    with accessibility, language and formatting as rules across all of them, as the guide's level of semantics
+    is not a level).
+  - Where an own piece lives and how an app imports it, as `package.json` exports only `./ui/*` and
+    `test/pieces.test.ts` takes `ui/` as shadcn's.
+  - Composition through the `render` prop, which React Aria has on every component since 1.15 and shadcn's
+    pieces already use, with no `asChild` or `as`.
+  - A heading's level, as HTML dropped its outline in 2022, React Aria's `Heading` takes the level as a prop,
+    and Card's title is a `div`: one rule for Section, Card, PageHeader and Dialog. Ariakit, Atlassian and
+    Polaris set it by context.
+  - A link through the router, as React Aria's docs now recommend its `render` prop, where 4.6 recommends
+    `RouterProvider`. Link, in 4.11, depends on it.
+  - In the analysis: "Where it sits" names a level from the first point, "Its cost" says how whoever uses a
+    piece moves when it changes, and whether a new variant or token goes through an analysis too.
+- **4.14 · Motion, layers and icons,** which cross every piece and no item holds: durations and easing, with
+  reduced motion on every piece, as Spinner spins regardless, the order of layers, as shadcn writes `z-50` on
+  every overlay, and the icon's sizes.
 - **4.11 · What an app's screens wait on,** before 4.6, decided by the owner on 2026-11-09, as an app keeps
   its own shell until 4.6, while these hold its screens back: Section, then a name for the close button of
   Sheet and Dialog, given by whoever uses them in place of the written "Close", then Link, then 5.1, then
-  Table, then DateField. Each is a step of its own, with what its family's item says of it. **What it costs:**
-  a piece made before 4.9 and 4.10 may need a touch when they arrive, and 4.6's study may change the space
-  around Section. Decided by the owner on 2026-11-09, to be recorded by the first piece that depends on it: an
-  own piece is made of parts, as shadcn's are, and a piece that is only a value takes it as a prop. Its state
-  and events take React Aria's names, such as `isDisabled`, `onPress`, and an `onChange` that gives the value.
-  To ask later: a page that puts the pieces together, a pre-release tried in an app before a version, and a
-  review of the whole after each family.
+  Table, then 5.5, then DateField. Each is a step of its own, with what its family's item says of it. **What
+  it costs:** a piece made before 4.9 and 4.10 may need a touch when they arrive, and 4.6's study may change
+  the space around Section. Decided by the owner on 2026-11-09, to be recorded by the first piece that depends
+  on it: an own piece is made of parts, as shadcn's are, and a piece that is only a value takes it as a prop.
+  Its state and events take React Aria's names, such as `isDisabled`, `onPress`, and an `onChange` that gives
+  the value. To ask later: a page that puts the pieces together, a pre-release tried in an app before a
+  version, and a review of the whole after each family.
 - **4.6 (was 3.1) · `Sidebar`, `AppLayout` and providers,** starting with a study, which is what this
   item asks first: how each is defined, and where it lives. `sidebar` stayed out of the first delivery
   for this. Until then, an app keeps what it has for its shell. What is known so far:
@@ -139,7 +159,8 @@ Done: 4.5, our `theme.css`, light and dark, with the checks in both modes, the g
   - `use-mobile` falls under the coverage of `stories`, so it needs a story, or an exclusion.
   - Its gradient and glow are to be asked (recommended: yes, by eye).
   - To ask: links through whichever router is used (recommended: `RouterProvider`, after trying
-    `RouterConfig`, as `createLink` on a sidebar button reloaded the page on Enter).
+    `RouterConfig`, as `createLink` on a sidebar button reloaded the page on Enter). React Aria's docs
+    recommended the `render` prop on 2026-11-09, which 4.13 decides.
   - To say: how an app gives React Aria its locale, through `I18nProvider`, as without it React Aria's own
     words follow the browser's language.
 - **4.9 · Colours of meaning,** as `--destructive` is the only one today: success, warning, information,
@@ -147,6 +168,8 @@ Done: 4.5, our `theme.css`, light and dark, with the checks in both modes, the g
   in shadcn's format. To ask: whether a meaning stays a value of `variant`, as shadcn's `destructive` is, or
   becomes a prop of its own, such as `tone`, beside a `variant` for the style, which would edit each piece
   with `destructive`. To ask: whether this and 4.10 come before the families, as they reach every piece.
+  To ask: a base palette under the semantic names, as Material 3, Spectrum and Carbon tier their tokens, and the
+  DTCG format reached a stable version, 2025.10.
 - **4.10 · One scale of sizes,** 4.5's 32, 36 and 40 px, on every piece, as only 8 follow it today. Badge,
   Avatar, Item, Checkbox, Switch and Table's rows do not, and Item's `default` and `sm` are the same.
   To ask: the names of the sizes for every piece, as Button has `xs`, `sm`, `default`, `lg` and `icon-*`.
@@ -176,7 +199,9 @@ Done: 4.5, our `theme.css`, light and dark, with the checks in both modes, the g
   many with removable chips, on React Aria's `TagGroup`, InputOTP, as `input-otp`, which brings a package of
   its own, CopyButton, which says it copied in a status message, Toolbar, a bar of actions on what is
   selected, a period switcher, previous and next around a label such as a month, and React Aria's
-  `ColorSwatchPicker`. Select and NativeSelect say when to use each.
+  `ColorSwatchPicker`. Select and NativeSelect say when to use each. To ask: forms, on React Aria's `Form`,
+  with a server's errors through `validationErrors`, and how an app's form library connects, as Adobe documents
+  React Hook Form and Zod. A form's states, such as dirty or touched, stay with that library or the app.
 - **4.3 · Overlays.** Dialog, AlertDialog, Sheet, whose `aria-label` stops at the layer behind and does not
   name its dialog, Popover, HoverCard, DropdownMenu, ContextMenu and Tooltip. Text
   spacing and forced colours reach what an overlay draws when open, in these and in Select, as today they
@@ -205,11 +230,11 @@ To ask again, as a complete library would have them: Sparkline, Accordion and Co
 
 The registry's other pieces that stayed out, in `docs/decisions/base.md`, are weighed the same way.
 
-## 5. Money
+## 5. Money and other values
 
 The library's reason, and the hardest test of the look: exact values, a real minus,
 stepped cents. It comes whether or not a page needs it yet, and a need can bring it
-before the families above.
+before the families above. Dates come here too, as they share how a value is held, formatted and shown.
 
 - **5.1 · `formatMoney`, Amount and Delta,** with `formatPercent` and `formatQuantity`, "—" for no value,
   and each currency's decimal places from one table of ISO 4217, as `Intl`'s differ from it in 15
@@ -223,13 +248,18 @@ before the families above.
 - **5.2 · MoneyInput,** on React Aria's `NumberField`. To ask: how its value leaves as a decimal string, as
   `NumberField` holds a `number`, and a paste of `1234.56` in pt-BR reads 123456.
 - **5.3 · CurrencySelect,** to choose a currency.
+- **5.5 · Dates,** shown and entered, on `@internationalized/date`, which React Aria's date pieces use. To ask:
+  which type holds a date, `CalendarDate` for a day with no time or `ZonedDateTime` for a moment in a place,
+  and a `formatDate` on its `DateFormatter`, beside `formatMoney`. It comes in 4.11, before DateField.
 - **5.4 · Hidden values,** a mode in which every Amount shows "••••••", by replacing its text, as a blur
   leaves the value on the page and in a copy. To ask: where the mode is set.
 
 ## 6. 1.0
 
 - **6.1 · A stable API,** with every piece reviewed, and the accessibility script's first run, by the owner, with
-  a screen reader and real zoom.
+  a screen reader and real zoom. With it, what a piece's state promises after 1.0, as Primer's Experimental,
+  Ready and Deprecated do, a policy for deprecating, and a note in the changelog on how to move for each change
+  that breaks.
 - **6.3 · The stricter checks back,** since by then every piece has been read. `noUnusedLocals` returns,
   and `alert-dialog` and `label` lose what they leave unused, in their reviews or here. To weigh again:
   `exactOptionalPropertyTypes`, if React Aria's types pass it, and lint on `ui/`, against how much it
@@ -250,11 +280,14 @@ No order between them. Each becomes an item when its time comes.
 - **A top bar that stays in view.** When something needs it.
 - **Right-to-left.** No piece in `ui/` has a rule for it, so chevrons do not flip. When an app needs it.
 - **Layers in the gallery.** Foundations, and groups beyond components. The name `gold`.
-- **Sizes and names to settle.** The icon's numeric size, and the tooltip's width and
-  the name of its text.
+- **Sizes and names to settle.** The tooltip's width and the name of its text.
 - **Drawings beyond Lucide.** When something needs its own SVG.
 - **The browsers Moneta supports.** Nothing states them. Tailwind 4 sets a floor.
 - **A module of composed components.** shadcn's blocks and `sidebar` are the start.
+- **Application patterns.** A list page, a detail page, filters and a wizard, with no word of any app's domain,
+  beside the module of composed components.
+- **Help for an app's agent.** shadcn's MCP server works with any registry, and shadcn has skills and serves its
+  docs in Markdown. Weighed with the registry.
 - **Image vulnerability scan.** The system packages inside the images.
 - **Update bot.** Left out for now, as `docs/decisions/tooling.md` says.
 - **Storybook's accepted advisories.** They go when its docgen plugin moves to `glob` 14.0.2
