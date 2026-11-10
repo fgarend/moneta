@@ -29,7 +29,8 @@ What the library starts from.
   `docs/decisions/components.md` says. An update from shadcn is a three-way merge, by `make shadcn-update`.
 - **The aliases are `#components/*`, `#hooks/*` and `#lib/*`, in `package.json#imports`,** with a custom
   condition, `moneta-source`, which must not be called `source`: sources here, `dist/` once built.
-  `add` wrote no piece without `#lib/*`, though nothing uses it yet.
+  `add` wrote no piece without `#lib/*`. `#lib/*` and `#hooks/*` hold the code that money's pieces share, which an
+  app never imports.
 - **41 of the registry's 62 pieces entered,** as they came, on 2026-11-06. Their state is in
   `docs/pieces.md`. These stayed out:
   - `sidebar`, `combobox` and `calendar`, for a study of their own, in the roadmap's Sidebar, Actions and forms, and The rest.
@@ -111,3 +112,4 @@ Since 0.5.0, lint holds every piece, and all of these were fixed or no longer ap
 - 2026-11-06: The default theme, the copy of shadcn's style sheet and the font.
 - 2026-11-06: The theme's values moved to `theme.md`.
 - 2026-11-09: Every piece under one rule, in one folder, with shadcn's updates merged three ways.
+- 2026-11-10: `#lib/*` and `#hooks/*` in use.

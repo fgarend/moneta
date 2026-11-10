@@ -8,14 +8,18 @@ known and what is still to ask, are in [`roadmap-notes.md`](roadmap-notes.md), r
 
 ## Next, in order
 
-1. **Money values.** Amounts shown exactly, in each currency's own decimals.
-   - `formatMoney`, `formatPercent` and `formatQuantity`
-   - Amount and Delta
+1. **Money values.** Amounts shown exactly, in one step, with a commit for each piece.
+   - Amount, with `Money`, `MoneyProvider` and `useFormatMoney`
+   - Percent, given as a ratio
+   - Quantity
+   - `sign` and `tone`, with the colours of gain and loss
+   - hidden values, in which every amount shows "••••••"
 2. **Table.** The table reviewed, for lists of amounts.
    - a column of numbers, totals and groups with subtotals
    - selection, an action per row, and child rows
    - tables on phones
-3. **Dates.** Showing a date, with `formatDate` beside `formatMoney`.
+   - copying rows, which a spreadsheet reads
+3. **Dates.** Showing a date, with a hook beside `useFormatMoney`.
 4. **DateField.** Entering a date.
 5. **Motion, layers and icons.** What crosses every piece and no item holds.
    - durations and easing, with reduced motion
@@ -25,7 +29,7 @@ known and what is still to ask, are in [`roadmap-notes.md`](roadmap-notes.md), r
    - Sidebar, with navigation, a skip link and the current page
    - AppLayout
    - providers, with the language React Aria speaks
-7. **Colours of meaning.** Success, warning, information, gain and loss, in light and dark.
+7. **Colours of meaning.** Success, warning and information, in light and dark, beside gain and loss.
    - their names, and `variant` or `tone`
    - the palette of categories and of the charts
 8. **One scale of sizes.** 32, 36 and 40 px on every piece, with one set of names.
@@ -56,13 +60,12 @@ known and what is still to ask, are in [`roadmap-notes.md`](roadmap-notes.md), r
 14. **Charts.** Line, area, bars and donut, a ring and BarList, each with a table of its data.
 15. **MoneyInput.** Entering an amount.
 16. **CurrencySelect.** Choosing a currency.
-17. **Hidden values.** A mode in which every amount shows "••••••".
-18. **A stable API.** What each state promises after 1.0.
+17. **A stable API.** What each state promises after 1.0.
     - every piece reviewed
     - the accessibility script run by hand, with a screen reader and real zoom
     - a policy for deprecating
-19. **Stricter checks.** `exactOptionalPropertyTypes`, if React Aria's types pass it.
-20. **Release 1.0.0.**
+18. **Stricter checks.** `exactOptionalPropertyTypes`, if React Aria's types pass it.
+19. **Release 1.0.0.**
 
 ## Later, in no order
 
@@ -89,6 +92,8 @@ Each becomes an item when its time comes.
 - **Biome's `noTailwindArbitraryValue`.** In place of our own scan of classes.
 - **The gallery's own types.** TypeScript skips most of `.storybook/`, found on 2026-11-09.
 - **The lowest version of each peer in `package`.** When there are more pieces.
+- **More for a value, when a screen asks.** A unit, a value shown while hidden, a tone kept, a spoken text.
+- **The sample page's text in the dark stories.** Light's colour, where its dark screenshot is right.
 
 ## Done
 

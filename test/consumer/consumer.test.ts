@@ -14,8 +14,9 @@ import { beforeAll, expect, it } from "vitest";
 import { root, sources } from "../sources.js";
 import { manifest, packedTarball, run } from "./shared.js";
 
-// A piece, shadcn's or our own, which an app imports by its name alone, as where it came from is ours.
-const piece = /^\/src\/components\/(?<name>[^/.]+)\.tsx$/u;
+// A piece, shadcn's or our own, or a file of types and hooks beside them, which an app imports by its name alone, as
+// where it came from is ours.
+const piece = /^\/src\/components\/(?<name>[^/.]+)\.tsx?$/u;
 const packaged =
   /^package\/(?:package\.json|README\.md|LICENSE|docs\/guidelines\.md|dist\/.+\.(?:js|d\.ts|css))$/u;
 const testOrStory = /\.(?:stories|test)\./u;

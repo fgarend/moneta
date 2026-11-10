@@ -8,6 +8,7 @@ const hexColour = /^#[0-9a-f]{6}$/u;
 const lightBlock = /^:root \{(?<body>[^}]*)\}/mu;
 const darkBlock = /^\.dark \{(?<body>[^}]*)\}/mu;
 const declaration = /--(?<name>[\w-]+):\s*(?<value>[^;]+);/gu;
+const reference = /^var\(--(?<name>[\w-]+)\)$/u;
 
 const lowChannel = 0.039_28;
 const lowDivisor = 12.92;
@@ -54,11 +55,24 @@ function declared(theme: string, block: RegExp): Record<string, string> {
   );
 }
 
+// A value that names another, as var(--destructive), read as that one's value in the same theme.
+function resolved(theme: Record<string, string>): Record<string, string> {
+  return Object.fromEntries(
+    Object.entries(theme).map(([name, value]) => [
+      name,
+      theme[value.match(reference)?.groups?.["name"] ?? ""] ?? value,
+    ]),
+  );
+}
+
 // Dark holds only what changes, and takes the rest from light.
 async function themes(): Promise<Record<string, Record<string, string>>> {
   const theme = await readFile(new URL("src/styles/theme.css", root), "utf8");
   const light = declared(theme, lightBlock);
-  return { light, dark: { ...light, ...declared(theme, darkBlock) } };
+  return {
+    light: resolved(light),
+    dark: resolved({ ...light, ...declared(theme, darkBlock) }),
+  };
 }
 
 describe("contrast", () => {
@@ -85,6 +99,12 @@ describe.each(["light", "dark"])("the %s theme", (mode) => {
     ["muted-foreground", "muted", text],
     ["destructive", "background", text],
     ["destructive", "card", text],
+    ["positive", "background", text],
+    ["positive", "card", text],
+    ["positive", "muted", text],
+    ["negative", "background", text],
+    ["negative", "card", text],
+    ["negative", "muted", text],
     ["gold-foreground", "gold", text],
     ["sidebar-foreground", "sidebar", text],
     ["sidebar-accent-foreground", "sidebar-accent", text],
@@ -104,6 +124,19 @@ describe.each(["light", "dark"])("the %s theme", (mode) => {
     expect(second).toMatch(hexColour);
     expect(contrast(first, second)).toBeGreaterThanOrEqual(minimum);
   });
+});
+
+// A value that names another is worked out where it is declared, so a part of a page made dark would keep light's.
+it("declares again under .dark each value that names another", async () => {
+  const theme = await readFile(new URL("src/styles/theme.css", root), "utf8");
+  const light = declared(theme, lightBlock);
+  const dark = declared(theme, darkBlock);
+  const naming = Object.keys(light).filter((name) =>
+    light[name]?.includes("var("),
+  );
+
+  expect(naming).not.toEqual([]);
+  expect(naming.filter((name) => !(name in dark))).toEqual([]);
 });
 
 it("tells the browser its own controls are dark too", async () => {

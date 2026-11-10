@@ -1,0 +1,200 @@
+import type { Meta, StoryObj } from "@storybook/react-vite";
+import { I18nProvider } from "react-aria-components";
+import { expect, within } from "storybook/test";
+import { Amount } from "./amount.js";
+import {
+  type Money,
+  useFormatMoney,
+  useFormatPercent,
+  useFormatQuantity,
+} from "./money.js";
+import { MoneyProvider } from "./money-provider.js";
+import { Percent } from "./percent.js";
+import { Quantity } from "./quantity.js";
+
+const nbsp = " ";
+const minus = "−";
+const noValue = "No value yet";
+const otherWords = "Not computed yet";
+const hiddenLabel = "Hidden value";
+const dots = "••••••";
+const label = "Fictitious balance";
+const value: Money = { amount: "-286.4", currency: "BRL" };
+const shareLabel = "Fictitious share";
+const share = "-0.0324";
+const sharesLabel = "Fictitious shares";
+const shares = "1234.5";
+
+const meta = {
+  title: "Components/Misc/Money Provider",
+  component: MoneyProvider,
+  args: { emptyLabel: noValue, children: <Amount value={null} /> },
+  decorators: [
+    (Story) => (
+      <I18nProvider locale="pt-BR">
+        <Story />
+      </I18nProvider>
+    ),
+  ],
+} satisfies Meta<typeof MoneyProvider>;
+
+type Story = StoryObj<typeof meta>;
+
+// Its words reach every amount with no value inside it.
+const Default: Story = {
+  play: async ({ canvasElement }) => {
+    await expect(within(canvasElement).getByText(noValue)).toHaveClass(
+      "sr-only",
+    );
+  },
+};
+
+// Where no piece can go, such as a chart's axis or a title, the hooks give the same text as the pieces.
+const WithTheHook: Story = {
+  render: function Render(args) {
+    const formatMoney = useFormatMoney();
+    const formatPercent = useFormatPercent();
+    const formatQuantity = useFormatQuantity();
+    return (
+      <MoneyProvider {...args}>
+        <dl>
+          <dt>{label}</dt>
+          <dd>{formatMoney(value)}</dd>
+          <dd>
+            <Amount value={value} />
+          </dd>
+          <dt>{shareLabel}</dt>
+          <dd>{formatPercent(share)}</dd>
+          <dd>
+            <Percent value={share} />
+          </dd>
+          <dt>{sharesLabel}</dt>
+          <dd>{formatQuantity(shares)}</dd>
+          <dd>
+            <Quantity value={shares} />
+          </dd>
+        </dl>
+      </MoneyProvider>
+    );
+  },
+  play: async ({ canvasElement }) => {
+    const [money, amount, ratio, percent, count, quantity] = [
+      ...canvasElement.querySelectorAll("dd"),
+    ].map((part) => part.textContent);
+
+    await expect(money).toBe(`${minus}R$${nbsp}286,40`);
+    await expect(money).toBe(amount);
+    await expect(ratio).toBe(`${minus}3,24%`);
+    await expect(ratio).toBe(percent);
+    await expect(count).toBe("1.234,5");
+    await expect(count).toBe(quantity);
+  },
+};
+
+// In the language React Aria speaks, which the hook follows as Amount does.
+const WithTheHookInEnglish: Story = {
+  render: WithTheHook.render,
+  decorators: [
+    (Story) => (
+      <I18nProvider locale="en-US">
+        <Story />
+      </I18nProvider>
+    ),
+  ],
+  play: async ({ canvasElement }) => {
+    const [money, , ratio, , count] = [
+      ...canvasElement.querySelectorAll("dd"),
+    ].map((part) => part.textContent);
+
+    await expect(money).toBe(`${minus}R$286.40`);
+    await expect(ratio).toBe(`${minus}3.24%`);
+    await expect(count).toBe("1,234.5");
+  },
+};
+
+// The hooks take the plus of a change, as the pieces do.
+const WithTheHookSigned: Story = {
+  render: function Render(args) {
+    const formatMoney = useFormatMoney();
+    const formatPercent = useFormatPercent();
+    const formatQuantity = useFormatQuantity();
+    return (
+      <MoneyProvider {...args}>
+        <dl>
+          <dt>{label}</dt>
+          <dd>
+            {formatMoney(
+              { amount: "286.4", currency: "BRL" },
+              { sign: "always" },
+            )}
+          </dd>
+          <dt>{shareLabel}</dt>
+          <dd>{formatPercent("0.0324", { sign: "always" })}</dd>
+          <dt>{sharesLabel}</dt>
+          <dd>{formatQuantity(shares, { sign: "always" })}</dd>
+        </dl>
+      </MoneyProvider>
+    );
+  },
+  play: async ({ canvasElement }) => {
+    const texts = [...canvasElement.querySelectorAll("dd")].map(
+      (part) => part.textContent,
+    );
+
+    await expect(texts).toEqual([`+R$${nbsp}286,40`, "+3,24%", "+1.234,5"]);
+  },
+};
+
+// Hidden: the hooks give the dots too, so a chart's axis hides with the table beside it. They read the provider
+// above them, as any hook reads a context.
+const Hidden: Story = {
+  render: WithTheHook.render,
+  decorators: [
+    (Story) => (
+      <MoneyProvider hiddenLabel={hiddenLabel} isHidden={true}>
+        <Story />
+      </MoneyProvider>
+    ),
+  ],
+  play: async ({ canvasElement }) => {
+    const texts = [...canvasElement.querySelectorAll("dd")].map(
+      (part) => part.textContent,
+    );
+
+    await expect(texts).toEqual([
+      dots,
+      `${dots}${hiddenLabel}`,
+      dots,
+      `${dots}${hiddenLabel}`,
+      dots,
+      `${dots}${hiddenLabel}`,
+    ]);
+  },
+};
+
+// A provider inside another keeps what it is not given, so one that only changes the words for no value never shows
+// what the app hid.
+const Nested: Story = {
+  args: { isHidden: true, hiddenLabel },
+  render: (args) => (
+    <MoneyProvider {...args}>
+      <MoneyProvider emptyLabel={otherWords}>
+        <Amount value={value} />
+      </MoneyProvider>
+    </MoneyProvider>
+  ),
+  play: async ({ canvasElement }) => {
+    await expect(within(canvasElement).getByText(dots)).toBeVisible();
+    await expect(canvasElement.innerHTML).not.toContain("286");
+  },
+};
+
+export default meta;
+export {
+  Default,
+  Hidden,
+  Nested,
+  WithTheHook,
+  WithTheHookInEnglish,
+  WithTheHookSigned,
+};

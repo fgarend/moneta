@@ -15,7 +15,9 @@ import {
   Target,
   Wallet,
 } from "lucide-react";
+import { I18nProvider } from "react-aria-components";
 import { expect, within } from "storybook/test";
+import { Amount } from "./components/amount.js";
 import { Badge } from "./components/badge.js";
 import { Button } from "./components/button.js";
 import {
@@ -27,6 +29,9 @@ import {
   CardTitle,
 } from "./components/card.js";
 import { Input } from "./components/input.js";
+import type { Money } from "./components/money.js";
+import { MoneyProvider } from "./components/money-provider.js";
+import { Percent } from "./components/percent.js";
 import { Progress } from "./components/progress.js";
 import {
   Select,
@@ -67,27 +72,16 @@ const wealth = [
   { name: "Accounts", icon: Landmark },
   { name: "Portfolio", icon: Wallet },
 ];
+function dollars(amount: string): Money {
+  return { amount, currency: "USD" };
+}
+
+// Each change is good news here, spending that fell too, though its sign is a minus.
 const totals = [
-  {
-    name: "Balance",
-    amount: "$12,480.50",
-    change: "+3.9% this month",
-  },
-  {
-    name: "Income",
-    amount: "$8,450.00",
-    change: "+5.8% this month",
-  },
-  {
-    name: "Spending",
-    amount: "$4,184.35",
-    change: "−2.1% this month",
-  },
-  {
-    name: "Invested",
-    amount: "$96,300.00",
-    change: "+1.6% this month",
-  },
+  { name: "Balance", amount: dollars("12480.5"), change: "0.039" },
+  { name: "Income", amount: dollars("8450"), change: "0.058" },
+  { name: "Spending", amount: dollars("4184.35"), change: "-0.021" },
+  { name: "Invested", amount: dollars("96300"), change: "0.016" },
 ];
 const payments = [
   {
@@ -95,49 +89,49 @@ const payments = [
     group: "Income",
     day: "Today",
     state: "Paid",
-    amount: "+ $7,250.00",
+    amount: dollars("7250"),
   },
   {
     name: "Central Market",
     group: "Food",
     day: "Today",
     state: "Paid",
-    amount: "− $286.40",
+    amount: dollars("-286.4"),
   },
   {
     name: "Corner Bakery",
     group: "Food",
     day: "Yesterday",
     state: "Paid",
-    amount: "− $48.90",
+    amount: dollars("-48.9"),
   },
   {
     name: "Rent",
     group: "Home",
     day: "Yesterday",
     state: "Scheduled",
-    amount: "− $1,850.00",
+    amount: dollars("-1850"),
   },
   {
     name: "Example Gym",
     group: "Health",
     day: "Tuesday",
     state: "Paid",
-    amount: "− $129.90",
+    amount: dollars("-129.9"),
   },
   {
     name: "Between accounts",
     group: "Transfer",
     day: "Tuesday",
     state: "Paid",
-    amount: "− $1,000.00",
+    amount: dollars("-1000"),
   },
   {
     name: "Example Bond 2035",
     group: "Investment",
     day: "Monday",
     state: "Pending",
-    amount: "− $1,500.00",
+    amount: dollars("-1500"),
   },
 ];
 const budgets = [
@@ -145,6 +139,14 @@ const budgets = [
   { name: "Home", used: 77 },
   { name: "Leisure", used: 42 },
 ];
+
+// What a payment means is the page's to say, not its sign's.
+function toneOf(group: string): "positive" | "negative" | undefined {
+  if (group === "Income") {
+    return "positive";
+  }
+  return group === "Transfer" ? undefined : "negative";
+}
 
 function NavigationLinks({ items }: { items: NavigationItem[] }) {
   return (
@@ -229,8 +231,13 @@ function Totals() {
           {totals.map(({ name, amount, change }) => (
             <div className="p-5" key={name}>
               <p className="type-label text-muted-foreground">{name}</p>
-              <p className="mt-1 type-amount-lg">{amount}</p>
-              <p className="mt-2 text-xs text-muted-foreground">{change}</p>
+              <p className="mt-1">
+                <Amount size="lg" value={amount} />
+              </p>
+              <p className="mt-2 text-xs text-muted-foreground">
+                <Percent sign="always" tone="positive" value={change} /> this
+                month
+              </p>
             </div>
           ))}
         </div>
@@ -276,8 +283,9 @@ function Payments() {
                     <Badge variant="outline">{state}</Badge>
                   )}
                 </TableCell>
-                <TableCell className="text-right type-amount">
-                  {amount}
+                <TableCell className="text-right">
+                  {/* Money in is good news and money out bad, as the page says, and a transfer between accounts neither. */}
+                  <Amount sign="always" tone={toneOf(group)} value={amount} />
                 </TableCell>
               </TableRow>
             ))}
@@ -334,21 +342,35 @@ function SidePanels() {
 
 function SamplePage() {
   return (
-    <div
-      className="flex min-h-screen bg-background font-sans text-foreground"
-      data-testid="sample-font"
-    >
-      <Navigation />
-      <main className="mx-auto flex w-full min-w-0 max-w-7xl flex-1 flex-col gap-10 px-12 py-10">
-        <PageHeader />
-        <Totals />
-        <div className="grid gap-4 lg:grid-cols-3 lg:items-start">
-          <Payments />
-          <SidePanels />
+    <I18nProvider locale="en-US">
+      <MoneyProvider emptyLabel="No value yet" hiddenLabel="Hidden value">
+        <div
+          className="flex min-h-screen bg-background font-sans text-foreground"
+          data-testid="sample-font"
+        >
+          <Navigation />
+          <main className="mx-auto flex w-full min-w-0 max-w-7xl flex-1 flex-col gap-10 px-12 py-10">
+            <PageHeader />
+            <Totals />
+            <div className="grid gap-4 lg:grid-cols-3 lg:items-start">
+              <Payments />
+              <SidePanels />
+            </div>
+          </main>
         </div>
-      </main>
-    </div>
+      </MoneyProvider>
+    </I18nProvider>
   );
+}
+
+// A colour of the theme where the page sits, in light and in dark, which no colour the theme lacks matches.
+function colourOf(value: string, near: Element): string {
+  const probe = document.createElement("span");
+  probe.style.color = value;
+  near.append(probe);
+  const { color } = getComputedStyle(probe);
+  probe.remove();
+  return color;
 }
 
 const meta = {
@@ -379,8 +401,24 @@ const Default: Story = {
     );
 
     await expect(recent.getAllByRole("row")).toHaveLength(payments.length + 1);
-    // Money is shown exactly, with the true minus sign.
-    await expect(recent.getByText("− $286.40")).toBeVisible();
+    // Money is shown exactly, with the true minus sign, by the pieces of money.
+    await expect(recent.getByText("−$286.40").tagName).toBe("DATA");
+    // Good news in green: money in, and spending that fell, though its sign is a minus. Money out in red, but a
+    // transfer between accounts, which is neither.
+    const colourIn = (text: string, scope = canvas): string =>
+      getComputedStyle(scope.getByText(text)).color;
+    await expect(colourIn("+$7,250.00", recent)).toBe(
+      colourOf("var(--positive)", canvasElement),
+    );
+    await expect(colourIn("−2.1%")).toBe(
+      colourOf("var(--positive)", canvasElement),
+    );
+    await expect(colourIn("−$286.40", recent)).toBe(
+      colourOf("var(--negative)", canvasElement),
+    );
+    await expect(colourIn("−$1,000.00", recent)).toBe(
+      colourIn("Between accounts", recent),
+    );
     await expect(
       canvas.getByRole("button", { name: "New payment" }),
     ).toBeVisible();
@@ -399,7 +437,7 @@ const Default: Story = {
       getComputedStyle(canvas.getByText("$12,480.50")).fontSize,
     ).toBe(amountSize);
     await expect(
-      getComputedStyle(recent.getByText("− $286.40")).fontVariantNumeric,
+      getComputedStyle(recent.getByText("−$286.40")).fontVariantNumeric,
     ).toBe(tabular);
     // An app changes the font by one variable, which is what this checks.
     canvasElement.style.setProperty("--font", "serif");

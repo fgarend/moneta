@@ -6,6 +6,27 @@ gets its number.
 
 ## [Unreleased]
 
+## [0.8.0] - 2026-11-10
+
+Money values: `Amount`, `Percent` and `Quantity`, shown exactly, with a sign, a tone and a hidden mode, and the hooks
+that give their text where no piece can go.
+
+### Added
+
+- `Amount`, an amount of money shown exactly, in its currency's decimals and the language React Aria speaks, with the
+  minus sign, in a row or of note with `size="lg"`.
+- `Money`, the type of an amount, an exact decimal string and its currency's code, and `useFormatMoney`, for an
+  amount's text where no piece can go, from `@fgarend/moneta/money`.
+- `MoneyProvider`, for the app's words for an amount with no value.
+- `Percent`, a ratio given as a fraction of one, shown as a percent with exactly the decimals given, and
+  `useFormatPercent`, for its text where no piece can go.
+- `Quantity`, as shares or units, with exactly the decimals given, and `useFormatQuantity`.
+- `sign` and `tone` on `Amount`, `Percent` and `Quantity`: `sign="always"` shows the plus of a change, and
+  `tone="positive"` or `"negative"` colours good news or bad, which the app says. The hooks take `{ sign }`.
+- `--positive` and `--negative`, the colours of a value's tone, which an app can change with the others.
+- Hidden values: `isHidden` and `hiddenLabel` on `MoneyProvider` show every amount, percent and quantity as `••••••`,
+  with nothing of the value in the page, and the hooks give the dots too.
+
 ## [0.7.0] - 2026-11-10
 
 `Link`, for a link in text or in a cell.
@@ -140,7 +161,8 @@ and dark. `README.md` says how to install and use it.
 
 A rehearsal of the release's path, not meant to be installed. Use a later version.
 
-[Unreleased]: https://github.com/fgarend/moneta/compare/v0.7.0...HEAD
+[Unreleased]: https://github.com/fgarend/moneta/compare/v0.8.0...HEAD
+[0.8.0]: https://github.com/fgarend/moneta/compare/v0.7.0...v0.8.0
 [0.7.0]: https://github.com/fgarend/moneta/compare/v0.6.0...v0.7.0
 [0.6.0]: https://github.com/fgarend/moneta/compare/v0.5.0...v0.6.0
 [0.5.0]: https://github.com/fgarend/moneta/compare/v0.4.0...v0.5.0

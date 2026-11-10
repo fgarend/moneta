@@ -16,9 +16,10 @@ allowBuilds:
 # Advisories reviewed and accepted, by their GitHub code, each with its reason.
 audit:
   ignore:
-    # glob and minimatch, through Storybook's docgen plugin, whose latest version still depends on glob 13. Both slow
-    # down a search of files whose pattern an attacker writes. The plugin only searches the components' own files, and
-    # nothing of it reaches the package. They go when the plugin moves to glob 14.0.2 or later.
+    # glob 13 and its minimatch 10, through @joshwooding/vite-plugin-react-docgen-typescript 0.7, which Storybook asks
+    # for. Storybook loads that plugin only when reactDocgen is "react-docgen-typescript", and ours is its default,
+    # "react-docgen", so their code never runs, and nothing of it reaches the package. They go when Storybook takes the
+    # plugin 0.9.1 or later, which has no glob.
     - GHSA-3g3m-2fjr-6pw4
     - GHSA-g3hv-75wg-m249
 # pnpm's store, a volume in make install and a cache in the image's build.
