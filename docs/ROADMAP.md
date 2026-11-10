@@ -93,6 +93,7 @@ Each becomes an item when its time comes.
 - **The gallery's own types.** TypeScript skips most of `.storybook/`, found on 2026-11-09.
 - **The lowest version of each peer in `package`.** When there are more pieces.
 - **More for a value, when a screen asks.** A unit, a value shown while hidden, a tone kept, a spoken text.
+- **The sample page's text in the dark stories.** Light's colour, where its dark screenshot is right.
 
 ## Done
 

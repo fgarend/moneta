@@ -275,6 +275,11 @@ With `check-release`'s rules for the numbers after it, as a change that breaks t
   its unit may wrap apart; a value that stays shown while the rest are hidden, as "45% of the budget" says little;
   the tone's colour kept while hidden, which says which way a value went, so only as the app's explicit choice; and a
   hook's `{ spoken: true }`, giving `hiddenLabel` in place of the dots for a text only screen readers hear.
+- **The sample page's text in the dark stories.** On 2026-11-10, in the `storybook-dark` project, a cell of the sample
+  page's table read `rgb(35, 38, 43)`, light's `--foreground`, while `var(--foreground)` on a probe appended to the
+  story's canvas read `rgb(244, 244, 242)`, dark's, and the `visual-dark` screenshot draws the page dark. Its check
+  compares a value with the text of its own row instead. Whether the dark stories put `.dark` where the page reads it,
+  and whether a check elsewhere passes only for that, is to find out.
 - **The gallery's own types.** TypeScript skips a folder whose name starts with a dot when `include` names the folder
   alone, so of `.storybook/` it checks only what another file imports. With `.storybook/**/*`, it read 12 files on
   2026-11-09 and found 15 errors in four tests of the gallery, all from the typing of `.storybook/stories.ts`.
