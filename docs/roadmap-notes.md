@@ -7,8 +7,8 @@ again at that moment. When an item is done, its notes go, as what holds then is 
 ## How the list works
 
 - The order is the numbering. A new item goes where it is needed, and the numbers after it move.
-- A family of pieces is one item, and each piece in it a step of its own. A piece another item needs sooner moves
-  there, and its family says so.
+- A family of pieces is one item, and each piece in it a step of its own, unless they share one design, as Money
+  values. A piece another item needs sooner moves there, and its family says so.
 - A done item moves to `Done` with its version. A dropped one is written below, with its reason, so it is not
   raised again.
 
@@ -23,18 +23,28 @@ version, and a review of the whole after each family.
 
 ## Money values
 
-`formatMoney`, Amount and Delta, with `formatPercent` and `formatQuantity`, "—" for no value, and each currency's
-decimal places from one table of ISO 4217, as `Intl`'s differ from it in 15 currencies. `Intl` keeps every digit
-of a decimal string, in the 3 engines tried on 2026-11-08. Their stories check the exact text in the 3 browsers,
-since coverage counts `formatMoney` in Node, where formatting may differ. It comes before Stat, Table and
-AllocationBar, which show amounts.
+What holds is in `docs/decisions/money.md`, decided on 2026-11-10 for the whole item: one `Money` type, shown
+exactly, the browser's decimals, the minus sign, the app's words and meaning, and one path from an amount to its
+text. One step, as its pieces share that design, with a commit for each, in this order. It comes before Stat, Table
+and AllocationBar, which show amounts.
 
-- To ask: money as a decimal string (recommended: yes).
-- To ask: whether Amount colours gain and loss by default or by choice of who uses it (recommended: by choice).
-- To ask: which minus, U+2212, as an earlier library wrote it, or the hyphen `Intl` writes in pt-BR.
+- **Amount,** with `Money`, `MoneyProvider` and `useFormatMoney`. Done in this step's first commit.
+- **Percent,** given as a ratio, `"0.459"` for 45.9%, as `Intl` and spreadsheets have it, with `useFormatPercent`.
+  A rate that a backend sends in points, as `"15"`, is the app's to turn into `"0.15"`, exactly.
+- **Quantity,** as shares and units, with as many decimals as given.
+- **`sign` and `tone` on all three,** for a change, as `+3.2%`, with no piece of its own: `sign="always"` shows the
+  plus, and zero takes no sign. The tone is the app's, never read from the sign, as a debt that falls is good news,
+  and its colours are the theme's, which pulls gain and loss from Colours of meaning. Colour is never alone, as the
+  sign says it.
+- **Hidden values,** in which every amount shows "••••••", by replacing its text, as a blur leaves the value on the
+  page and in a copy, and no `data` with the value. `MoneyProvider` holds `isHidden` and `hiddenLabel`, and the app
+  its toggle. `useFormatMoney` follows it.
+  - To ask: whether a percent hides too, as a share says little and a return more.
+  - To ask: what `useFormatMoney` gives a text only screen readers hear, as an `aria-label`, where the dots read as
+    "bullet".
 
-The library's reason, and the hardest test of the look: exact values, a real minus, stepped cents. It comes
-whether or not a page needs it yet, and a need can bring it before the families.
+Dropped on the way: a table of ISO 4217 of our own, `formatMoney` as a public function, Delta, and cents raised or
+smaller, which VoiceOver on iOS stops at.
 
 ## Table
 
@@ -43,6 +53,9 @@ missing value, a header that stays in view, rows selected, with a checkbox for a
 only some are, an action per row, child rows that open under their parent, a compact density and a container with
 a border. Tables on phones are decided with it. A scroll fade at the edges was shadcn's, and left with 0.5.0, so it
 comes back here if wanted, with what it asks of the browsers. Its caption is a `figcaption` with no `figure`.
+Copying rows is an action of its own, which builds their text and HTML, with amounts a spreadsheet reads: a hyphen for
+their minus, or the number alone, as the browser's copy of a row keeps the minus sign, which Excel and LibreOffice
+take as text.
 
 ## Dates
 
@@ -50,7 +63,7 @@ They come with money, as they share how a value is held, formatted and shown. Sh
 `@internationalized/date`, which React Aria's date pieces use. It comes before DateField.
 
 - To ask: which type holds a date, `CalendarDate` for a day with no time or `ZonedDateTime` for a moment in a place.
-- To ask: a `formatDate` on its `DateFormatter`, beside `formatMoney`.
+- To ask: a hook on its `DateFormatter`, beside `useFormatMoney`, with the same provider or its own.
 
 ## DateField
 
@@ -81,8 +94,8 @@ stayed out of the first delivery for this. Until then, an app keeps what it has 
 
 ## Colours of meaning
 
-`--destructive` is the only one today: success, warning, information, gain and loss, and a palette for categories
-and for the charts, in light and dark.
+`--destructive` is the only one today: success, warning and information, and a palette for categories and for the
+charts, in light and dark. Gain and loss come first, with Money values, and these are chosen beside them.
 
 - To ask: which names, in shadcn's format.
 - To ask: whether a meaning stays a value of `variant`, as shadcn's `destructive` is, or becomes a prop of its own,
@@ -151,7 +164,7 @@ with each family. No reviewed piece has a default text, so shadcn's written stri
   Sidebar's.
 - NumberField, DatePicker, DateRangePicker with presets such as the last 30 days, TimeField, a choice of many with
   removable chips, on React Aria's `TagGroup`, InputOTP, as `input-otp`, which brings a package of its own,
-  CopyButton, which says it copied in a status message, Toolbar, a bar of actions on what is selected, a period
+  CopyButton, which says it copied in a status message, and copies an amount through the way Money values takes, Toolbar, a bar of actions on what is selected, a period
   switcher, previous and next around a label such as a month, and React Aria's `ColorSwatchPicker`.
 - Button's `link` variant, a button drawn as a link, and `LinkButton`'s, nearly a `Link` but 36 px tall and
   padded, now that `Link` exists: whether each stays, changes or goes. `LinkButton`'s `disabled:` classes do not match
@@ -210,13 +223,6 @@ On React Aria's `NumberField`.
 ## CurrencySelect
 
 To choose a currency.
-
-## Hidden values
-
-A mode in which every Amount shows "••••••", by replacing its text, as a blur leaves the value on the page and in a
-copy.
-
-- To ask: where the mode is set.
 
 ## A stable API
 

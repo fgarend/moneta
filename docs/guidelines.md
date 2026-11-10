@@ -36,7 +36,7 @@ the version installed. It holds only what exists, and each reviewed piece adds i
   section, 15/22 for a card's title, 14/20 for the body, 13/20 for a label and 12/16 for a caption.
 - **One emphasis at each level:** 600 for titles and amounts of note, 500 for an amount in a row, 400 for the rest.
 - **An app gets the scale through the pieces,** with no class of its own: `Section`'s and `Card`'s titles and
-  descriptions and `Table`'s header already read it. A page's title and an amount have no piece yet.
+  descriptions, `Table`'s header and `Amount` already read it. A page's title has no piece yet.
 
 ## Space
 
@@ -81,6 +81,21 @@ the version installed. It holds only what exists, and each reviewed piece adds i
 - **It goes through the app's router,** with `render` on each link or `RouterProvider` once at the root.
 - **`isDisabled` dims it and takes it out of the tab order.** A text that says why is often better than a link that
   leads nowhere.
+
+## Money
+
+- **An amount is `Money`, `{ amount, currency }`:** a decimal string, as `"-1234.50"`, never a number, and its
+  currency's code, as `"BRL"`. `Amount` shows every digit given, padded to the currency's decimals, and never rounds.
+- **`Amount` for an amount on a screen,** `size="lg"` for one of note. `useFormatMoney` gives the same text where no
+  piece can go, as a chart's axis, a page's title or an option of a `select`, so the two never differ.
+- **`MoneyProvider`, once at the root,** with `emptyLabel`, what screen readers hear for no value, in the app's words.
+  `value={null}` shows a dash, and its own `emptyLabel` wins over the provider's. Without either, it throws.
+- **The language is React Aria's,** from `I18nProvider`.
+- **A negative amount takes the minus sign, `−`,** which screen readers read. A copy of one amount takes a hyphen, so a
+  spreadsheet reads it as negative, but a copy of a row keeps the minus, which a spreadsheet takes as text.
+- **An amount never wraps and is never cut.** What holds it makes room, as a table that scrolls.
+- **A wrong amount or currency throws,** as `"1,5"` or `"real"`, so a mistake is never shown as money. An error
+  boundary keeps it to its part of the screen.
 
 ## Changing the look
 

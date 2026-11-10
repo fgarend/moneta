@@ -19,8 +19,9 @@ How decisions are kept, and how the work moves.
 - **A step is the smallest change worth a version or a review of its own:** a piece, a decision that crosses pieces,
   or the small fixes of one item together. It is one pull request, in commits that each leave the repository working.
   **What it costs:** a larger pull request, reviewed commit by commit.
-- **One family of pieces is one roadmap item, and each piece in it a step of its own.** A piece another item
-  needs sooner moves to that item, and its family's item says so.
+- **One family of pieces is one roadmap item, and each piece in it a step of its own,** unless they share one
+  design, as the pieces of money share one way from a value to its text, and then the item is one step, a commit for
+  each piece. A piece another item needs sooner moves to that item, and its family's item says so.
 - **Every step that changes what an app receives ends in a version:** its code, styles, delivered
   dependencies or guidelines. A step that changes only the repository makes none. **What it costs:** many
   small versions, which an app takes when it wants.
@@ -101,19 +102,19 @@ rest.
   reaching an app, as `cn` 0.5.2 did after 0.2.0.
 - **Analysing each piece alone.** Shorter, but neighbours may then do the same thing in different ways.
 - **Designing a whole family at once.** More coherent, but it works ahead of what is needed.
+- **A step for each piece of one design.** Smaller pull requests, but a version would hold part of an API, and its
+  next piece could change what an app already uses.
 - **Skipping the points a small piece does not need.** Shorter, but what was left out is not seen.
 - **A file per piece with its whole analysis.** Its reasoning stays together, but it repeats the code and
   the stories, and grows stale as the piece changes.
 
 ## History
 
-- 2026-11-04: Written, with the repository.
-- 2026-11-04: The list of files moved to `README.md`, the index of this folder.
-- 2026-11-05: The release's part waits until just before its first use.
-- 2026-11-06: Moneta as the source of truth, first in use, then refined, with raw pieces and a fixed message.
-- 2026-11-06: The release's part arrived, and an import may hold several pieces.
+- 2026-11-04 to 2026-11-06: Written, the index of files, the release's part, Moneta as the source of truth and raw
+  pieces, in the file's older versions in git.
 - 2026-11-09: Each piece made or changed starts with an analysis of its own.
 - 2026-11-09: Every step that changes what an app receives ends in a version.
 - 2026-11-09: What a step is.
 - 2026-11-09: The analysis covers tokens, blocks and new variants, names the levels and says how users move.
 - 2026-11-09: A shadcn piece enters under the rule, with what the CLI wrote kept in `upstream/shadcn/`.
+- 2026-11-10: Pieces that share one design are one step.

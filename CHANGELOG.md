@@ -6,6 +6,14 @@ gets its number.
 
 ## [Unreleased]
 
+### Added
+
+- `Amount`, an amount of money shown exactly, in its currency's decimals and the language React Aria speaks, with the
+  minus sign, in a row or of note with `size="lg"`.
+- `Money`, the type of an amount, an exact decimal string and its currency's code, and `useFormatMoney`, for an
+  amount's text where no piece can go, from `@fgarend/moneta/money`.
+- `MoneyProvider`, for the app's words for an amount with no value.
+
 ## [0.7.0] - 2026-11-10
 
 `Link`, for a link in text or in a cell.

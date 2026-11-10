@@ -31,6 +31,7 @@ A piece with no gap listed may still have some.
 | --- | --- | --- |
 | `alert` | raw | |
 | `alert-dialog` | raw | |
+| `amount` | reviewed | |
 | `aspect-ratio` | raw | |
 | `avatar` | raw | |
 | `badge` | raw | **Edited:** `badgeVariants` is not exported |
@@ -52,6 +53,7 @@ A piece with no gap listed may still have some.
 | `kbd` | raw | |
 | `label` | raw | |
 | `link` | reviewed | |
+| `money-provider` | reviewed | |
 | `native-select` | raw | **Edited:** 36 px, and `sm` 32 |
 | `pagination` | raw | **Edited:** its ellipsis follows the 36 px of a button. **Default text:** "pagination", "Previous", "Next", "Go to previous page", "Go to next page" and "More pages" |
 | `popover` | raw | **Code:** its title does not name it |

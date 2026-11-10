@@ -18,6 +18,11 @@ pieces is in [`../pieces.md`](../pieces.md), and how a piece is analysed is in [
   own words. A piece is shadcn's when `upstream/shadcn/` holds its base, which `make shadcn-update` merges from.
 - **An own piece is made of parts,** as shadcn's are, and a piece that is only a value takes it as a prop. Its state
   and events take React Aria's names, such as `isDisabled`, `onPress`, and an `onChange` that gives the value.
+- **The most semantic HTML and CSS.** Each piece draws the element HTML has for its meaning, such as `data` for a
+  value, `time` for a date and `table` for a table, and ARIA only where HTML has none. Its CSS reads tokens named by
+  meaning, styles a state through the attribute that states it, such as `aria-disabled` or `data-hovered`, and uses
+  logical properties, such as `ms` and `pe`. An own piece follows this from its birth, and a shadcn piece at its
+  review.
 - **A piece changes its element only through `render`,** under React Aria's rule: the same type of element, one
   element, with its props and ref passed on. Never `asChild` or `as`. A piece offers it only when a need asks.
 - **A title takes its level from where it sits.** A `Section` counts one level more for what it holds, a title
@@ -58,6 +63,10 @@ pieces is in [`../pieces.md`](../pieces.md), and how a piece is analysed is in [
 - **By name alone, from one folder,** as an app uses one library, whoever wrote each piece, and the rule is the same
   for every piece, so nothing in the repository needs to know where one came from but its updates. **What it costs:**
   an app that imported `ui/<name>` changes its imports once, and shadcn's updates come by a merge.
+- **The most semantic HTML and CSS,** as what a page means is read by machines too, such as screen readers,
+  translators and tests, and a state named by its attribute cannot drift from it. Logical properties hold when a
+  language reads from the right. **What it costs:** shadcn's pieces use `ml-`, `mr-` and classes of state, so each
+  review edits more of them, which `make shadcn-update` then merges.
 - **`render`,** as React Aria has it on every component and shadcn's pieces use it, and its rule keeps the element's
   meaning, so a button cannot become a `div` unnoticed.
 - **A level from where it sits,** as a fixed default per piece is wrong once a `Card` sits in a `Section`, as the
@@ -111,3 +120,4 @@ pieces is in [`../pieces.md`](../pieces.md), and how a piece is analysed is in [
 - 2026-11-09: Written, with the conventions that cross pieces, and Section.
 - 2026-11-09: Every piece in one folder, under one rule, imported by its name alone.
 - 2026-11-10: Link.
+- 2026-11-10: The most semantic HTML and CSS.
