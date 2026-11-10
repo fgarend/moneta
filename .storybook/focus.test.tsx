@@ -20,6 +20,7 @@ import {
   DropdownMenuTrigger,
 } from "../src/components/dropdown-menu.js";
 import { Input } from "../src/components/input.js";
+import { Link } from "../src/components/link.js";
 import { RadioGroup, RadioGroupItem } from "../src/components/radio-group.js";
 import {
   Select,
@@ -103,6 +104,18 @@ const pieces: [string, ReactElement][] = [
     <LinkButton href="#a" key="a">
       {label}
     </LinkButton>,
+  ],
+  [
+    "Link",
+    <Link href="#a" key="a">
+      {label}
+    </Link>,
+  ],
+  [
+    "Link quiet",
+    <Link href="#a" isQuiet={true} key="a">
+      {label}
+    </Link>,
   ],
   ["Input", <Input aria-label={label} key="a" />],
   ["Textarea", <Textarea aria-label={label} key="a" />],

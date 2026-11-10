@@ -69,6 +69,19 @@ the version installed. It holds only what exists, and each reviewed piece adds i
 - **It is no landmark,** so a page of sections keeps its landmarks few, and its titles give its structure.
 - **The page puts 40 px between sections,** as a section has no space around itself.
 
+## Link
+
+- **A link goes somewhere, and a button does something.** `Link` is for a link in text or in a cell, `LinkButton` for
+  a link drawn as a button, and `Button` for an action.
+- **Underlined, as its colour is close to the text's.** `isQuiet` hides the underline until hover or keyboard focus, for
+  a link alone where its place says it is one, as a name in a table's cell, and never in a sentence.
+- **It takes the size and weight of its text,** in the theme's primary.
+- **Its words say where it goes, read alone:** "the fee schedule", not "here". When it opens a new tab, it says so in
+  the app's words, as an icon with hidden text, which Link does not add.
+- **It goes through the app's router,** with `render` on each link or `RouterProvider` once at the root.
+- **`isDisabled` dims it and takes it out of the tab order.** A text that says why is often better than a link that
+  leads nowhere.
+
 ## Changing the look
 
 - **Redefine the variables after Moneta's import, outside any `@layer`, and again under `.dark`.** Before the import, or

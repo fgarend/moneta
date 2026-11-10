@@ -41,6 +41,16 @@ pieces is in [`../pieces.md`](../pieces.md), and how a piece is analysed is in [
 - **Its action moves under the title when the header is narrower than 384 px,** by a container query on the header,
   so it holds wherever the section sits.
 
+### Link
+
+- **A link in text or in a cell, on React Aria's `Link`,** with Tailwind's classes, as shadcn has none. It takes
+  `isQuiet` and React Aria's props, with no variant and no size.
+- **Underlined, 4 px below its text, in the theme's primary,** in the text's size and weight, with nothing more on
+  hover.
+- **`isQuiet` shows the underline only on hover and keyboard focus,** for a link alone where its place says it is one.
+- **Disabled, it is dimmed to 50%,** as `Button` is, and React Aria draws it as a `span` out of the tab order.
+- **Its type asks for what it holds,** and it adds no icon and no words for a new tab, which are the app's.
+
 ## Why
 
 - **Three levels and not four,** as a composed piece's line with a piece is vague, Atomic Design's best known
@@ -61,6 +71,17 @@ pieces is in [`../pieces.md`](../pieces.md), and how a piece is analysed is in [
   roadmap's families.
 - **No landmark,** as a page of sections would fill the list of landmarks, which the W3C asks to keep for what
   matters, and a screen reader's user moves by headings.
+- **A link underlined,** as the theme's primary is close to the text in light and the same in dark, so in a sentence
+  colour alone cannot tell it, which WCAG 1.4.1 asks and its failure F73 names. **Quiet as an option,** as a column of
+  underlined names weighs on a screen and a link alone has no text around it to stand apart from, as React Spectrum
+  has it. Underlined unless asked, as a forgotten `isQuiet` only weighs, while a forgotten `inline`, Primer's and
+  Carbon's way, fails WCAG. **What it costs:** an app can make a link in a sentence quiet, which only the guidelines
+  catch.
+- **The theme's primary,** as libraries colour a link with their accent, so a theme that changes it changes its links.
+  **What it costs:** in coloured text, as a muted description or an alert, the link stands apart from it.
+- **The text's weight,** as the underline already marks a link, and a fixed one would thin a link in a bolder title.
+- **Disabled at 50%,** as `Button` and `LinkButton` have that state, React Aria gives it the right meaning, and a link
+  with no style for it looked active.
 
 ## Alternatives considered
 
@@ -76,8 +97,17 @@ pieces is in [`../pieces.md`](../pieces.md), and how a piece is analysed is in [
 - **Section as a `region`,** as a prototype has, or with a prop to make it one.
 - **A count beside a section's title and a note at its foot,** as a prototype has. The count waits for Badge,
   in the roadmap's Display, and the note for a use.
+- **Button's `link` variant for a link,** which is 36 px tall, padded and does not wrap, so it cannot sit in a
+  sentence.
+- **A link always underlined,** or with a softer line until hover, which still draws a line under each name of a
+  column.
+- **A link in the colour of its text,** which suits any text but leaves a theme no way to colour its links.
+- **A link in `font-medium`,** as a prototype and an app had.
+- **A link with no `isDisabled`,** which leaves the app a choice between a link and its text, but no way to say a link
+  is there and not available.
 
 ## History
 
 - 2026-11-09: Written, with the conventions that cross pieces, and Section.
 - 2026-11-09: Every piece in one folder, under one rule, imported by its name alone.
+- 2026-11-10: Link.

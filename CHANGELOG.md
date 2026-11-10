@@ -6,6 +6,11 @@ gets its number.
 
 ## [Unreleased]
 
+### Added
+
+- `Link`, a link in text or in a cell, underlined, or quiet with `isQuiet` for one that stands alone, through the app's
+  router.
+
 ## [0.6.0] - 2026-11-10
 
 The close button of `Dialog` and `Sheet` takes its name from the app, and `README.md` says what a raw piece is.
