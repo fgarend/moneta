@@ -40,7 +40,7 @@ which is run by hand.
 | 1.3.3 Sensory Characteristics | app | |
 | 1.3.4 Orientation | script | Nothing here locks it |
 | 1.3.5 Identify Input Purpose | none yet | With the form controls (Actions and forms) |
-| 1.4.1 Use of Color | none yet | With the sidebar's current page (Sidebar) |
+| 1.4.1 Use of Color | story, coming | Link's underline, and the sidebar's current page (Sidebar) |
 | 1.4.2 Audio Control | app | |
 | 1.4.3 Contrast (Minimum) | axe, test | axe on flat colours, and `test/theme.test.ts` on the theme's pairs, both modes |
 | 1.4.4 Resize Text | script | |
@@ -58,10 +58,10 @@ which is run by hand.
 | 2.4.1 Bypass Blocks | coming | The sidebar's skip link (Sidebar) |
 | 2.4.2 Page Titled | app | |
 | 2.4.3 Focus Order | none yet | |
-| 2.4.4 Link Purpose (In Context) | axe, app | axe finds a link with no name; its words are the app's |
+| 2.4.4 Link Purpose (In Context) | axe, test, app | axe finds a link with no name, and `test/link.test.ts` that `Link` asks for what it holds; its words are the app's |
 | 2.4.5 Multiple Ways | app | |
 | 2.4.6 Headings and Labels | app | |
-| 2.4.7 Focus Visible | test | `.storybook/focus.test.tsx`, on 12 pieces, in 3 browsers and in forced colours |
+| 2.4.7 Focus Visible | test | `.storybook/focus.test.tsx`, on 13 pieces, in 3 browsers and in forced colours |
 | 2.4.11 Focus Not Obscured (Minimum) | none yet | |
 | 2.5.1 Pointer Gestures | none yet | |
 | 2.5.2 Pointer Cancellation | none yet | |

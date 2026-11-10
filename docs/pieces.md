@@ -51,6 +51,7 @@ A piece with no gap listed may still have some.
 | `item` | raw | **Edited:** its group has no list role |
 | `kbd` | raw | |
 | `label` | raw | |
+| `link` | reviewed | |
 | `native-select` | raw | **Edited:** 36 px, and `sm` 32 |
 | `pagination` | raw | **Edited:** its ellipsis follows the 36 px of a button. **Default text:** "pagination", "Previous", "Next", "Go to previous page", "Go to next page" and "More pages" |
 | `popover` | raw | **Code:** its title does not name it |

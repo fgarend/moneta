@@ -15,18 +15,11 @@ again at that moment. When an item is done, its notes go, as what holds then is 
 ## Before Sidebar: what an app's screens wait on
 
 The owner decided on 2026-11-09 that these come first, as an app keeps its own shell until Sidebar while these hold
-its screens back: the close button's name, done in 0.6.0, Link, Money values, Table, Dates and DateField. Each is a
-step of its own, with what its family's item says of it. **What it costs:** a piece made before Colours of meaning and
-One scale of sizes may need a touch when they arrive, and Sidebar's study may change the space around Section. To ask
-later: a page that puts the pieces together, a pre-release tried in an app before a version, and a review of the
-whole after each family.
-
-## Link
-
-A link in text or in a cell, known without colour alone, through the router's link, as Button's `link` variant is
-a button. Moneta chooses no router, as `docs/decisions/components.md` says: a piece with a link passes `href`,
-`routerOptions` and `render` on, and the guidelines say both ways an app routes, with Table and GridList rows
-navigating through `onAction`.
+its screens back: the close button's name, done in 0.6.0, Link, done in 0.7.0, Money values, Table, Dates and
+DateField. Each is a step of its own, with what its family's item says of it. **What it costs:** a piece made before
+Colours of meaning and One scale of sizes may need a touch when they arrive, and Sidebar's study may change the
+space around Section. To ask later: a page that puts the pieces together, a pre-release tried in an app before a
+version, and a review of the whole after each family.
 
 ## Money values
 
@@ -160,6 +153,9 @@ with each family. No reviewed piece has a default text, so shadcn's written stri
   removable chips, on React Aria's `TagGroup`, InputOTP, as `input-otp`, which brings a package of its own,
   CopyButton, which says it copied in a status message, Toolbar, a bar of actions on what is selected, a period
   switcher, previous and next around a label such as a month, and React Aria's `ColorSwatchPicker`.
+- Button's `link` variant, a button drawn as a link, and `LinkButton`'s, nearly a `Link` but 36 px tall and
+  padded, now that `Link` exists: whether each stays, changes or goes. `LinkButton`'s `disabled:` classes do not match
+  a disabled link, which React Aria draws as a `span`, so it is not dimmed.
 - To ask: forms, on React Aria's `Form`, with a server's errors through `validationErrors`, and how an app's form
   library connects, as Adobe documents React Hook Form and Zod. A form's states, such as dirty or touched, stay with
   that library or the app.
@@ -284,6 +280,8 @@ With `check-release`'s rules for the numbers after it, as a change that breaks t
 
 ## Done, in detail
 
+- **Link,** in 0.7.0: underlined in the theme's primary, quiet with `isQuiet` where it stands alone, dimmed when
+  disabled, and asking for what it holds, as `docs/decisions/components.md` says.
 - **The close button's name,** in 0.6.0: Dialog, Sheet and DialogFooter take it from the app by `closeLabel`, which
   TypeScript asks for while the button shows, as `test/close-label.test.ts` checks.
 - **Every piece under one rule,** in 0.5.0: every piece in `src/components/`, under the same format, lint, coverage
