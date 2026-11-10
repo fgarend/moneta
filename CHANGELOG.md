@@ -6,6 +6,11 @@ gets its number.
 
 ## [Unreleased]
 
+## [0.8.0] - 2026-11-10
+
+Money values: `Amount`, `Percent` and `Quantity`, shown exactly, with a sign, a tone and a hidden mode, and the hooks
+that give their text where no piece can go.
+
 ### Added
 
 - `Amount`, an amount of money shown exactly, in its currency's decimals and the language React Aria speaks, with the
@@ -156,7 +161,8 @@ and dark. `README.md` says how to install and use it.
 
 A rehearsal of the release's path, not meant to be installed. Use a later version.
 
-[Unreleased]: https://github.com/fgarend/moneta/compare/v0.7.0...HEAD
+[Unreleased]: https://github.com/fgarend/moneta/compare/v0.8.0...HEAD
+[0.8.0]: https://github.com/fgarend/moneta/compare/v0.7.0...v0.8.0
 [0.7.0]: https://github.com/fgarend/moneta/compare/v0.6.0...v0.7.0
 [0.6.0]: https://github.com/fgarend/moneta/compare/v0.5.0...v0.6.0
 [0.5.0]: https://github.com/fgarend/moneta/compare/v0.4.0...v0.5.0
