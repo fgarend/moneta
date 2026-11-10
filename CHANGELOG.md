@@ -6,6 +6,10 @@ gets its number.
 
 ## [Unreleased]
 
+## [0.7.0] - 2026-11-10
+
+`Link`, for a link in text or in a cell.
+
 ### Added
 
 - `Link`, a link in text or in a cell, underlined, or quiet with `isQuiet` for one that stands alone, through the app's
@@ -136,7 +140,8 @@ and dark. `README.md` says how to install and use it.
 
 A rehearsal of the release's path, not meant to be installed. Use a later version.
 
-[Unreleased]: https://github.com/fgarend/moneta/compare/v0.6.0...HEAD
+[Unreleased]: https://github.com/fgarend/moneta/compare/v0.7.0...HEAD
+[0.7.0]: https://github.com/fgarend/moneta/compare/v0.6.0...v0.7.0
 [0.6.0]: https://github.com/fgarend/moneta/compare/v0.5.0...v0.6.0
 [0.5.0]: https://github.com/fgarend/moneta/compare/v0.4.0...v0.5.0
 [0.4.0]: https://github.com/fgarend/moneta/compare/v0.3.0...v0.4.0
