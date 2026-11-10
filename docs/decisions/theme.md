@@ -16,6 +16,10 @@ The look Moneta has by default, which whoever uses it can replace. How an app re
 - **Controls are 36 px by default, 40 for a page's main actions and 32 for dense ones,** by each piece's `cva`, with `xs` left
   as shadcn has it. `docs/pieces.md` marks each edit.
 - **Gold is a variant of `Button`,** so an app names it and writes no colour.
+- **`--positive` and `--negative` colour a value's tone,** good news and bad: a green of our own, `#157347` in light
+  and `#74d19a` in dark, with as much contrast as the red, and `--negative` reads `--destructive`, so the theme keeps
+  one red. A value that names another is declared again under `.dark`, as it is worked out where it is declared.
+  `test/theme.test.ts` holds both to 4.5:1 on the page, a card and `--muted`, and holds each such value to `.dark`.
 - **The font is Geist, in `--font`,** which `--font-sans` reads, so an app can change it. `--font-heading` stays as shadcn writes
   it, costing nothing unused, so a piece that reads it later still finds it.
 - **A scale of text and of space,** so sizes are chosen once. Text, with line heights on a 4 px grid but the title's: 32/40 for a
@@ -103,3 +107,4 @@ The look Moneta has by default, which whoever uses it can replace. How an app re
 - 2026-11-07: Light made warm, and back to the prototype's the same day.
 - 2026-11-07: Dark from warm to the prototype's graphite.
 - 2026-11-08: The guidelines.
+- 2026-11-10: `--positive` and `--negative`.

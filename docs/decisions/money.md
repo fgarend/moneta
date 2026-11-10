@@ -24,6 +24,11 @@ How Moneta holds an amount of money, and how it shows one.
   `I18nProvider` gives. `Amount`, `Percent` and `Quantity` take it, and so do `useFormatMoney`, `useFormatPercent`
   and `useFormatQuantity`, for where no piece can go, as a chart's axis. What the pieces share beyond it, their text, the words for no value and the
   copy, is `src/hooks/use-value.ts`, internal too.
+- **`sign="always"` shows the plus of a change,** and `"auto"`, the default, the minus alone. Zero takes no sign either
+  way. The hooks take `{ sign }`.
+- **`tone="positive"` or `"negative"` colours good news or bad,** which the app says and Moneta never reads from the
+  sign, in the theme's `--positive` and `--negative`. With no tone, the colour of the text around. Colour is never
+  alone: the sign, the column or the words around say it too, which the guidelines ask of the app.
 - **`Amount`, `Percent` and `Quantity` draw a `data` element, with the value as given in its `value`.** No value draws a `span`,
   with a dash hidden from screen readers and the app's words for them.
 - **They never wrap and are never cut,** so whatever holds them deals with the space.
@@ -69,6 +74,20 @@ How Moneta holds an amount of money, and how it shows one.
 - **No unit,** as a table names it once in its header, a unit is the app's words, with plurals that differ by
   language, and `Intl` names only units of measure, not shares. **What it costs:** in a sentence, a quantity and its
   unit may wrap apart, and the unit stays outside the `data`.
+- **A sign and a tone on each piece, with no piece for a change,** as a change is a value with its plus, and an
+  expense has a tone with no change, so one more piece would only repeat these. **What it costs:** an app can forget
+  `sign="always"` on a change.
+- **`auto` and `always`,** Intl's names, with `never` left out, as it would hide a loss's minus. **What it costs:**
+  Intl's `always` signs zero, and ours does not, which its comment and the guidelines say.
+- **The tone from the app,** as the sign does not say the meaning: a debt that falls is good, and an expense is not a
+  loss. Tremor, SAP, Chakra and Polaris leave it to the caller too. **`positive` and `negative`,** React Spectrum's and
+  SAP's names, which fit a gain, an income and a fall alike. **What it costs:** a negative value with a positive tone
+  reads oddly in the code, though it is the case that needs one.
+- **Colours from the theme,** so a market where red means a rise swaps them in one place. **The theme's one red for a
+  loss,** so a theme keeps one. **What it costs:** whoever changes the red of a button that deletes changes the losses
+  too, unless they set `--negative` apart.
+- **Colour never alone, by the guidelines,** as a piece cannot see whether its column or its words already say it.
+  **What it costs:** a debt that falls, green with its minus, is the case an app gets wrong.
 - **One path,** so a chart's axis and a table beside it never differ in a sign or a digit. **Internal,** as
   `src/lib/` and `src/hooks/` are, so an app depends only on the pieces and the hooks.
 - **The type and the hook apart from the provider,** as a file that draws a piece exports only pieces, so that Fast
@@ -105,6 +124,16 @@ How Moneta holds an amount of money, and how it shows one.
   money and React Aria use.
 - **A `unit` prop on Quantity,** joined to the number by a space that does not break. It may come when a screen
   needs it, with nothing broken.
+- **A `Delta` piece,** as Tremor's `BadgeDelta` or Chakra's `StatArrow`, with a ▲ or ▼. It never forgets the plus, but
+  repeats the pieces, and an arrow can come by composition.
+- **A tone read from the sign.** Less for an app to write, but a good fall shown in red, with no warning.
+- **`gain` and `loss`, `good` and `bad`, or `success` and `critical`.** The first does not fit an expense, the second
+  is informal, and the third would mix with a form's states.
+- **A red of its own for a loss.** Apart from a button that deletes, but two reds to keep.
+- **A boolean, as `showPlus`, or Intl's own `exceptZero`.** Plainer, or exact, but the first leaves no room for a third
+  way, and the second reads badly.
+- **The plus forced by any tone.** Colour would never be alone, but a column of expenses, all out, would need a sign
+  on each.
 - **The words as a prop on every piece,** which TypeScript can ask for, but which each app would wrap to avoid.
 - **A dash, or `Intl`'s own text, for a wrong amount.** Softer, but silent.
 - **A `span` with the value.** Simpler, and the same to a screen reader, but a machine reads only the formatted text.
@@ -118,3 +147,4 @@ How Moneta holds an amount of money, and how it shows one.
 - 2026-11-10: Written, with `Money`, `MoneyProvider`, `useFormatMoney` and `Amount`.
 - 2026-11-10: `Percent` and `useFormatPercent`.
 - 2026-11-10: `Quantity` and `useFormatQuantity`.
+- 2026-11-10: `sign` and `tone`, with `--positive` and `--negative`.

@@ -13,3 +13,9 @@ it("asks for a value, or null for none", () => {
   }>().toExtend<AmountProps>();
   expectTypeOf<{ value: number }>().not.toExtend<AmountProps>();
 });
+
+// A tone is good news or bad, which is not the same as a state of the interface, as success or an error.
+it("takes a tone of good news or bad only", () => {
+  expectTypeOf<{ value: null; tone: "positive" }>().toExtend<AmountProps>();
+  expectTypeOf<{ value: null; tone: "success" }>().not.toExtend<AmountProps>();
+});

@@ -20,20 +20,25 @@ const everyDigit = 100;
 // A ratio's first two decimals become a percent's whole part.
 const percentShift = 2;
 
+// Which signs a value shows: the minus alone, or the plus too, for a change. Zero takes neither, even as "-0", as
+// Intl's "negative" and "exceptZero" have it.
+type Sign = "auto" | "always";
+const signDisplays = { auto: "negative", always: "exceptZero" } as const;
+
 // One formatter per set of options, as making one is slow and a table may hold hundreds of values.
 const formatters = new Map<string, Intl.NumberFormat>();
 
 function formatterOf(
   locale: string,
   options: Intl.NumberFormatOptions,
+  sign: Sign,
 ): Intl.NumberFormat {
-  const key = `${locale} ${JSON.stringify(options)}`;
+  const key = `${locale} ${sign} ${JSON.stringify(options)}`;
   let formatter = formatters.get(key);
   if (formatter === undefined) {
-    // Zero takes no sign, even when given as "-0".
     formatter = new Intl.NumberFormat(locale, {
       ...options,
-      signDisplay: "negative",
+      signDisplay: signDisplays[sign],
     });
     formatters.set(key, formatter);
   }
@@ -61,44 +66,61 @@ function textOf(formatter: Intl.NumberFormat, value: string): string {
     .join("");
 }
 
-function formatMoney(locale: string, { amount, currency }: Money): string {
+function formatMoney(
+  locale: string,
+  { amount, currency }: Money,
+  sign: Sign = "auto",
+): string {
   checkDecimal("Money", amount, "1234.50");
   if (!currencyCode.test(currency)) {
     throw new Error(`Money: "${currency}" is not a currency code, as "BRL".`);
   }
   return textOf(
-    formatterOf(locale, {
-      style: "currency",
-      currency,
-      maximumFractionDigits: everyDigit,
-    }),
+    formatterOf(
+      locale,
+      { style: "currency", currency, maximumFractionDigits: everyDigit },
+      sign,
+    ),
     amount,
   );
 }
 
 // A ratio, as "0.459" for 45.9%, with exactly the decimals given beyond its hundredths, zeros too.
-function formatPercent(locale: string, ratio: string): string {
+function formatPercent(
+  locale: string,
+  ratio: string,
+  sign: Sign = "auto",
+): string {
   checkDecimal("Percent", ratio, "0.459");
   const decimals = Math.max(0, decimalsOf(ratio) - percentShift);
   return textOf(
-    formatterOf(locale, {
-      style: "percent",
-      minimumFractionDigits: decimals,
-      maximumFractionDigits: decimals,
-    }),
+    formatterOf(
+      locale,
+      {
+        style: "percent",
+        minimumFractionDigits: decimals,
+        maximumFractionDigits: decimals,
+      },
+      sign,
+    ),
     ratio,
   );
 }
 
 // A quantity, as shares or units, with exactly the decimals given, zeros too.
-function formatQuantity(locale: string, value: string): string {
+function formatQuantity(
+  locale: string,
+  value: string,
+  sign: Sign = "auto",
+): string {
   checkDecimal("Quantity", value, "1234.5");
   const decimals = decimalsOf(value);
   return textOf(
-    formatterOf(locale, {
-      minimumFractionDigits: decimals,
-      maximumFractionDigits: decimals,
-    }),
+    formatterOf(
+      locale,
+      { minimumFractionDigits: decimals, maximumFractionDigits: decimals },
+      sign,
+    ),
     value,
   );
 }
@@ -110,4 +132,5 @@ export {
   type Money,
   MoneyContext,
   type MoneyWords,
+  type Sign,
 };

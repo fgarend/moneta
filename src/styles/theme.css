@@ -29,6 +29,8 @@
   --color-input: var(--input);
   --color-border: var(--border);
   --color-destructive: var(--destructive);
+  --color-positive: var(--positive);
+  --color-negative: var(--negative);
   --color-accent-foreground: var(--accent-foreground);
   --color-accent: var(--accent);
   --color-muted-foreground: var(--muted-foreground);
@@ -78,6 +80,10 @@
   --accent: #ecebe6;
   --accent-foreground: #23262b;
   --destructive: #c4281c;
+  /* The tone of a value, good news or bad, as the app says. Loss takes the theme's one red. Again under .dark, to take
+     its red there. */
+  --positive: #157347;
+  --negative: var(--destructive);
   --border: #e7e5df;
   --input: #8e8c84;
   --ring: #2b2e33;
@@ -121,6 +127,8 @@
   --accent: #30333a;
   --accent-foreground: #f4f4f2;
   --destructive: #ffa394;
+  --positive: #74d19a;
+  --negative: var(--destructive);
   --border: #35383d;
   --input: #868a91;
   --ring: #f4f4f2;

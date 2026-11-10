@@ -15,6 +15,8 @@ the version installed. It holds only what exists, and each reviewed piece adds i
 - **`--border` is for a divider and the lines between rows, and `--input` for a control's edge,** which reaches 3:1
   against the page and a card, so a field's edge is seen.
 - **`--destructive` is for an error and for an action that deletes.** A word says it too, never colour alone.
+- **`--positive` and `--negative` are a value's good news and bad,** through `tone` on `Amount`, `Percent` and
+  `Quantity`. `--negative` is `--destructive`'s red.
 - **Gold is for little.** `Button`'s `variant="gold"`, at most once per screen, with `--gold-foreground` on it. Never a
   page's or a card's background, and never text, as it reaches only 1.66:1 on the page.
 - **The sidebar is the one dark surface in light,** `--sidebar`, and what sits on it reads `--sidebar-foreground`,
@@ -95,6 +97,10 @@ the version installed. It holds only what exists, and each reviewed piece adds i
   around it or in the column's header. `useFormatQuantity` gives its text where no piece can go.
 - **`MoneyProvider`, once at the root,** with `emptyLabel`, what screen readers hear for no value, in the app's words.
   `value={null}` shows a dash, and its own `emptyLabel` wins over the provider's. Without either, it throws.
+- **A change shows its plus with `sign="always"`,** as `+3,9%`, and zero takes no sign. The hooks take `{ sign }` too.
+- **`tone="positive"` or `"negative"` says good news or bad,** and only the app knows which: a debt that falls is
+  negative and good. The tone only adds colour, so the sign, the column or the words around must say the same, as
+  "Debt: −R$ 500,00 this month". With no tone, a value takes the colour of the text around it.
 - **The language is React Aria's,** from `I18nProvider`.
 - **A negative value takes the minus sign, `−`,** which screen readers read. A copy of one value takes a hyphen, so a
   spreadsheet reads it as negative, but a copy of a row keeps the minus, which a spreadsheet takes as text.

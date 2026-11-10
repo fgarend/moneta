@@ -109,3 +109,29 @@ describe("formatQuantity", () => {
     },
   );
 });
+
+describe("sign", () => {
+  it.each([
+    [
+      "an amount",
+      formatMoney("pt-BR", { amount: "7250", currency: "BRL" }, "always"),
+      `+R$${nbsp}7.250,00`,
+    ],
+    ["a percent", formatPercent("pt-BR", "0.039", "always"), "+3,9%"],
+    ["a quantity", formatQuantity("pt-BR", "3", "always"), "+3"],
+  ])("puts a plus on %s when always", (_case, text, expected) => {
+    expect(text).toBe(expected);
+  });
+
+  it("keeps the minus sign when always", () => {
+    expect(formatPercent("pt-BR", "-0.021", "always")).toBe(`${minus}2,1%`);
+  });
+
+  it("gives zero no sign when always", () => {
+    expect(formatPercent("pt-BR", "0", "always")).toBe("0%");
+  });
+
+  it("puts no plus when auto", () => {
+    expect(formatQuantity("pt-BR", "3", "auto")).toBe("3");
+  });
+});

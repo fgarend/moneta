@@ -105,6 +105,27 @@ const WithItsUnit: Story = {
   },
 };
 
+// A change, with its plus and the app's tone, as an amount has them.
+const Signed: Story = {
+  args: { value: "3", sign: "always", tone: "negative" },
+  play: async ({ canvasElement }) => {
+    const quantity = quantityIn(canvasElement);
+    const probe = document.createElement("span");
+    probe.style.color = "var(--negative)";
+    canvasElement.append(probe);
+
+    // A tone is the app's, whatever the sign.
+    await expect(quantity.textContent).toBe("+3");
+    await expect(getComputedStyle(quantity).color).not.toBe(
+      getComputedStyle(canvasElement).color,
+    );
+    await expect(getComputedStyle(quantity).color).toBe(
+      getComputedStyle(probe).color,
+    );
+    probe.remove();
+  },
+};
+
 // A negative quantity takes the minus sign, as an amount does.
 const Negative: Story = {
   args: { value: "-3" },
@@ -208,5 +229,6 @@ export {
   Large,
   Negative,
   NotADecimal,
+  Signed,
   WithItsUnit,
 };

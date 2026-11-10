@@ -19,8 +19,23 @@ const rowWeight = "500";
 const noteSize = ["24px", "32px", "600"];
 const tabular = "tabular-nums";
 
+const salary = "Fictitious salary";
+const groceries = "Central Market";
+const debt = "Card debt this month";
+const transfer = "Between accounts";
+
 function amountIn(canvasElement: HTMLElement): HTMLElement {
   return canvasElement.querySelector('[data-slot="amount"]') as HTMLElement;
+}
+
+// The colour a value of the theme resolves to where the amount sits, in light and in dark.
+function colourOf(value: string, near: Element): string {
+  const probe = document.createElement("span");
+  probe.style.color = value;
+  near.append(probe);
+  const { color } = getComputedStyle(probe);
+  probe.remove();
+  return color;
 }
 
 // What a copy of the selection from one point to another gives, and whether a handler took its place. Firefox hands
@@ -115,6 +130,94 @@ const Negative: Story = {
 
     await expect(amount.textContent).toBe(`${minus}R$${nbsp}286,40`);
     await expect(amount).toHaveAttribute("value", "-286.4");
+  },
+};
+
+// A change, with its plus. Zero takes no sign.
+const Signed: Story = {
+  render: () => (
+    <ul>
+      <li>
+        <Amount sign="always" value={{ amount: "7250", currency: "BRL" }} />
+      </li>
+      <li>
+        <Amount sign="always" value={{ amount: "-286.4", currency: "BRL" }} />
+      </li>
+      <li>
+        <Amount sign="always" value={{ amount: "0", currency: "BRL" }} />
+      </li>
+    </ul>
+  ),
+  play: async ({ canvasElement }) => {
+    const texts = [
+      ...canvasElement.querySelectorAll('[data-slot="amount"]'),
+    ].map((amount) => amount.textContent);
+
+    await expect(texts).toEqual([
+      `+R$${nbsp}7.250,00`,
+      `${minus}R$${nbsp}286,40`,
+      `R$${nbsp}0,00`,
+    ]);
+  },
+};
+
+// Good news and bad, as the app says, never read from the sign: a debt that falls is good. Its sign or its row says
+// it too, as colour is never alone. With no tone, the colour of the text around it.
+const Tones: Story = {
+  tags: ["visual"],
+  render: () => (
+    <table className="text-sm">
+      <tbody>
+        <tr>
+          <td>{salary}</td>
+          <td className="ps-4 text-end">
+            <Amount
+              sign="always"
+              tone="positive"
+              value={{ amount: "7250", currency: "BRL" }}
+            />
+          </td>
+        </tr>
+        <tr>
+          <td>{groceries}</td>
+          <td className="ps-4 text-end">
+            <Amount
+              tone="negative"
+              value={{ amount: "-286.4", currency: "BRL" }}
+            />
+          </td>
+        </tr>
+        <tr>
+          <td>{debt}</td>
+          <td className="ps-4 text-end">
+            <Amount
+              tone="positive"
+              value={{ amount: "-500", currency: "BRL" }}
+            />
+          </td>
+        </tr>
+        <tr className="bg-muted">
+          <td>{transfer}</td>
+          <td className="ps-4 text-end">
+            <Amount value={{ amount: "1000", currency: "BRL" }} />
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  ),
+  play: async ({ canvasElement }) => {
+    const [gain, loss, fall, plain] = [
+      ...canvasElement.querySelectorAll('[data-slot="amount"]'),
+    ].map((amount) => getComputedStyle(amount).color);
+    const row = canvasElement.querySelector("tr:last-child") as Element;
+
+    await expect(plain).toBe(getComputedStyle(row).color);
+    // A colour the theme does not have would fall back to the text's, so each must differ from it.
+    await expect(gain).not.toBe(plain);
+    await expect(loss).not.toBe(plain);
+    await expect(gain).toBe(colourOf("var(--positive)", canvasElement));
+    await expect(loss).toBe(colourOf("var(--negative)", canvasElement));
+    await expect(fall).toBe(gain);
   },
 };
 
@@ -357,4 +460,6 @@ export {
   NotACurrency,
   NotADecimal,
   OtherCurrencies,
+  Signed,
+  Tones,
 };

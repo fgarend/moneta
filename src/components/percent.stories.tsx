@@ -89,6 +89,26 @@ const AsGiven: Story = {
   },
 };
 
+// A change, with its plus and the app's tone, as an amount has them.
+const Signed: Story = {
+  args: { value: "0.039", sign: "always", tone: "positive" },
+  play: async ({ canvasElement }) => {
+    const percent = percentIn(canvasElement);
+    const probe = document.createElement("span");
+    probe.style.color = "var(--positive)";
+    canvasElement.append(probe);
+
+    await expect(percent.textContent).toBe("+3,9%");
+    await expect(getComputedStyle(percent).color).not.toBe(
+      getComputedStyle(canvasElement).color,
+    );
+    await expect(getComputedStyle(percent).color).toBe(
+      getComputedStyle(probe).color,
+    );
+    probe.remove();
+  },
+};
+
 // A negative ratio takes the minus sign, as an amount does.
 const Negative: Story = {
   args: { value: "-0.021" },
@@ -193,4 +213,5 @@ export {
   Large,
   Negative,
   NotADecimal,
+  Signed,
 };

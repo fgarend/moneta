@@ -2,8 +2,8 @@
 // language React Aria speaks. Drawn as Amount is, and docs/decisions/money.md says why it is so.
 import type { HTMLAttributes } from "react";
 import { useLocale } from "react-aria-components";
-import { useValue, type ValueSize } from "#hooks/use-value";
-import { formatPercent } from "#lib/money";
+import { useValue, type ValueSize, type ValueTone } from "#hooks/use-value";
+import { formatPercent, type Sign } from "#lib/money";
 
 const dash = "—";
 
@@ -11,6 +11,8 @@ function Percent({
   value,
   emptyLabel,
   size = "default",
+  sign = "auto",
+  tone,
   className,
   ...props
 }: Omit<HTMLAttributes<HTMLElement>, "children"> & {
@@ -19,12 +21,17 @@ function Percent({
   // What screen readers hear for no value, over MoneyProvider's.
   emptyLabel?: string;
   size?: ValueSize;
+  // "always" shows the plus of a change. Zero takes no sign.
+  sign?: Sign;
+  // Good news or bad, as the app says, never read from the sign. Its sign or its place says it too.
+  tone?: ValueTone;
 }) {
   const { locale } = useLocale();
   const shown = useValue("Percent", {
     isEmpty: value === null,
     emptyLabel,
     size,
+    tone,
     className,
   });
 
@@ -43,7 +50,7 @@ function Percent({
       value={value}
       {...props}
     >
-      {formatPercent(locale, value)}
+      {formatPercent(locale, value, sign)}
     </data>
   );
 }

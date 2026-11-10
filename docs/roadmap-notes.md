@@ -31,10 +31,7 @@ and AllocationBar, which show amounts.
 - **Amount,** with `Money`, `MoneyProvider` and `useFormatMoney`. Done in this step's first commit.
 - **Percent,** given as a ratio, `"0.459"` for 45.9%, with `useFormatPercent`. Done in this step's second commit.
 - **Quantity,** as shares and units, with as many decimals as given, and no unit. Done in this step's third commit.
-- **`sign` and `tone` on all three,** for a change, as `+3.2%`, with no piece of its own: `sign="always"` shows the
-  plus, and zero takes no sign. The tone is the app's, never read from the sign, as a debt that falls is good news,
-  and its colours are the theme's, which pulls gain and loss from Colours of meaning. Colour is never alone, as the
-  sign says it.
+- **`sign` and `tone` on all three,** with `--positive` and `--negative`. Done in this step's fourth commit.
 - **Hidden values,** in which every amount shows "••••••", by replacing its text, as a blur leaves the value on the
   page and in a copy, and no `data` with the value. `MoneyProvider` holds `isHidden` and `hiddenLabel`, and the app
   its toggle. `useFormatMoney` follows it.
@@ -94,7 +91,8 @@ stayed out of the first delivery for this. Until then, an app keeps what it has 
 ## Colours of meaning
 
 `--destructive` is the only one today: success, warning and information, and a palette for categories and for the
-charts, in light and dark. Gain and loss come first, with Money values, and these are chosen beside them.
+charts, in light and dark. Gain and loss came first, with Money values, as `--positive` and `--negative`, which a
+value's `tone` reads, and these are chosen beside them, as `tone` already names good news or bad.
 
 - To ask: which names, in shadcn's format.
 - To ask: whether a meaning stays a value of `variant`, as shadcn's `destructive` is, or becomes a prop of its own,

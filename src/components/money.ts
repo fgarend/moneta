@@ -7,24 +7,43 @@ import {
   formatPercent,
   formatQuantity,
   type Money,
+  type Sign,
 } from "#lib/money";
 
+// As the pieces' prop: "always" shows the plus of a change.
+type FormatOptions = { sign?: Sign };
+
 // The same text as Amount, in the language React Aria speaks.
-function useFormatMoney(): (money: Money) => string {
+function useFormatMoney(): (money: Money, options?: FormatOptions) => string {
   const { locale } = useLocale();
-  return useCallback((money) => formatMoney(locale, money), [locale]);
+  return useCallback(
+    (money, options) => formatMoney(locale, money, options?.sign),
+    [locale],
+  );
 }
 
 // The same text as Percent, from a ratio given as a fraction of one.
-function useFormatPercent(): (ratio: string) => string {
+function useFormatPercent(): (
+  ratio: string,
+  options?: FormatOptions,
+) => string {
   const { locale } = useLocale();
-  return useCallback((ratio) => formatPercent(locale, ratio), [locale]);
+  return useCallback(
+    (ratio, options) => formatPercent(locale, ratio, options?.sign),
+    [locale],
+  );
 }
 
 // The same text as Quantity.
-function useFormatQuantity(): (value: string) => string {
+function useFormatQuantity(): (
+  value: string,
+  options?: FormatOptions,
+) => string {
   const { locale } = useLocale();
-  return useCallback((value) => formatQuantity(locale, value), [locale]);
+  return useCallback(
+    (value, options) => formatQuantity(locale, value, options?.sign),
+    [locale],
+  );
 }
 
 export type { Money };

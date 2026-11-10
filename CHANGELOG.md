@@ -16,6 +16,9 @@ gets its number.
 - `Percent`, a ratio given as a fraction of one, shown as a percent with exactly the decimals given, and
   `useFormatPercent`, for its text where no piece can go.
 - `Quantity`, as shares or units, with exactly the decimals given, and `useFormatQuantity`.
+- `sign` and `tone` on `Amount`, `Percent` and `Quantity`: `sign="always"` shows the plus of a change, and
+  `tone="positive"` or `"negative"` colours good news or bad, which the app says. The hooks take `{ sign }`.
+- `--positive` and `--negative`, the colours of a value's tone, which an app can change with the others.
 
 ## [0.7.0] - 2026-11-10
 

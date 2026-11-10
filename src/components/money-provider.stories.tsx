@@ -109,5 +109,38 @@ const WithTheHookInEnglish: Story = {
   },
 };
 
+// The hooks take the plus of a change, as the pieces do.
+const WithTheHookSigned: Story = {
+  render: function Render(args) {
+    const formatMoney = useFormatMoney();
+    const formatPercent = useFormatPercent();
+    const formatQuantity = useFormatQuantity();
+    return (
+      <MoneyProvider {...args}>
+        <dl>
+          <dt>{label}</dt>
+          <dd>
+            {formatMoney(
+              { amount: "286.4", currency: "BRL" },
+              { sign: "always" },
+            )}
+          </dd>
+          <dt>{shareLabel}</dt>
+          <dd>{formatPercent("0.0324", { sign: "always" })}</dd>
+          <dt>{sharesLabel}</dt>
+          <dd>{formatQuantity(shares, { sign: "always" })}</dd>
+        </dl>
+      </MoneyProvider>
+    );
+  },
+  play: async ({ canvasElement }) => {
+    const texts = [...canvasElement.querySelectorAll("dd")].map(
+      (part) => part.textContent,
+    );
+
+    await expect(texts).toEqual([`+R$${nbsp}286,40`, "+3,24%", "+1.234,5"]);
+  },
+};
+
 export default meta;
-export { Default, WithTheHook, WithTheHookInEnglish };
+export { Default, WithTheHook, WithTheHookInEnglish, WithTheHookSigned };
