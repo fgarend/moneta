@@ -259,8 +259,8 @@ With `check-release`'s rules for the numbers after it, as a change that breaks t
   in Markdown. Weighed with the registry.
 - **Image vulnerability scan.** The system packages inside the images.
 - **Update bot.** Left out for now, as `docs/decisions/tooling.md` says.
-- **Storybook's accepted advisories.** They go when its docgen plugin moves to `glob` 14.0.2 or later, as
-  `pnpm-workspace.yaml` says.
+- **Storybook's accepted advisories.** Through a docgen plugin Storybook installs and our settings never load. They
+  go when Storybook takes the plugin 0.9.1 or later, which has no `glob`, as `pnpm-workspace.yaml` says.
 - **Storybook's deprecated loader.** Every test run warns `DEP0205`, and it goes when Storybook moves. Vitest also
   warns of 11 `SIGTERM` listeners, with this many browser projects.
 - **`make watch`.** Repeats the tests on each saved file. Weighed when running all of `make stories` to check one
