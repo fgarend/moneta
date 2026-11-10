@@ -6,6 +6,10 @@ gets its number.
 
 ## [Unreleased]
 
+## [0.6.0] - 2026-11-10
+
+The close button of `Dialog` and `Sheet` takes its name from the app, and `README.md` says what a raw piece is.
+
 ### Changed
 
 - **Breaking:** `Dialog`, `Sheet` and `DialogFooter` take the name of the close button they show from `closeLabel`, in
@@ -127,7 +131,8 @@ and dark. `README.md` says how to install and use it.
 
 A rehearsal of the release's path, not meant to be installed. Use a later version.
 
-[Unreleased]: https://github.com/fgarend/moneta/compare/v0.5.0...HEAD
+[Unreleased]: https://github.com/fgarend/moneta/compare/v0.6.0...HEAD
+[0.6.0]: https://github.com/fgarend/moneta/compare/v0.5.0...v0.6.0
 [0.5.0]: https://github.com/fgarend/moneta/compare/v0.4.0...v0.5.0
 [0.4.0]: https://github.com/fgarend/moneta/compare/v0.3.0...v0.4.0
 [0.3.0]: https://github.com/fgarend/moneta/compare/v0.2.0...v0.3.0
