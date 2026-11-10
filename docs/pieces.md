@@ -3,10 +3,12 @@
 The state of each piece, shadcn's and our own, as `test/pieces.test.ts` keeps it complete. A piece is shadcn's when
 `upstream/shadcn/` holds it as last taken.
 
-- **raw:** as shadcn delivers it. It works, nobody has reviewed it, and it may fail WCAG 2.2 AA.
-- **reviewed:** it has what the roadmap's milestone 4 asks of a reviewed piece. 1.0 needs every piece here.
+- **raw:** it meets the rule every piece meets, as `docs/decisions/components.md` says, but nobody has reviewed it, and
+  it may fail WCAG 2.2 AA.
+- **reviewed:** it has its stories, its visual test and contrast in both modes, its accessibility report, its section
+  in the guidelines and its line in the changelog, and no default text. 1.0 needs every piece here.
 
-Every piece has a story, run in light and in dark, mostly in its default variant, and many of its parts are not drawn.
+Every piece has stories, run in light and in dark, which draw every part and branch of its code, as coverage asks.
 A story passes axe, text spacing and forced colours unless its row says otherwise. Each of these was measured on
 2026-11-06, in the browsers that check runs in, and lets that story off that check until the piece is reviewed:
 
@@ -39,7 +41,7 @@ A piece with no gap listed may still have some.
 | `checkbox` | raw | **Code:** draws a check when indeterminate, and does not grow for its children. **Edited:** on React Aria's `CheckboxField` and `CheckboxButton` |
 | `collapsible` | raw | **Code:** its trigger has no style of its own |
 | `context-menu` | raw | |
-| `dialog` | raw | **Edited:** 16 px from each edge by `inset-x-4`, and React Aria's types are not exported. **Default text:** "Close" |
+| `dialog` | raw | **Edited:** 16 px from each edge by `inset-x-4`, and React Aria's types are not exported, and its close button's name comes from `closeLabel` |
 | `dropdown-menu` | raw | |
 | `empty` | raw | |
 | `field` | raw | **Code:** does not link its description or error, which its story does by hand. **Edited:** React Aria's `Group` |
@@ -58,7 +60,7 @@ A piece with no gap listed may still have some.
 | `scroll-area` | raw | **axe:** takes no focus when nothing in it can, so the keyboard cannot scroll it |
 | `select` | raw | **Edited:** default 36 px, and `sm` 32, and its separator is hidden from screen readers. **forced colours:** the chevron keeps its own colour, in Chromium |
 | `separator` | raw | |
-| `sheet` | raw | **Edited:** React Aria's types are not exported. **Default text:** "Close". **Code:** its `aria-label` stops at the layer behind and does not name its dialog |
+| `sheet` | raw | **Edited:** React Aria's types are not exported, and its close button's name comes from `closeLabel`. **Code:** its `aria-label` stops at the layer behind and does not name its dialog |
 | `skeleton` | raw | |
 | `slider` | raw | **Code:** drops its children |
 | `spinner` | raw | **Default text:** "Loading". **Code:** spins with no regard for reduced motion |

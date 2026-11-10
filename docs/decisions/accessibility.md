@@ -16,7 +16,7 @@ What Moneta aims for, and how far its checks reach. How each criterion is checke
   and what does not.
 - **Every story also goes through text spacing and forced colours,** so a piece gets those
   checks from having a story, except for what an overlay draws when open, which they do not
-  see until the roadmap's 4.3. Forced colours run in Chromium and Firefox, since WebKit's
+  see until the roadmap's Overlays. Forced colours run in Chromium and Firefox, since WebKit's
   emulation answers the media query but forces no colours.
 - **Text spacing measures where each text sits,** with the spacing and without it, against the
   boxes around it that do not scroll. Only text counts, as that is what the criterion asks, so an

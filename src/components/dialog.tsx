@@ -58,18 +58,23 @@ function DialogOverlay({
   );
 }
 
+// The close button shows by default, and then needs its name, in the app's own words.
+type CloseButton =
+  | { showCloseButton?: true; closeLabel: string }
+  | { showCloseButton: false; closeLabel?: never };
+
 function Dialog({
   className,
   children,
   showCloseButton = true,
+  closeLabel,
   isDismissable = true,
   ...props
 }: Omit<ModalOverlayPrimitiveProps, "className" | "children"> &
   Pick<ComponentProps<typeof ModalPrimitive>, "isDismissable"> & {
     className?: string;
     children: ReactNode;
-    showCloseButton?: boolean;
-  }) {
+  } & CloseButton) {
   return (
     <DialogOverlay isDismissable={isDismissable} {...props}>
       <ModalPrimitive
@@ -91,7 +96,7 @@ function Dialog({
               size="icon-sm"
             >
               <XIcon />
-              <span className="sr-only">Close</span>
+              <span className="sr-only">{closeLabel}</span>
             </DialogClose>
           ) : null}
         </DialogPrimitive>
@@ -110,14 +115,18 @@ function DialogHeader({ className, ...props }: ComponentProps<"div">) {
   );
 }
 
+// The footer's close button is off by default, and needs its name when it shows.
+type FooterCloseButton =
+  | { showCloseButton?: false; closeLabel?: never }
+  | { showCloseButton: true; closeLabel: string };
+
 function DialogFooter({
   className,
   showCloseButton = false,
+  closeLabel,
   children,
   ...props
-}: ComponentProps<"div"> & {
-  showCloseButton?: boolean;
-}) {
+}: ComponentProps<"div"> & FooterCloseButton) {
   return (
     <div
       data-slot="dialog-footer"
@@ -129,7 +138,7 @@ function DialogFooter({
     >
       {children}
       {showCloseButton ? (
-        <DialogClose variant="outline">Close</DialogClose>
+        <DialogClose variant="outline">{closeLabel}</DialogClose>
       ) : null}
     </div>
   );

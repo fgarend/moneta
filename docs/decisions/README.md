@@ -1,7 +1,7 @@
 # Decisions
 
 What holds today, by topic, and why. Where the work is, and what comes next, is in
-[`../ROADMAP.md`](../ROADMAP.md).
+[`../ROADMAP.md`](../ROADMAP.md), with each item's details in [`../roadmap-notes.md`](../roadmap-notes.md).
 
 | File | What it answers |
 | --- | --- |

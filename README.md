@@ -1,7 +1,7 @@
 # fgarend/moneta
 
 A component library for money interfaces, built on shadcn. It is generic, and meant to be
-reused by any app. Before 1.0, most pieces are raw, as shadcn delivers them.
+reused by any app. Before 1.0, most pieces are raw: they meet the repository's checks, but nobody has reviewed them yet.
 
 ## Install
 

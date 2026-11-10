@@ -19,9 +19,8 @@
     // React's automatic JSX runtime: no React import in each file.
     "jsx": "react-jsx",
 
-    // Every check TypeScript offers, but isolatedDeclarations, as cva depends on inference,
-    // exactOptionalPropertyTypes, which shadcn's code and React Aria's types do not pass, and noUnusedLocals, which two
-    // of shadcn's files do not pass until they are reviewed, and Biome already checks in own code.
+    // Every check TypeScript offers, but isolatedDeclarations, as cva depends on inference, and
+    // exactOptionalPropertyTypes, which shadcn's code and React Aria's types do not pass.
     "strict": true,
     "noUncheckedIndexedAccess": true,
     "noImplicitOverride": true,
@@ -29,6 +28,7 @@
     "noFallthroughCasesInSwitch": true,
     "noPropertyAccessFromIndexSignature": true,
     "noUncheckedSideEffectImports": true,
+    "noUnusedLocals": true,
     "noUnusedParameters": true,
     "allowUnreachableCode": false,
     "allowUnusedLabels": false,

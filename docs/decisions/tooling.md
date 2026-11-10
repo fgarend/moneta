@@ -21,7 +21,7 @@ How the repository runs, and how its versions are chosen.
 - **Development dependencies have exact versions,** so every update shows in a diff.
 - **A dependency enters through pnpm's command line,** never by editing `package.json`, with
   the commands in `docs/updating.md`. A peer's range is the one thing set as it is written.
-- **Updates are made by hand,** at the start of each roadmap item from milestone 2 on, as
+- **Updates are made by hand,** at the start of each roadmap item, as
   `docs/updating.md` says.
 - **`make check` runs every check, even after one fails,** and ends with one line per check.
   Continuous integration has one box per check, with the same name, in parallel, and a test
@@ -162,8 +162,6 @@ How the repository runs, and how its versions are chosen.
 - **`exactOptionalPropertyTypes` on.** It tells a missing property from an `undefined` one, which own
   pieces lose. Across 61 of shadcn's pieces, tried on 2026-11-06, it gave 29 errors in 18 files, and 13 in the
   dependencies' types, so it would mean those edits and `skipLibCheck`, and no untouched commit would pass.
-- **`noUnusedLocals` on.** `alert-dialog` and `label` fail it untouched, and Biome reported all 5 kinds
-  of unused code planted in own files on 2026-11-06. It returns in the roadmap's 6.3.
 - **A switch of our own,** a toolbar global and a decorator, about 10 lines. No dependency, but code to keep for what
   Storybook's addon does, and its Tailwind guide uses.
 - **Dark axe in Chromium alone.** Half the added time, but on 2026-11-07 a planted dark colour failed `breadcrumb` only in
@@ -184,3 +182,4 @@ How the repository runs, and how its versions are chosen.
 - 2026-11-09: One `stories` box per browser, and why screenshots run in Chromium alone.
 - 2026-11-09: The gallery's build as a check.
 - 2026-11-09: Coverage on every piece, shadcn's too.
+- 2026-11-09: `noUnusedLocals` on, as nothing fails it once every piece is linted.

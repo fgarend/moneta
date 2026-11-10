@@ -186,7 +186,7 @@ it("gives focus back to the trigger with its outline when a dialog closes", asyn
   await render(
     <DialogTrigger>
       <Button>{label}</Button>
-      <Dialog>
+      <Dialog closeLabel={label}>
         <DialogHeader>
           <DialogTitle>{label}</DialogTitle>
           <DialogDescription>{label}</DialogDescription>

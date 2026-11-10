@@ -6,6 +6,20 @@ gets its number.
 
 ## [Unreleased]
 
+## [0.6.0] - 2026-11-10
+
+The close button of `Dialog` and `Sheet` takes its name from the app, and `README.md` says what a raw piece is.
+
+### Changed
+
+- **Breaking:** `Dialog`, `Sheet` and `DialogFooter` take the name of the close button they show from `closeLabel`, in
+  the app's own words, in place of the "Close" they wrote. TypeScript asks for it while the button shows. To upgrade,
+  pass `closeLabel`, or `showCloseButton={false}`.
+
+### Fixed
+
+- `README.md` says what a raw piece is now: it meets the repository's checks, but nobody has reviewed it.
+
 ## [0.5.0] - 2026-11-09
 
 Every piece under one rule, in one folder, with shadcn's updates merged three ways, and a few exports and utilities
@@ -117,7 +131,8 @@ and dark. `README.md` says how to install and use it.
 
 A rehearsal of the release's path, not meant to be installed. Use a later version.
 
-[Unreleased]: https://github.com/fgarend/moneta/compare/v0.5.0...HEAD
+[Unreleased]: https://github.com/fgarend/moneta/compare/v0.6.0...HEAD
+[0.6.0]: https://github.com/fgarend/moneta/compare/v0.5.0...v0.6.0
 [0.5.0]: https://github.com/fgarend/moneta/compare/v0.4.0...v0.5.0
 [0.4.0]: https://github.com/fgarend/moneta/compare/v0.3.0...v0.4.0
 [0.3.0]: https://github.com/fgarend/moneta/compare/v0.2.0...v0.3.0

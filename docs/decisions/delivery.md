@@ -77,13 +77,13 @@ looks every week.
   costs:** `dist/` is not in git, so a commit or a branch cannot be installed from GitHub, only
   a release or a tarball built locally.
 - **An automatic release from the first one,** since each step that changes what an app receives becomes a version
-  from milestone 4 on. A rehearsal at `v0.0.1` spends a number that does not matter on what can only run for real.
+  from Moneta's look on. A rehearsal at `v0.0.1` spends a number that does not matter on what can only run for real.
   **What it costs:** a workflow written before it could run, and a `v0.0.1` that stays on the list of releases
   forever.
 - **The number checked against the changelog,** so a number too small, too large or out of order is refused before it
   is spent, and the changelog must say what each step holds. The previous version is the changelog's previous section,
   so the check needs no tags and runs the same on the machine. **What it costs:** a rule of our own to keep, which
-  6.2 changes with 1.0, and the check trusts that section, while the tags are only checked for the new number.
+  the roadmap's Release 1.0.0 changes, and the check trusts that section, while the tags are only checked for the new number.
 - **Pull requests to `main`,** so `main` never holds what failed, each check runs once, and a session's work never
   leaves with another's. Vite and Vitest check pull requests and publish on the merge of a release commit, as here.
   **What it costs:** a branch, a pull request and a wait for each step, and two pull requests open together often

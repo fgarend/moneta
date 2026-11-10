@@ -13,17 +13,17 @@ What the library starts from.
 
   ```sh
   docker compose --env-file infra/settings.env -f infra/compose.yaml run --rm --build install \
-    pnpm dlx shadcn@4.23.0 add <piece> --overwrite --yes
+    pnpm dlx shadcn@4.23.0 add <piece> --yes
   ```
 
-- **`--overwrite` only when nothing there is edited,** as it replaces the file. Without it, an edit stays.
+- **An update is never `--overwrite`,** which would replace our edits, but `make shadcn-update`.
 - **`cn` is the npm package of that name,** as shadcn delivers it.
 - **The theme's shape is shadcn's,** in `src/styles/theme.css`, and its values are Moneta's, as `theme.md` says.
   A `@source` lets the app's Tailwind read the pieces, as it skips `node_modules`.
 - **`shadcn/tailwind.css` is copied to `src/styles/shadcn.css`,** with its base in `upstream/shadcn/` too. Our
   values go in `theme.css`, and it keeps only what the pieces use: its `scroll-fade-*`, `shimmer-*` and `no-scrollbar`
   utilities went, which no piece used, as an app writes no class of its own.
-- **The font is apart, in `src/styles/fonts.css`,** starting with shadcn's Geist, which the roadmap's 4.5 kept, as
+- **The font is apart, in `src/styles/fonts.css`,** starting with shadcn's Geist, which Moneta's look kept, as
   `theme.md` says.
 - **Every piece meets the same rule, shadcn's too:** format, lint, coverage and no arbitrary class, as
   `docs/decisions/components.md` says. An update from shadcn is a three-way merge, by `make shadcn-update`.
@@ -32,7 +32,7 @@ What the library starts from.
   `add` wrote no piece without `#lib/*`, though nothing uses it yet.
 - **41 of the registry's 62 pieces entered,** as they came, on 2026-11-06. Their state is in
   `docs/pieces.md`. These stayed out:
-  - `sidebar`, `combobox` and `calendar`, for a study of their own, in the roadmap's 4.6, 4.2 and 4.4.
+  - `sidebar`, `combobox` and `calendar`, for a study of their own, in the roadmap's Sidebar, Actions and forms, and The rest.
   - `carousel`, `chart`, `drawer`, `input-otp`, `message-scroller`, `questionnaire`, `resizable` and
     `sonner`, which bring packages of their own.
   - `attachment`, `bubble`, `code-block`, `marker`, `message` and `trace`, for conversations and code.
@@ -47,7 +47,8 @@ What the library starts from.
 
 ### Read of findings on arrival
 
-On the 41 files, with lint turned on for the read. What looks like a gap went into `docs/pieces.md`.
+On the 41 files, with lint turned on for the read, on 2026-11-06. What looked like a gap went into `docs/pieces.md`.
+Since 0.5.0, lint holds every piece, and all of these were fixed or no longer apply.
 
 | Rule | Findings | Reading |
 | --- | --- | --- |

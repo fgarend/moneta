@@ -17,8 +17,8 @@ const trigger = "Payment details";
 const title = "Details of the payment";
 const description = "Paid from the savings account.";
 const done = "Done";
-// The piece's own name for its close button, with no prop to change it.
-const close = "Close";
+// The close button's name, which the app gives in its own words.
+const close = "Close the details";
 
 const meta = {
   title: "Components/Overlays & Dialogs/Sheet",
@@ -28,7 +28,7 @@ const meta = {
     children: (
       <>
         <Button>{trigger}</Button>
-        <Sheet>
+        <Sheet closeLabel={close}>
           <SheetHeader>
             <SheetTitle>{title}</SheetTitle>
             <SheetDescription>{description}</SheetDescription>
@@ -91,7 +91,7 @@ const Content: Story = {
     children: (
       <>
         <Button>{trigger}</Button>
-        <SheetContent>
+        <SheetContent closeLabel={close}>
           <SheetHeader>
             <SheetTitle>{title}</SheetTitle>
           </SheetHeader>

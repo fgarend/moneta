@@ -1,5 +1,5 @@
 // A whole money screen drawn from the real pieces, with fictitious data, so the theme is judged on a page and not one
-// piece at a time. It is no piece of the package, and its navigation stands in for the Sidebar of the roadmap's 4.6.
+// piece at a time. It is no piece of the package, and its navigation stands in for the roadmap's Sidebar.
 // biome-ignore-all lint/style/noJsxLiterals: the words of a page are its content, and no piece here holds default text.
 // biome-ignore-all lint/style/useComponentExportOnlyModules: the page's parts are this story's own, and enter no package.
 import type { Meta, StoryObj } from "@storybook/react-vite";
