@@ -2,14 +2,17 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 import { I18nProvider } from "react-aria-components";
 import { expect, within } from "storybook/test";
 import { Amount } from "./amount.js";
-import { type Money, useFormatMoney } from "./money.js";
+import { type Money, useFormatMoney, useFormatPercent } from "./money.js";
 import { MoneyProvider } from "./money-provider.js";
+import { Percent } from "./percent.js";
 
 const nbsp = " ";
 const minus = "−";
 const noValue = "No value yet";
 const label = "Fictitious balance";
 const value: Money = { amount: "-286.4", currency: "BRL" };
+const shareLabel = "Fictitious share";
+const share = "-0.0324";
 
 const meta = {
   title: "Components/Misc/Money Provider",
@@ -35,29 +38,37 @@ const Default: Story = {
   },
 };
 
-// Where no piece can go, such as a chart's axis or a title, useFormatMoney gives the same text as Amount.
+// Where no piece can go, such as a chart's axis or a title, the hooks give the same text as Amount and Percent.
 const WithTheHook: Story = {
   render: function Render(args) {
-    const format = useFormatMoney();
+    const formatMoney = useFormatMoney();
+    const formatPercent = useFormatPercent();
     return (
       <MoneyProvider {...args}>
         <dl>
           <dt>{label}</dt>
-          <dd>{format(value)}</dd>
+          <dd>{formatMoney(value)}</dd>
           <dd>
             <Amount value={value} />
+          </dd>
+          <dt>{shareLabel}</dt>
+          <dd>{formatPercent(share)}</dd>
+          <dd>
+            <Percent value={share} />
           </dd>
         </dl>
       </MoneyProvider>
     );
   },
   play: async ({ canvasElement }) => {
-    const [formatted, amount] = [...canvasElement.querySelectorAll("dd")].map(
-      (part) => part.textContent,
-    );
+    const [money, amount, ratio, percent] = [
+      ...canvasElement.querySelectorAll("dd"),
+    ].map((part) => part.textContent);
 
-    await expect(formatted).toBe(`${minus}R$${nbsp}286,40`);
-    await expect(formatted).toBe(amount);
+    await expect(money).toBe(`${minus}R$${nbsp}286,40`);
+    await expect(money).toBe(amount);
+    await expect(ratio).toBe(`${minus}3,24%`);
+    await expect(ratio).toBe(percent);
   },
 };
 
@@ -72,11 +83,12 @@ const WithTheHookInEnglish: Story = {
     ),
   ],
   play: async ({ canvasElement }) => {
-    const [formatted] = [...canvasElement.querySelectorAll("dd")].map(
+    const [money, , ratio] = [...canvasElement.querySelectorAll("dd")].map(
       (part) => part.textContent,
     );
 
-    await expect(formatted).toBe(`${minus}R$286.40`);
+    await expect(money).toBe(`${minus}R$286.40`);
+    await expect(ratio).toBe(`${minus}3.24%`);
   },
 };
 

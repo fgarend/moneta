@@ -56,6 +56,7 @@ A piece with no gap listed may still have some.
 | `money-provider` | reviewed | |
 | `native-select` | raw | **Edited:** 36 px, and `sm` 32 |
 | `pagination` | raw | **Edited:** its ellipsis follows the 36 px of a button. **Default text:** "pagination", "Previous", "Next", "Go to previous page", "Go to next page" and "More pages" |
+| `percent` | reviewed | |
 | `popover` | raw | **Code:** its title does not name it |
 | `progress` | raw | **Code:** indeterminate draws the bar at 100%, as complete |
 | `radio-group` | raw | **Code:** an item does not grow for its children. **Edited:** on React Aria's `RadioField` and `RadioButton` |

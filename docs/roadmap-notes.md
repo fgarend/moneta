@@ -29,8 +29,7 @@ text. One step, as its pieces share that design, with a commit for each, in this
 and AllocationBar, which show amounts.
 
 - **Amount,** with `Money`, `MoneyProvider` and `useFormatMoney`. Done in this step's first commit.
-- **Percent,** given as a ratio, `"0.459"` for 45.9%, as `Intl` and spreadsheets have it, with `useFormatPercent`.
-  A rate that a backend sends in points, as `"15"`, is the app's to turn into `"0.15"`, exactly.
+- **Percent,** given as a ratio, `"0.459"` for 45.9%, with `useFormatPercent`. Done in this step's second commit.
 - **Quantity,** as shares and units, with as many decimals as given.
 - **`sign` and `tone` on all three,** for a change, as `+3.2%`, with no piece of its own: `sign="always"` shows the
   plus, and zero takes no sign. The tone is the app's, never read from the sign, as a debt that falls is good news,

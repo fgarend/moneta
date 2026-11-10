@@ -11,21 +11,25 @@ How Moneta holds an amount of money, and how it shows one.
   and never drop a digit given.
 - **A negative amount takes the minus sign, U+2212, in every language,** where the language puts it, with no space
   after it, as `−R$ 1.234,50`. Zero takes no sign, even when given as `-0`.
-- **A copy of one amount takes a hyphen for its minus,** and a copy of more is the browser's own.
+- **A copy of one value takes a hyphen for its minus,** and a copy of more is the browser's own.
 - **An amount that is not a decimal string, or a currency that is not three capital letters, throws an error** that
   names it.
 - **The words are the app's.** `MoneyProvider`, once at the app's root, holds what screen readers hear for no value,
   `emptyLabel`, and a piece's own prop wins over it. A piece with no value and no words throws an error.
-- **One path from an amount to its text,** in `src/lib/money.ts`, internal, in the language React Aria's
-  `I18nProvider` gives. `Amount` takes it, and so does `useFormatMoney`, for where no piece can go, as a chart's axis.
-- **`Amount` draws a `data` element, with the amount as given in its `value`.** No value draws a `span`, with a dash
-  hidden from screen readers and the app's words for them.
-- **`Amount` never wraps and is never cut,** so whatever holds it deals with the space.
-- **`Amount` brings its text,** with `size`: `default` for a row, at 500 in the size around it, and `lg` for an amount
-  of note, at 24/32 and 600, both with tabular figures.
-- **Each file is imported by its name:** `@fgarend/moneta/money` for `Money` and `useFormatMoney`,
-  `@fgarend/moneta/money-provider` and `@fgarend/moneta/amount`. `money.ts` holds no piece, so it is the one file in
-  `src/components/` that is not a `.tsx`.
+- **A percent is a ratio, a decimal string of a fraction of one,** `"0.459"` for 45.9%, shown with exactly the
+  decimals given beyond its hundredths, zeros too, and never rounded: `"0.15"` is 15%, and `"0.1500"` 15,00%.
+- **One path from a value to its text,** in `src/lib/money.ts`, internal, in the language React Aria's
+  `I18nProvider` gives. `Amount` and `Percent` take it, and so do `useFormatMoney` and `useFormatPercent`, for where
+  no piece can go, as a chart's axis. What the pieces share beyond it, their text, the words for no value and the
+  copy, is `src/hooks/use-value.ts`, internal too.
+- **`Amount` and `Percent` draw a `data` element, with the value as given in its `value`.** No value draws a `span`,
+  with a dash hidden from screen readers and the app's words for them.
+- **They never wrap and are never cut,** so whatever holds them deals with the space.
+- **They bring their text,** with `size`: `default` for a row, at 500 in the size around it, and `lg` for a value of
+  note, at 24/32 and 600, both with tabular figures.
+- **Each file is imported by its name:** `@fgarend/moneta/money` for `Money`, `useFormatMoney` and
+  `useFormatPercent`, `@fgarend/moneta/money-provider`, `@fgarend/moneta/amount` and `@fgarend/moneta/percent`.
+  `money.ts` holds no piece, so it is the one file in `src/components/` that is not a `.tsx`.
 
 ## Why
 
@@ -51,11 +55,19 @@ How Moneta holds an amount of money, and how it shows one.
 - **A provider for the words,** as the same two words would repeat on every amount of an app, and the hidden mode
   needs a context of its own anyway. **An error when they are missing,** so an app finds it while it builds, not a
   screen reader's user. **What it costs:** TypeScript cannot ask for them, as it asks `Dialog` for `closeLabel`.
+- **A ratio,** as `Intl`, spreadsheets and charts count 100% as 1, a share times a total is an amount with nothing
+  to divide, and one form leaves no doubt whether `"15"` is 15% or 1500%. **What it costs:** a rate a backend sends in
+  points, as `"15"`, is the app's to turn into `"0.15"`, exactly, and a `"45.9"` given by mistake shows 4590%.
+- **The decimals given,** as a percent has no currency to pad it, and the app decides its precision where it builds
+  the value, so one that sends `"0.1500"` and `"0.0324"` lines a column up. **What it costs:** a ratio divided and
+  sent whole shows every digit, as `3,2412345678%`.
 - **One path,** so a chart's axis and a table beside it never differ in a sign or a digit. **Internal,** as
-  `src/lib/` is, so an app depends only on the pieces and the hook.
+  `src/lib/` and `src/hooks/` are, so an app depends only on the pieces and the hooks.
 - **The type and the hook apart from the provider,** as a file that draws a piece exports only pieces, so that Fast
   Refresh can swap them, which Biome's `useComponentExportOnlyModules` holds with no exception. **What it costs:** an
   app imports money from two places.
+- **The hooks of every kind of value in `money.ts`,** so a chart of amounts and percents imports from one place, and
+  as `percent.ts` would build to the same `percent.js` as the piece.
 - **`data`,** as HTML has that element for a value a machine reads, and the most semantic element is the rule
   `components.md` gives. **A `span` for no value,** as `data` needs one, and so the hidden mode will leave nothing in
   the page to read.
@@ -78,6 +90,11 @@ How Moneta holds an amount of money, and how it shows one.
   another number.
 - **`Money`, `MoneyProvider` and `useFormatMoney` from one file,** with Biome's rule told to allow the two names. One
   import, but an exception to a rule that has none.
+- **A percent in points, or a prop that says which.** Closer to how a rate is said, but a prop given wrong shows
+  1500% for 15%.
+- **A prop that rounds a percent, as `decimals`.** What most libraries offer, but it rounds silently, in the screen.
+- **`ratio` for Percent's prop.** It says the form where it is written, but breaks `value`, the name every piece of
+  money and React Aria use.
 - **The words as a prop on every piece,** which TypeScript can ask for, but which each app would wrap to avoid.
 - **A dash, or `Intl`'s own text, for a wrong amount.** Softer, but silent.
 - **A `span` with the value.** Simpler, and the same to a screen reader, but a machine reads only the formatted text.
@@ -89,3 +106,4 @@ How Moneta holds an amount of money, and how it shows one.
 ## History
 
 - 2026-11-10: Written, with `Money`, `MoneyProvider`, `useFormatMoney` and `Amount`.
+- 2026-11-10: `Percent` and `useFormatPercent`.

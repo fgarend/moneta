@@ -13,6 +13,8 @@ gets its number.
 - `Money`, the type of an amount, an exact decimal string and its currency's code, and `useFormatMoney`, for an
   amount's text where no piece can go, from `@fgarend/moneta/money`.
 - `MoneyProvider`, for the app's words for an amount with no value.
+- `Percent`, a ratio given as a fraction of one, shown as a percent with exactly the decimals given, and
+  `useFormatPercent`, for its text where no piece can go.
 
 ## [0.7.0] - 2026-11-10
 

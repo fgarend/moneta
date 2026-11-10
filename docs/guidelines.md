@@ -88,13 +88,16 @@ the version installed. It holds only what exists, and each reviewed piece adds i
   currency's code, as `"BRL"`. `Amount` shows every digit given, padded to the currency's decimals, and never rounds.
 - **`Amount` for an amount on a screen,** `size="lg"` for one of note. `useFormatMoney` gives the same text where no
   piece can go, as a chart's axis, a page's title or an option of a `select`, so the two never differ.
+- **`Percent` for a ratio, given as a fraction of one:** `"0.459"` is 45.9%, never `"45.9"`. It shows the decimals
+  given, zeros too, and never rounds, so send one precision for a column, as `"0.1500"`. `useFormatPercent` gives its
+  text where no piece can go.
 - **`MoneyProvider`, once at the root,** with `emptyLabel`, what screen readers hear for no value, in the app's words.
   `value={null}` shows a dash, and its own `emptyLabel` wins over the provider's. Without either, it throws.
 - **The language is React Aria's,** from `I18nProvider`.
-- **A negative amount takes the minus sign, `−`,** which screen readers read. A copy of one amount takes a hyphen, so a
+- **A negative value takes the minus sign, `−`,** which screen readers read. A copy of one value takes a hyphen, so a
   spreadsheet reads it as negative, but a copy of a row keeps the minus, which a spreadsheet takes as text.
-- **An amount never wraps and is never cut.** What holds it makes room, as a table that scrolls.
-- **A wrong amount or currency throws,** as `"1,5"` or `"real"`, so a mistake is never shown as money. An error
+- **A value never wraps and is never cut.** What holds it makes room, as a table that scrolls.
+- **A wrong value or currency throws,** as `"1,5"`, `"50%"` or `"real"`, so a mistake is never shown as money. An error
   boundary keeps it to its part of the screen.
 
 ## Changing the look
