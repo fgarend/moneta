@@ -29,6 +29,13 @@ How Moneta holds an amount of money, and how it shows one.
 - **`tone="positive"` or `"negative"` colours good news or bad,** which the app says and Moneta never reads from the
   sign, in the theme's `--positive` and `--negative`. With no tone, the colour of the text around. Colour is never
   alone: the sign, the column or the words around say it too, which the guidelines ask of the app.
+- **Hidden values, when the app asks,** with `isHidden` on `MoneyProvider` and the app's own control. Every value,
+  amount, percent and quantity, shows `••••••`, hidden from screen readers, which hear `hiddenLabel`, with no sign, no
+  tone and nothing of the value in the page. A value with none shows the dots too. Without `hiddenLabel`, a piece
+  throws. The hooks give the dots, and a text only screen readers hear, as an `aria-label`, is the app's to word
+  while values are hidden.
+- **A `MoneyProvider` inside another keeps what it is not given,** so one that changes only the words never shows
+  what the app hid.
 - **`Amount`, `Percent` and `Quantity` draw a `data` element, with the value as given in its `value`.** No value draws a `span`,
   with a dash hidden from screen readers and the app's words for them.
 - **They never wrap and are never cut,** so whatever holds them deals with the space.
@@ -88,6 +95,17 @@ How Moneta holds an amount of money, and how it shows one.
   too, unless they set `--negative` apart.
 - **Colour never alone, by the guidelines,** as a piece cannot see whether its column or its words already say it.
   **What it costs:** a debt that falls, green with its minus, is the case an app gets wrong.
+- **Hiding by replacing the text,** as a blur leaves the value on the page, in a copy and to a screen reader, and
+  a `span` with no `value`, so nothing reads it from the page.
+- **All three hidden,** as shares times a known price, or a return on a known sum, say what the money is, and
+  whoever turns the mode on wants nothing read over their shoulder. **What it costs:** a percent that says little, as
+  a budget's share, hides too.
+- **No sign and no tone while hidden,** as green dots say the money rose, and a minus says it left. **What it
+  costs:** a hidden screen gives nothing at a glance.
+- **Dots for the hooks,** as an axis or a title is seen, and the app, which turns the mode on, knows to word a label
+  only heard. **What it costs:** an app that forgets has a screen reader say "bullet", though it shows nothing.
+- **Dots for no value too,** as hidden hides everything, by one rule.
+- **A provider that keeps what it is not given,** as one that dropped the mode would show every value under it.
 - **One path,** so a chart's axis and a table beside it never differ in a sign or a digit. **Internal,** as
   `src/lib/` and `src/hooks/` are, so an app depends only on the pieces and the hooks.
 - **The type and the hook apart from the provider,** as a file that draws a piece exports only pieces, so that Fast
@@ -134,6 +152,11 @@ How Moneta holds an amount of money, and how it shows one.
   way, and the second reads badly.
 - **The plus forced by any tone.** Colour would never be alone, but a column of expenses, all out, would need a sign
   on each.
+- **A blur, or a mask over the text.** Simpler, but the value stays in the page, in a copy and to a screen reader.
+- **Only amounts hidden, or a prop on a piece to stay shown.** Less hidden for nothing, but one rule per piece for
+  the app to think through. The prop may come when a screen asks.
+- **The tone kept while hidden,** as some apps keep the colour or an arrow, which tells the way a value went.
+- **`hiddenLabel` from a hook, by `{ spoken: true }`.** Nothing for the app to think of, for an option seldom used.
 - **The words as a prop on every piece,** which TypeScript can ask for, but which each app would wrap to avoid.
 - **A dash, or `Intl`'s own text, for a wrong amount.** Softer, but silent.
 - **A `span` with the value.** Simpler, and the same to a screen reader, but a machine reads only the formatted text.
@@ -148,3 +171,4 @@ How Moneta holds an amount of money, and how it shows one.
 - 2026-11-10: `Percent` and `useFormatPercent`.
 - 2026-11-10: `Quantity` and `useFormatQuantity`.
 - 2026-11-10: `sign` and `tone`, with `--positive` and `--negative`.
+- 2026-11-10: Hidden values.

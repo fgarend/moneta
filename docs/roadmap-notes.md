@@ -32,12 +32,8 @@ and AllocationBar, which show amounts.
 - **Percent,** given as a ratio, `"0.459"` for 45.9%, with `useFormatPercent`. Done in this step's second commit.
 - **Quantity,** as shares and units, with as many decimals as given, and no unit. Done in this step's third commit.
 - **`sign` and `tone` on all three,** with `--positive` and `--negative`. Done in this step's fourth commit.
-- **Hidden values,** in which every amount shows "••••••", by replacing its text, as a blur leaves the value on the
-  page and in a copy, and no `data` with the value. `MoneyProvider` holds `isHidden` and `hiddenLabel`, and the app
-  its toggle. `useFormatMoney` follows it.
-  - To ask: whether a percent hides too, as a share says little and a return more.
-  - To ask: what `useFormatMoney` gives a text only screen readers hear, as an `aria-label`, where the dots read as
-    "bullet".
+- **Hidden values,** on all three and their hooks, with `isHidden` and `hiddenLabel` on `MoneyProvider`. Done in
+  this step's fifth commit.
 
 Dropped on the way: a table of ISO 4217 of our own, `formatMoney` as a public function, Delta, and cents raised or
 smaller, which VoiceOver on iOS stops at.
@@ -274,6 +270,11 @@ With `check-release`'s rules for the numbers after it, as a change that breaks t
   regular expression of our own. It is a nursery rule today, and whether it finds the same classes was not tried.
   Weighed with the first own piece that has classes.
 - **pnpm's update notice.** `updateNotifier` turns it off.
+- **More for a value, when a screen asks.** Each comes with nothing broken, and was left out on 2026-11-10 as no
+  screen needed it: a `unit` on `Quantity`, joined by a space that does not break, as in a sentence a quantity and
+  its unit may wrap apart; a value that stays shown while the rest are hidden, as "45% of the budget" says little;
+  the tone's colour kept while hidden, which says which way a value went, so only as the app's explicit choice; and a
+  hook's `{ spoken: true }`, giving `hiddenLabel` in place of the dots for a text only screen readers hear.
 - **The gallery's own types.** TypeScript skips a folder whose name starts with a dot when `include` names the folder
   alone, so of `.storybook/` it checks only what another file imports. With `.storybook/**/*`, it read 12 files on
   2026-11-09 and found 15 errors in four tests of the gallery, all from the typing of `.storybook/stories.ts`.

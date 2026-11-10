@@ -5,10 +5,18 @@ import { createContext } from "react";
 // An amount as a decimal string, exact, and its currency's code, as a backend sends them.
 type Money = { amount: string; currency: string };
 
-// The app's words for what a piece of money shows with no number, from MoneyProvider.
-type MoneyWords = { emptyLabel?: string | undefined };
+// What MoneyProvider holds: the app's words for what a piece of money shows with no number, and whether values are
+// hidden.
+type MoneyWords = {
+  emptyLabel?: string | undefined;
+  isHidden?: boolean | undefined;
+  hiddenLabel?: string | undefined;
+};
 
 const MoneyContext = createContext<MoneyWords>({});
+
+// What a hidden value shows, of one width, so it says nothing of the number's size.
+const hiddenText = "••••••";
 
 const decimalString = /^-?\d+(?:\.\d+)?$/u;
 const currencyCode = /^[A-Z]{3}$/u;
@@ -129,6 +137,7 @@ export {
   formatMoney,
   formatPercent,
   formatQuantity,
+  hiddenText,
   type Money,
   MoneyContext,
   type MoneyWords,

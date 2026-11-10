@@ -15,6 +15,9 @@ import { Quantity } from "./quantity.js";
 const nbsp = " ";
 const minus = "−";
 const noValue = "No value yet";
+const otherWords = "Not computed yet";
+const hiddenLabel = "Hidden value";
+const dots = "••••••";
 const label = "Fictitious balance";
 const value: Money = { amount: "-286.4", currency: "BRL" };
 const shareLabel = "Fictitious share";
@@ -142,5 +145,56 @@ const WithTheHookSigned: Story = {
   },
 };
 
+// Hidden: the hooks give the dots too, so a chart's axis hides with the table beside it. They read the provider
+// above them, as any hook reads a context.
+const Hidden: Story = {
+  render: WithTheHook.render,
+  decorators: [
+    (Story) => (
+      <MoneyProvider hiddenLabel={hiddenLabel} isHidden={true}>
+        <Story />
+      </MoneyProvider>
+    ),
+  ],
+  play: async ({ canvasElement }) => {
+    const texts = [...canvasElement.querySelectorAll("dd")].map(
+      (part) => part.textContent,
+    );
+
+    await expect(texts).toEqual([
+      dots,
+      `${dots}${hiddenLabel}`,
+      dots,
+      `${dots}${hiddenLabel}`,
+      dots,
+      `${dots}${hiddenLabel}`,
+    ]);
+  },
+};
+
+// A provider inside another keeps what it is not given, so one that only changes the words for no value never shows
+// what the app hid.
+const Nested: Story = {
+  args: { isHidden: true, hiddenLabel },
+  render: (args) => (
+    <MoneyProvider {...args}>
+      <MoneyProvider emptyLabel={otherWords}>
+        <Amount value={value} />
+      </MoneyProvider>
+    </MoneyProvider>
+  ),
+  play: async ({ canvasElement }) => {
+    await expect(within(canvasElement).getByText(dots)).toBeVisible();
+    await expect(canvasElement.innerHTML).not.toContain("286");
+  },
+};
+
 export default meta;
-export { Default, WithTheHook, WithTheHookInEnglish, WithTheHookSigned };
+export {
+  Default,
+  Hidden,
+  Nested,
+  WithTheHook,
+  WithTheHookInEnglish,
+  WithTheHookSigned,
+};

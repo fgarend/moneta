@@ -96,11 +96,16 @@ the version installed. It holds only what exists, and each reviewed piece adds i
 - **`Quantity` for shares or units,** as a decimal string, with the decimals given, zeros too. Its unit is yours,
   around it or in the column's header. `useFormatQuantity` gives its text where no piece can go.
 - **`MoneyProvider`, once at the root,** with `emptyLabel`, what screen readers hear for no value, in the app's words.
+  One inside another keeps what it is not given.
   `value={null}` shows a dash, and its own `emptyLabel` wins over the provider's. Without either, it throws.
 - **A change shows its plus with `sign="always"`,** as `+3,9%`, and zero takes no sign. The hooks take `{ sign }` too.
 - **`tone="positive"` or `"negative"` says good news or bad,** and only the app knows which: a debt that falls is
   negative and good. The tone only adds colour, so the sign, the column or the words around must say the same, as
   "Debt: −R$ 500,00 this month". With no tone, a value takes the colour of the text around it.
+- **Hidden values are `isHidden` on `MoneyProvider`,** with `hiddenLabel`, what screen readers hear, and your own
+  control to turn it on. Every amount, percent and quantity shows `••••••`, with no sign and no colour, and the hooks
+  give the dots too. A text only screen readers hear, as an `aria-label`, is yours to word while values are hidden,
+  as "Pay the bill" in place of "Pay ••••••".
 - **The language is React Aria's,** from `I18nProvider`.
 - **A negative value takes the minus sign, `−`,** which screen readers read. A copy of one value takes a hyphen, so a
   spreadsheet reads it as negative, but a copy of a row keeps the minus, which a spreadsheet takes as text.

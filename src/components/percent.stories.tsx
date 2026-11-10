@@ -151,6 +151,22 @@ const Empty: Story = {
   },
 };
 
+// Hidden, as an amount is, as a return over a known sum says what the sum earned.
+const Hidden: Story = {
+  args: { value: "0.12", sign: "always", tone: "positive" },
+  decorators: [
+    (Story) => (
+      <MoneyProvider hiddenLabel={noValue} isHidden={true}>
+        <Story />
+      </MoneyProvider>
+    ),
+  ],
+  play: async ({ canvasElement }) => {
+    await expect(percentIn(canvasElement).textContent).toBe(`••••••${noValue}`);
+    await expect(canvasElement.innerHTML).not.toContain("12");
+  },
+};
+
 // No value and no words for it: it says so.
 const EmptyWithoutWords: Story = {
   render: () => (
@@ -209,6 +225,7 @@ export {
   Default,
   Empty,
   EmptyWithoutWords,
+  Hidden,
   InEnglish,
   Large,
   Negative,

@@ -5,8 +5,6 @@ import { useLocale } from "react-aria-components";
 import { useValue, type ValueSize, type ValueTone } from "#hooks/use-value";
 import { formatQuantity, type Sign } from "#lib/money";
 
-const dash = "—";
-
 function Quantity({
   value,
   emptyLabel,
@@ -35,11 +33,11 @@ function Quantity({
     className,
   });
 
-  if (value === null) {
+  // With no value, or hidden, what the app's words say in its place, and nothing of the value.
+  if (value === null || shown.words !== null) {
     return (
       <span className={shown.className} data-slot="quantity" {...props}>
-        <span aria-hidden="true">{dash}</span>
-        <span className="sr-only">{shown.label}</span>
+        {shown.words}
       </span>
     );
   }

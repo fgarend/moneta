@@ -19,6 +19,8 @@ gets its number.
 - `sign` and `tone` on `Amount`, `Percent` and `Quantity`: `sign="always"` shows the plus of a change, and
   `tone="positive"` or `"negative"` colours good news or bad, which the app says. The hooks take `{ sign }`.
 - `--positive` and `--negative`, the colours of a value's tone, which an app can change with the others.
+- Hidden values: `isHidden` and `hiddenLabel` on `MoneyProvider` show every amount, percent and quantity as `••••••`,
+  with nothing of the value in the page, and the hooks give the dots too.
 
 ## [0.7.0] - 2026-11-10
 

@@ -19,6 +19,10 @@ const rowWeight = "500";
 const noteSize = ["24px", "32px", "600"];
 const tabular = "tabular-nums";
 
+const dots = "••••••";
+const hiddenWords = "Hidden value";
+// The salary below, as given or as shown, which a hidden amount must leave nowhere in the page.
+const hiddenSalary = /7\.?250/u;
 const salary = "Fictitious salary";
 const groceries = "Central Market";
 const debt = "Card debt this month";
@@ -442,6 +446,66 @@ const Copy: Story = {
   },
 };
 
+// Hidden, as the app asks: dots, hidden from screen readers, which read the app's words for them, with no sign, no
+// tone and nothing of the value left in the page, not even in an attribute.
+const Hidden: Story = {
+  tags: ["visual"],
+  args: {
+    value: { amount: "7250", currency: "BRL" },
+    sign: "always",
+    tone: "positive",
+  },
+  decorators: [
+    (Story) => (
+      <MoneyProvider hiddenLabel={hiddenWords} isHidden={true}>
+        <Story />
+      </MoneyProvider>
+    ),
+  ],
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const amount = amountIn(canvasElement);
+
+    await expect(amount.tagName).toBe("SPAN");
+    await expect(canvas.getByText(dots)).toHaveAttribute("aria-hidden", "true");
+    await expect(canvas.getByText(hiddenWords)).toHaveClass("sr-only");
+    await expect(canvasElement.innerHTML).not.toMatch(hiddenSalary);
+    await expect(getComputedStyle(amount).color).toBe(
+      getComputedStyle(canvasElement).color,
+    );
+  },
+};
+
+// No value, hidden: dots too, as hidden hides everything.
+const HiddenEmpty: Story = {
+  args: { value: null },
+  decorators: Hidden.decorators,
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    await expect(canvas.getByText(dots)).toBeVisible();
+    await expect(canvas.queryByText(dash)).toBeNull();
+  },
+};
+
+// Hidden with no words for it: it says so, rather than leave screen readers with nothing.
+const HiddenWithoutWords: Story = {
+  render: (args) => (
+    <Caught>
+      <MoneyProvider isHidden={true}>
+        <Amount {...args} />
+      </MoneyProvider>
+    </Caught>
+  ),
+  play: async ({ canvasElement }) => {
+    await expect(
+      within(canvasElement).getByText(
+        "Amount: a hidden value needs a hiddenLabel on MoneyProvider.",
+      ),
+    ).toBeVisible();
+  },
+};
+
 export default meta;
 export {
   Copy,
@@ -449,6 +513,9 @@ export {
   Empty,
   EmptyWithItsOwnWords,
   EmptyWithoutWords,
+  Hidden,
+  HiddenEmpty,
+  HiddenWithoutWords,
   Huge,
   InEnglish,
   InSentence,

@@ -1,13 +1,14 @@
-// What every piece of money shares: its text, the app's words for no value, and a copy of one taking a hyphen.
-// Internal: Amount, Percent and Quantity read it. docs/decisions/money.md says why it is so.
+// What every piece of money shares: its text, what it shows with no value or hidden, and a copy of one taking a
+// hyphen. Internal: Amount, Percent and Quantity read it. docs/decisions/money.md says why it is so.
 import { cn } from "cn";
-import { useContext, useEffect } from "react";
-import { MoneyContext } from "#lib/money";
+import { createElement, type ReactNode, useContext, useEffect } from "react";
+import { hiddenText, MoneyContext } from "#lib/money";
 
 const sizes = { default: "type-amount", lg: "type-amount-lg" };
 // Every piece of money, by its data-slot.
 const pieces =
   '[data-slot="amount"],[data-slot="percent"],[data-slot="quantity"]';
+const dash = "—";
 
 // Good news or bad, as the app says, never read from the sign. With none, the colour of the text around.
 const tones = { positive: "text-positive", negative: "text-negative" };
@@ -35,8 +36,18 @@ function copyWithHyphen(event: ClipboardEvent): void {
   event.preventDefault();
 }
 
-// The classes of a piece of money, with its tone's colour, and with no value, the words screen readers hear for it:
-// its own, or MoneyProvider's. With neither, it throws, so the app finds out while it builds.
+// A sign that screen readers skip, and the app's words they read in its place.
+function wordsFor(symbol: string, label: string): ReactNode {
+  return [
+    createElement("span", { "aria-hidden": "true", key: "symbol" }, symbol),
+    createElement("span", { className: "sr-only", key: "words" }, label),
+  ];
+}
+
+// The classes of a piece of money, with its tone's colour, and what it shows in place of its value: with values
+// hidden, dots, and with no value, a dash, each with the app's words for screen readers. Hidden wins, and drops the
+// tone, as a colour says which way a value went. With no words for what it shows, it throws, so the app finds out
+// while it builds.
 function useValue(
   piece: string,
   {
@@ -52,28 +63,41 @@ function useValue(
     tone: ValueTone | undefined;
     className: string | undefined;
   },
-): { className: string; label: string | undefined } {
-  const words = useContext(MoneyContext);
+): { className: string; words: ReactNode } {
+  const provided = useContext(MoneyContext);
   // One listener serves every piece, as adding the same one again does nothing. It stays after the last piece, and
   // does nothing then.
   useEffect(() => {
     document.addEventListener("copy", copyWithHyphen);
   }, []);
-  const label = emptyLabel ?? words.emptyLabel;
-  if (isEmpty && label === undefined) {
-    throw new Error(
-      `${piece}: no value needs an emptyLabel, on it or on MoneyProvider.`,
-    );
+  const isHidden = provided.isHidden === true;
+  const classes = cn(
+    "whitespace-nowrap",
+    sizes[size],
+    !isHidden && tone && tones[tone],
+    className,
+  );
+  if (isHidden) {
+    if (provided.hiddenLabel === undefined) {
+      throw new Error(
+        `${piece}: a hidden value needs a hiddenLabel on MoneyProvider.`,
+      );
+    }
+    return {
+      className: classes,
+      words: wordsFor(hiddenText, provided.hiddenLabel),
+    };
   }
-  return {
-    className: cn(
-      "whitespace-nowrap",
-      sizes[size],
-      tone && tones[tone],
-      className,
-    ),
-    label,
-  };
+  if (isEmpty) {
+    const label = emptyLabel ?? provided.emptyLabel;
+    if (label === undefined) {
+      throw new Error(
+        `${piece}: no value needs an emptyLabel, on it or on MoneyProvider.`,
+      );
+    }
+    return { className: classes, words: wordsFor(dash, label) };
+  }
+  return { className: classes, words: null };
 }
 
 export { useValue, type ValueSize, type ValueTone };

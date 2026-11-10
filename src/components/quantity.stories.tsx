@@ -167,6 +167,23 @@ const Empty: Story = {
   },
 };
 
+// Hidden, as an amount is, as shares times a known price say what they are worth.
+const Hidden: Story = {
+  decorators: [
+    (Story) => (
+      <MoneyProvider hiddenLabel={noValue} isHidden={true}>
+        <Story />
+      </MoneyProvider>
+    ),
+  ],
+  play: async ({ canvasElement }) => {
+    await expect(quantityIn(canvasElement).textContent).toBe(
+      `••••••${noValue}`,
+    );
+    await expect(canvasElement.innerHTML).not.toContain("1234");
+  },
+};
+
 // No value and no words for it: it says so.
 const EmptyWithoutWords: Story = {
   render: () => (
@@ -225,6 +242,7 @@ export {
   Default,
   Empty,
   EmptyWithoutWords,
+  Hidden,
   InEnglish,
   Large,
   Negative,
