@@ -48,6 +48,11 @@ function checkDecimal(piece: string, value: string, example: string): void {
   }
 }
 
+// How many decimals a decimal string holds.
+function decimalsOf(value: string): number {
+  return (value.split(".")[1] ?? "").length;
+}
+
 // The text, exact, with the minus sign.
 function textOf(formatter: Intl.NumberFormat, value: string): string {
   return formatter
@@ -74,10 +79,7 @@ function formatMoney(locale: string, { amount, currency }: Money): string {
 // A ratio, as "0.459" for 45.9%, with exactly the decimals given beyond its hundredths, zeros too.
 function formatPercent(locale: string, ratio: string): string {
   checkDecimal("Percent", ratio, "0.459");
-  const decimals = Math.max(
-    0,
-    (ratio.split(".")[1] ?? "").length - percentShift,
-  );
+  const decimals = Math.max(0, decimalsOf(ratio) - percentShift);
   return textOf(
     formatterOf(locale, {
       style: "percent",
@@ -88,9 +90,23 @@ function formatPercent(locale: string, ratio: string): string {
   );
 }
 
+// A quantity, as shares or units, with exactly the decimals given, zeros too.
+function formatQuantity(locale: string, value: string): string {
+  checkDecimal("Quantity", value, "1234.5");
+  const decimals = decimalsOf(value);
+  return textOf(
+    formatterOf(locale, {
+      minimumFractionDigits: decimals,
+      maximumFractionDigits: decimals,
+    }),
+    value,
+  );
+}
+
 export {
   formatMoney,
   formatPercent,
+  formatQuantity,
   type Money,
   MoneyContext,
   type MoneyWords,

@@ -91,6 +91,8 @@ the version installed. It holds only what exists, and each reviewed piece adds i
 - **`Percent` for a ratio, given as a fraction of one:** `"0.459"` is 45.9%, never `"45.9"`. It shows the decimals
   given, zeros too, and never rounds, so send one precision for a column, as `"0.1500"`. `useFormatPercent` gives its
   text where no piece can go.
+- **`Quantity` for shares or units,** as a decimal string, with the decimals given, zeros too. Its unit is yours,
+  around it or in the column's header. `useFormatQuantity` gives its text where no piece can go.
 - **`MoneyProvider`, once at the root,** with `emptyLabel`, what screen readers hear for no value, in the app's words.
   `value={null}` shows a dash, and its own `emptyLabel` wins over the provider's. Without either, it throws.
 - **The language is React Aria's,** from `I18nProvider`.

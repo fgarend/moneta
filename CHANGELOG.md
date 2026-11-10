@@ -15,6 +15,7 @@ gets its number.
 - `MoneyProvider`, for the app's words for an amount with no value.
 - `Percent`, a ratio given as a fraction of one, shown as a percent with exactly the decimals given, and
   `useFormatPercent`, for its text where no piece can go.
+- `Quantity`, as shares or units, with exactly the decimals given, and `useFormatQuantity`.
 
 ## [0.7.0] - 2026-11-10
 

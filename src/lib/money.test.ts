@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { formatMoney, formatPercent } from "./money.js";
+import { formatMoney, formatPercent, formatQuantity } from "./money.js";
 
 const nbsp = " ";
 const minus = "−";
@@ -74,6 +74,37 @@ describe("formatPercent", () => {
     (ratio) => {
       expect(() => formatPercent("pt-BR", ratio)).toThrow(
         `Percent: "${ratio}" is not a decimal string, as "0.459".`,
+      );
+    },
+  );
+});
+
+describe("formatQuantity", () => {
+  it.each([
+    ["shows a whole with no decimals", "100", "100"],
+    ["groups the thousands", "1234.5", "1.234,5"],
+    ["keeps the zeros given", "10.50", "10,50"],
+    ["keeps every digit given", "0.12345678", "0,12345678"],
+    [
+      "stays exact beyond what a number holds",
+      "123456789012345678.123",
+      "123.456.789.012.345.678,123",
+    ],
+    ["writes the minus sign", "-3", `${minus}3`],
+    ["gives zero no sign", "-0.0", "0,0"],
+  ])("%s", (_case, value, text) => {
+    expect(formatQuantity("pt-BR", value)).toBe(text);
+  });
+
+  it("writes the language it is given", () => {
+    expect(formatQuantity("en-US", "1234.5")).toBe("1,234.5");
+  });
+
+  it.each(["1,5", "", "1e3", "+2", "100 shares"])(
+    'refuses "%s", which is not a decimal string',
+    (value) => {
+      expect(() => formatQuantity("pt-BR", value)).toThrow(
+        `Quantity: "${value}" is not a decimal string, as "1234.5".`,
       );
     },
   );

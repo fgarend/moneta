@@ -2,7 +2,12 @@
 // page's title. It holds no piece, so it stays apart from MoneyProvider. docs/decisions/money.md says why it is so.
 import { useCallback } from "react";
 import { useLocale } from "react-aria-components";
-import { formatMoney, formatPercent, type Money } from "#lib/money";
+import {
+  formatMoney,
+  formatPercent,
+  formatQuantity,
+  type Money,
+} from "#lib/money";
 
 // The same text as Amount, in the language React Aria speaks.
 function useFormatMoney(): (money: Money) => string {
@@ -16,5 +21,11 @@ function useFormatPercent(): (ratio: string) => string {
   return useCallback((ratio) => formatPercent(locale, ratio), [locale]);
 }
 
+// The same text as Quantity.
+function useFormatQuantity(): (value: string) => string {
+  const { locale } = useLocale();
+  return useCallback((value) => formatQuantity(locale, value), [locale]);
+}
+
 export type { Money };
-export { useFormatMoney, useFormatPercent };
+export { useFormatMoney, useFormatPercent, useFormatQuantity };

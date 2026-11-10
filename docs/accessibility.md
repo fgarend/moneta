@@ -35,7 +35,7 @@ which is run by hand.
 | 1.2.3 Audio Description or Media Alternative | app | |
 | 1.2.4 Captions (Live) | app | |
 | 1.2.5 Audio Description | app | |
-| 1.3.1 Info and Relationships | axe, story | Stories find elements by role and name, Section's the level of its titles, and Amount's and Percent's the words for no value and their minus |
+| 1.3.1 Info and Relationships | axe, story | Stories find elements by role and name, Section's the level of its titles, and the words for no value and the minus of Amount, Percent and Quantity |
 | 1.3.2 Meaningful Sequence | script | |
 | 1.3.3 Sensory Characteristics | app | |
 | 1.3.4 Orientation | script | Nothing here locks it |

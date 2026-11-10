@@ -1,12 +1,13 @@
 // What every piece of money shares: its text, the app's words for no value, and a copy of one taking a hyphen.
-// Internal: Amount and Percent read it. docs/decisions/money.md says why it is so.
+// Internal: Amount, Percent and Quantity read it. docs/decisions/money.md says why it is so.
 import { cn } from "cn";
 import { useContext, useEffect } from "react";
 import { MoneyContext } from "#lib/money";
 
 const sizes = { default: "type-amount", lg: "type-amount-lg" };
 // Every piece of money, by its data-slot.
-const pieces = '[data-slot="amount"],[data-slot="percent"]';
+const pieces =
+  '[data-slot="amount"],[data-slot="percent"],[data-slot="quantity"]';
 
 type ValueSize = keyof typeof sizes;
 
