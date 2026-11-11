@@ -16,38 +16,10 @@ again at that moment. When an item is done, its notes go, as what holds then is 
 
 The owner decided on 2026-11-09 that these come first, as an app keeps its own shell until Sidebar while these hold
 its screens back: the close button's name, done in 0.6.0, Link, done in 0.7.0, Money values, done in 0.8.0, Table,
-done in 0.9.0, Lists of rows, done in 0.10.0, Dates and DateField. Each is a step of its own, with what its family's
-item says of it. **What it costs:** a piece made before Colours of meaning and One scale of sizes may need a touch
-when they arrive, and Sidebar's study may change the space around Section. To ask later: a page that puts the pieces
-together, a pre-release tried in an app before a version, and a review of the whole after each family.
-
-## Dates
-
-They come with money, as they share how a value is held, formatted and shown. Shown and entered, on
-`@internationalized/date`, which React Aria's date pieces use. It comes before DateField.
-
-Decided on 2026-11-11, one point at a time, after a study of an app's screens and prototypes, of React Aria,
-`Intl`, `<time>`, Polaris, Primer, Atlassian, GOV.UK, Material and Plaid. One step.
-
-- **An ISO string, as money takes a decimal one:** `"2026-10-24"` a day, with no time or zone, which never shifts, and
-  `"2026-10-24T14:32:00Z"` a moment, read by `@internationalized/date`'s `parseDate` and `parseAbsolute`; any other
-  string throws. No `Date`, which reads a day as UTC midnight, the day before in São Paulo.
-- **A piece, `DateTime`, a `<time datetime>`, and a hook, `useFormatDate`,** beside `useFormatMoney`, on React Aria's
-  `useDateFormatter`, in the language of `I18nProvider`.
-- **Four formats by name, `format`:** `"short"`, the default, as "24 de out."; `"long"`, as "sábado, 24 de outubro";
-  `"numeric"`, as "24/10/2026"; `"month"`, as "outubro de 2026"; and `showTime` on a moment, as "24 de out., 14:32".
-- **`relative`, off by default, on `"short"` only:** today, yesterday and tomorrow as words from
-  `Intl.RelativeTimeFormat`, one day each way, as pt-BR's "anteontem" has no peer in English; the piece capitalises
-  its first letter, and the hook keeps the browser's case, for a sentence.
-- **The year** in `"short"` and `"long"` only when not this year, as Polaris, Primer and Material; always in
-  `"numeric"` and `"month"`.
-- **The time zone:** a day has none; a moment, "today" and "this year" are the browser's, by `getLocalTimeZone()`,
-  with `timeZone` on the piece and the hook for another. A provider for the app's zone waits for Sidebar, AppLayout
-  and providers.
-- **No date:** `value={null}` shows "—", with `emptyLabel` on the piece or on `MoneyProvider`, as a value of money,
-  and throws with no words.
-- **WCAG to check:** 1.3.1 by `<time datetime>` and the words for no date.
-
+done in 0.9.0, Lists of rows, done in 0.10.0, Dates, done in 0.11.0, and DateField. Each is a step of its own, with
+what its family's item says of it. **What it costs:** a piece made before Colours of meaning and One scale of sizes
+may need a touch when they arrive, and Sidebar's study may change the space around Section. To ask later: a page that
+puts the pieces together, a pre-release tried in an app before a version, and a review of the whole after each family.
 
 ## DateField
 
