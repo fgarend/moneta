@@ -16,31 +16,11 @@ again at that moment. When an item is done, its notes go, as what holds then is 
 
 The owner decided on 2026-11-09 that these come first, as an app keeps its own shell until Sidebar while these hold
 its screens back: the close button's name, done in 0.6.0, Link, done in 0.7.0, Money values, done in 0.8.0, Table,
-done in 0.9.0, Lists of rows, done in 0.10.0, Dates, done in 0.11.0, and DateField. Each is a step of its own, with
-what its family's item says of it. **What it costs:** a piece made before Colours of meaning and One scale of sizes
-may need a touch when they arrive, and Sidebar's study may change the space around Section. To ask later: a page that
-puts the pieces together, a pre-release tried in an app before a version, and a review of the whole after each family.
-
-## DateField
-
-Entering a date, of Actions and forms' family, moved here. Decided on 2026-11-11, one point at a time, after a study of
-an app's date fields and prototypes, of React Aria's `DateField` and of shadcn, whose aria-nova style has a calendar
-and no date field. One step.
-
-- **An ISO value, as `DateTime`'s:** `value="2026-10-24"`, and `onChange` gives `"2026-10-24"`, or `null` while the date
-  is not whole or once it is cleared. Inside, `@internationalized/date`'s `parseDate` and `toString`, which becomes a
-  dependency of the package, at the version React Aria brings, so nothing new reaches an app; `dates.md` changes.
-- **One piece, `DateField`, with `label`, `description` and `errorMessage` as props,** on React Aria's `DateField`,
-  `Label`, `DateInput`, `Text` and `FieldError`, linked by it, as React Aria's starters; its name, `label` or
-  `aria-label`, asked for by TypeScript. Not open parts with `Field`, whose description is not linked yet; Actions and
-  forms may change it, as a breaking change.
-- **36 px, as `Input`, and `size="sm"`, 32 px,** for a dense place as a page's tools; `Input`'s border, ring and
-  invalid red, tabular segments, and the focused one on `--muted`. One scale of sizes may rename it.
-- **Validation as it happens, `validationBehavior="aria"`:** `isRequired`, `minValue` and `maxValue` in ISO, and
-  `isInvalid`; the message always the app's, `errorMessage`, which TypeScript asks for whenever a rule is set, so no
-  default text, React Aria's neither.
-- **WCAG to check:** 1.3.1 and 4.1.2 by the label naming each segment, 3.3.1 and 3.3.2 by the error and description
-  linked, 2.1.1 by typing and arrows, React Aria's, 1.4.11 by the border's contrast.
+done in 0.9.0, Lists of rows, done in 0.10.0, Dates, done in 0.11.0, and DateField, done in 0.12.0. Each is a step of
+its own, with what its family's item says of it. **What it costs:** a piece made before Colours of meaning and One
+scale of sizes may need a touch when they arrive, and Sidebar's study may change the space around Section. To ask
+later: a page that puts the pieces together, a pre-release tried in an app before a version, and a review of the whole
+after each family.
 
 ## Motion, layers and icons
 
