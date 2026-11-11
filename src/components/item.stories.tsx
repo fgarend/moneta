@@ -82,7 +82,6 @@ function rows() {
 const meta = {
   title: "Components/Display & Media/Item",
   component: ItemGroup,
-  tags: ["raw"],
 } satisfies Meta<typeof ItemGroup>;
 
 type Story = StoryObj<typeof meta>;

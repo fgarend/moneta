@@ -19,6 +19,7 @@ gets its number.
 
 ### Added
 
+- `Item` reviewed, as a list of rows.
 - `title` and `total` on `ItemGroup`, which make it a group, as a day's, with its title a heading that names the
   list and its total at its end, drawn as a table's groups.
 - `ItemEmpty`, the app's words for no rows, and loading on `ItemGroup`, `isLoading`, `loadingLabel` and `loadingRows`,
