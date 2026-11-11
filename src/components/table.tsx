@@ -288,6 +288,7 @@ function Table({
           className,
         )}
         data-density={density}
+        data-has-children={children.size > 0 ? true : undefined}
         data-slot="table"
         {...props}
       >
@@ -517,6 +518,9 @@ function TableHead({
               // Stuck to the top of its area, over the rows and their titles, with its own line, as a collapsed border
               // stays behind.
               "in-data-sticky-header:sticky in-data-sticky-header:top-0 in-data-sticky-header:z-20 in-data-sticky-header:bg-(--surface) in-data-sticky-header:after:absolute in-data-sticky-header:after:inset-x-0 in-data-sticky-header:after:bottom-0 in-data-sticky-header:after:h-px in-data-sticky-header:after:bg-border",
+              // Once rows have children, the titles' header keeps their button's room too, 40 px, so it stands over their
+              // text: the first column, or the second after the boxes.
+              "in-data-has-children:first:not-has-data-[slot=table-select-all]:ps-13 in-data-[slot=card]:in-data-has-children:first:not-has-data-[slot=table-select-all]:ps-15 in-data-has-children:in-[tr:has([data-slot=table-select-all])]:nth-2:ps-13",
               "in-[tr:has([data-slot=table-select-all])]:nth-2:sticky in-[tr:has([data-slot=table-select-all])]:nth-2:start-7 in-[tr:has([data-slot=table-select-all])]:nth-2:bg-(--surface) in-data-[slot=card]:in-[tr:has([data-slot=table-select-all])]:nth-2:start-9",
             ),
         className,

@@ -567,28 +567,36 @@ const onExpandedChange = fn();
 
 function holdingRows(): ReactNode {
   return (
-    <TableBody>
-      {holdings.map((holding) => (
-        <Fragment key={holding.id}>
-          <TableRow id={holding.id}>
-            <TableHead scope="row">{holding.name}</TableHead>
-            <TableCell align="end">
-              <Amount value={brl(holding.value)} />
-            </TableCell>
-          </TableRow>
-          {holding.id === "fund"
-            ? accounts.map((child) => (
-                <TableRow key={child.id} parentId={holding.id}>
-                  <TableHead scope="row">{child.name}</TableHead>
-                  <TableCell align="end">
-                    <Amount value={brl(child.value)} />
-                  </TableCell>
-                </TableRow>
-              ))
-            : null}
-        </Fragment>
-      ))}
-    </TableBody>
+    <>
+      <TableHeader>
+        <TableRow>
+          <TableHead>{description}</TableHead>
+          <TableHead align="end">{amount}</TableHead>
+        </TableRow>
+      </TableHeader>
+      <TableBody>
+        {holdings.map((holding) => (
+          <Fragment key={holding.id}>
+            <TableRow id={holding.id}>
+              <TableHead scope="row">{holding.name}</TableHead>
+              <TableCell align="end">
+                <Amount value={brl(holding.value)} />
+              </TableCell>
+            </TableRow>
+            {holding.id === "fund"
+              ? accounts.map((child) => (
+                  <TableRow key={child.id} parentId={holding.id}>
+                    <TableHead scope="row">{child.name}</TableHead>
+                    <TableCell align="end">
+                      <Amount value={brl(child.value)} />
+                    </TableCell>
+                  </TableRow>
+                ))
+              : null}
+          </Fragment>
+        ))}
+      </TableBody>
+    </>
   );
 }
 
@@ -625,10 +633,15 @@ const ChildRows: Story = {
     await expect(button.getBoundingClientRect().width).toBe(target);
     // Its button takes no more height than the title's text, so the row keeps its 44 px.
     await expect(heightOf(button.closest("tr") as Element)).toBe(rowHeight);
-    // Titles line up, a row with no children keeping the button's room.
+    // Titles line up, a row with no children keeping the button's room, and their header with them.
     await expect(Math.round(textLeft(plainTitle))).toBe(
       Math.round(textLeft(parentTitle)),
     );
+    await expect(
+      Math.round(
+        textLeft(canvas.getByRole("columnheader", { name: description })),
+      ),
+    ).toBe(Math.round(textLeft(parentTitle)));
     await userEvent.click(button);
     await expect(child).toBeVisible();
     await expect(button).toHaveAttribute("aria-expanded", "true");
@@ -660,6 +673,30 @@ const RowOutsideTable: Story = {
     await expect(
       within(canvasElement).getByText("TableRow must be used within a Table."),
     ).toBeVisible();
+  },
+};
+
+// In a card, the titles' header stands over their text as well.
+const ChildRowsInCard: Story = {
+  render: () => (
+    <Card>
+      <CardContent>
+        <Table aria-label={name}>{holdingRows()}</Table>
+      </CardContent>
+    </Card>
+  ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    await expect(
+      Math.round(
+        textLeft(canvas.getByRole("columnheader", { name: description })),
+      ),
+    ).toBe(
+      Math.round(
+        textLeft(canvas.getByRole("rowheader", { name: holdings[1]?.name })),
+      ),
+    );
   },
 };
 
@@ -1570,7 +1607,18 @@ const Compact: Story = {
     await expect(
       canvas.getAllByRole("button", { name: days[0]?.rows[0]?.name }),
     ).toHaveLength(1);
-    // The header as it is, and groups closer.
+    // The titles' header over their text, after the boxes, and the header as it is, and groups closer.
+    await expect(
+      Math.round(
+        textLeft(canvas.getByRole("columnheader", { name: description })),
+      ),
+    ).toBe(
+      Math.round(
+        textLeft(
+          canvas.getByRole("rowheader", { name: days[0]?.rows[0]?.name }),
+        ),
+      ),
+    );
     await expect(
       height(canvas.getByRole("columnheader", { name: amount })),
     ).toBe(Number.parseInt(cellSpacing, 10) * 3);
@@ -1586,6 +1634,7 @@ export {
   ActionWithoutTitle,
   ChildRows,
   ChildRowsDefaultOpen,
+  ChildRowsInCard,
   ChildRowsOpen,
   Compact,
   CurrentRow,

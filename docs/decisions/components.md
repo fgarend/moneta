@@ -97,9 +97,10 @@ pieces is in [`../pieces.md`](../pieces.md), and how a piece is analysed is in [
   its keys, unless the click is on a control or text is selected; it shows a pointer and a hover fill.
 - **A row's children are rows with its key as their `parentId`,** right after it, `hidden` while it is closed, one
   level deep. The table draws a 32 px button in the parent's title, named by it, with `aria-expanded` and
-  `aria-controls`, keeps the button's room in every title once a row has children, and sets a child in by as much
-  again. `expandedKeys`, `defaultExpandedKeys` and `onExpandedChange` on the table hold which rows are open, as React
-  Aria's `Tree` names them. A part outside a `Table` throws.
+  `aria-controls`, keeps the button's room in every title once a row has children, and in the titles' header, so it
+  stands over their text, and sets a child in by as much again. `expandedKeys`, `defaultExpandedKeys` and
+  `onExpandedChange` on the table hold which rows are open, as React Aria's `Tree` names them. A part outside a
+  `Table` throws.
 - **Rows are selected by a box each,** `TableSelect`, in a cell of its own before the row's title, named by it, and
   `TableSelectAll` in the header, named by the app once, checked when every row shown is and partly when some are.
   `selectedKeys`, `defaultSelectedKeys` and `onSelectionChange` on the table hold them, by row `id`, and keep keys
