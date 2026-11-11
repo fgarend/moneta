@@ -44,7 +44,8 @@ How the repository runs, and how its versions are chosen.
   React Aria's own types do not pass it.
 - **Screenshots are taken at one width, 1280 px,** in Chromium, for each story tagged `visual`.
   They are approved in the commit that changes them, and compared pixel by pixel, with no tolerance but the anti-aliasing
-  of edges, from the browsers' settings that every project shares.
+  of edges, from the browsers' settings that every project shares. Before each story, the page is painted over for a
+  frame and cleared, so nothing of an earlier story is left in it.
 - **Colour runs in both modes:** axe, the screenshots and forced colours run every story again in dark, in a project of
   their own. The gallery switches the mode with `@storybook/addon-themes`, which puts `.dark` on the page's root. A story
   a test draws as a component runs no effect of Storybook's, so `.storybook/vitest.setup.ts` puts the class there itself.
@@ -91,6 +92,10 @@ How the repository runs, and how its versions are chosen.
   `#5a2b33` on 2026-11-06 and the whole dark palette on 2026-11-07. Exact, they caught five planted changes, down to one
   digit of hex, and passed five unchanged runs on 2026-11-08. **What it costs:** a browser that draws text a little
   differently fails every screenshot at once, each to be approved again, and so does any change of colour.
+- **The page painted over before each story,** as Chromium kept one pixel of an earlier story where it believed nothing
+  changed: on 2026-11-10, a corner of the section's button, one step darker, showed in the table's groups whenever the
+  section and the table's first story ran before it, and in no other order. **What it costs:** two frames per
+  screenshot.
 - **Coverage split by check,** so each part is measured by the tests meant for it, and a line
   with no test turns one box red. Coverage says a line ran, not that anything looked at it,
   so a story checks what it shows in `play`.
@@ -183,3 +188,4 @@ How the repository runs, and how its versions are chosen.
 - 2026-11-09: The gallery's build as a check.
 - 2026-11-09: Coverage on every piece, shadcn's too.
 - 2026-11-09: `noUnusedLocals` on, as nothing fails it once every piece is linted.
+- 2026-11-10: The page painted over before each screenshot.

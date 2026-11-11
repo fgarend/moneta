@@ -93,7 +93,6 @@ Each becomes an item when its time comes.
 - **More for a value, when a screen asks.** A unit, a value shown while hidden, a tone kept, a spoken text.
 - **A table's virtualisation, resized columns and rows dragged.** When a screen needs them.
 - **The sample page's text in the dark stories.** Light's colour, where its dark screenshot is right.
-- **A screenshot one pixel apart between two runs.** Table's groups, when written alone and checked with every story.
 
 ## Done
 
