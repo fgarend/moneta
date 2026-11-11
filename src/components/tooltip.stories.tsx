@@ -34,7 +34,7 @@ const Default: Story = {
   },
 };
 
-// It says itself as the trigger's description.
+// It says itself as the trigger's description, and appears in 100 ms, as the other overlays do.
 const Open: Story = {
   play: async ({ canvasElement }) => {
     // A pointer moves before it arrives, which React Aria needs to count it as hovering.
@@ -49,6 +49,9 @@ const Open: Story = {
     await expect(
       within(canvasElement).getByRole("button", { name: trigger }),
     ).toHaveAccessibleDescription(content);
+    await expect(
+      getComputedStyle(tooltip).getPropertyValue("--tw-duration"),
+    ).toBe("100ms");
   },
 };
 

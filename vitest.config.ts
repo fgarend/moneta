@@ -105,6 +105,10 @@ function storyProjects(): TestProjectInlineConfiguration[] {
         provide: { mode: "light" },
       },
     },
+    // Every browser asked for less motion, as a reader's system setting asks.
+    everyStory("less-motion", everyBrowser, {
+      provider: playwright({ contextOptions: { reducedMotion: "reduce" } }),
+    }),
     // WebKit's emulation answers the media query but forces no colours.
     ...(["light", "dark"] as const).map((mode) =>
       everyStory("forced-colors", ["chromium", "firefox"], {

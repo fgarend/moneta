@@ -87,6 +87,8 @@ Each becomes an item when its time comes.
 - **The sample page's text in the dark stories.** Light's colour, where its dark screenshot is right.
 - **Skeleton's and Progress's less motion, asked of each browser.** As the overlays' is, in place of reading the
   style sheets.
+- **An overlay stuck entering or leaving in WebKit.** React Aria waits on a transition the browser cancels, as
+  `duration-100` makes every property transition; found headless on 2026-11-11, and whether Safari does it is unknown.
 
 ## Done
 

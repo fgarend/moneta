@@ -6,6 +6,12 @@ gets its number.
 
 ## [Unreleased]
 
+### Changed
+
+- With less motion asked for, the pieces no longer move or change size: overlays and `Sheet` fade in and out with no
+  slide or zoom, `Switch`'s thumb jumps, and `Progress`'s bar goes straight to its value. `Spinner` keeps turning.
+- `Tooltip` appears in 100 ms, as the other overlays, instead of 150.
+
 ## [0.12.0] - 2026-11-11
 
 DateField: a day typed in, part by part in the language's order, from and to an ISO string, with the app's label,
