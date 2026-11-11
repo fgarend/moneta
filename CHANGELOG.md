@@ -12,8 +12,14 @@ gets its number.
   around each, at a table's ends: 12 px loose, reaching as much out, and edge to edge in a card, alone in its
   `CardContent`. To upgrade:
   - drop an `ItemSeparator` between the items of a group, which draws its own lines;
-  - an `Item` that should keep its box, as `variant="outline"`, stands alone, out of a group.
+  - an `Item` that should keep its box, as `variant="outline"`, stands alone, out of a group;
+  - in place of `href` on an `Item`, put a `Link` in its `ItemTitle`, which a click anywhere empty in the item follows.
 - `ItemTitle` and `ItemDescription` wrap, no longer cut at one and two lines.
+
+### Added
+
+- A list's row with `aria-current="true"`, the one open beside it, is drawn with a bar of `--primary` at its start,
+  as a table's.
 
 ## [0.9.0] - 2026-11-11
 

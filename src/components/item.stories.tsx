@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { PiggyBank } from "lucide-react";
-import { expect, within } from "storybook/test";
+import { RouterProvider } from "react-aria-components";
+import { expect, fn, userEvent, within } from "storybook/test";
 import { Button } from "./button.js";
 import { Card, CardContent, CardHeader, CardTitle } from "./card.js";
 import {
@@ -15,6 +16,7 @@ import {
   ItemSeparator,
   ItemTitle,
 } from "./item.js";
+import { Link } from "./link.js";
 
 const title = "Savings";
 const description = "Balance 1,250.00";
@@ -180,7 +182,8 @@ const LongText: Story = {
   },
 };
 
-// Alone, out of a list, an item is no item of a list, and keeps its box when outlined; with an href, it is a link.
+// Alone, out of a list, an item is no item of a list, and keeps its box when outlined; one that opens has its link in
+// its title.
 const Alone: Story = {
   render: () => (
     <div className="flex flex-col gap-4">
@@ -194,7 +197,15 @@ const Alone: Story = {
         </ItemActions>
       </Item>
       <ItemSeparator />
-      <Item href="#checking">{linked}</Item>
+      <Item>
+        <ItemContent>
+          <ItemTitle>
+            <Link href="#checking" isQuiet={true}>
+              {linked}
+            </Link>
+          </ItemTitle>
+        </ItemContent>
+      </Item>
     </div>
   ),
   play: async ({ canvasElement }) => {
@@ -254,5 +265,117 @@ const AllParts: Story = {
   },
 };
 
+// A row that opens: a click on an empty part of it goes to the link in its title, so keyboards and screen readers
+// keep one short link while a pointer has the whole row, which shows a pointer over it. A click on text
+// being selected stays where it is, and one with Ctrl or Cmd reaches the link with its key.
+const navigate = fn();
+
+const RowLink: Story = {
+  render: () => (
+    <RouterProvider navigate={navigate}>
+      <ItemGroup>
+        {accounts.map((account) => (
+          <Item key={account.id}>
+            <ItemContent>
+              <ItemTitle>
+                <Link href={`/accounts/${account.id}`} isQuiet={true}>
+                  {account.name}
+                </Link>
+              </ItemTitle>
+              <ItemDescription>{account.detail}</ItemDescription>
+            </ItemContent>
+          </Item>
+        ))}
+      </ItemGroup>
+    </RouterProvider>
+  ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const first = accounts[0];
+    const detail = canvas.getAllByText(first?.detail ?? "")[0] as HTMLElement;
+    const row = detail.closest("li") as HTMLElement;
+    const link = canvas.getByRole("link", { name: first?.name });
+    const keys: boolean[] = [];
+    // The test's own clicks are not the user's, so the browser would follow a link with Ctrl in this very page.
+    link.addEventListener("click", (event) => {
+      keys.push(event.ctrlKey);
+      if (event.ctrlKey) {
+        event.preventDefault();
+      }
+    });
+
+    // One link per row, named by its title alone.
+    await expect(canvas.getAllByRole("link")).toHaveLength(accounts.length);
+    await expect(getComputedStyle(row).cursor).toBe("pointer");
+    navigate.mockClear();
+    await userEvent.click(detail);
+    await expect(navigate).toHaveBeenCalledWith(
+      `/accounts/${first?.id}`,
+      undefined,
+    );
+    // With text selected in the row, a click is part of selecting.
+    navigate.mockClear();
+    const selection = document.getSelection() as Selection;
+    selection.selectAllChildren(detail);
+    detail.dispatchEvent(new MouseEvent("click", { bubbles: true }));
+    await expect(navigate).not.toHaveBeenCalled();
+    selection.removeAllRanges();
+    // With Ctrl, the link gets the key, and the router does not navigate here.
+    keys.length = 0;
+    detail.dispatchEvent(
+      new MouseEvent("click", { bubbles: true, ctrlKey: true }),
+    );
+    await expect(keys).toEqual([true]);
+    await expect(navigate).not.toHaveBeenCalled();
+  },
+};
+
+// The row open beside the list, as in a side panel: aria-current, at --muted with a bar of --primary at its start,
+// which moves none of its text.
+const bar = "3px";
+
+const CurrentRow: Story = {
+  render: () => (
+    <ItemGroup>
+      {accounts.map((account) => (
+        <Item
+          aria-current={account.id === "a2" ? "true" : undefined}
+          key={account.id}
+        >
+          <ItemContent>
+            <ItemTitle>{account.name}</ItemTitle>
+          </ItemContent>
+        </Item>
+      ))}
+    </ItemGroup>
+  ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const [first, current] = canvas.getAllByRole("listitem") as [
+      HTMLElement,
+      HTMLElement,
+    ];
+    const marker = getComputedStyle(current, "::before");
+    const left = (text: string) =>
+      Math.round(canvas.getByText(text).getBoundingClientRect().left);
+
+    await expect(current).toHaveAttribute("aria-current", "true");
+    await expect(getComputedStyle(current).backgroundColor).toBe(
+      colourOf("var(--muted)", canvasElement),
+    );
+    await expect([
+      marker.width,
+      marker.backgroundColor,
+      marker.insetInlineStart,
+    ]).toEqual([bar, colourOf("var(--primary)", canvasElement), none]);
+    await expect(left(accounts[1]?.name ?? "")).toBe(
+      left(accounts[0]?.name ?? ""),
+    );
+    await expect(getComputedStyle(first).backgroundColor).toBe(
+      "rgba(0, 0, 0, 0)",
+    );
+  },
+};
+
 export default meta;
-export { AllParts, Alone, Default, InCard, LongText };
+export { AllParts, Alone, CurrentRow, Default, InCard, LongText, RowLink };

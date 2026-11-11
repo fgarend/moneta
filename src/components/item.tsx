@@ -5,10 +5,11 @@ import {
   createContext,
   type HTMLAttributes,
   useContext,
+  useEffect,
+  useRef,
 } from "react";
-import { Link as LinkPrimitive, type LinkProps } from "react-aria-components";
-
 import { Separator } from "#components/separator";
+import { followTitle, rowFill } from "#hooks/row";
 
 // Whether an item sits in a list of rows, where it is one of its items.
 const InList = createContext(false);
@@ -47,7 +48,7 @@ function ItemSeparator({
 }
 
 const itemVariants = cva(
-  "group/item flex w-full flex-wrap items-center rounded-lg border text-sm transition-colors duration-100 outline-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 [a]:transition-colors [a]:hover:bg-muted",
+  "group/item flex w-full flex-wrap items-center rounded-lg border text-sm transition-colors duration-100 outline-none",
   {
     variants: {
       variant: {
@@ -68,34 +69,54 @@ const itemVariants = cva(
   },
 );
 
+// The link in an item's title, which a click anywhere empty in it follows.
+const titleLink = '[data-slot="item-title"] a[href]';
+
+// One thing, read across. In a list, a row, whose state, aria-current, and whose clicks are the row's; alone, a box.
 function Item({
   className,
   variant = "default",
   size = "default",
+  "aria-current": current,
   ...props
-}: Omit<LinkProps, "children"> &
-  HTMLAttributes<HTMLElement> &
-  VariantProps<typeof itemVariants>) {
+}: HTMLAttributes<HTMLDivElement> & VariantProps<typeof itemVariants>) {
   const inList = useContext(InList);
-  const Element = "href" in props ? LinkPrimitive : "div";
+  // The row, which a click anywhere empty in sends to its title's link: the list's item, or the item alone.
+  const row = useRef<HTMLElement>(null);
+  useEffect(() => {
+    const element = row.current as HTMLElement;
+    const follow = (event: MouseEvent) =>
+      followTitle(element, event, titleLink);
+    element.addEventListener("click", follow);
+    return () => element.removeEventListener("click", follow);
+  }, []);
   const item = (
-    <Element
+    <div
+      aria-current={inList ? undefined : current}
       data-slot="item"
       data-variant={variant}
       data-size={size}
       className={cn(
         itemVariants({ variant, size }),
-        // In a list, the row draws the space and the line, and the item none of its own.
-        inList && "rounded-none border-0 p-0",
+        // In a list, the row draws the space, the line and the state, and the item none of its own.
+        inList
+          ? "rounded-none border-0 p-0"
+          : "has-[[data-slot=item-title]_a[href]]:cursor-pointer has-[[data-slot=item-title]_a[href]]:hover:bg-muted",
         className,
       )}
+      ref={inList ? undefined : (row as React.RefObject<HTMLDivElement>)}
       {...props}
     />
   );
   return inList ? (
     <li
-      className="border-b px-3 py-3 last:border-0 in-data-[slot=card]:px-5"
+      aria-current={current}
+      className={cn(
+        rowFill,
+        "relative border-b px-3 py-3 last:border-0 in-data-[slot=card]:px-5 has-[[data-slot=item-title]_a[href]]:cursor-pointer has-[[data-slot=item-title]_a[href]]:hover:[--row-hover:color-mix(in_oklab,var(--muted)_50%,transparent)] aria-[current=true]:before:absolute aria-[current=true]:before:inset-y-0 aria-[current=true]:before:start-0 aria-[current=true]:before:w-0.75 aria-[current=true]:before:bg-primary",
+      )}
       data-slot="item-row"
+      ref={row as React.RefObject<HTMLLIElement>}
     >
       {item}
     </li>

@@ -43,6 +43,10 @@ pieces is in [`../pieces.md`](../pieces.md), and how a piece is analysed is in [
   in a card, where a `CardContent` holding only a list loses its side padding and gains a line above. An `Item` alone
   stays a `<div>`, with its variants.
 - **Titles and descriptions wrap,** never cut.
+- **An item that opens has a `Link` in its `ItemTitle`,** which a click anywhere empty in the row, or in the item
+  alone, follows with its keys, as a table's row; it shows a pointer and, in a list, a hover at half `--muted`. A
+  row with `aria-current="true"` is drawn at `--muted` with a 3 px bar of `--primary`. Both share
+  `src/hooks/row.ts` with Table.
 
 ### Section
 
@@ -190,6 +194,8 @@ pieces is in [`../pieces.md`](../pieces.md), and how a piece is analysed is in [
   grid,** as rows are read, as Sarah Higley advises, and `role="list"` kept, as Safari drops a list's meaning with
   its markers, as Carbon notes. **A table's look,** lines and ends, so a list and a table side by side read alike.
   **What it costs:** `ItemGroup`'s gaps and boxes go, and the lint's rule on redundant roles is set aside there.
+- **The link in the title, not the whole row as one,** as Roselli advises, so its name is the title alone and a
+  control can sit in the row. **What it costs:** `href` on `Item` goes.
 - **No `colSpan`,** as screen readers announce spanning headers badly, as Roselli found, and a column can then hide by
   its cells with nothing misaligned. **But for `TableEmpty`,** a row with nothing to compare, as shadcn's data table
   and Carbon draw it, which keeps the empty words in the table. **What it costs:** `align` and `hideBelow` are written
