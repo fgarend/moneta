@@ -6,6 +6,11 @@ gets its number.
 
 ## [Unreleased]
 
+### Added
+
+- `DateTime`, a date from an ISO day or moment, in four formats, with today, yesterday and tomorrow as words, and
+  `useFormatDate`, its text for a sentence.
+
 ## [0.10.0] - 2026-11-11
 
 Lists of rows: `Item` reviewed as one thing per row, read across, with groups and a total, a row as a link or with an
