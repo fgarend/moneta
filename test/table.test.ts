@@ -11,3 +11,16 @@ it("asks a table for its name", () => {
   expectTypeOf<{ "aria-labelledby": string }>().toExtend<TableProps>();
   expectTypeOf<{ caption: string }>().toExtend<TableProps>();
 });
+
+// A table loading says so in the app's words.
+it("asks a loading table for its words", () => {
+  expectTypeOf<{
+    "aria-label": string;
+    isLoading: boolean;
+  }>().not.toExtend<TableProps>();
+  expectTypeOf<{
+    "aria-label": string;
+    isLoading: boolean;
+    loadingLabel: string;
+  }>().toExtend<TableProps>();
+});

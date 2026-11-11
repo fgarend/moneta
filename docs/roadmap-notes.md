@@ -36,7 +36,7 @@ Later, in the roadmap: virtualisation, resized columns and rows dragged, which R
 
 **Structure and API.**
 - No `colSpan` anywhere: every row has a cell per column, groups and the total too, as Roselli advises against
-  spanning headers, and so columns can hide.
+  spanning headers, and so columns can hide. `TableEmpty` alone spans, decided on 2026-11-11.
 - `align="start" | "end"` written on `TableHead` and each `TableCell`, as `text-start` and `text-end`, never centre.
 - Every row has a title, `TableHead scope="row"`, a `<th>`. A row's controls take their names from it by
   `aria-labelledby`: a checkbox reads as the row's title, the disclosure too, and an action joins the app's one word,
@@ -81,7 +81,9 @@ Later, in the roadmap: virtualisation, resized columns and rows dragged, which R
   words announced; a reload keeps the rows, with `aria-busy` and a thin indeterminate bar of `Progress` under the
   header, never dimmed rows. `Progress`'s indeterminate bar, drawn full today, and `Skeleton`'s pulse, which ignores
   reduced motion, are fixed here.
-- Empty: the header stays, and `TableEmpty` holds the app's content in one row across the table.
+- Empty: the header stays, and `TableEmpty` holds the app's content in one row across the table, by `colSpan`.
+- Decided on 2026-11-11: `isLoading`, `loadingLabel`, which TypeScript asks for, and `loadingRows`, 5 by default;
+  `Progress`'s indeterminate bar runs a part across, dashed and still with less motion.
 - Copying: when a selection crosses cells, the table writes the copy itself, tab-separated text and HTML, with a
   hyphen for the minus of its values, hidden values as dots and hidden columns left out; a selection inside one cell
   stays the browser's, and one value keeps its own rule. The copy button builds the same from the selected rows.

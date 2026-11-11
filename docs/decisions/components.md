@@ -78,7 +78,7 @@ pieces is in [`../pieces.md`](../pieces.md), and how a piece is analysed is in [
 - **Named, as TypeScript asks:** `aria-label`, `aria-labelledby`, or `caption`, a native `<caption>`.
 - **Each row is titled by `TableHead scope="row"`,** a `<th>`.
 - **`align="start" | "end"` on each header and cell,** as `text-start` and `text-end`, with no centre and no `colSpan`
-  anywhere.
+  but `TableEmpty`'s.
 - **`hideBelow="sm" | "md" | "lg"` on each cell of a column hides it** by the width of the table's own area, a
   container, with `display: none`.
 - **Its ends follow its place:** 20 px in a card, where a `CardContent` holding only a table loses its side padding
@@ -108,6 +108,12 @@ pieces is in [`../pieces.md`](../pieces.md), and how a piece is analysed is in [
   selected row is drawn at `--muted`, and a row with a box at half of it on hover. A box in a row with no title or
   no `id` throws.
 - **Narrow, the boxes stick at the table's start too,** and the titles right after them.
+- **`isLoading` with the app's `loadingLabel`, which TypeScript asks for, makes the table busy and says the words**
+  in a status. With no rows yet, it draws `loadingRows` rows of shapes, 5 unless the app says, one per column
+  where its text sits and hidden with it, which a screen reader skips; with rows, it keeps them as they are, under a
+  2 px running `Progress` along the header's foot, which stays in view.
+- **`TableEmpty` holds the app's words for no rows** in one row whose cell spans every column, centred, under the
+  header.
 - **Rows are 44 px, or 36 with `density="compact"`,** with their line under them, whatever they hold: a row's
   controls of 32 px take less than its text's height, by a negative margin. In compact, groups are 20 px apart and 8
   under the header, and the header stays 36 px.
@@ -168,9 +174,10 @@ pieces is in [`../pieces.md`](../pieces.md), and how a piece is analysed is in [
   of shadcn's `grid` into a native table would only conflict. **What it costs:** an app on the `grid` moves, the
   selection's state is ours, and each control is a tab stop.
 - **Its name asked for,** as every table an app had already carried one, and a table with none is announced bare.
-- **No `colSpan`,** as screen readers announce spanning headers badly, as Roselli found, and a column can then hide
-  by its cells with nothing misaligned. **What it costs:** `align` and `hideBelow` are written on each cell, and a
-  long title stays in its column.
+- **No `colSpan`,** as screen readers announce spanning headers badly, as Roselli found, and a column can then hide by
+  its cells with nothing misaligned. **But for `TableEmpty`,** a row with nothing to compare, as shadcn's data table
+  and Carbon draw it, which keeps the empty words in the table. **What it costs:** `align` and `hideBelow` are written
+  on each cell, and a long title stays in its column.
 - **A container's width, not the screen's,** as a table in a narrow panel on a wide screen needs the same as one on a
   phone, as `Section` already does. **What it costs:** Tailwind's container sizes, 384, 448 and 512 px, are not its
   screen sizes of the same names.
@@ -192,6 +199,10 @@ pieces is in [`../pieces.md`](../pieces.md), and how a piece is analysed is in [
   the row open beside the table is `aria-current`, not selected. **The boxes stick with the titles,** as MUI's and
   AG Grid's pinned columns keep theirs, so a row can be selected while the table scrolls. **What it costs:** about
   40 px of a narrow screen.
+- **Loading drawn by the table,** which knows its columns and whether it has rows, so the app only says when: shapes
+  the first time, as a table with no rows would jump, and the rows themselves on a reload, never dimmed, as their
+  values stay true until the new ones come. **What it costs:** the table reads its own header and bodies after each
+  draw.
 - **Controls of 32 px in rows of 36,** as Primer sets a row's icon buttons in by a negative margin, so an action is
   the same size in every table and rows are even. **What it costs:** in compact, a button's fill on hover nearly
   meets the lines above and below. Rows that held a control were 57 px before 2026-11-11.

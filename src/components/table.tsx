@@ -26,12 +26,19 @@ import {
 } from "react-aria-components";
 import { Button } from "#components/button";
 import { Checkbox } from "#components/checkbox";
+import { Progress } from "#components/progress";
+import { Skeleton } from "#components/skeleton";
 
 // Its name, which a screen reader says on entering it: a label, a heading it points to, or its caption.
 type TableName =
   | { "aria-label": string; "aria-labelledby"?: never; caption?: never }
   | { "aria-labelledby": string; "aria-label"?: never; caption?: never }
   | { caption: ReactNode; "aria-label"?: never; "aria-labelledby"?: never };
+
+// While its rows load, the app's words for it, heard; without, nothing is said.
+type TableLoading =
+  | { isLoading: boolean; loadingLabel: string; loadingRows?: number }
+  | { isLoading?: never; loadingLabel?: never; loadingRows?: never };
 
 type Align = "start" | "end";
 // Below which width of the table's own area a column hides, as Tailwind names container sizes.
@@ -64,6 +71,33 @@ interface TableState {
   show: (key: string) => () => void;
   sort: SortDescriptor | undefined;
   onSortChange: ((sort: SortDescriptor) => void) | undefined;
+  columns: Column[];
+}
+
+// A column, as its header says: where its text sits, below which width it hides, and whether it holds controls.
+interface Column {
+  align: Align;
+  hideBelow: Width | undefined;
+  isControl: boolean;
+}
+
+// The columns the header draws, and whether a body holds rows, read once the table is drawn.
+function readTable(table: HTMLTableElement): {
+  columns: Column[];
+  hasRows: boolean;
+} {
+  const cells = [...(table.tHead?.rows[0]?.cells ?? [])] as HTMLElement[];
+  return {
+    columns: cells.map((cell) => ({
+      align: cell.dataset["align"] === "end" ? "end" : "start",
+      hideBelow: cell.dataset["hideBelow"] as Width | undefined,
+      isControl: cell.dataset["control"] !== undefined,
+    })),
+    hasRows: [...table.tBodies].some(
+      (body) =>
+        body.dataset["slot"] !== "table-loading" && body.rows.length > 0,
+    ),
+  };
 }
 
 const TableContext = createContext<TableState | null>(null);
@@ -172,9 +206,13 @@ function Table({
   onSortChange,
   stickyHeader = false,
   density = "default",
+  isLoading,
+  loadingLabel,
+  loadingRows = 5,
   ...props
 }: Omit<ComponentProps<"table">, "aria-label" | "aria-labelledby"> &
-  TableName & {
+  TableName &
+  TableLoading & {
     // The keys of the rows whose children show, held by the app.
     expandedKeys?: Iterable<string>;
     // The same, held by the table from the start.
@@ -239,6 +277,18 @@ function Table({
       ),
     );
   const area = useRef<HTMLDivElement>(null);
+  const table = useRef<HTMLTableElement>(null);
+  const [drawn, setDrawn] = useState<{ columns: Column[]; hasRows: boolean }>({
+    columns: [],
+    hasRows: false,
+  });
+  // Read after every draw, as the app's rows and header change with it; kept only when they change.
+  useLayoutEffect(() => {
+    const read = readTable(table.current as HTMLTableElement);
+    setDrawn((last) =>
+      JSON.stringify(last) === JSON.stringify(read) ? last : read,
+    );
+  });
   const [overflows, setOverflows] = useState(false);
   // Only an area that scrolls takes focus, so the keyboard can scroll it, and its name; one that fits adds no stop.
   useLayoutEffect(() => {
@@ -280,7 +330,23 @@ function Table({
       ref={area}
       {...(overflows ? { role: "region", tabIndex: 0, ...named } : {})}
     >
+      {isLoading === undefined ? null : (
+        <p className="sr-only" role="status">
+          {isLoading ? loadingLabel : ""}
+        </p>
+      )}
+      {isLoading && drawn.hasRows ? (
+        // A reload: a thin running bar along the header's foot, which stays in view while the area scrolls.
+        <div className="sticky start-0 top-0 z-30 h-0 w-full">
+          <Progress
+            aria-label={loadingLabel}
+            className="absolute inset-x-0 top-8.5 [&_[data-slot=progress-track]]:h-0.5 [&_[data-slot=progress-track]]:rounded-none"
+            isIndeterminate={true}
+          />
+        </div>
+      ) : null}
       <table
+        aria-busy={isLoading ? true : undefined}
         aria-label={label}
         aria-labelledby={labelledBy}
         className={cn(
@@ -290,6 +356,7 @@ function Table({
         data-density={density}
         data-has-children={children.size > 0 ? true : undefined}
         data-slot="table"
+        ref={table}
         {...props}
       >
         {caption === undefined ? null : (
@@ -313,9 +380,13 @@ function Table({
             show,
             sort: sortDescriptor,
             onSortChange,
+            columns: drawn.columns,
           }}
         >
           {rows}
+          {isLoading && !drawn.hasRows ? (
+            <TableLoadingRows columns={drawn.columns} count={loadingRows} />
+          ) : null}
         </TableContext.Provider>
       </table>
     </div>
@@ -337,6 +408,49 @@ function clearHeader(event: FocusEvent): void {
   if (covered > 0) {
     element.scrollTop -= covered;
   }
+}
+
+// The first load's rows: a shape where each column's text sits, at a row's height, which a screen reader skips.
+function TableLoadingRows({
+  columns,
+  count,
+}: {
+  columns: Column[];
+  count: number;
+}) {
+  return (
+    <tbody
+      aria-hidden="true"
+      className="[&_tr:last-child]:border-0"
+      data-slot="table-loading"
+    >
+      {Array.from({ length: count }, (_, row) => (
+        // biome-ignore lint/suspicious/noArrayIndexKey: shapes with no identity of their own.
+        <tr className="border-b" key={row}>
+          {columns.map((column, index) => (
+            <td
+              className={cn(
+                "px-3 py-3 in-data-[density=compact]:py-2",
+                ends,
+                column.hideBelow && hides[column.hideBelow],
+              )}
+              // biome-ignore lint/suspicious/noArrayIndexKey: one per column, in the header's order.
+              key={index}
+            >
+              {column.isControl ? null : (
+                <Skeleton
+                  className={cn(
+                    "h-5",
+                    column.align === "end" ? "ms-auto w-16" : "w-24",
+                  )}
+                />
+              )}
+            </td>
+          ))}
+        </tr>
+      ))}
+    </tbody>
+  );
 }
 
 function TableHeader({ className, ...props }: ComponentProps<"thead">) {
@@ -526,6 +640,9 @@ function TableHead({
         className,
       )}
       aria-sort={direction}
+      data-align={scope === "row" ? undefined : align}
+      data-control={scope !== "row" && hideHeader ? true : undefined}
+      data-hide-below={hideBelow}
       data-slot="table-head"
       id={scope === "row" ? row.titleId : undefined}
       scope={scope}
@@ -797,10 +914,29 @@ function TableSelectionBar({
   );
 }
 
+// No rows: the app's words in one row across every column, the only cell that spans, so the header stays above it.
+function TableEmpty({ className, ...props }: ComponentProps<"td">) {
+  const { columns } = useTable("TableEmpty");
+  return (
+    <tr data-slot="table-empty">
+      <td
+        className={cn(
+          "px-3 py-10 text-center text-muted-foreground",
+          ends,
+          className,
+        )}
+        colSpan={Math.max(columns.length, 1)}
+        {...props}
+      />
+    </tr>
+  );
+}
+
 export {
   Table,
   TableBody,
   TableCell,
+  TableEmpty,
   TableFooter,
   TableGroupRow,
   TableHead,

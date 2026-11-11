@@ -83,7 +83,7 @@ which is run by hand.
 | 3.3.7 Redundant Entry | app | |
 | 3.3.8 Accessible Authentication (Minimum) | app | |
 | 4.1.2 Name, Role, Value | axe, story | |
-| 4.1.3 Status Messages | story, coming | Table's selection bar, a status whose text changes with the count, and Pagination's summary; Alert (Display) to come |
+| 4.1.3 Status Messages | story, coming | Table's selection bar, a status whose text changes with the count, Table's loading words, and Pagination's summary; Alert (Display) to come |
 
 ## Corner cases
 

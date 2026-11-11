@@ -17,6 +17,7 @@ import {
   Table,
   TableBody,
   TableCell,
+  TableEmpty,
   TableFooter,
   TableGroupRow,
   TableHead,
@@ -1383,6 +1384,180 @@ const SortWithoutHandler: Story = {
   },
 };
 
+// Loading: the first time, rows of skeleton in the table's columns, each where its column's text sits, at the rows'
+// height; on a reload, the rows stay as they are, under a thin running bar below the header. Either way the table is
+// busy, and the app's words are heard.
+const loadingLabel = "Loading payments";
+
+function columnsOnly(narrow = false): ReactNode {
+  return (
+    <TableHeader>
+      <TableRow>
+        <TableHead>{description}</TableHead>
+        <TableHead hideBelow={narrow ? "md" : undefined}>{category}</TableHead>
+        <TableHead align="end">{amount}</TableHead>
+        {narrow ? <TableHead hideHeader={true}>{actions}</TableHead> : null}
+      </TableRow>
+    </TableHeader>
+  );
+}
+
+const FirstLoad: Story = {
+  tags: ["visual"],
+  render: () => (
+    <div className="p-6">
+      <Table aria-label={name} isLoading={true} loadingLabel={loadingLabel}>
+        {columnsOnly()}
+      </Table>
+    </div>
+  ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const table = canvas.getByRole("table", { name });
+    const shapes = canvasElement.querySelector(
+      '[data-slot="table-loading"]',
+    ) as HTMLTableSectionElement;
+    const right = (element: Element) =>
+      Math.round(element.getBoundingClientRect().right);
+
+    await expect(table).toHaveAttribute("aria-busy", "true");
+    await expect(canvas.getByRole("status")).toHaveTextContent(loadingLabel);
+    // Five rows of shapes, which a screen reader skips, as many cells as columns, at the rows' height.
+    await expect(shapes).toHaveAttribute("aria-hidden", "true");
+    await expect(shapes.rows).toHaveLength(5);
+    await expect(shapes.rows[0]?.cells).toHaveLength(3);
+    await expect(heightOf(shapes.rows[0] as Element)).toBe(rowHeight);
+    // A column of numbers has its shape at the end, under its header.
+    const last = shapes.rows[0]?.cells[2]?.firstElementChild as Element;
+    const head = canvas.getByRole("columnheader", { name: amount });
+    await expect(right(last)).toBe(
+      Math.round(
+        head.getBoundingClientRect().right -
+          Number.parseFloat(getComputedStyle(head).paddingInlineEnd),
+      ),
+    );
+    await expect(canvas.queryByRole("progressbar")).toBeNull();
+  },
+};
+
+// As many shapes as the app expects rows, a hidden column's shapes hidden with it, and none for controls.
+const FirstLoadNarrow: Story = {
+  render: () => (
+    <Table
+      aria-label={name}
+      isLoading={true}
+      loadingLabel={loadingLabel}
+      loadingRows={3}
+    >
+      {columnsOnly(true)}
+    </Table>
+  ),
+  decorators: Narrow.decorators,
+  play: async ({ canvasElement }) => {
+    const shapes = canvasElement.querySelector(
+      '[data-slot="table-loading"]',
+    ) as HTMLTableSectionElement;
+
+    await expect(shapes.rows).toHaveLength(3);
+    await expect(shapes.rows[0]?.cells[1]?.checkVisibility()).toBe(false);
+    // A column of controls has no shape.
+    await expect(shapes.rows[0]?.cells[3]?.childElementCount).toBe(0);
+  },
+};
+
+// A reload: the rows stay, at full strength, under a running bar along the header's foot.
+const Reloading: Story = {
+  render: () => (
+    <div className="p-6">
+      <Table aria-label={name} isLoading={true} loadingLabel={loadingLabel}>
+        {rows()}
+      </Table>
+    </div>
+  ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const running = canvas.getByRole("progressbar", { name: loadingLabel });
+    const head = canvas.getByRole("columnheader", { name: amount });
+    const firstRow = canvas
+      .getByRole("rowheader", { name: payments[0]?.name })
+      .closest("tr") as Element;
+
+    await expect(canvas.getByRole("table", { name })).toHaveAttribute(
+      "aria-busy",
+      "true",
+    );
+    await expect(canvas.getByRole("status")).toHaveTextContent(loadingLabel);
+    await expect(
+      canvasElement.querySelector('[data-slot="table-loading"]'),
+    ).toBeNull();
+    await expect(getComputedStyle(firstRow).opacity).toBe("1");
+    await expect(Math.round(running.getBoundingClientRect().top)).toBe(
+      Math.round(head.getBoundingClientRect().bottom) - 2,
+    );
+    await expect(Math.round(running.getBoundingClientRect().width)).toBe(
+      Math.round(
+        (
+          canvasElement.querySelector(
+            '[data-slot="table-container"]',
+          ) as Element
+        ).getBoundingClientRect().width,
+      ),
+    );
+  },
+};
+
+// Done loading: not busy, no bar, and its status empty but kept, so the next load is heard.
+const NotLoading: Story = {
+  render: () => (
+    <Table aria-label={name} isLoading={false} loadingLabel={loadingLabel}>
+      {rows()}
+    </Table>
+  ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    await expect(canvas.getByRole("table", { name })).not.toHaveAttribute(
+      "aria-busy",
+    );
+    await expect(canvas.getByRole("status")).toHaveTextContent("");
+    await expect(canvas.queryByRole("progressbar")).toBeNull();
+  },
+};
+
+// Empty: the header stays, and the app's words fill one row across every column, the only cell that spans.
+const emptyTitle = "No payments in October";
+const emptyHint = "Choose another month.";
+
+const Empty: Story = {
+  tags: ["visual"],
+  render: () => (
+    <div className="p-6">
+      <Table aria-label={name}>
+        {columnsOnly()}
+        <TableBody>
+          <TableEmpty>
+            <p>{emptyTitle}</p>
+            <p>{emptyHint}</p>
+          </TableEmpty>
+        </TableBody>
+      </Table>
+    </div>
+  ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const cell = canvas
+      .getByText(emptyTitle)
+      .closest("td") as HTMLTableCellElement;
+    const table = canvas.getByRole("table", { name });
+
+    await expect(cell.colSpan).toBe(3);
+    await expect(Math.round(cell.getBoundingClientRect().width)).toBe(
+      Math.round(table.getBoundingClientRect().width),
+    );
+    await expect(getComputedStyle(cell).textAlign).toBe("center");
+  },
+};
+
 // A statement by day: one body per group, opened by its title and subtotal, and a total in the footer.
 const days = [
   {
@@ -1639,13 +1814,18 @@ export {
   Compact,
   CurrentRow,
   Default,
+  Empty,
+  FirstLoad,
+  FirstLoadNarrow,
   Groups,
   InCard,
   InCardWithMore,
   NamedByHeading,
   Narrow,
+  NotLoading,
   NotStickyHeader,
   Overflowing,
+  Reloading,
   RowActions,
   RowLink,
   RowOutsideTable,

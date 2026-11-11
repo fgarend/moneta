@@ -45,6 +45,9 @@ gets its number.
 - `PaginationSummary`, the rows shown, as "15–28 of 142", heard when the page changes; `isDisabled` on a
   pagination's links, which keeps Previous in place on the first page; and a pagination narrow by its own width
   keeps only Previous, the current page and Next.
+- Loading: `isLoading`, `loadingLabel` and `loadingRows` on a `Table`, which draws rows of shapes the first time and
+  a running bar under the header on a reload, and says the app's words.
+- `TableEmpty`, the app's words for no rows, across the table.
 - `density="compact"` on a `Table`, rows of 36 px in place of 44.
 - `stickyHeader` on a `Table`, which keeps its header in view while its rows scroll, in a place that limits its
   height.

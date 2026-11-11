@@ -156,6 +156,10 @@ the version installed. It holds only what exists, and each reviewed piece adds i
   room would push rows off the screen.
 - **A long table in a place of limited height, as a panel, takes `stickyHeader`,** so its header stays in view while
   its rows scroll. On a page, a table scrolls with the page.
+- **While rows load, set `isLoading` and `loadingLabel`,** as "Loading payments", and `loadingRows` to the rows
+  expected, as a page's size, so the table does not jump when they come.
+- **With no rows, put a `TableEmpty` in the body,** with words that say why and what to do, as "No payments in
+  October. Choose another month."
 - **A column the user may sort takes `allowsSorting` and an `id`,** and the table `sortDescriptor` and
   `onSortChange`; the app sorts the rows, here or on its server. Sort what is compared, as amounts and dates, and keep
   a first order that makes sense, as the newest first.
