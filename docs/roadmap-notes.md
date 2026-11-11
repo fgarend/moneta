@@ -38,6 +38,41 @@ A thing's attributes, key and value, are DescriptionList, and a ranking or share
 or Meter, each in its own item. It shares Table's look by construction, not by copy: the group's title and total, the
 line under a row, the hover and the current row's bar, as a list's row can be open in a side panel too.
 
+Decided on 2026-11-11, one point at a time, after a study of an app's screens and prototypes and of Polaris, Carbon,
+React Spectrum, Primer, shadcn and GOV.UK. One step, a commit for each part.
+
+- **On shadcn's `Item`, reviewed:** `ItemGroup` is the list, `<ul role="list">`, the role kept as Safari drops a list's
+  meaning with its markers, and an `Item` in it is an `<li>`; alone, an `Item` stays a `<div>`. Not a `grid`, which is
+  for acting on rows, not reading them, as Sarah Higley advises.
+- **Rows with a line between them,** in a list, with no box of their own, as Table's rows and the prototypes: in a
+  Card edge to edge with 20 px ends, loose on a page reaching 12 px out. `variant="outline"` and `"muted"` stay for an
+  `Item` alone.
+- **Groups:** `title` and `total` on `ItemGroup`, the items its children; a real heading, at the level a `Section`
+  gives, the total at its end, and the list named by it. Table's look: 12 px semibold muted, 32 px above, 12 for the
+  first, a `--border-strong` line under it. `Section`'s level, internal today, is shared with it.
+- **A row that opens puts a `Link` in its `ItemTitle`,** as in Table, and a click anywhere empty in the row follows
+  it by the same script. `href` on `Item` goes, which breaks: an app moves its link into the title.
+- **`ItemMedia variant="icon"`** draws a 40 px tile, `--muted`, with a 20 px icon; Colours of meaning tints it by
+  category.
+- **`ItemValue`,** a column at the row's end, aligned to it, whose value never wraps, with an optional muted line or
+  `Badge` under it; values at 400, a group's total at 500.
+- **`ItemEmpty`,** the app's words in place of the rows, as `TableEmpty`.
+- **Loading as Table's:** `isLoading`, `loadingLabel`, which TypeScript asks for, and `loadingRows`, on an `ItemGroup`:
+  shapes of a row the first time, the rows under a running bar on a reload; busy, the words heard. A page loading
+  sets it on one `ItemGroup` with no title.
+- **"See all" is composed,** the app's words and a `Link` in a `CardFooter`, or in a `Section`'s actions; if
+  `CardFooter` cannot place them without a class, a small edit to it, raised first.
+- **`density="compact"` on `ItemGroup`:** rows of about 64 px, or 48 with a 32 px tile, groups 20 and 8 apart.
+  `size` on `Item` stays for one alone, as `xs` in menus. One scale of sizes may rename it.
+- **Titles and descriptions wrap, never cut,** and the value cedes nothing.
+- **`ItemAction`,** as `TableRowAction`: a quiet 32 px icon button named by the app's one word and the row's title,
+  which throws with no title and takes no more height than a line of text. `ItemActions` stays for controls with names
+  of their own.
+- **The current row and the hover, as Table's:** hover at half `--muted` on rows that open or act, `aria-current` at
+  `--muted` with a 3 px bar of `--primary`, the state over the hover; the classes for a row's state shared by both.
+- **WCAG to check:** 1.3.1 by the list, its groups' headings and their names; 2.4.4 by the title's link; 2.5.3 and 4.1.2
+  by `ItemAction`'s name; 2.5.8 by its 32 px; 1.4.10 by wrapping titles at 320 px; 4.1.3 by the loading words.
+
 ## Dates
 
 They come with money, as they share how a value is held, formatted and shown. Shown and entered, on
@@ -79,6 +114,7 @@ stayed out of the first delivery for this. Until then, an app keeps what it has 
 charts, in light and dark. Gain and loss came first, with Money values, as `--positive` and `--negative`, which a
 value's `tone` reads, and these are chosen beside them, as `tone` already names good news or bad.
 
+- A category's colour tints `ItemMedia`'s icon tile, which Lists of rows drew in `--muted` on 2026-11-11.
 - To ask: which names, in shadcn's format.
 - To ask: whether a meaning stays a value of `variant`, as shadcn's `destructive` is, or becomes a prop of its own,
   such as `tone`, beside a `variant` for the style, which would edit each piece with `destructive`.

@@ -8,9 +8,10 @@ known and what is still to ask, are in [`roadmap-notes.md`](roadmap-notes.md), r
 
 ## Next, in order
 
-1. **Lists of rows.** One thing per row, read across, with its value at the end, on Item.
-   - groups with a heading and a total, as a day's
-   - a row as a link, or with one action
+1. **Lists of rows.** One thing per row, read across, with its value at the end, on Item reviewed.
+   - a list of rows with a line between them, groups with a heading and a total, as a day's
+   - a row as a link in its title, or with one action, the current row
+   - an icon tile, a value at the end, empty, loading and density
 2. **Dates.** Showing a date, with a hook beside `useFormatMoney`.
 3. **DateField.** Entering a date.
 4. **Motion, layers and icons.** What crosses every piece and no item holds.
