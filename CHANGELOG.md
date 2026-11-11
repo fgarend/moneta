@@ -6,6 +6,11 @@ gets its number.
 
 ## [Unreleased]
 
+## [0.9.0] - 2026-11-11
+
+Table: a native table to compare amounts by column, with groups and a total, selection, sorting, child rows, actions,
+a header in view, density, loading, empty and copying, and Pagination reviewed.
+
 ### Changed
 
 - **Breaking:** `Table` is a native `<table>`, no longer React Aria's grid, so screen readers read it as a table, a
@@ -16,8 +21,10 @@ gets its number.
   - write `align="end"` on the header and the cells of a column of numbers, in place of `text-right`;
   - drop the classes that made a table run edge to edge in a card: alone in its `CardContent`, it does so itself;
   - in place of `selectionMode`, put a `TableSelect` in a cell before each row's title and a `TableSelectAll` in the
-    header, with an `id` on each row;
-  - `TableFooter`, selection, row actions and sorting come back later in this version.
+    header, with an `id` on each row; `selectedKeys` and `onSelectionChange` hold a `Set` of those ids;
+  - in place of `onRowAction`, put a `Link` in the row's title, which a click anywhere empty in the row follows;
+  - sort by `allowsSorting` and an `id` on a `TableHead`, with `sortDescriptor` and `onSortChange` on the `Table`, as
+    before on a column.
 
 - **Breaking:** `Pagination` has no words of its own. To upgrade:
   - name it, with `aria-label` or `aria-labelledby`, in place of its "pagination";
@@ -222,7 +229,8 @@ and dark. `README.md` says how to install and use it.
 
 A rehearsal of the release's path, not meant to be installed. Use a later version.
 
-[Unreleased]: https://github.com/fgarend/moneta/compare/v0.8.0...HEAD
+[Unreleased]: https://github.com/fgarend/moneta/compare/v0.9.0...HEAD
+[0.9.0]: https://github.com/fgarend/moneta/compare/v0.8.0...v0.9.0
 [0.8.0]: https://github.com/fgarend/moneta/compare/v0.7.0...v0.8.0
 [0.7.0]: https://github.com/fgarend/moneta/compare/v0.6.0...v0.7.0
 [0.6.0]: https://github.com/fgarend/moneta/compare/v0.5.0...v0.6.0
