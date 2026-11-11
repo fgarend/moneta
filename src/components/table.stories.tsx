@@ -412,10 +412,17 @@ const StickyHeader: Story = {
     link.focus();
     await expect(document.activeElement).toBe(link);
     await expect(top(link)).toBeGreaterThanOrEqual(top(area) + headerHeight);
+    // The table's own scroll, which Safari 26 needs, in every browser: a focus the browser does not scroll at all.
+    const another = within(
+      canvas.getAllByRole("row")[14] as HTMLElement,
+    ).getByRole("link");
+    area.scrollTop += top(another) - top(area);
+    another.focus({ preventScroll: true });
+    await expect(top(another)).toBeGreaterThanOrEqual(top(area) + headerHeight);
     // Focus already clear of it, or on the area itself, moves nothing.
     const scrolled = area.scrollTop;
-    link.blur();
-    link.focus();
+    another.blur();
+    another.focus();
     area.focus();
     await expect(area.scrollTop).toBe(scrolled);
   },
