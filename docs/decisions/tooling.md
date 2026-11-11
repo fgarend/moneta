@@ -26,7 +26,7 @@ How the repository runs, and how its versions are chosen.
 - **`make check` runs every check, even after one fails,** and ends with one line per check.
   Continuous integration has one box per check, with the same name, in parallel, and a test
   compares the two lists. `stories` has one box per browser, which `make stories BROWSER=webkit`
-  repeats. With no `BROWSER`, it runs the three at once. `storybook-build`, the gallery a release publishes, is a
+  repeats. With no `BROWSER`, it runs the three one after another, as continuous integration does. `storybook-build`, the gallery a release publishes, is a
   check too.
 - **Stories run in Storybook, and every test in Vitest,** the browsers through Playwright:
   Chromium, Firefox and WebKit. `test` runs logic and the repository's checks in Node, and
@@ -82,6 +82,10 @@ How the repository runs, and how its versions are chosen.
   On the machine, each browser alone took 25 to 45 seconds, and the three at once 93. **What it
   costs:** two more boxes, and each measures its coverage alone, so a line with no test turns
   three boxes red.
+- **The browsers one after another on the machine,** as continuous integration runs them, so what passes here passes
+  there. On 2026-11-11, the three at once opened about twenty browsers on ten cores: the first story of a file took
+  up to 5 seconds in Firefox, and now and then past the 15 seconds a test is given, and a line only WebKit ran passed
+  the coverage here and failed it in a box. **What it costs:** a longer `make stories`.
 - **The gallery's build as a check,** so a change that breaks it shows in its pull request, not at the next release,
   after the merge. **What it costs:** about a minute more per pull request, and the release builds it again.
 - **Screenshots in Chromium alone,** since each browser draws a little differently and needs
@@ -197,3 +201,4 @@ How the repository runs, and how its versions are chosen.
 - 2026-11-10: The page painted over before each screenshot.
 - 2026-11-11: Animations caught at their start in each screenshot.
 - 2026-11-11: The screen 1200 px tall, for the sample page.
+- 2026-11-11: The stories' browsers one after another on the machine.
