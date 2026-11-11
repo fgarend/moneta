@@ -56,6 +56,22 @@ pieces is in [`../pieces.md`](../pieces.md), and how a piece is analysed is in [
 - **Disabled, it is dimmed to 50%,** as `Button` is, and React Aria draws it as a `span` out of the tab order.
 - **Its type asks for what it holds,** and it adds no icon and no words for a new tab, which are the app's.
 
+### Table
+
+- **A native `<table>`, our own piece,** in place of shadcn's, which is React Aria's `grid`, following the structure of
+  shadcn's native tables: `TableHeader`, `TableBody`, `TableRow`, `TableHead` and `TableCell`.
+- **Named, as TypeScript asks:** `aria-label`, `aria-labelledby`, or `caption`, a native `<caption>`.
+- **Each row is titled by `TableHead scope="row"`,** a `<th>`.
+- **`align="start" | "end"` on each header and cell,** as `text-start` and `text-end`, with no centre and no `colSpan`
+  anywhere.
+- **`hideBelow="sm" | "md" | "lg"` on each cell of a column hides it** by the width of the table's own area, a
+  container, with `display: none`.
+- **Its ends follow its place:** 20 px in a card, where a `CardContent` holding only a table loses its side padding
+  and gains a line above, and 12 px loose, where its area reaches 12 px out on each side.
+- **Narrow, it scrolls in its own area,** with row titles that stick at its start, `scroll-shadows` at the end that has
+  more, row titles of at least 128 px, and the area takes focus, its role and the table's name only while it overflows.
+- **Values in its rows are at 400,** set by the table on the pieces of value in its bodies.
+
 ## Why
 
 - **Three levels and not four,** as a composed piece's line with a piece is vague, Atomic Design's best known
@@ -92,6 +108,22 @@ pieces is in [`../pieces.md`](../pieces.md), and how a piece is analysed is in [
 - **Disabled at 50%,** as `Button` and `LinkButton` have that state, React Aria gives it the right meaning, and a link
   with no style for it looked active.
 
+- **A native table,** as almost every table seen is read to compare, which the APG's Table pattern serves and
+  "strongly encourages" native for: screen readers keep their table commands, a link in a cell is in Tab order, and
+  text can be selected and copied. Carbon, Primer, Polaris, GOV.UK and Ant do so. **Our own,** as merging the updates
+  of shadcn's `grid` into a native table would only conflict. **What it costs:** an app on the `grid` moves, the
+  selection's state is ours, and each control is a tab stop.
+- **Its name asked for,** as every table an app had already carried one, and a table with none is announced bare.
+- **No `colSpan`,** as screen readers announce spanning headers badly, as Roselli found, and a column can then hide
+  by its cells with nothing misaligned. **What it costs:** `align` and `hideBelow` are written on each cell, and a
+  long title stays in its column.
+- **A container's width, not the screen's,** as a table in a narrow panel on a wide screen needs the same as one on a
+  phone, as `Section` already does. **What it costs:** Tailwind's container sizes, 384, 448 and 512 px, are not its
+  screen sizes of the same names.
+- **Focus only while it overflows,** as an area that fits would be a stop for nothing, and Chrome does not make an
+  area focusable when it holds controls, nor Safari ever. **What it costs:** a `ResizeObserver` of our own.
+- **Values at 400 in rows,** as a table is mostly numbers, and at 500 nothing would stand out, a total least.
+
 ## Alternatives considered
 
 - **Token, piece, composed piece and region.** The roadmap's first proposal.
@@ -115,9 +147,18 @@ pieces is in [`../pieces.md`](../pieces.md), and how a piece is analysed is in [
 - **A link with no `isDisabled`,** which leaves the app a choice between a link and its text, but no way to say a link
   is there and not available.
 
+- **React Aria's `grid`, as shadcn has it,** which gives selection, sorting and arrow keys, but reads as a grid,
+  keeps a link out of Tab order, and blocks selecting text in rows that can be selected.
+- **A native table for reading and the `grid` once rows are selected,** two engines behind one look, whose line moves
+  as soon as a read-only table gains an action.
+- **`visibility: collapse` on a `<col>`,** which hides a column once, but leaves its cells to screen readers and to
+  Tab in every engine, and reached Safari only in 27.
+- **The screen's width for hiding columns,** which a test cannot try, as the tests' screen is always 1280 px wide.
+
 ## History
 
 - 2026-11-09: Written, with the conventions that cross pieces, and Section.
 - 2026-11-09: Every piece in one folder, under one rule, imported by its name alone.
 - 2026-11-10: Link.
 - 2026-11-10: The most semantic HTML and CSS.
+- 2026-11-10: Table, a native table of our own.

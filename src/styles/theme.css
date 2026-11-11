@@ -84,6 +84,11 @@
      its red there. */
   --positive: #157347;
   --negative: var(--destructive);
+  /* The colour of the surface a piece sits on, which what sticks over a table's rows takes: the page here, and a
+     card's, a sheet's or a dialog's inside them, which set it. Again under .dark, to take its page there. */
+  --surface: var(--background);
+  /* The shadow at an edge of an area that scrolls sideways, which shows there is more. */
+  --scroll-shadow: oklch(0 0 0 / 0.14);
   --border: #e7e5df;
   --input: #8e8c84;
   --ring: #2b2e33;
@@ -129,6 +134,8 @@
   --destructive: #ffa394;
   --positive: #74d19a;
   --negative: var(--destructive);
+  --surface: var(--background);
+  --scroll-shadow: oklch(0 0 0 / 0.5);
   --border: #35383d;
   --input: #868a91;
   --ring: #f4f4f2;
@@ -187,6 +194,25 @@
 
 /* The scale of text the pieces read, with each line height on a 4 px grid but the title's. Internal: an app gets these
    through a piece, and no name here is a promise to it. */
+/* Shadows at the ends of an area that scrolls sideways, which show there is more, drawn by its own background: the
+   surface, scrolling with the content, covers each shadow once that end is reached. */
+@utility scroll-shadows {
+  background:
+    linear-gradient(to right, var(--surface) 30%, transparent) left / 2.5rem
+    100% no-repeat local,
+    linear-gradient(to left, var(--surface) 30%, transparent) right / 2.5rem
+    100% no-repeat local,
+    radial-gradient(farthest-side at 0 50%, var(--scroll-shadow), transparent)
+    left / 0.75rem 100% no-repeat scroll,
+    radial-gradient(
+      farthest-side at 100% 50%,
+      var(--scroll-shadow),
+      transparent
+    )
+    right / 0.75rem 100% no-repeat scroll,
+    var(--surface);
+}
+
 @utility type-display {
   font-size: 2rem;
   line-height: 2.5rem;

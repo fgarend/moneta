@@ -45,8 +45,9 @@ the version installed. It holds only what exists, and each reviewed piece adds i
 - **In multiples of 4 px:** 4 between a label and what it names, as a value or a bar, and between `Card`'s title and
   description, 8 to 12 within a group, 16 to 20 in a card, 16 between cards, 40 between sections, and 40 to 48 around a
   page. Inside is smaller than between, so what belongs together reads together.
-- **`Card` has 20 px around its content, and `Table` 12 px in a cell, with 20 at each end of a row,** so a table in a
-  card lines up with the card's title.
+- **`Card` has 20 px around its content, and `Table` 12 px in a cell, with 20 at each end of a row in a card,** so a
+  table in a card lines up with the card's title. Loose on a page, a table's text lines up with the page, and its rows
+  reach 12 px out on each side.
 
 ## Focus
 
@@ -112,6 +113,23 @@ the version installed. It holds only what exists, and each reviewed piece adds i
 - **A value never wraps and is never cut.** What holds it makes room, as a table that scrolls.
 - **A wrong value or currency throws,** as `"1,5"`, `"50%"` or `"real"`, so a mistake is never shown as money. An error
   boundary keeps it to its part of the screen.
+
+## Table
+
+- **A table is for comparing down its columns,** under headers. A list of things read across, each with its value at
+  the end, is a list of rows, and the attributes of one thing are a description list.
+- **It has a name,** which TypeScript asks for: `aria-labelledby` pointing to the title already on the screen, as a
+  card's, `aria-label` when there is none, or `caption`, a visible caption.
+- **Each row has a title,** `TableHead scope="row"`, which names the row for screen readers and stays at the table's
+  start while it scrolls.
+- **Numbers and their header go at the end,** with `align="end"` on the header and on each cell of the column, never
+  centred. Values in the rows are at the text's weight, so a total stands out.
+- **In a card, alone in its `CardContent`,** it runs edge to edge, with a line above. With anything else in the same
+  content, it keeps the card's padding, so give it a content of its own.
+- **On a phone or in a narrow panel, keep the title and the value,** and hide the rest with `hideBelow` on each cell of
+  a column: `sm`, `md` or `lg`, measured on the table's own width, about 384, 448 and 512 px. A column you do not want,
+  do not draw. Otherwise text wraps, a row's title never below a minimum width, and the table scrolls in an area of
+  its own, with a shadow at the end that has more, which then takes keyboard focus and the table's name.
 
 ## Changing the look
 

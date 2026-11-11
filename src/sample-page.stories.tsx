@@ -263,19 +263,21 @@ function Payments() {
           </Button>
         </CardAction>
       </CardHeader>
-      <CardContent className="border-t px-0">
+      <CardContent>
         <Table aria-label="Recent payments">
           <TableHeader>
-            <TableHead isRowHeader={true}>Description</TableHead>
-            <TableHead>Group</TableHead>
-            <TableHead>Day</TableHead>
-            <TableHead>Status</TableHead>
-            <TableHead className="text-right">Amount</TableHead>
+            <TableRow>
+              <TableHead>Description</TableHead>
+              <TableHead>Group</TableHead>
+              <TableHead>Day</TableHead>
+              <TableHead>Status</TableHead>
+              <TableHead align="end">Amount</TableHead>
+            </TableRow>
           </TableHeader>
           <TableBody>
             {payments.map(({ name, group, day, state, amount }) => (
-              <TableRow id={name} key={name}>
-                <TableCell>{name}</TableCell>
+              <TableRow key={name}>
+                <TableHead scope="row">{name}</TableHead>
                 <TableCell className="text-muted-foreground">{group}</TableCell>
                 <TableCell className="text-muted-foreground">{day}</TableCell>
                 <TableCell>
@@ -283,7 +285,7 @@ function Payments() {
                     <Badge variant="outline">{state}</Badge>
                   )}
                 </TableCell>
-                <TableCell className="text-right">
+                <TableCell align="end">
                   {/* Money in is good news and money out bad, as the page says, and a transfer between accounts neither. */}
                   <Amount sign="always" tone={toneOf(group)} value={amount} />
                 </TableCell>
@@ -397,7 +399,7 @@ const Default: Story = {
       ),
     ).toHaveTextContent("Overview");
     const recent = within(
-      canvas.getByRole("grid", { name: "Recent payments" }),
+      canvas.getByRole("table", { name: "Recent payments" }),
     );
 
     await expect(recent.getAllByRole("row")).toHaveLength(payments.length + 1);

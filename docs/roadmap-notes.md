@@ -100,8 +100,8 @@ Later, in the roadmap: virtualisation, resized columns and rows dragged, which R
   each side, by a negative margin, so its text lines up with the page and a fill has room.
 - What sticks takes `--surface`: a new variable, the page's background in `:root` and again under `.dark`, which
   `Card`, `Sheet` and `Dialog` set to their own; a row's state is drawn over it.
-- Phones: the guidelines lead with hiding all but the title and the value; by default, text cells wrap but keep a
-  minimum width, the table scrolls in its own area, its row titles stick at its start while it scrolls, a shadow at
+- Phones: the guidelines lead with hiding all but the title and the value; by default, text wraps, a row's title
+  keeps a minimum width, as on every text cell it squeezed a card's table, the table scrolls in its own area, its row titles stick at its start while it scrolls, a shadow at
   an edge shows there is more, and the area takes keyboard focus only when it overflows.
 - Controls' columns, selection, disclosure and action, are as narrow as their content.
 

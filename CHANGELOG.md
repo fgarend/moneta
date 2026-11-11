@@ -6,6 +6,22 @@ gets its number.
 
 ## [Unreleased]
 
+### Changed
+
+- **Breaking:** `Table` is a native `<table>`, no longer React Aria's grid, so screen readers read it as a table, a
+  link in a cell is in Tab order, and its text can be selected. To upgrade:
+  - give it a name: `aria-label`, `aria-labelledby`, or `caption`, which replaces `TableCaption`;
+  - put the header's cells in a `TableRow` inside `TableHeader`;
+  - title each row with `TableHead scope="row"` in place of `isRowHeader` on a column;
+  - write `align="end"` on the header and the cells of a column of numbers, in place of `text-right`;
+  - drop the classes that made a table run edge to edge in a card: alone in its `CardContent`, it does so itself;
+  - `TableFooter`, selection, row actions and sorting come back later in this version.
+
+### Added
+
+- `hideBelow` on a table's cells, which hides a column when the table is narrow, by its own width.
+- `--surface`, the colour of the surface a piece sits on, which `Card`, `Sheet` and `Dialog` set.
+
 ## [0.8.0] - 2026-11-10
 
 Money values: `Amount`, `Percent` and `Quantity`, shown exactly, with a sign, a tone and a hidden mode, and the hooks

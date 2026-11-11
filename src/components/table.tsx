@@ -1,134 +1,170 @@
-"use client";
-
+// A table, to compare values down its columns: native, named, each row titled by a header of its own, values at the
+// end. In a card it runs edge to edge; loose on a page its text lines up with the page. Narrow, it hides the columns
+// the app marks, and scrolls in an area of its own. docs/decisions/components.md says why it is so.
 import { cn } from "cn";
-import type { ComponentProps } from "react";
 import {
-  Cell as CellPrimitive,
-  type CellProps,
-  Column as ColumnPrimitive,
-  type ColumnProps,
-  Row as RowPrimitive,
-  type RowProps,
-  TableBody as TableBodyPrimitive,
-  type TableBodyProps,
-  TableFooter as TableFooterPrimitive,
-  type TableFooterProps,
-  TableHeader as TableHeaderPrimitive,
-  type TableHeaderProps,
-  Table as TablePrimitive,
-  type TableProps,
-} from "react-aria-components";
+  type ComponentProps,
+  type ReactNode,
+  useId,
+  useLayoutEffect,
+  useRef,
+  useState,
+} from "react";
 
-function Table({ className, ...props }: TableProps) {
+// Its name, which a screen reader says on entering it: a label, a heading it points to, or its caption.
+type TableName =
+  | { "aria-label": string; "aria-labelledby"?: never; caption?: never }
+  | { "aria-labelledby": string; "aria-label"?: never; caption?: never }
+  | { caption: ReactNode; "aria-label"?: never; "aria-labelledby"?: never };
+
+type Align = "start" | "end";
+// Below which width of the table's own area a column hides, as Tailwind names container sizes.
+type Width = "sm" | "md" | "lg";
+
+const aligns = { start: "text-start", end: "text-end" };
+const hides = {
+  sm: "@max-sm/table:hidden",
+  md: "@max-md/table:hidden",
+  lg: "@max-lg/table:hidden",
+};
+// A table's ends: 12 px loose on a page, where its area reaches out as much, and 20 px in a card, lined up with its
+// title.
+const ends =
+  "first:ps-3 last:pe-3 in-data-[slot=card]:first:ps-5 in-data-[slot=card]:last:pe-5";
+
+function Table({
+  caption,
+  className,
+  children,
+  "aria-label": label,
+  "aria-labelledby": labelledBy,
+  ...props
+}: Omit<ComponentProps<"table">, "aria-label" | "aria-labelledby"> &
+  TableName) {
+  const captionId = useId();
+  const area = useRef<HTMLDivElement>(null);
+  const [overflows, setOverflows] = useState(false);
+  // Only an area that scrolls takes focus, so the keyboard can scroll it, and its name; one that fits adds no stop.
+  useLayoutEffect(() => {
+    const element = area.current as HTMLDivElement;
+    const measure = () =>
+      setOverflows(element.scrollWidth > element.clientWidth);
+    const observer = new ResizeObserver(measure);
+    observer.observe(element);
+    observer.observe(element.firstElementChild as Element);
+    return () => observer.disconnect();
+  }, []);
+  const named =
+    caption === undefined
+      ? { "aria-label": label, "aria-labelledby": labelledBy }
+      : { "aria-labelledby": captionId };
+
   return (
     <div
+      className="@container/table -mx-3 scroll-shadows overflow-x-auto in-data-[slot=card]:mx-0"
       data-slot="table-container"
-      className="relative w-full overflow-x-auto"
+      ref={area}
+      {...(overflows ? { role: "region", tabIndex: 0, ...named } : {})}
     >
-      <TablePrimitive
+      <table
+        aria-label={label}
+        aria-labelledby={labelledBy}
+        className={cn(
+          "w-full caption-bottom text-sm [&_tbody_:is([data-slot=amount],[data-slot=percent],[data-slot=quantity])]:font-normal",
+          className,
+        )}
         data-slot="table"
-        className={cn("w-full caption-bottom text-sm", className)}
         {...props}
-      />
+      >
+        {caption === undefined ? null : (
+          <caption
+            className="mt-4 text-sm text-muted-foreground"
+            id={captionId}
+          >
+            {caption}
+          </caption>
+        )}
+        {children}
+      </table>
     </div>
   );
 }
 
-function TableHeader<T>({ className, ...props }: TableHeaderProps<T>) {
+function TableHeader({ className, ...props }: ComponentProps<"thead">) {
   return (
-    <TableHeaderPrimitive
-      data-slot="table-header"
+    <thead
       className={cn("[&_tr]:border-b", className)}
+      data-slot="table-header"
       {...props}
     />
   );
 }
 
-function TableBody<T>({ className, ...props }: TableBodyProps<T>) {
+function TableBody({ className, ...props }: ComponentProps<"tbody">) {
   return (
-    <TableBodyPrimitive
+    <tbody
+      className={cn("[&_tr:last-child]:border-0", className)}
       data-slot="table-body"
-      className={cn(
-        "data-empty:h-24 data-empty:text-center [&_tr:last-child]:border-0",
-        className,
-      )}
       {...props}
     />
   );
 }
 
-function TableFooter<T>({ className, ...props }: TableFooterProps<T>) {
+function TableRow({ className, ...props }: ComponentProps<"tr">) {
   return (
-    <TableFooterPrimitive
-      data-slot="table-footer"
-      className={cn(
-        "border-t bg-muted/50 font-medium [&>tr]:last:border-b-0",
-        className,
-      )}
-      {...props}
-    />
-  );
-}
-
-function TableRow<T>({ className, ...props }: RowProps<T>) {
-  return (
-    <RowPrimitive
+    <tr
+      className={cn("border-b", className)}
       data-slot="table-row"
-      className={cn(
-        "border-b transition-colors hover:bg-muted/50 has-aria-expanded:bg-muted/50 data-[state=selected]:bg-muted data-selected:bg-muted",
-        className,
-      )}
       {...props}
     />
   );
 }
 
-function TableHead({ className, ...props }: ColumnProps) {
+// A column's header, or with scope="row", a row's title, which stays at the table's start while it scrolls.
+function TableHead({
+  className,
+  scope,
+  align = "start",
+  hideBelow,
+  ...props
+}: Omit<ComponentProps<"th">, "align"> & { align?: Align; hideBelow?: Width }) {
   return (
-    <ColumnPrimitive
+    <th
+      className={cn(
+        ends,
+        aligns[align],
+        hideBelow && hides[hideBelow],
+        scope === "row"
+          ? "sticky start-0 min-w-32 bg-(--surface) px-3 py-3 align-middle font-normal"
+          : "h-9 px-3 align-middle type-label whitespace-nowrap text-muted-foreground first:sticky first:start-0 first:bg-(--surface)",
+        className,
+      )}
       data-slot="table-head"
-      className={cn(
-        "h-9 px-3 text-left align-middle type-label whitespace-nowrap text-muted-foreground first:pl-5 last:pr-5 [&:has([data-slot=checkbox])]:pr-0 [&:has([role=checkbox])]:pr-0",
-        className,
-      )}
+      scope={scope}
       {...props}
     />
   );
 }
 
-function TableCell({ className, ...props }: CellProps) {
+function TableCell({
+  className,
+  align = "start",
+  hideBelow,
+  ...props
+}: Omit<ComponentProps<"td">, "align"> & { align?: Align; hideBelow?: Width }) {
   return (
-    <CellPrimitive
+    <td
+      className={cn(
+        "px-3 py-3 align-middle",
+        ends,
+        aligns[align],
+        hideBelow && hides[hideBelow],
+        className,
+      )}
       data-slot="table-cell"
-      className={cn(
-        "p-3 align-middle whitespace-nowrap first:pl-5 last:pr-5 [&:has([data-slot=checkbox])]:pr-0 [&:has([role=checkbox])]:pr-0",
-        className,
-      )}
       {...props}
     />
   );
 }
 
-function TableCaption({ className, ...props }: ComponentProps<"figcaption">) {
-  return (
-    <figcaption
-      data-slot="table-caption"
-      className={cn(
-        "mt-4 text-center text-sm text-muted-foreground",
-        className,
-      )}
-      {...props}
-    />
-  );
-}
-
-export {
-  Table,
-  TableBody,
-  TableCaption,
-  TableCell,
-  TableFooter,
-  TableHead,
-  TableHeader,
-  TableRow,
-};
+export { Table, TableBody, TableCell, TableHead, TableHeader, TableRow };
