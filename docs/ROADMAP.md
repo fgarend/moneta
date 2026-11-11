@@ -4,21 +4,19 @@ Moneta is the source of truth for components: an app builds its screens from its
 own. What it lacks is added here, in this order, which a new need can change. The details of each item, what is
 known and what is still to ask, are in [`roadmap-notes.md`](roadmap-notes.md), read when the item starts.
 
-**Now:** 1. Money values.
+**Now:** 1. Table.
 
 ## Next, in order
 
-1. **Money values.** Amounts shown exactly, in one step, with a commit for each piece.
-   - Amount, with `Money`, `MoneyProvider` and `useFormatMoney`
-   - Percent, given as a ratio
-   - Quantity
-   - `sign` and `tone`, with the colours of gain and loss
-   - hidden values, in which every amount shows "••••••"
-2. **Table.** The table reviewed, for lists of amounts.
+1. **Table.** A native table, reviewed, for comparing amounts by column, in one step.
    - a column of numbers, totals and groups with subtotals
-   - selection, an action per row, and child rows
-   - tables on phones
-   - copying rows, which a spreadsheet reads
+   - selection with its bar of actions, an action per row, a row as a link, and child rows
+   - sorting, pagination with Pagination reviewed, a header that stays in view, density, and columns hidden when narrow
+   - loading, empty, and a choice of columns
+   - tables on phones, and copying rows, which a spreadsheet reads
+2. **Lists of rows.** One thing per row, read across, with its value at the end, on Item.
+   - groups with a heading and a total, as a day's
+   - a row as a link, or with one action
 3. **Dates.** Showing a date, with a hook beside `useFormatMoney`.
 4. **DateField.** Entering a date.
 5. **Motion, layers and icons.** What crosses every piece and no item holds.
@@ -35,7 +33,7 @@ known and what is still to ask, are in [`roadmap-notes.md`](roadmap-notes.md), r
 8. **One scale of sizes.** 32, 36 and 40 px on every piece, with one set of names.
 9. **Layout and text.** What replaces the `flex`, `gap` and `text` classes an app writes.
 10. **Display.** The pieces that show, reviewed or made.
-    - Badge, Card, Avatar and AvatarGroup, Alert, Item and Separator
+    - Badge, Card, Avatar and AvatarGroup, Alert and Separator
     - Stat, DescriptionList, Kbd, AspectRatio, ScrollArea, Timeline and TickerChip
 11. **Actions and forms.** The pieces that act and take input, reviewed or made.
     - Button, ButtonGroup and PageHeader
@@ -53,7 +51,7 @@ known and what is still to ask, are in [`roadmap-notes.md`](roadmap-notes.md), r
     - text spacing and forced colours on what an overlay draws when open
 13. **The rest.** The other pieces, reviewed or made.
     - Tabs, Progress, Meter, Empty, Skeleton and Spinner
-    - Breadcrumb, Pagination, Steps and Banner
+    - Breadcrumb, Steps and Banner
     - Collapsible, IconTile, StatGroup and AllocationBar
     - a bar of actions at the page's foot, a virtualised list, and Toast
     - `calendar`, after a study
@@ -93,10 +91,12 @@ Each becomes an item when its time comes.
 - **The gallery's own types.** TypeScript skips most of `.storybook/`, found on 2026-11-09.
 - **The lowest version of each peer in `package`.** When there are more pieces.
 - **More for a value, when a screen asks.** A unit, a value shown while hidden, a tone kept, a spoken text.
+- **A table's virtualisation, resized columns and rows dragged.** When a screen needs them.
 - **The sample page's text in the dark stories.** Light's colour, where its dark screenshot is right.
 
 ## Done
 
+- **Money values.** Amount, Percent and Quantity, exact, with a sign, a tone and a hidden mode. 0.8.0.
 - **Link.** A link in text or in a cell, underlined, or quiet where it stands alone. 0.7.0.
 - **The close button's name.** Dialog and Sheet take it from the app, by `closeLabel`. 0.6.0.
 - **Every piece under one rule.** One folder, the same checks for shadcn's pieces and ours, and shadcn's updates
