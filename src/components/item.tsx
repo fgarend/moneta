@@ -46,10 +46,13 @@ function ItemGroup({
   isLoading,
   loadingLabel,
   loadingRows = 5,
+  density = "default",
   children,
   ...props
 }: Omit<ComponentProps<"ul">, "title"> &
   ListLoading & {
+    // Rows of about 64 px, or 48 where many are read at once.
+    density?: "default" | "compact";
     // The group's title, as a day.
     title?: ReactNode;
     // What its rows add up to, as an Amount.
@@ -67,6 +70,7 @@ function ItemGroup({
         aria-busy={isLoading ? true : undefined}
         aria-labelledby={isGroup ? titleId : undefined}
         className={cn(isWrapped ? "flex flex-col" : cn(listEnds, className))}
+        data-density={isWrapped ? undefined : density}
         data-slot={isWrapped ? "item-list" : "item-group"}
         // biome-ignore lint/a11y/noRedundantRoles: Safari drops a list's meaning with its markers, which Tailwind removes.
         role="list"
@@ -84,9 +88,11 @@ function ItemGroup({
     <div
       className={cn(
         listEnds,
-        isGroup && "pt-3 [[data-slot=item-group]~&]:pt-8",
+        isGroup &&
+          "pt-3 data-[density=compact]:pt-2 [[data-slot=item-group]~&]:pt-8 [[data-slot=item-group]~&]:data-[density=compact]:pt-5",
         className,
       )}
+      data-density={density}
       data-slot="item-group"
     >
       {isGroup ? (
@@ -131,15 +137,16 @@ function LoadingRows({ count }: { count: number }) {
   return Array.from({ length: count }, (_, row) => (
     <li
       aria-hidden="true"
-      className="flex items-center gap-2.5 border-b px-3 py-3 last:border-0 in-data-[slot=card]:px-5"
+      className="flex items-center gap-2.5 border-b px-3 py-3 last:border-0 in-data-[density=compact]:py-2 in-data-[slot=card]:px-5"
       data-slot="item-loading"
       // biome-ignore lint/suspicious/noArrayIndexKey: shapes with no identity of their own.
       key={row}
     >
-      <Skeleton className="size-10 rounded-lg" />
+      <Skeleton className="size-10 rounded-lg in-data-[density=compact]:size-8" />
+      {/* A title's line and a description's, each as tall as its text, so the shapes stand as tall as a row. */}
       <div className="flex flex-1 flex-col gap-1">
         <Skeleton className="h-5 w-32" />
-        <Skeleton className="h-4 w-24" />
+        <Skeleton className="h-5 w-24" />
       </div>
       <Skeleton className="h-5 w-16" />
     </li>
@@ -243,7 +250,7 @@ function Item({
           aria-current={current}
           className={cn(
             rowFill,
-            "relative border-b px-3 py-3 last:border-0 in-data-[slot=card]:px-5 has-[[data-slot=item-title]_a[href]]:cursor-pointer has-[[data-slot=item-title]_a[href]]:hover:[--row-hover:color-mix(in_oklab,var(--muted)_50%,transparent)] has-data-[slot=item-action]:hover:[--row-hover:color-mix(in_oklab,var(--muted)_50%,transparent)] aria-[current=true]:before:absolute aria-[current=true]:before:inset-y-0 aria-[current=true]:before:start-0 aria-[current=true]:before:w-0.75 aria-[current=true]:before:bg-primary",
+            "relative border-b px-3 py-3 last:border-0 in-data-[density=compact]:py-2 in-data-[slot=card]:px-5 has-[[data-slot=item-title]_a[href]]:cursor-pointer has-[[data-slot=item-title]_a[href]]:hover:[--row-hover:color-mix(in_oklab,var(--muted)_50%,transparent)] has-data-[slot=item-action]:hover:[--row-hover:color-mix(in_oklab,var(--muted)_50%,transparent)] aria-[current=true]:before:absolute aria-[current=true]:before:inset-y-0 aria-[current=true]:before:start-0 aria-[current=true]:before:w-0.75 aria-[current=true]:before:bg-primary",
           )}
           data-slot="item-row"
           ref={row as React.RefObject<HTMLLIElement>}
@@ -264,7 +271,7 @@ const itemMediaVariants = cva(
       variant: {
         default: "bg-transparent",
         // An icon on a tile of 40 px, where the eye starts each row; Colours of meaning tints it by category.
-        icon: "size-10 rounded-lg bg-muted text-foreground [&_svg:not([class*='size-'])]:size-5",
+        icon: "size-10 rounded-lg bg-muted text-foreground in-data-[density=compact]:size-8 [&_svg:not([class*='size-'])]:size-5 in-data-[density=compact]:[&_svg:not([class*='size-'])]:size-4",
         image:
           "size-10 overflow-hidden rounded-sm group-data-[size=sm]/item:size-8 group-data-[size=xs]/item:size-6 [&_img]:size-full [&_img]:object-cover",
       },

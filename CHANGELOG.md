@@ -23,6 +23,7 @@ gets its number.
   list and its total at its end, drawn as a table's groups.
 - `ItemEmpty`, the app's words for no rows, and loading on `ItemGroup`, `isLoading`, `loadingLabel` and `loadingRows`,
   as a table's.
+- `density="compact"` on `ItemGroup`, with rows and their tiles closer.
 - `ItemAction`, an action on an item, named by the app's one word and the item's title.
 - `ItemValue`, the value at a row's end, at the text's weight, with an optional `detail` under it, as a date or a
   badge.

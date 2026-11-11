@@ -752,7 +752,9 @@ const Empty: Story = {
 // Loading, as a table's: the first time, shapes of a row that a screen reader skips; on a reload, the rows as they
 // are under a running bar. Either way the list is busy, and the app's words are heard.
 const loadingLabel = "Loading accounts";
-const rowHeight = 64;
+// A row with an icon, a title and its description, as the shapes stand: the description's line, 20 px, under the
+// title's, 20, with 4 between, and 12 above and below.
+const rowHeight = 68;
 
 const FirstLoad: Story = {
   tags: ["visual"],
@@ -833,11 +835,79 @@ const NotLoading: Story = {
   },
 };
 
+// Compact: rows with 8 px above and below, a 32 px tile, and groups 20 px apart, 8 under the first's top; and its
+// shapes while loading as close. A row's shapes stand as tall as a row.
+const compactSpace = "8px";
+const compactTile = 32;
+const compactFirstGap = "8px";
+const compactGap = "20px";
+
+function paymentRow(row: { id: string; name: string; value: string }) {
+  return (
+    <Item key={row.id}>
+      <ItemMedia variant="icon">
+        <PiggyBank aria-hidden={true} />
+      </ItemMedia>
+      <ItemContent>
+        <ItemTitle>{row.name}</ItemTitle>
+        <ItemDescription>{description}</ItemDescription>
+      </ItemContent>
+      <ItemValue>
+        <Amount sign="always" value={{ amount: row.value, currency: "USD" }} />
+      </ItemValue>
+    </Item>
+  );
+}
+
+const Compact: Story = {
+  tags: ["visual"],
+  render: () => (
+    <div className="p-6">
+      {days.map((day) => (
+        <ItemGroup density="compact" key={day.id} title={day.title}>
+          {day.rows.map(paymentRow)}
+        </ItemGroup>
+      ))}
+      <ItemGroup
+        density="compact"
+        isLoading={true}
+        loadingLabel={loadingLabel}
+        loadingRows={1}
+      />
+    </div>
+  ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const [row] = canvas.getAllByRole("listitem") as [HTMLElement];
+    const media = row.querySelector('[data-slot="item-media"]') as Element;
+    const shape = canvasElement.querySelector(
+      '[data-slot="item-loading"]',
+    ) as HTMLElement;
+    const gap = (groupTitle: string) =>
+      getComputedStyle(
+        canvas
+          .getByRole("heading", { name: groupTitle })
+          .closest('[data-slot="item-group"]') as Element,
+      ).paddingTop;
+
+    await expect(getComputedStyle(row).paddingTop).toBe(compactSpace);
+    await expect(media.getBoundingClientRect().width).toBe(compactTile);
+    await expect([
+      gap(days[0]?.title ?? ""),
+      gap(days[1]?.title ?? ""),
+    ]).toEqual([compactFirstGap, compactGap]);
+    await expect(getComputedStyle(shape).paddingTop).toBe(compactSpace);
+    // As tall as a row, the line under it apart, as the last row has none.
+    await expect(shape.clientHeight).toBe(row.clientHeight);
+  },
+};
+
 export default meta;
 export {
   ActionWithoutTitle,
   AllParts,
   Alone,
+  Compact,
   CurrentRow,
   Default,
   Empty,

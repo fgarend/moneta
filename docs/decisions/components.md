@@ -51,6 +51,9 @@ pieces is in [`../pieces.md`](../pieces.md), and how a piece is analysed is in [
 - **An action is an `ItemAction`,** as `TableRowAction`: a quiet icon button of 32 px, whose name joins the app's one
   word to the item's title, which `ItemTitle` takes an id for, and which takes less than a line's height, so a row
   keeps its own. An item with no title makes it throw. A row with one shows the hover.
+- **`density="compact"` on `ItemGroup`:** rows with 8 px above and below in place of 12, a 32 px tile in place of
+  40, and groups 20 px apart, 8 under the first's top; the loading shapes as close, each as tall as a row. `size` on
+  `Item` stays for one alone.
 - **`ItemEmpty` holds the app's words for no rows,** centred and muted, under the group's title, as `TableEmpty`.
 - **Loading as a table's:** `isLoading` with the app's `loadingLabel`, which TypeScript asks for, makes the list busy
   and says the words in a status; with no rows it draws `loadingRows` shapes of a row, 5 unless the app says, which a
