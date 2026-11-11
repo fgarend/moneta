@@ -73,7 +73,7 @@ function CardContent({ className, ...props }: ComponentProps<"div">) {
     <div
       data-slot="card-content"
       className={cn(
-        "px-(--card-spacing) has-[>[data-slot=table-container]:only-child]:border-t has-[>[data-slot=table-container]:only-child]:px-0 has-[>[data-slot=table-selection-bar]:first-child+[data-slot=table-container]:last-child]:border-t has-[>[data-slot=table-selection-bar]:first-child+[data-slot=table-container]:last-child]:px-0 has-[>[data-slot=item-group]:only-child]:border-t has-[>[data-slot=item-group]:only-child]:px-0",
+        "px-(--card-spacing) has-[>[data-slot=table-container]:only-child]:border-t has-[>[data-slot=table-container]:only-child]:px-0 has-[>[data-slot=table-selection-bar]:first-child+[data-slot=table-container]:last-child]:border-t has-[>[data-slot=table-selection-bar]:first-child+[data-slot=table-container]:last-child]:px-0 has-[>[data-slot=item-group]]:not-has-[>:not([data-slot=item-group])]:border-t has-[>[data-slot=item-group]]:not-has-[>:not([data-slot=item-group])]:px-0",
         className,
       )}
       {...props}

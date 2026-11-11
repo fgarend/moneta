@@ -44,6 +44,10 @@ pieces is in [`../pieces.md`](../pieces.md), and how a piece is analysed is in [
   stays a `<div>`, with its variants.
 - **Titles and descriptions wrap,** never cut.
 - **`ItemMedia variant="icon"` is a 40 px tile at `--muted`** with a 20 px icon, which Colours of meaning will tint.
+- **An `ItemGroup` with a `title` is a group,** as a day's: its title a heading a level below its section's, which
+  names its list, and its `total` at its end, as a table's groups: 12 px semibold muted, the total at 500 and the
+  rows' size, a `--border-strong` line under it, 12 px above the first and 32 above the next. A `CardContent` holding
+  only groups runs edge to edge.
 - **`ItemValue` holds the value at a row's end,** aligned to it, at the text's weight, never wrapping while the title
   gives way, with `detail` under it, small and muted, as a date or a badge.
 - **An item that opens has a `Link` in its `ItemTitle`,** which a click anywhere empty in the row, or in the item
@@ -165,7 +169,7 @@ pieces is in [`../pieces.md`](../pieces.md), and how a piece is analysed is in [
   meaning, so a button cannot become a `div` unnoticed.
 - **A level from where it sits,** as a fixed default per piece is wrong once a `Card` sits in a `Section`, as the
   sample page has. **What it costs:** a level is not seen in the code that uses the piece. The context is internal to
-  `section.tsx` until a second piece reads it.
+  `src/hooks/level.ts`, which Section and ItemGroup read.
 - **No router,** as Moneta knows no app, React Aria's docs recommended `render` on 2026-11-09, and `RouterProvider`
   still works. Table and GridList rows cannot be an `<a>`, so with a router they navigate through `onAction`.
 - **Groups by purpose,** as whoever builds a screen looks for something for a form or an overlay, not for where a

@@ -78,6 +78,8 @@ the version installed. It holds only what exists, and each reviewed piece adds i
   end and no header. Compare down columns, and it is a table.
 - **Put the rows in an `ItemGroup`,** each an `Item`, which draws a line between rows. In a card, give it a
   `CardContent` of its own, and it runs edge to edge.
+- **Rows grouped, as by day, go in one `ItemGroup` per group,** with its `title` and its `total`, which follows its
+  rows' `sign` and takes no `tone`.
 - **A row's value goes in an `ItemValue` at its end,** as an `Amount`, with a date or a badge as its `detail`, and its
   icon in an `ItemMedia variant="icon"`.
 - **A row that opens something puts a `Link` in its `ItemTitle`,** quiet, and the whole row follows it. The row open

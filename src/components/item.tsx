@@ -7,30 +7,80 @@ import {
   type ReactNode,
   useContext,
   useEffect,
+  useId,
   useRef,
 } from "react";
+import { Heading } from "react-aria-components";
 import { Separator } from "#components/separator";
+import { deepest, SectionLevel } from "#hooks/level";
 import { followTitle, rowFill } from "#hooks/row";
 
 // Whether an item sits in a list of rows, where it is one of its items.
 const InList = createContext(false);
 
-// A list of rows: one thing per row, read across, with a line between rows and no box of their own. Its ends are a
-// table's: 12 px loose on a page, where it reaches as much out, and 20 px in a card, lined up with its title.
-function ItemGroup({ className, ...props }: ComponentProps<"ul">) {
-  return (
+// A list's ends: a table's, 12 px loose on a page, where it reaches as much out, and 20 px in a card.
+const listEnds =
+  "group/item-group -mx-3 flex flex-col in-data-[slot=card]:mx-0";
+
+// A list of rows: one thing per row, read across, with a line between rows and no box of their own. With a title, a
+// group, as a day's: its title a heading a level below its section's, which names the list, and its total at its end,
+// as a table's groups, 12 px above the first and 32 above the next, with a strong line under it.
+function ItemGroup({
+  className,
+  title,
+  total,
+  children,
+  ...props
+}: Omit<ComponentProps<"ul">, "title"> & {
+  // The group's title, as a day.
+  title?: ReactNode;
+  // What its rows add up to, as an Amount.
+  total?: ReactNode;
+}) {
+  const level = useContext(SectionLevel);
+  const titleId = useId();
+  const isGroup = title !== undefined;
+  const list = (
     <InList.Provider value={true}>
       <ul
-        className={cn(
-          "group/item-group -mx-3 flex flex-col in-data-[slot=card]:mx-0",
-          className,
-        )}
-        data-slot="item-group"
+        aria-labelledby={isGroup ? titleId : undefined}
+        className={cn(isGroup ? "flex flex-col" : cn(listEnds, className))}
+        data-slot={isGroup ? "item-list" : "item-group"}
         // biome-ignore lint/a11y/noRedundantRoles: Safari drops a list's meaning with its markers, which Tailwind removes.
         role="list"
         {...props}
-      />
+      >
+        {children}
+      </ul>
     </InList.Provider>
+  );
+  if (!isGroup) {
+    return list;
+  }
+  return (
+    <div
+      className={cn(
+        listEnds,
+        "pt-3 [[data-slot=item-group]~&]:pt-8",
+        className,
+      )}
+      data-slot="item-group"
+    >
+      <div
+        className="flex items-baseline justify-between gap-3 border-b border-border-strong px-3 pb-1.5 in-data-[slot=card]:px-5"
+        data-slot="item-group-header"
+      >
+        <Heading
+          className="text-xs font-semibold text-muted-foreground"
+          id={titleId}
+          level={Math.min(level + 1, deepest)}
+        >
+          {title}
+        </Heading>
+        {total === undefined ? null : <span className="text-sm">{total}</span>}
+      </div>
+      {list}
+    </div>
   );
 }
 

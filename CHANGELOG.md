@@ -19,6 +19,8 @@ gets its number.
 
 ### Added
 
+- `title` and `total` on `ItemGroup`, which make it a group, as a day's, with its title a heading that names the
+  list and its total at its end, drawn as a table's groups.
 - `ItemValue`, the value at a row's end, at the text's weight, with an optional `detail` under it, as a date or a
   badge.
 - A list's row with `aria-current="true"`, the one open beside it, is drawn with a bar of `--primary` at its start,

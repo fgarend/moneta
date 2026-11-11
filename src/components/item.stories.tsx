@@ -20,6 +20,7 @@ import {
   ItemValue,
 } from "./item.js";
 import { Link } from "./link.js";
+import { Section, SectionHeader, SectionTitle } from "./section.js";
 
 const title = "Savings";
 const description = "Balance 1,250.00";
@@ -496,12 +497,166 @@ const IconAndValue: Story = {
   },
 };
 
+// Groups: a day's payments under its title, a heading that names the list, with the day's total at its end, as a
+// table's groups: small, semibold and muted, 12 px above the first and 32 above the next, a strong line under it.
+const days = [
+  {
+    id: "today",
+    title: "Today, October 24",
+    total: "-335.3",
+    rows: [
+      { id: "d1", name: "Central Market", value: "-286.4" },
+      { id: "d2", name: "Corner Bakery", value: "-48.9" },
+    ],
+  },
+  {
+    id: "yesterday",
+    title: "Yesterday, October 23",
+    total: "6250",
+    rows: [
+      { id: "d3", name: "Fictitious salary", value: "7250" },
+      { id: "d4", name: "Between accounts", value: "-1000" },
+    ],
+  },
+];
+const groupSize = "12px";
+const firstGap = "12px";
+const groupGap = "32px";
+
+// Fictitious sums are still sums: a decimal string in cents, exact.
+function cents(value: string): bigint {
+  const [whole = "0", decimals = ""] = value.split(".");
+  const sign = whole.startsWith("-") ? -1n : 1n;
+  return (
+    BigInt(whole) * 100n + sign * BigInt(decimals.padEnd(2, "0").slice(0, 2))
+  );
+}
+
+function statement() {
+  return days.map((day) => (
+    <ItemGroup
+      key={day.id}
+      title={day.title}
+      total={
+        <Amount sign="always" value={{ amount: day.total, currency: "USD" }} />
+      }
+    >
+      {day.rows.map((row) => (
+        <Item key={row.id}>
+          <ItemContent>
+            <ItemTitle>{row.name}</ItemTitle>
+          </ItemContent>
+          <ItemValue>
+            <Amount
+              sign="always"
+              value={{ amount: row.value, currency: "USD" }}
+            />
+          </ItemValue>
+        </Item>
+      ))}
+    </ItemGroup>
+  ));
+}
+
+const Groups: Story = {
+  tags: ["visual"],
+  render: () => <div className="p-6">{statement()}</div>,
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const [first, second] = days.map((day) =>
+      canvas.getByRole("heading", { name: day.title }),
+    ) as [HTMLElement, HTMLElement];
+    const groupHeader = first.parentElement as HTMLElement;
+    const total = groupHeader.querySelector(
+      '[data-slot="amount"]',
+    ) as HTMLElement;
+
+    // The fixture adds up.
+    for (const day of days) {
+      await expect(
+        day.rows.reduce((all, row) => all + cents(row.value), 0n),
+      ).toBe(cents(day.total));
+    }
+    // A heading below the page's, which names its list of rows.
+    await expect(first.tagName).toBe("H2");
+    await expect(
+      within(canvas.getByRole("list", { name: days[0]?.title })).getAllByRole(
+        "listitem",
+      ),
+    ).toHaveLength(days[0]?.rows.length ?? 0);
+    // Small, semibold and muted, with the total at 500 and the rows' size at its end, and a strong line under it.
+    const { fontSize, fontWeight, color } = getComputedStyle(first);
+    await expect([fontSize, fontWeight, color]).toEqual([
+      groupSize,
+      "600",
+      colourOf("var(--muted-foreground)", canvasElement),
+    ]);
+    await expect([
+      getComputedStyle(total).fontWeight,
+      getComputedStyle(total).fontSize,
+    ]).toEqual(["500", "14px"]);
+    await expect(Math.round(total.getBoundingClientRect().right)).toBe(
+      Math.round(
+        groupHeader.getBoundingClientRect().right -
+          Number.parseFloat(getComputedStyle(groupHeader).paddingInlineEnd),
+      ),
+    );
+    await expect(getComputedStyle(groupHeader).borderBottomColor).toBe(
+      colourOf("var(--border-strong)", canvasElement),
+    );
+    // 12 px above the first group's title, 32 above the next.
+    const gap = (groupTitle: HTMLElement) =>
+      getComputedStyle(
+        groupTitle.closest('[data-slot="item-group"]') as Element,
+      ).paddingTop;
+    await expect([gap(first), gap(second)]).toEqual([firstGap, groupGap]);
+  },
+};
+
+// In a section, a group's title is a level below the section's; in a card, the groups run edge to edge together; and a
+// group may have no total.
+const noTotal = "Other accounts";
+
+const GroupsInSection: Story = {
+  render: () => (
+    <Section>
+      <SectionHeader>
+        <SectionTitle>{heading}</SectionTitle>
+      </SectionHeader>
+      <Card>
+        <CardContent>
+          {statement()}
+          <ItemGroup title={noTotal}>{rows()}</ItemGroup>
+        </CardContent>
+      </Card>
+    </Section>
+  ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const content = canvasElement.querySelector(
+      '[data-slot="card-content"]',
+    ) as Element;
+
+    await expect(
+      canvas.getByRole("heading", { name: days[0]?.title }).tagName,
+    ).toBe("H3");
+    await expect(getComputedStyle(content).paddingLeft).toBe(none);
+    await expect(
+      (
+        canvas.getByRole("heading", { name: noTotal }).parentElement as Element
+      ).querySelector('[data-slot="amount"]'),
+    ).toBeNull();
+  },
+};
+
 export default meta;
 export {
   AllParts,
   Alone,
   CurrentRow,
   Default,
+  Groups,
+  GroupsInSection,
   IconAndValue,
   InCard,
   LongText,

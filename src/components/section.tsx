@@ -1,13 +1,9 @@
 // A titled part of a page, with no box of its own: a header with a title, a description and an action, then its
 // content. Its parts follow Card's header, and docs/decisions/components.md says why it is so.
 import { cn } from "cn";
-import { type ComponentProps, createContext, useContext } from "react";
+import { type ComponentProps, useContext } from "react";
 import { Heading, type HeadingProps } from "react-aria-components";
-
-// The level of the nearest section's title. Outside any, a title starts at 2, below the page's 1. Internal until a
-// second piece reads it, as docs/decisions/components.md says.
-const SectionLevel = createContext(1);
-const deepest = 6;
+import { deepest, SectionLevel } from "#hooks/level";
 
 function Section({ className, ...props }: ComponentProps<"section">) {
   const level = useContext(SectionLevel);
