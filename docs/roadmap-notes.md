@@ -22,10 +22,42 @@ scale of sizes may need a touch when they arrive, and Sidebar's study may change
 later: a page that puts the pieces together, a pre-release tried in an app before a version, and a review of the whole
 after each family.
 
-## Motion, layers and icons
+## Motion
 
-They cross every piece and no item holds them: durations and easing, with reduced motion on every piece, as Spinner
-spins regardless, the order of layers, as shadcn writes `z-50` on every overlay, and the icons' sizes.
+What moves and for how long, across every piece. Decided on 2026-11-11, one point at a time, after a study of the
+pieces, of Tailwind, tw-animate-css, React Aria and shadcn, and of Carbon, Material, Polaris, Primer, Atlassian and
+Spectrum. Motion, Layers and Icons were one item, split as each crosses every piece with checks of its own. One step.
+
+- **With less motion, nothing moves or changes size, and the Spinner spins,** as every system studied keeps its
+  spinner and Primer says why: a still one looks frozen. Fades and changes of colour stay, as WCAG 2.3.3 counts
+  neither as motion. Overlays and the Sheet lose their slide and zoom, Switch's thumb jumps, Progress's bar goes
+  straight to its value, and Button's press shifts with no glide. **What it costs:** Carbon and Atlassian remove all
+  motion, in one rule with no exception, and Material and Polaris keep a control's small motion, which may feel
+  abrupt without it.
+- **No durations of our own:** shadcn's stay, as a rule. 100 ms an overlay appearing and a row's hover, Tailwind's
+  default of 150 ms and `cubic-bezier(0.4, 0, 0.2, 1)` a change of state, and 200 ms the Sheet crossing the screen.
+  Tooltip, which sets none and falls to tw-animate-css's 150 ms, joins at 100. Near Primer's 100 and 200, and
+  Atlassian's 150 for a menu. **What it costs:** a theme cannot slow or speed all motion in one place.
+- **One rule in `theme.css`, beside the focus outline's, on the pieces by their `data-slot`:** with less motion,
+  tw-animate-css's entrance and exit lose their translate and scale, and transitions keep colour and opacity. A new
+  piece is covered, and an app's own motion is left alone. **What it costs:** less visible than a class in each
+  file, and an animated property shadcn adds would escape it, which the test catches.
+- **Tested in each browser asking for less motion,** a project with Playwright's `reducedMotion`, as forced colours
+  is, in one file that opens each overlay and the Sheet, and moves Switch and Progress. Its first test proves each
+  browser honours it, as Playwright's documentation names none. **What it costs:** one more project in CI, and two
+  ways to test less motion until Skeleton and Progress move to it.
+- **WCAG to check:** 2.3.3, AAA, by the test, and 2.2.2 by the Spinner, a loading state where nothing else can be
+  done.
+
+## Layers
+
+The order of what sits above what: shadcn writes `z-50` on every overlay, so a tooltip over a dialog relies on the
+order in the DOM, and Table, Item, ButtonGroup, ToggleGroup and Avatar use `z-10` to `z-30` inside. One step.
+
+## Icons
+
+Their sizes: 12, 14, 16, 20 and 24 px across the pieces, and 8 in Avatar, mostly 16, from Lucide. To ask first
+whether it joins One scale of sizes. One step.
 
 ## Sidebar, AppLayout and providers
 
