@@ -22,6 +22,9 @@ gets its number.
 - `hideBelow` on a table's cells, which hides a column when the table is narrow, by its own width.
 - `hideCurrency` on `Amount`, which leaves its currency out, for a column of one currency whose header names it.
 - `--surface`, the colour of the surface a piece sits on, which `Card`, `Sheet` and `Dialog` set.
+- `TableGroupRow`, a group's title and subtotals, in a `TableBody` of its own, and `TableFooter` again, for a total
+  under a double line.
+- `--border-strong`, the line that marks a table's groups and total.
 
 ## [0.8.0] - 2026-11-10
 

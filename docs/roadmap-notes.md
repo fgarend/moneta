@@ -362,6 +362,10 @@ With `check-release`'s rules for the numbers after it, as a change that breaks t
 - **A table's virtualisation, resized columns and rows dragged.** Left out of Table on 2026-11-10: React Aria gives
   them only on its `grid`, and Table is a native `<table>`, so each would be code of our own or a dependency, as
   `@tanstack/react-virtual` for thousands of rows. Table's API is drawn so they can come with nothing broken.
+- **A screenshot one pixel apart between two runs.** On 2026-11-10, Table's groups, written by `make
+  update-screenshots`, differed from `make stories` by one pixel of the page's background, at 1181, 5, one step
+  darker (#f9f8f5 for #faf9f6), every time, with nothing drawn there. Written under a full run of the stories, it
+  holds. Why one run draws it is to find out, before `make update-screenshots` writes it back.
 - **The sample page's text in the dark stories.** On 2026-11-10, in the `storybook-dark` project, a cell of the sample
   page's table read `rgb(35, 38, 43)`, light's `--foreground`, while `var(--foreground)` on a probe appended to the
   story's canvas read `rgb(244, 244, 242)`, dark's, and the `visual-dark` screenshot draws the page dark. Its check

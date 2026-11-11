@@ -37,6 +37,8 @@ The look Moneta has by default, which whoever uses it can replace. How an app re
   `Dialog` set to their own, so what sticks over a table's rows takes the right colour. It is declared again under
   `.dark`, as a value that names another is worked out where it is declared. **`scroll-shadows`** draws a shadow at
   each end of an area that scrolls sideways while there is more there, in `--scroll-shadow`.
+- **`--border-strong` marks structure,** under a group's title and over a total: warm, darker than `--border` in
+  light and lighter in dark, which `test/theme.test.ts` holds.
 - **Keyboard focus is a solid outline,** 2 px with 2 px of offset, in `--ring`, from one unlayered rule in the theme. It is
   shadcn's own rule, widened to fields and to what keeps focus on a hidden input. An area on a dark surface sets its own `--ring`.
 - **In dark: the prototype's graphite, near black, in small steps.** The page is `#1a1b1e`, the sidebar a step darker at
@@ -113,4 +115,4 @@ The look Moneta has by default, which whoever uses it can replace. How an app re
 - 2026-11-07: Dark from warm to the prototype's graphite.
 - 2026-11-08: The guidelines.
 - 2026-11-10: `--positive` and `--negative`.
-- 2026-11-10: `--surface`, `--scroll-shadow` and `scroll-shadows`, for Table.
+- 2026-11-10: `--surface`, `--scroll-shadow`, `scroll-shadows` and `--border-strong`, for Table.

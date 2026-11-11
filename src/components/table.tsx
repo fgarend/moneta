@@ -70,7 +70,7 @@ function Table({
         aria-label={label}
         aria-labelledby={labelledBy}
         className={cn(
-          "w-full caption-bottom text-sm [&_tbody_:is([data-slot=amount],[data-slot=percent],[data-slot=quantity])]:font-normal",
+          "w-full caption-bottom text-sm [&_tbody_[data-slot=table-row]_:is([data-slot=amount],[data-slot=percent],[data-slot=quantity])]:font-normal",
           className,
         )}
         data-slot="table"
@@ -167,4 +167,42 @@ function TableCell({
   );
 }
 
-export { Table, TableBody, TableCell, TableHead, TableHeader, TableRow };
+// The total: its title and values at 600, under a double strong line, as accounts draw one.
+function TableFooter({ className, ...props }: ComponentProps<"tfoot">) {
+  return (
+    <tfoot
+      className={cn(
+        "[&_th]:font-semibold [&_tr]:border-t-3 [&_tr]:border-b-0 [&_tr]:border-double [&_tr]:border-border-strong [&_:is([data-slot=amount],[data-slot=percent],[data-slot=quantity])]:font-semibold",
+        className,
+      )}
+      data-slot="table-footer"
+      {...props}
+    />
+  );
+}
+
+// A group's first row, in a body of its own: its title small, semibold and muted, its subtotals at 500 in their
+// columns, 32 px above it, or 12 under the header, and a strong line under it.
+function TableGroupRow({ className, ...props }: ComponentProps<"tr">) {
+  return (
+    <tr
+      className={cn(
+        "border-b border-border-strong [&>*]:pt-8 [&>*]:pb-1.5 in-[tbody:first-of-type]:[&>*]:pt-3 [&>th]:text-xs [&>th]:font-semibold [&>th]:text-muted-foreground",
+        className,
+      )}
+      data-slot="table-group-row"
+      {...props}
+    />
+  );
+}
+
+export {
+  Table,
+  TableBody,
+  TableCell,
+  TableFooter,
+  TableGroupRow,
+  TableHead,
+  TableHeader,
+  TableRow,
+};

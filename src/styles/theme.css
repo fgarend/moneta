@@ -28,6 +28,7 @@
   --color-ring: var(--ring);
   --color-input: var(--input);
   --color-border: var(--border);
+  --color-border-strong: var(--border-strong);
   --color-destructive: var(--destructive);
   --color-positive: var(--positive);
   --color-negative: var(--negative);
@@ -90,6 +91,8 @@
   /* The shadow at an edge of an area that scrolls sideways, which shows there is more. */
   --scroll-shadow: oklch(0 0 0 / 0.14);
   --border: #e7e5df;
+  /* The line that marks structure, under a group's title and over a total, apart from the line under every row. */
+  --border-strong: #c8c5bc;
   --input: #8e8c84;
   --ring: #2b2e33;
   --gold: #f0bd2a;
@@ -137,6 +140,7 @@
   --surface: var(--background);
   --scroll-shadow: oklch(0 0 0 / 0.5);
   --border: #35383d;
+  --border-strong: #55585f;
   --input: #868a91;
   --ring: #f4f4f2;
   --chart-1: oklch(0.87 0 0);

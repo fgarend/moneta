@@ -71,6 +71,10 @@ pieces is in [`../pieces.md`](../pieces.md), and how a piece is analysed is in [
 - **Narrow, it scrolls in its own area,** with row titles that stick at its start, `scroll-shadows` at the end that has
   more, row titles of at least 128 px, and the area takes focus, its role and the table's name only while it overflows.
 - **Values in its rows are at 400,** set by the table on the pieces of value in its bodies.
+- **A group is a `TableBody` of its own, opened by a `TableGroupRow`:** its title a `<th scope="row">`, small,
+  semibold and muted, its subtotals at 500 in their columns, 32 px above it, 12 under the header, and a
+  `--border-strong` line under it, with no fill.
+- **The total is a `TableFooter`,** a `<tfoot>`, at 600, under a double `--border-strong` line.
 
 ## Why
 
@@ -123,6 +127,13 @@ pieces is in [`../pieces.md`](../pieces.md), and how a piece is analysed is in [
 - **Focus only while it overflows,** as an area that fits would be a stop for nothing, and Chrome does not make an
   area focusable when it holds controls, nor Safari ever. **What it costs:** a `ResizeObserver` of our own.
 - **Values at 400 in rows,** as a table is mostly numbers, and at 500 nothing would stand out, a total least.
+- **A group's title as `scope="row"`,** as today's screen readers do not announce `scope="rowgroup"`, as Roselli
+  and Zell Liew found, while a row's header names its subtotals. **What it costs:** a cell in the middle of a group
+  is not heard with the group's name; reading in order, the group comes first.
+- **Lines, space and type for a group and a total, and no fill,** as a fill is kept for a row's state, as white
+  space is the least visible way to group, as Stephen Few has it, and as screenshots of both showed the group and a
+  selected row fighting when both were filled. **A double line over the total,** which reads as a total at once;
+  accounts draw it under the total, which in a card stacks with the card's edge.
 
 ## Alternatives considered
 

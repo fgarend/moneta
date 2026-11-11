@@ -9,6 +9,8 @@ import {
   Table,
   TableBody,
   TableCell,
+  TableFooter,
+  TableGroupRow,
   TableHead,
   TableHeader,
   TableRow,
@@ -333,9 +335,152 @@ const Overflowing: Story = {
   },
 };
 
+// A statement by day: one body per group, opened by its title and subtotal, and a total in the footer.
+const days = [
+  {
+    id: "today",
+    title: "Today, October 24",
+    subtotal: "-335.3",
+    rows: [
+      { id: "d1", name: "Central Market", value: "-286.4" },
+      { id: "d2", name: "Corner Bakery", value: "-48.9" },
+    ],
+  },
+  {
+    id: "yesterday",
+    title: "Yesterday, October 23",
+    subtotal: "6250",
+    rows: [
+      { id: "d3", name: "Fictitious salary", value: "7250" },
+      { id: "d4", name: "Between accounts", value: "-1000" },
+    ],
+  },
+];
+const total = "5914.7";
+const totalTitle = "Total";
+
+// Fictitious sums are still sums: a decimal string in cents, exact.
+function cents(value: string): bigint {
+  const [whole = "0", decimals = ""] = value.split(".");
+  const sign = whole.startsWith("-") ? -1n : 1n;
+  return (
+    BigInt(whole) * 100n + sign * BigInt(decimals.padEnd(2, "0").slice(0, 2))
+  );
+}
+
+function sum(values: string[]): bigint {
+  return values.reduce((all, value) => all + cents(value), 0n);
+}
+
+const groupGap = "32px";
+const firstGap = "12px";
+const groupSize = "12px";
+const strong = ["600", "600"];
+
+const Groups: Story = {
+  tags: ["visual"],
+  render: () => (
+    <div className="p-6">
+      <Table aria-label={name}>
+        <TableHeader>
+          <TableRow>
+            <TableHead>{description}</TableHead>
+            <TableHead align="end">{amount}</TableHead>
+          </TableRow>
+        </TableHeader>
+        {days.map((day) => (
+          <TableBody key={day.id}>
+            <TableGroupRow>
+              <TableHead scope="row">{day.title}</TableHead>
+              <TableCell align="end">
+                <Amount value={brl(day.subtotal)} />
+              </TableCell>
+            </TableGroupRow>
+            {day.rows.map((row) => (
+              <TableRow key={row.id}>
+                <TableHead scope="row">{row.name}</TableHead>
+                <TableCell align="end">
+                  <Amount value={brl(row.value)} />
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        ))}
+        <TableFooter>
+          <TableRow>
+            <TableHead scope="row">{totalTitle}</TableHead>
+            <TableCell align="end">
+              <Amount value={brl(total)} />
+            </TableCell>
+          </TableRow>
+        </TableFooter>
+      </Table>
+    </div>
+  ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const table = canvas.getByRole("table", { name });
+    const [first, second] = days.map((day) =>
+      canvas.getByRole("rowheader", { name: day.title }),
+    ) as [HTMLElement, HTMLElement];
+    const groupRow = first.closest("tr") as Element;
+    const amountOf = (row: Element) =>
+      row.querySelector('[data-slot="amount"]') as Element;
+    const itemRow = canvas
+      .getByRole("rowheader", { name: days[0]?.rows[0]?.name })
+      .closest("tr") as Element;
+    const totalRow = canvas
+      .getByRole("rowheader", { name: totalTitle })
+      .closest("tr") as Element;
+
+    // The fixture adds up.
+    for (const day of days) {
+      await expect(sum(day.rows.map((row) => row.value))).toBe(
+        cents(day.subtotal),
+      );
+    }
+    await expect(sum(days.map((day) => day.subtotal))).toBe(cents(total));
+    // One body per group, its title a row header that names its subtotal.
+    await expect(table.querySelectorAll("tbody")).toHaveLength(days.length);
+    await expect(first).toHaveAttribute("scope", "row");
+    await expect(totalRow.parentElement?.tagName).toBe("TFOOT");
+    // A group's title: small, semibold and muted, with 32 px above it, 12 above the first, and a strong line under.
+    const { fontSize, fontWeight, color } = getComputedStyle(first);
+    await expect([fontSize, fontWeight, color]).toEqual([
+      groupSize,
+      "600",
+      colourOf("var(--muted-foreground)", canvasElement),
+    ]);
+    await expect(getComputedStyle(first).paddingTop).toBe(firstGap);
+    await expect(getComputedStyle(second).paddingTop).toBe(groupGap);
+    await expect(getComputedStyle(groupRow).borderBottomColor).toBe(
+      colourOf("var(--border-strong)", canvasElement),
+    );
+    // Weights: rows at 400, a subtotal at 500 and the row's size, the total at 600.
+    await expect(getComputedStyle(amountOf(itemRow)).fontWeight).toBe("400");
+    await expect(getComputedStyle(amountOf(groupRow)).fontWeight).toBe("500");
+    await expect(getComputedStyle(amountOf(groupRow)).fontSize).toBe(
+      getComputedStyle(amountOf(itemRow)).fontSize,
+    );
+    await expect([
+      getComputedStyle(totalRow.querySelector("th") as Element).fontWeight,
+      getComputedStyle(amountOf(totalRow)).fontWeight,
+    ]).toEqual(strong);
+    // The total: a double strong line above it.
+    const { borderTopStyle, borderTopWidth, borderTopColor } =
+      getComputedStyle(totalRow);
+    await expect([borderTopStyle, borderTopWidth, borderTopColor]).toEqual([
+      "double",
+      "3px",
+      colourOf("var(--border-strong)", canvasElement),
+    ]);
+  },
+};
+
 export default meta;
 export {
   Default,
+  Groups,
   InCard,
   InCardWithMore,
   NamedByHeading,

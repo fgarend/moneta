@@ -126,6 +126,22 @@ describe.each(["light", "dark"])("the %s theme", (mode) => {
   });
 });
 
+// The line that marks structure, a group's and a total's, stands out from the line under every row, in both modes.
+it.each(["light", "dark"])(
+  "draws a strong line apart from the plain one in %s",
+  async (mode) => {
+    const theme = (await themes())[mode] ?? {};
+    const [strong = "", plain = "", card = ""] = [
+      theme["border-strong"],
+      theme["border"],
+      theme["card"],
+    ];
+
+    expect(strong).toMatch(hexColour);
+    expect(contrast(strong, card)).toBeGreaterThan(contrast(plain, card));
+  },
+);
+
 // A value that names another is worked out where it is declared, so a part of a page made dark would keep light's.
 it("declares again under .dark each value that names another", async () => {
   const theme = await readFile(new URL("src/styles/theme.css", root), "utf8");

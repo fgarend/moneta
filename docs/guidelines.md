@@ -126,6 +126,10 @@ the version installed. It holds only what exists, and each reviewed piece adds i
   start while it scrolls.
 - **Numbers and their header go at the end,** with `align="end"` on the header and on each cell of the column, never
   centred. Values in the rows are at the text's weight, so a total stands out.
+- **Groups and totals:** each group in a `TableBody` of its own, opened by a `TableGroupRow` with its title and its
+  subtotals in their columns, and the total in a `TableFooter`. Subtotals and the total follow their rows' `sign`, and
+  take no `tone`. A total that counts more rows than are shown says so in its title, as "Total of every account".
+- **A cell is blank when a value does not apply,** and "—" when it is missing, with `value={null}`.
 - **In a card, alone in its `CardContent`,** it runs edge to edge, with a line above. With anything else in the same
   content, it keeps the card's padding, so give it a content of its own.
 - **On a phone or in a narrow panel, keep the title and the value,** and hide the rest with `hideBelow` on each cell of
