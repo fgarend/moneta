@@ -37,7 +37,8 @@ The look Moneta has by default, which whoever uses it can replace. How an app re
   `Dialog` set to their own, so what sticks over a table's rows takes the right colour. It is declared again under
   `.dark`, as a value that names another is worked out where it is declared. **`scroll-shadows`** draws a shadow at
   each end of an area that scrolls sideways while there is more there, in `--scroll-shadow`. **`sticky-fill`** gives
-  what sticks in a table the surface, with its row's state, `--row-fill`, drawn over it.
+  what sticks in a table the surface, with its row's state, `--row-fill`, drawn over it. **`progress-run`** runs a
+  part of an indeterminate bar across its track, which stands still and dashed when less motion is asked for.
 - **`--border-strong` marks structure,** under a group's title and over a total: warm, darker than `--border` in
   light and lighter in dark, which `test/theme.test.ts` holds.
 - **Keyboard focus is a solid outline,** 2 px with 2 px of offset, in `--ring`, from one unlayered rule in the theme. It is
@@ -118,3 +119,4 @@ The look Moneta has by default, which whoever uses it can replace. How an app re
 - 2026-11-10: `--positive` and `--negative`.
 - 2026-11-10: `--surface`, `--scroll-shadow`, `scroll-shadows` and `--border-strong`, for Table.
 - 2026-11-11: `sticky-fill`, for a table's selected rows.
+- 2026-11-11: `progress-run`, for Progress with no value.

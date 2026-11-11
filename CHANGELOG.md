@@ -54,6 +54,8 @@ gets its number.
 ### Fixed
 
 - `Checkbox` partly checked draws a dash on a filled box, no longer a check.
+- `Progress` with no value runs a part of its bar across it, no longer drawn full as if done, and stands still,
+  dashed, when less motion is asked for.
 - A table's row holding an action or a disclosure keeps its 44 px, no longer 57.
 - The header of a table's titles stands over their text once rows have children.
 - `Pagination`'s Previous and Next keep their names on a phone, and their arrows turn when the page reads from the

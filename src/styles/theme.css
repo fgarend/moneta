@@ -221,6 +221,37 @@
   background-image: linear-gradient(var(--row-fill), var(--row-fill));
 }
 
+/* The part of an indeterminate bar that runs across its track, from before its start to past its end, as Material and
+   Carbon draw it; with less motion asked for, the whole bar stands still, dashed, which reads neither as done nor as a
+   share. */
+@keyframes progress-run {
+  from {
+    inset-inline-start: -40%;
+  }
+  to {
+    inset-inline-start: 100%;
+  }
+}
+
+@utility progress-run {
+  position: absolute;
+  inset-block: 0;
+  width: 40%;
+  animation: progress-run 1.4s ease-in-out infinite;
+
+  @media (prefers-reduced-motion: reduce) {
+    inset-inline: 0;
+    width: auto;
+    animation: none;
+    background-color: transparent;
+    background-image: repeating-linear-gradient(
+      90deg,
+      var(--primary) 0 0.625rem,
+      transparent 0.625rem 1.125rem
+    );
+  }
+}
+
 /* The scale of text the pieces read, with each line height on a 4 px grid but the title's. Internal: an app gets these
    through a piece, and no name here is a promise to it. */
 @utility type-display {

@@ -58,7 +58,7 @@ A piece with no gap listed may still have some.
 | `pagination` | reviewed | |
 | `percent` | reviewed | |
 | `popover` | raw | **Code:** its title does not name it |
-| `progress` | raw | **Code:** indeterminate draws the bar at 100%, as complete |
+| `progress` | raw | **Edited:** indeterminate, a part of the bar runs across it, still and dashed with less motion |
 | `quantity` | reviewed | |
 | `radio-group` | raw | **Code:** an item does not grow for its children. **Edited:** on React Aria's `RadioField` and `RadioButton` |
 | `section` | reviewed | |
