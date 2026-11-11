@@ -1,6 +1,7 @@
 import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "cn";
 import {
+  Children,
   type ComponentProps,
   createContext,
   type HTMLAttributes,
@@ -13,7 +14,9 @@ import {
 } from "react";
 import { Heading } from "react-aria-components";
 import { Button } from "#components/button";
+import { Progress } from "#components/progress";
 import { Separator } from "#components/separator";
+import { Skeleton } from "#components/skeleton";
 import { deepest, SectionLevel } from "#hooks/level";
 import { followTitle, rowFill } from "#hooks/row";
 
@@ -23,6 +26,11 @@ const InList = createContext(false);
 const ItemContext = createContext<{ titleId: string | undefined }>({
   titleId: undefined,
 });
+
+// While its rows load, the app's words for it, heard; without, nothing is said.
+type ListLoading =
+  | { isLoading: boolean; loadingLabel: string; loadingRows?: number }
+  | { isLoading?: never; loadingLabel?: never; loadingRows?: never };
 
 // A list's ends: a table's, 12 px loose on a page, where it reaches as much out, and 20 px in a card.
 const listEnds =
@@ -35,58 +43,120 @@ function ItemGroup({
   className,
   title,
   total,
+  isLoading,
+  loadingLabel,
+  loadingRows = 5,
   children,
   ...props
-}: Omit<ComponentProps<"ul">, "title"> & {
-  // The group's title, as a day.
-  title?: ReactNode;
-  // What its rows add up to, as an Amount.
-  total?: ReactNode;
-}) {
+}: Omit<ComponentProps<"ul">, "title"> &
+  ListLoading & {
+    // The group's title, as a day.
+    title?: ReactNode;
+    // What its rows add up to, as an Amount.
+    total?: ReactNode;
+  }) {
   const level = useContext(SectionLevel);
   const titleId = useId();
   const isGroup = title !== undefined;
+  const hasRows = Children.toArray(children).length > 0;
+  // A list that may load, or a group, has a box around its list, which holds its title, its status and its bar.
+  const isWrapped = isGroup || isLoading !== undefined;
   const list = (
     <InList.Provider value={true}>
       <ul
+        aria-busy={isLoading ? true : undefined}
         aria-labelledby={isGroup ? titleId : undefined}
-        className={cn(isGroup ? "flex flex-col" : cn(listEnds, className))}
-        data-slot={isGroup ? "item-list" : "item-group"}
+        className={cn(isWrapped ? "flex flex-col" : cn(listEnds, className))}
+        data-slot={isWrapped ? "item-list" : "item-group"}
         // biome-ignore lint/a11y/noRedundantRoles: Safari drops a list's meaning with its markers, which Tailwind removes.
         role="list"
         {...props}
       >
         {children}
+        {isLoading && !hasRows ? <LoadingRows count={loadingRows} /> : null}
       </ul>
     </InList.Provider>
   );
-  if (!isGroup) {
+  if (!isWrapped) {
     return list;
   }
   return (
     <div
       className={cn(
         listEnds,
-        "pt-3 [[data-slot=item-group]~&]:pt-8",
+        isGroup && "pt-3 [[data-slot=item-group]~&]:pt-8",
         className,
       )}
       data-slot="item-group"
     >
-      <div
-        className="flex items-baseline justify-between gap-3 border-b border-border-strong px-3 pb-1.5 in-data-[slot=card]:px-5"
-        data-slot="item-group-header"
-      >
-        <Heading
-          className="text-xs font-semibold text-muted-foreground"
-          id={titleId}
-          level={Math.min(level + 1, deepest)}
+      {isGroup ? (
+        <div
+          className="flex items-baseline justify-between gap-3 border-b border-border-strong px-3 pb-1.5 in-data-[slot=card]:px-5"
+          data-slot="item-group-header"
         >
-          {title}
-        </Heading>
-        {total === undefined ? null : <span className="text-sm">{total}</span>}
+          <Heading
+            className="text-xs font-semibold text-muted-foreground"
+            id={titleId}
+            level={Math.min(level + 1, deepest)}
+          >
+            {title}
+          </Heading>
+          {total === undefined ? null : (
+            <span className="text-sm">{total}</span>
+          )}
+        </div>
+      ) : null}
+      {isLoading === undefined ? null : (
+        <p className="sr-only" role="status">
+          {isLoading ? loadingLabel : ""}
+        </p>
+      )}
+      <div className="relative">
+        {isLoading && hasRows ? (
+          // A reload: a thin running bar along the list's top, over its rows as they are.
+          <Progress
+            aria-label={loadingLabel}
+            className="absolute inset-x-0 top-0 z-10 [&_[data-slot=progress-track]]:h-0.5 [&_[data-slot=progress-track]]:rounded-none"
+            isIndeterminate={true}
+          />
+        ) : null}
+        {list}
       </div>
-      {list}
     </div>
+  );
+}
+
+// The first load's rows: the shape of a row, an icon, a title and its detail, and a value, which a screen reader skips.
+function LoadingRows({ count }: { count: number }) {
+  return Array.from({ length: count }, (_, row) => (
+    <li
+      aria-hidden="true"
+      className="flex items-center gap-2.5 border-b px-3 py-3 last:border-0 in-data-[slot=card]:px-5"
+      data-slot="item-loading"
+      // biome-ignore lint/suspicious/noArrayIndexKey: shapes with no identity of their own.
+      key={row}
+    >
+      <Skeleton className="size-10 rounded-lg" />
+      <div className="flex flex-1 flex-col gap-1">
+        <Skeleton className="h-5 w-32" />
+        <Skeleton className="h-4 w-24" />
+      </div>
+      <Skeleton className="h-5 w-16" />
+    </li>
+  ));
+}
+
+// No rows: the app's words in their place, centred and muted, under the group's title.
+function ItemEmpty({ className, ...props }: ComponentProps<"li">) {
+  return (
+    <li
+      className={cn(
+        "px-3 py-10 text-center text-muted-foreground in-data-[slot=card]:px-5",
+        className,
+      )}
+      data-slot="item-empty"
+      {...props}
+    />
   );
 }
 
@@ -364,6 +434,7 @@ export {
   ItemActions,
   ItemContent,
   ItemDescription,
+  ItemEmpty,
   ItemFooter,
   ItemGroup,
   ItemHeader,

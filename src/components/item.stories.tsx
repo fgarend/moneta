@@ -13,6 +13,7 @@ import {
   ItemActions,
   ItemContent,
   ItemDescription,
+  ItemEmpty,
   ItemFooter,
   ItemGroup,
   ItemHeader,
@@ -724,6 +725,114 @@ const ActionWithoutTitle: Story = {
   },
 };
 
+// Empty: the group's title stays, and the app's words take the rows' place, centred and muted.
+const emptyText = "No payments today.";
+
+const Empty: Story = {
+  render: () => (
+    <ItemGroup title={days[0]?.title}>
+      <ItemEmpty>{emptyText}</ItemEmpty>
+    </ItemGroup>
+  ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const words = canvas.getByText(emptyText);
+
+    await expect(
+      canvas.getByRole("heading", { name: days[0]?.title }),
+    ).toBeVisible();
+    await expect(words.tagName).toBe("LI");
+    await expect([
+      getComputedStyle(words).textAlign,
+      getComputedStyle(words).color,
+    ]).toEqual(["center", colourOf("var(--muted-foreground)", canvasElement)]);
+  },
+};
+
+// Loading, as a table's: the first time, shapes of a row that a screen reader skips; on a reload, the rows as they
+// are under a running bar. Either way the list is busy, and the app's words are heard.
+const loadingLabel = "Loading accounts";
+const rowHeight = 64;
+
+const FirstLoad: Story = {
+  tags: ["visual"],
+  render: () => (
+    <div className="p-6">
+      <ItemGroup isLoading={true} loadingLabel={loadingLabel} />
+    </div>
+  ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const list = canvasElement.querySelector("ul") as HTMLElement;
+    const shapes = [...list.children] as HTMLElement[];
+
+    await expect(list).toHaveAttribute("aria-busy", "true");
+    await expect(canvas.getByRole("status")).toHaveTextContent(loadingLabel);
+    await expect(shapes).toHaveLength(5);
+    await expect(shapes.every((shape) => shape.ariaHidden === "true")).toBe(
+      true,
+    );
+    await expect(
+      Math.round(
+        (
+          (shapes[0] as HTMLElement).firstElementChild as Element
+        ).getBoundingClientRect().height,
+      ),
+    ).toBe(tile);
+    await expect(
+      Math.round(shapes[1]?.getBoundingClientRect().height ?? 0),
+    ).toBe(rowHeight + 1);
+    await expect(canvas.queryByRole("progressbar")).toBeNull();
+  },
+};
+
+const FirstLoadFew: Story = {
+  render: () => (
+    <ItemGroup isLoading={true} loadingLabel={loadingLabel} loadingRows={3} />
+  ),
+  play: async ({ canvasElement }) => {
+    await expect(
+      (canvasElement.querySelector("ul") as Element).children,
+    ).toHaveLength(3);
+  },
+};
+
+const Reloading: Story = {
+  render: () => (
+    <ItemGroup isLoading={true} loadingLabel={loadingLabel}>
+      {rows()}
+    </ItemGroup>
+  ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const list = canvas.getByRole("list");
+    const running = canvas.getByRole("progressbar", { name: loadingLabel });
+
+    await expect(list).toHaveAttribute("aria-busy", "true");
+    await expect(within(list).getAllByRole("listitem")).toHaveLength(
+      accounts.length,
+    );
+    await expect(Math.round(running.getBoundingClientRect().top)).toBe(
+      Math.round(list.getBoundingClientRect().top),
+    );
+  },
+};
+
+const NotLoading: Story = {
+  render: () => (
+    <ItemGroup isLoading={false} loadingLabel={loadingLabel}>
+      {rows()}
+    </ItemGroup>
+  ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    await expect(canvas.getByRole("list")).not.toHaveAttribute("aria-busy");
+    await expect(canvas.getByRole("status")).toHaveTextContent("");
+    await expect(canvas.queryByRole("progressbar")).toBeNull();
+  },
+};
+
 export default meta;
 export {
   ActionWithoutTitle,
@@ -731,11 +840,16 @@ export {
   Alone,
   CurrentRow,
   Default,
+  Empty,
+  FirstLoad,
+  FirstLoadFew,
   Groups,
   GroupsInSection,
   IconAndValue,
   InCard,
   LongText,
+  NotLoading,
+  Reloading,
   RowAction,
   RowLink,
 };

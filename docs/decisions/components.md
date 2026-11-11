@@ -51,6 +51,10 @@ pieces is in [`../pieces.md`](../pieces.md), and how a piece is analysed is in [
 - **An action is an `ItemAction`,** as `TableRowAction`: a quiet icon button of 32 px, whose name joins the app's one
   word to the item's title, which `ItemTitle` takes an id for, and which takes less than a line's height, so a row
   keeps its own. An item with no title makes it throw. A row with one shows the hover.
+- **`ItemEmpty` holds the app's words for no rows,** centred and muted, under the group's title, as `TableEmpty`.
+- **Loading as a table's:** `isLoading` with the app's `loadingLabel`, which TypeScript asks for, makes the list busy
+  and says the words in a status; with no rows it draws `loadingRows` shapes of a row, 5 unless the app says, which a
+  screen reader skips, and with rows it keeps them under a 2 px running `Progress` along the list's top.
 - **`ItemValue` holds the value at a row's end,** aligned to it, at the text's weight, never wrapping while the title
   gives way, with `detail` under it, small and muted, as a date or a badge.
 - **An item that opens has a `Link` in its `ItemTitle`,** which a click anywhere empty in the row, or in the item
