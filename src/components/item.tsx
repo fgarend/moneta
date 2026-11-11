@@ -4,6 +4,7 @@ import {
   type ComponentProps,
   createContext,
   type HTMLAttributes,
+  type ReactNode,
   useContext,
   useEffect,
   useRef,
@@ -131,7 +132,8 @@ const itemMediaVariants = cva(
     variants: {
       variant: {
         default: "bg-transparent",
-        icon: "[&_svg:not([class*='size-'])]:size-4",
+        // An icon on a tile of 40 px, where the eye starts each row; Colours of meaning tints it by category.
+        icon: "size-10 rounded-lg bg-muted text-foreground [&_svg:not([class*='size-'])]:size-5",
         image:
           "size-10 overflow-hidden rounded-sm group-data-[size=sm]/item:size-8 group-data-[size=xs]/item:size-6 [&_img]:size-full [&_img]:object-cover",
       },
@@ -196,6 +198,34 @@ function ItemDescription({ className, ...props }: ComponentProps<"p">) {
   );
 }
 
+// The value at a row's end, as an amount, aligned to it and at the text's weight, which never wraps while the title
+// gives way, with an optional line under it, small and muted, as the day it was paid, or a badge.
+function ItemValue({
+  className,
+  detail,
+  children,
+  ...props
+}: ComponentProps<"div"> & {
+  // What is said under the value, as a date or a badge.
+  detail?: ReactNode;
+}) {
+  return (
+    <div
+      className={cn(
+        "ms-auto flex shrink-0 flex-col items-end gap-0.5 text-end [&_:is([data-slot=amount],[data-slot=percent],[data-slot=quantity])]:font-normal",
+        className,
+      )}
+      data-slot="item-value"
+      {...props}
+    >
+      {children}
+      {detail === undefined ? null : (
+        <span className="text-xs text-muted-foreground">{detail}</span>
+      )}
+    </div>
+  );
+}
+
 function ItemActions({ className, ...props }: ComponentProps<"div">) {
   return (
     <div
@@ -243,4 +273,5 @@ export {
   ItemMedia,
   ItemSeparator,
   ItemTitle,
+  ItemValue,
 };

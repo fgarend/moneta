@@ -43,6 +43,9 @@ pieces is in [`../pieces.md`](../pieces.md), and how a piece is analysed is in [
   in a card, where a `CardContent` holding only a list loses its side padding and gains a line above. An `Item` alone
   stays a `<div>`, with its variants.
 - **Titles and descriptions wrap,** never cut.
+- **`ItemMedia variant="icon"` is a 40 px tile at `--muted`** with a 20 px icon, which Colours of meaning will tint.
+- **`ItemValue` holds the value at a row's end,** aligned to it, at the text's weight, never wrapping while the title
+  gives way, with `detail` under it, small and muted, as a date or a badge.
 - **An item that opens has a `Link` in its `ItemTitle`,** which a click anywhere empty in the row, or in the item
   alone, follows with its keys, as a table's row; it shows a pointer and, in a list, a hover at half `--muted`. A
   row with `aria-current="true"` is drawn at `--muted` with a 3 px bar of `--primary`. Both share

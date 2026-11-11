@@ -2,6 +2,8 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 import { PiggyBank } from "lucide-react";
 import { RouterProvider } from "react-aria-components";
 import { expect, fn, userEvent, within } from "storybook/test";
+import { Amount } from "./amount.js";
+import { Badge } from "./badge.js";
 import { Button } from "./button.js";
 import { Card, CardContent, CardHeader, CardTitle } from "./card.js";
 import {
@@ -15,6 +17,7 @@ import {
   ItemMedia,
   ItemSeparator,
   ItemTitle,
+  ItemValue,
 } from "./item.js";
 import { Link } from "./link.js";
 
@@ -227,7 +230,7 @@ const Alone: Story = {
 const header = "Goal";
 const footer = "Updated today";
 
-// Every part: media as an icon and as it is, a header and a footer.
+// Every part: media as an icon and as it is, a header and a footer, and a value with nothing under it.
 const AllParts: Story = {
   render: () => (
     <ItemGroup>
@@ -248,6 +251,9 @@ const AllParts: Story = {
         <ItemContent>
           <ItemTitle>{linked}</ItemTitle>
         </ItemContent>
+        <ItemValue>
+          <Amount value={{ amount: "1250", currency: "USD" }} />
+        </ItemValue>
       </Item>
     </ItemGroup>
   ),
@@ -377,5 +383,127 @@ const CurrentRow: Story = {
   },
 };
 
+// A row as the prototypes draw it: an icon on a tile, a title and its detail, and the value at the end, with a line
+// under it, as the day it was paid or a badge. The value is at the text's weight, keeps its tone, and never wraps,
+// while a long title gives way.
+const payments = [
+  {
+    id: "p1",
+    name: "Central Market",
+    detail: "Food",
+    value: "-286.4",
+    when: "Today",
+  },
+  {
+    id: "p2",
+    name: "A fictitious rent, paid to a landlord with a long name",
+    detail: "Home",
+    value: "-1850",
+    when: "Pending",
+  },
+];
+const tile = 40;
+const icon = 20;
+const detailSize = "12px";
+
+const IconAndValue: Story = {
+  tags: ["visual"],
+  render: () => (
+    <section className="w-96 p-6">
+      <h2 className="type-title">{heading}</h2>
+      <ItemGroup>
+        {payments.map((payment) => (
+          <Item key={payment.id}>
+            <ItemMedia variant="icon">
+              <PiggyBank aria-hidden={true} />
+            </ItemMedia>
+            <ItemContent>
+              <ItemTitle>{payment.name}</ItemTitle>
+              <ItemDescription>{payment.detail}</ItemDescription>
+            </ItemContent>
+            <ItemValue
+              detail={
+                payment.when === "Pending" ? (
+                  <Badge variant="outline">{payment.when}</Badge>
+                ) : (
+                  payment.when
+                )
+              }
+            >
+              <Amount
+                tone="negative"
+                value={{ amount: payment.value, currency: "USD" }}
+              />
+            </ItemValue>
+          </Item>
+        ))}
+      </ItemGroup>
+    </section>
+  ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const media = canvasElement.querySelector(
+      '[data-slot="item-media"]',
+    ) as Element;
+    const [first, second] = [
+      ...canvasElement.querySelectorAll('[data-slot="item-value"]'),
+    ] as [HTMLElement, HTMLElement];
+    const amount = first.querySelector('[data-slot="amount"]') as HTMLElement;
+    const when = canvas.getByText(payments[0]?.when ?? "");
+    const row = first.closest("li") as HTMLElement;
+
+    // The tile: 40 px at --muted, its icon 20 px.
+    const { width, height } = media.getBoundingClientRect();
+    await expect([width, height]).toEqual([tile, tile]);
+    await expect(getComputedStyle(media).backgroundColor).toBe(
+      colourOf("var(--muted)", canvasElement),
+    );
+    await expect(
+      (media.querySelector("svg") as Element).getBoundingClientRect().width,
+    ).toBe(icon);
+    // The value at the row's end, at the text's weight, in its tone, with the day under it, small and muted.
+    await expect(Math.round(first.getBoundingClientRect().right)).toBe(
+      Math.round(
+        row.getBoundingClientRect().right -
+          Number.parseFloat(getComputedStyle(row).paddingInlineEnd),
+      ),
+    );
+    await expect(getComputedStyle(amount).fontWeight).toBe("400");
+    await expect(getComputedStyle(amount).color).toBe(
+      colourOf("var(--negative)", canvasElement),
+    );
+    await expect([
+      getComputedStyle(when).fontSize,
+      getComputedStyle(when).color,
+    ]).toEqual([
+      detailSize,
+      colourOf("var(--muted-foreground)", canvasElement),
+    ]);
+    await expect(Math.round(when.getBoundingClientRect().right)).toBe(
+      Math.round(first.getBoundingClientRect().right),
+    );
+    // A long title gives way, and the value keeps one line.
+    const secondAmount = second.querySelector(
+      '[data-slot="amount"]',
+    ) as HTMLElement;
+    await expect(secondAmount.scrollWidth).toBe(secondAmount.clientWidth);
+    await expect(
+      canvas.getByText(payments[1]?.name ?? "").getBoundingClientRect().height,
+    ).toBeGreaterThan(lineHeight);
+    await expect(
+      within(second).getByText(payments[1]?.when ?? ""),
+    ).toBeVisible();
+  },
+};
+
 export default meta;
-export { AllParts, Alone, CurrentRow, Default, InCard, LongText, RowLink };
+export {
+  AllParts,
+  Alone,
+  CurrentRow,
+  Default,
+  IconAndValue,
+  InCard,
+  LongText,
+  RowLink,
+};

@@ -49,7 +49,7 @@ A piece with no gap listed may still have some.
 | `hover-card` | raw | **Code:** its dialog has no name unless given `aria-label`. Opening by focus or hover is not checked |
 | `input` | raw | **Edited:** 36 px |
 | `input-group` | raw | **Edited:** 36 px, its addon is React Aria's `Group`, and pulls a button or `kbd` 4 or 2 px toward the edge |
-| `item` | raw | **Edited:** its group is a list of rows, `ul` and `li`, with lines and a table's ends, and its title and description wrap |
+| `item` | raw | **Edited:** its group is a list of rows, `ul` and `li`, with lines and a table's ends, its title and description wrap, an icon sits on a tile, and a row opens by its title's link. **Code:** `ItemValue` |
 | `kbd` | raw | |
 | `label` | raw | |
 | `link` | reviewed | |

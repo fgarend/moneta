@@ -78,6 +78,8 @@ the version installed. It holds only what exists, and each reviewed piece adds i
   end and no header. Compare down columns, and it is a table.
 - **Put the rows in an `ItemGroup`,** each an `Item`, which draws a line between rows. In a card, give it a
   `CardContent` of its own, and it runs edge to edge.
+- **A row's value goes in an `ItemValue` at its end,** as an `Amount`, with a date or a badge as its `detail`, and its
+  icon in an `ItemMedia variant="icon"`.
 - **A row that opens something puts a `Link` in its `ItemTitle`,** quiet, and the whole row follows it. The row open
   beside the list takes `aria-current="true"`.
 
