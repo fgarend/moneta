@@ -92,6 +92,11 @@ pieces is in [`../pieces.md`](../pieces.md), and how a piece is analysed is in [
   selected row is drawn at `--muted`, and a row with a box at half of it on hover. A box in a row with no title or
   no `id` throws.
 - **Narrow, the boxes stick at the table's start too,** and the titles right after them.
+- **A column sorts by `allowsSorting` and its key, `id`, on its `TableHead`,** with `sortDescriptor` and
+  `onSortChange` on the table, React Aria's `SortDescriptor`; the app sorts the rows. Its header is a button named by
+  its text, at least 24 px tall, with a quiet up and down mark, or the sorted column's arrow in the text's colour,
+  before the text in a column at the end. A press sorts ascending, then flips. `aria-sort` is on the sorted header
+  only. A sortable header in a table with no `onSortChange` throws.
 - **The row open beside the table is `aria-current="true"`,** drawn at `--muted`, as a selected row, with a 3 px bar
   of `--primary` at its start, the first cell's `::before`. A row's state, selected or current, wins over its hover.
 - **`TableSelectionBar` goes over the table,** with the app's count and words, `count` and `label`, in a status a
@@ -165,6 +170,12 @@ pieces is in [`../pieces.md`](../pieces.md), and how a piece is analysed is in [
   the row open beside the table is `aria-current`, not selected. **The boxes stick with the titles,** as MUI's and
   AG Grid's pinned columns keep theirs, so a row can be selected while the table scrolls. **What it costs:** about
   40 px of a narrow screen.
+- **A mark on every header that sorts,** as MoJ's sortable table and Ant draw one, so a touch screen, which has no
+  hover, shows what sorts. **Two directions, with no unsorted state,** as React Aria has it, as an app's first order
+  is a sort too. **`aria-sort` alone,** as the APG and Carbon have it: NVDA, JAWS, Narrator and VoiceOver on iOS say
+  the change, by Roselli's tests of 2026. **What it costs:** VoiceOver on macOS and TalkBack stay silent, which a
+  status of the app's words, in the roadmap, would cover; and React Aria's table announced a sort, so one moving from
+  it loses that.
 - **The current row's bar in its first cell,** not a border on the row, as a table's collapsed borders give a
   row's border half its width inside, which moves that row's text about 1.5 px off the others'.
 - **The bar over the table, in the page's flow,** as Carbon has it, so it covers nothing and a screen reader meets

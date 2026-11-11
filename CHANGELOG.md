@@ -36,6 +36,8 @@ gets its number.
   `defaultSelectedKeys` and `onSelectionChange` on the `Table`, Shift for a range, and `TableSelectionBar` over the
   table, with the app's count, heard as it changes, and its actions.
 - A table's row with `aria-current="true"`, the one open beside it, is drawn with a bar of `--primary` at its start.
+- Sorting: `allowsSorting` and an `id` on a `TableHead`, and `sortDescriptor` and `onSortChange` on the `Table`, which
+  draws a button with a mark in each sortable header and sets `aria-sort` on the sorted one; the app sorts.
 
 ### Fixed
 

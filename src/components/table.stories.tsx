@@ -1,7 +1,11 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { PencilIcon } from "lucide-react";
 import { Fragment, type ReactNode, useId, useState } from "react";
-import { I18nProvider, RouterProvider } from "react-aria-components";
+import {
+  I18nProvider,
+  RouterProvider,
+  type SortDescriptor,
+} from "react-aria-components";
 import { expect, fn, userEvent, waitFor, within } from "storybook/test";
 import { Caught } from "../../.storybook/caught.js";
 import { Amount } from "./amount.js";
@@ -1025,6 +1029,168 @@ const CurrentRow: Story = {
   },
 };
 
+// Sorting: each sortable header a button with a quiet up and down mark, the sorted one its arrow in the text's colour,
+// before the text in a column at the end. A press sorts ascending, then flips; the app sorts, and aria-sort says so.
+const onSortChange = fn();
+const target24 = 24;
+// The columns' keys, which the app names.
+const byName = "name";
+const byAmount = "amount";
+
+// The app's sort, by a fixture's values, which only order the rows.
+function byColumn(column: string, direction: string) {
+  return [...payments].sort((one, other) => {
+    const difference =
+      column === byAmount
+        ? Number(one.value) - Number(other.value)
+        : one.name.localeCompare(other.name);
+    return direction === "ascending" ? difference : -difference;
+  });
+}
+
+const Sorting: Story = {
+  tags: ["visual"],
+  render: function Render() {
+    const [sort, setSort] = useState<SortDescriptor>({
+      column: byAmount,
+      direction: "ascending",
+    });
+    return (
+      <section className="p-6">
+        <h2 className="type-title">{title}</h2>
+        <Table
+          aria-label={name}
+          onSortChange={(next) => {
+            setSort(next);
+            onSortChange(next);
+          }}
+          sortDescriptor={sort}
+        >
+          <TableHeader>
+            <TableRow>
+              <TableHead allowsSorting={true} id={byName}>
+                {description}
+              </TableHead>
+              <TableHead>{category}</TableHead>
+              <TableHead align="end" allowsSorting={true} id={byAmount}>
+                {amount}
+              </TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            {byColumn(String(sort.column), sort.direction).map((payment) => (
+              <TableRow key={payment.id}>
+                <TableHead scope="row">{payment.name}</TableHead>
+                <TableCell>{payment.category}</TableCell>
+                <TableCell align="end">
+                  <Amount value={brl(payment.value)} />
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </section>
+    );
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const amountButton = canvas.getByRole("button", { name: amount });
+    const nameButton = canvas.getByRole("button", { name: description });
+    const titles = () =>
+      canvas.getAllByRole("rowheader").map((cell) => cell.textContent);
+    const mark = (button: HTMLElement) =>
+      button.querySelector("svg")?.getAttribute("class") ?? "";
+    onSortChange.mockClear();
+
+    // aria-sort on the sorted header only, and a button in each sortable one, named by its text.
+    await expect(amountButton.closest("th")).toHaveAttribute(
+      "aria-sort",
+      "ascending",
+    );
+    await expect(nameButton.closest("th")).not.toHaveAttribute("aria-sort");
+    await expect(
+      canvas.getByRole("columnheader", { name: category }),
+    ).not.toHaveAttribute("aria-sort");
+    await expect(canvas.getAllByRole("button")).toHaveLength(2);
+    await expect(titles()).toEqual(
+      byColumn(byAmount, "ascending").map((payment) => payment.name),
+    );
+    // The sorted header's arrow, in the text's colour; a quiet mark on the others that sort.
+    await expect(mark(amountButton)).toContain("lucide-arrow-up");
+    await expect(mark(nameButton)).toContain("lucide-chevrons-up-down");
+    await expect(getComputedStyle(amountButton).color).toBe(
+      colourOf("var(--foreground)", canvasElement),
+    );
+    // At the end, the mark comes before the text, so the text lines up with the column.
+    await expect(
+      (amountButton.querySelector("svg") as Element).getBoundingClientRect()
+        .left,
+    ).toBeLessThan(
+      (
+        within(amountButton).getByText(amount) as Element
+      ).getBoundingClientRect().left,
+    );
+    await expect(
+      amountButton.getBoundingClientRect().height,
+    ).toBeGreaterThanOrEqual(target24);
+    // Every header's text on one line, whether it sorts or not, and wherever its mark is.
+    const top = (element: Element) => {
+      const range = document.createRange();
+      range.selectNodeContents(element);
+      return Math.round(range.getBoundingClientRect().top);
+    };
+    const plainTop = top(canvas.getByRole("columnheader", { name: category }));
+    await expect([
+      top(within(amountButton).getByText(amount)),
+      top(within(nameButton).getByText(description)),
+    ]).toEqual([plainTop, plainTop]);
+    // A press on the sorted header flips it; on another, sorts it ascending.
+    await userEvent.click(amountButton);
+    await expect(onSortChange).toHaveBeenLastCalledWith({
+      column: byAmount,
+      direction: "descending",
+    });
+    await expect(amountButton.closest("th")).toHaveAttribute(
+      "aria-sort",
+      "descending",
+    );
+    await expect(mark(amountButton)).toContain("lucide-arrow-down");
+    await expect(titles()).toEqual(
+      byColumn(byAmount, "descending").map((payment) => payment.name),
+    );
+    await userEvent.click(nameButton);
+    await expect(onSortChange).toHaveBeenLastCalledWith({
+      column: byName,
+      direction: "ascending",
+    });
+    await expect(amountButton.closest("th")).not.toHaveAttribute("aria-sort");
+  },
+};
+
+// A sortable header in a table that cannot hear a sort says so, as its button would do nothing.
+const SortWithoutHandler: Story = {
+  render: () => (
+    <Caught>
+      <Table aria-label={name}>
+        <TableHeader>
+          <TableRow>
+            <TableHead allowsSorting={true} id={byName}>
+              {description}
+            </TableHead>
+          </TableRow>
+        </TableHeader>
+      </Table>
+    </Caught>
+  ),
+  play: async ({ canvasElement }) => {
+    await expect(
+      within(canvasElement).getByText(
+        "TableHead allowsSorting needs onSortChange on its Table.",
+      ),
+    ).toBeVisible();
+  },
+};
+
 // A statement by day: one body per group, opened by its title and subtotal, and a total in the footer.
 const days = [
   {
@@ -1191,5 +1357,7 @@ export {
   SelectionShown,
   SelectWithoutKey,
   SelectWithoutTitle,
+  Sorting,
+  SortWithoutHandler,
   WithCaption,
 };

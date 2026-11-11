@@ -66,7 +66,10 @@ Later, in the roadmap: virtualisation, resized columns and rows dragged, which R
   row's state is its checkbox's. Narrow, the boxes stick with the titles, and the bar goes over the table, in the
   page's flow, with `count` and the app's `label`, all decided on 2026-11-11.
 - Sorting: `allowsSorting` and an `id` on a column, `sortDescriptor` and `onSortChange` on the table; a button with an
-  arrow in the header; `aria-sort` on the sorted header only, and the change announced; the app sorts.
+  arrow in the header; `aria-sort` on the sorted header only; the app sorts. Decided on 2026-11-11: every sortable
+  header shows a quiet up and down mark, the sorted one its arrow in the text's colour, before the text in a column
+  at the end; a press sorts ascending, then flips, with no unsorted state; the change is not announced but by
+  `aria-sort`, in the roadmap to revise.
 - Pagination: `Pagination`, reviewed in this step, its English words turned into props, composed below; "1–14 of 142"
   is the app's text.
 - `stickyHeader`: within the table's own scroll area, when its place limits the height, as a horizontal scroll area
@@ -365,6 +368,12 @@ With `check-release`'s rules for the numbers after it, as a change that breaks t
 - **A table's virtualisation, resized columns and rows dragged.** Left out of Table on 2026-11-10: React Aria gives
   them only on its `grid`, and Table is a native `<table>`, so each would be code of our own or a dependency, as
   `@tanstack/react-virtual` for thousands of rows. Table's API is drawn so they can come with nothing broken.
+- **Announcing a table's sort.** Left out of Table on 2026-11-11, for the simpler `aria-sort` alone, as the APG,
+  Carbon and Inclusive Components have it. Roselli's tests, updated in October 2026, have NVDA, JAWS, Narrator and
+  VoiceOver on iOS announce a sort by it, and VoiceOver on macOS and TalkBack silent. To revise: a `status` on the
+  table, the app's words kept in a hidden polite status, as "Sorted by Amount, ascending", which a load or a
+  filter's count could share; MoJ's sortable table and React Aria's own table announce so, Primer too, staying
+  silent when content comes within 750 ms. What it costs: NVDA and JAWS say it twice, as Roselli heard in JAWS.
 - **The sample page's text in the dark stories.** On 2026-11-10, in the `storybook-dark` project, a cell of the sample
   page's table read `rgb(35, 38, 43)`, light's `--foreground`, while `var(--foreground)` on a probe appended to the
   story's canvas read `rgb(244, 244, 242)`, dark's, and the `visual-dark` screenshot draws the page dark. Its check

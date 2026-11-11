@@ -140,6 +140,9 @@ the version installed. It holds only what exists, and each reviewed piece adds i
   header with the app's words, as "Select all", and a `TableSelectionBar` over the table, with the count of every
   row selected, on this page and others, as "2 selected". Clearing the selection, or selecting all on every page,
   is a button of the app's in the bar. Confirm an action on rows selected but not shown.
+- **A column the user may sort takes `allowsSorting` and an `id`,** and the table `sortDescriptor` and
+  `onSortChange`; the app sorts the rows, here or on its server. Sort what is compared, as amounts and dates, and keep
+  a first order that makes sense, as the newest first.
 - **The row whose details are open beside the table, as in a side panel, takes `aria-current="true"`,** not a
   selection, which is for acting on rows together.
 - **A cell is blank when a value does not apply,** and "—" when it is missing, with `value={null}`.

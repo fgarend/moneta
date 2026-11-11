@@ -68,7 +68,7 @@ which is run by hand.
 | 2.5.3 Label in Name | app | The visible name and the accessible one |
 | 2.5.4 Motion Actuation | none yet | |
 | 2.5.7 Dragging Movements | none yet | |
-| 2.5.8 Target Size (Minimum) | axe | |
+| 2.5.8 Target Size (Minimum) | axe, story | Table's sortable headers, at least 24 px tall |
 | 3.1.1 Language of Page | app | |
 | 3.1.2 Language of Parts | app | |
 | 3.2.1 On Focus | none yet | |

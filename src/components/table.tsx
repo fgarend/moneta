@@ -2,7 +2,12 @@
 // end. In a card it runs edge to edge; loose on a page its text lines up with the page. Narrow, it hides the columns
 // the app marks, and scrolls in an area of its own. docs/decisions/components.md says why it is so.
 import { cn } from "cn";
-import { ChevronRightIcon } from "lucide-react";
+import {
+  ArrowDownIcon,
+  ArrowUpIcon,
+  ChevronRightIcon,
+  ChevronsUpDownIcon,
+} from "lucide-react";
 import {
   type ComponentProps,
   createContext,
@@ -15,6 +20,10 @@ import {
   useRef,
   useState,
 } from "react";
+import {
+  Button as AriaButton,
+  type SortDescriptor,
+} from "react-aria-components";
 import { Button } from "#components/button";
 import { Checkbox } from "#components/checkbox";
 
@@ -53,6 +62,8 @@ interface TableState {
   chooseShown: () => void;
   shown: Set<string>;
   show: (key: string) => () => void;
+  sort: SortDescriptor | undefined;
+  onSortChange: ((sort: SortDescriptor) => void) | undefined;
 }
 
 const TableContext = createContext<TableState | null>(null);
@@ -157,6 +168,8 @@ function Table({
   selectedKeys,
   defaultSelectedKeys = [],
   onSelectionChange,
+  sortDescriptor,
+  onSortChange,
   ...props
 }: Omit<ComponentProps<"table">, "aria-label" | "aria-labelledby"> &
   TableName & {
@@ -170,6 +183,9 @@ function Table({
     // The same, held by the table from the start.
     defaultSelectedKeys?: Iterable<string>;
     onSelectionChange?: (keys: Set<string>) => void;
+    // The column the rows are sorted by, and which way, held by the app, which sorts them.
+    sortDescriptor?: SortDescriptor;
+    onSortChange?: (sort: SortDescriptor) => void;
   }) {
   const captionId = useId();
   const [expanded, setExpanded] = useKeys(
@@ -269,6 +285,8 @@ function Table({
             chooseShown,
             shown,
             show,
+            sort: sortDescriptor,
+            onSortChange,
           }}
         >
           {rows}
@@ -377,20 +395,49 @@ function TableHead({
   align = "start",
   hideBelow,
   hideHeader = false,
+  allowsSorting = false,
+  id: columnKey,
   children,
   ...props
-}: Omit<ComponentProps<"th">, "align"> & {
+}: Omit<ComponentProps<"th">, "align" | "id"> & {
   align?: Align;
   hideBelow?: Width;
   // The header of a column of controls, which screen readers hear and eyes do not.
   hideHeader?: boolean;
+  // A column the rows can be sorted by, by its key, its id.
+  allowsSorting?: boolean;
+  id?: string;
 }) {
   const row = useContext(RowContext);
   const table = useTable("TableHead");
+  if (allowsSorting && table.onSortChange === undefined) {
+    throw new Error("TableHead allowsSorting needs onSortChange on its Table.");
+  }
+  const direction =
+    columnKey !== undefined && table.sort?.column === columnKey
+      ? table.sort.direction
+      : undefined;
+  const sortable =
+    allowsSorting && columnKey !== undefined ? (
+      <SortButton
+        align={align}
+        direction={direction}
+        onPress={() =>
+          table.onSortChange?.({
+            column: columnKey,
+            direction: direction === "ascending" ? "descending" : "ascending",
+          })
+        }
+      >
+        {children}
+      </SortButton>
+    ) : (
+      children
+    );
   const hidden = hideHeader ? (
-    <span className="sr-only">{children}</span>
+    <span className="sr-only">{sortable}</span>
   ) : (
-    children
+    sortable
   );
   // Once a row has children, every row's title keeps the room of their button, so titles line up, and a child's is
   // set in by as much again.
@@ -425,6 +472,7 @@ function TableHead({
             ),
         className,
       )}
+      aria-sort={direction}
       data-slot="table-head"
       id={scope === "row" ? row.titleId : undefined}
       scope={scope}
@@ -432,6 +480,55 @@ function TableHead({
     >
       {content}
     </th>
+  );
+}
+
+// A sortable header's button, named by its text: a quiet up and down mark, or the sorted one's arrow in the text's
+// colour, before the text in a column at the end, so the text lines up with the column.
+function SortButton({
+  align,
+  direction,
+  onPress,
+  children,
+}: {
+  align: Align;
+  direction: SortDescriptor["direction"] | undefined;
+  onPress: () => void;
+  children: ReactNode;
+}) {
+  const marks = {
+    ascending: <ArrowUpIcon aria-hidden="true" />,
+    descending: <ArrowDownIcon aria-hidden="true" />,
+  };
+  const mark =
+    direction === undefined ? (
+      <ChevronsUpDownIcon aria-hidden="true" />
+    ) : (
+      marks[direction]
+    );
+  return (
+    <AriaButton
+      className={cn(
+        // A block centred in the cell, as a header's text is, so a mark before the text sets no baseline of its own.
+        "flex min-h-6 w-fit cursor-pointer items-center gap-1 rounded-sm outline-none hover:text-foreground data-focus-visible:ring-3 data-focus-visible:ring-ring/50 [&_svg]:size-3.5 [&_svg]:shrink-0",
+        align === "end" && "ms-auto",
+        direction !== undefined && "text-foreground",
+      )}
+      data-slot="table-sort"
+      onPress={onPress}
+    >
+      {align === "end" ? (
+        <>
+          {mark}
+          <span>{children}</span>
+        </>
+      ) : (
+        <>
+          <span>{children}</span>
+          {mark}
+        </>
+      )}
+    </AriaButton>
   );
 }
 
