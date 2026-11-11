@@ -42,6 +42,7 @@ known and what is still to ask, are in [`roadmap-notes.md`](roadmap-notes.md), r
     - NumberField, DatePicker, DateRangePicker and TimeField
     - FilePicker, ChoiceCard, a choice of many with chips, InputOTP, CopyButton, Toolbar, a period switcher and
       ColorSwatchPicker
+    - CopyButton in Table's selection bar, copying the rows selected as Table's own copy builds them
     - how a form connects, with a server's errors
     - `combobox`, after a study
     - Button's `link` variant beside Link, and a disabled `LinkButton`, which is not dimmed
@@ -94,7 +95,6 @@ Each becomes an item when its time comes.
 - **A table's virtualisation, resized columns and rows dragged.** When a screen needs them.
 - **Announcing a table's sort.** If `aria-sort` alone proves too little.
 - **The pages a pagination draws, worked out.** If a second app needs it.
-- **`LinkButton` disabled draws no dimming.** Found with Pagination.
 - **The sample page's text in the dark stories.** Light's colour, where its dark screenshot is right.
 
 ## Done
@@ -113,5 +113,5 @@ Each becomes an item when its time comes.
 
 ## Not yet checked
 
-Screen readers and real Windows High Contrast, the look beyond rest states, this map of pieces, and a peer out of
-range.
+A table's copy pasted into Excel in Portuguese and Google Sheets. Screen readers and real Windows High Contrast, the
+look beyond rest states, this map of pieces, and a peer out of range.

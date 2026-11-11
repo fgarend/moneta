@@ -15,6 +15,7 @@ import {
   type ReactNode,
   useCallback,
   useContext,
+  useEffect,
   useId,
   useLayoutEffect,
   useRef,
@@ -303,6 +304,13 @@ function Table({
     observer.observe(element.firstElementChild as Element);
     return () => observer.disconnect();
   }, []);
+  // A selection across its cells is copied by the table.
+  useEffect(() => {
+    const element = table.current as HTMLTableElement;
+    const listener = (event: ClipboardEvent) => copyCells(element, event);
+    document.addEventListener("copy", listener);
+    return () => document.removeEventListener("copy", listener);
+  }, []);
   // A row focused under a sticky header scrolls clear of it.
   useLayoutEffect(() => {
     if (!stickyHeader) {
@@ -408,6 +416,81 @@ function clearHeader(event: FocusEvent): void {
   if (covered > 0) {
     element.scrollTop -= covered;
   }
+}
+
+// A cell of controls only, as a box or an action, which a copy leaves out.
+const controlCells =
+  '[data-slot="table-select"],[data-slot="table-select-all"],[data-slot="table-row-action"]';
+
+// A cell's text as it is seen, the words only screen readers hear left out, and its minus a hyphen, as spreadsheets
+// read only that as negative.
+function cellText(cell: Element): string {
+  const seen = cell.cloneNode(true) as Element;
+  for (const hidden of seen.querySelectorAll(".sr-only")) {
+    hidden.remove();
+  }
+  return (seen.textContent as string)
+    .replaceAll("\u2212", "-")
+    .replaceAll(/[\t\n]+/gu, " ")
+    .trim();
+}
+
+function escaped(text: string): string {
+  return text
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;");
+}
+
+// The cell of this table a selection's end lies in, if any.
+function cellIn(table: HTMLTableElement, node: Node): Element | null {
+  const element = (
+    node.nodeType === Node.ELEMENT_NODE ? node : node.parentNode
+  ) as Element;
+  const cell = element.closest("td, th");
+  return cell !== null && table.contains(cell) ? cell : null;
+}
+
+// A selection across this table's cells, copied as a spreadsheet takes it: the whole rows it reaches, as text with tabs
+// and as an HTML table, with the columns hidden or of controls left out. A selection inside one cell, or reaching
+// past the table, stays the browser's.
+function copyCells(table: HTMLTableElement, event: ClipboardEvent): void {
+  const selection = document.getSelection() as Selection;
+  if (selection.rangeCount === 0) {
+    return;
+  }
+  const range = selection.getRangeAt(0);
+  const start = cellIn(table, range.startContainer);
+  const end = cellIn(table, range.endContainer);
+  if (start === null || end === null || start === end) {
+    return;
+  }
+  const rows = [...table.rows]
+    .filter((row) => !row.hidden && range.intersectsNode(row))
+    .map((row) =>
+      [...row.cells].filter(
+        (cell) =>
+          cell.checkVisibility() &&
+          cell.dataset["control"] === undefined &&
+          cell.querySelector(controlCells) === null,
+      ),
+    );
+  const text = rows.map((cells) => cells.map(cellText).join("\t")).join("\n");
+  const html = `<table>${rows
+    .map(
+      (cells) =>
+        `<tr>${cells
+          .map((cell) => {
+            const tag = cell.tagName === "TH" ? "th" : "td";
+            return `<${tag}>${escaped(cellText(cell))}</${tag}>`;
+          })
+          .join("")}</tr>`,
+    )
+    .join("")}</table>`;
+  const data = event.clipboardData as DataTransfer;
+  data.setData("text/plain", text);
+  data.setData("text/html", html);
+  event.preventDefault();
 }
 
 // The first load's rows: a shape where each column's text sits, at a row's height, which a screen reader skips.

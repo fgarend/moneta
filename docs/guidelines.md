@@ -110,8 +110,8 @@ the version installed. It holds only what exists, and each reviewed piece adds i
   give the dots too. A text only screen readers hear, as an `aria-label`, is yours to word while values are hidden,
   as "Pay the bill" in place of "Pay ••••••".
 - **The language is React Aria's,** from `I18nProvider`.
-- **A negative value takes the minus sign, `−`,** which screen readers read. A copy of one value takes a hyphen, so a
-  spreadsheet reads it as negative, but a copy of a row keeps the minus, which a spreadsheet takes as text.
+- **A negative value takes the minus sign, `−`,** which screen readers read. A copy of one value, or of a table's
+  cells, takes a hyphen, so a spreadsheet reads it as negative; a copy of more anywhere else keeps the minus.
 - **A value never wraps and is never cut.** What holds it makes room, as a table that scrolls.
 - **A wrong value or currency throws,** as `"1,5"`, `"50%"` or `"real"`, so a mistake is never shown as money. An error
   boundary keeps it to its part of the screen.

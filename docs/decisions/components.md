@@ -114,6 +114,9 @@ pieces is in [`../pieces.md`](../pieces.md), and how a piece is analysed is in [
   2 px running `Progress` along the header's foot, which stays in view.
 - **`TableEmpty` holds the app's words for no rows** in one row whose cell spans every column, centred, under the
   header.
+- **A selection across a table's cells is copied by the table:** the whole rows it reaches, visible and not of
+  controls, as text with tabs and as an HTML table, each cell as it is seen, the words only screen readers hear left
+  out and a minus as a hyphen. Inside one cell, or reaching past the table, the copy is the browser's.
 - **Rows are 44 px, or 36 with `density="compact"`,** with their line under them, whatever they hold: a row's
   controls of 32 px take less than its text's height, by a negative margin. In compact, groups are 20 px apart and 8
   under the header, and the header stays 36 px.
@@ -203,6 +206,10 @@ pieces is in [`../pieces.md`](../pieces.md), and how a piece is analysed is in [
   the first time, as a table with no rows would jump, and the rows themselves on a reload, never dimmed, as their
   values stay true until the new ones come. **What it costs:** the table reads its own header and bodies after each
   draw.
+- **Whole rows in a copy,** as a spreadsheet pastes rows of cells, which text cut mid-cell would break. **Cells as
+  they are seen,** currency and all, so a copy holds what was read, and a table of several currencies keeps them.
+  **What it costs:** whether Excel in Portuguese and Google Sheets read `-R$ 286,40` as a number is to be tried by
+  hand; the bar's copy button waits for CopyButton.
 - **Controls of 32 px in rows of 36,** as Primer sets a row's icon buttons in by a negative margin, so an action is
   the same size in every table and rows are even. **What it costs:** in compact, a button's fill on hover nearly
   meets the lines above and below. Rows that held a control were 57 px before 2026-11-11.

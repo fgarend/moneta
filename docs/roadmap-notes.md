@@ -249,11 +249,15 @@ with each family. No reviewed piece has a default text, so shadcn's written stri
 - NumberField, DatePicker, DateRangePicker with presets such as the last 30 days, TimeField, a choice of many with
   removable chips, on React Aria's `TagGroup`, InputOTP, as `input-otp`, which brings a package of its own,
   CopyButton, which says it copied in a status message, and copies an amount through the way Money values takes,
+  and in `TableSelectionBar` copies the rows selected, as Table's copy of a selection across cells builds them,
+  text and HTML, left there on 2026-11-11 so the bar's button comes with CopyButton's status rather than before it;
+  rows selected on other pages are not on the screen to copy, which its words must say,
   Toolbar, a bar of actions on what is selected, a period switcher, previous and next around a label such as a
   month, and React Aria's `ColorSwatchPicker`.
 - Button's `link` variant, a button drawn as a link, and `LinkButton`'s, nearly a `Link` but 36 px tall and
   padded, now that `Link` exists: whether each stays, changes or goes. `LinkButton`'s `disabled:` classes do not match
-  a disabled link, which React Aria draws as a `span`, so it is not dimmed.
+  a disabled link, which React Aria draws as a `span`, so it is not dimmed; Pagination dims its own links since
+  2026-11-11.
 - To ask: forms, on React Aria's `Form`, with a server's errors through `validationErrors`, and how an app's form
   library connects, as Adobe documents React Hook Form and Zod. A form's states, such as dirty or touched, stay with
   that library or the app.
@@ -379,8 +383,6 @@ With `check-release`'s rules for the numbers after it, as a change that breaks t
 - **The pages a pagination draws, worked out.** Left to the app on 2026-11-11, as shadcn has it: the first, the
   last, the current and one on each side, with gaps, by the guidelines. MUI and Mantine give it as
   `usePagination`. To add if a second app writes the same loop.
-- **`LinkButton` disabled draws no dimming.** Found on 2026-11-11: `buttonVariants` dims by `disabled:`, which a
-  link, drawn by React Aria as a `span` with `data-disabled`, never matches. Pagination dims its own links.
 - **The sample page's text in the dark stories.** On 2026-11-10, in the `storybook-dark` project, a cell of the sample
   page's table read `rgb(35, 38, 43)`, light's `--foreground`, while `var(--foreground)` on a probe appended to the
   story's canvas read `rgb(244, 244, 242)`, dark's, and the `visual-dark` screenshot draws the page dark. Its check

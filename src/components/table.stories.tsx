@@ -13,6 +13,7 @@ import { Button } from "./button.js";
 import { Card, CardContent, CardHeader, CardTitle } from "./card.js";
 import { Link } from "./link.js";
 import type { Money } from "./money.js";
+import { MoneyProvider } from "./money-provider.js";
 import {
   Table,
   TableBody,
@@ -1558,6 +1559,154 @@ const Empty: Story = {
   },
 };
 
+// Copying: a selection across cells is copied by the table, whole cells as a spreadsheet takes them, text with tabs
+// and an HTML table, the minus a hyphen, and the columns hidden or of controls left out. Inside one cell, the
+// browser's own, or one value's rule.
+function select(from: Node, to: Node): void {
+  const range = document.createRange();
+  range.setStart(from, 0);
+  range.setEnd(to, to.childNodes.length);
+  const selection = document.getSelection() as Selection;
+  selection.removeAllRanges();
+  selection.addRange(range);
+}
+
+// A copy as the browser starts it, which the page may write in place of its own.
+function copyFrom(element: Element): {
+  event: ClipboardEvent;
+  data: DataTransfer;
+} {
+  const data = new DataTransfer();
+  const event = new ClipboardEvent("copy", {
+    bubbles: true,
+    cancelable: true,
+    clipboardData: data,
+  });
+  element.dispatchEvent(event);
+  return { event, data: event.clipboardData ?? data };
+}
+
+function shown(element: Element): string {
+  return (element.textContent ?? "").replaceAll("\u2212", "-");
+}
+
+// Another table on the page, which copies its own cells.
+const otherName = "Fictitious rent";
+const otherCategory = "Housing";
+
+const Copying: Story = {
+  render: () => (
+    <>
+      <p>{note}</p>
+      <Table aria-label={name}>{selectableRows()}</Table>
+      <Table caption={caption}>
+        <TableBody>
+          <TableRow>
+            <TableHead scope="row">{otherName}</TableHead>
+            <TableCell>{otherCategory}</TableCell>
+          </TableRow>
+        </TableBody>
+      </Table>
+    </>
+  ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const [first, second] = payments.map((payment) =>
+      canvas.getByRole("rowheader", { name: payment.name }),
+    ) as [HTMLElement, HTMLElement];
+    const amounts = [
+      ...canvasElement.querySelectorAll('tbody [data-slot="amount"]'),
+    ];
+
+    select(first, amounts[1] as Element);
+    const { event, data } = copyFrom(first);
+
+    await expect(event.defaultPrevented).toBe(true);
+    // The boxes' column is left out, and the minus is a hyphen.
+    await expect(data.getData("text/plain")).toBe(
+      [
+        [
+          payments[0]?.name,
+          payments[0]?.category,
+          payments[0]?.account,
+          shown(amounts[0] as Element),
+        ],
+        [
+          payments[1]?.name,
+          payments[1]?.category,
+          payments[1]?.account,
+          shown(amounts[1] as Element),
+        ],
+      ]
+        .map((cells) => cells.join("\t"))
+        .join("\n"),
+    );
+    await expect(data.getData("text/plain")).not.toContain("\u2212");
+    const html = new DOMParser().parseFromString(
+      data.getData("text/html"),
+      "text/html",
+    );
+    await expect(html.querySelectorAll("table tr")).toHaveLength(2);
+    await expect(html.querySelector("tr")?.children).toHaveLength(4);
+    await expect(html.querySelector("tr")?.firstElementChild?.textContent).toBe(
+      payments[0]?.name,
+    );
+    // From the header, the header comes too, as headers.
+    select(canvas.getByRole("columnheader", { name: description }), second);
+    const fromHeader = copyFrom(second).data;
+    await expect(fromHeader.getData("text/plain").split("\n")[0]).toBe(
+      [description, category, account, amount].join("\t"),
+    );
+    await expect(
+      new DOMParser()
+        .parseFromString(fromHeader.getData("text/html"), "text/html")
+        .querySelectorAll("th"),
+    ).toHaveLength(4 + 2);
+    // Inside one cell, from its text, the table leaves the copy alone.
+    select(first.firstChild as Node, first.firstChild as Node);
+    await expect(copyFrom(first).event.defaultPrevented).toBe(false);
+    // So it does with nothing selected, from outside it, or in another table.
+    document.getSelection()?.removeAllRanges();
+    await expect(copyFrom(first).event.defaultPrevented).toBe(false);
+    const outside = canvas.getByText(note);
+    select(outside, first);
+    await expect(copyFrom(first).event.defaultPrevented).toBe(false);
+    const other = canvas.getByRole("table", { name: caption });
+    const otherCells = other.querySelectorAll("tbody th, tbody td");
+    select(otherCells[0] as Element, otherCells[1] as Element);
+    await expect(copyFrom(other).data.getData("text/plain")).toBe(
+      `${otherCells[0]?.textContent}\t${otherCells[1]?.textContent}`,
+    );
+    document.getSelection()?.removeAllRanges();
+  },
+};
+
+// Narrow, the columns it hides are left out of a copy, and values hidden by the app go as their dots.
+const CopyingNarrow: Story = {
+  render: () => (
+    <MoneyProvider hiddenLabel="Hidden value" isHidden={true}>
+      <Table aria-label={name}>{rows(true)}</Table>
+    </MoneyProvider>
+  ),
+  decorators: Narrow.decorators,
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const first = canvas.getByRole("rowheader", { name: payments[0]?.name });
+    const amountCell = canvasElement.querySelector(
+      'tbody [data-slot="amount"]',
+    ) as Element;
+
+    select(first, amountCell);
+    const text = copyFrom(first).data.getData("text/plain");
+
+    await expect(text).toBe(
+      `${payments[0]?.name}\t${amountCell.querySelector('[aria-hidden="true"]')?.textContent}`,
+    );
+    await expect(text).not.toContain("Hidden value");
+    document.getSelection()?.removeAllRanges();
+  },
+};
+
 // A statement by day: one body per group, opened by its title and subtotal, and a total in the footer.
 const days = [
   {
@@ -1812,6 +1961,8 @@ export {
   ChildRowsInCard,
   ChildRowsOpen,
   Compact,
+  Copying,
+  CopyingNarrow,
   CurrentRow,
   Default,
   Empty,

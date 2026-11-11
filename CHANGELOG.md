@@ -48,6 +48,8 @@ gets its number.
 - Loading: `isLoading`, `loadingLabel` and `loadingRows` on a `Table`, which draws rows of shapes the first time and
   a running bar under the header on a reload, and says the app's words.
 - `TableEmpty`, the app's words for no rows, across the table.
+- A selection across a table's cells copies as a spreadsheet takes it: text with tabs and an HTML table, minus as a
+  hyphen, hidden columns and controls left out.
 - `density="compact"` on a `Table`, rows of 36 px in place of 44.
 - `stickyHeader` on a `Table`, which keeps its header in view while its rows scroll, in a place that limits its
   height.
