@@ -9,6 +9,7 @@ known and what is still to ask, are in [`roadmap-notes.md`](roadmap-notes.md), r
 ## Next, in order
 
 1. **DateField.** Entering a date.
+   - `DateField`, an ISO value, a label, a description and an error of the app's, in 36 or 32 px
 2. **Motion, layers and icons.** What crosses every piece and no item holds.
    - durations and easing, with reduced motion
    - the order of layers
