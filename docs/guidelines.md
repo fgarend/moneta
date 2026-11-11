@@ -84,6 +84,9 @@ the version installed. It holds only what exists, and each reviewed piece adds i
   icon in an `ItemMedia variant="icon"`.
 - **An action per row is an `ItemAction`** in its `ItemActions`, with one word as its `aria-label`, as "Edit"; the row's
   title completes its name. Several actions go in a `DropdownMenu` whose trigger is an `ItemAction`.
+- **A short list that has more says so in its card's `CardFooter`,** in one line of your words with a `Link` to the
+  rest at its end, as "Showing 3 of 12 · See all accounts". Loose on a page, the link goes in its `Section`'s
+  actions.
 - **`density="compact"` for many rows read at once,** as a long statement, on each `ItemGroup` of the list.
 - **While rows load, set `isLoading` and `loadingLabel` on the `ItemGroup`,** as for a table, on one group with no title
   while a page has none yet. **With no rows, put an `ItemEmpty` in it,** with words that say why and what to do.

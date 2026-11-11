@@ -6,7 +6,13 @@ import { Caught } from "../../.storybook/caught.js";
 import { Amount } from "./amount.js";
 import { Badge } from "./badge.js";
 import { Button } from "./button.js";
-import { Card, CardContent, CardHeader, CardTitle } from "./card.js";
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "./card.js";
 import {
   Item,
   ItemAction,
@@ -902,6 +908,40 @@ const Compact: Story = {
   },
 };
 
+// A short list that has more: one line in its card's footer, the app's words with a link to the rest at its end.
+const shown = "Showing 3 of 12 · ";
+const seeAll = "See all accounts";
+
+const SeeAll: Story = {
+  render: () => (
+    <Card>
+      <CardHeader>
+        <CardTitle>{heading}</CardTitle>
+      </CardHeader>
+      <CardContent>
+        <ItemGroup>{rows()}</ItemGroup>
+      </CardContent>
+      <CardFooter>
+        <p>
+          {shown}
+          <Link href="/accounts">{seeAll}</Link>
+        </p>
+      </CardFooter>
+    </Card>
+  ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const cardFooter = canvasElement.querySelector(
+      '[data-slot="card-footer"]',
+    ) as Element;
+
+    await expect(
+      within(cardFooter as HTMLElement).getByRole("link", { name: seeAll }),
+    ).toHaveAttribute("href", "/accounts");
+    await expect(canvas.getAllByRole("listitem")).toHaveLength(accounts.length);
+  },
+};
+
 export default meta;
 export {
   ActionWithoutTitle,
@@ -922,4 +962,5 @@ export {
   Reloading,
   RowAction,
   RowLink,
+  SeeAll,
 };
