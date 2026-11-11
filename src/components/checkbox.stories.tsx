@@ -30,5 +30,29 @@ const Checked: Story = {
   },
 };
 
+// Partly checked, as a box over rows of which some are: a dash on the filled box, not a check.
+const Indeterminate: Story = {
+  args: { isIndeterminate: true },
+  play: async ({ canvasElement }) => {
+    const probe = document.createElement("span");
+    probe.style.color = "var(--primary)";
+    canvasElement.append(probe);
+    const primary = getComputedStyle(probe).color;
+    probe.remove();
+
+    await expect(
+      within(canvasElement).getByRole("checkbox", { name }),
+    ).toBePartiallyChecked();
+    await expect(
+      canvasElement.querySelector('[data-slot="checkbox-indicator"] svg'),
+    ).toHaveClass("lucide-minus");
+    await expect(
+      getComputedStyle(
+        canvasElement.querySelector('[data-slot="checkbox"]') as Element,
+      ).backgroundColor,
+    ).toBe(primary);
+  },
+};
+
 export default meta;
-export { Checked, Default };
+export { Checked, Default, Indeterminate };

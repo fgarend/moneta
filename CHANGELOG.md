@@ -31,6 +31,10 @@ gets its number.
 - Child rows: a `TableRow` with `parentId` shows under its parent while that is open, by a button the table draws in
   the parent's title, with `expandedKeys`, `defaultExpandedKeys` and `onExpandedChange` on the `Table`.
 
+### Fixed
+
+- `Checkbox` partly checked draws a dash on a filled box, no longer a check.
+
 ## [0.8.0] - 2026-11-10
 
 Money values: `Amount`, `Percent` and `Quantity`, shown exactly, with a sign, a tone and a hidden mode, and the hooks
