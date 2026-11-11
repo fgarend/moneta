@@ -2,11 +2,13 @@
 // end. In a card it runs edge to edge; loose on a page its text lines up with the page. Narrow, it hides the columns
 // the app marks, and scrolls in an area of its own. docs/decisions/components.md says why it is so.
 import { cn } from "cn";
+import { ChevronRightIcon } from "lucide-react";
 import {
   type ComponentProps,
   createContext,
   type MouseEvent,
   type ReactNode,
+  useCallback,
   useContext,
   useId,
   useLayoutEffect,
@@ -31,8 +33,31 @@ const hides = {
   md: "@max-md/table:hidden",
   lg: "@max-lg/table:hidden",
 };
-// The row a part sits in, whose title names its controls.
-const RowContext = createContext({ titleId: "" });
+// The row a part sits in: its title, which names its controls, its key, and its parent's when it is a child.
+const RowContext = createContext<{
+  titleId: string;
+  rowKey?: string | undefined;
+  parentKey?: string | undefined;
+}>({ titleId: "" });
+
+// Which rows are open, and the children each parent has, by the rows' keys.
+interface TableState {
+  expanded: Set<string>;
+  toggle: (key: string) => void;
+  children: Map<string, string[]>;
+  adopt: (parent: string, child: string) => () => void;
+}
+
+const TableContext = createContext<TableState | null>(null);
+
+// A part of a table outside one says so, rather than draw a row no table knows.
+function useTable(part: string): TableState {
+  const table = useContext(TableContext);
+  if (table === null) {
+    throw new Error(`${part} must be used within a Table.`);
+  }
+  return table;
+}
 
 // A table's ends: 12 px loose on a page, where its area reaches out as much, and 20 px in a card, lined up with its
 // title.
@@ -42,13 +67,47 @@ const ends =
 function Table({
   caption,
   className,
-  children,
+  children: rows,
   "aria-label": label,
   "aria-labelledby": labelledBy,
+  expandedKeys,
+  defaultExpandedKeys = [],
+  onExpandedChange,
   ...props
 }: Omit<ComponentProps<"table">, "aria-label" | "aria-labelledby"> &
-  TableName) {
+  TableName & {
+    // The keys of the rows whose children show, held by the app.
+    expandedKeys?: Iterable<string>;
+    // The same, held by the table from the start.
+    defaultExpandedKeys?: Iterable<string>;
+    onExpandedChange?: (keys: Set<string>) => void;
+  }) {
   const captionId = useId();
+  const [own, setOwn] = useState(() => new Set(defaultExpandedKeys));
+  const expanded = expandedKeys === undefined ? own : new Set(expandedKeys);
+  const toggle = (key: string) => {
+    const next = new Set(expanded);
+    if (next.has(key)) {
+      next.delete(key);
+    } else {
+      next.add(key);
+    }
+    setOwn(next);
+    onExpandedChange?.(next);
+  };
+  const [children, setChildren] = useState(new Map<string, string[]>());
+  // A child row tells its parent's key and its own id, so the parent's button can point at it.
+  const adopt = useCallback((parent: string, child: string) => {
+    const change = (add: boolean) =>
+      setChildren((all) => {
+        const next = new Map(all);
+        const kept = (next.get(parent) ?? []).filter((id) => id !== child);
+        next.set(parent, add ? [...kept, child] : kept);
+        return next;
+      });
+    change(true);
+    return () => change(false);
+  }, []);
   const area = useRef<HTMLDivElement>(null);
   const [overflows, setOverflows] = useState(false);
   // Only an area that scrolls takes focus, so the keyboard can scroll it, and its name; one that fits adds no stop.
@@ -91,7 +150,9 @@ function Table({
             {caption}
           </caption>
         )}
-        {children}
+        <TableContext.Provider value={{ expanded, toggle, children, adopt }}>
+          {rows}
+        </TableContext.Provider>
       </table>
     </div>
   );
@@ -118,7 +179,7 @@ function TableBody({ className, ...props }: ComponentProps<"tbody">) {
 }
 
 // What a click on a row leaves alone: a control of its own.
-const controls =
+const controlTargets =
   "a, button, input, select, textarea, label, [role=button], [role=checkbox], [role=menuitem]";
 
 // A click on an empty part of a row goes to the link in its title, with its keys, so a pointer has the whole row while
@@ -128,7 +189,7 @@ function openTitle(event: MouseEvent<HTMLTableRowElement>): void {
   const selection = document.getSelection() as Selection;
   if (
     link === null ||
-    (event.target as Element).closest(controls) !== null ||
+    (event.target as Element).closest(controlTargets) !== null ||
     !selection.isCollapsed
   ) {
     return;
@@ -145,11 +206,30 @@ function openTitle(event: MouseEvent<HTMLTableRowElement>): void {
   );
 }
 
-function TableRow({ className, onClick, ...props }: ComponentProps<"tr">) {
+function TableRow({
+  className,
+  onClick,
+  id: rowKey,
+  parentId: parentKey,
+  ...props
+}: Omit<ComponentProps<"tr">, "id"> & {
+  // The row's key, by which the table keeps it open or selected, and its children find it.
+  id?: string;
+  // The key of the row this one is a child of, which it shows under while that row is open.
+  parentId?: string;
+}) {
   const titleId = useId();
+  const domId = useId();
+  const { expanded, adopt } = useTable("TableRow");
+  useLayoutEffect(
+    () => (parentKey === undefined ? undefined : adopt(parentKey, domId)),
+    [parentKey, domId, adopt],
+  );
   return (
-    <RowContext.Provider value={{ titleId }}>
+    <RowContext.Provider value={{ titleId, rowKey, parentKey }}>
       <tr
+        hidden={parentKey !== undefined && !expanded.has(parentKey)}
+        id={domId}
         className={cn(
           "border-b has-[th[scope=row]_a[href]]:cursor-pointer has-[th[scope=row]_a[href]]:hover:bg-muted/50",
           className,
@@ -181,11 +261,24 @@ function TableHead({
   hideHeader?: boolean;
 }) {
   const row = useContext(RowContext);
-  const content = hideHeader ? (
+  const table = useTable("TableHead");
+  const hidden = hideHeader ? (
     <span className="sr-only">{children}</span>
   ) : (
     children
   );
+  // Once a row has children, every row's title keeps the room of their button, so titles line up, and a child's is
+  // set in by as much again.
+  const content =
+    scope === "row" && table.children.size > 0 ? (
+      <span className="flex items-center gap-2">
+        {row.parentKey === undefined ? null : <Room />}
+        <Disclosure rowKey={row.rowKey} titleId={row.titleId} />
+        {hidden}
+      </span>
+    ) : (
+      hidden
+    );
   return (
     <th
       className={cn(
@@ -205,6 +298,39 @@ function TableHead({
     >
       {content}
     </th>
+  );
+}
+
+function Room() {
+  return <span aria-hidden="true" className="size-8 shrink-0" />;
+}
+
+// The button that shows a row's children, named by the row's title, or the room it takes in a row with none.
+function Disclosure({
+  rowKey,
+  titleId,
+}: {
+  rowKey: string | undefined;
+  titleId: string;
+}) {
+  const { expanded, toggle, children } = useTable("TableHead");
+  const controls = rowKey === undefined ? [] : (children.get(rowKey) ?? []);
+  if (rowKey === undefined || controls.length === 0) {
+    return <Room />;
+  }
+  const isOpen = expanded.has(rowKey);
+  return (
+    <Button
+      aria-controls={controls.join(" ")}
+      aria-expanded={isOpen}
+      aria-labelledby={titleId}
+      data-slot="table-expand"
+      onPress={() => toggle(rowKey)}
+      size="icon-sm"
+      variant="ghost"
+    >
+      <ChevronRightIcon className={isOpen ? "rotate-90" : undefined} />
+    </Button>
   );
 }
 

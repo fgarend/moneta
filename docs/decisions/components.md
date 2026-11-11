@@ -80,6 +80,11 @@ pieces is in [`../pieces.md`](../pieces.md), and how a piece is analysed is in [
   with no title makes it throw.
 - **A row with a link in its title opens by a click anywhere empty in it,** which the row forwards to that link with
   its keys, unless the click is on a control or text is selected; it shows a pointer and a hover fill.
+- **A row's children are rows with its key as their `parentId`,** right after it, `hidden` while it is closed, one
+  level deep. The table draws a 32 px button in the parent's title, named by it, with `aria-expanded` and
+  `aria-controls`, keeps the button's room in every title once a row has children, and sets a child in by as much
+  again. `expandedKeys`, `defaultExpandedKeys` and `onExpandedChange` on the table hold which rows are open, as React
+  Aria's `Tree` names them. A part outside a `Table` throws.
 
 ## Why
 
@@ -138,6 +143,10 @@ pieces is in [`../pieces.md`](../pieces.md), and how a piece is analysed is in [
 - **A row opened by our own script,** as a link stretched over the row by a pseudo-element needs the row to hold it,
   which Safari did only from 27, and stops text in the row from being selected. **What it costs:** code of our own,
   and a key held with the click reaches the link by an event the browser did not make.
+- **Children as rows after their parent, with a disclosure button,** as Carbon has it and Roselli's expando rows, as
+  a treegrid would serve only a grid. **The button drawn by the table,** which knows a row has children, so the app
+  writes no part for it. **What it costs:** a screen reader hears no level for a child, as `aria-level` belongs to
+  a treegrid, only the button that points at the children.
 - **A control named by its row's title,** as Primer asks an action to say which row it acts on, so the app writes one
   word, once, and no name is repeated or stale. **What it costs:** every row needs a title.
 - **Lines, space and type for a group and a total, and no fill,** as a fill is kept for a row's state, as white

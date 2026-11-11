@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { PencilIcon } from "lucide-react";
-import { type ReactNode, useId } from "react";
+import { Fragment, type ReactNode, useId } from "react";
 import { I18nProvider, RouterProvider } from "react-aria-components";
 import { expect, fn, userEvent, waitFor, within } from "storybook/test";
 import { Caught } from "../../.storybook/caught.js";
@@ -391,6 +391,154 @@ const RowActions: Story = {
   },
 };
 
+// Child rows: a row with children gets a button in its title, named by it, which shows them right under it; rows with
+// none keep its room, so titles line up, and children are set in by as much again.
+const holdings = [
+  { id: "fund", name: "Fictitious Income Fund", value: "30000" },
+  { id: "stock", name: "Example Stock", value: "18200" },
+];
+const accounts = [
+  { id: "a1", name: "Account 1234", value: "24000" },
+  { id: "a2", name: "Account 5678", value: "6000" },
+];
+const slot = 40;
+const onExpandedChange = fn();
+
+function holdingRows(): ReactNode {
+  return (
+    <TableBody>
+      {holdings.map((holding) => (
+        <Fragment key={holding.id}>
+          <TableRow id={holding.id}>
+            <TableHead scope="row">{holding.name}</TableHead>
+            <TableCell align="end">
+              <Amount value={brl(holding.value)} />
+            </TableCell>
+          </TableRow>
+          {holding.id === "fund"
+            ? accounts.map((child) => (
+                <TableRow key={child.id} parentId={holding.id}>
+                  <TableHead scope="row">{child.name}</TableHead>
+                  <TableCell align="end">
+                    <Amount value={brl(child.value)} />
+                  </TableCell>
+                </TableRow>
+              ))
+            : null}
+        </Fragment>
+      ))}
+    </TableBody>
+  );
+}
+
+// Where a cell's own text starts: its first piece of text, past any button or room before it.
+function textLeft(cell: Element): number {
+  const walker = document.createTreeWalker(cell, NodeFilter.SHOW_TEXT);
+  const range = document.createRange();
+  range.selectNodeContents(walker.nextNode() as Node);
+  return range.getBoundingClientRect().left;
+}
+
+const ChildRows: Story = {
+  render: () => <Table aria-label={name}>{holdingRows()}</Table>,
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const button = canvas.getByRole("button", { name: holdings[0]?.name });
+    const child = canvas.getByText(accounts[0]?.name ?? "");
+    const parentTitle = canvas.getByRole("rowheader", {
+      name: holdings[0]?.name,
+    });
+    const plainTitle = canvas.getByRole("rowheader", {
+      name: holdings[1]?.name,
+    });
+
+    // Closed: children are hidden, and the button says so and points at them.
+    await expect(child).not.toBeVisible();
+    await expect(button).toHaveAttribute("aria-expanded", "false");
+    const controlled = (button.getAttribute("aria-controls") ?? "").split(" ");
+    await expect(controlled).toHaveLength(accounts.length);
+    await expect(
+      controlled.every((id) => document.getElementById(id)?.tagName === "TR"),
+    ).toBe(true);
+    await expect(canvas.getAllByRole("button")).toHaveLength(1);
+    await expect(button.getBoundingClientRect().width).toBe(target);
+    // Titles line up, a row with no children keeping the button's room.
+    await expect(Math.round(textLeft(plainTitle))).toBe(
+      Math.round(textLeft(parentTitle)),
+    );
+    await userEvent.click(button);
+    await expect(child).toBeVisible();
+    await expect(button).toHaveAttribute("aria-expanded", "true");
+    // Children are set in by the button's room.
+    await expect(
+      Math.round(
+        textLeft(child.closest("th") as Element) - textLeft(parentTitle),
+      ),
+    ).toBe(slot);
+    await userEvent.click(button);
+    await expect(child).not.toBeVisible();
+  },
+};
+
+// A row outside a Table says so, rather than draw a row no table knows.
+const RowOutsideTable: Story = {
+  render: () => (
+    <Caught>
+      <table>
+        <tbody>
+          <TableRow>
+            <TableCell>{payments[0]?.name}</TableCell>
+          </TableRow>
+        </tbody>
+      </table>
+    </Caught>
+  ),
+  play: async ({ canvasElement }) => {
+    await expect(
+      within(canvasElement).getByText("TableRow must be used within a Table."),
+    ).toBeVisible();
+  },
+};
+
+// Open from the start, by the app, which hears each change.
+const ChildRowsOpen: Story = {
+  render: () => (
+    <Table
+      aria-label={name}
+      expandedKeys={["fund"]}
+      onExpandedChange={onExpandedChange}
+    >
+      {holdingRows()}
+    </Table>
+  ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    await expect(canvas.getByText(accounts[0]?.name ?? "")).toBeVisible();
+    onExpandedChange.mockClear();
+    await userEvent.click(
+      canvas.getByRole("button", { name: holdings[0]?.name }),
+    );
+    await expect(onExpandedChange).toHaveBeenCalledWith(new Set());
+    // The app holds the state, so the rows stay open until it changes it.
+    await expect(canvas.getByText(accounts[0]?.name ?? "")).toBeVisible();
+  },
+};
+
+// Open from the start, with the table holding the state.
+const ChildRowsDefaultOpen: Story = {
+  render: () => (
+    <Table aria-label={name} defaultExpandedKeys={["fund"]}>
+      {holdingRows()}
+    </Table>
+  ),
+  play: async ({ canvasElement }) => {
+    await expect(
+      within(canvasElement).getByText(accounts[0]?.name ?? ""),
+    ).toBeVisible();
+  },
+};
+
 // A row that opens: a click on an empty part of it goes to the link in its title, so keyboards and screen readers
 // keep one real link while a pointer has the whole row. A click on a control, or with text selected, stays where it
 // is, and a click with Ctrl or Cmd reaches the link with its key, for the browser to open a new tab.
@@ -644,6 +792,9 @@ const Groups: Story = {
 export default meta;
 export {
   ActionWithoutTitle,
+  ChildRows,
+  ChildRowsDefaultOpen,
+  ChildRowsOpen,
   Default,
   Groups,
   InCard,
@@ -653,5 +804,6 @@ export {
   Overflowing,
   RowActions,
   RowLink,
+  RowOutsideTable,
   WithCaption,
 };

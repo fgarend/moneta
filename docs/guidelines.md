@@ -134,6 +134,8 @@ the version installed. It holds only what exists, and each reviewed piece adds i
   `DropdownMenu` whose trigger is a `TableRowAction`.
 - **A row that opens something puts a `Link` in its title,** quiet, and the whole row follows it on a click, with
   Ctrl or Cmd for a new tab, while a control in the row or selected text stays where it is.
+- **Rows that open give their children `parentId`,** the parent's `id`, right after it; the table adds the button.
+  A detail that explains a row is a child row too. One level only.
 - **A cell is blank when a value does not apply,** and "—" when it is missing, with `value={null}`.
 - **In a card, alone in its `CardContent`,** it runs edge to edge, with a line above. With anything else in the same
   content, it keeps the card's padding, so give it a content of its own.

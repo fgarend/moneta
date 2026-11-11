@@ -28,6 +28,8 @@ gets its number.
 - `TableRowAction`, an action on a row, named by the app's one word and the row's title, and `hideHeader` on a
   `TableHead`, for a column of controls.
 - A table's row opens the link in its title on a click anywhere empty in it.
+- Child rows: a `TableRow` with `parentId` shows under its parent while that is open, by a button the table draws in
+  the parent's title, with `expandedKeys`, `defaultExpandedKeys` and `onExpandedChange` on the `Table`.
 
 ## [0.8.0] - 2026-11-10
 
