@@ -4,12 +4,15 @@
 import { cn } from "cn";
 import {
   type ComponentProps,
+  createContext,
   type ReactNode,
+  useContext,
   useId,
   useLayoutEffect,
   useRef,
   useState,
 } from "react";
+import { Button } from "#components/button";
 
 // Its name, which a screen reader says on entering it: a label, a heading it points to, or its caption.
 type TableName =
@@ -27,6 +30,9 @@ const hides = {
   md: "@max-md/table:hidden",
   lg: "@max-lg/table:hidden",
 };
+// The row a part sits in, whose title names its controls.
+const RowContext = createContext({ titleId: "" });
+
 // A table's ends: 12 px loose on a page, where its area reaches out as much, and 20 px in a card, lined up with its
 // title.
 const ends =
@@ -111,12 +117,15 @@ function TableBody({ className, ...props }: ComponentProps<"tbody">) {
 }
 
 function TableRow({ className, ...props }: ComponentProps<"tr">) {
+  const titleId = useId();
   return (
-    <tr
-      className={cn("border-b", className)}
-      data-slot="table-row"
-      {...props}
-    />
+    <RowContext.Provider value={{ titleId }}>
+      <tr
+        className={cn("border-b", className)}
+        data-slot="table-row"
+        {...props}
+      />
+    </RowContext.Provider>
   );
 }
 
@@ -126,23 +135,40 @@ function TableHead({
   scope,
   align = "start",
   hideBelow,
+  hideHeader = false,
+  children,
   ...props
-}: Omit<ComponentProps<"th">, "align"> & { align?: Align; hideBelow?: Width }) {
+}: Omit<ComponentProps<"th">, "align"> & {
+  align?: Align;
+  hideBelow?: Width;
+  // The header of a column of controls, which screen readers hear and eyes do not.
+  hideHeader?: boolean;
+}) {
+  const row = useContext(RowContext);
+  const content = hideHeader ? (
+    <span className="sr-only">{children}</span>
+  ) : (
+    children
+  );
   return (
     <th
       className={cn(
         ends,
         aligns[align],
         hideBelow && hides[hideBelow],
+        hideHeader && "w-px",
         scope === "row"
           ? "sticky start-0 min-w-32 bg-(--surface) px-3 py-3 align-middle font-normal"
           : "h-9 px-3 align-middle type-label whitespace-nowrap text-muted-foreground first:sticky first:start-0 first:bg-(--surface)",
         className,
       )}
       data-slot="table-head"
+      id={scope === "row" ? row.titleId : undefined}
       scope={scope}
       {...props}
-    />
+    >
+      {content}
+    </th>
   );
 }
 
@@ -155,7 +181,7 @@ function TableCell({
   return (
     <td
       className={cn(
-        "px-3 py-3 align-middle",
+        "px-3 py-3 align-middle has-data-[slot=table-row-action]:w-px",
         ends,
         aligns[align],
         hideBelow && hides[hideBelow],
@@ -184,13 +210,46 @@ function TableFooter({ className, ...props }: ComponentProps<"tfoot">) {
 // A group's first row, in a body of its own: its title small, semibold and muted, its subtotals at 500 in their
 // columns, 32 px above it, or 12 under the header, and a strong line under it.
 function TableGroupRow({ className, ...props }: ComponentProps<"tr">) {
+  const titleId = useId();
   return (
-    <tr
-      className={cn(
-        "border-b border-border-strong [&>*]:pt-8 [&>*]:pb-1.5 in-[tbody:first-of-type]:[&>*]:pt-3 [&>th]:text-xs [&>th]:font-semibold [&>th]:text-muted-foreground",
-        className,
-      )}
-      data-slot="table-group-row"
+    <RowContext.Provider value={{ titleId }}>
+      <tr
+        className={cn(
+          "border-b border-border-strong [&>*]:pt-8 [&>*]:pb-1.5 in-[tbody:first-of-type]:[&>*]:pt-3 [&>th]:text-xs [&>th]:font-semibold [&>th]:text-muted-foreground",
+          className,
+        )}
+        data-slot="table-group-row"
+        {...props}
+      />
+    </RowContext.Provider>
+  );
+}
+
+// An action on a row: a quiet icon button of 32 px, whose name joins the app's one word to the row's title, as "Edit
+// Central Market". A row with no title throws, as its action would have no name to say which row it acts on.
+function TableRowAction({
+  "aria-label": label,
+  ...props
+}: Omit<ComponentProps<typeof Button>, "aria-label" | "size" | "variant"> & {
+  "aria-label": string;
+}) {
+  const { titleId } = useContext(RowContext);
+  const id = useId();
+  useLayoutEffect(() => {
+    if (document.getElementById(titleId) === null) {
+      throw new Error(
+        `TableRowAction: "${label}" needs its row titled by TableHead scope="row".`,
+      );
+    }
+  }, [titleId, label]);
+  return (
+    <Button
+      aria-label={label}
+      aria-labelledby={`${id} ${titleId}`}
+      data-slot="table-row-action"
+      id={id}
+      size="icon-sm"
+      variant="ghost"
       {...props}
     />
   );
@@ -205,4 +264,5 @@ export {
   TableHead,
   TableHeader,
   TableRow,
+  TableRowAction,
 };

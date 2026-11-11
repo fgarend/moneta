@@ -129,6 +129,9 @@ the version installed. It holds only what exists, and each reviewed piece adds i
 - **Groups and totals:** each group in a `TableBody` of its own, opened by a `TableGroupRow` with its title and its
   subtotals in their columns, and the total in a `TableFooter`. Subtotals and the total follow their rows' `sign`, and
   take no `tone`. A total that counts more rows than are shown says so in its title, as "Total of every account".
+- **An action per row goes in the last column,** a `TableRowAction` with one word as its `aria-label`, as "Edit",
+  under a `TableHead hideHeader` that names the column; the row's title completes its name. Several actions go in a
+  `DropdownMenu` whose trigger is a `TableRowAction`.
 - **A cell is blank when a value does not apply,** and "—" when it is missing, with `value={null}`.
 - **In a card, alone in its `CardContent`,** it runs edge to edge, with a line above. With anything else in the same
   content, it keeps the card's padding, so give it a content of its own.

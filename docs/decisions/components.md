@@ -75,6 +75,9 @@ pieces is in [`../pieces.md`](../pieces.md), and how a piece is analysed is in [
   semibold and muted, its subtotals at 500 in their columns, 32 px above it, 12 under the header, and a
   `--border-strong` line under it, with no fill.
 - **The total is a `TableFooter`,** a `<tfoot>`, at 600, under a double `--border-strong` line.
+- **An action is a `TableRowAction`,** a quiet icon button of 32 px in the last column, as narrow as its content,
+  under a `TableHead hideHeader`, whose name joins the app's one word to the row's title by `aria-labelledby`. A row
+  with no title makes it throw.
 
 ## Why
 
@@ -130,6 +133,8 @@ pieces is in [`../pieces.md`](../pieces.md), and how a piece is analysed is in [
 - **A group's title as `scope="row"`,** as today's screen readers do not announce `scope="rowgroup"`, as Roselli
   and Zell Liew found, while a row's header names its subtotals. **What it costs:** a cell in the middle of a group
   is not heard with the group's name; reading in order, the group comes first.
+- **A control named by its row's title,** as Primer asks an action to say which row it acts on, so the app writes one
+  word, once, and no name is repeated or stale. **What it costs:** every row needs a title.
 - **Lines, space and type for a group and a total, and no fill,** as a fill is kept for a row's state, as white
   space is the least visible way to group, as Stephen Few has it, and as screenshots of both showed the group and a
   selected row fighting when both were filled. **A double line over the total,** which reads as a total at once;

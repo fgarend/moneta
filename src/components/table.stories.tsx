@@ -1,7 +1,9 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
+import { PencilIcon } from "lucide-react";
 import { type ReactNode, useId } from "react";
 import { I18nProvider } from "react-aria-components";
 import { expect, waitFor, within } from "storybook/test";
+import { Caught } from "../../.storybook/caught.js";
 import { Amount } from "./amount.js";
 import { Card, CardContent, CardHeader, CardTitle } from "./card.js";
 import type { Money } from "./money.js";
@@ -14,6 +16,7 @@ import {
   TableHead,
   TableHeader,
   TableRow,
+  TableRowAction,
 } from "./table.js";
 
 const name = "Fictitious payments";
@@ -335,6 +338,85 @@ const Overflowing: Story = {
   },
 };
 
+// An action per row: the last column, under a header screen readers hear and eyes do not, as narrow as its button,
+// whose name joins the app's one word to the row's title.
+const actions = "Actions";
+const edit = "Edit";
+const target = 32;
+const narrowest = 80;
+
+const RowActions: Story = {
+  render: () => (
+    <Table aria-label={name}>
+      <TableHeader>
+        <TableRow>
+          <TableHead>{description}</TableHead>
+          <TableHead align="end">{amount}</TableHead>
+          <TableHead hideHeader={true}>{actions}</TableHead>
+        </TableRow>
+      </TableHeader>
+      <TableBody>
+        {payments.map((payment) => (
+          <TableRow key={payment.id}>
+            <TableHead scope="row">{payment.name}</TableHead>
+            <TableCell align="end">
+              <Amount value={brl(payment.value)} />
+            </TableCell>
+            <TableCell>
+              <TableRowAction aria-label={edit}>
+                <PencilIcon />
+              </TableRowAction>
+            </TableCell>
+          </TableRow>
+        ))}
+      </TableBody>
+    </Table>
+  ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const header = canvas.getByRole("columnheader", { name: actions });
+    const button = canvas.getByRole("button", {
+      name: `${edit} ${payments[0]?.name}`,
+    });
+    const { width, height } = button.getBoundingClientRect();
+
+    await expect(header.getBoundingClientRect().height).toBeGreaterThan(0);
+    await expect(header.firstElementChild).toHaveClass("sr-only");
+    await expect(canvas.getAllByRole("button")).toHaveLength(payments.length);
+    await expect([width, height]).toEqual([target, target]);
+    await expect(
+      (button.closest("td") as Element).getBoundingClientRect().width,
+    ).toBeLessThan(narrowest);
+  },
+};
+
+// An action in a row with no title says so, as its name could not say which row it acts on.
+const ActionWithoutTitle: Story = {
+  render: () => (
+    <Caught>
+      <Table aria-label={name}>
+        <TableBody>
+          <TableRow>
+            <TableCell>{payments[0]?.name}</TableCell>
+            <TableCell>
+              <TableRowAction aria-label={edit}>
+                <PencilIcon />
+              </TableRowAction>
+            </TableCell>
+          </TableRow>
+        </TableBody>
+      </Table>
+    </Caught>
+  ),
+  play: async ({ canvasElement }) => {
+    await expect(
+      within(canvasElement).getByText(
+        `TableRowAction: "${edit}" needs its row titled by TableHead scope="row".`,
+      ),
+    ).toBeVisible();
+  },
+};
+
 // A statement by day: one body per group, opened by its title and subtotal, and a total in the footer.
 const days = [
   {
@@ -479,6 +561,7 @@ const Groups: Story = {
 
 export default meta;
 export {
+  ActionWithoutTitle,
   Default,
   Groups,
   InCard,
@@ -486,5 +569,6 @@ export {
   NamedByHeading,
   Narrow,
   Overflowing,
+  RowActions,
   WithCaption,
 };

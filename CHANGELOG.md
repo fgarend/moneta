@@ -25,6 +25,8 @@ gets its number.
 - `TableGroupRow`, a group's title and subtotals, in a `TableBody` of its own, and `TableFooter` again, for a total
   under a double line.
 - `--border-strong`, the line that marks a table's groups and total.
+- `TableRowAction`, an action on a row, named by the app's one word and the row's title, and `hideHeader` on a
+  `TableHead`, for a column of controls.
 
 ## [0.8.0] - 2026-11-10
 
