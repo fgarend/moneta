@@ -135,6 +135,11 @@ function useTable(part: string): TableState {
   return table;
 }
 
+// The current row's bar: 3 px of --primary at the start of its first cell, which sticks or is set relative, so it
+// moves none of its text, as a border on a row of a table's collapsed borders would.
+const currentBar =
+  "in-aria-[current=true]:first:before:absolute in-aria-[current=true]:first:before:inset-y-0 in-aria-[current=true]:first:before:start-0 in-aria-[current=true]:first:before:w-0.75 in-aria-[current=true]:first:before:bg-primary";
+
 // A table's ends: 12 px loose on a page, where its area reaches out as much, and 20 px in a card, lined up with its
 // title.
 const ends =
@@ -346,7 +351,8 @@ function TableRow({
         hidden={parentKey !== undefined && !expanded.has(parentKey)}
         id={domId}
         className={cn(
-          "border-b bg-(--row-fill) has-[th[scope=row]_a[href]]:cursor-pointer data-selected:[--row-fill:var(--muted)] has-[th[scope=row]_a[href]]:not-data-selected:hover:[--row-fill:color-mix(in_oklab,var(--muted)_50%,transparent)] has-data-[slot=table-select]:not-data-selected:hover:[--row-fill:color-mix(in_oklab,var(--muted)_50%,transparent)]",
+          // A row's fill: its state, selected or current, over the hover of a row that opens or selects.
+          "border-b bg-(--row-fill) [--row-fill:var(--row-state,var(--row-hover))] has-[th[scope=row]_a[href]]:cursor-pointer has-[th[scope=row]_a[href]]:hover:[--row-hover:color-mix(in_oklab,var(--muted)_50%,transparent)] has-data-[slot=table-select]:hover:[--row-hover:color-mix(in_oklab,var(--muted)_50%,transparent)] data-selected:[--row-state:var(--muted)] aria-[current=true]:[--row-state:var(--muted)]",
           className,
         )}
         data-selected={
@@ -408,6 +414,7 @@ function TableHead({
         scope === "row"
           ? cn(
               "sticky start-0 min-w-32 px-3 py-3 align-middle font-normal",
+              currentBar,
               "sticky-fill",
               // After a column of boxes that sticks too: the box and its start, 12 px loose and 20 in a card.
               "in-[tr:has([data-slot=table-select])]:start-7 in-data-[slot=card]:in-[tr:has([data-slot=table-select])]:start-9",
@@ -470,7 +477,8 @@ function TableCell({
   return (
     <td
       className={cn(
-        "has-data-[slot=table-select]:sticky-fill",
+        "has-data-[slot=table-select]:sticky-fill in-aria-[current=true]:first:not-has-data-[slot=table-select]:relative",
+        currentBar,
         "px-3 py-3 align-middle has-data-[slot=table-row-action]:w-px has-data-[slot=table-select]:sticky has-data-[slot=table-select]:start-0 has-data-[slot=table-select]:w-px has-data-[slot=table-select]:pe-0",
         ends,
         aligns[align],

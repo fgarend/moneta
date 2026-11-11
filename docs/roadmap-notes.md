@@ -96,7 +96,8 @@ Later, in the roadmap: virtualisation, resized columns and rows dragged, which R
   of value inside it; `Amount` stays 500 elsewhere.
 - `--border-strong`: a new token, warm, darker than `--border` in light and lighter in dark, held by the theme's test.
 - States: hover at half `--muted`, on rows that select or open only; selected and current at `--muted`; the current
-  row also has a 3 px bar at its start in `--primary`, by `border-inline-start`.
+  row also has a 3 px bar at its start in `--primary`, drawn by its first cell's `::before`, as a border on the row
+  moved its text, found on 2026-11-11.
 - In a Card, the table runs edge to edge, with 20 px ends lined up with the card's title, when it is the only child of
   a `CardContent`, which then loses its side padding and gains a top line. Loose on a page, it reaches 12 px out on
   each side, by a negative margin, so its text lines up with the page and a fill has room.

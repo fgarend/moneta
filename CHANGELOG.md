@@ -35,6 +35,7 @@ gets its number.
 - Selection: `TableSelect` in each row and `TableSelectAll` in the header, with `selectedKeys`,
   `defaultSelectedKeys` and `onSelectionChange` on the `Table`, Shift for a range, and `TableSelectionBar` over the
   table, with the app's count, heard as it changes, and its actions.
+- A table's row with `aria-current="true"`, the one open beside it, is drawn with a bar of `--primary` at its start.
 
 ### Fixed
 

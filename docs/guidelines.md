@@ -140,6 +140,8 @@ the version installed. It holds only what exists, and each reviewed piece adds i
   header with the app's words, as "Select all", and a `TableSelectionBar` over the table, with the count of every
   row selected, on this page and others, as "2 selected". Clearing the selection, or selecting all on every page,
   is a button of the app's in the bar. Confirm an action on rows selected but not shown.
+- **The row whose details are open beside the table, as in a side panel, takes `aria-current="true"`,** not a
+  selection, which is for acting on rows together.
 - **A cell is blank when a value does not apply,** and "—" when it is missing, with `value={null}`.
 - **In a card, alone in its `CardContent`,** it runs edge to edge, with a line above. With anything else in the same
   content, it keeps the card's padding, so give it a content of its own.

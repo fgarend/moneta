@@ -92,6 +92,8 @@ pieces is in [`../pieces.md`](../pieces.md), and how a piece is analysed is in [
   selected row is drawn at `--muted`, and a row with a box at half of it on hover. A box in a row with no title or
   no `id` throws.
 - **Narrow, the boxes stick at the table's start too,** and the titles right after them.
+- **The row open beside the table is `aria-current="true"`,** drawn at `--muted`, as a selected row, with a 3 px bar
+  of `--primary` at its start, the first cell's `::before`. A row's state, selected or current, wins over its hover.
 - **`TableSelectionBar` goes over the table,** with the app's count and words, `count` and `label`, in a status a
   screen reader hears, and the app's actions, in a `--muted` fill lined up with the table's ends. With nothing
   selected it shows nothing, but its status stays. In a card, a bar and a table alone in a `CardContent` run edge
@@ -163,6 +165,8 @@ pieces is in [`../pieces.md`](../pieces.md), and how a piece is analysed is in [
   the row open beside the table is `aria-current`, not selected. **The boxes stick with the titles,** as MUI's and
   AG Grid's pinned columns keep theirs, so a row can be selected while the table scrolls. **What it costs:** about
   40 px of a narrow screen.
+- **The current row's bar in its first cell,** not a border on the row, as a table's collapsed borders give a
+  row's border half its width inside, which moves that row's text about 1.5 px off the others'.
 - **The bar over the table, in the page's flow,** as Carbon has it, so it covers nothing and a screen reader meets
   it before the rows. **The count the app's,** as only the app knows the rows selected on other pages. **What it
   costs:** in a long table it scrolls out of sight, which a bar fixed at the page's foot, in the roadmap, can hold.

@@ -953,6 +953,78 @@ const SelectWithoutKey: Story = {
   },
 };
 
+// The row open beside the table, as in a side panel: aria-current, not selected, at --muted with a bar of --primary
+// at its start, which moves none of its text.
+const bar = "3px";
+
+const CurrentRow: Story = {
+  tags: ["visual"],
+  render: () => (
+    <section className="p-6">
+      <h2 className="type-title">{title}</h2>
+      <Table aria-label={name}>
+        <TableHeader>
+          <TableRow>
+            <TableHead>{description}</TableHead>
+            <TableHead>{category}</TableHead>
+            <TableHead align="end">{amount}</TableHead>
+          </TableRow>
+        </TableHeader>
+        <TableBody>
+          {payments.map((payment) => (
+            <TableRow
+              aria-current={payment.id === "p2" ? "true" : undefined}
+              key={payment.id}
+            >
+              <TableHead scope="row">
+                <Link href={`#${payment.id}`} isQuiet={true}>
+                  {payment.name}
+                </Link>
+              </TableHead>
+              <TableCell>{payment.category}</TableCell>
+              <TableCell align="end">
+                <Amount value={brl(payment.value)} />
+              </TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+    </section>
+  ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const [firstTitle, currentTitle] = payments.map((payment) =>
+      canvas.getByRole("rowheader", { name: payment.name }),
+    ) as [HTMLElement, HTMLElement];
+    const row = currentTitle.closest("tr") as HTMLElement;
+    const muted = colourOf("var(--muted)", canvasElement);
+    const marker = getComputedStyle(currentTitle, "::before");
+
+    await expect(row).toHaveAttribute("aria-current", "true");
+    await expect(row).not.toHaveAttribute("data-selected");
+    await expect(getComputedStyle(row).backgroundColor).toBe(muted);
+    // The bar: 3 px of --primary at the row's start.
+    await expect([marker.width, marker.backgroundColor]).toEqual([
+      bar,
+      colourOf("var(--primary)", canvasElement),
+    ]);
+    await expect(Math.round(currentTitle.getBoundingClientRect().left)).toBe(
+      Math.round(row.getBoundingClientRect().left),
+    );
+    await expect(marker.insetInlineStart).toBe("0px");
+    await expect(getComputedStyle(currentTitle).backgroundImage).toContain(
+      muted,
+    );
+    // The bar moves no text: the current row's title starts where the others' do.
+    await expect(Math.round(textLeft(currentTitle))).toBe(
+      Math.round(textLeft(firstTitle)),
+    );
+    // A pointer over it keeps its state.
+    await userEvent.hover(within(row).getByText(payments[1]?.category ?? ""));
+    await expect(getComputedStyle(row).backgroundColor).toBe(muted);
+  },
+};
+
 // A statement by day: one body per group, opened by its title and subtotal, and a total in the footer.
 const days = [
   {
@@ -1101,6 +1173,7 @@ export {
   ChildRows,
   ChildRowsDefaultOpen,
   ChildRowsOpen,
+  CurrentRow,
   Default,
   Groups,
   InCard,
