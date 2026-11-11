@@ -171,6 +171,7 @@ function Table({
   sortDescriptor,
   onSortChange,
   stickyHeader = false,
+  density = "default",
   ...props
 }: Omit<ComponentProps<"table">, "aria-label" | "aria-labelledby"> &
   TableName & {
@@ -186,6 +187,8 @@ function Table({
     onSelectionChange?: (keys: Set<string>) => void;
     // A header that stays in view while the rows scroll, in a place that limits the table's height.
     stickyHeader?: boolean;
+    // Rows of about 44 px, or 36 where many rows are compared at once.
+    density?: "default" | "compact";
     // The column the rows are sorted by, and which way, held by the app, which sorts them.
     sortDescriptor?: SortDescriptor;
     onSortChange?: (sort: SortDescriptor) => void;
@@ -284,6 +287,7 @@ function Table({
           "w-full caption-bottom text-sm [&_tbody_[data-slot=table-row]_:is([data-slot=amount],[data-slot=percent],[data-slot=quantity])]:font-normal",
           className,
         )}
+        data-density={density}
         data-slot="table"
         {...props}
       >
@@ -502,7 +506,7 @@ function TableHead({
         hideHeader && "w-px",
         scope === "row"
           ? cn(
-              "sticky start-0 z-10 min-w-32 px-3 py-3 align-middle font-normal",
+              "sticky start-0 z-10 min-w-32 px-3 py-3 align-middle font-normal in-data-[density=compact]:py-2",
               currentBar,
               "sticky-fill",
               // After a column of boxes that sticks too: the box and its start, 12 px loose and 20 in a card.
@@ -578,7 +582,7 @@ function SortButton({
 }
 
 function Room() {
-  return <span aria-hidden="true" className="size-8 shrink-0" />;
+  return <span aria-hidden="true" className="w-8 shrink-0" />;
 }
 
 // The button that shows a row's children, named by the row's title, or the room it takes in a row with none.
@@ -600,6 +604,8 @@ function Disclosure({
       aria-controls={controls.join(" ")}
       aria-expanded={isOpen}
       aria-labelledby={titleId}
+      // 32 px that take less than the text's height, so the row keeps its own.
+      className="-my-2"
       data-slot="table-expand"
       onPress={() => toggle(rowKey)}
       size="icon-sm"
@@ -621,7 +627,7 @@ function TableCell({
       className={cn(
         "has-data-[slot=table-select]:sticky-fill in-aria-[current=true]:first:not-has-data-[slot=table-select]:relative",
         currentBar,
-        "px-3 py-3 align-middle has-data-[slot=table-row-action]:w-px has-data-[slot=table-select]:sticky has-data-[slot=table-select]:start-0 has-data-[slot=table-select]:z-10 has-data-[slot=table-select]:w-px has-data-[slot=table-select]:pe-0",
+        "px-3 py-3 align-middle in-data-[density=compact]:py-2 has-data-[slot=table-row-action]:w-px has-data-[slot=table-select]:sticky has-data-[slot=table-select]:start-0 has-data-[slot=table-select]:z-10 has-data-[slot=table-select]:w-px has-data-[slot=table-select]:pe-0",
         ends,
         aligns[align],
         hideBelow && hides[hideBelow],
@@ -655,7 +661,7 @@ function TableGroupRow({ className, ...props }: ComponentProps<"tr">) {
     <RowContext.Provider value={{ titleId }}>
       <tr
         className={cn(
-          "border-b border-border-strong [&>*]:pt-8 [&>*]:pb-1.5 in-[tbody:first-of-type]:[&>*]:pt-3 [&>th]:text-xs [&>th]:font-semibold [&>th]:text-muted-foreground",
+          "border-b border-border-strong [&>*]:pt-8 [&>*]:pb-1.5 in-[tbody:first-of-type]:[&>*]:pt-3 in-data-[density=compact]:[&>*]:pt-5 in-data-[density=compact]:in-[tbody:first-of-type]:[&>*]:pt-2 [&>th]:text-xs [&>th]:font-semibold [&>th]:text-muted-foreground",
           className,
         )}
         data-slot="table-group-row"
@@ -669,6 +675,7 @@ function TableGroupRow({ className, ...props }: ComponentProps<"tr">) {
 // Central Market". A row with no title throws, as its action would have no name to say which row it acts on.
 function TableRowAction({
   "aria-label": label,
+  className,
   ...props
 }: Omit<ComponentProps<typeof Button>, "aria-label" | "size" | "variant"> & {
   "aria-label": string;
@@ -686,6 +693,8 @@ function TableRowAction({
     <Button
       aria-label={label}
       aria-labelledby={`${id} ${titleId}`}
+      // 32 px that take less than the text's height, so the row keeps its own, as a block, which sets no baseline.
+      className={cn("-my-2 flex", className)}
       data-slot="table-row-action"
       id={id}
       size="icon-sm"

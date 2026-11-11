@@ -107,6 +107,9 @@ pieces is in [`../pieces.md`](../pieces.md), and how a piece is analysed is in [
   selected row is drawn at `--muted`, and a row with a box at half of it on hover. A box in a row with no title or
   no `id` throws.
 - **Narrow, the boxes stick at the table's start too,** and the titles right after them.
+- **Rows are 44 px, or 36 with `density="compact"`,** with their line under them, whatever they hold: a row's
+  controls of 32 px take less than its text's height, by a negative margin. In compact, groups are 20 px apart and 8
+  under the header, and the header stays 36 px.
 - **`stickyHeader` keeps the header in view in a place that limits the table's height,** as a panel: the table
   fills it and scrolls in its own area, whose header stays at the top, over the rows and their titles, with a line
   of its own, and a row focused under it scrolls clear of its 36 px. Without it, the table grows with its rows.
@@ -188,6 +191,9 @@ pieces is in [`../pieces.md`](../pieces.md), and how a piece is analysed is in [
   the row open beside the table is `aria-current`, not selected. **The boxes stick with the titles,** as MUI's and
   AG Grid's pinned columns keep theirs, so a row can be selected while the table scrolls. **What it costs:** about
   40 px of a narrow screen.
+- **Controls of 32 px in rows of 36,** as Primer sets a row's icon buttons in by a negative margin, so an action is
+  the same size in every table and rows are even. **What it costs:** in compact, a button's fill on hover nearly
+  meets the lines above and below. Rows that held a control were 57 px before 2026-11-11.
 - **A sticky header within the table's own area,** as an area that scrolls sideways is the one its header sticks to,
   never the page. **Its own line,** as a collapsed border belongs to the table and stays behind. **Scroll padding of
   the header's height,** for WCAG 2.4.11, **and a script of ours that scrolls a focused row clear,** as Safari 26 and

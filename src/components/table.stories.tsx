@@ -74,6 +74,13 @@ const looseEnd = "12px";
 const rowWeight = "400";
 const line = "1px";
 const textMinimum = 128;
+// A row's height inside its line, by a cell's, as browsers share a collapsed border between rows differently.
+const rowHeight = 44;
+const compactHeight = 36;
+
+function heightOf(row: Element): number {
+  return (row.firstElementChild as HTMLElement).clientHeight;
+}
 const none = "rgba(0, 0, 0, 0)";
 
 // The colour a value of the theme resolves to where the table sits, in light and in dark.
@@ -181,6 +188,7 @@ const Default: Story = {
       none,
     ]);
     await expect(getComputedStyle(firstTitle).paddingTop).toBe(cellSpacing);
+    await expect(heightOf(firstTitle.closest("tr") as Element)).toBe(rowHeight);
     await expect(
       getComputedStyle(firstTitle.closest("tr") as Element).borderBottomWidth,
     ).toBe(line);
@@ -539,6 +547,8 @@ const RowActions: Story = {
     await expect(
       (button.closest("td") as Element).getBoundingClientRect().width,
     ).toBeLessThan(narrowest);
+    // Its button takes no more height than the row's text, so the row keeps its 44 px, as a row with none.
+    await expect(heightOf(button.closest("tr") as Element)).toBe(rowHeight);
   },
 };
 
@@ -613,6 +623,8 @@ const ChildRows: Story = {
     ).toBe(true);
     await expect(canvas.getAllByRole("button")).toHaveLength(1);
     await expect(button.getBoundingClientRect().width).toBe(target);
+    // Its button takes no more height than the title's text, so the row keeps its 44 px.
+    await expect(heightOf(button.closest("tr") as Element)).toBe(rowHeight);
     // Titles line up, a row with no children keeping the button's room.
     await expect(Math.round(textLeft(plainTitle))).toBe(
       Math.round(textLeft(parentTitle)),
@@ -1476,12 +1488,106 @@ const Groups: Story = {
   },
 };
 
+// Compact: rows of 36 px, whatever control they hold, the header as it is, and groups 20 px apart, 8 under the header.
+const compactGap = "20px";
+const compactFirstGap = "8px";
+
+const Compact: Story = {
+  tags: ["visual"],
+  render: () => (
+    <div className="p-6">
+      <Table aria-label={name} density="compact">
+        <TableHeader>
+          <TableRow>
+            <TableHead>
+              <TableSelectAll aria-label={selectAll} />
+            </TableHead>
+            <TableHead>{description}</TableHead>
+            <TableHead align="end">{amount}</TableHead>
+            <TableHead hideHeader={true}>{actions}</TableHead>
+          </TableRow>
+        </TableHeader>
+        {days.map((day) => (
+          <TableBody key={day.id}>
+            <TableGroupRow>
+              <TableCell />
+              <TableHead scope="row">{day.title}</TableHead>
+              <TableCell align="end">
+                <Amount value={brl(day.subtotal)} />
+              </TableCell>
+              <TableCell />
+            </TableGroupRow>
+            {day.rows.map((row, index) => (
+              <Fragment key={row.id}>
+                <TableRow id={row.id}>
+                  <TableCell>
+                    <TableSelect />
+                  </TableCell>
+                  <TableHead scope="row">{row.name}</TableHead>
+                  <TableCell align="end">
+                    <Amount value={brl(row.value)} />
+                  </TableCell>
+                  <TableCell>
+                    <TableRowAction aria-label={edit}>
+                      <PencilIcon />
+                    </TableRowAction>
+                  </TableCell>
+                </TableRow>
+                {index === 0 ? (
+                  <TableRow id={`${row.id}-detail`} parentId={row.id}>
+                    <TableCell />
+                    <TableHead scope="row">{note}</TableHead>
+                    <TableCell />
+                    <TableCell />
+                  </TableRow>
+                ) : null}
+              </Fragment>
+            ))}
+          </TableBody>
+        ))}
+      </Table>
+    </div>
+  ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const height = (element: Element) =>
+      Math.round(element.getBoundingClientRect().height);
+    // Each group's first row, which has a row after it in its body.
+    const rowsShown = days.map(
+      (day) =>
+        canvas
+          .getByRole("rowheader", { name: day.rows[0]?.name })
+          .closest("tr") as Element,
+    );
+    const [first, second] = days.map((day) =>
+      canvas.getByRole("rowheader", { name: day.title }),
+    ) as [HTMLElement, HTMLElement];
+
+    // Every row 36 px, with a box, a disclosure and an action in it.
+    await expect(rowsShown.map(heightOf)).toEqual(
+      rowsShown.map(() => compactHeight),
+    );
+    await expect(
+      canvas.getAllByRole("button", { name: days[0]?.rows[0]?.name }),
+    ).toHaveLength(1);
+    // The header as it is, and groups closer.
+    await expect(
+      height(canvas.getByRole("columnheader", { name: amount })),
+    ).toBe(Number.parseInt(cellSpacing, 10) * 3);
+    await expect([
+      getComputedStyle(first).paddingTop,
+      getComputedStyle(second).paddingTop,
+    ]).toEqual([compactFirstGap, compactGap]);
+  },
+};
+
 export default meta;
 export {
   ActionWithoutTitle,
   ChildRows,
   ChildRowsDefaultOpen,
   ChildRowsOpen,
+  Compact,
   CurrentRow,
   Default,
   Groups,

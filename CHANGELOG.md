@@ -45,6 +45,7 @@ gets its number.
 - `PaginationSummary`, the rows shown, as "15–28 of 142", heard when the page changes; `isDisabled` on a
   pagination's links, which keeps Previous in place on the first page; and a pagination narrow by its own width
   keeps only Previous, the current page and Next.
+- `density="compact"` on a `Table`, rows of 36 px in place of 44.
 - `stickyHeader` on a `Table`, which keeps its header in view while its rows scroll, in a place that limits its
   height.
 - Sorting: `allowsSorting` and an `id` on a `TableHead`, and `sortDescriptor` and `onSortChange` on the `Table`, which
@@ -53,6 +54,7 @@ gets its number.
 ### Fixed
 
 - `Checkbox` partly checked draws a dash on a filled box, no longer a check.
+- A table's row holding an action or a disclosure keeps its 44 px, no longer 57.
 - `Pagination`'s Previous and Next keep their names on a phone, and their arrows turn when the page reads from the
   right.
 
