@@ -42,7 +42,8 @@ How the repository runs, and how its versions are chosen.
   and checks the types as a bundler and as Node resolve them, with
   `skipLibCheck` off. `exactOptionalPropertyTypes` is off here and there, since shadcn's code and
   React Aria's own types do not pass it.
-- **Screenshots are taken at one width, 1280 px,** in Chromium, for each story tagged `visual`.
+- **Screenshots are taken at one width, 1280 px, on a screen 1200 px tall,** in Chromium, for each story tagged
+  `visual`.
   They are approved in the commit that changes them, and compared pixel by pixel, with no tolerance but the anti-aliasing
   of edges, from the browsers' settings that every project shares. Before each story, the page is painted over for a
   frame and cleared, so nothing of an earlier story is left in it, and its animations are held at their
@@ -87,6 +88,8 @@ How the repository runs, and how its versions are chosen.
   images of its own, as Playwright's documentation says, so all three would mean approving each
   visual change six times instead of two. One browser answers whether the look changed. **What it
   costs:** a fault of drawing in Firefox or WebKit alone goes unseen.
+- **1200 px tall,** as a screenshot draws nothing past the screen, and the sample page grew past 800 with its
+  table's groups.
 - **1280 px,** since it is Tailwind's `xl`, and Playwright's own default. Vitest's default is a
   phone's width, of no use to a library with a sidebar.
 - **Screenshots compared exactly,** since Vitest's default tolerance let a colour move unseen, `--primary` from `#2b2e33` to
@@ -193,3 +196,4 @@ How the repository runs, and how its versions are chosen.
 - 2026-11-09: `noUnusedLocals` on, as nothing fails it once every piece is linted.
 - 2026-11-10: The page painted over before each screenshot.
 - 2026-11-11: Animations caught at their start in each screenshot.
+- 2026-11-11: The screen 1200 px tall, for the sample page.
