@@ -16,18 +16,10 @@ again at that moment. When an item is done, its notes go, as what holds then is 
 
 The owner decided on 2026-11-09 that these come first, as an app keeps its own shell until Sidebar while these hold
 its screens back: the close button's name, done in 0.6.0, Link, done in 0.7.0, Money values, done in 0.8.0, Table,
-done in 0.9.0, Lists of rows, done in 0.10.0, Dates and DateField. Each is a step of its own, with what its family's
-item says of it. **What it costs:** a piece made before Colours of meaning and One scale of sizes may need a touch
-when they arrive, and Sidebar's study may change the space around Section. To ask later: a page that puts the pieces
-together, a pre-release tried in an app before a version, and a review of the whole after each family.
-
-## Dates
-
-They come with money, as they share how a value is held, formatted and shown. Shown and entered, on
-`@internationalized/date`, which React Aria's date pieces use. It comes before DateField.
-
-- To ask: which type holds a date, `CalendarDate` for a day with no time or `ZonedDateTime` for a moment in a place.
-- To ask: a hook on its `DateFormatter`, beside `useFormatMoney`, with the same provider or its own.
+done in 0.9.0, Lists of rows, done in 0.10.0, Dates, done in 0.11.0, and DateField. Each is a step of its own, with
+what its family's item says of it. **What it costs:** a piece made before Colours of meaning and One scale of sizes
+may need a touch when they arrive, and Sidebar's study may change the space around Section. To ask later: a page that
+puts the pieces together, a pre-release tried in an app before a version, and a review of the whole after each family.
 
 ## DateField
 
@@ -51,6 +43,8 @@ stayed out of the first delivery for this. Until then, an app keeps what it has 
 - A check for reduced motion arrives with it, as shadcn's files have no `motion-reduce`.
 - `use-mobile` falls under the coverage of `stories`, so it needs a story, or an exclusion.
 - Its gradient and glow are to be asked (recommended: yes, by eye).
+- A provider for the app's time zone, which `DateTime` and `useFormatDate` read, deferred by Dates on 2026-11-11; and
+  whether `MoneyProvider`, whose `emptyLabel` dates read too, becomes a provider of values.
 - Links through whichever router an app uses: the sidebar passes `href`, `routerOptions` and `render` on.
   `createLink` on a sidebar button reloaded the page on Enter, when it was tried.
 - To say: how an app gives React Aria its locale, through `I18nProvider`, as without it React Aria's own words

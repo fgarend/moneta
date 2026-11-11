@@ -8,6 +8,7 @@ What holds today, by topic, and why. Where the work is, and what comes next, is 
 | [`accessibility.md`](accessibility.md) | What Moneta aims for, and how far its checks reach |
 | [`base.md`](base.md) | What the library starts from: shadcn, its base and its style |
 | [`components.md`](components.md) | How the pieces are shaped, and the rules that cross them |
+| [`dates.md`](dates.md) | How Moneta holds a date, and how it shows one |
 | [`delivery.md`](delivery.md) | Where the library lives, how it is received, its license and the GitHub settings |
 | [`money.md`](money.md) | How Moneta holds an amount of money, and how it shows one |
 | [`process.md`](process.md) | How decisions are kept, and how the work moves |

@@ -35,7 +35,7 @@ which is run by hand.
 | 1.2.3 Audio Description or Media Alternative | app | |
 | 1.2.4 Captions (Live) | app | |
 | 1.2.5 Audio Description | app | |
-| 1.3.1 Info and Relationships | axe, story | Stories find elements by role and name, Section's the level of its titles, Table's name and its rows' titles, a list of rows as a list, its groups' headings naming their lists, and the words for no value or a hidden one, and the minus, of Amount, Percent and Quantity |
+| 1.3.1 Info and Relationships | axe, story | Stories find elements by role and name, Section's the level of its titles, Table's name and its rows' titles, a list of rows as a list, its groups' headings naming their lists, a date as a `<time>` with its ISO value, and the words for no value or a hidden one, and the minus, of Amount, Percent and Quantity |
 | 1.3.2 Meaningful Sequence | script | |
 | 1.3.3 Sensory Characteristics | app | |
 | 1.3.4 Orientation | script | Nothing here locks it |

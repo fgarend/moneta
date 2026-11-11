@@ -106,6 +106,15 @@ the version installed. It holds only what exists, and each reviewed piece adds i
 - **`isDisabled` dims it and takes it out of the tab order.** A text that says why is often better than a link that
   leads nowhere.
 
+## Dates
+
+- **A date is an ISO string,** `"2026-10-24"` for a day and `"2026-10-24T14:32:00Z"` for a moment, never a `Date`.
+  `DateTime` shows it, and `useFormatDate` gives its text for a sentence.
+- **`"short"` for rows and details, `"long"` for titles, `"numeric"` for documents and `"month"` for periods.**
+  This year's dates leave the year out.
+- **`relative` in lists of recent things,** as a statement's rows, where "Hoje" and "Ontem" read faster than a date.
+- **A time only when it matters,** with `showTime`, and the zone with `timeZone` when the browser's is not the one.
+
 ## Money
 
 - **An amount is `Money`, `{ amount, currency }`:** a decimal string, as `"-1234.50"`, never a number, and its

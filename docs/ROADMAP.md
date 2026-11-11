@@ -8,25 +8,24 @@ known and what is still to ask, are in [`roadmap-notes.md`](roadmap-notes.md), r
 
 ## Next, in order
 
-1. **Dates.** Showing a date, with a hook beside `useFormatMoney`.
-2. **DateField.** Entering a date.
-3. **Motion, layers and icons.** What crosses every piece and no item holds.
+1. **DateField.** Entering a date.
+2. **Motion, layers and icons.** What crosses every piece and no item holds.
    - durations and easing, with reduced motion
    - the order of layers
    - the icons' sizes
-4. **Sidebar, AppLayout and providers.** The app's shell, starting with a study.
+3. **Sidebar, AppLayout and providers.** The app's shell, starting with a study.
    - Sidebar, with navigation, a skip link and the current page
    - AppLayout
    - providers, with the language React Aria speaks
-5. **Colours of meaning.** Success, warning and information, in light and dark, beside gain and loss.
+4. **Colours of meaning.** Success, warning and information, in light and dark, beside gain and loss.
    - their names, and `variant` or `tone`
    - the palette of categories and of the charts
-6. **One scale of sizes.** 32, 36 and 40 px on every piece, with one set of names.
-7. **Layout and text.** What replaces the `flex`, `gap` and `text` classes an app writes.
-8. **Display.** The pieces that show, reviewed or made.
+5. **One scale of sizes.** 32, 36 and 40 px on every piece, with one set of names.
+6. **Layout and text.** What replaces the `flex`, `gap` and `text` classes an app writes.
+7. **Display.** The pieces that show, reviewed or made.
     - Badge, Card, Avatar and AvatarGroup, Alert and Separator
     - Stat, DescriptionList, Kbd, AspectRatio, ScrollArea, Timeline and TickerChip
-9. **Actions and forms.** The pieces that act and take input, reviewed or made.
+8. **Actions and forms.** The pieces that act and take input, reviewed or made.
     - Button, ButtonGroup and PageHeader
     - Input, InputGroup, Textarea, Label, Field, NativeSelect, Select and SearchField
     - Checkbox, RadioGroup, Switch, Toggle, ToggleGroup and Slider
@@ -37,25 +36,25 @@ known and what is still to ask, are in [`roadmap-notes.md`](roadmap-notes.md), r
     - how a form connects, with a server's errors
     - `combobox`, after a study
     - Button's `link` variant beside Link, and a disabled `LinkButton`, which is not dimmed
-10. **Overlays.** The pieces that open over the page, reviewed or made.
+9. **Overlays.** The pieces that open over the page, reviewed or made.
     - Dialog, AlertDialog and Sheet
     - Popover, HoverCard, DropdownMenu, ContextMenu, Tooltip and Toggletip
     - text spacing and forced colours on what an overlay draws when open
-11. **The rest.** The other pieces, reviewed or made.
+10. **The rest.** The other pieces, reviewed or made.
     - Tabs, Progress, Meter, Empty, Skeleton and Spinner
     - Breadcrumb, Steps and Banner
     - Collapsible, IconTile, StatGroup and AllocationBar
     - a bar of actions at the page's foot, a virtualised list, and Toast
     - `calendar`, after a study
-12. **Charts.** Line, area, bars and donut, a ring and BarList, each with a table of its data.
-13. **MoneyInput.** Entering an amount.
-14. **CurrencySelect.** Choosing a currency.
-15. **A stable API.** What each state promises after 1.0.
+11. **Charts.** Line, area, bars and donut, a ring and BarList, each with a table of its data.
+12. **MoneyInput.** Entering an amount.
+13. **CurrencySelect.** Choosing a currency.
+14. **A stable API.** What each state promises after 1.0.
     - every piece reviewed
     - the accessibility script run by hand, with a screen reader and real zoom
     - a policy for deprecating
-16. **Stricter checks.** `exactOptionalPropertyTypes`, if React Aria's types pass it.
-17. **Release 1.0.0.**
+15. **Stricter checks.** `exactOptionalPropertyTypes`, if React Aria's types pass it.
+16. **Release 1.0.0.**
 
 ## Later, in no order
 
@@ -90,6 +89,8 @@ Each becomes an item when its time comes.
 
 ## Done
 
+- **Dates.** `DateTime` and `useFormatDate`, from an ISO day or moment, in four formats, with today and yesterday
+  as words. 0.11.0.
 - **Lists of rows.** Item reviewed as a list of rows: groups with a title and a total, a row as a link or with an
   action, an icon tile, a value at the end, empty, loading and density. 0.10.0.
 - **Table.** A native table to compare amounts by column: groups and a total, selection, sorting, child rows,

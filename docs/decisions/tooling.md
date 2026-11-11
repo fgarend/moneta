@@ -99,6 +99,9 @@ How the repository runs, and how its versions are chosen.
   `#5a2b33` on 2026-11-06 and the whole dark palette on 2026-11-07. Exact, they caught five planted changes, down to one
   digit of hex, and passed five unchanged runs on 2026-11-08. **What it costs:** a browser that draws text a little
   differently fails every screenshot at once, each to be approved again, and so does any change of colour.
+- **An overlay's entrance played to its end before its story looks at it,** as WebKit in a test left a new
+  animation at its start, at an opacity near 0, so every overlay's story waited two seconds, and on 2026-11-11 two
+  passed a test's 15 under load.
 - **No animation in a screenshot,** each piece drawn at rest, as Skeleton's pulse made two shots of the same story
   differ, and pausing animations at their start missed them now and then on a busy machine, on 2026-11-11.
 - **The page painted over before each story,** as Chromium kept one pixel of an earlier story where it believed nothing
@@ -202,3 +205,4 @@ How the repository runs, and how its versions are chosen.
 - 2026-11-11: The screen 1200 px tall, for the sample page.
 - 2026-11-11: The stories' browsers one after another on the machine.
 - 2026-11-11: No animation in a screenshot, in place of animations held at their start.
+- 2026-11-11: An overlay's entrance played to its end in its stories, as WebKit left it at its start.
