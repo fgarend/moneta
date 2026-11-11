@@ -6,6 +6,11 @@ gets its number.
 
 ## [Unreleased]
 
+## [0.11.0] - 2026-11-11
+
+Dates: `DateTime` and `useFormatDate`, a date from an ISO day or moment, in four formats, with today and yesterday as
+words, and a day that never moves.
+
 ### Added
 
 - `DateTime`, a date from an ISO day or moment, in four formats, with today, yesterday and tomorrow as words, and
@@ -268,7 +273,8 @@ and dark. `README.md` says how to install and use it.
 
 A rehearsal of the release's path, not meant to be installed. Use a later version.
 
-[Unreleased]: https://github.com/fgarend/moneta/compare/v0.10.0...HEAD
+[Unreleased]: https://github.com/fgarend/moneta/compare/v0.11.0...HEAD
+[0.11.0]: https://github.com/fgarend/moneta/compare/v0.10.0...v0.11.0
 [0.10.0]: https://github.com/fgarend/moneta/compare/v0.9.0...v0.10.0
 [0.9.0]: https://github.com/fgarend/moneta/compare/v0.8.0...v0.9.0
 [0.8.0]: https://github.com/fgarend/moneta/compare/v0.7.0...v0.8.0
