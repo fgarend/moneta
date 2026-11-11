@@ -165,6 +165,17 @@ const Signed: Story = {
   },
 };
 
+// In a column of one currency, whose header names it, the currency left out of each amount. The value stays whole.
+const WithoutCurrency: Story = {
+  args: { value: { amount: "-1234.5", currency: "BRL" }, hideCurrency: true },
+  play: async ({ canvasElement }) => {
+    const amount = amountIn(canvasElement);
+
+    await expect(amount.textContent).toBe(`${minus}1.234,50`);
+    await expect(amount).toHaveAttribute("value", "-1234.5");
+  },
+};
+
 // Good news and bad, as the app says, never read from the sign: a debt that falls is good. Its sign or its row says
 // it too, as colour is never alone. With no tone, the colour of the text around it.
 const Tones: Story = {
@@ -529,4 +540,5 @@ export {
   OtherCurrencies,
   Signed,
   Tones,
+  WithoutCurrency,
 };

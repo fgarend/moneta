@@ -27,7 +27,9 @@ function useFormatMoney(): (money: Money, options?: FormatOptions) => string {
   const { locale, isHidden } = useFormatting();
   return useCallback(
     (money, options) =>
-      isHidden ? hiddenText : formatMoney(locale, money, options?.sign),
+      isHidden
+        ? hiddenText
+        : formatMoney(locale, money, { sign: options?.sign }),
     [locale, isHidden],
   );
 }

@@ -7,6 +7,8 @@ How Moneta holds an amount of money, and how it shows one.
 - **One type, `Money`: `{ amount, currency }`,** an exact decimal string and its currency's code, as a backend sends
   them, for every piece of money. A JavaScript number never holds one.
 - **Shown exactly:** every digit given, never rounded, padded with zeros to the currency's decimals.
+- **`hideCurrency` leaves an amount's currency out,** with the space that joins it to the number, for a column of one
+  currency whose header names it, as an app's tables have it and Polaris advises. Every digit and the sign stay.
 - **The currency's decimals are the browser's,** which `Intl` gives. They differ only in how many zeros pad an amount,
   and never drop a digit given.
 - **A negative amount takes the minus sign, U+2212, in every language,** where the language puts it, with no space
@@ -172,3 +174,4 @@ How Moneta holds an amount of money, and how it shows one.
 - 2026-11-10: `Quantity` and `useFormatQuantity`.
 - 2026-11-10: `sign` and `tone`, with `--positive` and `--negative`.
 - 2026-11-10: Hidden values.
+- 2026-11-10: `hideCurrency`.

@@ -11,6 +11,7 @@ function Amount({
   size = "default",
   sign = "auto",
   tone,
+  hideCurrency = false,
   className,
   ...props
 }: Omit<HTMLAttributes<HTMLElement>, "children"> & {
@@ -23,6 +24,8 @@ function Amount({
   sign?: Sign;
   // Good news or bad, as the app says, never read from the sign. Its sign or its place says it too.
   tone?: ValueTone;
+  // Leaves the currency out, for a column of one currency whose header names it.
+  hideCurrency?: boolean;
 }) {
   const { locale } = useLocale();
   const shown = useValue("Amount", {
@@ -48,7 +51,7 @@ function Amount({
       value={value.amount}
       {...props}
     >
-      {formatMoney(locale, value, sign)}
+      {formatMoney(locale, value, { sign, hideCurrency })}
     </data>
   );
 }

@@ -20,6 +20,7 @@ gets its number.
 ### Added
 
 - `hideBelow` on a table's cells, which hides a column when the table is narrow, by its own width.
+- `hideCurrency` on `Amount`, which leaves its currency out, for a column of one currency whose header names it.
 - `--surface`, the colour of the surface a piece sits on, which `Card`, `Sheet` and `Dialog` set.
 
 ## [0.8.0] - 2026-11-10

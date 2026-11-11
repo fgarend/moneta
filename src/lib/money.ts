@@ -31,6 +31,11 @@ const percentShift = 2;
 // Which signs a value shows: the minus alone, or the plus too, for a change. Zero takes neither, even as "-0", as
 // Intl's "negative" and "exceptZero" have it.
 type Sign = "auto" | "always";
+// How an amount is written: its sign, and whether its currency is left out, as a column's header names it.
+type MoneyOptions = {
+  sign?: Sign | undefined;
+  hideCurrency?: boolean | undefined;
+};
 const signDisplays = { auto: "negative", always: "exceptZero" } as const;
 
 // One formatter per set of options, as making one is slow and a table may hold hundreds of values.
@@ -66,10 +71,30 @@ function decimalsOf(value: string): number {
   return (value.split(".")[1] ?? "").length;
 }
 
-// The text, exact, with the minus sign.
-function textOf(formatter: Intl.NumberFormat, value: string): string {
-  return formatter
-    .formatToParts(value as Intl.StringNumericLiteral)
+const space = /^\s+$/u;
+
+// The text, exact, with the minus sign, and with the currency left out when asked, with the space that joins it to
+// the number, before it or after it as the language puts it.
+function textOf(
+  formatter: Intl.NumberFormat,
+  value: string,
+  hideCurrency = false,
+): string {
+  const parts = formatter.formatToParts(value as Intl.StringNumericLiteral);
+  const left = new Set<number>();
+  for (const [index, part] of parts.entries()) {
+    if (hideCurrency && part.type === "currency") {
+      left.add(index);
+      for (const near of [index - 1, index + 1]) {
+        const joint = parts[near];
+        if (joint?.type === "literal" && space.test(joint.value)) {
+          left.add(near);
+        }
+      }
+    }
+  }
+  return parts
+    .filter((_part, index) => !left.has(index))
     .map((part) => (part.type === "minusSign" ? minusSign : part.value))
     .join("");
 }
@@ -77,7 +102,7 @@ function textOf(formatter: Intl.NumberFormat, value: string): string {
 function formatMoney(
   locale: string,
   { amount, currency }: Money,
-  sign: Sign = "auto",
+  { sign = "auto", hideCurrency = false }: MoneyOptions = {},
 ): string {
   checkDecimal("Money", amount, "1234.50");
   if (!currencyCode.test(currency)) {
@@ -90,6 +115,7 @@ function formatMoney(
       sign,
     ),
     amount,
+    hideCurrency,
   );
 }
 

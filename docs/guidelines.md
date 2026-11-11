@@ -89,6 +89,8 @@ the version installed. It holds only what exists, and each reviewed piece adds i
 
 - **An amount is `Money`, `{ amount, currency }`:** a decimal string, as `"-1234.50"`, never a number, and its
   currency's code, as `"BRL"`. `Amount` shows every digit given, padded to the currency's decimals, and never rounds.
+- **In a column of one currency, name it in the header,** as "Amount (R$)", and give each `Amount` `hideCurrency`.
+  Never in a column that mixes currencies.
 - **`Amount` for an amount on a screen,** `size="lg"` for one of note. `useFormatMoney` gives the same text where no
   piece can go, as a chart's axis, a page's title or an option of a `select`, so the two never differ.
 - **`Percent` for a ratio, given as a fraction of one:** `"0.459"` is 45.9%, never `"45.9"`. It shows the decimals
