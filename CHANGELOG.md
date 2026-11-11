@@ -45,6 +45,8 @@ gets its number.
 - `PaginationSummary`, the rows shown, as "15–28 of 142", heard when the page changes; `isDisabled` on a
   pagination's links, which keeps Previous in place on the first page; and a pagination narrow by its own width
   keeps only Previous, the current page and Next.
+- `stickyHeader` on a `Table`, which keeps its header in view while its rows scroll, in a place that limits its
+  height.
 - Sorting: `allowsSorting` and an `id` on a `TableHead`, and `sortDescriptor` and `onSortChange` on the `Table`, which
   draws a button with a mark in each sortable header and sets `aria-sort` on the sorted one; the app sorts.
 

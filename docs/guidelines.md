@@ -152,6 +152,8 @@ the version installed. It holds only what exists, and each reviewed piece adds i
   header with the app's words, as "Select all", and a `TableSelectionBar` over the table, with the count of every
   row selected, on this page and others, as "2 selected". Clearing the selection, or selecting all on every page,
   is a button of the app's in the bar. Confirm an action on rows selected but not shown.
+- **A long table in a place of limited height, as a panel, takes `stickyHeader`,** so its header stays in view while
+  its rows scroll. On a page, a table scrolls with the page.
 - **A column the user may sort takes `allowsSorting` and an `id`,** and the table `sortDescriptor` and
   `onSortChange`; the app sorts the rows, here or on its server. Sort what is compared, as amounts and dates, and keep
   a first order that makes sense, as the newest first.

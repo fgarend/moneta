@@ -107,6 +107,9 @@ pieces is in [`../pieces.md`](../pieces.md), and how a piece is analysed is in [
   selected row is drawn at `--muted`, and a row with a box at half of it on hover. A box in a row with no title or
   no `id` throws.
 - **Narrow, the boxes stick at the table's start too,** and the titles right after them.
+- **`stickyHeader` keeps the header in view in a place that limits the table's height,** as a panel: the table
+  fills it and scrolls in its own area, whose header stays at the top, over the rows and their titles, with a line
+  of its own, and a row focused under it scrolls clear of its 36 px. Without it, the table grows with its rows.
 - **A column sorts by `allowsSorting` and its key, `id`, on its `TableHead`,** with `sortDescriptor` and
   `onSortChange` on the table, React Aria's `SortDescriptor`; the app sorts the rows. Its header is a button named by
   its text, at least 24 px tall, with a quiet up and down mark, or the sorted column's arrow in the text's colour,
@@ -185,6 +188,11 @@ pieces is in [`../pieces.md`](../pieces.md), and how a piece is analysed is in [
   the row open beside the table is `aria-current`, not selected. **The boxes stick with the titles,** as MUI's and
   AG Grid's pinned columns keep theirs, so a row can be selected while the table scrolls. **What it costs:** about
   40 px of a narrow screen.
+- **A sticky header within the table's own area,** as an area that scrolls sideways is the one its header sticks to,
+  never the page. **Its own line,** as a collapsed border belongs to the table and stays behind. **Scroll padding of
+  the header's height,** for WCAG 2.4.11, **and a script of ours that scrolls a focused row clear,** as Safari 26 and
+  before ignore that padding when focus moves in an area. **What it costs:** a long table on a page scrolls with the
+  page, its header out of sight, unless the app puts it in a place of limited height.
 - **A mark on every header that sorts,** as MoJ's sortable table and Ant draw one, so a touch screen, which has no
   hover, shows what sorts. **Two directions, with no unsorted state,** as React Aria has it, as an app's first order
   is a sort too. **`aria-sort` alone,** as the APG and Carbon have it: NVDA, JAWS, Narrator and VoiceOver on iOS say

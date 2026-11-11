@@ -315,6 +315,149 @@ const Narrow: Story = {
   },
 };
 
+// A header that stays in view, in a place that limits the table's height, as a panel: the table scrolls in its own
+// area, which takes focus, its header stays at the top with its line, the corner at the start too, and a row focused
+// under it scrolls clear of it.
+const longRows = Array.from({ length: 20 }, (_, index) => ({
+  ...(payments[index % payments.length] as (typeof payments)[number]),
+  id: `l${index}`,
+}));
+const headerHeight = 36;
+
+const StickyHeader: Story = {
+  tags: ["visual"],
+  render: () => (
+    <Table aria-label={name} stickyHeader={true}>
+      <TableHeader>
+        <TableRow>
+          <TableHead>{description}</TableHead>
+          <TableHead>{category}</TableHead>
+          <TableHead>{account}</TableHead>
+          <TableHead align="end">{amount}</TableHead>
+        </TableRow>
+      </TableHeader>
+      <TableBody>
+        {longRows.map((payment) => (
+          <TableRow key={payment.id}>
+            <TableHead scope="row">
+              <Link href={`#${payment.id}`} isQuiet={true}>
+                {payment.name}
+              </Link>
+            </TableHead>
+            <TableCell>{payment.category}</TableCell>
+            <TableCell>{payment.account}</TableCell>
+            <TableCell align="end">
+              <Amount value={brl(payment.value)} />
+            </TableCell>
+          </TableRow>
+        ))}
+      </TableBody>
+    </Table>
+  ),
+  decorators: [
+    (Story) => (
+      <div className="flex h-64 w-80 flex-col">
+        <Story />
+      </div>
+    ),
+  ],
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const area = canvasElement.querySelector(
+      '[data-slot="table-container"]',
+    ) as HTMLElement;
+    const corner = canvas.getByRole("columnheader", { name: description });
+    const head = canvas.getByRole("columnheader", { name: amount });
+    const top = (element: Element) =>
+      Math.round(element.getBoundingClientRect().top);
+    const left = (element: Element) =>
+      Math.round(element.getBoundingClientRect().left);
+
+    // Its place limits it, so it scrolls in its own area, which takes focus.
+    await expect(area.scrollHeight).toBeGreaterThan(area.clientHeight);
+    await waitFor(() => expect(area).toHaveAttribute("tabindex", "0"));
+    area.scrollTop = area.scrollHeight;
+    area.scrollLeft = area.scrollWidth;
+    await expect([top(head), top(corner)]).toEqual([top(area), top(area)]);
+    await expect(left(corner)).toBe(left(area));
+    // Its line stays under it, as a collapsed border would not, and is the only one.
+    await expect(
+      getComputedStyle(head.closest("tr") as Element).borderBottomWidth,
+    ).toBe("0px");
+    const ownLine = getComputedStyle(head, "::after");
+    await expect([ownLine.height, ownLine.backgroundColor]).toEqual([
+      "1px",
+      colourOf("var(--border)", canvasElement),
+    ]);
+    // A row focused under it scrolls clear of it.
+    await expect(getComputedStyle(area).scrollPaddingTop).toBe(
+      `${headerHeight}px`,
+    );
+    const link = within(
+      canvas.getAllByRole("row")[11] as HTMLElement,
+    ).getByRole("link");
+    area.scrollTop = 0;
+    // The row under the header, hidden by it, then focused.
+    area.scrollTop += top(link) - top(area);
+    link.focus();
+    await expect(document.activeElement).toBe(link);
+    await expect(top(link)).toBeGreaterThanOrEqual(top(area) + headerHeight);
+    // Focus already clear of it, or on the area itself, moves nothing.
+    const scrolled = area.scrollTop;
+    link.blur();
+    link.focus();
+    area.focus();
+    await expect(area.scrollTop).toBe(scrolled);
+  },
+};
+
+// With no header, a row focused moves nothing.
+const StickyWithoutHeader: Story = {
+  render: () => (
+    <Table aria-label={name} stickyHeader={true}>
+      <TableBody>
+        {longRows.map((payment) => (
+          <TableRow key={payment.id}>
+            <TableHead scope="row">
+              <Link href={`#${payment.id}`} isQuiet={true}>
+                {payment.name}
+              </Link>
+            </TableHead>
+          </TableRow>
+        ))}
+      </TableBody>
+    </Table>
+  ),
+  decorators: StickyHeader.decorators,
+  play: async ({ canvasElement }) => {
+    const area = canvasElement.querySelector(
+      '[data-slot="table-container"]',
+    ) as HTMLElement;
+    const link = within(canvasElement).getAllByRole("link")[0] as HTMLElement;
+
+    link.focus();
+    await expect(area.scrollTop).toBe(0);
+  },
+};
+
+// Without it, the table grows with its rows, and the page scrolls; its columns fit, as the narrow table's do.
+const NotStickyHeader: Story = {
+  render: () => <Table aria-label={name}>{rows(true)}</Table>,
+  decorators: StickyHeader.decorators,
+  play: async ({ canvasElement }) => {
+    const area = canvasElement.querySelector(
+      '[data-slot="table-container"]',
+    ) as HTMLElement;
+
+    await expect(area.scrollHeight).toBe(area.clientHeight);
+    await expect(
+      getComputedStyle(
+        within(canvasElement).getByRole("columnheader", { name: amount }),
+      ).position,
+    ).not.toBe("sticky");
+  },
+};
+
 // Narrow with every column: text wraps but keeps a minimum width, the table scrolls in its own area, which then
 // takes focus and its name, its rows' titles stay at its start, and its background shows there is more.
 const Overflowing: Story = {
@@ -1346,6 +1489,7 @@ export {
   InCardWithMore,
   NamedByHeading,
   Narrow,
+  NotStickyHeader,
   Overflowing,
   RowActions,
   RowLink,
@@ -1359,5 +1503,7 @@ export {
   SelectWithoutTitle,
   Sorting,
   SortWithoutHandler,
+  StickyHeader,
+  StickyWithoutHeader,
   WithCaption,
 };

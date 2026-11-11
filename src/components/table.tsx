@@ -170,6 +170,7 @@ function Table({
   onSelectionChange,
   sortDescriptor,
   onSortChange,
+  stickyHeader = false,
   ...props
 }: Omit<ComponentProps<"table">, "aria-label" | "aria-labelledby"> &
   TableName & {
@@ -183,6 +184,8 @@ function Table({
     // The same, held by the table from the start.
     defaultSelectedKeys?: Iterable<string>;
     onSelectionChange?: (keys: Set<string>) => void;
+    // A header that stays in view while the rows scroll, in a place that limits the table's height.
+    stickyHeader?: boolean;
     // The column the rows are sorted by, and which way, held by the app, which sorts them.
     sortDescriptor?: SortDescriptor;
     onSortChange?: (sort: SortDescriptor) => void;
@@ -238,12 +241,24 @@ function Table({
   useLayoutEffect(() => {
     const element = area.current as HTMLDivElement;
     const measure = () =>
-      setOverflows(element.scrollWidth > element.clientWidth);
+      setOverflows(
+        element.scrollWidth > element.clientWidth ||
+          element.scrollHeight > element.clientHeight,
+      );
     const observer = new ResizeObserver(measure);
     observer.observe(element);
     observer.observe(element.firstElementChild as Element);
     return () => observer.disconnect();
   }, []);
+  // A row focused under a sticky header scrolls clear of it.
+  useLayoutEffect(() => {
+    if (!stickyHeader) {
+      return;
+    }
+    const element = area.current as HTMLDivElement;
+    element.addEventListener("focusin", clearHeader);
+    return () => element.removeEventListener("focusin", clearHeader);
+  }, [stickyHeader]);
   const named =
     caption === undefined
       ? { "aria-label": label, "aria-labelledby": labelledBy }
@@ -251,8 +266,14 @@ function Table({
 
   return (
     <div
-      className="@container/table -mx-3 scroll-shadows overflow-x-auto in-data-[slot=card]:mx-0"
+      className={cn(
+        "@container/table -mx-3 scroll-shadows overflow-x-auto in-data-[slot=card]:mx-0",
+        // With a sticky header it fills its place and scrolls in it, clear of the header's 36 px when a row takes focus;
+        // without, it grows with its rows.
+        stickyHeader ? "max-h-full scroll-pt-9" : "shrink-0",
+      )}
       data-slot="table-container"
+      data-sticky-header={stickyHeader ? true : undefined}
       ref={area}
       {...(overflows ? { role: "region", tabIndex: 0, ...named } : {})}
     >
@@ -296,10 +317,31 @@ function Table({
   );
 }
 
+// What a sticky header covers of the element just focused, scrolled clear, as Safari 26 and before take no scroll
+// padding into account when focus moves in an area.
+function clearHeader(event: FocusEvent): void {
+  const element = event.currentTarget as HTMLElement;
+  // A header's cell, which sticks, as the header's group itself scrolls away.
+  const header = element.querySelector("thead th");
+  const target = event.target as Element;
+  if (header === null || target.closest("tbody") === null) {
+    return;
+  }
+  const covered =
+    header.getBoundingClientRect().bottom - target.getBoundingClientRect().top;
+  if (covered > 0) {
+    element.scrollTop -= covered;
+  }
+}
+
 function TableHeader({ className, ...props }: ComponentProps<"thead">) {
   return (
     <thead
-      className={cn("[&_tr]:border-b", className)}
+      className={cn(
+        // A sticky header draws its own line, which stays with it.
+        "[&_tr]:border-b in-data-sticky-header:[&_tr]:border-b-0",
+        className,
+      )}
       data-slot="table-header"
       {...props}
     />
@@ -460,7 +502,7 @@ function TableHead({
         hideHeader && "w-px",
         scope === "row"
           ? cn(
-              "sticky start-0 min-w-32 px-3 py-3 align-middle font-normal",
+              "sticky start-0 z-10 min-w-32 px-3 py-3 align-middle font-normal",
               currentBar,
               "sticky-fill",
               // After a column of boxes that sticks too: the box and its start, 12 px loose and 20 in a card.
@@ -468,6 +510,9 @@ function TableHead({
             )
           : cn(
               "h-9 px-3 align-middle type-label whitespace-nowrap text-muted-foreground first:sticky first:start-0 first:bg-(--surface) has-data-[slot=table-select-all]:w-px has-data-[slot=table-select-all]:pe-0",
+              // Stuck to the top of its area, over the rows and their titles, with its own line, as a collapsed border
+              // stays behind.
+              "in-data-sticky-header:sticky in-data-sticky-header:top-0 in-data-sticky-header:z-20 in-data-sticky-header:bg-(--surface) in-data-sticky-header:after:absolute in-data-sticky-header:after:inset-x-0 in-data-sticky-header:after:bottom-0 in-data-sticky-header:after:h-px in-data-sticky-header:after:bg-border",
               "in-[tr:has([data-slot=table-select-all])]:nth-2:sticky in-[tr:has([data-slot=table-select-all])]:nth-2:start-7 in-[tr:has([data-slot=table-select-all])]:nth-2:bg-(--surface) in-data-[slot=card]:in-[tr:has([data-slot=table-select-all])]:nth-2:start-9",
             ),
         className,
@@ -576,7 +621,7 @@ function TableCell({
       className={cn(
         "has-data-[slot=table-select]:sticky-fill in-aria-[current=true]:first:not-has-data-[slot=table-select]:relative",
         currentBar,
-        "px-3 py-3 align-middle has-data-[slot=table-row-action]:w-px has-data-[slot=table-select]:sticky has-data-[slot=table-select]:start-0 has-data-[slot=table-select]:w-px has-data-[slot=table-select]:pe-0",
+        "px-3 py-3 align-middle has-data-[slot=table-row-action]:w-px has-data-[slot=table-select]:sticky has-data-[slot=table-select]:start-0 has-data-[slot=table-select]:z-10 has-data-[slot=table-select]:w-px has-data-[slot=table-select]:pe-0",
         ends,
         aligns[align],
         hideBelow && hides[hideBelow],

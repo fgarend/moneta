@@ -62,7 +62,7 @@ which is run by hand.
 | 2.4.5 Multiple Ways | app | |
 | 2.4.6 Headings and Labels | app | |
 | 2.4.7 Focus Visible | test | `.storybook/focus.test.tsx`, on 13 pieces, in 3 browsers and in forced colours |
-| 2.4.11 Focus Not Obscured (Minimum) | none yet | |
+| 2.4.11 Focus Not Obscured (Minimum) | story | A row focused under Table's sticky header scrolls clear of it |
 | 2.5.1 Pointer Gestures | none yet | |
 | 2.5.2 Pointer Cancellation | none yet | |
 | 2.5.3 Label in Name | story, app | Pagination's Previous and Next named by their words; elsewhere the visible name and the accessible one |
