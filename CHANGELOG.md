@@ -27,6 +27,7 @@ gets its number.
 - `--border-strong`, the line that marks a table's groups and total.
 - `TableRowAction`, an action on a row, named by the app's one word and the row's title, and `hideHeader` on a
   `TableHead`, for a column of controls.
+- A table's row opens the link in its title on a click anywhere empty in it.
 
 ## [0.8.0] - 2026-11-10
 

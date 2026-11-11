@@ -5,6 +5,7 @@ import { cn } from "cn";
 import {
   type ComponentProps,
   createContext,
+  type MouseEvent,
   type ReactNode,
   useContext,
   useId,
@@ -116,13 +117,48 @@ function TableBody({ className, ...props }: ComponentProps<"tbody">) {
   );
 }
 
-function TableRow({ className, ...props }: ComponentProps<"tr">) {
+// What a click on a row leaves alone: a control of its own.
+const controls =
+  "a, button, input, select, textarea, label, [role=button], [role=checkbox], [role=menuitem]";
+
+// A click on an empty part of a row goes to the link in its title, with its keys, so a pointer has the whole row while
+// keyboards and screen readers keep one real link; a click that is part of selecting text stays where it is.
+function openTitle(event: MouseEvent<HTMLTableRowElement>): void {
+  const link = event.currentTarget.querySelector('th[scope="row"] a[href]');
+  const selection = document.getSelection() as Selection;
+  if (
+    link === null ||
+    (event.target as Element).closest(controls) !== null ||
+    !selection.isCollapsed
+  ) {
+    return;
+  }
+  link.dispatchEvent(
+    new MouseEvent("click", {
+      bubbles: true,
+      cancelable: true,
+      ctrlKey: event.ctrlKey,
+      metaKey: event.metaKey,
+      shiftKey: event.shiftKey,
+      altKey: event.altKey,
+    }),
+  );
+}
+
+function TableRow({ className, onClick, ...props }: ComponentProps<"tr">) {
   const titleId = useId();
   return (
     <RowContext.Provider value={{ titleId }}>
       <tr
-        className={cn("border-b", className)}
+        className={cn(
+          "border-b has-[th[scope=row]_a[href]]:cursor-pointer has-[th[scope=row]_a[href]]:hover:bg-muted/50",
+          className,
+        )}
         data-slot="table-row"
+        onClick={(event) => {
+          openTitle(event);
+          onClick?.(event);
+        }}
         {...props}
       />
     </RowContext.Provider>

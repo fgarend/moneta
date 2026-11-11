@@ -132,6 +132,8 @@ the version installed. It holds only what exists, and each reviewed piece adds i
 - **An action per row goes in the last column,** a `TableRowAction` with one word as its `aria-label`, as "Edit",
   under a `TableHead hideHeader` that names the column; the row's title completes its name. Several actions go in a
   `DropdownMenu` whose trigger is a `TableRowAction`.
+- **A row that opens something puts a `Link` in its title,** quiet, and the whole row follows it on a click, with
+  Ctrl or Cmd for a new tab, while a control in the row or selected text stays where it is.
 - **A cell is blank when a value does not apply,** and "—" when it is missing, with `value={null}`.
 - **In a card, alone in its `CardContent`,** it runs edge to edge, with a line above. With anything else in the same
   content, it keeps the card's padding, so give it a content of its own.

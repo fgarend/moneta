@@ -1,11 +1,12 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { PencilIcon } from "lucide-react";
 import { type ReactNode, useId } from "react";
-import { I18nProvider } from "react-aria-components";
-import { expect, waitFor, within } from "storybook/test";
+import { I18nProvider, RouterProvider } from "react-aria-components";
+import { expect, fn, userEvent, waitFor, within } from "storybook/test";
 import { Caught } from "../../.storybook/caught.js";
 import { Amount } from "./amount.js";
 import { Card, CardContent, CardHeader, CardTitle } from "./card.js";
+import { Link } from "./link.js";
 import type { Money } from "./money.js";
 import {
   Table,
@@ -390,6 +391,87 @@ const RowActions: Story = {
   },
 };
 
+// A row that opens: a click on an empty part of it goes to the link in its title, so keyboards and screen readers
+// keep one real link while a pointer has the whole row. A click on a control, or with text selected, stays where it
+// is, and a click with Ctrl or Cmd reaches the link with its key, for the browser to open a new tab.
+const navigate = fn();
+const RowLink: Story = {
+  render: () => (
+    <RouterProvider navigate={navigate}>
+      <Table aria-label={name}>
+        <TableHeader>
+          <TableRow>
+            <TableHead>{description}</TableHead>
+            <TableHead>{category}</TableHead>
+            <TableHead hideHeader={true}>{actions}</TableHead>
+          </TableRow>
+        </TableHeader>
+        <TableBody>
+          {payments.map((payment) => (
+            <TableRow key={payment.id}>
+              <TableHead scope="row">
+                <Link href={`/payments/${payment.id}`} isQuiet={true}>
+                  {payment.name}
+                </Link>
+              </TableHead>
+              <TableCell>{payment.category}</TableCell>
+              <TableCell>
+                <TableRowAction aria-label={edit}>
+                  <PencilIcon />
+                </TableRowAction>
+              </TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+    </RouterProvider>
+  ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const first = payments[0];
+    const cell = canvas.getAllByText(first?.category ?? "")[0] as HTMLElement;
+    const row = cell.closest("tr") as HTMLElement;
+    const link = canvas.getByRole("link", { name: first?.name });
+    const keys: boolean[] = [];
+    // The test's own clicks are not the user's, so the browser would follow a link with Ctrl in this very page.
+    link.addEventListener("click", (event) => {
+      keys.push(event.ctrlKey);
+      if (event.ctrlKey) {
+        event.preventDefault();
+      }
+    });
+
+    // One link per row for keyboards and screen readers, and a pointer over the whole row.
+    await expect(canvas.getAllByRole("link")).toHaveLength(payments.length);
+    await expect(getComputedStyle(row).cursor).toBe("pointer");
+    navigate.mockClear();
+    await userEvent.click(cell);
+    await expect(navigate).toHaveBeenCalledWith(
+      `/payments/${first?.id}`,
+      undefined,
+    );
+    // A control in the row stays where it is.
+    navigate.mockClear();
+    await userEvent.click(
+      canvas.getByRole("button", { name: `${edit} ${first?.name}` }),
+    );
+    await expect(navigate).not.toHaveBeenCalled();
+    // With text selected in the row, a click is part of selecting.
+    const selection = document.getSelection() as Selection;
+    selection.selectAllChildren(cell);
+    cell.dispatchEvent(new MouseEvent("click", { bubbles: true }));
+    await expect(navigate).not.toHaveBeenCalled();
+    selection.removeAllRanges();
+    // With Ctrl, the link gets the key, and the router does not navigate here.
+    keys.length = 0;
+    cell.dispatchEvent(
+      new MouseEvent("click", { bubbles: true, ctrlKey: true }),
+    );
+    await expect(keys).toEqual([true]);
+    await expect(navigate).not.toHaveBeenCalled();
+  },
+};
+
 // An action in a row with no title says so, as its name could not say which row it acts on.
 const ActionWithoutTitle: Story = {
   render: () => (
@@ -570,5 +652,6 @@ export {
   Narrow,
   Overflowing,
   RowActions,
+  RowLink,
   WithCaption,
 };

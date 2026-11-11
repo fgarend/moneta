@@ -78,6 +78,8 @@ pieces is in [`../pieces.md`](../pieces.md), and how a piece is analysed is in [
 - **An action is a `TableRowAction`,** a quiet icon button of 32 px in the last column, as narrow as its content,
   under a `TableHead hideHeader`, whose name joins the app's one word to the row's title by `aria-labelledby`. A row
   with no title makes it throw.
+- **A row with a link in its title opens by a click anywhere empty in it,** which the row forwards to that link with
+  its keys, unless the click is on a control or text is selected; it shows a pointer and a hover fill.
 
 ## Why
 
@@ -133,6 +135,9 @@ pieces is in [`../pieces.md`](../pieces.md), and how a piece is analysed is in [
 - **A group's title as `scope="row"`,** as today's screen readers do not announce `scope="rowgroup"`, as Roselli
   and Zell Liew found, while a row's header names its subtotals. **What it costs:** a cell in the middle of a group
   is not heard with the group's name; reading in order, the group comes first.
+- **A row opened by our own script,** as a link stretched over the row by a pseudo-element needs the row to hold it,
+  which Safari did only from 27, and stops text in the row from being selected. **What it costs:** code of our own,
+  and a key held with the click reaches the link by an event the browser did not make.
 - **A control named by its row's title,** as Primer asks an action to say which row it acts on, so the app writes one
   word, once, and no name is repeated or stale. **What it costs:** every row needs a title.
 - **Lines, space and type for a group and a total, and no fill,** as a fill is kept for a row's state, as white
