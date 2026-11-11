@@ -38,7 +38,7 @@
   ],
   "packageManager": "pnpm@12.17.0",
   "devDependencies": {
-    "@biomejs/biome": "2.6.4",
+    "@biomejs/biome": "2.6.5",
     "@storybook/addon-a11y": "10.6.5",
     "@storybook/addon-themes": "10.6.5",
     "@storybook/addon-vitest": "10.6.5",
