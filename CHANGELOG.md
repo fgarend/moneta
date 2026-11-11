@@ -6,6 +6,11 @@ gets its number.
 
 ## [Unreleased]
 
+### Changed
+
+- `@internationalized/date` 3.12.4 is a dependency of the package, the version `react-aria-components` already
+  brings, for `DateField`.
+
 ## [0.11.0] - 2026-11-11
 
 Dates: `DateTime` and `useFormatDate`, a date from an ISO day or moment, in four formats, with today and yesterday as
