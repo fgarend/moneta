@@ -72,6 +72,13 @@ the version installed. It holds only what exists, and each reviewed piece adds i
 - **It is no landmark,** so a page of sections keeps its landmarks few, and its titles give its structure.
 - **The page puts 40 px between sections,** as a section has no space around itself.
 
+## Lists of rows
+
+- **A list of rows is one thing per row, read across,** as an account, a transaction or a bill, with its value at the
+  end and no header. Compare down columns, and it is a table.
+- **Put the rows in an `ItemGroup`,** each an `Item`, which draws a line between rows. In a card, give it a
+  `CardContent` of its own, and it runs edge to edge.
+
 ## Link
 
 - **A link goes somewhere, and a button does something.** `Link` is for a link in text or in a cell, `LinkButton` for

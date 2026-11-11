@@ -1,20 +1,34 @@
 import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "cn";
-import type { ComponentProps, HTMLAttributes } from "react";
+import {
+  type ComponentProps,
+  createContext,
+  type HTMLAttributes,
+  useContext,
+} from "react";
 import { Link as LinkPrimitive, type LinkProps } from "react-aria-components";
 
 import { Separator } from "#components/separator";
 
-function ItemGroup({ className, ...props }: ComponentProps<"div">) {
+// Whether an item sits in a list of rows, where it is one of its items.
+const InList = createContext(false);
+
+// A list of rows: one thing per row, read across, with a line between rows and no box of their own. Its ends are a
+// table's: 12 px loose on a page, where it reaches as much out, and 20 px in a card, lined up with its title.
+function ItemGroup({ className, ...props }: ComponentProps<"ul">) {
   return (
-    <div
-      data-slot="item-group"
-      className={cn(
-        "group/item-group flex w-full flex-col gap-4 has-data-[size=sm]:gap-2.5 has-data-[size=xs]:gap-2",
-        className,
-      )}
-      {...props}
-    />
+    <InList.Provider value={true}>
+      <ul
+        className={cn(
+          "group/item-group -mx-3 flex flex-col in-data-[slot=card]:mx-0",
+          className,
+        )}
+        data-slot="item-group"
+        // biome-ignore lint/a11y/noRedundantRoles: Safari drops a list's meaning with its markers, which Tailwind removes.
+        role="list"
+        {...props}
+      />
+    </InList.Provider>
   );
 }
 
@@ -62,15 +76,31 @@ function Item({
 }: Omit<LinkProps, "children"> &
   HTMLAttributes<HTMLElement> &
   VariantProps<typeof itemVariants>) {
+  const inList = useContext(InList);
   const Element = "href" in props ? LinkPrimitive : "div";
-  return (
+  const item = (
     <Element
       data-slot="item"
       data-variant={variant}
       data-size={size}
-      className={cn(itemVariants({ variant, size, className }))}
+      className={cn(
+        itemVariants({ variant, size }),
+        // In a list, the row draws the space and the line, and the item none of its own.
+        inList && "rounded-none border-0 p-0",
+        className,
+      )}
       {...props}
     />
+  );
+  return inList ? (
+    <li
+      className="border-b px-3 py-3 last:border-0 in-data-[slot=card]:px-5"
+      data-slot="item-row"
+    >
+      {item}
+    </li>
+  ) : (
+    item
   );
 }
 
@@ -124,7 +154,7 @@ function ItemTitle({ className, ...props }: ComponentProps<"div">) {
     <div
       data-slot="item-title"
       className={cn(
-        "line-clamp-1 flex w-fit items-center gap-2 text-sm leading-snug font-medium underline-offset-4",
+        "flex w-fit items-center gap-2 text-sm leading-snug font-medium underline-offset-4",
         className,
       )}
       {...props}
@@ -137,7 +167,7 @@ function ItemDescription({ className, ...props }: ComponentProps<"p">) {
     <p
       data-slot="item-description"
       className={cn(
-        "line-clamp-2 text-left text-sm leading-normal font-normal text-muted-foreground group-data-[size=xs]/item:text-xs [&>a]:underline [&>a]:underline-offset-4 [&>a:hover]:text-primary",
+        "text-start text-sm leading-normal font-normal text-muted-foreground group-data-[size=xs]/item:text-xs [&>a]:underline [&>a]:underline-offset-4 [&>a:hover]:text-primary",
         className,
       )}
       {...props}

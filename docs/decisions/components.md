@@ -36,6 +36,14 @@ pieces is in [`../pieces.md`](../pieces.md), and how a piece is analysed is in [
   `Components`, then `Sample`, and blocks and foundations will be levels of their own. A piece of ours goes in the
   group of its purpose, beside shadcn's, and `test/pieces.test.ts` holds every story of a piece to one of them.
 
+### Item
+
+- **`ItemGroup` is a list of rows,** `<ul role="list">`, and an `Item` in it an `<li>`, a row with a `--border` line
+  under it but the last and no box of its own, at a table's ends: 12 px loose, where it reaches as much out, and 20 px
+  in a card, where a `CardContent` holding only a list loses its side padding and gains a line above. An `Item` alone
+  stays a `<div>`, with its variants.
+- **Titles and descriptions wrap,** never cut.
+
 ### Section
 
 - **A titled part of a page, with no box,** whose parts follow `Card`'s header: `Section`, `SectionHeader`,
@@ -177,6 +185,11 @@ pieces is in [`../pieces.md`](../pieces.md), and how a piece is analysed is in [
   of shadcn's `grid` into a native table would only conflict. **What it costs:** an app on the `grid` moves, the
   selection's state is ours, and each control is a tab stop.
 - **Its name asked for,** as every table an app had already carried one, and a table with none is announced bare.
+- **A list of rows apart from a table,** as Polaris keeps `ResourceList` apart from `IndexTable`, Carbon its
+  contained list and Spectrum `ListView`: a row is one thing read across, with no header. **`ul` and `li`, not a
+  grid,** as rows are read, as Sarah Higley advises, and `role="list"` kept, as Safari drops a list's meaning with
+  its markers, as Carbon notes. **A table's look,** lines and ends, so a list and a table side by side read alike.
+  **What it costs:** `ItemGroup`'s gaps and boxes go, and the lint's rule on redundant roles is set aside there.
 - **No `colSpan`,** as screen readers announce spanning headers badly, as Roselli found, and a column can then hide by
   its cells with nothing misaligned. **But for `TableEmpty`,** a row with nothing to compare, as shadcn's data table
   and Carbon draw it, which keeps the empty words in the table. **What it costs:** `align` and `hideBelow` are written

@@ -6,6 +6,15 @@ gets its number.
 
 ## [Unreleased]
 
+### Changed
+
+- **Breaking:** `ItemGroup` is a list of rows, a `<ul>` whose items are `<li>`, with a line between rows and no box
+  around each, at a table's ends: 12 px loose, reaching as much out, and edge to edge in a card, alone in its
+  `CardContent`. To upgrade:
+  - drop an `ItemSeparator` between the items of a group, which draws its own lines;
+  - an `Item` that should keep its box, as `variant="outline"`, stands alone, out of a group.
+- `ItemTitle` and `ItemDescription` wrap, no longer cut at one and two lines.
+
 ## [0.9.0] - 2026-11-11
 
 Table: a native table to compare amounts by column, with groups and a total, selection, sorting, child rows, actions,
