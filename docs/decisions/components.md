@@ -48,6 +48,9 @@ pieces is in [`../pieces.md`](../pieces.md), and how a piece is analysed is in [
   names its list, and its `total` at its end, as a table's groups: 12 px semibold muted, the total at 500 and the
   rows' size, a `--border-strong` line under it, 12 px above the first and 32 above the next. A `CardContent` holding
   only groups runs edge to edge.
+- **An action is an `ItemAction`,** as `TableRowAction`: a quiet icon button of 32 px, whose name joins the app's one
+  word to the item's title, which `ItemTitle` takes an id for, and which takes less than a line's height, so a row
+  keeps its own. An item with no title makes it throw. A row with one shows the hover.
 - **`ItemValue` holds the value at a row's end,** aligned to it, at the text's weight, never wrapping while the title
   gives way, with `detail` under it, small and muted, as a date or a badge.
 - **An item that opens has a `Link` in its `ItemTitle`,** which a click anywhere empty in the row, or in the item

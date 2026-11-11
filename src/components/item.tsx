@@ -8,15 +8,21 @@ import {
   useContext,
   useEffect,
   useId,
+  useLayoutEffect,
   useRef,
 } from "react";
 import { Heading } from "react-aria-components";
+import { Button } from "#components/button";
 import { Separator } from "#components/separator";
 import { deepest, SectionLevel } from "#hooks/level";
 import { followTitle, rowFill } from "#hooks/row";
 
 // Whether an item sits in a list of rows, where it is one of its items.
 const InList = createContext(false);
+// The item a part sits in, whose title names its action.
+const ItemContext = createContext<{ titleId: string | undefined }>({
+  titleId: undefined,
+});
 
 // A list's ends: a table's, 12 px loose on a page, where it reaches as much out, and 20 px in a card.
 const listEnds =
@@ -132,6 +138,7 @@ function Item({
   ...props
 }: HTMLAttributes<HTMLDivElement> & VariantProps<typeof itemVariants>) {
   const inList = useContext(InList);
+  const titleId = useId();
   // The row, which a click anywhere empty in sends to its title's link: the list's item, or the item alone.
   const row = useRef<HTMLElement>(null);
   useEffect(() => {
@@ -159,20 +166,24 @@ function Item({
       {...props}
     />
   );
-  return inList ? (
-    <li
-      aria-current={current}
-      className={cn(
-        rowFill,
-        "relative border-b px-3 py-3 last:border-0 in-data-[slot=card]:px-5 has-[[data-slot=item-title]_a[href]]:cursor-pointer has-[[data-slot=item-title]_a[href]]:hover:[--row-hover:color-mix(in_oklab,var(--muted)_50%,transparent)] aria-[current=true]:before:absolute aria-[current=true]:before:inset-y-0 aria-[current=true]:before:start-0 aria-[current=true]:before:w-0.75 aria-[current=true]:before:bg-primary",
+  return (
+    <ItemContext.Provider value={{ titleId }}>
+      {inList ? (
+        <li
+          aria-current={current}
+          className={cn(
+            rowFill,
+            "relative border-b px-3 py-3 last:border-0 in-data-[slot=card]:px-5 has-[[data-slot=item-title]_a[href]]:cursor-pointer has-[[data-slot=item-title]_a[href]]:hover:[--row-hover:color-mix(in_oklab,var(--muted)_50%,transparent)] has-data-[slot=item-action]:hover:[--row-hover:color-mix(in_oklab,var(--muted)_50%,transparent)] aria-[current=true]:before:absolute aria-[current=true]:before:inset-y-0 aria-[current=true]:before:start-0 aria-[current=true]:before:w-0.75 aria-[current=true]:before:bg-primary",
+          )}
+          data-slot="item-row"
+          ref={row as React.RefObject<HTMLLIElement>}
+        >
+          {item}
+        </li>
+      ) : (
+        item
       )}
-      data-slot="item-row"
-      ref={row as React.RefObject<HTMLLIElement>}
-    >
-      {item}
-    </li>
-  ) : (
-    item
+    </ItemContext.Provider>
   );
 }
 
@@ -223,9 +234,11 @@ function ItemContent({ className, ...props }: ComponentProps<"div">) {
 }
 
 function ItemTitle({ className, ...props }: ComponentProps<"div">) {
+  const { titleId } = useContext(ItemContext);
   return (
     <div
       data-slot="item-title"
+      id={titleId}
       className={cn(
         "flex w-fit items-center gap-2 text-sm leading-snug font-medium underline-offset-4",
         className,
@@ -276,6 +289,39 @@ function ItemValue({
   );
 }
 
+// An action on an item: a quiet icon button of 32 px, whose name joins the app's one word to the item's title, as "Edit
+// Account 1234", and which takes less than a line of text's height, so a row keeps its own. An item with no title
+// throws, as its action would have no name to say which item it acts on.
+function ItemAction({
+  "aria-label": label,
+  className,
+  ...props
+}: Omit<ComponentProps<typeof Button>, "aria-label" | "size" | "variant"> & {
+  "aria-label": string;
+}) {
+  const { titleId } = useContext(ItemContext);
+  const id = useId();
+  useLayoutEffect(() => {
+    if (document.getElementById(titleId as string) === null) {
+      throw new Error(
+        `ItemAction: "${label}" needs its item titled by ItemTitle.`,
+      );
+    }
+  }, [titleId, label]);
+  return (
+    <Button
+      aria-label={label}
+      aria-labelledby={`${id} ${titleId}`}
+      className={cn("-my-2 flex", className)}
+      data-slot="item-action"
+      id={id}
+      size="icon-sm"
+      variant="ghost"
+      {...props}
+    />
+  );
+}
+
 function ItemActions({ className, ...props }: ComponentProps<"div">) {
   return (
     <div
@@ -314,6 +360,7 @@ function ItemFooter({ className, ...props }: ComponentProps<"div">) {
 
 export {
   Item,
+  ItemAction,
   ItemActions,
   ItemContent,
   ItemDescription,

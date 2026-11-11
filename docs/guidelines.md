@@ -82,6 +82,8 @@ the version installed. It holds only what exists, and each reviewed piece adds i
   rows' `sign` and takes no `tone`.
 - **A row's value goes in an `ItemValue` at its end,** as an `Amount`, with a date or a badge as its `detail`, and its
   icon in an `ItemMedia variant="icon"`.
+- **An action per row is an `ItemAction`** in its `ItemActions`, with one word as its `aria-label`, as "Edit"; the row's
+  title completes its name. Several actions go in a `DropdownMenu` whose trigger is an `ItemAction`.
 - **A row that opens something puts a `Link` in its `ItemTitle`,** quiet, and the whole row follows it. The row open
   beside the list takes `aria-current="true"`.
 

@@ -2,12 +2,14 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 import { PiggyBank } from "lucide-react";
 import { RouterProvider } from "react-aria-components";
 import { expect, fn, userEvent, within } from "storybook/test";
+import { Caught } from "../../.storybook/caught.js";
 import { Amount } from "./amount.js";
 import { Badge } from "./badge.js";
 import { Button } from "./button.js";
 import { Card, CardContent, CardHeader, CardTitle } from "./card.js";
 import {
   Item,
+  ItemAction,
   ItemActions,
   ItemContent,
   ItemDescription,
@@ -649,8 +651,82 @@ const GroupsInSection: Story = {
   },
 };
 
+// An action on a row: a quiet icon button of 32 px, whose name joins the app's one word to the row's title, and which
+// takes no more height than the row's text, so a row with one is as tall as one without.
+const edit = "Edit";
+const target = 32;
+
+const RowAction: Story = {
+  render: () => (
+    <ItemGroup>
+      {accounts.map((account, index) => (
+        <Item key={account.id}>
+          <ItemContent>
+            <ItemTitle>{account.name}</ItemTitle>
+            <ItemDescription>{account.detail}</ItemDescription>
+          </ItemContent>
+          {index < 2 ? (
+            <ItemActions>
+              <ItemAction aria-label={edit}>
+                <PiggyBank aria-hidden={true} />
+              </ItemAction>
+            </ItemActions>
+          ) : null}
+        </Item>
+      ))}
+    </ItemGroup>
+  ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const button = canvas.getByRole("button", {
+      name: `${edit} ${accounts[0]?.name}`,
+    });
+    const [withAction, , without] = canvas.getAllByRole("listitem") as [
+      HTMLElement,
+      HTMLElement,
+      HTMLElement,
+    ];
+    const { width, height } = button.getBoundingClientRect();
+
+    await expect(canvas.getAllByRole("button")).toHaveLength(2);
+    await expect([width, height]).toEqual([target, target]);
+    // The rows' content, as the last row has no line under it.
+    const content = (row: Element) =>
+      (
+        row.querySelector('[data-slot="item"]') as Element
+      ).getBoundingClientRect().height;
+    await expect(content(withAction)).toBe(content(without));
+  },
+};
+
+// An action in a row with no title says so, as its name could not say which row it acts on.
+const ActionWithoutTitle: Story = {
+  render: () => (
+    <Caught>
+      <ItemGroup>
+        <Item>
+          <ItemContent>
+            <ItemDescription>{description}</ItemDescription>
+          </ItemContent>
+          <ItemAction aria-label={edit}>
+            <PiggyBank aria-hidden={true} />
+          </ItemAction>
+        </Item>
+      </ItemGroup>
+    </Caught>
+  ),
+  play: async ({ canvasElement }) => {
+    await expect(
+      within(canvasElement).getByText(
+        `ItemAction: "${edit}" needs its item titled by ItemTitle.`,
+      ),
+    ).toBeVisible();
+  },
+};
+
 export default meta;
 export {
+  ActionWithoutTitle,
   AllParts,
   Alone,
   CurrentRow,
@@ -660,5 +736,6 @@ export {
   IconAndValue,
   InCard,
   LongText,
+  RowAction,
   RowLink,
 };
