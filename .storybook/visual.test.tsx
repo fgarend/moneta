@@ -35,6 +35,11 @@ it.each(visual.map((story) => [story.id, story] as const))(
     await repaint();
     const screen = await render(<Story />);
     await document.fonts.ready;
+    // An animation is caught at its start, as a pulse or a running bar would otherwise differ from shot to shot.
+    for (const animation of document.getAnimations()) {
+      animation.pause();
+      animation.currentTime = 0;
+    }
 
     await expect
       .element(screen.locator)
