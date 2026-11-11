@@ -6,6 +6,11 @@ gets its number.
 
 ## [Unreleased]
 
+## [0.10.0] - 2026-11-11
+
+Lists of rows: `Item` reviewed as one thing per row, read across, with groups and a total, a row as a link or with an
+action, an icon tile, a value at the end, empty, loading and density, drawn as a table.
+
 ### Changed
 
 - **Breaking:** `ItemGroup` is a list of rows, a `<ul>` whose items are `<li>`, with a line between rows and no box
@@ -30,6 +35,10 @@ gets its number.
   badge.
 - A list's row with `aria-current="true"`, the one open beside it, is drawn with a bar of `--primary` at its start,
   as a table's.
+
+### Fixed
+
+- A click on a switch in a table's row no longer opens the row's link.
 
 ## [0.9.0] - 2026-11-11
 
@@ -254,7 +263,8 @@ and dark. `README.md` says how to install and use it.
 
 A rehearsal of the release's path, not meant to be installed. Use a later version.
 
-[Unreleased]: https://github.com/fgarend/moneta/compare/v0.9.0...HEAD
+[Unreleased]: https://github.com/fgarend/moneta/compare/v0.10.0...HEAD
+[0.10.0]: https://github.com/fgarend/moneta/compare/v0.9.0...v0.10.0
 [0.9.0]: https://github.com/fgarend/moneta/compare/v0.8.0...v0.9.0
 [0.8.0]: https://github.com/fgarend/moneta/compare/v0.7.0...v0.8.0
 [0.7.0]: https://github.com/fgarend/moneta/compare/v0.6.0...v0.7.0
