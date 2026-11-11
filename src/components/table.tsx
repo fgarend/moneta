@@ -16,6 +16,7 @@ import {
   useState,
 } from "react";
 import { Button } from "#components/button";
+import { Checkbox } from "#components/checkbox";
 
 // Its name, which a screen reader says on entering it: a label, a heading it points to, or its caption.
 type TableName =
@@ -40,15 +41,90 @@ const RowContext = createContext<{
   parentKey?: string | undefined;
 }>({ titleId: "" });
 
-// Which rows are open, and the children each parent has, by the rows' keys.
+// Which rows are open, and the children each parent has; which are selected, and which have a box here; by the
+// rows' keys.
 interface TableState {
   expanded: Set<string>;
   toggle: (key: string) => void;
   children: Map<string, string[]>;
   adopt: (parent: string, child: string) => () => void;
+  selected: Set<string>;
+  choose: (key: string, isSelected: boolean, isRange: boolean) => void;
+  chooseShown: () => void;
+  shown: Set<string>;
+  show: (key: string) => () => void;
 }
 
 const TableContext = createContext<TableState | null>(null);
+
+// A set of keys held by the app, or by the table from its defaults, and told to the app on each change.
+function useKeys(
+  held: Iterable<string> | undefined,
+  defaults: Iterable<string>,
+  onChange: ((keys: Set<string>) => void) | undefined,
+): [Set<string>, (keys: Set<string>) => void] {
+  const [own, setOwn] = useState(() => new Set(defaults));
+  const keys = held === undefined ? own : new Set(held);
+  const change = (next: Set<string>) => {
+    setOwn(next);
+    onChange?.(next);
+  };
+  return [keys, change];
+}
+
+// Keys a part tells the table it has while it is drawn, as children their parent or boxes the rows shown.
+function useRegistry<T>(
+  add: (all: T, key: string, isAdding: boolean) => T,
+  empty: T,
+): [T, (key: string) => () => void] {
+  const [all, setAll] = useState(empty);
+  const register = useCallback(
+    (key: string) => {
+      setAll((current) => add(current, key, true));
+      return () => setAll((current) => add(current, key, false));
+    },
+    [add],
+  );
+  return [all, register];
+}
+
+function addChild(
+  all: Map<string, string[]>,
+  link: string,
+  isAdding: boolean,
+): Map<string, string[]> {
+  const [parent, child] = link.split(" ") as [string, string];
+  const next = new Map(all);
+  const kept = (next.get(parent) ?? []).filter((id) => id !== child);
+  next.set(parent, isAdding ? [...kept, child] : kept);
+  return next;
+}
+
+function addKey(all: Set<string>, key: string, isAdding: boolean): Set<string> {
+  const next = new Set(all);
+  if (isAdding) {
+    next.add(key);
+  } else {
+    next.delete(key);
+  }
+  return next;
+}
+
+function toggled(
+  keys: Set<string>,
+  changed: string[],
+  isOn: boolean,
+): Set<string> {
+  const next = new Set(keys);
+  for (const key of changed) {
+    if (isOn) {
+      next.add(key);
+    } else {
+      next.delete(key);
+    }
+  }
+  return next;
+}
 
 // A part of a table outside one says so, rather than draw a row no table knows.
 function useTable(part: string): TableState {
@@ -73,6 +149,9 @@ function Table({
   expandedKeys,
   defaultExpandedKeys = [],
   onExpandedChange,
+  selectedKeys,
+  defaultSelectedKeys = [],
+  onSelectionChange,
   ...props
 }: Omit<ComponentProps<"table">, "aria-label" | "aria-labelledby"> &
   TableName & {
@@ -81,33 +160,57 @@ function Table({
     // The same, held by the table from the start.
     defaultExpandedKeys?: Iterable<string>;
     onExpandedChange?: (keys: Set<string>) => void;
+    // The keys of the rows selected, held by the app, with those of rows on other pages.
+    selectedKeys?: Iterable<string>;
+    // The same, held by the table from the start.
+    defaultSelectedKeys?: Iterable<string>;
+    onSelectionChange?: (keys: Set<string>) => void;
   }) {
   const captionId = useId();
-  const [own, setOwn] = useState(() => new Set(defaultExpandedKeys));
-  const expanded = expandedKeys === undefined ? own : new Set(expandedKeys);
-  const toggle = (key: string) => {
-    const next = new Set(expanded);
-    if (next.has(key)) {
-      next.delete(key);
-    } else {
-      next.add(key);
-    }
-    setOwn(next);
-    onExpandedChange?.(next);
-  };
-  const [children, setChildren] = useState(new Map<string, string[]>());
+  const [expanded, setExpanded] = useKeys(
+    expandedKeys,
+    defaultExpandedKeys,
+    onExpandedChange,
+  );
+  const toggle = (key: string) =>
+    setExpanded(toggled(expanded, [key], !expanded.has(key)));
   // A child row tells its parent's key and its own id, so the parent's button can point at it.
-  const adopt = useCallback((parent: string, child: string) => {
-    const change = (add: boolean) =>
-      setChildren((all) => {
-        const next = new Map(all);
-        const kept = (next.get(parent) ?? []).filter((id) => id !== child);
-        next.set(parent, add ? [...kept, child] : kept);
-        return next;
-      });
-    change(true);
-    return () => change(false);
-  }, []);
+  const [children, register] = useRegistry(addChild, new Map());
+  const adopt = useCallback(
+    (parent: string, child: string) => register(`${parent} ${child}`),
+    [register],
+  );
+  const [selected, setSelected] = useKeys(
+    selectedKeys,
+    defaultSelectedKeys,
+    onSelectionChange,
+  );
+  // The rows with a box here, which the header's box takes, and the last box clicked, where a range starts.
+  const [shown, show] = useRegistry(addKey, new Set<string>());
+  const anchor = useRef<string>(undefined);
+  const choose = (key: string, isSelected: boolean, isRange: boolean) => {
+    const order = [
+      ...(area.current as HTMLDivElement).querySelectorAll<HTMLElement>(
+        '[data-slot="table-select"]',
+      ),
+    ].map((box) => box.dataset["key"]);
+    const from = order.indexOf(anchor.current);
+    const to = order.indexOf(key);
+    const range =
+      isRange && from !== -1
+        ? (order.slice(Math.min(from, to), Math.max(from, to) + 1) as string[])
+        : [key];
+    anchor.current = key;
+    setSelected(toggled(selected, range, isSelected));
+  };
+  const chooseShown = () =>
+    setSelected(
+      toggled(
+        selected,
+        [...shown],
+        ![...shown].every((key) => selected.has(key)),
+      ),
+    );
   const area = useRef<HTMLDivElement>(null);
   const [overflows, setOverflows] = useState(false);
   // Only an area that scrolls takes focus, so the keyboard can scroll it, and its name; one that fits adds no stop.
@@ -150,7 +253,19 @@ function Table({
             {caption}
           </caption>
         )}
-        <TableContext.Provider value={{ expanded, toggle, children, adopt }}>
+        <TableContext.Provider
+          value={{
+            expanded,
+            toggle,
+            children,
+            adopt,
+            selected,
+            choose,
+            chooseShown,
+            shown,
+            show,
+          }}
+        >
           {rows}
         </TableContext.Provider>
       </table>
@@ -220,7 +335,7 @@ function TableRow({
 }) {
   const titleId = useId();
   const domId = useId();
-  const { expanded, adopt } = useTable("TableRow");
+  const { expanded, adopt, selected } = useTable("TableRow");
   useLayoutEffect(
     () => (parentKey === undefined ? undefined : adopt(parentKey, domId)),
     [parentKey, domId, adopt],
@@ -231,9 +346,12 @@ function TableRow({
         hidden={parentKey !== undefined && !expanded.has(parentKey)}
         id={domId}
         className={cn(
-          "border-b has-[th[scope=row]_a[href]]:cursor-pointer has-[th[scope=row]_a[href]]:hover:bg-muted/50",
+          "border-b bg-(--row-fill) has-[th[scope=row]_a[href]]:cursor-pointer data-selected:[--row-fill:var(--muted)] has-[th[scope=row]_a[href]]:not-data-selected:hover:[--row-fill:color-mix(in_oklab,var(--muted)_50%,transparent)] has-data-[slot=table-select]:not-data-selected:hover:[--row-fill:color-mix(in_oklab,var(--muted)_50%,transparent)]",
           className,
         )}
+        data-selected={
+          rowKey !== undefined && selected.has(rowKey) ? true : undefined
+        }
         data-slot="table-row"
         onClick={(event) => {
           openTitle(event);
@@ -245,7 +363,8 @@ function TableRow({
   );
 }
 
-// A column's header, or with scope="row", a row's title, which stays at the table's start while it scrolls.
+// A column's header, or with scope="row", a row's title, which stays at the table's start while it scrolls, after the
+// boxes that select rows.
 function TableHead({
   className,
   scope,
@@ -287,8 +406,16 @@ function TableHead({
         hideBelow && hides[hideBelow],
         hideHeader && "w-px",
         scope === "row"
-          ? "sticky start-0 min-w-32 bg-(--surface) px-3 py-3 align-middle font-normal"
-          : "h-9 px-3 align-middle type-label whitespace-nowrap text-muted-foreground first:sticky first:start-0 first:bg-(--surface)",
+          ? cn(
+              "sticky start-0 min-w-32 px-3 py-3 align-middle font-normal",
+              "sticky-fill",
+              // After a column of boxes that sticks too: the box and its start, 12 px loose and 20 in a card.
+              "in-[tr:has([data-slot=table-select])]:start-7 in-data-[slot=card]:in-[tr:has([data-slot=table-select])]:start-9",
+            )
+          : cn(
+              "h-9 px-3 align-middle type-label whitespace-nowrap text-muted-foreground first:sticky first:start-0 first:bg-(--surface) has-data-[slot=table-select-all]:w-px has-data-[slot=table-select-all]:pe-0",
+              "in-[tr:has([data-slot=table-select-all])]:nth-2:sticky in-[tr:has([data-slot=table-select-all])]:nth-2:start-7 in-[tr:has([data-slot=table-select-all])]:nth-2:bg-(--surface) in-data-[slot=card]:in-[tr:has([data-slot=table-select-all])]:nth-2:start-9",
+            ),
         className,
       )}
       data-slot="table-head"
@@ -343,7 +470,8 @@ function TableCell({
   return (
     <td
       className={cn(
-        "px-3 py-3 align-middle has-data-[slot=table-row-action]:w-px",
+        "has-data-[slot=table-select]:sticky-fill",
+        "px-3 py-3 align-middle has-data-[slot=table-row-action]:w-px has-data-[slot=table-select]:sticky has-data-[slot=table-select]:start-0 has-data-[slot=table-select]:w-px has-data-[slot=table-select]:pe-0",
         ends,
         aligns[align],
         hideBelow && hides[hideBelow],
@@ -417,6 +545,95 @@ function TableRowAction({
   );
 }
 
+// A row's box, in a cell of its own before the row's title, which names it. A row with no title or no id throws, as
+// the box would have no name, or nothing to select. Shift selects from the last box clicked.
+function TableSelect() {
+  const { titleId, rowKey } = useContext(RowContext);
+  const { selected, choose, show } = useTable("TableSelect");
+  const isRange = useRef(false);
+  if (rowKey === undefined) {
+    throw new Error("TableSelect needs its row's id.");
+  }
+  useLayoutEffect(() => {
+    if (document.getElementById(titleId) === null) {
+      throw new Error(
+        'TableSelect needs its row titled by TableHead scope="row".',
+      );
+    }
+  }, [titleId]);
+  useLayoutEffect(() => show(rowKey), [show, rowKey]);
+  return (
+    <span
+      className="flex"
+      data-key={rowKey}
+      data-slot="table-select"
+      onKeyDownCapture={() => {
+        isRange.current = false;
+      }}
+      onPointerDownCapture={(event) => {
+        isRange.current = event.shiftKey;
+      }}
+    >
+      <Checkbox
+        aria-labelledby={titleId}
+        isSelected={selected.has(rowKey)}
+        onChange={(isSelected) => choose(rowKey, isSelected, isRange.current)}
+      />
+    </span>
+  );
+}
+
+// The header's box, over the rows shown, named by the app once: checked when all are, partly when some are. Rows
+// selected elsewhere, as on other pages, stay as they are.
+function TableSelectAll({ "aria-label": label }: { "aria-label": string }) {
+  const { selected, shown, chooseShown } = useTable("TableSelectAll");
+  const count = [...shown].filter((key) => selected.has(key)).length;
+  return (
+    <span className="flex" data-slot="table-select-all">
+      <Checkbox
+        aria-label={label}
+        isIndeterminate={count > 0 && count < shown.size}
+        isSelected={count > 0 && count === shown.size}
+        onChange={chooseShown}
+      />
+    </span>
+  );
+}
+
+// Over a table with rows selected: the app's count, which a screen reader hears as it changes, and the app's actions,
+// in a fill lined up with the table's ends. With none selected it shows nothing, and its status stays to be heard.
+function TableSelectionBar({
+  className,
+  count,
+  label,
+  children,
+  ...props
+}: ComponentProps<"div"> & {
+  // How many rows are selected, here and on other pages.
+  count: number;
+  // The app's words for it, as "2 selected".
+  label: string;
+}) {
+  const isShown = count > 0;
+  return (
+    <div
+      className={cn(
+        isShown
+          ? "-mx-3 flex min-h-10 flex-wrap items-center gap-x-3 gap-y-2 rounded-md bg-muted px-3 py-1 in-data-[slot=card]:mx-0 in-data-[slot=card]:rounded-none in-data-[slot=card]:px-5"
+          : "contents",
+        className,
+      )}
+      data-slot="table-selection-bar"
+      {...props}
+    >
+      <p className={isShown ? "text-sm font-medium" : "sr-only"} role="status">
+        {isShown ? label : ""}
+      </p>
+      {isShown ? <div className="ms-auto flex gap-2">{children}</div> : null}
+    </div>
+  );
+}
+
 export {
   Table,
   TableBody,
@@ -427,4 +644,7 @@ export {
   TableHeader,
   TableRow,
   TableRowAction,
+  TableSelect,
+  TableSelectAll,
+  TableSelectionBar,
 };

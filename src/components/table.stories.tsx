@@ -1,10 +1,11 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { PencilIcon } from "lucide-react";
-import { Fragment, type ReactNode, useId } from "react";
+import { Fragment, type ReactNode, useId, useState } from "react";
 import { I18nProvider, RouterProvider } from "react-aria-components";
 import { expect, fn, userEvent, waitFor, within } from "storybook/test";
 import { Caught } from "../../.storybook/caught.js";
 import { Amount } from "./amount.js";
+import { Button } from "./button.js";
 import { Card, CardContent, CardHeader, CardTitle } from "./card.js";
 import { Link } from "./link.js";
 import type { Money } from "./money.js";
@@ -18,6 +19,9 @@ import {
   TableHeader,
   TableRow,
   TableRowAction,
+  TableSelect,
+  TableSelectAll,
+  TableSelectionBar,
 } from "./table.js";
 
 const name = "Fictitious payments";
@@ -647,6 +651,308 @@ const ActionWithoutTitle: Story = {
   },
 };
 
+// Selection: a box in a column of its own before each row's title, named by it, and one in the header over the rows
+// shown, named by the app once. Shift selects a range, and keys the table does not show, as from another page, stay.
+const selectAll = "Select all";
+const elsewhere = "p9";
+const remove = "Delete";
+const onSelectionChange = fn();
+
+function selectableRows(): ReactNode {
+  return (
+    <>
+      <TableHeader>
+        <TableRow>
+          <TableHead>
+            <TableSelectAll aria-label={selectAll} />
+          </TableHead>
+          <TableHead>{description}</TableHead>
+          <TableHead>{category}</TableHead>
+          <TableHead>{account}</TableHead>
+          <TableHead align="end">{amount}</TableHead>
+        </TableRow>
+      </TableHeader>
+      <TableBody>
+        {payments.map((payment) => (
+          <TableRow id={payment.id} key={payment.id}>
+            <TableCell>
+              <TableSelect />
+            </TableCell>
+            <TableHead scope="row">{payment.name}</TableHead>
+            <TableCell>{payment.category}</TableCell>
+            <TableCell>{payment.account}</TableCell>
+            <TableCell align="end">
+              <Amount value={brl(payment.value)} />
+            </TableCell>
+          </TableRow>
+        ))}
+      </TableBody>
+    </>
+  );
+}
+
+function boxes(canvasElement: HTMLElement): HTMLElement[] {
+  const canvas = within(canvasElement);
+  return [selectAll, ...payments.map((payment) => payment.name)].map((label) =>
+    canvas.getByRole("checkbox", { name: label }),
+  );
+}
+
+const Selection: Story = {
+  render: () => (
+    <Table
+      aria-label={name}
+      defaultSelectedKeys={[elsewhere]}
+      onSelectionChange={onSelectionChange}
+    >
+      {selectableRows()}
+    </Table>
+  ),
+  play: async ({ canvasElement }) => {
+    const [all, first, second, third] = boxes(canvasElement) as [
+      HTMLElement,
+      HTMLElement,
+      HTMLElement,
+      HTMLElement,
+    ];
+    const row = first.closest("tr") as HTMLElement;
+    const firstTitle = within(canvasElement).getByRole("rowheader", {
+      name: payments[0]?.name,
+    });
+    const muted = colourOf("var(--muted)", canvasElement);
+    onSelectionChange.mockClear();
+
+    // A key from elsewhere checks no box here.
+    await expect(all).not.toBeChecked();
+    await expect(all).not.toBePartiallyChecked();
+    await userEvent.click(first);
+    await expect(onSelectionChange).toHaveBeenLastCalledWith(
+      new Set([elsewhere, "p1"]),
+    );
+    await expect(first).toBeChecked();
+    await expect(all).toBePartiallyChecked();
+    // A selected row is drawn at --muted, over its sticky title's background too.
+    await expect(getComputedStyle(row).backgroundColor).toBe(muted);
+    await expect(getComputedStyle(firstTitle).backgroundImage).toContain(muted);
+    // The header's box takes all the rows shown, then none, and keeps the key from elsewhere.
+    await userEvent.click(all);
+    await expect(onSelectionChange).toHaveBeenLastCalledWith(
+      new Set([elsewhere, "p1", "p2", "p3"]),
+    );
+    await expect(all).toBeChecked();
+    await userEvent.click(all);
+    await expect(onSelectionChange).toHaveBeenLastCalledWith(
+      new Set([elsewhere]),
+    );
+    await expect(third).not.toBeChecked();
+    // Shift takes the range from the last box clicked, and clears one alike. One user holds the key between steps.
+    const user = userEvent.setup();
+    await user.click(first);
+    await user.keyboard("{Shift>}");
+    await user.click(third);
+    await user.keyboard("{/Shift}");
+    await expect(second).toBeChecked();
+    await expect(onSelectionChange).toHaveBeenLastCalledWith(
+      new Set([elsewhere, "p1", "p2", "p3"]),
+    );
+    await user.keyboard("{Shift>}");
+    await user.click(second);
+    await user.keyboard("{/Shift}");
+    await expect(onSelectionChange).toHaveBeenLastCalledWith(
+      new Set([elsewhere, "p1"]),
+    );
+    await expect(third).not.toBeChecked();
+  },
+};
+
+// Narrow, the boxes stay at the table's start while it scrolls, and the titles right after them.
+const SelectionOverflowing: Story = {
+  render: () => <Table aria-label={name}>{selectableRows()}</Table>,
+  decorators: Narrow.decorators,
+  play: async ({ canvasElement }) => {
+    const area = canvasElement.querySelector(
+      '[data-slot="table-container"]',
+    ) as HTMLElement;
+    const [all, first] = boxes(canvasElement) as [HTMLElement, HTMLElement];
+    const firstTitle = within(canvasElement).getByRole("rowheader", {
+      name: payments[0]?.name,
+    });
+    const head = within(canvasElement).getByRole("columnheader", {
+      name: description,
+    });
+    const start = (element: Element) =>
+      Math.round(element.getBoundingClientRect().left);
+    const end = (element: Element) =>
+      Math.round(element.getBoundingClientRect().right);
+
+    await expect(area.scrollWidth).toBeGreaterThan(area.clientWidth);
+    area.scrollLeft = area.scrollWidth;
+    for (const box of [all, first]) {
+      await expect(start(box.closest("td, th") as Element)).toBe(start(area));
+    }
+    await expect(start(firstTitle)).toBe(end(first.closest("td") as Element));
+    await expect(start(head)).toBe(end(all.closest("th") as Element));
+  },
+};
+
+// The bar over a table with rows selected: the app's count, heard as it changes, and its actions, in a fill lined up
+// with the table's ends. Nothing selected, it shows nothing, but its status stays to be heard.
+const SelectionBar: Story = {
+  render: function Render() {
+    const [keys, setKeys] = useState(new Set<string>());
+    return (
+      <>
+        <TableSelectionBar count={keys.size} label={`${keys.size} selected`}>
+          <Button size="sm" variant="outline">
+            {remove}
+          </Button>
+        </TableSelectionBar>
+        <Table
+          aria-label={name}
+          onSelectionChange={setKeys}
+          selectedKeys={keys}
+        >
+          {selectableRows()}
+        </Table>
+      </>
+    );
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const status = canvas.getByRole("status");
+    const bar = canvasElement.querySelector(
+      '[data-slot="table-selection-bar"]',
+    ) as HTMLElement;
+    const area = canvasElement.querySelector(
+      '[data-slot="table-container"]',
+    ) as HTMLElement;
+    const [all, , second] = boxes(canvasElement) as [
+      HTMLElement,
+      HTMLElement,
+      HTMLElement,
+    ];
+
+    await expect(status).toHaveTextContent("");
+    await expect(canvas.queryByRole("button", { name: remove })).toBeNull();
+    await userEvent.click(second);
+    await expect(status).toHaveTextContent("1 selected");
+    await expect(canvas.getByRole("button", { name: remove })).toBeVisible();
+    // A fill across the table's area, its text lined up with the table's.
+    await expect(getComputedStyle(bar).backgroundColor).toBe(
+      colourOf("var(--muted)", canvasElement),
+    );
+    await expect(Math.round(bar.getBoundingClientRect().left)).toBe(
+      Math.round(area.getBoundingClientRect().left),
+    );
+    await expect(Math.round(status.getBoundingClientRect().left)).toBe(
+      Math.round(textStart(all.closest("th") as Element)),
+    );
+  },
+};
+
+// The same in a card: the bar and the table run edge to edge together, with the card's 20 px ends.
+const SelectionBarInCard: Story = {
+  render: () => (
+    <Card>
+      <CardHeader>
+        <CardTitle>{title}</CardTitle>
+      </CardHeader>
+      <CardContent>
+        <TableSelectionBar count={2} label="2 selected">
+          <Button size="sm" variant="outline">
+            {remove}
+          </Button>
+        </TableSelectionBar>
+        <Table aria-label={name} selectedKeys={["p1", "p2"]}>
+          {selectableRows()}
+        </Table>
+      </CardContent>
+    </Card>
+  ),
+  play: async ({ canvasElement }) => {
+    const content = canvasElement.querySelector(
+      '[data-slot="card-content"]',
+    ) as Element;
+    const status = within(canvasElement).getByRole("status");
+    const cardTitle = canvasElement.querySelector(
+      '[data-slot="card-title"]',
+    ) as Element;
+
+    await expect(getComputedStyle(content).paddingLeft).toBe("0px");
+    await expect(Math.round(status.getBoundingClientRect().left)).toBe(
+      Math.round(cardTitle.getBoundingClientRect().left),
+    );
+  },
+};
+
+// Rows selected, as a screenshot: the bar, the rows' fill, and the header's box partly checked.
+const SelectionShown: Story = {
+  tags: ["visual"],
+  render: () => (
+    <section className="flex flex-col gap-2 p-6">
+      <h2 className="type-title">{title}</h2>
+      <TableSelectionBar count={2} label="2 selected">
+        <Button size="sm" variant="outline">
+          {remove}
+        </Button>
+      </TableSelectionBar>
+      <Table aria-label={name} selectedKeys={["p1", "p2"]}>
+        {selectableRows()}
+      </Table>
+    </section>
+  ),
+  play: async ({ canvasElement }) => {
+    await expect(boxes(canvasElement)[0]).toBePartiallyChecked();
+  },
+};
+
+// A box in a row with no title, or with no key, says so: it would have no name, or nothing to select.
+const SelectWithoutTitle: Story = {
+  render: () => (
+    <Caught>
+      <Table aria-label={name}>
+        <TableBody>
+          <TableRow id={payments[0]?.id}>
+            <TableCell>
+              <TableSelect />
+            </TableCell>
+            <TableCell>{payments[0]?.name}</TableCell>
+          </TableRow>
+        </TableBody>
+      </Table>
+    </Caught>
+  ),
+  play: async ({ canvasElement }) => {
+    await expect(
+      within(canvasElement).getByText(
+        'TableSelect needs its row titled by TableHead scope="row".',
+      ),
+    ).toBeVisible();
+  },
+};
+
+const SelectWithoutKey: Story = {
+  render: () => (
+    <Caught>
+      <Table aria-label={name}>
+        <TableBody>
+          <TableRow>
+            <TableCell>
+              <TableSelect />
+            </TableCell>
+            <TableHead scope="row">{payments[0]?.name}</TableHead>
+          </TableRow>
+        </TableBody>
+      </Table>
+    </Caught>
+  ),
+  play: async ({ canvasElement }) => {
+    await expect(
+      within(canvasElement).getByText("TableSelect needs its row's id."),
+    ).toBeVisible();
+  },
+};
+
 // A statement by day: one body per group, opened by its title and subtotal, and a total in the footer.
 const days = [
   {
@@ -805,5 +1111,12 @@ export {
   RowActions,
   RowLink,
   RowOutsideTable,
+  Selection,
+  SelectionBar,
+  SelectionBarInCard,
+  SelectionOverflowing,
+  SelectionShown,
+  SelectWithoutKey,
+  SelectWithoutTitle,
   WithCaption,
 };

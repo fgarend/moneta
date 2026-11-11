@@ -56,13 +56,15 @@ Later, in the roadmap: virtualisation, resized columns and rows dragged, which R
   after the parent, `hidden` when closed, indented by the button's slot, which rows with no children keep only when
   some row has them; one level; `expandedKeys`, `defaultExpandedKeys` and `onExpandedChange` on the table, by row `id`.
   A detail row is a child with its content in the first cell.
-- Selection: `selectionMode`, `selectedKeys`, `defaultSelectedKeys` and `onSelectionChange` on the table, by row `id`;
+- Selection: `selectedKeys`, `defaultSelectedKeys` and `onSelectionChange` on the table, by row `id`, and no
+  `selectionMode`, decided on 2026-11-11, as boxes select many and the open row is `aria-current`;
   `TableSelectAll` in a header cell, named by the app once, tri-state over the rows shown, and `TableSelect` in each
   row; Shift+click selects a range; keys persist across pages, sorts and filters, so the bar shows the app's count;
   "select all 142" is the app's button. `TableSelectionBar` shows the count in a status the screen reader hears
   (4.1.3), the app's actions, and a copy button. The row open in a side panel is `aria-current`, not selected, whose
   announcement is to try by hand. `aria-selected` is allowed on a table's row but is for composite widgets, so a
-  row's state is its checkbox's.
+  row's state is its checkbox's. Narrow, the boxes stick with the titles, and the bar goes over the table, in the
+  page's flow, with `count` and the app's `label`, all decided on 2026-11-11.
 - Sorting: `allowsSorting` and an `id` on a column, `sortDescriptor` and `onSortChange` on the table; a button with an
   arrow in the header; `aria-sort` on the sorted header only, and the change announced; the app sorts.
 - Pagination: `Pagination`, reviewed in this step, its English words turned into props, composed below; "1–14 of 142"

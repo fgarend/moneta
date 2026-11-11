@@ -136,6 +136,10 @@ the version installed. It holds only what exists, and each reviewed piece adds i
   Ctrl or Cmd for a new tab, while a control in the row or selected text stays where it is.
 - **Rows that open give their children `parentId`,** the parent's `id`, right after it; the table adds the button.
   A detail that explains a row is a child row too. One level only.
+- **Rows to act on together get a `TableSelect` each,** in a cell before the title, a `TableSelectAll` in the
+  header with the app's words, as "Select all", and a `TableSelectionBar` over the table, with the count of every
+  row selected, on this page and others, as "2 selected". Clearing the selection, or selecting all on every page,
+  is a button of the app's in the bar. Confirm an action on rows selected but not shown.
 - **A cell is blank when a value does not apply,** and "—" when it is missing, with `value={null}`.
 - **In a card, alone in its `CardContent`,** it runs edge to edge, with a line above. With anything else in the same
   content, it keeps the card's padding, so give it a content of its own.

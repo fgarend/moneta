@@ -38,7 +38,7 @@ A piece with no gap listed may still have some.
 | `breadcrumb` | raw | **Edited:** the current page is React Aria's Link, marked and disabled. **Default text:** "breadcrumb" and "More" |
 | `button` | raw | **Edited:** default 36 px, `sm` 32 and `lg` 40, the same for `icon`, `icon-sm` and `icon-lg`, with the variant `gold`. `sm`'s text is 12 px, `secondary`'s hover reads `--secondary-hover`, and `buttonVariants` is not exported |
 | `button-group` | raw | **Edited:** React Aria's `Group`, and `buttonGroupVariants` is not exported |
-| `card` | raw | **Edited:** reads the scale of text, with 20 px around its content, sets `--surface`, and a content holding only a table runs edge to edge |
+| `card` | raw | **Edited:** reads the scale of text, with 20 px around its content, sets `--surface`, and a content holding only a table, or a selection bar and a table, runs edge to edge |
 | `checkbox` | raw | **Code:** does not grow for its children. **Edited:** on React Aria's `CheckboxField` and `CheckboxButton`, and a dash on a filled box when indeterminate |
 | `collapsible` | raw | **Code:** its trigger has no style of its own |
 | `context-menu` | raw | |

@@ -15,6 +15,8 @@ gets its number.
   - title each row with `TableHead scope="row"` in place of `isRowHeader` on a column;
   - write `align="end"` on the header and the cells of a column of numbers, in place of `text-right`;
   - drop the classes that made a table run edge to edge in a card: alone in its `CardContent`, it does so itself;
+  - in place of `selectionMode`, put a `TableSelect` in a cell before each row's title and a `TableSelectAll` in the
+    header, with an `id` on each row;
   - `TableFooter`, selection, row actions and sorting come back later in this version.
 
 ### Added
@@ -30,6 +32,9 @@ gets its number.
 - A table's row opens the link in its title on a click anywhere empty in it.
 - Child rows: a `TableRow` with `parentId` shows under its parent while that is open, by a button the table draws in
   the parent's title, with `expandedKeys`, `defaultExpandedKeys` and `onExpandedChange` on the `Table`.
+- Selection: `TableSelect` in each row and `TableSelectAll` in the header, with `selectedKeys`,
+  `defaultSelectedKeys` and `onSelectionChange` on the `Table`, Shift for a range, and `TableSelectionBar` over the
+  table, with the app's count, heard as it changes, and its actions.
 
 ### Fixed
 

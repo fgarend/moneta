@@ -85,6 +85,17 @@ pieces is in [`../pieces.md`](../pieces.md), and how a piece is analysed is in [
   `aria-controls`, keeps the button's room in every title once a row has children, and sets a child in by as much
   again. `expandedKeys`, `defaultExpandedKeys` and `onExpandedChange` on the table hold which rows are open, as React
   Aria's `Tree` names them. A part outside a `Table` throws.
+- **Rows are selected by a box each,** `TableSelect`, in a cell of its own before the row's title, named by it, and
+  `TableSelectAll` in the header, named by the app once, checked when every row shown is and partly when some are.
+  `selectedKeys`, `defaultSelectedKeys` and `onSelectionChange` on the table hold them, by row `id`, and keep keys
+  the table does not show, as from another page. Shift on a click selects or clears from the last box clicked. A
+  selected row is drawn at `--muted`, and a row with a box at half of it on hover. A box in a row with no title or
+  no `id` throws.
+- **Narrow, the boxes stick at the table's start too,** and the titles right after them.
+- **`TableSelectionBar` goes over the table,** with the app's count and words, `count` and `label`, in a status a
+  screen reader hears, and the app's actions, in a `--muted` fill lined up with the table's ends. With nothing
+  selected it shows nothing, but its status stays. In a card, a bar and a table alone in a `CardContent` run edge
+  to edge together.
 
 ## Why
 
@@ -147,6 +158,14 @@ pieces is in [`../pieces.md`](../pieces.md), and how a piece is analysed is in [
   a treegrid would serve only a grid. **The button drawn by the table,** which knows a row has children, so the app
   writes no part for it. **What it costs:** a screen reader hears no level for a child, as `aria-level` belongs to
   a treegrid, only the button that points at the children.
+- **A box per row, and the state the table's,** as Carbon, Polaris and Primer select rows, as `aria-selected`
+  belongs to a grid's rows, so a row's state is its checkbox's. **No `selectionMode`,** as boxes select many, and
+  the row open beside the table is `aria-current`, not selected. **The boxes stick with the titles,** as MUI's and
+  AG Grid's pinned columns keep theirs, so a row can be selected while the table scrolls. **What it costs:** about
+  40 px of a narrow screen.
+- **The bar over the table, in the page's flow,** as Carbon has it, so it covers nothing and a screen reader meets
+  it before the rows. **The count the app's,** as only the app knows the rows selected on other pages. **What it
+  costs:** in a long table it scrolls out of sight, which a bar fixed at the page's foot, in the roadmap, can hold.
 - **A control named by its row's title,** as Primer asks an action to say which row it acts on, so the app writes one
   word, once, and no name is repeated or stale. **What it costs:** every row needs a title.
 - **Lines, space and type for a group and a total, and no fill,** as a fill is kept for a row's state, as white

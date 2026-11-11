@@ -196,8 +196,6 @@
   --tw-ring-shadow: 0 0 #0000;
 }
 
-/* The scale of text the pieces read, with each line height on a 4 px grid but the title's. Internal: an app gets these
-   through a piece, and no name here is a promise to it. */
 /* Shadows at the ends of an area that scrolls sideways, which show there is more, drawn by its own background: the
    surface, scrolling with the content, covers each shadow once that end is reached. */
 @utility scroll-shadows {
@@ -217,6 +215,14 @@
     var(--surface);
 }
 
+/* What sticks in a table while it scrolls: the surface under it, and its row's state, --row-fill, drawn over that. */
+@utility sticky-fill {
+  background-color: var(--surface);
+  background-image: linear-gradient(var(--row-fill), var(--row-fill));
+}
+
+/* The scale of text the pieces read, with each line height on a 4 px grid but the title's. Internal: an app gets these
+   through a piece, and no name here is a promise to it. */
 @utility type-display {
   font-size: 2rem;
   line-height: 2.5rem;
