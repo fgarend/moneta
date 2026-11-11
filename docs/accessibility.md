@@ -95,4 +95,5 @@ A piece's stories show what it does in each of these that applies:
 - **Narrow and short screens:** 320px wide, and very short, as at a high zoom.
 - **Input:** keyboard alone, touch alone, a pointer crossing it.
 - **Preferences:** forced colours and text spacing, checked on every story. Reduced
-  motion, unchecked, though raw pieces animate. Larger text.
+  motion, checked by the rules a piece's story reads with `.storybook/reduced-motion.ts`, for Progress and
+  Skeleton so far, though other raw pieces animate. Larger text.
