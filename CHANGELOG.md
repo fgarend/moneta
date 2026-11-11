@@ -6,6 +6,11 @@ gets its number.
 
 ## [Unreleased]
 
+## [0.12.0] - 2026-11-11
+
+DateField: a day typed in, part by part in the language's order, from and to an ISO string, with the app's label,
+description and error, in 36 or 32 px.
+
 ### Added
 
 - `DateField`, a day typed in, part by part in the language's order, from and to an ISO string, with the app's
@@ -283,7 +288,8 @@ and dark. `README.md` says how to install and use it.
 
 A rehearsal of the release's path, not meant to be installed. Use a later version.
 
-[Unreleased]: https://github.com/fgarend/moneta/compare/v0.11.0...HEAD
+[Unreleased]: https://github.com/fgarend/moneta/compare/v0.12.0...HEAD
+[0.12.0]: https://github.com/fgarend/moneta/compare/v0.11.0...v0.12.0
 [0.11.0]: https://github.com/fgarend/moneta/compare/v0.10.0...v0.11.0
 [0.10.0]: https://github.com/fgarend/moneta/compare/v0.9.0...v0.10.0
 [0.9.0]: https://github.com/fgarend/moneta/compare/v0.8.0...v0.9.0
