@@ -114,7 +114,11 @@ describe("sign", () => {
   it.each([
     [
       "an amount",
-      formatMoney("pt-BR", { amount: "7250", currency: "BRL" }, "always"),
+      formatMoney(
+        "pt-BR",
+        { amount: "7250", currency: "BRL" },
+        { sign: "always" },
+      ),
       `+R$${nbsp}7.250,00`,
     ],
     ["a percent", formatPercent("pt-BR", "0.039", "always"), "+3,9%"],
@@ -133,5 +137,31 @@ describe("sign", () => {
 
   it("puts no plus when auto", () => {
     expect(formatQuantity("pt-BR", "3", "auto")).toBe("3");
+  });
+});
+
+describe("hideCurrency", () => {
+  it.each([
+    [
+      "before the number",
+      "pt-BR",
+      { amount: "-1234.5", currency: "BRL" },
+      `${minus}1.234,50`,
+    ],
+    [
+      "joined to the number",
+      "en-US",
+      { amount: "1234.5", currency: "USD" },
+      "1,234.50",
+    ],
+    [
+      "after the number",
+      "de-DE",
+      { amount: "1234.5", currency: "EUR" },
+      "1.234,50",
+    ],
+    ["with no decimals", "pt-BR", { amount: "1234", currency: "JPY" }, "1.234"],
+  ])("leaves out a currency %s", (_case, locale, money, text) => {
+    expect(formatMoney(locale, money, { hideCurrency: true })).toBe(text);
   });
 });

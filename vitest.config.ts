@@ -37,8 +37,9 @@ function inBrowsers(
     enabled: true,
     provider,
     headless: true,
-    // Every screenshot at one width: Tailwind's xl, and Playwright's own default. Vitest's would be a phone's.
-    viewport: { width: 1280, height: 800 },
+    // Every screenshot at one width: Tailwind's xl, and Playwright's own default. Vitest's would be a phone's. Tall
+    // enough for the sample page, as a screenshot draws nothing past the screen.
+    viewport: { width: 1280, height: 1200 },
     // A failing test's screenshot would land among the approved ones.
     screenshotFailures: false,
     // Every pixel exactly, but the edges' anti-aliasing: the default, 0.1, let a whole palette pass unseen.

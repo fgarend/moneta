@@ -1,6 +1,10 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { expect, within } from "storybook/test";
+import { withLessMotion } from "../../.storybook/reduced-motion.js";
 import { Skeleton } from "./skeleton.js";
+
+// An animation that stops: none.
+const still = /^none/u;
 
 const name = "Balance on its way";
 
@@ -13,11 +17,17 @@ const meta = {
 
 type Story = StoryObj<typeof meta>;
 
+// It pulses, unless its reader asks for less motion.
 const Default: Story = {
   play: async ({ canvasElement }) => {
+    const skeleton = within(canvasElement).getByRole("status", { name });
+    const lessMotion = withLessMotion(skeleton);
+
+    await expect(skeleton).toBeVisible();
+    await expect(getComputedStyle(skeleton).animationName).toBe("pulse");
     await expect(
-      within(canvasElement).getByRole("status", { name }),
-    ).toBeVisible();
+      lessMotion.get("animation-name") ?? lessMotion.get("animation") ?? "none",
+    ).toMatch(still);
   },
 };
 

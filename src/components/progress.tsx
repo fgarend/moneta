@@ -100,16 +100,20 @@ function ProgressIndicator({
   style,
   ...props
 }: ComponentProps<"span">) {
-  const { percentage } = useProgress();
+  const { percentage, isIndeterminate } = useProgress();
 
   return (
     <span
       data-slot="progress-indicator"
-      className={cn("h-full bg-primary transition-all", className)}
+      className={cn(
+        "h-full bg-primary transition-all",
+        // With no value, a part of the bar runs across it, or stands still, dashed, with less motion.
+        isIndeterminate && "progress-run",
+        className,
+      )}
       style={{
         ...style,
-        // React Aria leaves the percentage out only while the bar is indeterminate.
-        width: `${percentage ?? 100}%`,
+        ...(isIndeterminate ? {} : { width: `${percentage}%` }),
       }}
       {...props}
     />

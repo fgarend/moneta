@@ -28,6 +28,7 @@
   --color-ring: var(--ring);
   --color-input: var(--input);
   --color-border: var(--border);
+  --color-border-strong: var(--border-strong);
   --color-destructive: var(--destructive);
   --color-positive: var(--positive);
   --color-negative: var(--negative);
@@ -84,7 +85,14 @@
      its red there. */
   --positive: #157347;
   --negative: var(--destructive);
+  /* The colour of the surface a piece sits on, which what sticks over a table's rows takes: the page here, and a
+     card's, a sheet's or a dialog's inside them, which set it. Again under .dark, to take its page there. */
+  --surface: var(--background);
+  /* The shadow at an edge of an area that scrolls sideways, which shows there is more. */
+  --scroll-shadow: oklch(0 0 0 / 0.14);
   --border: #e7e5df;
+  /* The line that marks structure, under a group's title and over a total, apart from the line under every row. */
+  --border-strong: #c8c5bc;
   --input: #8e8c84;
   --ring: #2b2e33;
   --gold: #f0bd2a;
@@ -129,7 +137,10 @@
   --destructive: #ffa394;
   --positive: #74d19a;
   --negative: var(--destructive);
+  --surface: var(--background);
+  --scroll-shadow: oklch(0 0 0 / 0.5);
   --border: #35383d;
+  --border-strong: #55585f;
   --input: #868a91;
   --ring: #f4f4f2;
   --chart-1: oklch(0.87 0 0);
@@ -183,6 +194,62 @@
   outline: 2px solid var(--ring);
   outline-offset: 2px;
   --tw-ring-shadow: 0 0 #0000;
+}
+
+/* Shadows at the ends of an area that scrolls sideways, which show there is more, drawn by its own background: the
+   surface, scrolling with the content, covers each shadow once that end is reached. */
+@utility scroll-shadows {
+  background:
+    linear-gradient(to right, var(--surface) 30%, transparent) left / 2.5rem
+    100% no-repeat local,
+    linear-gradient(to left, var(--surface) 30%, transparent) right / 2.5rem
+    100% no-repeat local,
+    radial-gradient(farthest-side at 0 50%, var(--scroll-shadow), transparent)
+    left / 0.75rem 100% no-repeat scroll,
+    radial-gradient(
+      farthest-side at 100% 50%,
+      var(--scroll-shadow),
+      transparent
+    )
+    right / 0.75rem 100% no-repeat scroll,
+    var(--surface);
+}
+
+/* What sticks in a table while it scrolls: the surface under it, and its row's state, --row-fill, drawn over that. */
+@utility sticky-fill {
+  background-color: var(--surface);
+  background-image: linear-gradient(var(--row-fill), var(--row-fill));
+}
+
+/* The part of an indeterminate bar that runs across its track, from before its start to past its end, as Material and
+   Carbon draw it; with less motion asked for, the whole bar stands still, dashed, which reads neither as done nor as a
+   share. */
+@keyframes progress-run {
+  from {
+    inset-inline-start: -40%;
+  }
+  to {
+    inset-inline-start: 100%;
+  }
+}
+
+@utility progress-run {
+  position: absolute;
+  inset-block: 0;
+  width: 40%;
+  animation: progress-run 1.4s ease-in-out infinite;
+
+  @media (prefers-reduced-motion: reduce) {
+    inset-inline: 0;
+    width: auto;
+    animation: none;
+    background-color: transparent;
+    background-image: repeating-linear-gradient(
+      90deg,
+      var(--primary) 0 0.625rem,
+      transparent 0.625rem 1.125rem
+    );
+  }
 }
 
 /* The scale of text the pieces read, with each line height on a 4 px grid but the title's. Internal: an app gets these

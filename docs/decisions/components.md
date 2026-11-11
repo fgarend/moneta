@@ -56,6 +56,85 @@ pieces is in [`../pieces.md`](../pieces.md), and how a piece is analysed is in [
 - **Disabled, it is dimmed to 50%,** as `Button` is, and React Aria draws it as a `span` out of the tab order.
 - **Its type asks for what it holds,** and it adds no icon and no words for a new tab, which are the app's.
 
+### Pagination
+
+- **shadcn's links to pages, named by the app,** as TypeScript asks: `aria-label` or `aria-labelledby` on its `nav`.
+- **`PaginationSummary`, the app's words for the rows shown,** as "15–28 of 142", at the start, in a status heard
+  when the page changes and focus stays; the pages at the end, with or without it.
+- **The current page is outlined in `--input`,** as a field is, at 3:1 against the page in both modes.
+- **Previous and Next take the app's words as their children,** which name them, and an arrow that turns when the
+  page reads from the right.
+- **A link that goes nowhere, as Previous on the first page, stays in place, `isDisabled`,** dimmed, with no
+  address.
+- **The gap between pages is silent,** as it cannot be pressed.
+- **Narrow, by its own width,** below `sm`, only Previous, the current page and Next stay, as arrows that keep
+  their names.
+- **The app draws the pages,** by the rule in the guidelines.
+
+### Table
+
+- **A native `<table>`, our own piece,** in place of shadcn's, which is React Aria's `grid`, following the structure of
+  shadcn's native tables: `TableHeader`, `TableBody`, `TableRow`, `TableHead` and `TableCell`.
+- **Named, as TypeScript asks:** `aria-label`, `aria-labelledby`, or `caption`, a native `<caption>`.
+- **Each row is titled by `TableHead scope="row"`,** a `<th>`.
+- **`align="start" | "end"` on each header and cell,** as `text-start` and `text-end`, with no centre and no `colSpan`
+  but `TableEmpty`'s.
+- **`hideBelow="sm" | "md" | "lg"` on each cell of a column hides it** by the width of the table's own area, a
+  container, with `display: none`.
+- **Its ends follow its place:** 20 px in a card, where a `CardContent` holding only a table loses its side padding
+  and gains a line above, and 12 px loose, where its area reaches 12 px out on each side.
+- **Narrow, it scrolls in its own area,** with row titles that stick at its start, `scroll-shadows` at the end that has
+  more, row titles of at least 128 px, and the area takes focus, its role and the table's name only while it overflows.
+- **Values in its rows are at 400,** set by the table on the pieces of value in its bodies.
+- **A group is a `TableBody` of its own, opened by a `TableGroupRow`:** its title a `<th scope="row">`, small,
+  semibold and muted, its subtotals at 500 in their columns, 32 px above it, 12 under the header, and a
+  `--border-strong` line under it, with no fill.
+- **The total is a `TableFooter`,** a `<tfoot>`, at 600, under a double `--border-strong` line.
+- **An action is a `TableRowAction`,** a quiet icon button of 32 px in the last column, as narrow as its content,
+  under a `TableHead hideHeader`, whose name joins the app's one word to the row's title by `aria-labelledby`. A row
+  with no title makes it throw.
+- **A row with a link in its title opens by a click anywhere empty in it,** which the row forwards to that link with
+  its keys, unless the click is on a control or text is selected; it shows a pointer and a hover fill.
+- **A row's children are rows with its key as their `parentId`,** right after it, `hidden` while it is closed, one
+  level deep. The table draws a 32 px button in the parent's title, named by it, with `aria-expanded` and
+  `aria-controls`, keeps the button's room in every title once a row has children, and in the titles' header, so it
+  stands over their text, and sets a child in by as much again. `expandedKeys`, `defaultExpandedKeys` and
+  `onExpandedChange` on the table hold which rows are open, as React Aria's `Tree` names them. A part outside a
+  `Table` throws.
+- **Rows are selected by a box each,** `TableSelect`, in a cell of its own before the row's title, named by it, and
+  `TableSelectAll` in the header, named by the app once, checked when every row shown is and partly when some are.
+  `selectedKeys`, `defaultSelectedKeys` and `onSelectionChange` on the table hold them, by row `id`, and keep keys
+  the table does not show, as from another page. Shift on a click selects or clears from the last box clicked. A
+  selected row is drawn at `--muted`, and a row with a box at half of it on hover. A box in a row with no title or
+  no `id` throws.
+- **Narrow, the boxes stick at the table's start too,** and the titles right after them.
+- **`isLoading` with the app's `loadingLabel`, which TypeScript asks for, makes the table busy and says the words**
+  in a status. With no rows yet, it draws `loadingRows` rows of shapes, 5 unless the app says, one per column
+  where its text sits and hidden with it, which a screen reader skips; with rows, it keeps them as they are, under a
+  2 px running `Progress` along the header's foot, which stays in view.
+- **`TableEmpty` holds the app's words for no rows** in one row whose cell spans every column, centred, under the
+  header.
+- **A selection across a table's cells is copied by the table:** the whole rows it reaches, visible and not of
+  controls, as text with tabs and as an HTML table, each cell as it is seen, the words only screen readers hear left
+  out and a minus as a hyphen. Inside one cell, or reaching past the table, the copy is the browser's.
+- **Rows are 44 px, or 36 with `density="compact"`,** with their line under them, whatever they hold: a row's
+  controls of 32 px take less than its text's height, by a negative margin. In compact, groups are 20 px apart and 8
+  under the header, and the header stays 36 px.
+- **`stickyHeader` keeps the header in view in a place that limits the table's height,** as a panel: the table
+  fills it and scrolls in its own area, whose header stays at the top, over the rows and their titles, with a line
+  of its own, and a row focused under it scrolls clear of its 36 px. Without it, the table grows with its rows.
+- **A column sorts by `allowsSorting` and its key, `id`, on its `TableHead`,** with `sortDescriptor` and
+  `onSortChange` on the table, React Aria's `SortDescriptor`; the app sorts the rows. Its header is a button named by
+  its text, at least 24 px tall, with a quiet up and down mark, or the sorted column's arrow in the text's colour,
+  before the text in a column at the end. A press sorts ascending, then flips. `aria-sort` is on the sorted header
+  only. A sortable header in a table with no `onSortChange` throws.
+- **The row open beside the table is `aria-current="true"`,** drawn at `--muted`, as a selected row, with a 3 px bar
+  of `--primary` at its start, the first cell's `::before`. A row's state, selected or current, wins over its hover.
+- **`TableSelectionBar` goes over the table,** with the app's count and words, `count` and `label`, in a status a
+  screen reader hears, and the app's actions, in a `--muted` fill lined up with the table's ends. With nothing
+  selected it shows nothing, but its status stays. In a card, a bar and a table alone in a `CardContent` run edge
+  to edge together.
+
 ## Why
 
 - **Three levels and not four,** as a composed piece's line with a piece is vague, Atomic Design's best known
@@ -92,6 +171,79 @@ pieces is in [`../pieces.md`](../pieces.md), and how a piece is analysed is in [
 - **Disabled at 50%,** as `Button` and `LinkButton` have that state, React Aria gives it the right meaning, and a link
   with no style for it looked active.
 
+- **A native table,** as almost every table seen is read to compare, which the APG's Table pattern serves and
+  "strongly encourages" native for: screen readers keep their table commands, a link in a cell is in Tab order, and
+  text can be selected and copied. Carbon, Primer, Polaris, GOV.UK and Ant do so. **Our own,** as merging the updates
+  of shadcn's `grid` into a native table would only conflict. **What it costs:** an app on the `grid` moves, the
+  selection's state is ours, and each control is a tab stop.
+- **Its name asked for,** as every table an app had already carried one, and a table with none is announced bare.
+- **No `colSpan`,** as screen readers announce spanning headers badly, as Roselli found, and a column can then hide by
+  its cells with nothing misaligned. **But for `TableEmpty`,** a row with nothing to compare, as shadcn's data table
+  and Carbon draw it, which keeps the empty words in the table. **What it costs:** `align` and `hideBelow` are written
+  on each cell, and a long title stays in its column.
+- **A container's width, not the screen's,** as a table in a narrow panel on a wide screen needs the same as one on a
+  phone, as `Section` already does. **What it costs:** Tailwind's container sizes, 384, 448 and 512 px, are not its
+  screen sizes of the same names.
+- **Focus only while it overflows,** as an area that fits would be a stop for nothing, and Chrome does not make an
+  area focusable when it holds controls, nor Safari ever. **What it costs:** a `ResizeObserver` of our own.
+- **Values at 400 in rows,** as a table is mostly numbers, and at 500 nothing would stand out, a total least.
+- **A group's title as `scope="row"`,** as today's screen readers do not announce `scope="rowgroup"`, as Roselli
+  and Zell Liew found, while a row's header names its subtotals. **What it costs:** a cell in the middle of a group
+  is not heard with the group's name; reading in order, the group comes first.
+- **A row opened by our own script,** as a link stretched over the row by a pseudo-element needs the row to hold it,
+  which Safari did only from 27, and stops text in the row from being selected. **What it costs:** code of our own,
+  and a key held with the click reaches the link by an event the browser did not make.
+- **Children as rows after their parent, with a disclosure button,** as Carbon has it and Roselli's expando rows, as
+  a treegrid would serve only a grid. **The button drawn by the table,** which knows a row has children, so the app
+  writes no part for it. **What it costs:** a screen reader hears no level for a child, as `aria-level` belongs to
+  a treegrid, only the button that points at the children.
+- **A box per row, and the state the table's,** as Carbon, Polaris and Primer select rows, as `aria-selected`
+  belongs to a grid's rows, so a row's state is its checkbox's. **No `selectionMode`,** as boxes select many, and
+  the row open beside the table is `aria-current`, not selected. **The boxes stick with the titles,** as MUI's and
+  AG Grid's pinned columns keep theirs, so a row can be selected while the table scrolls. **What it costs:** about
+  40 px of a narrow screen.
+- **Loading drawn by the table,** which knows its columns and whether it has rows, so the app only says when: shapes
+  the first time, as a table with no rows would jump, and the rows themselves on a reload, never dimmed, as their
+  values stay true until the new ones come. **What it costs:** the table reads its own header and bodies after each
+  draw.
+- **Whole rows in a copy,** as a spreadsheet pastes rows of cells, which text cut mid-cell would break. **Cells as
+  they are seen,** currency and all, so a copy holds what was read, and a table of several currencies keeps them.
+  **What it costs:** whether Excel in Portuguese and Google Sheets read `-R$ 286,40` as a number is to be tried by
+  hand; the bar's copy button waits for CopyButton.
+- **Controls of 32 px in rows of 36,** as Primer sets a row's icon buttons in by a negative margin, so an action is
+  the same size in every table and rows are even. **What it costs:** in compact, a button's fill on hover nearly
+  meets the lines above and below. Rows that held a control were 57 px before 2026-11-11.
+- **A sticky header within the table's own area,** as an area that scrolls sideways is the one its header sticks to,
+  never the page. **Its own line,** as a collapsed border belongs to the table and stays behind. **Scroll padding of
+  the header's height,** for WCAG 2.4.11, **and a script of ours that scrolls a focused row clear,** as Safari 26 and
+  before ignore that padding when focus moves in an area. **What it costs:** a long table on a page scrolls with the
+  page, its header out of sight, unless the app puts it in a place of limited height.
+- **A mark on every header that sorts,** as MoJ's sortable table and Ant draw one, so a touch screen, which has no
+  hover, shows what sorts. **Two directions, with no unsorted state,** as React Aria has it, as an app's first order
+  is a sort too. **`aria-sort` alone,** as the APG and Carbon have it: NVDA, JAWS, Narrator and VoiceOver on iOS say
+  the change, by Roselli's tests of 2026. **What it costs:** VoiceOver on macOS and TalkBack stay silent, which a
+  status of the app's words, in the roadmap, would cover; and React Aria's table announced a sort, so one moving from
+  it loses that.
+- **The current row's bar in its first cell,** not a border on the row, as a table's collapsed borders give a
+  row's border half its width inside, which moves that row's text about 1.5 px off the others'.
+- **Pagination's current page in a field's outline,** the least change to shadcn's that shows a state at 3:1, where
+  its `--border` gave 1.2:1 in light, as WCAG 1.4.11 asks. **A summary in a status,** as Primer asks pagination
+  to announce its range, and as its words are seen, nothing is said twice. **Previous kept in place when it goes
+  nowhere,** as Primer, Polaris and Carbon have it, so Next stays under the pointer. **Narrow, the arrows alone,**
+  as Polaris has it on a phone, as nine links of 36 px do not fit in 320. **The pages the app's,** as shadcn has
+  them. **What it costs:** on a phone no page can be skipped to, and each app writes the loop that picks the pages,
+  which MUI and Mantine give as `usePagination`, in the roadmap if a second app needs it. GOV.UK hides Previous on
+  the first page.
+- **The bar over the table, in the page's flow,** as Carbon has it, so it covers nothing and a screen reader meets
+  it before the rows. **The count the app's,** as only the app knows the rows selected on other pages. **What it
+  costs:** in a long table it scrolls out of sight, which a bar fixed at the page's foot, in the roadmap, can hold.
+- **A control named by its row's title,** as Primer asks an action to say which row it acts on, so the app writes one
+  word, once, and no name is repeated or stale. **What it costs:** every row needs a title.
+- **Lines, space and type for a group and a total, and no fill,** as a fill is kept for a row's state, as white
+  space is the least visible way to group, as Stephen Few has it, and as screenshots of both showed the group and a
+  selected row fighting when both were filled. **A double line over the total,** which reads as a total at once;
+  accounts draw it under the total, which in a card stacks with the card's edge.
+
 ## Alternatives considered
 
 - **Token, piece, composed piece and region.** The roadmap's first proposal.
@@ -115,9 +267,19 @@ pieces is in [`../pieces.md`](../pieces.md), and how a piece is analysed is in [
 - **A link with no `isDisabled`,** which leaves the app a choice between a link and its text, but no way to say a link
   is there and not available.
 
+- **React Aria's `grid`, as shadcn has it,** which gives selection, sorting and arrow keys, but reads as a grid,
+  keeps a link out of Tab order, and blocks selecting text in rows that can be selected.
+- **A native table for reading and the `grid` once rows are selected,** two engines behind one look, whose line moves
+  as soon as a read-only table gains an action.
+- **`visibility: collapse` on a `<col>`,** which hides a column once, but leaves its cells to screen readers and to
+  Tab in every engine, and reached Safari only in 27.
+- **The screen's width for hiding columns,** which a test cannot try, as the tests' screen is always 1280 px wide.
+
 ## History
 
 - 2026-11-09: Written, with the conventions that cross pieces, and Section.
 - 2026-11-09: Every piece in one folder, under one rule, imported by its name alone.
 - 2026-11-10: Link.
 - 2026-11-10: The most semantic HTML and CSS.
+- 2026-11-10: Table, a native table of our own.
+- 2026-11-11: Pagination.

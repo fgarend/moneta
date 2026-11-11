@@ -15,39 +15,28 @@ again at that moment. When an item is done, its notes go, as what holds then is 
 ## Before Sidebar: what an app's screens wait on
 
 The owner decided on 2026-11-09 that these come first, as an app keeps its own shell until Sidebar while these hold
-its screens back: the close button's name, done in 0.6.0, Link, done in 0.7.0, Money values, Table, Dates and
-DateField. Each is a step of its own, with what its family's item says of it. **What it costs:** a piece made before
-Colours of meaning and One scale of sizes may need a touch when they arrive, and Sidebar's study may change the
-space around Section. To ask later: a page that puts the pieces together, a pre-release tried in an app before a
-version, and a review of the whole after each family.
+its screens back: the close button's name, done in 0.6.0, Link, done in 0.7.0, Money values, done in 0.8.0, Table,
+done in 0.9.0, Lists of rows, Dates and DateField. Each is a step of its own, with what its family's item says of it.
+**What it costs:** a piece made before Colours of meaning and One scale of sizes may need a touch when they arrive,
+and Sidebar's study may change the space around Section. To ask later: a page that puts the pieces together, a
+pre-release tried in an app before a version, and a review of the whole after each family.
 
-## Money values
+## Lists of rows
 
-What holds is in `docs/decisions/money.md`, decided on 2026-11-10 for the whole item: one `Money` type, shown
-exactly, the browser's decimals, the minus sign, the app's words and meaning, and one path from an amount to its
-text. One step, as its pieces share that design, with a commit for each, in this order. It comes before Stat, Table
-and AllocationBar, which show amounts.
+Decided on 2026-11-10, while studying Table: a list of rows is not a table. In a table one compares down the columns,
+under headers; in a list each row is one thing, read across, as an icon, a title, a line of detail and its value at
+the end, with no header. An app's own rule says the same, "a few things with a few numbers are cards or a list; many,
+or a comparison of columns, a table", and its prototypes keep a transaction row apart from their tables. Polaris
+keeps `ResourceList` apart from `IndexTable`, Carbon `StructuredList` from `DataTable`, and Spectrum `ListView` from
+`TableView`. The same data may be a table on one screen and a list on another, which the screen chooses.
 
-- **Amount,** with `Money`, `MoneyProvider` and `useFormatMoney`. Done in this step's first commit.
-- **Percent,** given as a ratio, `"0.459"` for 45.9%, with `useFormatPercent`. Done in this step's second commit.
-- **Quantity,** as shares and units, with as many decimals as given, and no unit. Done in this step's third commit.
-- **`sign` and `tone` on all three,** with `--positive` and `--negative`. Done in this step's fourth commit.
-- **Hidden values,** on all three and their hooks, with `isHidden` and `hiddenLabel` on `MoneyProvider`. Done in
-  this step's fifth commit.
-
-Dropped on the way: a table of ISO 4217 of our own, `formatMoney` as a public function, Delta, and cents raised or
-smaller, which VoiceOver on iOS stops at.
-
-## Table
-
-Weighing a `grid` role, with a column of numbers aligned right, a total row, group rows with a subtotal, "—" for a
-missing value, a header that stays in view, rows selected, with a checkbox for all in the header, indeterminate when
-only some are, an action per row, child rows that open under their parent, a compact density and a container with
-a border. Tables on phones are decided with it. A scroll fade at the edges was shadcn's, and left with 0.5.0, so it
-comes back here if wanted, with what it asks of the browsers. Its caption is a `figcaption` with no `figure`.
-Copying rows is an action of its own, which builds their text and HTML, with amounts a spreadsheet reads: a hyphen for
-their minus, or the number alone, as the browser's copy of a row keeps the minus sign, which Excel and LibreOffice
-take as text.
+On shadcn's `Item`, which Display held as "also as a list's row with an amount", moved here: a list's semantics, as
+`ItemGroup` today is a `div`, groups with a heading and a total, decided with Table's groups so both look and read
+alike, a row as a link or with one action, and `Amount` at its end. Uses seen: a day's transactions with that day's
+balance, savings, a person's accounts, the last operations in a side panel, followed assets, rules, and bills due.
+A thing's attributes, key and value, are DescriptionList, and a ranking or share in bars is BarList, AllocationBar
+or Meter, each in its own item. It shares Table's look by construction, not by copy: the group's title and total, the
+line under a row, the hover and the current row's bar, as a list's row can be open in a side panel too.
 
 ## Dates
 
@@ -101,7 +90,8 @@ value's `tone` reads, and these are chosen beside them, as `tone` already names 
 
 The look's 32, 36 and 40 px, on every piece, as only 9 follow it today. Badge, Avatar, Item, Checkbox, Switch and
 Table's rows do not, and Item's `default` and `sm` are the same. Input has no `lg`, so a field in a row with a page's
-main action takes `h-10` by hand, as the sample page does.
+main action takes `h-10` by hand, as the sample page does. Table chose its own first, rows of about 44 px and
+`density="compact"` of about 36 px, which this item may rename.
 
 - To ask: the names of the sizes for every piece, as Button has `xs`, `sm`, `default`, `lg` and `icon-*`.
 
@@ -140,7 +130,7 @@ with each family. No reviewed piece has a default text, so shadcn's written stri
   code shared by pieces lives, and whether an app gets a `Heading` that reads the level.
 - Section came early, before Sidebar, and Table comes there too.
 - Avatar with its group, AvatarGroup, whose fallback's text an app measured at 4.34:1.
-- Alert. Item, also as a list's row with an amount. Separator, Stat, DescriptionList, Kbd, AspectRatio, ScrollArea,
+- Alert. Item moved to Lists of rows. Separator, Stat, DescriptionList, Kbd, AspectRatio, ScrollArea,
   Timeline and TickerChip.
 
 ## Actions and forms
@@ -157,11 +147,16 @@ with each family. No reviewed piece has a default text, so shadcn's written stri
   Sidebar's.
 - NumberField, DatePicker, DateRangePicker with presets such as the last 30 days, TimeField, a choice of many with
   removable chips, on React Aria's `TagGroup`, InputOTP, as `input-otp`, which brings a package of its own,
-  CopyButton, which says it copied in a status message, and copies an amount through the way Money values takes, Toolbar, a bar of actions on what is selected, a period
-  switcher, previous and next around a label such as a month, and React Aria's `ColorSwatchPicker`.
+  CopyButton, which says it copied in a status message, and copies an amount through the way Money values takes,
+  and in `TableSelectionBar` copies the rows selected, as Table's copy of a selection across cells builds them,
+  text and HTML, left there on 2026-11-11 so the bar's button comes with CopyButton's status rather than before it;
+  rows selected on other pages are not on the screen to copy, which its words must say,
+  Toolbar, a bar of actions on what is selected, a period switcher, previous and next around a label such as a
+  month, and React Aria's `ColorSwatchPicker`.
 - Button's `link` variant, a button drawn as a link, and `LinkButton`'s, nearly a `Link` but 36 px tall and
   padded, now that `Link` exists: whether each stays, changes or goes. `LinkButton`'s `disabled:` classes do not match
-  a disabled link, which React Aria draws as a `span`, so it is not dimmed.
+  a disabled link, which React Aria draws as a `span`, so it is not dimmed; Pagination dims its own links since
+  2026-11-11.
 - To ask: forms, on React Aria's `Form`, with a server's errors through `validationErrors`, and how an app's form
   library connects, as Adobe documents React Hook Form and Zod. A form's states, such as dirty or touched, stay with
   that library or the app.
@@ -181,7 +176,7 @@ with each family. No reviewed piece has a default text, so shadcn's written stri
 ## The rest
 
 - Tabs, with a count in a tab and tools to the right of its list. Progress, Empty, and Skeleton, with one pattern
-  for loading, error and empty. Spinner, Breadcrumb, and Pagination, with a summary such as "1–20 of 142".
+  for loading, error and empty. Spinner and Breadcrumb. Pagination moved to Table.
 - Collapsible, IconTile, StatGroup, as the sample page's summary strip draws it, which is also what KpiStrip meant,
   and AllocationBar. `calendar` after
   a study like Sidebar's.
@@ -250,7 +245,7 @@ With `check-release`'s rules for the numbers after it, as a change that breaks t
 - **Sizes and names to settle.** The tooltip's width and the name of its text.
 - **Drawings beyond Lucide.** When something needs its own SVG.
 - **The browsers Moneta supports.** Nothing states them. Tailwind 4 sets a floor, and lint holds the CSS to what is
-  widely available in Baseline.
+  widely available in Baseline. Table found Safari 26 a floor worth naming, as Safari 27 fixed several table bugs.
 - **A module of composed components.** shadcn's blocks and `sidebar` are the start.
 - **Application patterns.** A list page, a detail page, filters and a wizard, with no word of any app's domain,
   beside the module of composed components.
@@ -275,6 +270,18 @@ With `check-release`'s rules for the numbers after it, as a change that breaks t
   its unit may wrap apart; a value that stays shown while the rest are hidden, as "45% of the budget" says little;
   the tone's colour kept while hidden, which says which way a value went, so only as the app's explicit choice; and a
   hook's `{ spoken: true }`, giving `hiddenLabel` in place of the dots for a text only screen readers hear.
+- **A table's virtualisation, resized columns and rows dragged.** Left out of Table on 2026-11-10: React Aria gives
+  them only on its `grid`, and Table is a native `<table>`, so each would be code of our own or a dependency, as
+  `@tanstack/react-virtual` for thousands of rows. Table's API is drawn so they can come with nothing broken.
+- **Announcing a table's sort.** Left out of Table on 2026-11-11, for the simpler `aria-sort` alone, as the APG,
+  Carbon and Inclusive Components have it. Roselli's tests, updated in October 2026, have NVDA, JAWS, Narrator and
+  VoiceOver on iOS announce a sort by it, and VoiceOver on macOS and TalkBack silent. To revise: a `status` on the
+  table, the app's words kept in a hidden polite status, as "Sorted by Amount, ascending", which a load or a
+  filter's count could share; MoJ's sortable table and React Aria's own table announce so, Primer too, staying
+  silent when content comes within 750 ms. What it costs: NVDA and JAWS say it twice, as Roselli heard in JAWS.
+- **The pages a pagination draws, worked out.** Left to the app on 2026-11-11, as shadcn has it: the first, the
+  last, the current and one on each side, with gaps, by the guidelines. MUI and Mantine give it as
+  `usePagination`. To add if a second app writes the same loop.
 - **The sample page's text in the dark stories.** On 2026-11-10, in the `storybook-dark` project, a cell of the sample
   page's table read `rgb(35, 38, 43)`, light's `--foreground`, while `var(--foreground)` on a probe appended to the
   story's canvas read `rgb(244, 244, 242)`, dark's, and the `visual-dark` screenshot draws the page dark. Its check
@@ -289,6 +296,8 @@ With `check-release`'s rules for the numbers after it, as a change that breaks t
 
 ## Done, in detail
 
+- **Money values,** in 0.8.0: `Amount`, `Percent` and `Quantity`, with `Money`, `MoneyProvider` and the hooks,
+  exact, with the minus sign, a sign and a tone, and a hidden mode, as `docs/decisions/money.md` says.
 - **Link,** in 0.7.0: underlined in the theme's primary, quiet with `isQuiet` where it stands alone, dimmed when
   disabled, and asking for what it holds, as `docs/decisions/components.md` says.
 - **The close button's name,** in 0.6.0: Dialog, Sheet and DialogFooter take it from the app by `closeLabel`, which

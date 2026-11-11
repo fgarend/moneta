@@ -29,6 +29,7 @@ import {
   CardTitle,
 } from "./components/card.js";
 import { Input } from "./components/input.js";
+import { Link } from "./components/link.js";
 import type { Money } from "./components/money.js";
 import { MoneyProvider } from "./components/money-provider.js";
 import { Percent } from "./components/percent.js";
@@ -44,6 +45,7 @@ import {
   Table,
   TableBody,
   TableCell,
+  TableGroupRow,
   TableHead,
   TableHeader,
   TableRow,
@@ -134,11 +136,31 @@ const payments = [
     amount: dollars("-1500"),
   },
 ];
+// The days the payments fall on, each with what its payments add up to, which the page's check sums again.
+const days = [
+  { name: "Today", subtotal: dollars("6963.6") },
+  { name: "Yesterday", subtotal: dollars("-1898.9") },
+  { name: "Tuesday", subtotal: dollars("-1129.9") },
+  { name: "Monday", subtotal: dollars("-1500") },
+];
 const budgets = [
   { name: "Food", used: foodUsed },
   { name: "Home", used: 77 },
   { name: "Leisure", used: 42 },
 ];
+
+// Fictitious sums are still sums: a decimal string in cents, exact.
+function cents(value: string): bigint {
+  const [whole = "0", decimals = ""] = value.split(".");
+  const sign = whole.startsWith("-") ? -1n : 1n;
+  return (
+    BigInt(whole) * 100n + sign * BigInt(decimals.padEnd(2, "0").slice(0, 2))
+  );
+}
+
+function sum(values: string[]): bigint {
+  return values.reduce((all, value) => all + cents(value), 0n);
+}
 
 // What a payment means is the page's to say, not its sign's.
 function toneOf(group: string): "positive" | "negative" | undefined {
@@ -263,33 +285,56 @@ function Payments() {
           </Button>
         </CardAction>
       </CardHeader>
-      <CardContent className="border-t px-0">
+      <CardContent>
         <Table aria-label="Recent payments">
           <TableHeader>
-            <TableHead isRowHeader={true}>Description</TableHead>
-            <TableHead>Group</TableHead>
-            <TableHead>Day</TableHead>
-            <TableHead>Status</TableHead>
-            <TableHead className="text-right">Amount</TableHead>
+            <TableRow>
+              <TableHead>Description</TableHead>
+              <TableHead hideBelow="md">Group</TableHead>
+              <TableHead hideBelow="md">Status</TableHead>
+              <TableHead align="end">Amount</TableHead>
+            </TableRow>
           </TableHeader>
-          <TableBody>
-            {payments.map(({ name, group, day, state, amount }) => (
-              <TableRow id={name} key={name}>
-                <TableCell>{name}</TableCell>
-                <TableCell className="text-muted-foreground">{group}</TableCell>
-                <TableCell className="text-muted-foreground">{day}</TableCell>
-                <TableCell>
-                  {state === "Paid" ? null : (
-                    <Badge variant="outline">{state}</Badge>
-                  )}
+          {days.map((day) => (
+            <TableBody key={day.name}>
+              <TableGroupRow>
+                <TableHead scope="row">{day.name}</TableHead>
+                <TableCell hideBelow="md" />
+                <TableCell hideBelow="md" />
+                <TableCell align="end">
+                  {/* A day's sum follows its rows' sign, and says no good or bad news of its own. */}
+                  <Amount sign="always" value={day.subtotal} />
                 </TableCell>
-                <TableCell className="text-right">
-                  {/* Money in is good news and money out bad, as the page says, and a transfer between accounts neither. */}
-                  <Amount sign="always" tone={toneOf(group)} value={amount} />
-                </TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
+              </TableGroupRow>
+              {payments
+                .filter((payment) => payment.day === day.name)
+                .map(({ name, group, state, amount }) => (
+                  <TableRow key={name}>
+                    <TableHead scope="row">
+                      <Link href={`#${name}`} isQuiet={true}>
+                        {name}
+                      </Link>
+                    </TableHead>
+                    <TableCell className="text-muted-foreground" hideBelow="md">
+                      {group}
+                    </TableCell>
+                    <TableCell hideBelow="md">
+                      {state === "Paid" ? null : (
+                        <Badge variant="outline">{state}</Badge>
+                      )}
+                    </TableCell>
+                    <TableCell align="end">
+                      {/* Money in is good news and money out bad, as the page says, and a transfer between accounts neither. */}
+                      <Amount
+                        sign="always"
+                        tone={toneOf(group)}
+                        value={amount}
+                      />
+                    </TableCell>
+                  </TableRow>
+                ))}
+            </TableBody>
+          ))}
         </Table>
       </CardContent>
     </Card>
@@ -397,10 +442,24 @@ const Default: Story = {
       ),
     ).toHaveTextContent("Overview");
     const recent = within(
-      canvas.getByRole("grid", { name: "Recent payments" }),
+      canvas.getByRole("table", { name: "Recent payments" }),
     );
 
-    await expect(recent.getAllByRole("row")).toHaveLength(payments.length + 1);
+    // A row per payment and per day, under the header; each payment opens by its title, and each day adds up.
+    await expect(recent.getAllByRole("row")).toHaveLength(
+      payments.length + days.length + 1,
+    );
+    await expect(recent.getAllByRole("link")).toHaveLength(payments.length);
+    for (const day of days) {
+      await expect(
+        sum(
+          payments
+            .filter((payment) => payment.day === day.name)
+            .map((payment) => payment.amount.amount),
+        ),
+      ).toBe(cents(day.subtotal.amount));
+    }
+    await expect(recent.getByText("+$6,963.60")).toBeVisible();
     // Money is shown exactly, with the true minus sign, by the pieces of money.
     await expect(recent.getByText("−$286.40").tagName).toBe("DATA");
     // Good news in green: money in, and spending that fell, though its sign is a minus. Money out in red, but a
@@ -417,7 +476,9 @@ const Default: Story = {
       colourOf("var(--negative)", canvasElement),
     );
     await expect(colourIn("−$1,000.00", recent)).toBe(
-      colourIn("Between accounts", recent),
+      getComputedStyle(
+        recent.getByRole("rowheader", { name: "Between accounts" }),
+      ).color,
     );
     await expect(
       canvas.getByRole("button", { name: "New payment" }),

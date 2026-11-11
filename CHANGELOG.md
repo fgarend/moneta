@@ -6,6 +6,74 @@ gets its number.
 
 ## [Unreleased]
 
+## [0.9.0] - 2026-11-11
+
+Table: a native table to compare amounts by column, with groups and a total, selection, sorting, child rows, actions,
+a header in view, density, loading, empty and copying, and Pagination reviewed.
+
+### Changed
+
+- **Breaking:** `Table` is a native `<table>`, no longer React Aria's grid, so screen readers read it as a table, a
+  link in a cell is in Tab order, and its text can be selected. To upgrade:
+  - give it a name: `aria-label`, `aria-labelledby`, or `caption`, which replaces `TableCaption`;
+  - put the header's cells in a `TableRow` inside `TableHeader`;
+  - title each row with `TableHead scope="row"` in place of `isRowHeader` on a column;
+  - write `align="end"` on the header and the cells of a column of numbers, in place of `text-right`;
+  - drop the classes that made a table run edge to edge in a card: alone in its `CardContent`, it does so itself;
+  - in place of `selectionMode`, put a `TableSelect` in a cell before each row's title and a `TableSelectAll` in the
+    header, with an `id` on each row; `selectedKeys` and `onSelectionChange` hold a `Set` of those ids;
+  - in place of `onRowAction`, put a `Link` in the row's title, which a click anywhere empty in the row follows;
+  - sort by `allowsSorting` and an `id` on a `TableHead`, with `sortDescriptor` and `onSortChange` on the `Table`, as
+    before on a column.
+
+- **Breaking:** `Pagination` has no words of its own. To upgrade:
+  - name it, with `aria-label` or `aria-labelledby`, in place of its "pagination";
+  - give `PaginationPrevious` and `PaginationNext` their words as children, in place of `text` and of "Go to
+    previous page" and "Go to next page";
+  - its pages now sit at the end, and its current page has a stronger outline.
+
+### Added
+
+- `hideBelow` on a table's cells, which hides a column when the table is narrow, by its own width.
+- `hideCurrency` on `Amount`, which leaves its currency out, for a column of one currency whose header names it.
+- `--surface`, the colour of the surface a piece sits on, which `Card`, `Sheet` and `Dialog` set.
+- `TableGroupRow`, a group's title and subtotals, in a `TableBody` of its own, and `TableFooter` again, for a total
+  under a double line.
+- `--border-strong`, the line that marks a table's groups and total.
+- `TableRowAction`, an action on a row, named by the app's one word and the row's title, and `hideHeader` on a
+  `TableHead`, for a column of controls.
+- A table's row opens the link in its title on a click anywhere empty in it.
+- Child rows: a `TableRow` with `parentId` shows under its parent while that is open, by a button the table draws in
+  the parent's title, with `expandedKeys`, `defaultExpandedKeys` and `onExpandedChange` on the `Table`.
+- Selection: `TableSelect` in each row and `TableSelectAll` in the header, with `selectedKeys`,
+  `defaultSelectedKeys` and `onSelectionChange` on the `Table`, Shift for a range, and `TableSelectionBar` over the
+  table, with the app's count, heard as it changes, and its actions.
+- A table's row with `aria-current="true"`, the one open beside it, is drawn with a bar of `--primary` at its start.
+- `PaginationSummary`, the rows shown, as "15–28 of 142", heard when the page changes; `isDisabled` on a
+  pagination's links, which keeps Previous in place on the first page; and a pagination narrow by its own width
+  keeps only Previous, the current page and Next.
+- Loading: `isLoading`, `loadingLabel` and `loadingRows` on a `Table`, which draws rows of shapes the first time and
+  a running bar under the header on a reload, and says the app's words.
+- `TableEmpty`, the app's words for no rows, across the table.
+- A selection across a table's cells copies as a spreadsheet takes it: text with tabs and an HTML table, minus as a
+  hyphen, hidden columns and controls left out.
+- `density="compact"` on a `Table`, rows of 36 px in place of 44.
+- `stickyHeader` on a `Table`, which keeps its header in view while its rows scroll, in a place that limits its
+  height.
+- Sorting: `allowsSorting` and an `id` on a `TableHead`, and `sortDescriptor` and `onSortChange` on the `Table`, which
+  draws a button with a mark in each sortable header and sets `aria-sort` on the sorted one; the app sorts.
+
+### Fixed
+
+- `Checkbox` partly checked draws a dash on a filled box, no longer a check.
+- `Progress` with no value runs a part of its bar across it, no longer drawn full as if done, and stands still,
+  dashed, when less motion is asked for.
+- `Skeleton` no longer pulses when less motion is asked for.
+- A table's row holding an action or a disclosure keeps its 44 px, no longer 57.
+- The header of a table's titles stands over their text once rows have children.
+- `Pagination`'s Previous and Next keep their names on a phone, and their arrows turn when the page reads from the
+  right.
+
 ## [0.8.0] - 2026-11-10
 
 Money values: `Amount`, `Percent` and `Quantity`, shown exactly, with a sign, a tone and a hidden mode, and the hooks
@@ -161,7 +229,8 @@ and dark. `README.md` says how to install and use it.
 
 A rehearsal of the release's path, not meant to be installed. Use a later version.
 
-[Unreleased]: https://github.com/fgarend/moneta/compare/v0.8.0...HEAD
+[Unreleased]: https://github.com/fgarend/moneta/compare/v0.9.0...HEAD
+[0.9.0]: https://github.com/fgarend/moneta/compare/v0.8.0...v0.9.0
 [0.8.0]: https://github.com/fgarend/moneta/compare/v0.7.0...v0.8.0
 [0.7.0]: https://github.com/fgarend/moneta/compare/v0.6.0...v0.7.0
 [0.6.0]: https://github.com/fgarend/moneta/compare/v0.5.0...v0.6.0

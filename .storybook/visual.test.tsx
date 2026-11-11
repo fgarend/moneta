@@ -16,11 +16,32 @@ it("draws in the mode of its project", async () => {
   );
 });
 
+// Chromium can keep a pixel of an earlier story where it believes nothing changed, as a 1 px corner of the section's
+// button showed up in the table's groups after both had run. So the whole page is painted over for a frame, and
+// cleared, before each story draws.
+async function repaint(): Promise<void> {
+  const cover = document.createElement("div");
+  cover.style.cssText =
+    "position: fixed; inset: 0; z-index: 2147483647; background: black;";
+  document.body.append(cover);
+  await new Promise(requestAnimationFrame);
+  await new Promise(requestAnimationFrame);
+  cover.remove();
+}
+
 it.each(visual.map((story) => [story.id, story] as const))(
   "draws %s as approved",
   async (id, Story) => {
+    await repaint();
     const screen = await render(<Story />);
     await document.fonts.ready;
+    // An animation is caught at its start, as a pulse or a running bar would otherwise differ from shot to shot, a
+    // frame after the story draws, once its animations exist.
+    await new Promise(requestAnimationFrame);
+    for (const animation of document.getAnimations()) {
+      animation.pause();
+      animation.currentTime = 0;
+    }
 
     await expect
       .element(screen.locator)

@@ -35,7 +35,7 @@ which is run by hand.
 | 1.2.3 Audio Description or Media Alternative | app | |
 | 1.2.4 Captions (Live) | app | |
 | 1.2.5 Audio Description | app | |
-| 1.3.1 Info and Relationships | axe, story | Stories find elements by role and name, Section's the level of its titles, and the words for no value or a hidden one, and the minus, of Amount, Percent and Quantity |
+| 1.3.1 Info and Relationships | axe, story | Stories find elements by role and name, Section's the level of its titles, Table's name and its rows' titles, and the words for no value or a hidden one, and the minus, of Amount, Percent and Quantity |
 | 1.3.2 Meaningful Sequence | script | |
 | 1.3.3 Sensory Characteristics | app | |
 | 1.3.4 Orientation | script | Nothing here locks it |
@@ -45,8 +45,8 @@ which is run by hand.
 | 1.4.3 Contrast (Minimum) | axe, test | axe on flat colours, and `test/theme.test.ts` on the theme's pairs, both modes, a value's tones among them |
 | 1.4.4 Resize Text | script | |
 | 1.4.5 Images of Text | app | |
-| 1.4.10 Reflow | story, coming, script | Section's story at 320 px, Amount on one line in a narrow column, and the application's structure (Sidebar) |
-| 1.4.11 Non-text Contrast | test, coming | `test/theme.test.ts` on borders and focus, both modes. Field (Actions and forms) and charts (Charts) to come |
+| 1.4.10 Reflow | story, coming, script | Section's story at 320 px, Amount on one line in a narrow column, Table's columns hidden or scrolled in its own area at 320 px, and the application's structure (Sidebar) |
+| 1.4.11 Non-text Contrast | test, story, coming | `test/theme.test.ts` on borders and focus, both modes, and Pagination's current page in `--input`. Field (Actions and forms) and charts (Charts) to come |
 | 1.4.12 Text Spacing | every story | All three browsers |
 | 1.4.13 Content on Hover or Focus | none yet | With Tooltip (Overlays) |
 | 2.1.1 Keyboard | none yet | React Aria's in the raw pieces, and no story goes by keyboard; with each family's review |
@@ -62,13 +62,13 @@ which is run by hand.
 | 2.4.5 Multiple Ways | app | |
 | 2.4.6 Headings and Labels | app | |
 | 2.4.7 Focus Visible | test | `.storybook/focus.test.tsx`, on 13 pieces, in 3 browsers and in forced colours |
-| 2.4.11 Focus Not Obscured (Minimum) | none yet | |
+| 2.4.11 Focus Not Obscured (Minimum) | story | A row focused under Table's sticky header scrolls clear of it |
 | 2.5.1 Pointer Gestures | none yet | |
 | 2.5.2 Pointer Cancellation | none yet | |
-| 2.5.3 Label in Name | app | The visible name and the accessible one |
+| 2.5.3 Label in Name | story, app | Pagination's Previous and Next named by their words; elsewhere the visible name and the accessible one |
 | 2.5.4 Motion Actuation | none yet | |
 | 2.5.7 Dragging Movements | none yet | |
-| 2.5.8 Target Size (Minimum) | axe | |
+| 2.5.8 Target Size (Minimum) | axe, story | Table's sortable headers, at least 24 px tall |
 | 3.1.1 Language of Page | app | |
 | 3.1.2 Language of Parts | app | |
 | 3.2.1 On Focus | none yet | |
@@ -83,7 +83,7 @@ which is run by hand.
 | 3.3.7 Redundant Entry | app | |
 | 3.3.8 Accessible Authentication (Minimum) | app | |
 | 4.1.2 Name, Role, Value | axe, story | |
-| 4.1.3 Status Messages | none yet | With Alert (Display) |
+| 4.1.3 Status Messages | story, coming | Table's selection bar, a status whose text changes with the count, Table's loading words, and Pagination's summary; Alert (Display) to come |
 
 ## Corner cases
 
@@ -95,4 +95,5 @@ A piece's stories show what it does in each of these that applies:
 - **Narrow and short screens:** 320px wide, and very short, as at a high zoom.
 - **Input:** keyboard alone, touch alone, a pointer crossing it.
 - **Preferences:** forced colours and text spacing, checked on every story. Reduced
-  motion, unchecked, though raw pieces animate. Larger text.
+  motion, checked by the rules a piece's story reads with `.storybook/reduced-motion.ts`, for Progress and
+  Skeleton so far, though other raw pieces animate. Larger text.

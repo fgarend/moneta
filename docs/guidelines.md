@@ -45,8 +45,9 @@ the version installed. It holds only what exists, and each reviewed piece adds i
 - **In multiples of 4 px:** 4 between a label and what it names, as a value or a bar, and between `Card`'s title and
   description, 8 to 12 within a group, 16 to 20 in a card, 16 between cards, 40 between sections, and 40 to 48 around a
   page. Inside is smaller than between, so what belongs together reads together.
-- **`Card` has 20 px around its content, and `Table` 12 px in a cell, with 20 at each end of a row,** so a table in a
-  card lines up with the card's title.
+- **`Card` has 20 px around its content, and `Table` 12 px in a cell, with 20 at each end of a row in a card,** so a
+  table in a card lines up with the card's title. Loose on a page, a table's text lines up with the page, and its rows
+  reach 12 px out on each side.
 
 ## Focus
 
@@ -88,6 +89,8 @@ the version installed. It holds only what exists, and each reviewed piece adds i
 
 - **An amount is `Money`, `{ amount, currency }`:** a decimal string, as `"-1234.50"`, never a number, and its
   currency's code, as `"BRL"`. `Amount` shows every digit given, padded to the currency's decimals, and never rounds.
+- **In a column of one currency, name it in the header,** as "Amount (R$)", and give each `Amount` `hideCurrency`.
+  Never in a column that mixes currencies.
 - **`Amount` for an amount on a screen,** `size="lg"` for one of note. `useFormatMoney` gives the same text where no
   piece can go, as a chart's axis, a page's title or an option of a `select`, so the two never differ.
 - **`Percent` for a ratio, given as a fraction of one:** `"0.459"` is 45.9%, never `"45.9"`. It shows the decimals
@@ -107,11 +110,68 @@ the version installed. It holds only what exists, and each reviewed piece adds i
   give the dots too. A text only screen readers hear, as an `aria-label`, is yours to word while values are hidden,
   as "Pay the bill" in place of "Pay ••••••".
 - **The language is React Aria's,** from `I18nProvider`.
-- **A negative value takes the minus sign, `−`,** which screen readers read. A copy of one value takes a hyphen, so a
-  spreadsheet reads it as negative, but a copy of a row keeps the minus, which a spreadsheet takes as text.
+- **A negative value takes the minus sign, `−`,** which screen readers read. A copy of one value, or of a table's
+  cells, takes a hyphen, so a spreadsheet reads it as negative; a copy of more anywhere else keeps the minus.
 - **A value never wraps and is never cut.** What holds it makes room, as a table that scrolls.
 - **A wrong value or currency throws,** as `"1,5"`, `"50%"` or `"real"`, so a mistake is never shown as money. An error
   boundary keeps it to its part of the screen.
+
+## Pagination
+
+- **Pages of rows, under a table or a list,** when they are too many to show at once and the user moves through them
+  in order. A filter or a search often serves better than many pages.
+- **Each page has an address,** as `?page=2`, so it can be shared and the browser's back returns to it.
+- **Name it,** as "Pages of payments", and give Previous and Next your words as their children.
+- **Say which rows are shown** with `PaginationSummary`, as "15–28 of 142".
+- **Draw the first page, the last, the current one and one on each side,** with a `PaginationEllipsis` where pages
+  are skipped, and mark the current one with `isActive`.
+- **On the first page, Previous is `isDisabled`,** and Next on the last, so neither moves.
+- **With one page, draw no pagination.**
+
+## Table
+
+- **A table is for comparing down its columns,** under headers. A list of things read across, each with its value at
+  the end, is a list of rows, and the attributes of one thing are a description list.
+- **It has a name,** which TypeScript asks for: `aria-labelledby` pointing to the title already on the screen, as a
+  card's, `aria-label` when there is none, or `caption`, a visible caption.
+- **Each row has a title,** `TableHead scope="row"`, which names the row for screen readers and stays at the table's
+  start while it scrolls.
+- **Numbers and their header go at the end,** with `align="end"` on the header and on each cell of the column, never
+  centred. Values in the rows are at the text's weight, so a total stands out.
+- **Groups and totals:** each group in a `TableBody` of its own, opened by a `TableGroupRow` with its title and its
+  subtotals in their columns, and the total in a `TableFooter`. Subtotals and the total follow their rows' `sign`, and
+  take no `tone`. A total that counts more rows than are shown says so in its title, as "Total of every account".
+- **An action per row goes in the last column,** a `TableRowAction` with one word as its `aria-label`, as "Edit",
+  under a `TableHead hideHeader` that names the column; the row's title completes its name. Several actions go in a
+  `DropdownMenu` whose trigger is a `TableRowAction`.
+- **A row that opens something puts a `Link` in its title,** quiet, and the whole row follows it on a click, with
+  Ctrl or Cmd for a new tab, while a control in the row or selected text stays where it is.
+- **Rows that open give their children `parentId`,** the parent's `id`, right after it; the table adds the button.
+  A detail that explains a row is a child row too. One level only.
+- **Rows to act on together get a `TableSelect` each,** in a cell before the title, a `TableSelectAll` in the
+  header with the app's words, as "Select all", and a `TableSelectionBar` over the table, with the count of every
+  row selected, on this page and others, as "2 selected". Clearing the selection, or selecting all on every page,
+  is a button of the app's in the bar. Confirm an action on rows selected but not shown.
+- **`density="compact"` for many rows compared at once,** as a statement or a list of holdings, where the default's
+  room would push rows off the screen.
+- **A long table in a place of limited height, as a panel, takes `stickyHeader`,** so its header stays in view while
+  its rows scroll. On a page, a table scrolls with the page.
+- **While rows load, set `isLoading` and `loadingLabel`,** as "Loading payments", and `loadingRows` to the rows
+  expected, as a page's size, so the table does not jump when they come.
+- **With no rows, put a `TableEmpty` in the body,** with words that say why and what to do, as "No payments in
+  October. Choose another month."
+- **A column the user may sort takes `allowsSorting` and an `id`,** and the table `sortDescriptor` and
+  `onSortChange`; the app sorts the rows, here or on its server. Sort what is compared, as amounts and dates, and keep
+  a first order that makes sense, as the newest first.
+- **The row whose details are open beside the table, as in a side panel, takes `aria-current="true"`,** not a
+  selection, which is for acting on rows together.
+- **A cell is blank when a value does not apply,** and "—" when it is missing, with `value={null}`.
+- **In a card, alone in its `CardContent`,** it runs edge to edge, with a line above. With anything else in the same
+  content, it keeps the card's padding, so give it a content of its own.
+- **On a phone or in a narrow panel, keep the title and the value,** and hide the rest with `hideBelow` on each cell of
+  a column: `sm`, `md` or `lg`, measured on the table's own width, about 384, 448 and 512 px. A column you do not want,
+  do not draw. Otherwise text wraps, a row's title never below a minimum width, and the table scrolls in an area of
+  its own, with a shadow at the end that has more, which then takes keyboard focus and the table's name.
 
 ## Changing the look
 

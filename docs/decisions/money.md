@@ -7,11 +7,14 @@ How Moneta holds an amount of money, and how it shows one.
 - **One type, `Money`: `{ amount, currency }`,** an exact decimal string and its currency's code, as a backend sends
   them, for every piece of money. A JavaScript number never holds one.
 - **Shown exactly:** every digit given, never rounded, padded with zeros to the currency's decimals.
+- **`hideCurrency` leaves an amount's currency out,** with the space that joins it to the number, for a column of one
+  currency whose header names it, as an app's tables have it and Polaris advises. Every digit and the sign stay.
 - **The currency's decimals are the browser's,** which `Intl` gives. They differ only in how many zeros pad an amount,
   and never drop a digit given.
 - **A negative amount takes the minus sign, U+2212, in every language,** where the language puts it, with no space
   after it, as `−R$ 1.234,50`. Zero takes no sign, even when given as `-0`.
-- **A copy of one value takes a hyphen for its minus,** and a copy of more is the browser's own.
+- **A copy of one value takes a hyphen for its minus,** and so does a copy across a table's cells, which the table
+  builds; any other copy of more is the browser's own.
 - **An amount that is not a decimal string, or a currency that is not three capital letters, throws an error** that
   names it.
 - **The words are the app's.** `MoneyProvider`, once at the app's root, holds what screen readers hear for no value,
@@ -62,8 +65,8 @@ How Moneta holds an amount of money, and how it shows one.
   The language's own place, as a space of our own would need a rule for every pattern.
 - **A hyphen in a copy,** as Excel and LibreOffice read a pasted U+2212 as text, not as a negative number. **Of one
   amount only,** as a page can replace a copy but not change one: a copy of a table's row would have to be built
-  again, as text and as HTML, which a spreadsheet needs for its columns. **What it costs:** a row copied into a
-  spreadsheet keeps its minus as text.
+  again, as text and as HTML, which a spreadsheet needs for its columns. **What it costs:** a copy of more than one
+  value outside a table keeps its minus as text. Since 2026-11-11, Table builds the copy of its own cells.
 - **An error for a wrong amount,** as `"R$ NaN"` reaches whoever uses the app, and a dash would show a backend's
   mistake as an amount not there yet. **What it costs:** one wrong row breaks the screen, unless an error boundary
   holds it, and `"1e5"` and `"+10"`, which `Intl` reads, are refused.
@@ -172,3 +175,4 @@ How Moneta holds an amount of money, and how it shows one.
 - 2026-11-10: `Quantity` and `useFormatQuantity`.
 - 2026-11-10: `sign` and `tone`, with `--positive` and `--negative`.
 - 2026-11-10: Hidden values.
+- 2026-11-10: `hideCurrency`.

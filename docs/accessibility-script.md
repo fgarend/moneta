@@ -1,7 +1,7 @@
 # The manual accessibility script
 
 What no test here can do: a screen reader, a real keyboard, real zoom and real themes
-(`docs/accessibility.md`). Its first run comes with the stable API, in item 6.1. Each piece
+(`docs/accessibility.md`). Its first run comes with the roadmap's item A stable API. Each piece
 adds its rows here. Whatever fails goes into `docs/ROADMAP.md` as a fault to fix.
 
 ## Before starting
