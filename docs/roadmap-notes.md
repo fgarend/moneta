@@ -26,8 +26,28 @@ together, a pre-release tried in an app before a version, and a review of the wh
 They come with money, as they share how a value is held, formatted and shown. Shown and entered, on
 `@internationalized/date`, which React Aria's date pieces use. It comes before DateField.
 
-- To ask: which type holds a date, `CalendarDate` for a day with no time or `ZonedDateTime` for a moment in a place.
-- To ask: a hook on its `DateFormatter`, beside `useFormatMoney`, with the same provider or its own.
+Decided on 2026-11-11, one point at a time, after a study of an app's screens and prototypes, of React Aria,
+`Intl`, `<time>`, Polaris, Primer, Atlassian, GOV.UK, Material and Plaid. One step.
+
+- **An ISO string, as money takes a decimal one:** `"2026-10-24"` a day, with no time or zone, which never shifts, and
+  `"2026-10-24T14:32:00Z"` a moment, read by `@internationalized/date`'s `parseDate` and `parseAbsolute`; any other
+  string throws. No `Date`, which reads a day as UTC midnight, the day before in São Paulo.
+- **A piece, `DateTime`, a `<time datetime>`, and a hook, `useFormatDate`,** beside `useFormatMoney`, on React Aria's
+  `useDateFormatter`, in the language of `I18nProvider`.
+- **Four formats by name, `format`:** `"short"`, the default, as "24 de out."; `"long"`, as "sábado, 24 de outubro";
+  `"numeric"`, as "24/10/2026"; `"month"`, as "outubro de 2026"; and `showTime` on a moment, as "24 de out., 14:32".
+- **`relative`, off by default, on `"short"` only:** today, yesterday and tomorrow as words from
+  `Intl.RelativeTimeFormat`, one day each way, as pt-BR's "anteontem" has no peer in English; the piece capitalises
+  its first letter, and the hook keeps the browser's case, for a sentence.
+- **The year** in `"short"` and `"long"` only when not this year, as Polaris, Primer and Material; always in
+  `"numeric"` and `"month"`.
+- **The time zone:** a day has none; a moment, "today" and "this year" are the browser's, by `getLocalTimeZone()`,
+  with `timeZone` on the piece and the hook for another. A provider for the app's zone waits for Sidebar, AppLayout
+  and providers.
+- **No date:** `value={null}` shows "—", with `emptyLabel` on the piece or on `MoneyProvider`, as a value of money,
+  and throws with no words.
+- **WCAG to check:** 1.3.1 by `<time datetime>` and the words for no date.
+
 
 ## DateField
 
@@ -51,6 +71,8 @@ stayed out of the first delivery for this. Until then, an app keeps what it has 
 - A check for reduced motion arrives with it, as shadcn's files have no `motion-reduce`.
 - `use-mobile` falls under the coverage of `stories`, so it needs a story, or an exclusion.
 - Its gradient and glow are to be asked (recommended: yes, by eye).
+- A provider for the app's time zone, which `DateTime` and `useFormatDate` read, deferred by Dates on 2026-11-11; and
+  whether `MoneyProvider`, whose `emptyLabel` dates read too, becomes a provider of values.
 - Links through whichever router an app uses: the sidebar passes `href`, `routerOptions` and `render` on.
   `createLink` on a sidebar button reloaded the page on Enter, when it was tried.
 - To say: how an app gives React Aria its locale, through `I18nProvider`, as without it React Aria's own words

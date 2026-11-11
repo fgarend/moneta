@@ -9,6 +9,7 @@ known and what is still to ask, are in [`roadmap-notes.md`](roadmap-notes.md), r
 ## Next, in order
 
 1. **Dates.** Showing a date, with a hook beside `useFormatMoney`.
+   - `DateTime` and `useFormatDate`, from an ISO day or moment, in four formats, with today and yesterday as words
 2. **DateField.** Entering a date.
 3. **Motion, layers and icons.** What crosses every piece and no item holds.
    - durations and easing, with reduced motion
