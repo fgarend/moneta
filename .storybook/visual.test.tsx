@@ -7,6 +7,12 @@ import { stories } from "./stories.js";
 const visual = stories.filter((story) => story.tags.includes("visual"));
 const mode = inject("mode");
 
+// No animation runs in a screenshot, so each piece is drawn at rest, as a pulse or a running bar would otherwise differ
+// from shot to shot, and pausing them waited on their timing, which a busy machine missed.
+const still = document.createElement("style");
+still.textContent = "*, *::before, *::after { animation: none !important; }";
+document.head.append(still);
+
 it("draws in the mode of its project", async () => {
   const [Story] = visual;
   await render(<Story />);
@@ -35,14 +41,6 @@ it.each(visual.map((story) => [story.id, story] as const))(
     await repaint();
     const screen = await render(<Story />);
     await document.fonts.ready;
-    // An animation is caught at its start, as a pulse or a running bar would otherwise differ from shot to shot, a
-    // frame after the story draws, once its animations exist.
-    await new Promise(requestAnimationFrame);
-    for (const animation of document.getAnimations()) {
-      animation.pause();
-      animation.currentTime = 0;
-    }
-
     await expect
       .element(screen.locator)
       .toMatchScreenshot(mode === "light" ? id : `${id}-${mode}`);

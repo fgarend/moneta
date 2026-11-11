@@ -1,5 +1,5 @@
-# Commands for the repository. They call the real tools, and hold no build logic: the one loop here is make check's,
-# which runs on the machine. Each target picks the service of infra/compose.yaml it runs in, with the values of
+# Commands for the repository. They call the real tools, and hold no build logic: the loops here are make check's, and
+# stories' over the browsers, as continuous integration runs them, and both run on the machine. Each target picks the service of infra/compose.yaml it runs in, with the values of
 # infra/settings.env. Must work with GNU Make 3.81, the version that ships with macOS.
 
 COMPOSE := docker compose --env-file infra/settings.env -f infra/compose.yaml
@@ -36,7 +36,15 @@ test: ## Logic and the repository's checks, in Node, with the coverage of src/li
 	$(RUN) tools pnpm exec vitest run --coverage
 
 stories: ## Every story in the browsers, with axe, its screenshot and the coverage of everything else. BROWSER=webkit runs one
-	$(RUN) tools pnpm exec vitest run --mode stories --coverage $(if $(BROWSER),--project '*($(BROWSER))')
+ifeq ($(BROWSER),)
+	@failed=0; \
+	for browser in chromium firefox webkit; do \
+		$(MAKE) --no-print-directory stories BROWSER=$$browser || failed=1; \
+	done; \
+	exit $$failed
+else
+	$(RUN) tools pnpm exec vitest run --mode stories --coverage --project '*($(BROWSER))'
+endif
 
 package: ## The build, packed into .package, with that tarball installed and checked in a throwaway app
 	$(RUN) package sh -c 'rm -rf dist/* .package/* && pnpm exec tsc -p tsconfig.build.json && \

@@ -36,6 +36,35 @@ pieces is in [`../pieces.md`](../pieces.md), and how a piece is analysed is in [
   `Components`, then `Sample`, and blocks and foundations will be levels of their own. A piece of ours goes in the
   group of its purpose, beside shadcn's, and `test/pieces.test.ts` holds every story of a piece to one of them.
 
+### Item
+
+- **`ItemGroup` is a list of rows,** `<ul role="list">`, and an `Item` in it an `<li>`, a row with a `--border` line
+  under it but the last and no box of its own, at a table's ends: 12 px loose, where it reaches as much out, and 20 px
+  in a card, where a `CardContent` holding only a list loses its side padding and gains a line above. An `Item` alone
+  stays a `<div>`, with its variants.
+- **Titles and descriptions wrap,** never cut.
+- **`ItemMedia variant="icon"` is a 40 px tile at `--muted`** with a 20 px icon, which Colours of meaning will tint.
+- **An `ItemGroup` with a `title` is a group,** as a day's: its title a heading a level below its section's, which
+  names its list, and its `total` at its end, as a table's groups: 12 px semibold muted, the total at 500 and the
+  rows' size, a `--border-strong` line under it, 12 px above the first and 32 above the next. A `CardContent` holding
+  only groups runs edge to edge.
+- **An action is an `ItemAction`,** as `TableRowAction`: a quiet icon button of 32 px, whose name joins the app's one
+  word to the item's title, which `ItemTitle` takes an id for, and which takes less than a line's height, so a row
+  keeps its own. An item with no title makes it throw. A row with one shows the hover.
+- **`density="compact"` on `ItemGroup`:** rows with 8 px above and below in place of 12, a 32 px tile in place of
+  40, and groups 20 px apart, 8 under the first's top; the loading shapes as close, each as tall as a row. `size` on
+  `Item` stays for one alone.
+- **`ItemEmpty` holds the app's words for no rows,** centred and muted, under the group's title, as `TableEmpty`.
+- **Loading as a table's:** `isLoading` with the app's `loadingLabel`, which TypeScript asks for, makes the list busy
+  and says the words in a status; with no rows it draws `loadingRows` shapes of a row, 5 unless the app says, which a
+  screen reader skips, and with rows it keeps them under a 2 px running `Progress` along the list's top.
+- **`ItemValue` holds the value at a row's end,** aligned to it, at the text's weight, never wrapping while the title
+  gives way, with `detail` under it, small and muted, as a date or a badge.
+- **An item that opens has a `Link` in its `ItemTitle`,** which a click anywhere empty in the row, or in the item
+  alone, follows with its keys, as a table's row; it shows a pointer and, in a list, a hover at half `--muted`. A
+  row with `aria-current="true"` is drawn at `--muted` with a 3 px bar of `--primary`. Both share
+  `src/hooks/row.ts` with Table.
+
 ### Section
 
 - **A titled part of a page, with no box,** whose parts follow `Card`'s header: `Section`, `SectionHeader`,
@@ -150,7 +179,7 @@ pieces is in [`../pieces.md`](../pieces.md), and how a piece is analysed is in [
   meaning, so a button cannot become a `div` unnoticed.
 - **A level from where it sits,** as a fixed default per piece is wrong once a `Card` sits in a `Section`, as the
   sample page has. **What it costs:** a level is not seen in the code that uses the piece. The context is internal to
-  `section.tsx` until a second piece reads it.
+  `src/hooks/level.ts`, which Section and ItemGroup read.
 - **No router,** as Moneta knows no app, React Aria's docs recommended `render` on 2026-11-09, and `RouterProvider`
   still works. Table and GridList rows cannot be an `<a>`, so with a router they navigate through `onAction`.
 - **Groups by purpose,** as whoever builds a screen looks for something for a form or an overlay, not for where a
@@ -177,6 +206,13 @@ pieces is in [`../pieces.md`](../pieces.md), and how a piece is analysed is in [
   of shadcn's `grid` into a native table would only conflict. **What it costs:** an app on the `grid` moves, the
   selection's state is ours, and each control is a tab stop.
 - **Its name asked for,** as every table an app had already carried one, and a table with none is announced bare.
+- **A list of rows apart from a table,** as Polaris keeps `ResourceList` apart from `IndexTable`, Carbon its
+  contained list and Spectrum `ListView`: a row is one thing read across, with no header. **`ul` and `li`, not a
+  grid,** as rows are read, as Sarah Higley advises, and `role="list"` kept, as Safari drops a list's meaning with
+  its markers, as Carbon notes. **A table's look,** lines and ends, so a list and a table side by side read alike.
+  **What it costs:** `ItemGroup`'s gaps and boxes go, and the lint's rule on redundant roles is set aside there.
+- **The link in the title, not the whole row as one,** as Roselli advises, so its name is the title alone and a
+  control can sit in the row. **What it costs:** `href` on `Item` goes.
 - **No `colSpan`,** as screen readers announce spanning headers badly, as Roselli found, and a column can then hide by
   its cells with nothing misaligned. **But for `TableEmpty`,** a row with nothing to compare, as shadcn's data table
   and Carbon draw it, which keeps the empty words in the table. **What it costs:** `align` and `hideBelow` are written

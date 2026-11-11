@@ -16,27 +16,10 @@ again at that moment. When an item is done, its notes go, as what holds then is 
 
 The owner decided on 2026-11-09 that these come first, as an app keeps its own shell until Sidebar while these hold
 its screens back: the close button's name, done in 0.6.0, Link, done in 0.7.0, Money values, done in 0.8.0, Table,
-done in 0.9.0, Lists of rows, Dates and DateField. Each is a step of its own, with what its family's item says of it.
-**What it costs:** a piece made before Colours of meaning and One scale of sizes may need a touch when they arrive,
-and Sidebar's study may change the space around Section. To ask later: a page that puts the pieces together, a
-pre-release tried in an app before a version, and a review of the whole after each family.
-
-## Lists of rows
-
-Decided on 2026-11-10, while studying Table: a list of rows is not a table. In a table one compares down the columns,
-under headers; in a list each row is one thing, read across, as an icon, a title, a line of detail and its value at
-the end, with no header. An app's own rule says the same, "a few things with a few numbers are cards or a list; many,
-or a comparison of columns, a table", and its prototypes keep a transaction row apart from their tables. Polaris
-keeps `ResourceList` apart from `IndexTable`, Carbon `StructuredList` from `DataTable`, and Spectrum `ListView` from
-`TableView`. The same data may be a table on one screen and a list on another, which the screen chooses.
-
-On shadcn's `Item`, which Display held as "also as a list's row with an amount", moved here: a list's semantics, as
-`ItemGroup` today is a `div`, groups with a heading and a total, decided with Table's groups so both look and read
-alike, a row as a link or with one action, and `Amount` at its end. Uses seen: a day's transactions with that day's
-balance, savings, a person's accounts, the last operations in a side panel, followed assets, rules, and bills due.
-A thing's attributes, key and value, are DescriptionList, and a ranking or share in bars is BarList, AllocationBar
-or Meter, each in its own item. It shares Table's look by construction, not by copy: the group's title and total, the
-line under a row, the hover and the current row's bar, as a list's row can be open in a side panel too.
+done in 0.9.0, Lists of rows, done in 0.10.0, Dates and DateField. Each is a step of its own, with what its family's
+item says of it. **What it costs:** a piece made before Colours of meaning and One scale of sizes may need a touch
+when they arrive, and Sidebar's study may change the space around Section. To ask later: a page that puts the pieces
+together, a pre-release tried in an app before a version, and a review of the whole after each family.
 
 ## Dates
 
@@ -79,6 +62,7 @@ stayed out of the first delivery for this. Until then, an app keeps what it has 
 charts, in light and dark. Gain and loss came first, with Money values, as `--positive` and `--negative`, which a
 value's `tone` reads, and these are chosen beside them, as `tone` already names good news or bad.
 
+- A category's colour tints `ItemMedia`'s icon tile, which Lists of rows drew in `--muted` on 2026-11-11.
 - To ask: which names, in shadcn's format.
 - To ask: whether a meaning stays a value of `variant`, as shadcn's `destructive` is, or becomes a prop of its own,
   such as `tone`, beside a `variant` for the style, which would edit each piece with `destructive`.

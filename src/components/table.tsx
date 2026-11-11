@@ -11,7 +11,6 @@ import {
 import {
   type ComponentProps,
   createContext,
-  type MouseEvent,
   type ReactNode,
   useCallback,
   useContext,
@@ -29,6 +28,7 @@ import { Button } from "#components/button";
 import { Checkbox } from "#components/checkbox";
 import { Progress } from "#components/progress";
 import { Skeleton } from "#components/skeleton";
+import { followTitle, rowFill } from "#hooks/row";
 
 // Its name, which a screen reader says on entering it: a label, a heading it points to, or its caption.
 type TableName =
@@ -560,34 +560,6 @@ function TableBody({ className, ...props }: ComponentProps<"tbody">) {
   );
 }
 
-// What a click on a row leaves alone: a control of its own.
-const controlTargets =
-  "a, button, input, select, textarea, label, [role=button], [role=checkbox], [role=menuitem]";
-
-// A click on an empty part of a row goes to the link in its title, with its keys, so a pointer has the whole row while
-// keyboards and screen readers keep one real link; a click that is part of selecting text stays where it is.
-function openTitle(event: MouseEvent<HTMLTableRowElement>): void {
-  const link = event.currentTarget.querySelector('th[scope="row"] a[href]');
-  const selection = document.getSelection() as Selection;
-  if (
-    link === null ||
-    (event.target as Element).closest(controlTargets) !== null ||
-    !selection.isCollapsed
-  ) {
-    return;
-  }
-  link.dispatchEvent(
-    new MouseEvent("click", {
-      bubbles: true,
-      cancelable: true,
-      ctrlKey: event.ctrlKey,
-      metaKey: event.metaKey,
-      shiftKey: event.shiftKey,
-      altKey: event.altKey,
-    }),
-  );
-}
-
 function TableRow({
   className,
   onClick,
@@ -614,7 +586,8 @@ function TableRow({
         id={domId}
         className={cn(
           // A row's fill: its state, selected or current, over the hover of a row that opens or selects.
-          "border-b bg-(--row-fill) [--row-fill:var(--row-state,var(--row-hover))] has-[th[scope=row]_a[href]]:cursor-pointer has-[th[scope=row]_a[href]]:hover:[--row-hover:color-mix(in_oklab,var(--muted)_50%,transparent)] has-data-[slot=table-select]:hover:[--row-hover:color-mix(in_oklab,var(--muted)_50%,transparent)] data-selected:[--row-state:var(--muted)] aria-[current=true]:[--row-state:var(--muted)]",
+          rowFill,
+          "border-b has-[th[scope=row]_a[href]]:cursor-pointer has-[th[scope=row]_a[href]]:hover:[--row-hover:color-mix(in_oklab,var(--muted)_50%,transparent)] has-data-[slot=table-select]:hover:[--row-hover:color-mix(in_oklab,var(--muted)_50%,transparent)]",
           className,
         )}
         data-selected={
@@ -622,7 +595,11 @@ function TableRow({
         }
         data-slot="table-row"
         onClick={(event) => {
-          openTitle(event);
+          followTitle(
+            event.currentTarget,
+            event.nativeEvent,
+            'th[scope="row"] a[href]',
+          );
           onClick?.(event);
         }}
         {...props}

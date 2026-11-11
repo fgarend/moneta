@@ -35,7 +35,7 @@ which is run by hand.
 | 1.2.3 Audio Description or Media Alternative | app | |
 | 1.2.4 Captions (Live) | app | |
 | 1.2.5 Audio Description | app | |
-| 1.3.1 Info and Relationships | axe, story | Stories find elements by role and name, Section's the level of its titles, Table's name and its rows' titles, and the words for no value or a hidden one, and the minus, of Amount, Percent and Quantity |
+| 1.3.1 Info and Relationships | axe, story | Stories find elements by role and name, Section's the level of its titles, Table's name and its rows' titles, a list of rows as a list, its groups' headings naming their lists, and the words for no value or a hidden one, and the minus, of Amount, Percent and Quantity |
 | 1.3.2 Meaningful Sequence | script | |
 | 1.3.3 Sensory Characteristics | app | |
 | 1.3.4 Orientation | script | Nothing here locks it |
@@ -68,7 +68,7 @@ which is run by hand.
 | 2.5.3 Label in Name | story, app | Pagination's Previous and Next named by their words; elsewhere the visible name and the accessible one |
 | 2.5.4 Motion Actuation | none yet | |
 | 2.5.7 Dragging Movements | none yet | |
-| 2.5.8 Target Size (Minimum) | axe, story | Table's sortable headers, at least 24 px tall |
+| 2.5.8 Target Size (Minimum) | axe, story | Table's sortable headers, at least 24 px tall, and a row's action, 32 px |
 | 3.1.1 Language of Page | app | |
 | 3.1.2 Language of Parts | app | |
 | 3.2.1 On Focus | none yet | |
@@ -82,8 +82,8 @@ which is run by hand.
 | 3.3.4 Error Prevention (Legal, Financial, Data) | app | Heavy in a money interface: review and confirm |
 | 3.3.7 Redundant Entry | app | |
 | 3.3.8 Accessible Authentication (Minimum) | app | |
-| 4.1.2 Name, Role, Value | axe, story | |
-| 4.1.3 Status Messages | story, coming | Table's selection bar, a status whose text changes with the count, Table's loading words, and Pagination's summary; Alert (Display) to come |
+| 4.1.2 Name, Role, Value | axe, story | A row's action named by its word and the row's title, in a table and a list |
+| 4.1.3 Status Messages | story, coming | Table's selection bar, a status whose text changes with the count, Table's and a list's loading words, and Pagination's summary; Alert (Display) to come |
 
 ## Corner cases
 

@@ -11,6 +11,7 @@ import {
   Filter,
   Home,
   Landmark,
+  PiggyBank,
   Plus,
   Target,
   Wallet,
@@ -25,10 +26,20 @@ import {
   CardAction,
   CardContent,
   CardDescription,
+  CardFooter,
   CardHeader,
   CardTitle,
 } from "./components/card.js";
 import { Input } from "./components/input.js";
+import {
+  Item,
+  ItemContent,
+  ItemDescription,
+  ItemGroup,
+  ItemMedia,
+  ItemTitle,
+  ItemValue,
+} from "./components/item.js";
 import { Link } from "./components/link.js";
 import type { Money } from "./components/money.js";
 import { MoneyProvider } from "./components/money-provider.js";
@@ -143,6 +154,28 @@ const days = [
   { name: "Tuesday", subtotal: dollars("-1129.9") },
   { name: "Monday", subtotal: dollars("-1500") },
 ];
+// Three of the person's accounts, and how many there are in all.
+const accounts = [
+  {
+    name: "Checking 1234",
+    bank: "Example Bank",
+    icon: Landmark,
+    balance: dollars("4230.5"),
+  },
+  {
+    name: "Savings",
+    bank: "Example Bank",
+    icon: PiggyBank,
+    balance: dollars("6000"),
+  },
+  {
+    name: "Brokerage",
+    bank: "Fictitious Broker",
+    icon: Wallet,
+    balance: dollars("2250"),
+  },
+];
+const accountCount = 5;
 const budgets = [
   { name: "Food", used: foodUsed },
   { name: "Home", used: 77 },
@@ -362,6 +395,39 @@ function SidePanels() {
       </Card>
       <Card>
         <CardHeader>
+          <CardTitle>Accounts</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <ItemGroup>
+            {accounts.map(({ name, bank, icon: Icon, balance }) => (
+              <Item key={name}>
+                <ItemMedia variant="icon">
+                  <Icon aria-hidden="true" />
+                </ItemMedia>
+                <ItemContent>
+                  <ItemTitle>
+                    <Link href={`#${name}`} isQuiet={true}>
+                      {name}
+                    </Link>
+                  </ItemTitle>
+                  <ItemDescription>{bank}</ItemDescription>
+                </ItemContent>
+                <ItemValue>
+                  <Amount value={balance} />
+                </ItemValue>
+              </Item>
+            ))}
+          </ItemGroup>
+        </CardContent>
+        <CardFooter>
+          <p>
+            Showing {accounts.length} of {accountCount} ·{" "}
+            <Link href="#accounts">See all accounts</Link>
+          </p>
+        </CardFooter>
+      </Card>
+      <Card>
+        <CardHeader>
           <CardTitle>Quick entry</CardTitle>
         </CardHeader>
         <CardContent className="flex flex-col gap-3">
@@ -480,6 +546,18 @@ const Default: Story = {
         recent.getByRole("rowheader", { name: "Between accounts" }),
       ).color,
     );
+    // The person's accounts, one per row, each opening by its title, with a link to the rest.
+    const accountList = within(
+      canvas
+        .getByText("Accounts", { selector: '[data-slot="card-title"]' })
+        .closest('[data-slot="card"]') as HTMLElement,
+    );
+    await expect(accountList.getAllByRole("listitem")).toHaveLength(
+      accounts.length,
+    );
+    await expect(
+      accountList.getByRole("link", { name: "See all accounts" }),
+    ).toBeVisible();
     await expect(
       canvas.getByRole("button", { name: "New payment" }),
     ).toBeVisible();

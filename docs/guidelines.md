@@ -72,6 +72,27 @@ the version installed. It holds only what exists, and each reviewed piece adds i
 - **It is no landmark,** so a page of sections keeps its landmarks few, and its titles give its structure.
 - **The page puts 40 px between sections,** as a section has no space around itself.
 
+## Lists of rows
+
+- **A list of rows is one thing per row, read across,** as an account, a transaction or a bill, with its value at the
+  end and no header. Compare down columns, and it is a table.
+- **Put the rows in an `ItemGroup`,** each an `Item`, which draws a line between rows. In a card, give it a
+  `CardContent` of its own, and it runs edge to edge.
+- **Rows grouped, as by day, go in one `ItemGroup` per group,** with its `title` and its `total`, which follows its
+  rows' `sign` and takes no `tone`.
+- **A row's value goes in an `ItemValue` at its end,** as an `Amount`, with a date or a badge as its `detail`, and its
+  icon in an `ItemMedia variant="icon"`.
+- **An action per row is an `ItemAction`** in its `ItemActions`, with one word as its `aria-label`, as "Edit"; the row's
+  title completes its name. Several actions go in a `DropdownMenu` whose trigger is an `ItemAction`.
+- **A short list that has more says so in its card's `CardFooter`,** in one line of your words with a `Link` to the
+  rest at its end, as "Showing 3 of 12 · See all accounts". Loose on a page, the link goes in its `Section`'s
+  actions.
+- **`density="compact"` for many rows read at once,** as a long statement, on each `ItemGroup` of the list.
+- **While rows load, set `isLoading` and `loadingLabel` on the `ItemGroup`,** as for a table, on one group with no title
+  while a page has none yet. **With no rows, put an `ItemEmpty` in it,** with words that say why and what to do.
+- **A row that opens something puts a `Link` in its `ItemTitle`,** quiet, and the whole row follows it. The row open
+  beside the list takes `aria-current="true"`.
+
 ## Link
 
 - **A link goes somewhere, and a button does something.** `Link` is for a link in text or in a cell, `LinkButton` for

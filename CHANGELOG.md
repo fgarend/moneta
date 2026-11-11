@@ -6,6 +6,40 @@ gets its number.
 
 ## [Unreleased]
 
+## [0.10.0] - 2026-11-11
+
+Lists of rows: `Item` reviewed as one thing per row, read across, with groups and a total, a row as a link or with an
+action, an icon tile, a value at the end, empty, loading and density, drawn as a table.
+
+### Changed
+
+- **Breaking:** `ItemGroup` is a list of rows, a `<ul>` whose items are `<li>`, with a line between rows and no box
+  around each, at a table's ends: 12 px loose, reaching as much out, and edge to edge in a card, alone in its
+  `CardContent`. To upgrade:
+  - drop an `ItemSeparator` between the items of a group, which draws its own lines;
+  - an `Item` that should keep its box, as `variant="outline"`, stands alone, out of a group;
+  - in place of `href` on an `Item`, put a `Link` in its `ItemTitle`, which a click anywhere empty in the item follows.
+- `ItemTitle` and `ItemDescription` wrap, no longer cut at one and two lines.
+- `ItemMedia variant="icon"` draws its icon at 20 px on a tile of 40 px, at `--muted`.
+
+### Added
+
+- `Item` reviewed, as a list of rows.
+- `title` and `total` on `ItemGroup`, which make it a group, as a day's, with its title a heading that names the
+  list and its total at its end, drawn as a table's groups.
+- `ItemEmpty`, the app's words for no rows, and loading on `ItemGroup`, `isLoading`, `loadingLabel` and `loadingRows`,
+  as a table's.
+- `density="compact"` on `ItemGroup`, with rows and their tiles closer.
+- `ItemAction`, an action on an item, named by the app's one word and the item's title.
+- `ItemValue`, the value at a row's end, at the text's weight, with an optional `detail` under it, as a date or a
+  badge.
+- A list's row with `aria-current="true"`, the one open beside it, is drawn with a bar of `--primary` at its start,
+  as a table's.
+
+### Fixed
+
+- A click on a switch in a table's row no longer opens the row's link.
+
 ## [0.9.0] - 2026-11-11
 
 Table: a native table to compare amounts by column, with groups and a total, selection, sorting, child rows, actions,
@@ -229,7 +263,8 @@ and dark. `README.md` says how to install and use it.
 
 A rehearsal of the release's path, not meant to be installed. Use a later version.
 
-[Unreleased]: https://github.com/fgarend/moneta/compare/v0.9.0...HEAD
+[Unreleased]: https://github.com/fgarend/moneta/compare/v0.10.0...HEAD
+[0.10.0]: https://github.com/fgarend/moneta/compare/v0.9.0...v0.10.0
 [0.9.0]: https://github.com/fgarend/moneta/compare/v0.8.0...v0.9.0
 [0.8.0]: https://github.com/fgarend/moneta/compare/v0.7.0...v0.8.0
 [0.7.0]: https://github.com/fgarend/moneta/compare/v0.6.0...v0.7.0
