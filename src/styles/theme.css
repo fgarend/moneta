@@ -171,7 +171,8 @@
 }
 
 /* Keyboard focus, as a solid outline, which a shadow ring is not in forced colours and fails 3:1 at 50%. Unlayered, so it
-   beats each piece's outline-none. shadcn's own rule, widened to fields and to what keeps focus on a hidden input. */
+   beats each piece's outline-none. shadcn's own rule, widened to fields, to what keeps focus on a hidden input, and to
+   a date field's box, around the part that has it. */
 :is(
   button,
   a[href],
@@ -189,7 +190,8 @@
   [data-slot="checkbox"],
   [data-slot="switch"],
   [data-slot="radio-group-item"],
-  [data-slot="slider-thumb"]
+  [data-slot="slider-thumb"],
+  [data-slot="date-input"]
 )[data-focus-visible] {
   outline: 2px solid var(--ring);
   outline-offset: 2px;

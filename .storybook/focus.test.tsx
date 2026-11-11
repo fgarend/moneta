@@ -7,6 +7,7 @@ import { userEvent } from "vitest/browser";
 import { render } from "vitest-browser-react";
 import { Button, LinkButton } from "../src/components/button.js";
 import { Checkbox } from "../src/components/checkbox.js";
+import { DateField } from "../src/components/date-field.js";
 import {
   Dialog,
   DialogDescription,
@@ -46,9 +47,10 @@ const withWidth = "2px";
 const ringShadow = /0px 0px 0px 3px/u;
 const closing = 5000;
 const forced = matchMedia("(forced-colors: active)").matches;
-// Checkbox, Radio, Switch and Slider keep focus on a hidden input, and draw on their label or thumb.
+// Checkbox, Radio, Switch and Slider keep focus on a hidden input, and draw on their label or thumb; DateField keeps it
+// on a part, and draws around its box, as Input.
 const drawnBy =
-  '[data-slot="checkbox"],[data-slot="switch"],[data-slot="radio-group-item"],[data-slot="slider-thumb"]';
+  '[data-slot="checkbox"],[data-slot="switch"],[data-slot="radio-group-item"],[data-slot="slider-thumb"],[data-slot="date-input"]';
 
 function focused(): Element {
   const element = document.activeElement as Element;
@@ -118,6 +120,7 @@ const pieces: [string, ReactElement][] = [
     </Link>,
   ],
   ["Input", <Input aria-label={label} key="a" />],
+  ["DateField", <DateField aria-label={label} key="a" />],
   ["Textarea", <Textarea aria-label={label} key="a" />],
   ["Checkbox", <Checkbox aria-label={label} key="a" />],
   ["Switch", <Switch aria-label={label} key="a" />],

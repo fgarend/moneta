@@ -114,6 +114,12 @@ the version installed. It holds only what exists, and each reviewed piece adds i
   This year's dates leave the year out.
 - **`relative` in lists of recent things,** as a statement's rows, where "Hoje" and "Ontem" read faster than a date.
 - **A time only when it matters,** with `showTime`, and the zone with `timeZone` when the browser's is not the one.
+- **A day is typed in a `DateField`,** with a `label`, or an `aria-label` where its label is elsewhere, and a
+  `description` when the day needs explaining. `size="sm"` for a dense place, as a page's tools.
+- **`onChange` gives the ISO day once it is whole, and `null` once it is cleared.** A day half typed changes nothing
+  until it is whole.
+- **A rule says how it is broken in your words:** `isRequired`, `minValue` and `maxValue` as ISO days, or `isInvalid`
+  for the app's or its server's, each with an `errorMessage`, which TypeScript asks for.
 
 ## Money
 

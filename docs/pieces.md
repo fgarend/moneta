@@ -42,6 +42,7 @@ A piece with no gap listed may still have some.
 | `checkbox` | raw | **Code:** does not grow for its children. **Edited:** on React Aria's `CheckboxField` and `CheckboxButton`, and a dash on a filled box when indeterminate |
 | `collapsible` | raw | **Code:** its trigger has no style of its own |
 | `context-menu` | raw | |
+| `date-field` | reviewed | |
 | `date-time` | reviewed | |
 | `dialog` | raw | **Edited:** 16 px from each edge by `inset-x-4`, and React Aria's types are not exported, and its close button's name comes from `closeLabel`, and it sets `--surface` |
 | `dropdown-menu` | raw | |

@@ -6,6 +6,11 @@ gets its number.
 
 ## [Unreleased]
 
+### Added
+
+- `DateField`, a day typed in, part by part in the language's order, from and to an ISO string, with the app's
+  label, description and error, in 36 or 32 px.
+
 ### Changed
 
 - `@internationalized/date` 3.12.4 is a dependency of the package, the version `react-aria-components` already

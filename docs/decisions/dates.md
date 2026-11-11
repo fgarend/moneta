@@ -21,6 +21,16 @@ How Moneta holds a date, and how it shows one.
   `MoneyProvider`; with no words, it throws.
 - **`useFormatDate` gives the same text where no piece can go,** in the browser's case, to sit in a sentence.
 - **One path from a value to its text,** in `src/lib/date.ts`, internal, on `Intl` alone.
+- **`DateField` takes a day typed in, part by part in the language's order,** on React Aria's `DateField`, from and to
+  an ISO day: `value` and `defaultValue` take one, `onChange` gives one once the day is whole and `null` once every part
+  is cleared, and a day half typed changes nothing until it is whole. A value that is not an ISO day, or a day that
+  does not exist, throws.
+- **One piece, with `label` or `aria-label`, `description` and `errorMessage` as props,** linked by React Aria; its
+  name asked for by TypeScript.
+- **36 px, as `Input`, and 32 at `size="sm"`,** with `Input`'s border, ring, invalid red and disabled look, tabular
+  parts, and the focused one on `--muted`.
+- **Validation as it happens, `validationBehavior="aria"`:** `isRequired`, `minValue` and `maxValue` as ISO days, and
+  `isInvalid`, each with the app's `errorMessage`, which TypeScript asks for whenever a rule is set.
 
 ## Why
 
@@ -41,6 +51,14 @@ How Moneta holds a date, and how it shows one.
 - **A capital in the piece, the browser's case in the hook,** as the piece stands alone and the hook sits in a sentence.
 - **The browser's zone, and `timeZone` per use,** as a provider for the app's zone waits for Sidebar, AppLayout and
   providers. **What it costs:** an app that wants one zone passes it on each use until then.
+- **`DateField` on React Aria's, as its starters build it,** with the label, description and error as props, as
+  shadcn's aria-nova style has a calendar and no date field, and `Field`'s description is not linked yet. **What it
+  costs:** Actions and forms may open its parts, as a breaking change.
+- **Its value in ISO, as `DateTime`'s,** so a day goes from a backend to the field and back with no conversion of the
+  app's. **What it costs:** a half typed day leaves the app with the last whole one, as React Aria reports a day only
+  when it is whole or cleared.
+- **The message always the app's,** asked for by TypeScript with each rule, as a piece has no default text, React
+  Aria's neither. **What it costs:** a rule with no words does not compile.
 - **`MoneyProvider`'s `emptyLabel`,** so the app words "no value" once. **What it costs:** its name says money; it may
   become a provider of values.
 
@@ -54,7 +72,12 @@ How Moneta holds a date, and how it shows one.
 - **Relative words in `"long"` too,** which needs punctuation of Moneta's own between the word and the date.
 - **The year always,** simpler, but every row repeats it.
 
+- **`DateField` as open parts with `Field`,** as shadcn composes a field, but its description is not linked yet.
+- **`CalendarDate` as `DateField`'s value,** as React Aria takes it, which each use would convert.
+- **Validation on submit, `validationBehavior="native"`,** which needs a form and says nothing as the day is typed.
+
 ## History
 
 - 2026-11-11: Written, with `DateTime`, `useFormatDate` and `src/lib/date.ts`.
 - 2026-11-11: `@internationalized/date` a dependency, for `DateField`.
+- 2026-11-11: `DateField`.

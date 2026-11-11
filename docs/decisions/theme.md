@@ -42,7 +42,8 @@ The look Moneta has by default, which whoever uses it can replace. How an app re
 - **`--border-strong` marks structure,** under a group's title and over a total: warm, darker than `--border` in
   light and lighter in dark, which `test/theme.test.ts` holds.
 - **Keyboard focus is a solid outline,** 2 px with 2 px of offset, in `--ring`, from one unlayered rule in the theme. It is
-  shadcn's own rule, widened to fields and to what keeps focus on a hidden input. An area on a dark surface sets its own `--ring`.
+  shadcn's own rule, widened to fields, to what keeps focus on a hidden input, and to a date field's box, around the part
+  that has it. An area on a dark surface sets its own `--ring`.
 - **In dark: the prototype's graphite, near black, in small steps.** The page is `#1a1b1e`, the sidebar a step darker at
   `#121316`, and a card a step lighter at `#232529`, so what is nearer is lighter. Text is `#f4f4f2`, as on the prototype's
   sidebar. Gold stays the same in both, and `color-scheme: dark` darkens the
@@ -120,3 +121,4 @@ The look Moneta has by default, which whoever uses it can replace. How an app re
 - 2026-11-10: `--surface`, `--scroll-shadow`, `scroll-shadows` and `--border-strong`, for Table.
 - 2026-11-11: `sticky-fill`, for a table's selected rows.
 - 2026-11-11: `progress-run`, for Progress with no value.
+- 2026-11-11: The focus outline around a date field's box.
