@@ -56,6 +56,21 @@ pieces is in [`../pieces.md`](../pieces.md), and how a piece is analysed is in [
 - **Disabled, it is dimmed to 50%,** as `Button` is, and React Aria draws it as a `span` out of the tab order.
 - **Its type asks for what it holds,** and it adds no icon and no words for a new tab, which are the app's.
 
+### Pagination
+
+- **shadcn's links to pages, named by the app,** as TypeScript asks: `aria-label` or `aria-labelledby` on its `nav`.
+- **`PaginationSummary`, the app's words for the rows shown,** as "15–28 of 142", at the start, in a status heard
+  when the page changes and focus stays; the pages at the end, with or without it.
+- **The current page is outlined in `--input`,** as a field is, at 3:1 against the page in both modes.
+- **Previous and Next take the app's words as their children,** which name them, and an arrow that turns when the
+  page reads from the right.
+- **A link that goes nowhere, as Previous on the first page, stays in place, `isDisabled`,** dimmed, with no
+  address.
+- **The gap between pages is silent,** as it cannot be pressed.
+- **Narrow, by its own width,** below `sm`, only Previous, the current page and Next stay, as arrows that keep
+  their names.
+- **The app draws the pages,** by the rule in the guidelines.
+
 ### Table
 
 - **A native `<table>`, our own piece,** in place of shadcn's, which is React Aria's `grid`, following the structure of
@@ -178,6 +193,14 @@ pieces is in [`../pieces.md`](../pieces.md), and how a piece is analysed is in [
   it loses that.
 - **The current row's bar in its first cell,** not a border on the row, as a table's collapsed borders give a
   row's border half its width inside, which moves that row's text about 1.5 px off the others'.
+- **Pagination's current page in a field's outline,** the least change to shadcn's that shows a state at 3:1, where
+  its `--border` gave 1.2:1 in light, as WCAG 1.4.11 asks. **A summary in a status,** as Primer asks pagination
+  to announce its range, and as its words are seen, nothing is said twice. **Previous kept in place when it goes
+  nowhere,** as Primer, Polaris and Carbon have it, so Next stays under the pointer. **Narrow, the arrows alone,**
+  as Polaris has it on a phone, as nine links of 36 px do not fit in 320. **The pages the app's,** as shadcn has
+  them. **What it costs:** on a phone no page can be skipped to, and each app writes the loop that picks the pages,
+  which MUI and Mantine give as `usePagination`, in the roadmap if a second app needs it. GOV.UK hides Previous on
+  the first page.
 - **The bar over the table, in the page's flow,** as Carbon has it, so it covers nothing and a screen reader meets
   it before the rows. **The count the app's,** as only the app knows the rows selected on other pages. **What it
   costs:** in a long table it scrolls out of sight, which a bar fixed at the page's foot, in the roadmap, can hold.
@@ -226,3 +249,4 @@ pieces is in [`../pieces.md`](../pieces.md), and how a piece is analysed is in [
 - 2026-11-10: Link.
 - 2026-11-10: The most semantic HTML and CSS.
 - 2026-11-10: Table, a native table of our own.
+- 2026-11-11: Pagination.

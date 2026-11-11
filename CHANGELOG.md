@@ -19,6 +19,12 @@ gets its number.
     header, with an `id` on each row;
   - `TableFooter`, selection, row actions and sorting come back later in this version.
 
+- **Breaking:** `Pagination` has no words of its own. To upgrade:
+  - name it, with `aria-label` or `aria-labelledby`, in place of its "pagination";
+  - give `PaginationPrevious` and `PaginationNext` their words as children, in place of `text` and of "Go to
+    previous page" and "Go to next page";
+  - its pages now sit at the end, and its current page has a stronger outline.
+
 ### Added
 
 - `hideBelow` on a table's cells, which hides a column when the table is narrow, by its own width.
@@ -36,12 +42,17 @@ gets its number.
   `defaultSelectedKeys` and `onSelectionChange` on the `Table`, Shift for a range, and `TableSelectionBar` over the
   table, with the app's count, heard as it changes, and its actions.
 - A table's row with `aria-current="true"`, the one open beside it, is drawn with a bar of `--primary` at its start.
+- `PaginationSummary`, the rows shown, as "15–28 of 142", heard when the page changes; `isDisabled` on a
+  pagination's links, which keeps Previous in place on the first page; and a pagination narrow by its own width
+  keeps only Previous, the current page and Next.
 - Sorting: `allowsSorting` and an `id` on a `TableHead`, and `sortDescriptor` and `onSortChange` on the `Table`, which
   draws a button with a mark in each sortable header and sets `aria-sort` on the sorted one; the app sorts.
 
 ### Fixed
 
 - `Checkbox` partly checked draws a dash on a filled box, no longer a check.
+- `Pagination`'s Previous and Next keep their names on a phone, and their arrows turn when the page reads from the
+  right.
 
 ## [0.8.0] - 2026-11-10
 

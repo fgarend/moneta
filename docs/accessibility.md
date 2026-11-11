@@ -46,7 +46,7 @@ which is run by hand.
 | 1.4.4 Resize Text | script | |
 | 1.4.5 Images of Text | app | |
 | 1.4.10 Reflow | story, coming, script | Section's story at 320 px, Amount on one line in a narrow column, Table's columns hidden or scrolled in its own area at 320 px, and the application's structure (Sidebar) |
-| 1.4.11 Non-text Contrast | test, coming | `test/theme.test.ts` on borders and focus, both modes. Field (Actions and forms) and charts (Charts) to come |
+| 1.4.11 Non-text Contrast | test, story, coming | `test/theme.test.ts` on borders and focus, both modes, and Pagination's current page in `--input`. Field (Actions and forms) and charts (Charts) to come |
 | 1.4.12 Text Spacing | every story | All three browsers |
 | 1.4.13 Content on Hover or Focus | none yet | With Tooltip (Overlays) |
 | 2.1.1 Keyboard | none yet | React Aria's in the raw pieces, and no story goes by keyboard; with each family's review |
@@ -65,7 +65,7 @@ which is run by hand.
 | 2.4.11 Focus Not Obscured (Minimum) | none yet | |
 | 2.5.1 Pointer Gestures | none yet | |
 | 2.5.2 Pointer Cancellation | none yet | |
-| 2.5.3 Label in Name | app | The visible name and the accessible one |
+| 2.5.3 Label in Name | story, app | Pagination's Previous and Next named by their words; elsewhere the visible name and the accessible one |
 | 2.5.4 Motion Actuation | none yet | |
 | 2.5.7 Dragging Movements | none yet | |
 | 2.5.8 Target Size (Minimum) | axe, story | Table's sortable headers, at least 24 px tall |
@@ -83,7 +83,7 @@ which is run by hand.
 | 3.3.7 Redundant Entry | app | |
 | 3.3.8 Accessible Authentication (Minimum) | app | |
 | 4.1.2 Name, Role, Value | axe, story | |
-| 4.1.3 Status Messages | story, coming | Table's selection bar, a status whose text changes with the count; Alert (Display) to come |
+| 4.1.3 Status Messages | story, coming | Table's selection bar, a status whose text changes with the count, and Pagination's summary; Alert (Display) to come |
 
 ## Corner cases
 

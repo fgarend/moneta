@@ -116,6 +116,18 @@ the version installed. It holds only what exists, and each reviewed piece adds i
 - **A wrong value or currency throws,** as `"1,5"`, `"50%"` or `"real"`, so a mistake is never shown as money. An error
   boundary keeps it to its part of the screen.
 
+## Pagination
+
+- **Pages of rows, under a table or a list,** when they are too many to show at once and the user moves through them
+  in order. A filter or a search often serves better than many pages.
+- **Each page has an address,** as `?page=2`, so it can be shared and the browser's back returns to it.
+- **Name it,** as "Pages of payments", and give Previous and Next your words as their children.
+- **Say which rows are shown** with `PaginationSummary`, as "15–28 of 142".
+- **Draw the first page, the last, the current one and one on each side,** with a `PaginationEllipsis` where pages
+  are skipped, and mark the current one with `isActive`.
+- **On the first page, Previous is `isDisabled`,** and Next on the last, so neither moves.
+- **With one page, draw no pagination.**
+
 ## Table
 
 - **A table is for comparing down its columns,** under headers. A list of things read across, each with its value at

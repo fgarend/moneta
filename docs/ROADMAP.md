@@ -93,6 +93,8 @@ Each becomes an item when its time comes.
 - **More for a value, when a screen asks.** A unit, a value shown while hidden, a tone kept, a spoken text.
 - **A table's virtualisation, resized columns and rows dragged.** When a screen needs them.
 - **Announcing a table's sort.** If `aria-sort` alone proves too little.
+- **The pages a pagination draws, worked out.** If a second app needs it.
+- **`LinkButton` disabled draws no dimming.** Found with Pagination.
 - **The sample page's text in the dark stories.** Light's colour, where its dark screenshot is right.
 
 ## Done
