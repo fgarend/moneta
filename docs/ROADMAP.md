@@ -4,13 +4,12 @@ Moneta is the source of truth for components: an app builds its screens from its
 own. What it lacks is added here, in this order, which a new need can change. The details of each item, what is
 known and what is still to ask, are in [`roadmap-notes.md`](roadmap-notes.md), read when the item starts.
 
-**Now:** 1. Sidebar and AppLayout.
+**Now:** 1. AppLayout.
 
 ## Next, in order
 
-1. **Sidebar and AppLayout.** The app's shell, starting with a study, after its providers.
-   - Sidebar: groups of links, the current page, and a Sheet on a phone
-   - AppLayout, with the skip link
+1. **AppLayout.** The app's shell around Sidebar, after its providers.
+   - where Sidebar, a top bar and the content sit, with the skip link
 2. **Colours of meaning.** Success, warning and information, in light and dark, beside gain and loss.
    - their names, and `variant` or `tone`
    - the palette of categories and of the charts
@@ -90,6 +89,8 @@ Each becomes an item when its time comes.
 
 ## Done
 
+- **Sidebar.** The app's main navigation, our own: sections of links, the current page, and a Sheet on a phone.
+  0.15.0.
 - **Providers.** `MonetaProvider`, once at the app's root, with the language, the router, the time zone and the
   app's words, in place of `MoneyProvider`. 0.14.0.
 - **Layers.** Today's order as a rule, from the page to what floats, held by a test in each browser, with no
