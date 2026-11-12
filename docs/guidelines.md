@@ -68,6 +68,11 @@ the version installed. It holds only what exists, and each reviewed piece adds i
 - **With less motion asked for, the pieces stop moving and keep their fades,** and a spinner keeps turning. Motion of
   your own, outside the pieces, is yours to stop.
 
+## Layers
+
+- **The pieces stack themselves:** a dialog or a sheet over the page, and a menu, a tooltip or a select's list over
+  the dialog it opens in. Give them no `z-index`.
+
 ## Section
 
 - **A part of a page under one title, with no box of its own.** `Card` is for a group that needs a surface. A section

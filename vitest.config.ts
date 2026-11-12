@@ -91,6 +91,8 @@ function storyProjects(): TestProjectInlineConfiguration[] {
     everyStory("visual", ["chromium"], { mode: "dark" }),
     everyStory("text-spacing", everyBrowser),
     everyStory("focus", everyBrowser),
+    // What is drawn over what: the page, what sticks, the modal overlays, and what floats.
+    everyStory("layers", everyBrowser),
     // The same file again in forced colours, in the browsers whose emulation forces them.
     {
       plugins: [tailwindcss()],
