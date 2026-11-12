@@ -24,17 +24,41 @@ after each family.
 
 ## Colours of meaning
 
-`--destructive` is the only one today: success, warning and information, and a palette for categories and for the
-charts, in light and dark. Gain and loss came first, with Money values, as `--positive` and `--negative`, which a
-value's `tone` reads, and these are chosen beside them, as `tone` already names good news or bad.
+`--destructive` was the only one: success, warning and information, and a palette for categories and for the charts,
+in light and dark. Gain and loss came first, with Money values, as `--positive` and `--negative`, which a value's
+`tone` reads. Decided on 2026-11-12, one point at a time, after a study of shadcn, Primer, Polaris, Carbon, Atlassian,
+Spectrum, Material and Radix. Two steps: the colours of meaning, then the palette of categories with the charts in
+mind, as a meaning needs text contrast and a name that says good or bad, and a category must tell apart and say
+nothing, as Primer forbids meaning in data colours. **What it costs:** both share a screen, so a category's green may
+meet success's.
 
-- A category's colour tints `ItemMedia`'s icon tile, which Lists of rows drew in `--muted` on 2026-11-11.
-- To ask: which names, in shadcn's format.
-- To ask: whether a meaning stays a value of `variant`, as shadcn's `destructive` is, or becomes a prop of its own,
-  such as `tone`, beside a `variant` for the style, which would edit each piece with `destructive`.
-- To ask: whether this and One scale of sizes come before the families, as they reach every piece.
-- To ask: a base palette under the semantic names, as Material 3, Spectrum and Carbon tier their tokens, and the
-  DTCG format reached a stable version, 2025.10.
+- **No base palette:** the new tokens take their values directly, as today's and shadcn's, so a replaced theme sets
+  roles only. **What it costs:** each shade is chosen by hand and may come out uneven; the categories need theirs by
+  hand too; the DTCG format, stable since 2025.10, favours a base tier.
+- **`--success`, `--warning` and `--info`,** beside `--destructive`, the commonest words, as MUI's, Chakra's and
+  shadcn's own `--warning` example. `--positive` and `--negative` stay a value's good and bad news. **What it costs:**
+  the guidelines must say when each is used; `--info` is shortened where the others are not; no fifth meaning, as
+  Atlassian's discovery or Polaris's magic, until a piece asks.
+- **One token per meaning, as `--destructive`:** readable as text on the page, a card and `--muted`, at 4.5:1 in both
+  modes, a soft background and a border drawn from it by opacity. **What it costs:** no strong fill, as a bright
+  yellow badge with dark text, which would ask for a `-foreground`; a tint by opacity changes with what lies under it.
+- **`--success: var(--positive)`,** as `--negative` is `var(--destructive)`: one green for good on the whole screen.
+  **What it costs:** a theme that parts them gives `--success` its own value.
+- **Values:** `--info` `#1d5fbf` in light, 5.8:1 on the page, and `#7aa7f5` in dark, 7.1:1; `--warning` an orange,
+  `#9e4c00`, 5.7:1, and `#ffb46b`, 9.8:1, away from the brand's gold `#f0bd2a`, which an amber nearly matched in dark,
+  as Atlassian's warning text and Spectrum's orange notice. **What it costs:** orange sits nearer `--destructive`'s
+  red, told apart less at a glance, so words and icons must say it.
+- **A value of `variant`, beside `destructive`,** as shadcn, Primer and Spectrum: text in the colour on a 10% tint of
+  it. `tone` keeps its meaning, a value's news. **What it costs:** meaning and style in one prop, so an outlined
+  warning badge would be a new value, and parting them later breaks every piece with `destructive`.
+- **Badge and Alert only,** the pieces that show a state; Button and the menus' items are actions, where only
+  `destructive` matters. They stay raw, the edit recorded in `pieces.md`. **What it costs:** they change without their
+  review, and a Toast or Banner later repeats the drawing.
+- **WCAG to check:** 1.4.3 by `test/theme.test.ts`, each new colour on the page, a card and `--muted` in both modes;
+  1.4.1 by the guidelines asking words with every colour; a story for each new variant.
+- **Then, the palette of categories:** an icon tile's tint, which Lists of rows drew in `--muted`, and the charts'
+  series, today shadcn's greys; 5 to 8 colours in a fixed order, each mark 3:1 on its surface, never colour alone, as
+  Carbon, Atlassian and Primer advise.
 
 ## One scale of sizes
 

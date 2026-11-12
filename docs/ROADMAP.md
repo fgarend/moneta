@@ -9,8 +9,8 @@ known and what is still to ask, are in [`roadmap-notes.md`](roadmap-notes.md), r
 ## Next, in order
 
 1. **Colours of meaning.** Success, warning and information, in light and dark, beside gain and loss.
-   - their names, and `variant` or `tone`
-   - the palette of categories and of the charts
+   - `--success`, `--warning` and `--info`, one token each, and Badge's and Alert's variants
+   - the palette of categories and of the charts, a step of its own
 2. **One scale of sizes.** 32, 36 and 40 px on every piece, with one set of names, and the icons' sizes with them.
 3. **Layout and text.** What replaces the `flex`, `gap` and `text` classes an app writes.
 4. **Display.** The pieces that show, reviewed or made.
