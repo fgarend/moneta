@@ -4,13 +4,12 @@ Moneta is the source of truth for components: an app builds its screens from its
 own. What it lacks is added here, in this order, which a new need can change. The details of each item, what is
 known and what is still to ask, are in [`roadmap-notes.md`](roadmap-notes.md), read when the item starts.
 
-**Now:** 1. Colours of meaning.
+**Now:** 1. The palette of categories.
 
 ## Next, in order
 
-1. **Colours of meaning.** Success, warning and information, in light and dark, beside gain and loss.
-   - `--success`, `--warning` and `--info`, one token each, and Badge's and Alert's variants
-   - the palette of categories and of the charts, a step of its own
+1. **The palette of categories.** Colours that tell apart and say nothing, in light and dark, beside the meanings.
+   - an icon tile's tint and the charts' series, in a fixed order
 2. **One scale of sizes.** 32, 36 and 40 px on every piece, with one set of names, and the icons' sizes with them.
 3. **Layout and text.** What replaces the `flex`, `gap` and `text` classes an app writes.
 4. **Display.** The pieces that show, reviewed or made.
@@ -89,6 +88,8 @@ Each becomes an item when its time comes.
 
 ## Done
 
+- **Colours of meaning.** `--success`, `--warning` and `--info`, one token each, readable as text in both modes, and
+  Badge's and Alert's variants. 0.17.0.
 - **AppLayout.** The app's shell: `SkipLink`, `AppLayout`, `AppMain`, `AppHeader` and `AppContent`, each with one
   responsibility, a sticky bar and content up to 1440 px or the full width. 0.16.0.
 - **Sidebar.** The app's main navigation, our own: sections of links, the current page, and a Sheet on a phone.
