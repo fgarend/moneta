@@ -1,5 +1,17 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { PiggyBank } from "lucide-react";
+import {
+  CarIcon,
+  GiftIcon,
+  GraduationCapIcon,
+  HeartPulseIcon,
+  HouseIcon,
+  PawPrintIcon,
+  PiggyBank,
+  PlaneIcon,
+  ShoppingCartIcon,
+  TagIcon,
+  TvIcon,
+} from "lucide-react";
 import { RouterProvider } from "react-aria-components";
 import { expect, fn, userEvent, within } from "storybook/test";
 import { Caught } from "../../.storybook/caught.js";
@@ -566,6 +578,118 @@ function statement() {
   ));
 }
 
+// A tile takes its category's colour, the icon in it and the tile at a tenth of it, a fifth in dark; past eight the
+// colours repeat, and a row with no category keeps the quiet tile.
+const spending = [
+  { category: 1, name: "Groceries", Icon: ShoppingCartIcon },
+  { category: 2, name: "Home", Icon: HouseIcon },
+  { category: 3, name: "Transport", Icon: CarIcon },
+  { category: 4, name: "Health", Icon: HeartPulseIcon },
+  { category: 5, name: "Education", Icon: GraduationCapIcon },
+  { category: 6, name: "Travel", Icon: PlaneIcon },
+  { category: 7, name: "Subscriptions", Icon: TvIcon },
+  { category: 8, name: "Gifts", Icon: GiftIcon },
+  { category: 9, name: "Pets", Icon: PawPrintIcon },
+];
+
+function tiles(canvasElement: HTMLElement): HTMLElement[] {
+  return [
+    ...canvasElement.querySelectorAll('[data-slot="item-media"]'),
+  ] as HTMLElement[];
+}
+
+// The tint a tile draws from a colour, as the browser resolves it, in light and in dark.
+function tintOf(value: string, near: Element): string {
+  const share = document.documentElement.classList.contains("dark") ? 20 : 10;
+  const probe = document.createElement("span");
+  probe.style.backgroundColor = `color-mix(in oklab, ${value} ${share}%, transparent)`;
+  near.append(probe);
+  const { backgroundColor } = getComputedStyle(probe);
+  probe.remove();
+  return backgroundColor;
+}
+
+const Categories: Story = {
+  tags: ["visual"],
+  render: () => (
+    <section className="w-96 p-6">
+      <h2 className="type-title">Spending</h2>
+      <ItemGroup>
+        {spending.map(({ category, name, Icon }) => (
+          <Item key={name}>
+            <ItemMedia category={category} variant="icon">
+              <Icon aria-hidden={true} />
+            </ItemMedia>
+            <ItemContent>
+              <ItemTitle>{name}</ItemTitle>
+            </ItemContent>
+          </Item>
+        ))}
+        <Item>
+          <ItemMedia variant="icon">
+            <TagIcon aria-hidden={true} />
+          </ItemMedia>
+          <ItemContent>
+            <ItemTitle>No category</ItemTitle>
+          </ItemContent>
+        </Item>
+      </ItemGroup>
+    </section>
+  ),
+  play: async ({ canvasElement }) => {
+    const all = tiles(canvasElement);
+    const ninth = all[8] as HTMLElement;
+    const plain = all[9] as HTMLElement;
+
+    for (const [index, media] of all.slice(0, 8).entries()) {
+      const colour = `var(--category-${index + 1})`;
+      await expect(getComputedStyle(media).color).toBe(
+        colourOf(colour, canvasElement),
+      );
+      await expect(getComputedStyle(media).color).not.toBe(
+        colourOf("var(--foreground)", canvasElement),
+      );
+      await expect(getComputedStyle(media).backgroundColor).toBe(
+        tintOf(colour, canvasElement),
+      );
+    }
+    await expect(getComputedStyle(ninth).color).toBe(
+      colourOf("var(--category-1)", canvasElement),
+    );
+    await expect(getComputedStyle(plain).backgroundColor).toBe(
+      colourOf("var(--muted)", canvasElement),
+    );
+  },
+};
+
+// A number that names no category, nought, below it or a fraction, keeps the quiet tile, as no category does.
+const CategoryOutOfRange: Story = {
+  render: () => (
+    <ItemGroup>
+      {[0, -1, 2.5].map((category) => (
+        <Item key={category}>
+          <ItemMedia category={category} variant="icon">
+            <TagIcon aria-hidden={true} />
+          </ItemMedia>
+          <ItemContent>
+            <ItemTitle>{`Category ${category}`}</ItemTitle>
+          </ItemContent>
+        </Item>
+      ))}
+    </ItemGroup>
+  ),
+  play: async ({ canvasElement }) => {
+    for (const media of tiles(canvasElement)) {
+      await expect(getComputedStyle(media).backgroundColor).toBe(
+        colourOf("var(--muted)", canvasElement),
+      );
+      await expect(getComputedStyle(media).color).toBe(
+        colourOf("var(--foreground)", canvasElement),
+      );
+    }
+  },
+};
+
 const Groups: Story = {
   tags: ["visual"],
   render: () => <div className="p-6">{statement()}</div>,
@@ -946,6 +1070,8 @@ export {
   ActionWithoutTitle,
   AllParts,
   Alone,
+  Categories,
+  CategoryOutOfRange,
   Compact,
   CurrentRow,
   Default,

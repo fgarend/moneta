@@ -24,7 +24,10 @@ the version installed. It holds only what exists, and each reviewed piece adds i
   page's or a card's background, and never text, as it reaches only 1.66:1 on the page.
 - **The sidebar is the one dark surface in light,** `--sidebar`, and what sits on it reads `--sidebar-foreground`,
   `--sidebar-muted-foreground`, `--sidebar-accent`, `--sidebar-border` and `--sidebar-ring`, as `Sidebar` does.
-- **`--chart-1` to `--chart-5` are still shadcn's greys,** until charts are reviewed.
+- **`--category-1` to `--category-8` tell categories apart, and say nothing,** as a row's category on `ItemMedia`'s
+  tile, through `category={n}`, and later a chart's series, in their order. Past eight they repeat, so a name always
+  goes beside a colour, never the colour alone. Never for a state, which the colours of meaning say, and never as text.
+  `--chart-1` to `--chart-5` are the first five, for shadcn's chart.
 
 ## Size
 

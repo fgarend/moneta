@@ -6,6 +6,12 @@ gets its number.
 
 ## [Unreleased]
 
+### Added
+
+- `--category-1` to `--category-8` in the theme, the colours of categories, which tell apart and say nothing, in light
+  and dark, with `--chart-1` to `--chart-5` reading the first five, and `category` on `ItemMedia`, which colours an
+  icon's tile, repeating past eight.
+
 ## [0.17.0] - 2026-11-12
 
 Colours of meaning: success, warning and information beside destructive, in light and dark, on Badge and Alert.

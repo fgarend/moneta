@@ -52,7 +52,7 @@ A piece with no gap listed may still have some.
 | `hover-card` | raw | **Code:** its dialog has no name unless given `aria-label`. Opening by focus or hover is not checked |
 | `input` | raw | **Edited:** 36 px |
 | `input-group` | raw | **Edited:** 36 px, its addon is React Aria's `Group`, and pulls a button or `kbd` 4 or 2 px toward the edge |
-| `item` | reviewed | |
+| `item` | reviewed | **Edited:** `ItemMedia`'s icon tile takes a category's colour by `category={n}` |
 | `kbd` | raw | |
 | `label` | raw | |
 | `link` | reviewed | |

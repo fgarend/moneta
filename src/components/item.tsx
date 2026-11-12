@@ -270,7 +270,7 @@ const itemMediaVariants = cva(
     variants: {
       variant: {
         default: "bg-transparent",
-        // An icon on a tile of 40 px, where the eye starts each row; Colours of meaning tints it by category.
+        // An icon on a tile of 40 px, where the eye starts each row, quiet until a category colours it.
         icon: "size-10 rounded-lg bg-muted text-foreground in-data-[density=compact]:size-8 [&_svg:not([class*='size-'])]:size-5 in-data-[density=compact]:[&_svg:not([class*='size-'])]:size-4",
         image:
           "size-10 overflow-hidden rounded-sm group-data-[size=sm]/item:size-8 group-data-[size=xs]/item:size-6 [&_img]:size-full [&_img]:object-cover",
@@ -282,16 +282,44 @@ const itemMediaVariants = cva(
   },
 );
 
+// The colours of categories, in the theme's order: the icon in the colour, on a tenth of it, a fifth in dark.
+const categoryColours = [
+  "bg-category-1/10 text-category-1 dark:bg-category-1/20",
+  "bg-category-2/10 text-category-2 dark:bg-category-2/20",
+  "bg-category-3/10 text-category-3 dark:bg-category-3/20",
+  "bg-category-4/10 text-category-4 dark:bg-category-4/20",
+  "bg-category-5/10 text-category-5 dark:bg-category-5/20",
+  "bg-category-6/10 text-category-6 dark:bg-category-6/20",
+  "bg-category-7/10 text-category-7 dark:bg-category-7/20",
+  "bg-category-8/10 text-category-8 dark:bg-category-8/20",
+];
+
+// A category from 1 takes its colour, and past the last they repeat; a number that names none takes no colour.
+function categoryColour(category: number | undefined): string | undefined {
+  return category !== undefined && Number.isInteger(category) && category >= 1
+    ? categoryColours[(category - 1) % categoryColours.length]
+    : undefined;
+}
+
 function ItemMedia({
   className,
   variant = "default",
+  category,
   ...props
-}: ComponentProps<"div"> & VariantProps<typeof itemMediaVariants>) {
+}: ComponentProps<"div"> &
+  VariantProps<typeof itemMediaVariants> & {
+    // The row's category, from 1, which colours an icon's tile, as the app numbers its categories.
+    category?: number;
+  }) {
   return (
     <div
       data-slot="item-media"
       data-variant={variant}
-      className={cn(itemMediaVariants({ variant, className }))}
+      className={cn(
+        itemMediaVariants({ variant }),
+        categoryColour(category),
+        className,
+      )}
       {...props}
     />
   );

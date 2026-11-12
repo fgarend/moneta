@@ -23,6 +23,14 @@
   --color-sidebar-foreground: var(--sidebar-foreground);
   --color-sidebar-muted-foreground: var(--sidebar-muted-foreground);
   --color-sidebar: var(--sidebar);
+  --color-category-8: var(--category-8);
+  --color-category-7: var(--category-7);
+  --color-category-6: var(--category-6);
+  --color-category-5: var(--category-5);
+  --color-category-4: var(--category-4);
+  --color-category-3: var(--category-3);
+  --color-category-2: var(--category-2);
+  --color-category-1: var(--category-1);
   --color-chart-5: var(--chart-5);
   --color-chart-4: var(--chart-4);
   --color-chart-3: var(--chart-3);
@@ -108,11 +116,23 @@
   --ring: #2b2e33;
   --gold: #f0bd2a;
   --gold-foreground: #23262b;
-  --chart-1: oklch(0.87 0 0);
-  --chart-2: oklch(0.556 0 0);
-  --chart-3: oklch(0.439 0 0);
-  --chart-4: oklch(0.371 0 0);
-  --chart-5: oklch(0.269 0 0);
+  /* The colours of categories, which tell apart and say nothing: teal, olive, plum, violet, rose, copper, steel and
+     mustard, in that order, each 3:1 as a mark on every surface and on its own tint, olive, plum, copper and steel
+     deeper, so a colour-blind eye still parts neighbours. shadcn's chart colours are the first five. Again under
+     .dark. */
+  --category-1: #1f8782;
+  --category-2: #566a2d;
+  --category-3: #894f7d;
+  --category-4: #7b71b3;
+  --category-5: #af6375;
+  --category-6: #92522c;
+  --category-7: #316792;
+  --category-8: #8e7735;
+  --chart-1: var(--category-1);
+  --chart-2: var(--category-2);
+  --chart-3: var(--category-3);
+  --chart-4: var(--category-4);
+  --chart-5: var(--category-5);
   --radius: 0.45rem;
   --sidebar: #303338;
   --sidebar-foreground: #cfd1d4;
@@ -158,11 +178,19 @@
   --border-strong: #55585f;
   --input: #868a91;
   --ring: #f4f4f2;
-  --chart-1: oklch(0.87 0 0);
-  --chart-2: oklch(0.556 0 0);
-  --chart-3: oklch(0.439 0 0);
-  --chart-4: oklch(0.371 0 0);
-  --chart-5: oklch(0.269 0 0);
+  --category-1: #49a9a3;
+  --category-2: #b1c988;
+  --category-3: #edabde;
+  --category-4: #9c92d7;
+  --category-5: #d38396;
+  --category-6: #f7af87;
+  --category-7: #8ec6f6;
+  --category-8: #b09857;
+  --chart-1: var(--category-1);
+  --chart-2: var(--category-2);
+  --chart-3: var(--category-3);
+  --chart-4: var(--category-4);
+  --chart-5: var(--category-5);
   --sidebar: #121316;
   --sidebar-foreground: #b4b7bd;
   --sidebar-muted-foreground: #8f939a;

@@ -24,6 +24,11 @@ The look Moneta has by default, which whoever uses it can replace. How an app re
   text at 4.5:1 on the page, a card and `--muted` in both modes, and drawn soft from it by opacity. `--success` is
   `var(--positive)`; `--warning` an orange, `#9e4c00` in light and `#ffb46b` in dark, away from the gold; `--info` a
   blue, `#1d5fbf` and `#7aa7f5`. No base palette under them.
+- **`--category-1` to `--category-8`, the colours of categories,** which tell apart and say nothing: teal, olive, plum,
+  violet, rose, copper, steel and mustard, in that order, one token each. Each is 3:1 as a mark on the page, a card and
+  `--muted`, and on its own tint there, 10% in light and 20% in dark, in both modes. Olive, plum, copper and steel are
+  deeper in light and paler in dark, so neighbours stay apart for a colour-blind eye. shadcn's `--chart-1` to
+  `--chart-5`, its greys before, read the first five.
 - **The font is Geist, in `--font`,** which `--font-sans` reads, so an app can change it. `--font-heading` stays as shadcn writes
   it, costing nothing unused, so a piece that reads it later still finds it.
 - **A scale of text and of space,** so sizes are chosen once. Text, with line heights on a 4 px grid but the title's: 32/40 for a
@@ -118,6 +123,14 @@ The look Moneta has by default, which whoever uses it can replace. How an app re
   each shade is chosen by hand.
 - **An orange warning,** as Atlassian's text and Spectrum's notice, since an amber nearly matched the gold in dark.
   **What it costs:** it sits nearer the red, so the words must say the meaning.
+- **Categories apart from meanings,** as Primer forbids meaning in data colours: a category must tell apart and say
+  nothing, where a meaning needs text contrast and a name that says good or bad. One token each, as the meanings, the
+  same for a tile's icon and a chart's marks. Eight, as Atlassian, Okabe–Ito and a list of categories need, sober at
+  3:1 beside the graphite and the gold. A simulation of the three colour-vision deficiencies merged pairs at one
+  lightness, so four alternate, which nearly doubles the smallest difference between neighbours, and the order comes
+  from it: teal first, furthest from the gold and the meanings, mustard, the hue nearest the gold, last. **What it
+  costs:** a category's green may meet success's; the tint shifts with what lies under it; eight are hard to tell apart,
+  so a name always goes beside a colour; some marks read heavier; teal may read as a gain.
 
 ## Alternatives considered
 
@@ -163,6 +176,12 @@ The look Moneta has by default, which whoever uses it can replace. How an app re
   format favours, which would add dozens of tokens.
 - **Five tokens per meaning,** text, soft and strong backgrounds and borders, as Primer's.
 - **An amber warning,** as Primer's `#9a6700`, the yellow everyone knows.
+- **A soft background per category,** a `-soft` token beside each, as Atlassian, Primer and the prototype fix theirs,
+  which can be added later without breaking.
+- **Five categories, in shadcn's `--chart-N`,** which a list of categories passes, or eight `--chart-N`, a name a
+  list's tile would read.
+- **Vivid categories,** as Atlassian's and Spectrum's, louder than the brand, the copper near the warning; deeper ones,
+  all at 4.5:1, which bunch together; cyan or indigo for the mustard, which nearly matched teal, or violet and steel.
 - **The meaning as a prop of its own,** `tone` beside `variant`, as Polaris, Spectrum and Mantine part meaning and
   style, which `tone` on a value already means otherwise.
 
@@ -186,3 +205,4 @@ The look Moneta has by default, which whoever uses it can replace. How an app re
 - 2026-11-12: `sidebar-glow` and `--sidebar-muted-foreground`, for Sidebar.
 - 2026-11-12: `tall` and the scroll padding, for AppLayout.
 - 2026-11-12: `--success`, `--warning` and `--info`.
+- 2026-11-12: `--category-1` to `--category-8`, with `--chart-1` to `--chart-5` reading them.
