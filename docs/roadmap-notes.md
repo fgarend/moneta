@@ -22,23 +22,11 @@ scale of sizes may need a touch when they arrive, and Sidebar's study may change
 later: a page that puts the pieces together, a pre-release tried in an app before a version, and a review of the whole
 after each family.
 
-## Layers
-
-Motion, Layers and Icons were one item, split as each crosses every piece with checks of its own. Decided on
-2026-11-12, after a study of the pieces, of React Aria, shadcn and Tailwind, and of Atlassian, Carbon, Polaris, Primer,
-Material, Spectrum and Chakra. One step, with no change to a piece.
-
-- **Today's order kept, as a rule, with no layer tokens:** the page; inside a piece, what sticks, as Table's header,
-  at `z-10` to `z-30`; the modal overlays, Dialog, AlertDialog and Sheet, at shadcn's `z-50`; and what floats, Popover,
-  Tooltip, HoverCard, the menus and Select, above them all at React Aria's inline `z-index: 100000`, which beats
-  shadcn's `z-50` on them. So a menu or a tooltip opened in a dialog shows over it, as in Chakra, MUI and Primer.
-  **What it costs:** the `z-50` that does nothing stays in those files, and a piece to come, as a toast above a
-  dialog or the sidebar, picks its number among these, where Primer, Chakra and MUI name each layer.
-- **A test holds the order in each browser,** proved by a failure planted in it.
 ## Icons
 
-Their sizes: 12, 14, 16, 20 and 24 px across the pieces, and 8 in Avatar, mostly 16, from Lucide. To ask first
-whether it joins One scale of sizes. One step.
+Motion, Layers and Icons were one item, split as each crosses every piece with checks of its own. Their sizes: 12, 14,
+16, 20 and 24 px across the pieces, and 8 in Avatar, mostly 16, from Lucide. To ask first whether it joins One scale
+of sizes. One step.
 
 ## Sidebar, AppLayout and providers
 

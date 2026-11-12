@@ -6,6 +6,11 @@ gets its number.
 
 ## [Unreleased]
 
+### Added
+
+- The guidelines' Layers: the pieces stack themselves, a menu or a tooltip over the dialog it opens in, as they
+  already did.
+
 ## [0.13.0] - 2026-11-11
 
 Motion: with less motion asked for, the pieces stop moving and keep their fades, and the Spinner keeps turning.

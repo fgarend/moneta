@@ -4,26 +4,24 @@ Moneta is the source of truth for components: an app builds its screens from its
 own. What it lacks is added here, in this order, which a new need can change. The details of each item, what is
 known and what is still to ask, are in [`roadmap-notes.md`](roadmap-notes.md), read when the item starts.
 
-**Now:** 1. Layers.
+**Now:** 1. Icons.
 
 ## Next, in order
 
-1. **Layers.** The order of what sits above what, as shadcn writes `z-50` on every overlay.
-   - today's order as a rule, held by a test, with no layer tokens
-2. **Icons.** Their sizes, which may join One scale of sizes.
-3. **Sidebar, AppLayout and providers.** The app's shell, starting with a study.
+1. **Icons.** Their sizes, which may join One scale of sizes.
+2. **Sidebar, AppLayout and providers.** The app's shell, starting with a study.
    - Sidebar, with navigation, a skip link and the current page
    - AppLayout
    - providers, with the language React Aria speaks
-4. **Colours of meaning.** Success, warning and information, in light and dark, beside gain and loss.
+3. **Colours of meaning.** Success, warning and information, in light and dark, beside gain and loss.
    - their names, and `variant` or `tone`
    - the palette of categories and of the charts
-5. **One scale of sizes.** 32, 36 and 40 px on every piece, with one set of names.
-6. **Layout and text.** What replaces the `flex`, `gap` and `text` classes an app writes.
-7. **Display.** The pieces that show, reviewed or made.
+4. **One scale of sizes.** 32, 36 and 40 px on every piece, with one set of names.
+5. **Layout and text.** What replaces the `flex`, `gap` and `text` classes an app writes.
+6. **Display.** The pieces that show, reviewed or made.
     - Badge, Card, Avatar and AvatarGroup, Alert and Separator
     - Stat, DescriptionList, Kbd, AspectRatio, ScrollArea, Timeline and TickerChip
-8. **Actions and forms.** The pieces that act and take input, reviewed or made.
+7. **Actions and forms.** The pieces that act and take input, reviewed or made.
     - Button, ButtonGroup and PageHeader
     - Input, InputGroup, Textarea, Label, Field, NativeSelect, Select and SearchField
     - Checkbox, RadioGroup, Switch, Toggle, ToggleGroup and Slider
@@ -34,25 +32,25 @@ known and what is still to ask, are in [`roadmap-notes.md`](roadmap-notes.md), r
     - how a form connects, with a server's errors
     - `combobox`, after a study
     - Button's `link` variant beside Link, and a disabled `LinkButton`, which is not dimmed
-9. **Overlays.** The pieces that open over the page, reviewed or made.
+8. **Overlays.** The pieces that open over the page, reviewed or made.
     - Dialog, AlertDialog and Sheet
     - Popover, HoverCard, DropdownMenu, ContextMenu, Tooltip and Toggletip
     - text spacing and forced colours on what an overlay draws when open
-10. **The rest.** The other pieces, reviewed or made.
+9. **The rest.** The other pieces, reviewed or made.
     - Tabs, Progress, Meter, Empty, Skeleton and Spinner
     - Breadcrumb, Steps and Banner
     - Collapsible, IconTile, StatGroup and AllocationBar
     - a bar of actions at the page's foot, a virtualised list, and Toast
     - `calendar`, after a study
-11. **Charts.** Line, area, bars and donut, a ring and BarList, each with a table of its data.
-12. **MoneyInput.** Entering an amount.
-13. **CurrencySelect.** Choosing a currency.
-14. **A stable API.** What each state promises after 1.0.
+10. **Charts.** Line, area, bars and donut, a ring and BarList, each with a table of its data.
+11. **MoneyInput.** Entering an amount.
+12. **CurrencySelect.** Choosing a currency.
+13. **A stable API.** What each state promises after 1.0.
     - every piece reviewed
     - the accessibility script run by hand, with a screen reader and real zoom
     - a policy for deprecating
-15. **Stricter checks.** `exactOptionalPropertyTypes`, if React Aria's types pass it.
-16. **Release 1.0.0.**
+14. **Stricter checks.** `exactOptionalPropertyTypes`, if React Aria's types pass it.
+15. **Release 1.0.0.**
 
 ## Later, in no order
 
@@ -91,6 +89,8 @@ Each becomes an item when its time comes.
 
 ## Done
 
+- **Layers.** Today's order as a rule, from the page to what floats, held by a test in each browser, with no
+  layer tokens. No version of its own; its guideline comes with the next.
 - **Motion.** shadcn's durations as a rule, and with less motion nothing on the pieces moves or changes size,
   the Spinner aside, tested in each browser. 0.13.0.
 - **DateField.** Entering a day, from and to an ISO string, with the app's label, description and error, in 36
