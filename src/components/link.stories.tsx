@@ -99,8 +99,14 @@ const Quiet: Story = {
     });
     await userEvent.unhover(link);
     await waitFor(() => expect(lineOf(link)).toBe("none"));
-    await userEvent.tab();
-    await expect(link).toHaveFocus();
+    // A loaded Firefox can leave focus on the page when user-event's Tab calls focus() on the link, so Tab is pressed
+    // again from there, and only then: a real Tab is the browser's own.
+    await waitFor(async () => {
+      if (document.activeElement !== link) {
+        await userEvent.tab();
+      }
+      await expect(link).toHaveFocus();
+    });
     await waitFor(() => expect(lineOf(link)).toBe(underline));
   },
 };
