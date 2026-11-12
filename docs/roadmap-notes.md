@@ -22,12 +22,6 @@ scale of sizes may need a touch when they arrive, and Sidebar's study may change
 later: a page that puts the pieces together, a pre-release tried in an app before a version, and a review of the whole
 after each family.
 
-## Icons
-
-Motion, Layers and Icons were one item, split as each crosses every piece with checks of its own. Their sizes: 12, 14,
-16, 20 and 24 px across the pieces, and 8 in Avatar, mostly 16, from Lucide. To ask first whether it joins One scale
-of sizes. One step.
-
 ## Sidebar, AppLayout and providers
 
 Starting with a study, which is what this item asks first: how each is defined, and where it lives. `sidebar`
@@ -72,6 +66,9 @@ main action takes `h-10` by hand, as the sample page does. Table chose its own f
 `density="compact"` of about 36 px, which this item may rename.
 
 - To ask: the names of the sizes for every piece, as Button has `xs`, `sm`, `default`, `lg` and `icon-*`.
+- The icons' sizes, Icons' item folded in here on 2026-11-12, as an icon already follows its control's size: Button's
+  12, 14, 16 and 16 px at 24, 32, 36 and 40; 16 in the menus, Select, Tabs, Pagination and Alert; 20 in a list's tile,
+  16 when compact; 12 in Badge and Kbd; 14 in Table; 24 in AlertDialog's media; and 8 in Avatar's badge. From Lucide.
 
 ## Layout and text
 
