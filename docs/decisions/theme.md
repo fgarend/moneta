@@ -20,6 +20,10 @@ The look Moneta has by default, which whoever uses it can replace. How an app re
   and `#74d19a` in dark, with as much contrast as the red, and `--negative` reads `--destructive`, so the theme keeps
   one red. A value that names another is declared again under `.dark`, as it is worked out where it is declared.
   `test/theme.test.ts` holds both to 4.5:1 on the page, a card and `--muted`, and holds each such value to `.dark`.
+- **`--success`, `--warning` and `--info`, the colours of meaning,** beside `--destructive`, one token each, read as
+  text at 4.5:1 on the page, a card and `--muted` in both modes, and drawn soft from it by opacity. `--success` is
+  `var(--positive)`; `--warning` an orange, `#9e4c00` in light and `#ffb46b` in dark, away from the gold; `--info` a
+  blue, `#1d5fbf` and `#7aa7f5`. No base palette under them.
 - **The font is Geist, in `--font`,** which `--font-sans` reads, so an app can change it. `--font-heading` stays as shadcn writes
   it, costing nothing unused, so a piece that reads it later still finds it.
 - **A scale of text and of space,** so sizes are chosen once. Text, with line heights on a 4 px grid but the title's: 32/40 for a
@@ -108,6 +112,12 @@ The look Moneta has by default, which whoever uses it can replace. How an app re
   a tooltip over the dialog it opens in, and React Aria's portal and its inline `z-index` already give it. **What it
   costs:** the `z-50` that does nothing on what floats stays in shadcn's files, and a piece to come, as a toast above a
   dialog or the sidebar, picks its number among these, where Primer, Chakra and MUI name each layer.
+- **One token per meaning, as `--destructive`,** so a piece takes a meaning as it takes `destructive` and a replaced
+  theme sets three values per mode; with no base palette, as shadcn's tokens have none. **What it costs:** no strong
+  fill, which a bright yellow badge would need with a `-foreground`; a tint by opacity changes with what lies under it;
+  each shade is chosen by hand.
+- **An orange warning,** as Atlassian's text and Spectrum's notice, since an amber nearly matched the gold in dark.
+  **What it costs:** it sits nearer the red, so the words must say the meaning.
 
 ## Alternatives considered
 
@@ -149,6 +159,12 @@ The look Moneta has by default, which whoever uses it can replace. How an app re
 - **Layer tokens,** as `--z-index-*`, which Tailwind reads but does not document, or named as Primer's, Chakra's and
   MUI's, which would edit every overlay of shadcn's.
 - **The native top layer,** with `popover` and `<dialog>`, as Atlassian is moving to, which React Aria does not use.
+- **A base palette under the roles,** as Primer, Polaris, Carbon, Atlassian and Spectrum tier theirs, and the DTCG
+  format favours, which would add dozens of tokens.
+- **Five tokens per meaning,** text, soft and strong backgrounds and borders, as Primer's.
+- **An amber warning,** as Primer's `#9a6700`, the yellow everyone knows.
+- **The meaning as a prop of its own,** `tone` beside `variant`, as Polaris, Spectrum and Mantine part meaning and
+  style, which `tone` on a value already means otherwise.
 
 ## History
 
@@ -169,3 +185,4 @@ The look Moneta has by default, which whoever uses it can replace. How an app re
 - 2026-11-12: Layers.
 - 2026-11-12: `sidebar-glow` and `--sidebar-muted-foreground`, for Sidebar.
 - 2026-11-12: `tall` and the scroll padding, for AppLayout.
+- 2026-11-12: `--success`, `--warning` and `--info`.

@@ -22,19 +22,17 @@ scale of sizes may need a touch when they arrive, and Sidebar's study may change
 later: a page that puts the pieces together, a pre-release tried in an app before a version, and a review of the whole
 after each family.
 
-## Colours of meaning
+## The palette of categories
 
-`--destructive` is the only one today: success, warning and information, and a palette for categories and for the
-charts, in light and dark. Gain and loss came first, with Money values, as `--positive` and `--negative`, which a
-value's `tone` reads, and these are chosen beside them, as `tone` already names good news or bad.
+The second step of the colours, after the colours of meaning, done in 0.17.0, decided on 2026-11-12 after a study of
+shadcn, Primer, Polaris, Carbon, Atlassian, Spectrum, Material and Radix. A category must tell apart and say nothing,
+as Primer forbids meaning in data colours, where a meaning needs text contrast and a name that says good or bad.
+**What it costs:** both share a screen, so a category's green may meet success's.
 
-- A category's colour tints `ItemMedia`'s icon tile, which Lists of rows drew in `--muted` on 2026-11-11.
-- To ask: which names, in shadcn's format.
-- To ask: whether a meaning stays a value of `variant`, as shadcn's `destructive` is, or becomes a prop of its own,
-  such as `tone`, beside a `variant` for the style, which would edit each piece with `destructive`.
-- To ask: whether this and One scale of sizes come before the families, as they reach every piece.
-- To ask: a base palette under the semantic names, as Material 3, Spectrum and Carbon tier their tokens, and the
-  DTCG format reached a stable version, 2025.10.
+- **What it colours:** an icon tile's tint, which Lists of rows drew in `--muted`, and the charts' series, today
+  shadcn's greys; 5 to 8 colours in a fixed order, each mark 3:1 on its surface, never colour alone, as Carbon,
+  Atlassian and Primer advise.
+- **No base palette,** as the meanings: its values are chosen by hand, and may come out uneven.
 
 ## One scale of sizes
 
