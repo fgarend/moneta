@@ -20,7 +20,7 @@ the version installed. It holds only what exists, and each reviewed piece adds i
 - **Gold is for little.** `Button`'s `variant="gold"`, at most once per screen, with `--gold-foreground` on it. Never a
   page's or a card's background, and never text, as it reaches only 1.66:1 on the page.
 - **The sidebar is the one dark surface in light,** `--sidebar`, and what sits on it reads `--sidebar-foreground`,
-  `--sidebar-accent`, `--sidebar-border` and `--sidebar-ring`. Moneta has no `Sidebar` yet, so an app's own reads them.
+  `--sidebar-muted-foreground`, `--sidebar-accent`, `--sidebar-border` and `--sidebar-ring`, as `Sidebar` does.
 - **`--chart-1` to `--chart-5` are still shadcn's greys,** until charts are reviewed.
 
 ## Size
@@ -104,6 +104,20 @@ the version installed. It holds only what exists, and each reviewed piece adds i
   while a page has none yet. **With no rows, put an `ItemEmpty` in it,** with words that say why and what to do.
 - **A row that opens something puts a `Link` in its `ItemTitle`,** quiet, and the whole row follows it. The row open
   beside the list takes `aria-current="true"`.
+
+## Sidebar
+
+- **The app's main navigation, at the start of its screen,** in a `SidebarProvider` with the `SidebarTrigger` that
+  opens it on a phone. Name it, as "Main", without the word "navigation", which screen readers say already; name its
+  trigger, as "Open the menu"; and give `closeLabel`, the name of the button that closes it on a phone.
+- **Your brand in `SidebarHeader`,** and what belongs below the sections, as the person signed in, in `SidebarFooter`.
+- **A section is a `SidebarGroup`,** its `SidebarGroupLabel` in sentence case, over a `SidebarMenu` of
+  `SidebarMenuItem`s, each a `SidebarMenuButton` with its `href`, its icon first and its words. Leave out a section you
+  have nothing for.
+- **Mark the page shown now with `isActive`,** on one link, which screen readers hear as the current page.
+- **Links go through your router,** with `navigate` and `useHref` on `MonetaProvider`. On a phone, a followed link
+  closes the sheet.
+- **A long label wraps** to a second line; keep labels short, as "Positions", so they rarely do.
 
 ## Link
 

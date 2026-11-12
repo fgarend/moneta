@@ -6,6 +6,16 @@ gets its number.
 
 ## [Unreleased]
 
+### Added
+
+- `Sidebar`, the app's main navigation: a named `nav` of sections, each a list of links through the app's router, the
+  current page marked by a bar, a bolder text and a gold icon, and on a phone a sheet that `SidebarTrigger` opens and
+  a followed link closes. With `--sidebar-muted-foreground` and the `sidebar-glow` surface in the theme.
+
+### Fixed
+
+- `Sheet`'s `aria-label` or `aria-labelledby` names its dialog, where it stopped at the layer behind.
+
 ## [0.14.0] - 2026-11-12
 
 Providers: `MonetaProvider`, once at the app's root, with its language, router, time zone and words, in place of

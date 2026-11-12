@@ -110,6 +110,10 @@ describe.each(["light", "dark"])("the %s theme", (mode) => {
     ["sidebar-accent-foreground", "sidebar-accent", text],
     ["sidebar-primary-foreground", "sidebar-primary", text],
     ["sidebar-primary", "sidebar", nonText],
+    // A section's label, quieter than the items; the current item's gold icon; and its bar, at the item's start.
+    ["sidebar-muted-foreground", "sidebar", text],
+    ["sidebar-primary", "sidebar-accent", nonText],
+    ["sidebar-accent-foreground", "sidebar", nonText],
     ["input", "background", nonText],
     ["input", "card", nonText],
     ["ring", "background", nonText],

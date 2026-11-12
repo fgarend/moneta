@@ -7,7 +7,8 @@ import { expect, waitFor } from "storybook/test";
 // animation that begins after the first look is caught by the next. The wait never fails a story.
 const fadeIn = 2000;
 
-// Every animation that ends, played to its end; one that runs for ever, as a spinner's, is left as it is.
+// Every animation that ends, played to its end, an entrance or an exit; one that runs for ever, as a spinner's, is
+// left as it is.
 function finishEntrances(): void {
   for (const animation of document.getAnimations()) {
     if (
@@ -34,4 +35,20 @@ async function settled(element: Element): Promise<void> {
   ).catch(() => undefined);
 }
 
-export { settled };
+// An overlay closed: gone, or leaving, its exit played to its end on each look. Headless Chromium can leave one
+// waiting for an exit, and headless WebKit cancels the transition React Aria then waits on for ever, found on
+// 2026-11-12, so leaving is enough to say the piece closed it. The wait fails a story it outlasts.
+async function left(find: () => Element | null): Promise<void> {
+  await waitFor(
+    () => {
+      finishEntrances();
+      const overlay = find();
+      expect(
+        overlay === null || overlay.closest("[data-exiting]") !== null,
+      ).toBe(true);
+    },
+    { timeout: fadeIn },
+  );
+}
+
+export { left, settled };

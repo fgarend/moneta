@@ -84,8 +84,9 @@ Each becomes an item when its time comes.
   keyboard shortcut. When an app asks.
 - **Skeleton's and Progress's less motion, asked of each browser.** As the overlays' is, in place of reading the
   style sheets.
-- **An overlay stuck entering or leaving in WebKit.** React Aria waits on a transition the browser cancels, as
-  `duration-100` makes every property transition; found headless on 2026-11-11, and whether Safari does it is unknown.
+- **An overlay stuck entering or leaving in WebKit and Chromium.** React Aria waits on a transition the browser
+  cancels, as `duration-100` makes every property transition; found headless in WebKit on 2026-11-11, and in Chromium
+  as a sidebar's sheet closed on 2026-11-12. Whether a browser with a window does it is unknown.
 
 ## Done
 
