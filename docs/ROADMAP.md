@@ -9,7 +9,7 @@ known and what is still to ask, are in [`roadmap-notes.md`](roadmap-notes.md), r
 ## Next, in order
 
 1. **The palette of categories.** Colours that tell apart and say nothing, in light and dark, beside the meanings.
-   - an icon tile's tint and the charts' series, in a fixed order
+   - `--category-1` to `--category-8`, shadcn's `--chart-1` to `--chart-5` pointing to them, and the list's icon tile
 2. **One scale of sizes.** 32, 36 and 40 px on every piece, with one set of names, and the icons' sizes with them.
 3. **Layout and text.** What replaces the `flex`, `gap` and `text` classes an app writes.
 4. **Display.** The pieces that show, reviewed or made.
