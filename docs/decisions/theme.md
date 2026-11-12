@@ -55,6 +55,8 @@ The look Moneta has by default, which whoever uses it can replace. How an app re
   foot, with a faint glow of `--sidebar-primary` at the top left, all by `color-mix`, so dark mode and a replaced theme
   keep it. **`--sidebar-muted-foreground`** is a quieter text on it, for a section's label, `#a3a6ad` in light and
   `#8f939a` in dark, which `test/theme.test.ts` holds at 4.5:1.
+- **`tall`, a variant for a screen at least 480 px tall,** where a bar sticks; and **the page's scroll padding,**
+  `4.5rem` on `html` while `AppLayout`'s bar is there, so focus is never hidden under it.
 - **Layers, from the bottom:** the page; what sticks inside a piece, as Table's header and first column, at `z-10` to
   `z-30`; the modal overlays, Dialog, AlertDialog and Sheet, at shadcn's `z-50`; and what floats, Popover, Tooltip,
   HoverCard, the menus and Select, at React Aria's own `z-index: 100000`, set on the element, which beats shadcn's
@@ -166,3 +168,4 @@ The look Moneta has by default, which whoever uses it can replace. How an app re
 - 2026-11-11: Motion, and less motion on the pieces.
 - 2026-11-12: Layers.
 - 2026-11-12: `sidebar-glow` and `--sidebar-muted-foreground`, for Sidebar.
+- 2026-11-12: `tall` and the scroll padding, for AppLayout.

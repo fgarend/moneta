@@ -45,7 +45,7 @@ which is run by hand.
 | 1.4.3 Contrast (Minimum) | axe, test | axe on flat colours, and `test/theme.test.ts` on the theme's pairs, both modes, a value's tones among them |
 | 1.4.4 Resize Text | script | |
 | 1.4.5 Images of Text | app | |
-| 1.4.10 Reflow | story, coming, script | Section's story at 320 px, Amount on one line in a narrow column, Table's columns hidden or scrolled in its own area at 320 px, the sidebar in a sheet on a phone at 320 px, its long labels wrapping, and the application's structure (AppLayout) |
+| 1.4.10 Reflow | story, coming, script | Section's story at 320 px, Amount on one line in a narrow column, Table's columns hidden or scrolled in its own area at 320 px, the sidebar in a sheet on a phone at 320 px, its long labels wrapping, and the application's structure at 320 px, its bar let go on a short screen |
 | 1.4.11 Non-text Contrast | test, story, coming | `test/theme.test.ts` on borders and focus, both modes, Pagination's current page in `--input`, and DateField's invalid edge in `--destructive`. Field (Actions and forms) and charts (Charts) to come |
 | 1.4.12 Text Spacing | every story | All three browsers |
 | 1.4.13 Content on Hover or Focus | none yet | With Tooltip (Overlays) |
@@ -55,14 +55,14 @@ which is run by hand.
 | 2.2.1 Timing Adjustable | none yet | |
 | 2.2.2 Pause, Stop, Hide | test, app | `.storybook/less-motion.test.tsx`: the Spinner keeps turning, a loading state where nothing else can be done; how long it shows is the app's |
 | 2.3.1 Three Flashes or Below Threshold | none yet | |
-| 2.4.1 Bypass Blocks | story, coming | The sidebar a named `nav`; the skip link (AppLayout) |
+| 2.4.1 Bypass Blocks | story | The sidebar a named `nav`, and `SkipLink` first, moving focus to its target |
 | 2.4.2 Page Titled | app | |
-| 2.4.3 Focus Order | none yet | |
+| 2.4.3 Focus Order | story | The skip link first, then the next Tab from its target |
 | 2.4.4 Link Purpose (In Context) | axe, test, app | axe finds a link with no name, and `test/link.test.ts` that `Link` asks for what it holds; its words are the app's |
 | 2.4.5 Multiple Ways | app | |
 | 2.4.6 Headings and Labels | app | |
 | 2.4.7 Focus Visible | test | `.storybook/focus.test.tsx`, on 14 pieces, in 3 browsers and in forced colours |
-| 2.4.11 Focus Not Obscured (Minimum) | story | A row focused under Table's sticky header scrolls clear of it |
+| 2.4.11 Focus Not Obscured (Minimum) | story | A row focused under Table's sticky header scrolls clear of it, and the page's scroll padding under AppLayout's sticky bar |
 | 2.5.1 Pointer Gestures | none yet | |
 | 2.5.2 Pointer Cancellation | none yet | |
 | 2.5.3 Label in Name | story, app | Pagination's Previous and Next named by their words; elsewhere the visible name and the accessible one |

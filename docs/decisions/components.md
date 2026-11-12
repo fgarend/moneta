@@ -185,6 +185,21 @@ pieces is in [`../pieces.md`](../pieces.md), and how a piece is analysed is in [
   `Sheet` from the start, named as the `nav` is, with `closeLabel` on its close button. A followed link closes it.
 - **TypeScript asks for its name, its trigger's and `closeLabel`.** An empty section is the app's to leave out.
 
+### AppLayout and SkipLink
+
+- **One responsibility per piece:** `AppLayout` arranges, and the others draw themselves, whatever the arrangement.
+  `AppLayout` puts the sidebar's column beside the `<main>`'s, sticks the sidebar at full height and the page's bar at
+  the top at `z-40`, where the screen is at least 480 px tall; `AppMain` is the `<main>`, with the `id` a `SkipLink`
+  goes to, `"main"` by default; `AppHeader` draws the bar inside it, 56 px, on the page's solid background over a line,
+  with `AppHeaderActions` at its end; and `AppContent` draws the content, 16 px of margin on a phone and 40 from 768 px,
+  40 px between its sections, up to 1440 px or `width="full"`. The page scrolls, the document.
+- **The bar and the content centred together,** the bar's row as wide as the content, which `width="full"` opens too,
+  by `:has()` on the `<main>`, through `--app-width`.
+- **`SkipLink`, a piece of its own,** the page's first element, out of sight until the keyboard reaches it, then shown
+  at the top corner; pressed, it moves focus to its target, which takes `tabindex="-1"` while it holds it. A plain
+  link, so no router takes its fragment, and its `href` an `#id`, which TypeScript holds.
+- **`SidebarProvider` around the shell,** the app's to place, as the sidebar's trigger sits in the bar.
+
 ## Why
 
 - **Three levels and not four,** as a composed piece's line with a piece is vague, Atomic Design's best known
@@ -319,6 +334,21 @@ pieces is in [`../pieces.md`](../pieces.md), and how a piece is analysed is in [
   less than a gold one.
 - **The skip link with AppLayout,** which knows where the content starts, as Polaris's and Carbon's frames. **What it
   costs:** keyboard users wait for it.
+- **One responsibility per piece in the shell,** as the owner asked for blocks well assembled and apart, so a new
+  arrangement is a prop of `AppLayout` and the others keep their look. **What it costs:** seven pieces to write; a
+  forgotten `SkipLink` leaves none; it and `AppMain` are tied by an `id`; `AppHeader` and `AppContent` are names an app
+  often has, solved on import; a landmark follows the DOM, so moving the bar out of `<main>` is the app's change.
+- **The bar inside `<main>`, as shadcn's,** as it holds the page's breadcrumb and tools, which the skip link would jump
+  past from a banner. **What it costs:** search or an account at the top would ask for a banner, as Carbon's and
+  Atlassian's.
+- **The page scrolling,** as every system studied, so the browser keeps back's position, find, pull to refresh and
+  the phone's address bar. **The bar sticking,** with the theme's scroll padding so focus is never under it, and let go
+  on a short screen. **What it costs:** the padding knows the bar's 56 px.
+- **1440 px by default, and the full width when a page asks,** as a row read across is lost at 2000 px, as Polaris
+  and GOV.UK stop near 1000, and a wide table wants every column, as Primer's `containerWidth`. **What it costs:** the
+  bar is tied to the content's width by CSS.
+- **`SkipLink` moving focus,** as GOV.UK and Atlassian, since Safari and VoiceOver may only scroll otherwise. **What it
+  costs:** `AppMain` hides its own outline, as a landmark is not a control.
 
 ## Alternatives considered
 
@@ -359,6 +389,12 @@ pieces is in [`../pieces.md`](../pieces.md), and how a piece is analysed is in [
 - **React Aria's `NavigationTree`,** as Spectrum's SideNav, a `treegrid`, which Primer says never replaces navigation.
 - **The app's strip on top on a phone,** which shows every link, but hides the sections' names and scrolls away.
 - **A label cut with an ellipsis,** as shadcn and the prototype, every item one height, but a word lost.
+- **A banner above all,** as Carbon and Atlassian, with search and an account.
+- **An inner scroller,** as Atlassian's option, each area's position its own.
+- **No limit to the content,** as shadcn and Carbon; and **content aligned to the start,** which needs no tie to the
+  bar.
+- **A translucent bar with a blur,** lighter, as an app's.
+- **`sidebar` as a prop of `AppLayout`,** which would draw the `<main>` itself, unlike every other piece's children.
 
 ## History
 
@@ -370,3 +406,4 @@ pieces is in [`../pieces.md`](../pieces.md), and how a piece is analysed is in [
 - 2026-11-11: Pagination.
 - 2026-11-12: `MonetaProvider`, in place of `MoneyProvider`.
 - 2026-11-12: Sidebar, our own.
+- 2026-11-12: AppLayout and SkipLink.

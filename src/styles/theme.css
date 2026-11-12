@@ -8,6 +8,8 @@
 @source "../components";
 
 @custom-variant dark (&:is(.dark *));
+/* A screen tall enough for a bar that sticks, as one shorter lets it go (WCAG 1.4.10, C34). */
+@custom-variant tall (@media (min-height: 30rem));
 
 @theme inline {
   --font-heading: var(--font-sans);
@@ -261,6 +263,14 @@
 
 /* The sidebar's surface: its colour, a little darker at the top and lighter at the foot, and a faint glow of its gold
    at the top left, all worked out of its own colours, so dark mode and a replaced theme keep it. */
+/* The page scrolls clear of AppLayout's sticky bar, so focus is never hidden under it (WCAG 2.4.11, C43): its 56 px and
+   16 more, where the bar sticks. */
+@media (min-height: 30rem) {
+  html:has([data-slot="app-header"]) {
+    scroll-padding-top: 4.5rem;
+  }
+}
+
 @utility sidebar-glow {
   background-color: var(--sidebar);
   background-image:
