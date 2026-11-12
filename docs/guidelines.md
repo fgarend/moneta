@@ -61,6 +61,13 @@ the version installed. It holds only what exists, and each reviewed piece adds i
 - **Put the class `dark` on the page's root, or on any part of the page,** before the first paint, or the page flashes
   light. Gold is the same in both modes.
 
+## Motion
+
+- **The pieces bring their own motion,** shadcn's: 100 ms for what appears, 150 for a change of state, and 200 for a
+  sheet.
+- **With less motion asked for, the pieces stop moving and keep their fades,** and a spinner keeps turning. Motion of
+  your own, outside the pieces, is yours to stop.
+
 ## Section
 
 - **A part of a page under one title, with no box of its own.** `Card` is for a group that needs a surface. A section

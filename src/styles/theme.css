@@ -198,6 +198,27 @@
   --tw-ring-shadow: 0 0 #0000;
 }
 
+/* Less motion, when the reader asks for it: on the pieces, nothing moves or changes size, and fades and colours stay.
+   tw-animate-css's entrance and exit keep their opacity and lose their slide and zoom, and a transition keeps colour,
+   opacity and a ring's shadow, so a switch's thumb jumps and a bar goes straight to its value. A spinner's own
+   animation is left to turn, as a still one looks frozen. Unlayered, so it beats each piece's classes; an app's own
+   motion, outside the pieces, is its own. */
+@media (prefers-reduced-motion: reduce) {
+  [data-slot] {
+    --tw-enter-translate-x: 0;
+    --tw-enter-translate-y: 0;
+    --tw-enter-scale: 1;
+    --tw-enter-rotate: 0;
+    --tw-exit-translate-x: 0;
+    --tw-exit-translate-y: 0;
+    --tw-exit-scale: 1;
+    --tw-exit-rotate: 0;
+    transition-property:
+      color, background-color, border-color, outline-color,
+      text-decoration-color, fill, stroke, opacity, box-shadow;
+  }
+}
+
 /* Shadows at the ends of an area that scrolls sideways, which show there is more, drawn by its own background: the
    surface, scrolling with the content, covers each shadow once that end is reached. */
 @utility scroll-shadows {

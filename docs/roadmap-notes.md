@@ -22,10 +22,16 @@ scale of sizes may need a touch when they arrive, and Sidebar's study may change
 later: a page that puts the pieces together, a pre-release tried in an app before a version, and a review of the whole
 after each family.
 
-## Motion, layers and icons
+## Layers
 
-They cross every piece and no item holds them: durations and easing, with reduced motion on every piece, as Spinner
-spins regardless, the order of layers, as shadcn writes `z-50` on every overlay, and the icons' sizes.
+Motion, Layers and Icons were one item, split as each crosses every piece with checks of its own. The order of what
+sits above what: shadcn writes `z-50` on every overlay, so a tooltip over a dialog relies on the order in the DOM, and
+Table, Item, ButtonGroup, ToggleGroup and Avatar use `z-10` to `z-30` inside. One step.
+
+## Icons
+
+Their sizes: 12, 14, 16, 20 and 24 px across the pieces, and 8 in Avatar, mostly 16, from Lucide. To ask first
+whether it joins One scale of sizes. One step.
 
 ## Sidebar, AppLayout and providers
 

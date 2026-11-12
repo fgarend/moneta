@@ -6,6 +6,16 @@ gets its number.
 
 ## [Unreleased]
 
+## [0.13.0] - 2026-11-11
+
+Motion: with less motion asked for, the pieces stop moving and keep their fades, and the Spinner keeps turning.
+
+### Changed
+
+- With less motion asked for, the pieces no longer move or change size: overlays and `Sheet` fade in and out with no
+  slide or zoom, `Switch`'s thumb jumps, and `Progress`'s bar goes straight to its value. `Spinner` keeps turning.
+- `Tooltip` appears in 100 ms, as the other overlays, instead of 150.
+
 ## [0.12.0] - 2026-11-11
 
 DateField: a day typed in, part by part in the language's order, from and to an ISO string, with the app's label,
@@ -288,7 +298,8 @@ and dark. `README.md` says how to install and use it.
 
 A rehearsal of the release's path, not meant to be installed. Use a later version.
 
-[Unreleased]: https://github.com/fgarend/moneta/compare/v0.12.0...HEAD
+[Unreleased]: https://github.com/fgarend/moneta/compare/v0.13.0...HEAD
+[0.13.0]: https://github.com/fgarend/moneta/compare/v0.12.0...v0.13.0
 [0.12.0]: https://github.com/fgarend/moneta/compare/v0.11.0...v0.12.0
 [0.11.0]: https://github.com/fgarend/moneta/compare/v0.10.0...v0.11.0
 [0.10.0]: https://github.com/fgarend/moneta/compare/v0.9.0...v0.10.0

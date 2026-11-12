@@ -44,6 +44,13 @@ The look Moneta has by default, which whoever uses it can replace. How an app re
 - **Keyboard focus is a solid outline,** 2 px with 2 px of offset, in `--ring`, from one unlayered rule in the theme. It is
   shadcn's own rule, widened to fields, to what keeps focus on a hidden input, and to a date field's box, around the part
   that has it. An area on a dark surface sets its own `--ring`.
+- **Motion is shadcn's, with no durations of our own:** 100 ms an overlay appearing and a row's hover, as Tooltip
+  joins, Tailwind's 150 ms and `cubic-bezier(0.4, 0, 0.2, 1)` a change of state, and 200 ms the Sheet crossing the
+  screen.
+- **With less motion, nothing on the pieces moves or changes size, and the Spinner spins,** from one unlayered rule in
+  the theme on what has a `data-slot`: tw-animate-css's entrance and exit keep their fade and lose their slide and
+  zoom, and a transition keeps colour, opacity and a ring's shadow. `.storybook/less-motion.test.tsx` asks each browser
+  for less motion and watches every animation as a piece opens, closes or changes.
 - **In dark: the prototype's graphite, near black, in small steps.** The page is `#1a1b1e`, the sidebar a step darker at
   `#121316`, and a card a step lighter at `#232529`, so what is nearer is lighter. Text is `#f4f4f2`, as on the prototype's
   sidebar. Gold stays the same in both, and `color-scheme: dark` darkens the
@@ -75,6 +82,18 @@ The look Moneta has by default, which whoever uses it can replace. How an app re
 - **A guide apart from this page,** since this page is for whoever keeps Moneta, with reasons and history, and whoever
   builds a screen needs the rules alone. **What it costs:** the scale and the space are written twice, and a value changed
   here is changed there by hand, as the test only catches a name.
+- **Shadcn's durations as a rule,** as they agree: near Primer's 100 ms for a hover and 200 ms for a change, and
+  Atlassian's 150 ms for a menu. **What it costs:** a theme cannot slow or speed all motion in one place, which
+  Carbon's, Primer's and Atlassian's named durations allow.
+- **Fades and colours kept with less motion,** as WCAG 2.3.3 counts neither as motion, and movement and changes of
+  size are what unsettle a reader's balance, as Spectrum's Toast fades. **The Spinner kept spinning,** as every system
+  studied keeps its own, and Primer says a still one looks frozen: a loading state where nothing else can be done.
+  **What it costs:** Carbon and Atlassian remove all motion, in one rule with no exception, and Material and Polaris
+  keep a control's small motion, so a switch's thumb that jumps may feel abrupt.
+- **One rule in the theme, on the pieces by their `data-slot`,** the second step of the rule, beside the focus
+  outline's: a new piece is covered, shadcn's updates weigh nothing, and an app's own motion is left alone. **What it
+  costs:** a piece's file does not show it, and an animated property shadcn adds would escape it, which the test
+  catches.
 
 ## Alternatives considered
 
@@ -107,6 +126,12 @@ The look Moneta has by default, which whoever uses it can replace. How an app re
   would have to convert it.
 
 
+- **Named durations,** as Carbon's six, Primer's four and Atlassian's eight, which would change every piece that moves.
+- **No motion at all with less motion,** as Carbon and Atlassian, simpler, but an overlay would appear with no sign.
+- **A `motion-reduce:` class on each piece,** visible where it acts, but an edit to a dozen of shadcn's files.
+- **Less motion read from the style sheets,** as `.storybook/reduced-motion.ts` does for Progress and Skeleton, with no
+  browser asked, which misses what the browser makes of the rules.
+
 ## History
 
 - 2026-11-06: Written, with the light colours.
@@ -122,3 +147,4 @@ The look Moneta has by default, which whoever uses it can replace. How an app re
 - 2026-11-11: `sticky-fill`, for a table's selected rows.
 - 2026-11-11: `progress-run`, for Progress with no value.
 - 2026-11-11: The focus outline around a date field's box.
+- 2026-11-11: Motion, and less motion on the pieces.

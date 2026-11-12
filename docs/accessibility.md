@@ -53,7 +53,7 @@ which is run by hand.
 | 2.1.2 No Keyboard Trap | none yet, script | With the overlays (Overlays) |
 | 2.1.4 Character Key Shortcuts | none yet | |
 | 2.2.1 Timing Adjustable | none yet | |
-| 2.2.2 Pause, Stop, Hide | none yet | |
+| 2.2.2 Pause, Stop, Hide | test, app | `.storybook/less-motion.test.tsx`: the Spinner keeps turning, a loading state where nothing else can be done; how long it shows is the app's |
 | 2.3.1 Three Flashes or Below Threshold | none yet | |
 | 2.4.1 Bypass Blocks | coming | The sidebar's skip link (Sidebar) |
 | 2.4.2 Page Titled | app | |
@@ -95,5 +95,5 @@ A piece's stories show what it does in each of these that applies:
 - **Narrow and short screens:** 320px wide, and very short, as at a high zoom.
 - **Input:** keyboard alone, touch alone, a pointer crossing it.
 - **Preferences:** forced colours and text spacing, checked on every story. Reduced
-  motion, checked by the rules a piece's story reads with `.storybook/reduced-motion.ts`, for Progress and
-  Skeleton so far, though other raw pieces animate. Larger text.
+  motion, asked of each browser by `.storybook/less-motion.test.tsx` for every piece that moves, and read from the
+  rules with `.storybook/reduced-motion.ts` for Progress's indeterminate bar and Skeleton. Larger text.

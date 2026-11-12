@@ -77,4 +77,4 @@ A piece with no gap listed may still have some.
 | `textarea` | raw | |
 | `toggle` | raw | **Edited:** default 36 px, `sm` 32 and `lg` 40, `sm`'s text is 12 px, and `toggleVariants` is not exported |
 | `toggle-group` | raw | **Edited:** each item draws a `Toggle` |
-| `tooltip` | raw | **Code:** its trigger breaks with a Fragment as a child. While open, React Aria stops Esc from reaching what is around it, so in an overlay the first Esc closes only the tooltip |
+| `tooltip` | raw | **Code:** its trigger breaks with a Fragment as a child. While open, React Aria stops Esc from reaching what is around it, so in an overlay the first Esc closes only the tooltip. **Edited:** appears in 100 ms, as the other overlays |
