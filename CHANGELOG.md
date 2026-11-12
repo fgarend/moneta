@@ -6,6 +6,11 @@ gets its number.
 
 ## [Unreleased]
 
+## [0.14.0] - 2026-11-12
+
+Providers: `MonetaProvider`, once at the app's root, with its language, router, time zone and words, in place of
+`MoneyProvider`.
+
 ### Added
 
 - The guidelines' Layers: the pieces stack themselves, a menu or a tooltip over the dialog it opens in, as they
@@ -312,7 +317,8 @@ and dark. `README.md` says how to install and use it.
 
 A rehearsal of the release's path, not meant to be installed. Use a later version.
 
-[Unreleased]: https://github.com/fgarend/moneta/compare/v0.13.0...HEAD
+[Unreleased]: https://github.com/fgarend/moneta/compare/v0.14.0...HEAD
+[0.14.0]: https://github.com/fgarend/moneta/compare/v0.13.0...v0.14.0
 [0.13.0]: https://github.com/fgarend/moneta/compare/v0.12.0...v0.13.0
 [0.12.0]: https://github.com/fgarend/moneta/compare/v0.11.0...v0.12.0
 [0.11.0]: https://github.com/fgarend/moneta/compare/v0.10.0...v0.11.0
