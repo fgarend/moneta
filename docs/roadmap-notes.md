@@ -16,14 +16,11 @@ again at that moment. When an item is done, its notes go, as what holds then is 
 
 The owner decided on 2026-11-09 that these come first, as an app keeps its own shell until Sidebar while these hold
 its screens back: the close button's name, done in 0.6.0, Link, done in 0.7.0, Money values, done in 0.8.0, Table,
-done in 0.9.0, Lists of rows, done in 0.10.0, Dates, done in 0.11.0, and DateField. Each is a step of its own, with
-what its family's item says of it. **What it costs:** a piece made before Colours of meaning and One scale of sizes
-may need a touch when they arrive, and Sidebar's study may change the space around Section. To ask later: a page that
-puts the pieces together, a pre-release tried in an app before a version, and a review of the whole after each family.
-
-## DateField
-
-Entering a date, of Actions and forms' family, moved here.
+done in 0.9.0, Lists of rows, done in 0.10.0, Dates, done in 0.11.0, and DateField, done in 0.12.0. Each is a step of
+its own, with what its family's item says of it. **What it costs:** a piece made before Colours of meaning and One
+scale of sizes may need a touch when they arrive, and Sidebar's study may change the space around Section. To ask
+later: a page that puts the pieces together, a pre-release tried in an app before a version, and a review of the whole
+after each family.
 
 ## Motion, layers and icons
 

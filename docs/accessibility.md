@@ -46,10 +46,10 @@ which is run by hand.
 | 1.4.4 Resize Text | script | |
 | 1.4.5 Images of Text | app | |
 | 1.4.10 Reflow | story, coming, script | Section's story at 320 px, Amount on one line in a narrow column, Table's columns hidden or scrolled in its own area at 320 px, and the application's structure (Sidebar) |
-| 1.4.11 Non-text Contrast | test, story, coming | `test/theme.test.ts` on borders and focus, both modes, and Pagination's current page in `--input`. Field (Actions and forms) and charts (Charts) to come |
+| 1.4.11 Non-text Contrast | test, story, coming | `test/theme.test.ts` on borders and focus, both modes, Pagination's current page in `--input`, and DateField's invalid edge in `--destructive`. Field (Actions and forms) and charts (Charts) to come |
 | 1.4.12 Text Spacing | every story | All three browsers |
 | 1.4.13 Content on Hover or Focus | none yet | With Tooltip (Overlays) |
-| 2.1.1 Keyboard | none yet | React Aria's in the raw pieces, and no story goes by keyboard; with each family's review |
+| 2.1.1 Keyboard | story, none yet | DateField's story types a day and clears it; React Aria's in the raw pieces, with each family's review |
 | 2.1.2 No Keyboard Trap | none yet, script | With the overlays (Overlays) |
 | 2.1.4 Character Key Shortcuts | none yet | |
 | 2.2.1 Timing Adjustable | none yet | |
@@ -61,14 +61,14 @@ which is run by hand.
 | 2.4.4 Link Purpose (In Context) | axe, test, app | axe finds a link with no name, and `test/link.test.ts` that `Link` asks for what it holds; its words are the app's |
 | 2.4.5 Multiple Ways | app | |
 | 2.4.6 Headings and Labels | app | |
-| 2.4.7 Focus Visible | test | `.storybook/focus.test.tsx`, on 13 pieces, in 3 browsers and in forced colours |
+| 2.4.7 Focus Visible | test | `.storybook/focus.test.tsx`, on 14 pieces, in 3 browsers and in forced colours |
 | 2.4.11 Focus Not Obscured (Minimum) | story | A row focused under Table's sticky header scrolls clear of it |
 | 2.5.1 Pointer Gestures | none yet | |
 | 2.5.2 Pointer Cancellation | none yet | |
 | 2.5.3 Label in Name | story, app | Pagination's Previous and Next named by their words; elsewhere the visible name and the accessible one |
 | 2.5.4 Motion Actuation | none yet | |
 | 2.5.7 Dragging Movements | none yet | |
-| 2.5.8 Target Size (Minimum) | axe, story | Table's sortable headers, at least 24 px tall, and a row's action, 32 px |
+| 2.5.8 Target Size (Minimum) | axe, story | Table's sortable headers, at least 24 px tall, a row's action, 32 px, and DateField's parts, 24 px each way in any font |
 | 3.1.1 Language of Page | app | |
 | 3.1.2 Language of Parts | app | |
 | 3.2.1 On Focus | none yet | |
@@ -76,13 +76,13 @@ which is run by hand.
 | 3.2.3 Consistent Navigation | app | |
 | 3.2.4 Consistent Identification | app | |
 | 3.2.6 Consistent Help | app | |
-| 3.3.1 Error Identification | none yet | With the form controls (Actions and forms) |
-| 3.3.2 Labels or Instructions | none yet | With the form controls (Actions and forms) |
+| 3.3.1 Error Identification | story, coming | DateField's error in the app's words, its parts invalid and described by it; the other form controls (Actions and forms) |
+| 3.3.2 Labels or Instructions | story, test, coming | DateField named by its label, its parts described by its description, and `test/date-field.test.ts` that it asks for a name; the other form controls (Actions and forms) |
 | 3.3.3 Error Suggestion | app | |
 | 3.3.4 Error Prevention (Legal, Financial, Data) | app | Heavy in a money interface: review and confirm |
 | 3.3.7 Redundant Entry | app | |
 | 3.3.8 Accessible Authentication (Minimum) | app | |
-| 4.1.2 Name, Role, Value | axe, story | A row's action named by its word and the row's title, in a table and a list |
+| 4.1.2 Name, Role, Value | axe, story | A row's action named by its word and the row's title, in a table and a list, and DateField's group named by its label, its parts' values and its disabled state |
 | 4.1.3 Status Messages | story, coming | Table's selection bar, a status whose text changes with the count, Table's and a list's loading words, and Pagination's summary; Alert (Display) to come |
 
 ## Corner cases
