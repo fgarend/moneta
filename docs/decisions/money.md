@@ -17,14 +17,14 @@ How Moneta holds an amount of money, and how it shows one.
   builds; any other copy of more is the browser's own.
 - **An amount that is not a decimal string, or a currency that is not three capital letters, throws an error** that
   names it.
-- **The words are the app's.** `MoneyProvider`, once at the app's root, holds what screen readers hear for no value,
+- **The words are the app's.** `MonetaProvider`, once at the app's root, holds what screen readers hear for no value,
   `emptyLabel`, and a piece's own prop wins over it. A piece with no value and no words throws an error.
 - **A percent is a ratio, a decimal string of a fraction of one,** `"0.459"` for 45.9%, shown with exactly the
   decimals given beyond its hundredths, zeros too, and never rounded: `"0.15"` is 15%, and `"0.1500"` 15,00%.
 - **A quantity, as shares or units, is a decimal string,** shown with exactly the decimals given, zeros too. Its unit
   is the app's words, around it.
-- **One path from a value to its text,** in `src/lib/money.ts`, internal, in the language React Aria's
-  `I18nProvider` gives. `Amount`, `Percent` and `Quantity` take it, and so do `useFormatMoney`, `useFormatPercent`
+- **One path from a value to its text,** in `src/lib/money.ts`, internal, in the language `MonetaProvider`
+  gives React Aria. `Amount`, `Percent` and `Quantity` take it, and so do `useFormatMoney`, `useFormatPercent`
   and `useFormatQuantity`, for where no piece can go, as a chart's axis. What the pieces share beyond it, their text, the words for no value and the
   copy, is `src/hooks/use-value.ts`, internal too.
 - **`sign="always"` shows the plus of a change,** and `"auto"`, the default, the minus alone. Zero takes no sign either
@@ -32,12 +32,12 @@ How Moneta holds an amount of money, and how it shows one.
 - **`tone="positive"` or `"negative"` colours good news or bad,** which the app says and Moneta never reads from the
   sign, in the theme's `--positive` and `--negative`. With no tone, the colour of the text around. Colour is never
   alone: the sign, the column or the words around say it too, which the guidelines ask of the app.
-- **Hidden values, when the app asks,** with `isHidden` on `MoneyProvider` and the app's own control. Every value,
+- **Hidden values, when the app asks,** with `isHidden` on `MonetaProvider` and the app's own control. Every value,
   amount, percent and quantity, shows `••••••`, hidden from screen readers, which hear `hiddenLabel`, with no sign, no
   tone and nothing of the value in the page. A value with none shows the dots too. Without `hiddenLabel`, a piece
   throws. The hooks give the dots, and a text only screen readers hear, as an `aria-label`, is the app's to word
   while values are hidden.
-- **A `MoneyProvider` inside another keeps what it is not given,** so one that changes only the words never shows
+- **A `MonetaProvider` inside another keeps what it is not given,** so one that changes only the words never shows
   what the app hid.
 - **`Amount`, `Percent` and `Quantity` draw a `data` element, with the value as given in its `value`.** No value draws a `span`,
   with a dash hidden from screen readers and the app's words for them.
@@ -45,7 +45,7 @@ How Moneta holds an amount of money, and how it shows one.
 - **They bring their text,** with `size`: `default` for a row, at 500 in the size around it, and `lg` for a value of
   note, at 24/32 and 600, both with tabular figures.
 - **Each file is imported by its name:** `@fgarend/moneta/money` for `Money` and the hooks,
-  `@fgarend/moneta/money-provider`, `@fgarend/moneta/amount`, `@fgarend/moneta/percent` and
+  `@fgarend/moneta/moneta-provider`, `@fgarend/moneta/amount`, `@fgarend/moneta/percent` and
   `@fgarend/moneta/quantity`.
   `money.ts` holds no piece, so it is the one file in `src/components/` that is not a `.tsx`.
 
@@ -176,3 +176,4 @@ How Moneta holds an amount of money, and how it shows one.
 - 2026-11-10: `sign` and `tone`, with `--positive` and `--negative`.
 - 2026-11-10: Hidden values.
 - 2026-11-10: `hideCurrency`.
+- 2026-11-12: `MoneyProvider` became `MonetaProvider`, which holds the language, the router and the time zone too.

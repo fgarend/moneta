@@ -30,7 +30,13 @@ pieces is in [`../pieces.md`](../pieces.md), and how a piece is analysed is in [
   draws it. Each piece with a title follows this at its review, and a `Dialog` or `Sheet` starts again at 2, as
   React's context crosses portals.
 - **Moneta chooses no router.** A piece with a link passes `href`, `routerOptions` and `render` on to React Aria, so
-  an app routes through `render` on each link or through `RouterProvider` once at its root.
+  an app routes through `render` on each link or through `navigate` and `useHref` on `MonetaProvider` once at its
+  root.
+- **`MonetaProvider`, once at the app's root, holds what the app sets for every piece:** its language, `locale`, for
+  React Aria's `I18nProvider`; its router, `navigate` and `useHref`, for React Aria's `RouterProvider`, under its own
+  names; its time zone, `timeZone`, which a piece's own overrides; and its words and hidden values, as
+  `docs/decisions/money.md` says. One inside another keeps what it is not given. What it holds for the pieces is
+  `src/hooks/moneta.ts`, internal.
 - **The gallery groups the pieces by purpose, under shadcn's own groups,** as its docs list its components: Form &
   Input, Layout & Navigation, Overlays & Dialogs, Feedback & Status, Display & Media, and Misc. Its first level is
   `Components`, then `Sample`, and blocks and foundations will be levels of their own. A piece of ours goes in the
@@ -279,6 +285,11 @@ pieces is in [`../pieces.md`](../pieces.md), and how a piece is analysed is in [
   space is the least visible way to group, as Stephen Few has it, and as screenshots of both showed the group and a
   selected row fighting when both were filled. **A double line over the total,** which reads as a total at once;
   accounts draw it under the total, which in a card stacks with the card's edge.
+- **One provider of Moneta's,** as Polaris's `AppProvider` and React Spectrum's `Provider` take the language and the
+  router, so an app sets the pieces in one place, and imports nothing of React Aria's. Named for Moneta, as
+  `MantineProvider`, so it never meets an app's own `AppProvider`. React Aria's names for what it passes on, so its
+  guides for each router hold. **What it costs:** an API of our own around React Aria's providers; `useHref` reads as a
+  hook; and `isHidden`, which the app switches, lives with settings that stay.
 
 ## Alternatives considered
 
@@ -310,6 +321,11 @@ pieces is in [`../pieces.md`](../pieces.md), and how a piece is analysed is in [
 - **`visibility: collapse` on a `<col>`,** which hides a column once, but leaves its cells to screen readers and to
   Tab in every engine, and reached Safari only in 27.
 - **The screen's width for hiding columns,** which a test cannot try, as the tests' screen is always 1280 px wide.
+- **React Aria's `I18nProvider` and `RouterProvider` in the app, beside `MoneyProvider`,** as it was, with nothing of
+  ours to keep, but three providers to learn, and none for the time zone.
+- **`AppProvider`,** as Polaris names it, which an app often has already.
+- **`MoneyProvider` kept a version beside it,** which gives an app time, but holds two names until the policy for
+  deprecating comes.
 
 ## History
 
@@ -319,3 +335,4 @@ pieces is in [`../pieces.md`](../pieces.md), and how a piece is analysed is in [
 - 2026-11-10: The most semantic HTML and CSS.
 - 2026-11-10: Table, a native table of our own.
 - 2026-11-11: Pagination.
+- 2026-11-12: `MonetaProvider`, in place of `MoneyProvider`.

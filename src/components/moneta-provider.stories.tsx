@@ -1,14 +1,17 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { I18nProvider } from "react-aria-components";
-import { expect, within } from "storybook/test";
+import type { ReactNode } from "react";
+import { expect, fn, userEvent, within } from "storybook/test";
 import { Amount } from "./amount.js";
+import { useFormatDate } from "./date.js";
+import { DateTime } from "./date-time.js";
+import { Link } from "./link.js";
+import { MonetaProvider } from "./moneta-provider.js";
 import {
   type Money,
   useFormatMoney,
   useFormatPercent,
   useFormatQuantity,
 } from "./money.js";
-import { MoneyProvider } from "./money-provider.js";
 import { Percent } from "./percent.js";
 import { Quantity } from "./quantity.js";
 
@@ -24,19 +27,30 @@ const shareLabel = "Fictitious share";
 const share = "-0.0324";
 const sharesLabel = "Fictitious shares";
 const shares = "1234.5";
+const moment = "2001-01-01T14:32:00Z";
+const fees = "The fee schedule";
+const navigate = fn();
+
+// The words and the hidden values each story sets; Storybook cannot type a provider whose router is one of two shapes.
+type Words = {
+  emptyLabel?: string;
+  isHidden?: boolean;
+  hiddenLabel?: string;
+  children: ReactNode;
+};
 
 const meta = {
-  title: "Components/Misc/Money Provider",
-  component: MoneyProvider,
+  title: "Components/Misc/Moneta Provider",
   args: { emptyLabel: noValue, children: <Amount value={null} /> },
+  render: (args) => <MonetaProvider {...args} />,
   decorators: [
     (Story) => (
-      <I18nProvider locale="pt-BR">
+      <MonetaProvider locale="pt-BR">
         <Story />
-      </I18nProvider>
+      </MonetaProvider>
     ),
   ],
-} satisfies Meta<typeof MoneyProvider>;
+} satisfies Meta<Words>;
 
 type Story = StoryObj<typeof meta>;
 
@@ -56,7 +70,7 @@ const WithTheHook: Story = {
     const formatPercent = useFormatPercent();
     const formatQuantity = useFormatQuantity();
     return (
-      <MoneyProvider {...args}>
+      <MonetaProvider {...args}>
         <dl>
           <dt>{label}</dt>
           <dd>{formatMoney(value)}</dd>
@@ -74,7 +88,7 @@ const WithTheHook: Story = {
             <Quantity value={shares} />
           </dd>
         </dl>
-      </MoneyProvider>
+      </MonetaProvider>
     );
   },
   play: async ({ canvasElement }) => {
@@ -91,14 +105,14 @@ const WithTheHook: Story = {
   },
 };
 
-// In the language React Aria speaks, which the hook follows as Amount does.
+// In the app's language, its locale, which the hook follows as Amount does.
 const WithTheHookInEnglish: Story = {
   render: WithTheHook.render,
   decorators: [
     (Story) => (
-      <I18nProvider locale="en-US">
+      <MonetaProvider locale="en-US">
         <Story />
-      </I18nProvider>
+      </MonetaProvider>
     ),
   ],
   play: async ({ canvasElement }) => {
@@ -119,7 +133,7 @@ const WithTheHookSigned: Story = {
     const formatPercent = useFormatPercent();
     const formatQuantity = useFormatQuantity();
     return (
-      <MoneyProvider {...args}>
+      <MonetaProvider {...args}>
         <dl>
           <dt>{label}</dt>
           <dd>
@@ -133,7 +147,7 @@ const WithTheHookSigned: Story = {
           <dt>{sharesLabel}</dt>
           <dd>{formatQuantity(shares, { sign: "always" })}</dd>
         </dl>
-      </MoneyProvider>
+      </MonetaProvider>
     );
   },
   play: async ({ canvasElement }) => {
@@ -151,9 +165,9 @@ const Hidden: Story = {
   render: WithTheHook.render,
   decorators: [
     (Story) => (
-      <MoneyProvider hiddenLabel={hiddenLabel} isHidden={true}>
+      <MonetaProvider hiddenLabel={hiddenLabel} isHidden={true}>
         <Story />
-      </MoneyProvider>
+      </MonetaProvider>
     ),
   ],
   play: async ({ canvasElement }) => {
@@ -177,15 +191,109 @@ const Hidden: Story = {
 const Nested: Story = {
   args: { isHidden: true, hiddenLabel },
   render: (args) => (
-    <MoneyProvider {...args}>
-      <MoneyProvider emptyLabel={otherWords}>
+    <MonetaProvider {...args}>
+      <MonetaProvider emptyLabel={otherWords}>
         <Amount value={value} />
-      </MoneyProvider>
-    </MoneyProvider>
+      </MonetaProvider>
+    </MonetaProvider>
   ),
   play: async ({ canvasElement }) => {
     await expect(within(canvasElement).getByText(dots)).toBeVisible();
     await expect(canvasElement.innerHTML).not.toContain("286");
+  },
+};
+
+// Links go through the app's router: useHref makes its paths into addresses, and a press calls navigate.
+const Router: Story = {
+  render: (args) => (
+    <MonetaProvider
+      {...args}
+      navigate={navigate}
+      useHref={(href) => `/app${href}`}
+    >
+      <Link href="/fees">{fees}</Link>
+    </MonetaProvider>
+  ),
+  play: async ({ canvasElement }) => {
+    const link = within(canvasElement).getByRole("link", { name: fees });
+    navigate.mockClear();
+
+    await expect(link).toHaveAttribute("href", "/app/fees");
+    await userEvent.click(link);
+    await expect(navigate.mock.lastCall?.[0]).toBe("/fees");
+  },
+};
+
+// A moment, and today, in the app's zone, for every date and the hook, which read the provider above them; a date's
+// own zone wins, as a market's hours.
+const TimeZone: Story = {
+  decorators: [
+    (Story) => (
+      <MonetaProvider timeZone="Asia/Tokyo">
+        <Story />
+      </MonetaProvider>
+    ),
+  ],
+  render: function Render(args) {
+    const formatDate = useFormatDate();
+    return (
+      <MonetaProvider {...args}>
+        <ul>
+          <li>
+            <DateTime showTime={true} value={moment} />
+          </li>
+          <li>
+            <DateTime showTime={true} timeZone="UTC" value={moment} />
+          </li>
+          <li>{formatDate(moment, { showTime: true })}</li>
+        </ul>
+      </MonetaProvider>
+    );
+  },
+  play: async ({ canvasElement }) => {
+    const texts = [...canvasElement.querySelectorAll("li")].map(
+      (part) => part.textContent,
+    );
+
+    await expect(texts).toEqual([
+      "1 de jan. de 2001, 23:32",
+      "1 de jan. de 2001, 14:32",
+      "1 de jan. de 2001, 23:32",
+    ]);
+  },
+};
+
+// One inside another keeps the language, the zone and the router it is not given, as it keeps the hidden values.
+const NestedSettings: Story = {
+  render: (args) => (
+    <MonetaProvider
+      {...args}
+      locale="en-US"
+      navigate={navigate}
+      timeZone="Asia/Tokyo"
+      useHref={(href) => `/app${href}`}
+    >
+      <MonetaProvider emptyLabel={otherWords}>
+        <p>
+          <Amount value={value} />
+        </p>
+        <p>
+          <DateTime showTime={true} value={moment} />
+        </p>
+        <Link href="/fees">{fees}</Link>
+      </MonetaProvider>
+    </MonetaProvider>
+  ),
+  play: async ({ canvasElement }) => {
+    const [amount, date] = [...canvasElement.querySelectorAll("p")].map(
+      (part) => part.textContent,
+    );
+
+    await expect(amount).toBe(`${minus}R$286.40`);
+    await expect(date).toContain("11:32");
+    await expect(
+      within(canvasElement).getByRole("link", { name: fees }),
+    ).toHaveAttribute("href", "/app/fees");
   },
 };
 
@@ -194,6 +302,9 @@ export {
   Default,
   Hidden,
   Nested,
+  NestedSettings,
+  Router,
+  TimeZone,
   WithTheHook,
   WithTheHookInEnglish,
   WithTheHookSigned,

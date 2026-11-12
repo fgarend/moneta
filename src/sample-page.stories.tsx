@@ -41,8 +41,8 @@ import {
   ItemValue,
 } from "./components/item.js";
 import { Link } from "./components/link.js";
+import { MonetaProvider } from "./components/moneta-provider.js";
 import type { Money } from "./components/money.js";
-import { MoneyProvider } from "./components/money-provider.js";
 import { Percent } from "./components/percent.js";
 import { Progress } from "./components/progress.js";
 import {
@@ -454,7 +454,7 @@ function SidePanels() {
 function SamplePage() {
   return (
     <I18nProvider locale="en-US">
-      <MoneyProvider emptyLabel="No value yet" hiddenLabel="Hidden value">
+      <MonetaProvider emptyLabel="No value yet" hiddenLabel="Hidden value">
         <div
           className="flex min-h-screen bg-background font-sans text-foreground"
           data-testid="sample-font"
@@ -469,7 +469,7 @@ function SamplePage() {
             </div>
           </main>
         </div>
-      </MoneyProvider>
+      </MonetaProvider>
     </I18nProvider>
   );
 }

@@ -16,7 +16,7 @@ function Percent({
 }: Omit<HTMLAttributes<HTMLElement>, "children"> & {
   // A decimal string, a fraction of one, or null for no value, which shows a dash.
   value: string | null;
-  // What screen readers hear for no value, over MoneyProvider's.
+  // What screen readers hear for no value, over MonetaProvider's.
   emptyLabel?: string;
   size?: ValueSize;
   // "always" shows the plus of a change. Zero takes no sign.

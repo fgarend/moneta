@@ -17,7 +17,7 @@ function Amount({
 }: Omit<HTMLAttributes<HTMLElement>, "children"> & {
   // null says there is no value, which shows a dash.
   value: Money | null;
-  // What screen readers hear for no value, over MoneyProvider's.
+  // What screen readers hear for no value, over MonetaProvider's.
   emptyLabel?: string;
   size?: ValueSize;
   // "always" shows the plus of a change. Zero takes no sign.

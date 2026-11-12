@@ -1,25 +1,25 @@
 // Money for an app: its type, and the hooks that write a value where no piece can go, such as a chart's axis or a
-// page's title. It holds no piece, so it stays apart from MoneyProvider. docs/decisions/money.md says why it is so.
+// page's title. It holds no piece, so it stays apart from MonetaProvider. docs/decisions/money.md says why it is so.
 import { useCallback, useContext } from "react";
 import { useLocale } from "react-aria-components";
+import { MonetaContext } from "#hooks/moneta";
 import {
   formatMoney,
   formatPercent,
   formatQuantity,
   hiddenText,
   type Money,
-  MoneyContext,
   type Sign,
 } from "#lib/money";
 
 // As the pieces' prop: "always" shows the plus of a change.
 type FormatOptions = { sign?: Sign };
 
-// The language React Aria speaks, and whether MoneyProvider hides values, which turns any text into dots. A text only
+// The language React Aria speaks, and whether MonetaProvider hides values, which turns any text into dots. A text only
 // screen readers hear, as an aria-label, is the app's to word while values are hidden.
 function useFormatting(): { locale: string; isHidden: boolean } {
   const { locale } = useLocale();
-  return { locale, isHidden: useContext(MoneyContext).isHidden === true };
+  return { locale, isHidden: useContext(MonetaContext).isHidden === true };
 }
 
 // The same text as Amount.

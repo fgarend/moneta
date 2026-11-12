@@ -3,8 +3,8 @@
 import { cn } from "cn";
 import { type HTMLAttributes, useContext } from "react";
 import { useLocale } from "react-aria-components";
+import { MonetaContext } from "#hooks/moneta";
 import { type DateFormat, formatDate } from "#lib/date";
-import { MoneyContext } from "#lib/money";
 
 function DateTime({
   value,
@@ -23,18 +23,18 @@ function DateTime({
   showTime?: boolean;
   // Today, yesterday and tomorrow as words, in the short format.
   relative?: boolean;
-  // The zone a moment is shown in, and today is counted in. The browser's when not given.
+  // The zone a moment is shown in, and today is counted in, over MonetaProvider's. The browser's with neither.
   timeZone?: string;
-  // What screen readers hear for no date, over MoneyProvider's.
+  // What screen readers hear for no date, over MonetaProvider's.
   emptyLabel?: string;
 }) {
   const { locale } = useLocale();
-  const provided = useContext(MoneyContext);
+  const provided = useContext(MonetaContext);
   if (value === null) {
     const words = emptyLabel ?? provided.emptyLabel;
     if (words === undefined) {
       throw new Error(
-        "DateTime: no date needs an emptyLabel, on it or on MoneyProvider.",
+        "DateTime: no date needs an emptyLabel, on it or on MonetaProvider.",
       );
     }
     return (
@@ -48,7 +48,7 @@ function DateTime({
     format,
     showTime,
     relative,
-    timeZone,
+    timeZone: timeZone ?? provided.timeZone,
   });
   return (
     <time

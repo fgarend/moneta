@@ -22,31 +22,25 @@ scale of sizes may need a touch when they arrive, and Sidebar's study may change
 later: a page that puts the pieces together, a pre-release tried in an app before a version, and a review of the whole
 after each family.
 
-## Icons
-
-Motion, Layers and Icons were one item, split as each crosses every piece with checks of its own. Their sizes: 12, 14,
-16, 20 and 24 px across the pieces, and 8 in Avatar, mostly 16, from Lucide. To ask first whether it joins One scale
-of sizes. One step.
-
-## Sidebar, AppLayout and providers
+## Sidebar and AppLayout
 
 Starting with a study, which is what this item asks first: how each is defined, and where it lives. `sidebar`
-stayed out of the first delivery for this. Until then, an app keeps what it has for its shell. What is known so far:
+stayed out of the first delivery for this. Until then, an app keeps what it has for its shell. Three steps, decided on
+2026-11-12: the providers, done in 0.14.0 as `MonetaProvider`; Sidebar; and AppLayout. **What it costs:** AppLayout
+decides where Sidebar lives, so Sidebar may change again with it.
+
+What is known so far:
 
 - shadcn's sidebar lacks `<nav>`, lists, `aria-current` and a skip link. Its trigger lacks `aria-expanded`, its
   count sits outside the link's name, and it writes a cookie it never reads. It loses the current page in forced
   colours.
 - Esc does not close its mobile sheet from a link with a `tooltip`, and the sheet stays open after navigating.
 - An empty navigation and a tooltip on a collapsed item are to be settled.
-- A check for reduced motion arrives with it, as shadcn's files have no `motion-reduce`.
+- Less motion is covered by Motion's rule on what has a `data-slot`, and its test opens what moves.
 - `use-mobile` falls under the coverage of `stories`, so it needs a story, or an exclusion.
 - Its gradient and glow are to be asked (recommended: yes, by eye).
-- A provider for the app's time zone, which `DateTime` and `useFormatDate` read, deferred by Dates on 2026-11-11; and
-  whether `MoneyProvider`, whose `emptyLabel` dates read too, becomes a provider of values.
-- Links through whichever router an app uses: the sidebar passes `href`, `routerOptions` and `render` on.
-  `createLink` on a sidebar button reloaded the page on Enter, when it was tried.
-- To say: how an app gives React Aria its locale, through `I18nProvider`, as without it React Aria's own words
-  follow the browser's language.
+- Links through whichever router an app uses, through `MonetaProvider`: the sidebar passes `href`, `routerOptions`
+  and `render` on. `createLink` on a sidebar button reloaded the page on Enter, when it was tried.
 - The sidebar's layer, and a top bar's that stays in view, against Table's sticky header at `z-20` and the dialogs at
   `z-50`, as Layers left them; shadcn's sidebar is `z-10`.
 
@@ -72,6 +66,9 @@ main action takes `h-10` by hand, as the sample page does. Table chose its own f
 `density="compact"` of about 36 px, which this item may rename.
 
 - To ask: the names of the sizes for every piece, as Button has `xs`, `sm`, `default`, `lg` and `icon-*`.
+- The icons' sizes, Icons' item folded in here on 2026-11-12, as an icon already follows its control's size: Button's
+  12, 14, 16 and 16 px at 24, 32, 36 and 40; 16 in the menus, Select, Tabs, Pagination and Alert; 20 in a list's tile,
+  16 when compact; 12 in Badge and Kbd; 14 in Table; 24 in AlertDialog's media; and 8 in Avatar's badge. From Lucide.
 
 ## Layout and text
 

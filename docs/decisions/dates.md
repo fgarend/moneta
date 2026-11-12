@@ -16,9 +16,10 @@ How Moneta holds a date, and how it shows one.
   `"month"`.
 - **`relative` writes today, yesterday and tomorrow as words,** in `"short"` only, as `Intl.RelativeTimeFormat` gives
   them, one day each way.
-- **A moment, "today" and "this year" are in the browser's zone,** or in `timeZone` on the piece and the hook.
+- **A moment, "today" and "this year" are in the browser's zone,** or in `timeZone` on `MonetaProvider` for the
+  whole app, or on the piece and the hook, which wins.
 - **No date shows a dash,** `value={null}`, with what screen readers hear from `emptyLabel` on the piece or on
-  `MoneyProvider`; with no words, it throws.
+  `MonetaProvider`; with no words, it throws.
 - **`useFormatDate` gives the same text where no piece can go,** in the browser's case, to sit in a sentence.
 - **One path from a value to its text,** in `src/lib/date.ts`, internal, on `Intl` alone.
 - **`DateField` takes a day typed in, part by part in the language's order,** on React Aria's `DateField`, from and to
@@ -49,8 +50,8 @@ How Moneta holds a date, and how it shows one.
   "anteontem" has no peer in English, so the rule is the same in every language. **What it costs:** a group's title by
   day shows "Sábado, 24 de outubro", not "Hoje · sábado, 24 de outubro", which the hook can compose.
 - **A capital in the piece, the browser's case in the hook,** as the piece stands alone and the hook sits in a sentence.
-- **The browser's zone, and `timeZone` per use,** as a provider for the app's zone waits for Sidebar, AppLayout and
-  providers. **What it costs:** an app that wants one zone passes it on each use until then.
+- **The browser's zone, `timeZone` on `MonetaProvider` for the app's, and on a use for another,** as a market's
+  hours, the piece winning as its `emptyLabel` does. **What it costs:** two places for one setting.
 - **`DateField` on React Aria's, as its starters build it,** with the label, description and error as props, as
   shadcn's aria-nova style has a calendar and no date field, and `Field`'s description is not linked yet. **What it
   costs:** Actions and forms may open its parts, as a breaking change.
@@ -59,8 +60,7 @@ How Moneta holds a date, and how it shows one.
   when it is whole or cleared.
 - **The message always the app's,** asked for by TypeScript with each rule, as a piece has no default text, React
   Aria's neither. **What it costs:** a rule with no words does not compile.
-- **`MoneyProvider`'s `emptyLabel`,** so the app words "no value" once. **What it costs:** its name says money; it may
-  become a provider of values.
+- **`MonetaProvider`'s `emptyLabel`,** so the app words "no value" once, for money and dates alike.
 
 ## Alternatives considered
 
@@ -81,3 +81,4 @@ How Moneta holds a date, and how it shows one.
 - 2026-11-11: Written, with `DateTime`, `useFormatDate` and `src/lib/date.ts`.
 - 2026-11-11: `@internationalized/date` a dependency, for `DateField`.
 - 2026-11-11: `DateField`.
+- 2026-11-12: The app's zone on `MonetaProvider`.

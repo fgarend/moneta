@@ -1,19 +1,7 @@
 // Money as Moneta holds it, and the one path from a value to its text, which every piece of money and the hooks take.
 // Internal: an app gets it through them. docs/decisions/money.md says why it is so.
-import { createContext } from "react";
-
 // An amount as a decimal string, exact, and its currency's code, as a backend sends them.
 type Money = { amount: string; currency: string };
-
-// What MoneyProvider holds: the app's words for what a piece of money shows with no number, and whether values are
-// hidden.
-type MoneyWords = {
-  emptyLabel?: string | undefined;
-  isHidden?: boolean | undefined;
-  hiddenLabel?: string | undefined;
-};
-
-const MoneyContext = createContext<MoneyWords>({});
 
 // What a hidden value shows, of one width, so it says nothing of the number's size.
 const hiddenText = "••••••";
@@ -165,7 +153,5 @@ export {
   formatQuantity,
   hiddenText,
   type Money,
-  MoneyContext,
-  type MoneyWords,
   type Sign,
 };

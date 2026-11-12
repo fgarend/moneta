@@ -12,8 +12,8 @@ import { Amount } from "./amount.js";
 import { Button } from "./button.js";
 import { Card, CardContent, CardHeader, CardTitle } from "./card.js";
 import { Link } from "./link.js";
+import { MonetaProvider } from "./moneta-provider.js";
 import type { Money } from "./money.js";
-import { MoneyProvider } from "./money-provider.js";
 import {
   Table,
   TableBody,
@@ -1691,9 +1691,9 @@ const Copying: Story = {
 // Narrow, the columns it hides are left out of a copy, and values hidden by the app go as their dots.
 const CopyingNarrow: Story = {
   render: () => (
-    <MoneyProvider hiddenLabel="Hidden value" isHidden={true}>
+    <MonetaProvider hiddenLabel="Hidden value" isHidden={true}>
       <Table aria-label={name}>{rows(true)}</Table>
-    </MoneyProvider>
+    </MonetaProvider>
   ),
   decorators: Narrow.decorators,
   play: async ({ canvasElement }) => {

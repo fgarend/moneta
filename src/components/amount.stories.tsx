@@ -3,7 +3,7 @@ import { I18nProvider } from "react-aria-components";
 import { expect, within } from "storybook/test";
 import { Caught } from "../../.storybook/caught.js";
 import { Amount } from "./amount.js";
-import { MoneyProvider } from "./money-provider.js";
+import { MonetaProvider } from "./moneta-provider.js";
 
 // What Intl writes between a currency and its number, so the two never part.
 const nbsp = " ";
@@ -340,9 +340,9 @@ const Empty: Story = {
   args: { value: null },
   decorators: [
     (Story) => (
-      <MoneyProvider emptyLabel={noValue}>
+      <MonetaProvider emptyLabel={noValue}>
         <Story />
-      </MoneyProvider>
+      </MonetaProvider>
     ),
   ],
   play: async ({ canvasElement }) => {
@@ -378,7 +378,7 @@ const EmptyWithoutWords: Story = {
   play: async ({ canvasElement }) => {
     await expect(
       within(canvasElement).getByText(
-        "Amount: no value needs an emptyLabel, on it or on MoneyProvider.",
+        "Amount: no value needs an emptyLabel, on it or on MonetaProvider.",
       ),
     ).toBeVisible();
   },
@@ -468,9 +468,9 @@ const Hidden: Story = {
   },
   decorators: [
     (Story) => (
-      <MoneyProvider hiddenLabel={hiddenWords} isHidden={true}>
+      <MonetaProvider hiddenLabel={hiddenWords} isHidden={true}>
         <Story />
-      </MoneyProvider>
+      </MonetaProvider>
     ),
   ],
   play: async ({ canvasElement }) => {
@@ -503,15 +503,15 @@ const HiddenEmpty: Story = {
 const HiddenWithoutWords: Story = {
   render: (args) => (
     <Caught>
-      <MoneyProvider isHidden={true}>
+      <MonetaProvider isHidden={true}>
         <Amount {...args} />
-      </MoneyProvider>
+      </MonetaProvider>
     </Caught>
   ),
   play: async ({ canvasElement }) => {
     await expect(
       within(canvasElement).getByText(
-        "Amount: a hidden value needs a hiddenLabel on MoneyProvider.",
+        "Amount: a hidden value needs a hiddenLabel on MonetaProvider.",
       ),
     ).toBeVisible();
   },
