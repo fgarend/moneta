@@ -140,6 +140,56 @@ describe.each(["light", "dark"])("the %s theme", (mode) => {
   });
 });
 
+const categories = [1, 2, 3, 4, 5, 6, 7, 8];
+const surfaces = ["background", "card", "muted"];
+// The share of a category's colour in its tile's tint, as the tile draws it in each mode.
+const tint: Record<string, number> = { light: 0.1, dark: 0.2 };
+
+// One colour over another at a share of it, as a browser lays a translucent fill over what is under it.
+function over(colour: string, under: string, share: number): string {
+  const channels = [1, 3, 5].map((start) => {
+    const [top, bottom] = [colour, under].map((value) =>
+      Number.parseInt(value.slice(start, start + 2), hexBase),
+    );
+    return Math.round(share * (top ?? 0) + (1 - share) * (bottom ?? 0));
+  });
+  return `#${channels.map((value) => value.toString(hexBase).padStart(2, "0")).join("")}`;
+}
+
+// The colours of categories, as marks and icons: 3:1 on every surface they meet, and on their own tile's tint there.
+describe.each(["light", "dark"])("the categories in %s", (mode) => {
+  it.each(
+    categories.flatMap((index) =>
+      surfaces.map((surface) => [index, surface] as const),
+    ),
+  )(
+    "reads category %d at 3:1 on %s and on its tint there",
+    async (index, surface) => {
+      const theme = (await themes())[mode] ?? {};
+      const [colour = "", under = ""] = [
+        theme[`category-${index}`],
+        theme[surface],
+      ];
+
+      expect(colour).toMatch(hexColour);
+      expect(contrast(colour, under)).toBeGreaterThanOrEqual(nonText);
+      expect(
+        contrast(colour, over(colour, under, tint[mode] ?? 0)),
+      ).toBeGreaterThanOrEqual(nonText);
+    },
+  );
+});
+
+// shadcn's chart colours, which its chart reads, are the first five categories.
+it("points shadcn's chart colours to the first five categories", async () => {
+  const theme = await readFile(new URL("src/styles/theme.css", root), "utf8");
+  const light = declared(theme, lightBlock);
+
+  expect([1, 2, 3, 4, 5].map((index) => light[`chart-${index}`])).toEqual(
+    [1, 2, 3, 4, 5].map((index) => `var(--category-${index})`),
+  );
+});
+
 // The line that marks structure, a group's and a total's, stands out from the line under every row, in both modes.
 it.each(["light", "dark"])(
   "draws a strong line apart from the plain one in %s",

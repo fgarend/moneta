@@ -22,18 +22,6 @@ scale of sizes may need a touch when they arrive, and Sidebar's study may change
 later: a page that puts the pieces together, a pre-release tried in an app before a version, and a review of the whole
 after each family.
 
-## The palette of categories
-
-The second step of the colours, after the colours of meaning, done in 0.17.0, decided on 2026-11-12 after a study of
-shadcn, Primer, Polaris, Carbon, Atlassian, Spectrum, Material and Radix. A category must tell apart and say nothing,
-as Primer forbids meaning in data colours, where a meaning needs text contrast and a name that says good or bad.
-**What it costs:** both share a screen, so a category's green may meet success's.
-
-- **What it colours:** an icon tile's tint, which Lists of rows drew in `--muted`, and the charts' series, today
-  shadcn's greys; 5 to 8 colours in a fixed order, each mark 3:1 on its surface, never colour alone, as Carbon,
-  Atlassian and Primer advise.
-- **No base palette,** as the meanings: its values are chosen by hand, and may come out uneven.
-
 ## One scale of sizes
 
 The look's 32, 36 and 40 px, on every piece, as only 9 follow it today. Badge, Avatar, Item, Checkbox, Switch and
@@ -129,7 +117,8 @@ with each family. No reviewed piece has a default text, so shadcn's written stri
 - Tabs, with a count in a tab and tools to the right of its list. Progress, Empty, and Skeleton, with one pattern
   for loading, error and empty. Spinner and Breadcrumb. Pagination moved to Table.
 - Collapsible, IconTile, StatGroup, as the sample page's summary strip draws it, which is also what KpiStrip meant,
-  and AllocationBar. `calendar` after
+  and AllocationBar. IconTile may take over the colour of categories that `ItemMedia`'s tile has by `category`, since
+  0.18.0; then the colour moves there and Item uses it. `calendar` after
   a study like Sidebar's.
 - Link came early, before Sidebar.
 - Steps, Banner, and Meter, which says how much of a limit is used, unlike Progress, with a target's mark.
@@ -140,10 +129,12 @@ with each family. No reviewed piece has a default text, so shadcn's written stri
 ## Charts
 
 Line, area, bars and donut, with a tooltip and a crosshair, and a reference line such as an average, a ring for one
-value, and BarList, a ranking in bars, with shadcn's `chart-1` to `chart-5`, whose marks need 3:1 against the
+value, and BarList, a ranking in bars, with `--category-1` to `--category-8`, whose marks need 3:1 against the
 surface, under WCAG 1.4.11, and a table of the data beside each.
 
 - To ask: where `recharts` goes (recommended: an entry of its own).
+- To ask: a chart of one series, which the prototype draws in graphite rather than the first category; and past five
+  or six series, the rest grouped into one, as Atlassian advises, drawn in a neutral.
 
 ## Not to build, and to ask again
 
