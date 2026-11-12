@@ -6,6 +6,10 @@ gets its number.
 
 ## [Unreleased]
 
+## [0.17.0] - 2026-11-12
+
+Colours of meaning: success, warning and information beside destructive, in light and dark, on Badge and Alert.
+
 ### Added
 
 - `--success`, `--warning` and `--info` in the theme, the colours of meaning beside `--destructive`, in light and dark,
@@ -350,7 +354,8 @@ and dark. `README.md` says how to install and use it.
 
 A rehearsal of the release's path, not meant to be installed. Use a later version.
 
-[Unreleased]: https://github.com/fgarend/moneta/compare/v0.16.0...HEAD
+[Unreleased]: https://github.com/fgarend/moneta/compare/v0.17.0...HEAD
+[0.17.0]: https://github.com/fgarend/moneta/compare/v0.16.0...v0.17.0
 [0.16.0]: https://github.com/fgarend/moneta/compare/v0.15.0...v0.16.0
 [0.15.0]: https://github.com/fgarend/moneta/compare/v0.14.0...v0.15.0
 [0.14.0]: https://github.com/fgarend/moneta/compare/v0.13.0...v0.14.0
