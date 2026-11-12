@@ -24,15 +24,38 @@ after each family.
 
 ## AppLayout
 
-The last of three steps, decided on 2026-11-12: the providers, done in 0.14.0 as `MonetaProvider`; Sidebar, done in
-0.15.0; and AppLayout, which decides where Sidebar lives, so Sidebar may change again with it.
+The last of three steps of the app's shell: the providers, done in 0.14.0 as `MonetaProvider`; Sidebar, done in
+0.15.0; and AppLayout. Decided on 2026-11-12, one point at a time, after a study of shadcn's sidebar blocks, Polaris's
+Frame, Carbon's UI Shell, Atlassian's navigation system, Primer's PageLayout and GOV.UK's template, and of an app's
+shell. All of them scroll the document, put the shell below dialogs and popovers, and the skip link above all.
 
-- The skip link, which waits for it as it knows where the content starts, as Polaris's and Carbon's frames hold it.
-- Where `SidebarTrigger` sits on a phone, as in a top bar.
-- The sidebar's layer, and a top bar's that stays in view, against Table's sticky header at `z-20` and the dialogs at
-  `z-50`, as Layers left them; shadcn's sidebar is `z-10`.
-- An app's shell today: a sticky top bar with a breadcrumb and the page's filters, the content up to 1440 px, and a
-  sidebar sticky at full height, its own list scrolling.
+- **One responsibility per piece,** as the owner asked for blocks well assembled and apart, the layout arranging and
+  the others drawing themselves whatever the arrangement:
+  - **`SkipLink`,** a piece of its own: the page's first element, hidden until keyboard focus, then shown at the top
+    corner above all, as a button; its `href` names its target, on which it puts `tabindex="-1"` when pressed, as
+    GOV.UK, since Safari and VoiceOver may only scroll otherwise; its words the app's, its children.
+  - **`SidebarProvider`,** the phone's open state only; the app wraps the shell with it, as shadcn.
+  - **`AppLayout`** arranges only: the Sidebar's column sticky at full height beside the `<main>`'s; the top bar sticky
+    at `z-40`, above what sticks inside a piece and below the dialogs, with `scroll-padding-top` on `html` at its
+    height so focus is never hidden under it (2.4.11, C43), and unstuck on a screen under 480 px tall (1.4.10, C34).
+    Arranging props later live here.
+  - **`AppMain`,** the `<main>` landmark, with an `id` the `SkipLink` points at, `"main"` by default.
+  - **`AppHeader`** draws the top bar, inside `<main>`, as shadcn's, holding the breadcrumb, the page's tools and on a
+    phone the `SidebarTrigger`: 56 px, the page's solid `--background`, a `--border` line below.
+    **`AppHeaderActions`** puts the tools at its end.
+  - **`AppContent`** draws the content: 16 px of margin on a phone and 40 from 768 px, up to 1440 px by default or
+    `width="full"` for a wide table, and the 40 px between sections the guidelines ask of a page.
+- **The bar and the content centred together** on a wide screen: the bar's background edge to edge, its row at the
+  content's width, which `width="full"` opens too, by `:has()` on the `<main>`.
+- **What it costs:** seven pieces to write in place of four; a forgotten `SkipLink` leaves none; `SkipLink` and
+  `AppMain` tied by an `id`; `AppHeader` and `AppContent` are names an app often has, solved on import; the bar tied
+  to the content's width by CSS; search or an account at the top would ask for a banner, a change to the app's code.
+- **Not chosen:** a banner above all, as Carbon and Atlassian, which the skip link would jump with the page's tools;
+  an inner scroller, as Atlassian's option; no limit to the content's width, which loses a row read across; a
+  translucent bar with a blur, as the app's.
+- **WCAG to check:** 2.4.1 by the skip link moving focus; 2.4.11 by focus clear of the sticky bar; 1.3.1 by one
+  `main` and the landmarks' order; 1.4.10 at 320 px and on a short screen; 2.4.3 by the order of focus, skip link,
+  sidebar, bar, content.
 
 ## Colours of meaning
 

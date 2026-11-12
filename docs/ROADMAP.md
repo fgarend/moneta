@@ -9,7 +9,7 @@ known and what is still to ask, are in [`roadmap-notes.md`](roadmap-notes.md), r
 ## Next, in order
 
 1. **AppLayout.** The app's shell around Sidebar, after its providers.
-   - where Sidebar, a top bar and the content sit, with the skip link
+   - `SkipLink`, `AppLayout`, `AppMain`, `AppHeader` and `AppContent`, each with one responsibility
 2. **Colours of meaning.** Success, warning and information, in light and dark, beside gain and loss.
    - their names, and `variant` or `tone`
    - the palette of categories and of the charts
@@ -79,6 +79,8 @@ Each becomes an item when its time comes.
 - **Announcing a table's sort.** If `aria-sort` alone proves too little.
 - **The pages a pagination draws, worked out.** If a second app needs it.
 - **The sample page's text in the dark stories.** Light's colour, where its dark screenshot is right.
+- **A less-motion test that stalled once in WebKit.** Opening and closing Dialog stopped the page past every wait,
+  1 run in 7 after Playwright 1.65.0 on 2026-11-12, and never again alone or under load. If it returns.
 - **Sidebar's further functions.** Collapsed to icons with tooltips, counts, sections that open, nested items, a
   keyboard shortcut. When an app asks.
 - **Skeleton's and Progress's less motion, asked of each browser.** As the overlays' is, in place of reading the
