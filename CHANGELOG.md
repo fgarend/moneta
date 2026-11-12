@@ -6,6 +6,11 @@ gets its number.
 
 ## [Unreleased]
 
+## [0.18.0] - 2026-11-12
+
+The palette of categories: eight colours that tell apart and say nothing, in light and dark, on the list's icon tile
+and for the charts to come.
+
 ### Added
 
 - `--category-1` to `--category-8` in the theme, the colours of categories, which tell apart and say nothing, in light
@@ -360,7 +365,8 @@ and dark. `README.md` says how to install and use it.
 
 A rehearsal of the release's path, not meant to be installed. Use a later version.
 
-[Unreleased]: https://github.com/fgarend/moneta/compare/v0.17.0...HEAD
+[Unreleased]: https://github.com/fgarend/moneta/compare/v0.18.0...HEAD
+[0.18.0]: https://github.com/fgarend/moneta/compare/v0.17.0...v0.18.0
 [0.17.0]: https://github.com/fgarend/moneta/compare/v0.16.0...v0.17.0
 [0.16.0]: https://github.com/fgarend/moneta/compare/v0.15.0...v0.16.0
 [0.15.0]: https://github.com/fgarend/moneta/compare/v0.14.0...v0.15.0
