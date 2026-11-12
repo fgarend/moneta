@@ -15,6 +15,9 @@ the version installed. It holds only what exists, and each reviewed piece adds i
 - **`--border` is for a divider and the lines between rows, and `--input` for a control's edge,** which reaches 3:1
   against the page and a card, so a field's edge is seen.
 - **`--destructive` is for an error and for an action that deletes.** A word says it too, never colour alone.
+- **`--success`, `--warning` and `--info` say the state of something,** as a bill paid, due tomorrow or scheduled,
+  through `variant` on `Badge` and `Alert`. The words always say it too: the orange of a warning and the red of an
+  error are close for many readers. `--success` is a gain's green, `--positive`, which stays a value's good news.
 - **`--positive` and `--negative` are a value's good news and bad,** through `tone` on `Amount`, `Percent` and
   `Quantity`. `--negative` is `--destructive`'s red.
 - **Gold is for little.** `Button`'s `variant="gold"`, at most once per screen, with `--gold-foreground` on it. Never a

@@ -35,6 +35,9 @@
   --color-destructive: var(--destructive);
   --color-positive: var(--positive);
   --color-negative: var(--negative);
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+  --color-info: var(--info);
   --color-accent-foreground: var(--accent-foreground);
   --color-accent: var(--accent);
   --color-muted-foreground: var(--muted-foreground);
@@ -88,6 +91,11 @@
      its red there. */
   --positive: #157347;
   --negative: var(--destructive);
+  /* The colours of meaning, each one token, read as text and drawn soft from it. Success is a gain's green, and
+     warning an orange, away from the brand's gold. Again under .dark. */
+  --success: var(--positive);
+  --warning: #9e4c00;
+  --info: #1d5fbf;
   /* The colour of the surface a piece sits on, which what sticks over a table's rows takes: the page here, and a
      card's, a sheet's or a dialog's inside them, which set it. Again under .dark, to take its page there. */
   --surface: var(--background);
@@ -141,6 +149,9 @@
   --destructive: #ffa394;
   --positive: #74d19a;
   --negative: var(--destructive);
+  --success: var(--positive);
+  --warning: #ffb46b;
+  --info: #7aa7f5;
   --surface: var(--background);
   --scroll-shadow: oklch(0 0 0 / 0.5);
   --border: #35383d;

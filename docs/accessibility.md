@@ -42,7 +42,7 @@ which is run by hand.
 | 1.3.5 Identify Input Purpose | none yet | With the form controls (Actions and forms) |
 | 1.4.1 Use of Color | story, app | Link's underline, and the sidebar's current page, by a bar and a bolder text. A value's tone only adds colour, and its sign or words are the app's |
 | 1.4.2 Audio Control | app | |
-| 1.4.3 Contrast (Minimum) | axe, test | axe on flat colours, and `test/theme.test.ts` on the theme's pairs, both modes, a value's tones among them |
+| 1.4.3 Contrast (Minimum) | axe, test | axe on flat colours, and `test/theme.test.ts` on the theme's pairs, both modes, a value's tones and the colours of meaning among them |
 | 1.4.4 Resize Text | script | |
 | 1.4.5 Images of Text | app | |
 | 1.4.10 Reflow | story, coming, script | Section's story at 320 px, Amount on one line in a narrow column, Table's columns hidden or scrolled in its own area at 320 px, the sidebar in a sheet on a phone at 320 px, its long labels wrapping, and the application's structure at 320 px, its bar let go on a short screen |

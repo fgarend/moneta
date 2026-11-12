@@ -29,13 +29,13 @@ A piece with no gap listed may still have some.
 
 | Piece | State | Known gaps |
 | --- | --- | --- |
-| `alert` | raw | |
+| `alert` | raw | **Edited:** `success`, `warning` and `info` variants, drawn as `destructive`. **Code:** every variant is `role="alert"`, which interrupts a screen reader even for news that can wait |
 | `alert-dialog` | raw | |
 | `amount` | reviewed | |
 | `app-layout` | reviewed | |
 | `aspect-ratio` | raw | |
 | `avatar` | raw | |
-| `badge` | raw | **Edited:** `badgeVariants` is not exported |
+| `badge` | raw | **Edited:** `badgeVariants` is not exported, and `success`, `warning` and `info` variants, drawn as `destructive` |
 | `breadcrumb` | raw | **Edited:** the current page is React Aria's Link, marked and disabled. **Default text:** "breadcrumb" and "More" |
 | `button` | raw | **Edited:** default 36 px, `sm` 32 and `lg` 40, the same for `icon`, `icon-sm` and `icon-lg`, with the variant `gold`. `sm`'s text is 12 px, `secondary`'s hover reads `--secondary-hover`, and `buttonVariants` is not exported |
 | `button-group` | raw | **Edited:** React Aria's `Group`, and `buttonGroupVariants` is not exported |

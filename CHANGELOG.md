@@ -6,6 +6,11 @@ gets its number.
 
 ## [Unreleased]
 
+### Added
+
+- `--success`, `--warning` and `--info` in the theme, the colours of meaning beside `--destructive`, in light and dark,
+  and `success`, `warning` and `info` variants on `Badge` and `Alert`.
+
 ## [0.16.0] - 2026-11-12
 
 AppLayout: the app's shell, the sidebar beside the page's main, a sticky bar, content up to 1440 px or the full
