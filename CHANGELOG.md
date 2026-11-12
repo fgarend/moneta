@@ -6,6 +6,11 @@ gets its number.
 
 ## [Unreleased]
 
+## [0.16.0] - 2026-11-12
+
+AppLayout: the app's shell, the sidebar beside the page's main, a sticky bar, content up to 1440 px or the full
+width, and a skip link first.
+
 ### Added
 
 - `AppLayout`, the app's shell, which arranges the sidebar beside `AppMain`, the page's `<main>`, the sidebar sticky
@@ -340,7 +345,8 @@ and dark. `README.md` says how to install and use it.
 
 A rehearsal of the release's path, not meant to be installed. Use a later version.
 
-[Unreleased]: https://github.com/fgarend/moneta/compare/v0.15.0...HEAD
+[Unreleased]: https://github.com/fgarend/moneta/compare/v0.16.0...HEAD
+[0.16.0]: https://github.com/fgarend/moneta/compare/v0.15.0...v0.16.0
 [0.15.0]: https://github.com/fgarend/moneta/compare/v0.14.0...v0.15.0
 [0.14.0]: https://github.com/fgarend/moneta/compare/v0.13.0...v0.14.0
 [0.13.0]: https://github.com/fgarend/moneta/compare/v0.12.0...v0.13.0
