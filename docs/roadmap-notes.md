@@ -22,48 +22,6 @@ scale of sizes may need a touch when they arrive, and Sidebar's study may change
 later: a page that puts the pieces together, a pre-release tried in an app before a version, and a review of the whole
 after each family.
 
-## The palette of categories
-
-The second step of the colours, after the colours of meaning, done in 0.17.0. Decided on 2026-11-12, one point at a
-time, after a study of shadcn, Primer, Polaris, Carbon, Atlassian, Spectrum and Okabe–Ito. A category must tell apart
-and say nothing, as Primer forbids meaning in data colours, where a meaning needs text contrast and a name that says
-good or bad. **What it costs:** both share a screen, so a category's green may meet success's.
-
-- **On the list's icon tile now,** `ItemMedia variant="icon"`, which Lists of rows drew in `--muted`, as the prototype
-  tints it, beside the tokens. **What it costs:** Item is edited, and IconTile, in The rest, may take it over; then the
-  colour moves there and Item uses it.
-- **One token per colour, as the meanings:** the tile's background drawn from it by opacity, 10% in light and 20% in
-  dark, and the same colour for its icon and a chart's marks. **What it costs:** the tint shifts with the surface under
-  it, greyer on `--muted`; Atlassian, Primer and the prototype fix a soft background, a `-soft` token that can be added
-  later without breaking.
-- **Eight,** as Atlassian, Okabe–Ito and the prototype's tiles, since a list of categories passes five. **What it
-  costs:** harder to tell apart, above all with a colour-vision deficiency, and three beyond shadcn's five names.
-- **`--category-1` to `--category-8`;** shadcn's `--chart-1` to `--chart-5`, its greys today, point to the first five,
-  so its chart works unchanged. **What it costs:** two names for one colour, and a chart past five series reads
-  `--category-N`.
-- **Sober, at 3:1:** each mark 3:1 on the page, a card, `--muted` and its own tile's tint, in both modes, under WCAG
-  1.4.11, in the theme's quiet tones beside the graphite and the gold. **What it costs:** the icon lighter than the
-  prototype's.
-- **Lightness alternates:** a simulation of the three colour-vision deficiencies merged pairs at one lightness, as
-  violet and steel, or copper, mustard and olive. Olive, plum, copper and steel take deeper shades in light and paler
-  in dark, which nearly doubles the smallest difference between neighbours. **What it costs:** uneven weight, some
-  marks reading heavier.
-- **The order,** from the simulation: teal, olive, plum, violet, rose, copper, steel and mustard. Teal first, the hue
-  furthest from the gold and from the meanings; mustard, the one nearest the gold, last, kept as the only hue free on
-  the wheel, as cyan nearly matched teal and indigo sat between violet and steel. **What it costs:** teal may read as a
-  gain's green, and mustard beside the gold button as its family.
-- **Starting values,** to tune against the tests, light and dark: teal `#1f8782` `#49a9a3`, olive `#566a2d` `#b1c988`,
-  plum `#894f7d` `#edabde`, violet `#7b71b3` `#9c92d7`, rose `#af6375` `#d38396`, copper `#92522c` `#f7af87`, steel
-  `#316792` `#8ec6f6`, mustard `#8e7735` `#b09857`.
-- **Past eight, they repeat** in order, the ninth taking the first, as Spectrum and Polaris; a row with no category
-  keeps today's tile. **What it costs:** two categories may share a colour on a screen with nine or more in view.
-- **`category={n}` on the tile,** any whole number from 1, which the piece repeats past eight; 0, a negative or a
-  fraction gets no colour. **What it costs:** a loose type, where `1 | … | 8` would say exactly what exists.
-- **WCAG to check:** 1.4.11 by `test/theme.test.ts`, each colour on the page, a card, `--muted` and its tint, in both
-  modes; 1.4.1 by the guidelines asking a name beside every colour; forced colours, where the tint goes and the icon
-  follows the text; a story for the tile's colours, the repeat and a number with no colour.
-- **No base palette,** as the meanings: each value chosen by hand.
-
 ## One scale of sizes
 
 The look's 32, 36 and 40 px, on every piece, as only 9 follow it today. Badge, Avatar, Item, Checkbox, Switch and
@@ -159,7 +117,8 @@ with each family. No reviewed piece has a default text, so shadcn's written stri
 - Tabs, with a count in a tab and tools to the right of its list. Progress, Empty, and Skeleton, with one pattern
   for loading, error and empty. Spinner and Breadcrumb. Pagination moved to Table.
 - Collapsible, IconTile, StatGroup, as the sample page's summary strip draws it, which is also what KpiStrip meant,
-  and AllocationBar. `calendar` after
+  and AllocationBar. IconTile may take over the colour of categories that `ItemMedia`'s tile has by `category`, since
+  0.18.0; then the colour moves there and Item uses it. `calendar` after
   a study like Sidebar's.
 - Link came early, before Sidebar.
 - Steps, Banner, and Meter, which says how much of a limit is used, unlike Progress, with a target's mark.
