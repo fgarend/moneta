@@ -6,6 +6,21 @@ gets its number.
 
 ## [Unreleased]
 
+## [0.15.0] - 2026-11-12
+
+Sidebar: the app's main navigation, sections of links through its router, the current page marked for every reader,
+and a sheet on a phone.
+
+### Added
+
+- `Sidebar`, the app's main navigation: a named `nav` of sections, each a list of links through the app's router, the
+  current page marked by a bar, a bolder text and a gold icon, and on a phone a sheet that `SidebarTrigger` opens and
+  a followed link closes. With `--sidebar-muted-foreground` and the `sidebar-glow` surface in the theme.
+
+### Fixed
+
+- `Sheet`'s `aria-label` or `aria-labelledby` names its dialog, where it stopped at the layer behind.
+
 ## [0.14.0] - 2026-11-12
 
 Providers: `MonetaProvider`, once at the app's root, with its language, router, time zone and words, in place of
@@ -317,7 +332,8 @@ and dark. `README.md` says how to install and use it.
 
 A rehearsal of the release's path, not meant to be installed. Use a later version.
 
-[Unreleased]: https://github.com/fgarend/moneta/compare/v0.14.0...HEAD
+[Unreleased]: https://github.com/fgarend/moneta/compare/v0.15.0...HEAD
+[0.15.0]: https://github.com/fgarend/moneta/compare/v0.14.0...v0.15.0
 [0.14.0]: https://github.com/fgarend/moneta/compare/v0.13.0...v0.14.0
 [0.13.0]: https://github.com/fgarend/moneta/compare/v0.12.0...v0.13.0
 [0.12.0]: https://github.com/fgarend/moneta/compare/v0.11.0...v0.12.0

@@ -4,13 +4,12 @@ Moneta is the source of truth for components: an app builds its screens from its
 own. What it lacks is added here, in this order, which a new need can change. The details of each item, what is
 known and what is still to ask, are in [`roadmap-notes.md`](roadmap-notes.md), read when the item starts.
 
-**Now:** 1. Sidebar and AppLayout.
+**Now:** 1. AppLayout.
 
 ## Next, in order
 
-1. **Sidebar and AppLayout.** The app's shell, starting with a study, after its providers.
-   - Sidebar, with navigation, a skip link and the current page
-   - AppLayout
+1. **AppLayout.** The app's shell around Sidebar, after its providers.
+   - where Sidebar, a top bar and the content sit, with the skip link
 2. **Colours of meaning.** Success, warning and information, in light and dark, beside gain and loss.
    - their names, and `variant` or `tone`
    - the palette of categories and of the charts
@@ -80,13 +79,18 @@ Each becomes an item when its time comes.
 - **Announcing a table's sort.** If `aria-sort` alone proves too little.
 - **The pages a pagination draws, worked out.** If a second app needs it.
 - **The sample page's text in the dark stories.** Light's colour, where its dark screenshot is right.
+- **Sidebar's further functions.** Collapsed to icons with tooltips, counts, sections that open, nested items, a
+  keyboard shortcut. When an app asks.
 - **Skeleton's and Progress's less motion, asked of each browser.** As the overlays' is, in place of reading the
   style sheets.
-- **An overlay stuck entering or leaving in WebKit.** React Aria waits on a transition the browser cancels, as
-  `duration-100` makes every property transition; found headless on 2026-11-11, and whether Safari does it is unknown.
+- **An overlay stuck entering or leaving in WebKit and Chromium.** React Aria waits on a transition the browser
+  cancels, as `duration-100` makes every property transition; found headless in WebKit on 2026-11-11, and in Chromium
+  as a sidebar's sheet closed on 2026-11-12. Whether a browser with a window does it is unknown.
 
 ## Done
 
+- **Sidebar.** The app's main navigation, our own: sections of links, the current page, and a Sheet on a phone.
+  0.15.0.
 - **Providers.** `MonetaProvider`, once at the app's root, with the language, the router, the time zone and the
   app's words, in place of `MoneyProvider`. 0.14.0.
 - **Layers.** Today's order as a rule, from the page to what floats, held by a test in each browser, with no

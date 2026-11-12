@@ -51,6 +51,10 @@ The look Moneta has by default, which whoever uses it can replace. How an app re
   the theme on what has a `data-slot`: tw-animate-css's entrance and exit keep their fade and lose their slide and
   zoom, and a transition keeps colour, opacity and a ring's shadow. `.storybook/less-motion.test.tsx` asks each browser
   for less motion and watches every animation as a piece opens, closes or changes.
+- **The sidebar's surface is `sidebar-glow`,** a utility: `--sidebar`, a little darker at the top and lighter at the
+  foot, with a faint glow of `--sidebar-primary` at the top left, all by `color-mix`, so dark mode and a replaced theme
+  keep it. **`--sidebar-muted-foreground`** is a quieter text on it, for a section's label, `#a3a6ad` in light and
+  `#8f939a` in dark, which `test/theme.test.ts` holds at 4.5:1.
 - **Layers, from the bottom:** the page; what sticks inside a piece, as Table's header and first column, at `z-10` to
   `z-30`; the modal overlays, Dialog, AlertDialog and Sheet, at shadcn's `z-50`; and what floats, Popover, Tooltip,
   HoverCard, the menus and Select, at React Aria's own `z-index: 100000`, set on the element, which beats shadcn's
@@ -161,3 +165,4 @@ The look Moneta has by default, which whoever uses it can replace. How an app re
 - 2026-11-11: The focus outline around a date field's box.
 - 2026-11-11: Motion, and less motion on the pieces.
 - 2026-11-12: Layers.
+- 2026-11-12: `sidebar-glow` and `--sidebar-muted-foreground`, for Sidebar.

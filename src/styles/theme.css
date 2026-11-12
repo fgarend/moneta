@@ -19,6 +19,7 @@
   --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
   --color-sidebar-primary: var(--sidebar-primary);
   --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-muted-foreground: var(--sidebar-muted-foreground);
   --color-sidebar: var(--sidebar);
   --color-chart-5: var(--chart-5);
   --color-chart-4: var(--chart-4);
@@ -105,6 +106,7 @@
   --radius: 0.45rem;
   --sidebar: #303338;
   --sidebar-foreground: #cfd1d4;
+  --sidebar-muted-foreground: #a3a6ad;
   --sidebar-primary: #f0bd2a;
   --sidebar-primary-foreground: #23262b;
   --sidebar-accent: #45474c;
@@ -150,6 +152,7 @@
   --chart-5: oklch(0.269 0 0);
   --sidebar: #121316;
   --sidebar-foreground: #b4b7bd;
+  --sidebar-muted-foreground: #8f939a;
   --sidebar-primary: #f0bd2a;
   --sidebar-primary-foreground: #1a1b1e;
   --sidebar-accent: #292b30;
@@ -254,6 +257,24 @@
   to {
     inset-inline-start: 100%;
   }
+}
+
+/* The sidebar's surface: its colour, a little darker at the top and lighter at the foot, and a faint glow of its gold
+   at the top left, all worked out of its own colours, so dark mode and a replaced theme keep it. */
+@utility sidebar-glow {
+  background-color: var(--sidebar);
+  background-image:
+    radial-gradient(
+      140% 45% at 0% 0%,
+      color-mix(in srgb, var(--sidebar-primary) 7%, transparent),
+      transparent 70%
+    ),
+    linear-gradient(
+      180deg,
+      color-mix(in srgb, var(--sidebar) 90%, black),
+      var(--sidebar) 60%,
+      color-mix(in srgb, var(--sidebar) 98%, white)
+    );
 }
 
 @utility progress-run {

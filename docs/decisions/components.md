@@ -170,6 +170,21 @@ pieces is in [`../pieces.md`](../pieces.md), and how a piece is analysed is in [
   selected it shows nothing, but its status stays. In a card, a bar and a table alone in a `CardContent` run edge
   to edge together.
 
+### Sidebar
+
+- **Our own, under shadcn's part names:** `SidebarProvider` around `Sidebar` and `SidebarTrigger`; `Sidebar` a `<nav>`
+  named in the app's words, with `SidebarHeader`, `SidebarContent`, which scrolls on its own, and `SidebarFooter`; a
+  section a `SidebarGroup` whose `SidebarGroupLabel` names its `SidebarMenu`, a `<ul>` of `SidebarMenuItem`s, each a
+  `<li>`; and a link a `SidebarMenuButton`, React Aria's `Link`, through the app's router.
+- **The current page, `isActive`,** is said to screen readers by `aria-current="page"`, and drawn on `--sidebar-accent`
+  with a bolder text, a gold icon and a 4 px bar at its start, a border, so forced colours keep it; its padding gives
+  up the bar's width. Hover takes the background alone.
+- **256 px wide, items of 36 px and icons of 16,** on the theme's `sidebar-glow`, its sections' labels in
+  `--sidebar-muted-foreground`; a long label wraps.
+- **On a phone, below 768 px,** it leaves the screen, and `SidebarTrigger`, out of sight on a wider one, opens it in a
+  `Sheet` from the start, named as the `nav` is, with `closeLabel` on its close button. A followed link closes it.
+- **TypeScript asks for its name, its trigger's and `closeLabel`.** An empty section is the app's to leave out.
+
 ## Why
 
 - **Three levels and not four,** as a composed piece's line with a piece is vague, Atomic Design's best known
@@ -290,6 +305,20 @@ pieces is in [`../pieces.md`](../pieces.md), and how a piece is analysed is in [
   `MantineProvider`, so it never meets an app's own `AppProvider`. React Aria's names for what it passes on, so its
   guides for each router hold. **What it costs:** an API of our own around React Aria's providers; `useHref` reads as a
   hook; and `isHidden`, which the app switches, lives with settings that stay.
+- **Sidebar our own,** as Table, since shadcn's would change in nearly every part: it has no `nav`, no lists, no
+  `aria-current` and no skip link, a trigger without `aria-expanded`, a count outside the link's name, a cookie it
+  never reads, a current page forced colours lose, a phone's sheet that stays open, English words of its own and a
+  shortcut that fires in a field. shadcn's names kept, for whoever knows them. As Primer, Carbon, GOV.UK and the APG
+  build a navigation. **What it costs:** its code is ours, shadcn's improvements no longer come by themselves, and its
+  names with another behaviour, as no rail and no collapse, may surprise.
+- **The essentials first,** as the app that guides it uses them; collapsed to icons, counts, sections that open,
+  nested items and a shortcut wait in the roadmap. **What it costs:** the prototype shows some, so Sidebar changes
+  again.
+- **A bar, a bolder text and one gold icon for the current page,** as the critique asked for a mark forced colours
+  keep and frontend-design one gold per item; the background alone is 1.36:1. **What it costs:** a light bar draws
+  less than a gold one.
+- **The skip link with AppLayout,** which knows where the content starts, as Polaris's and Carbon's frames. **What it
+  costs:** keyboard users wait for it.
 
 ## Alternatives considered
 
@@ -326,6 +355,10 @@ pieces is in [`../pieces.md`](../pieces.md), and how a piece is analysed is in [
 - **`AppProvider`,** as Polaris names it, which an app often has already.
 - **`MoneyProvider` kept a version beside it,** which gives an app time, but holds two names until the policy for
   deprecating comes.
+- **shadcn's sidebar edited,** which would change nearly every part.
+- **React Aria's `NavigationTree`,** as Spectrum's SideNav, a `treegrid`, which Primer says never replaces navigation.
+- **The app's strip on top on a phone,** which shows every link, but hides the sections' names and scrolls away.
+- **A label cut with an ellipsis,** as shadcn and the prototype, every item one height, but a word lost.
 
 ## History
 
@@ -336,3 +369,4 @@ pieces is in [`../pieces.md`](../pieces.md), and how a piece is analysed is in [
 - 2026-11-10: Table, a native table of our own.
 - 2026-11-11: Pagination.
 - 2026-11-12: `MonetaProvider`, in place of `MoneyProvider`.
+- 2026-11-12: Sidebar, our own.

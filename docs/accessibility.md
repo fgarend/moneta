@@ -35,17 +35,17 @@ which is run by hand.
 | 1.2.3 Audio Description or Media Alternative | app | |
 | 1.2.4 Captions (Live) | app | |
 | 1.2.5 Audio Description | app | |
-| 1.3.1 Info and Relationships | axe, story | Stories find elements by role and name, Section's the level of its titles, Table's name and its rows' titles, a list of rows as a list, its groups' headings naming their lists, a date as a `<time>` with its ISO value, and the words for no value or a hidden one, and the minus, of Amount, Percent and Quantity |
+| 1.3.1 Info and Relationships | axe, story | Stories find elements by role and name, Section's the level of its titles, Table's name and its rows' titles, a list of rows as a list, its groups' headings naming their lists, the sidebar a named `nav` of lists named by their sections, a date as a `<time>` with its ISO value, and the words for no value or a hidden one, and the minus, of Amount, Percent and Quantity |
 | 1.3.2 Meaningful Sequence | script | |
 | 1.3.3 Sensory Characteristics | app | |
 | 1.3.4 Orientation | script | Nothing here locks it |
 | 1.3.5 Identify Input Purpose | none yet | With the form controls (Actions and forms) |
-| 1.4.1 Use of Color | story, coming, app | Link's underline, and the sidebar's current page (Sidebar). A value's tone only adds colour, and its sign or words are the app's |
+| 1.4.1 Use of Color | story, app | Link's underline, and the sidebar's current page, by a bar and a bolder text. A value's tone only adds colour, and its sign or words are the app's |
 | 1.4.2 Audio Control | app | |
 | 1.4.3 Contrast (Minimum) | axe, test | axe on flat colours, and `test/theme.test.ts` on the theme's pairs, both modes, a value's tones among them |
 | 1.4.4 Resize Text | script | |
 | 1.4.5 Images of Text | app | |
-| 1.4.10 Reflow | story, coming, script | Section's story at 320 px, Amount on one line in a narrow column, Table's columns hidden or scrolled in its own area at 320 px, and the application's structure (Sidebar) |
+| 1.4.10 Reflow | story, coming, script | Section's story at 320 px, Amount on one line in a narrow column, Table's columns hidden or scrolled in its own area at 320 px, the sidebar in a sheet on a phone at 320 px, its long labels wrapping, and the application's structure (AppLayout) |
 | 1.4.11 Non-text Contrast | test, story, coming | `test/theme.test.ts` on borders and focus, both modes, Pagination's current page in `--input`, and DateField's invalid edge in `--destructive`. Field (Actions and forms) and charts (Charts) to come |
 | 1.4.12 Text Spacing | every story | All three browsers |
 | 1.4.13 Content on Hover or Focus | none yet | With Tooltip (Overlays) |
@@ -55,7 +55,7 @@ which is run by hand.
 | 2.2.1 Timing Adjustable | none yet | |
 | 2.2.2 Pause, Stop, Hide | test, app | `.storybook/less-motion.test.tsx`: the Spinner keeps turning, a loading state where nothing else can be done; how long it shows is the app's |
 | 2.3.1 Three Flashes or Below Threshold | none yet | |
-| 2.4.1 Bypass Blocks | coming | The sidebar's skip link (Sidebar) |
+| 2.4.1 Bypass Blocks | story, coming | The sidebar a named `nav`; the skip link (AppLayout) |
 | 2.4.2 Page Titled | app | |
 | 2.4.3 Focus Order | none yet | |
 | 2.4.4 Link Purpose (In Context) | axe, test, app | axe finds a link with no name, and `test/link.test.ts` that `Link` asks for what it holds; its words are the app's |
@@ -82,7 +82,7 @@ which is run by hand.
 | 3.3.4 Error Prevention (Legal, Financial, Data) | app | Heavy in a money interface: review and confirm |
 | 3.3.7 Redundant Entry | app | |
 | 3.3.8 Accessible Authentication (Minimum) | app | |
-| 4.1.2 Name, Role, Value | axe, story | A row's action named by its word and the row's title, in a table and a list, and DateField's group named by its label, its parts' values and its disabled state |
+| 4.1.2 Name, Role, Value | axe, story | A row's action named by its word and the row's title, in a table and a list, DateField's group named by its label, its parts' values and its disabled state, and the sidebar's current link said to be the page, and its trigger's `aria-expanded` |
 | 4.1.3 Status Messages | story, coming | Table's selection bar, a status whose text changes with the count, Table's and a list's loading words, and Pagination's summary; Alert (Display) to come |
 
 ## Corner cases

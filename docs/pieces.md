@@ -67,7 +67,8 @@ A piece with no gap listed may still have some.
 | `scroll-area` | raw | **axe:** takes no focus when nothing in it can, so the keyboard cannot scroll it |
 | `select` | raw | **Edited:** default 36 px, and `sm` 32, and its separator is hidden from screen readers. **forced colours:** the chevron keeps its own colour, in Chromium |
 | `separator` | raw | |
-| `sheet` | raw | **Edited:** React Aria's types are not exported, its close button's name comes from `closeLabel`, and it sets `--surface`. **Code:** its `aria-label` stops at the layer behind and does not name its dialog |
+| `sheet` | raw | **Edited:** React Aria's types are not exported, its close button's name comes from `closeLabel`, it sets `--surface`, and its `aria-label` or `aria-labelledby` names its dialog |
+| `sidebar` | reviewed | |
 | `skeleton` | raw | **Edited:** it pulses only when its reader has not asked for less motion |
 | `slider` | raw | **Code:** drops its children |
 | `spinner` | raw | **Default text:** "Loading". **Code:** spins with no regard for reduced motion |

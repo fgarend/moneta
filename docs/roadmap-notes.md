@@ -22,27 +22,17 @@ scale of sizes may need a touch when they arrive, and Sidebar's study may change
 later: a page that puts the pieces together, a pre-release tried in an app before a version, and a review of the whole
 after each family.
 
-## Sidebar and AppLayout
+## AppLayout
 
-Starting with a study, which is what this item asks first: how each is defined, and where it lives. `sidebar`
-stayed out of the first delivery for this. Until then, an app keeps what it has for its shell. Three steps, decided on
-2026-11-12: the providers, done in 0.14.0 as `MonetaProvider`; Sidebar; and AppLayout. **What it costs:** AppLayout
-decides where Sidebar lives, so Sidebar may change again with it.
+The last of three steps, decided on 2026-11-12: the providers, done in 0.14.0 as `MonetaProvider`; Sidebar, done in
+0.15.0; and AppLayout, which decides where Sidebar lives, so Sidebar may change again with it.
 
-What is known so far:
-
-- shadcn's sidebar lacks `<nav>`, lists, `aria-current` and a skip link. Its trigger lacks `aria-expanded`, its
-  count sits outside the link's name, and it writes a cookie it never reads. It loses the current page in forced
-  colours.
-- Esc does not close its mobile sheet from a link with a `tooltip`, and the sheet stays open after navigating.
-- An empty navigation and a tooltip on a collapsed item are to be settled.
-- Less motion is covered by Motion's rule on what has a `data-slot`, and its test opens what moves.
-- `use-mobile` falls under the coverage of `stories`, so it needs a story, or an exclusion.
-- Its gradient and glow are to be asked (recommended: yes, by eye).
-- Links through whichever router an app uses, through `MonetaProvider`: the sidebar passes `href`, `routerOptions`
-  and `render` on. `createLink` on a sidebar button reloaded the page on Enter, when it was tried.
+- The skip link, which waits for it as it knows where the content starts, as Polaris's and Carbon's frames hold it.
+- Where `SidebarTrigger` sits on a phone, as in a top bar.
 - The sidebar's layer, and a top bar's that stays in view, against Table's sticky header at `z-20` and the dialogs at
   `z-50`, as Layers left them; shadcn's sidebar is `z-10`.
+- An app's shell today: a sticky top bar with a breadcrumb and the page's filters, the content up to 1440 px, and a
+  sidebar sticky at full height, its own list scrolling.
 
 ## Colours of meaning
 

@@ -70,12 +70,17 @@ function Sheet({
   side = "right",
   showCloseButton = true,
   closeLabel,
+  "aria-label": ariaLabel,
+  "aria-labelledby": ariaLabelledby,
   ...props
 }: Omit<ModalOverlayPrimitiveProps, "className" | "children"> &
   Pick<ComponentProps<typeof ModalPrimitive>, "isDismissable"> & {
     className?: string;
     children: ReactNode;
     side?: "top" | "right" | "bottom" | "left";
+    // Its name where no SheetTitle gives one, as a sidebar's on a phone.
+    "aria-label"?: string;
+    "aria-labelledby"?: string;
   } & CloseButton) {
   return (
     <SheetOverlay {...props}>
@@ -88,6 +93,8 @@ function Sheet({
         )}
       >
         <SheetPrimitive
+          aria-label={ariaLabel}
+          aria-labelledby={ariaLabelledby}
           data-slot="sheet"
           className="[display:inherit] h-full max-h-[inherit] [flex-direction:inherit] [gap:inherit] outline-none"
         >
