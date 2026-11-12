@@ -22,16 +22,11 @@ scale of sizes may need a touch when they arrive, and Sidebar's study may change
 later: a page that puts the pieces together, a pre-release tried in an app before a version, and a review of the whole
 after each family.
 
-## Layers
-
-Motion, Layers and Icons were one item, split as each crosses every piece with checks of its own. The order of what
-sits above what: shadcn writes `z-50` on every overlay, so a tooltip over a dialog relies on the order in the DOM, and
-Table, Item, ButtonGroup, ToggleGroup and Avatar use `z-10` to `z-30` inside. One step.
-
 ## Icons
 
-Their sizes: 12, 14, 16, 20 and 24 px across the pieces, and 8 in Avatar, mostly 16, from Lucide. To ask first
-whether it joins One scale of sizes. One step.
+Motion, Layers and Icons were one item, split as each crosses every piece with checks of its own. Their sizes: 12, 14,
+16, 20 and 24 px across the pieces, and 8 in Avatar, mostly 16, from Lucide. To ask first whether it joins One scale
+of sizes. One step.
 
 ## Sidebar, AppLayout and providers
 
@@ -52,6 +47,8 @@ stayed out of the first delivery for this. Until then, an app keeps what it has 
   `createLink` on a sidebar button reloaded the page on Enter, when it was tried.
 - To say: how an app gives React Aria its locale, through `I18nProvider`, as without it React Aria's own words
   follow the browser's language.
+- The sidebar's layer, and a top bar's that stays in view, against Table's sticky header at `z-20` and the dialogs at
+  `z-50`, as Layers left them; shadcn's sidebar is `z-10`.
 
 ## Colours of meaning
 
@@ -165,7 +162,7 @@ with each family. No reviewed piece has a default text, so shadcn's written stri
 - Steps, Banner, and Meter, which says how much of a limit is used, unlike Progress, with a target's mark.
 - A bar of actions fixed at the foot of the page, a list virtualised for thousands of rows, on React Aria's
   `Virtualizer`, and Toast. To ask for Toast: React Aria's is still `UNSTABLE_`, and shadcn's was announced for
-  Base UI.
+  Base UI; and its layer, above a dialog's `z-50`, and below or above what floats at `100000`, as Layers left it.
 
 ## Charts
 

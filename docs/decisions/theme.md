@@ -51,6 +51,10 @@ The look Moneta has by default, which whoever uses it can replace. How an app re
   the theme on what has a `data-slot`: tw-animate-css's entrance and exit keep their fade and lose their slide and
   zoom, and a transition keeps colour, opacity and a ring's shadow. `.storybook/less-motion.test.tsx` asks each browser
   for less motion and watches every animation as a piece opens, closes or changes.
+- **Layers, from the bottom:** the page; what sticks inside a piece, as Table's header and first column, at `z-10` to
+  `z-30`; the modal overlays, Dialog, AlertDialog and Sheet, at shadcn's `z-50`; and what floats, Popover, Tooltip,
+  HoverCard, the menus and Select, at React Aria's own `z-index: 100000`, set on the element, which beats shadcn's
+  `z-50` there. No layer tokens. `.storybook/layers.test.tsx` checks in each browser what is drawn over what.
 - **In dark: the prototype's graphite, near black, in small steps.** The page is `#1a1b1e`, the sidebar a step darker at
   `#121316`, and a card a step lighter at `#232529`, so what is nearer is lighter. Text is `#f4f4f2`, as on the prototype's
   sidebar. Gold stays the same in both, and `color-scheme: dark` darkens the
@@ -94,6 +98,10 @@ The look Moneta has by default, which whoever uses it can replace. How an app re
   outline's: a new piece is covered, shadcn's updates weigh nothing, and an app's own motion is left alone. **What it
   costs:** a piece's file does not show it, and an animated property shadcn adds would escape it, which the test
   catches.
+- **Today's layers as a rule,** the first step of the rule: the order is the one Chakra, MUI and Primer name, a menu or
+  a tooltip over the dialog it opens in, and React Aria's portal and its inline `z-index` already give it. **What it
+  costs:** the `z-50` that does nothing on what floats stays in shadcn's files, and a piece to come, as a toast above a
+  dialog or the sidebar, picks its number among these, where Primer, Chakra and MUI name each layer.
 
 ## Alternatives considered
 
@@ -132,6 +140,10 @@ The look Moneta has by default, which whoever uses it can replace. How an app re
 - **Less motion read from the style sheets,** as `.storybook/reduced-motion.ts` does for Progress and Skeleton, with no
   browser asked, which misses what the browser makes of the rules.
 
+- **Layer tokens,** as `--z-index-*`, which Tailwind reads but does not document, or named as Primer's, Chakra's and
+  MUI's, which would edit every overlay of shadcn's.
+- **The native top layer,** with `popover` and `<dialog>`, as Atlassian is moving to, which React Aria does not use.
+
 ## History
 
 - 2026-11-06: Written, with the light colours.
@@ -148,3 +160,4 @@ The look Moneta has by default, which whoever uses it can replace. How an app re
 - 2026-11-11: `progress-run`, for Progress with no value.
 - 2026-11-11: The focus outline around a date field's box.
 - 2026-11-11: Motion, and less motion on the pieces.
+- 2026-11-12: Layers.
