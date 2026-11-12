@@ -8,7 +8,8 @@ known and what is still to ask, are in [`roadmap-notes.md`](roadmap-notes.md), r
 
 ## Next, in order
 
-1. **One scale of sizes.** 32, 36 and 40 px on every piece, with one set of names, and the icons' sizes with them.
+1. **One scale of sizes.** 32, 36 and 40 px on every control a row holds, by shadcn's names, and the icons' sizes.
+   - `sm` and `lg` where a field lacks them, a `Sizes` story in each control, and the sample page's row by `size`
 2. **Layout and text.** What replaces the `flex`, `gap` and `text` classes an app writes.
 3. **Display.** The pieces that show, reviewed or made.
     - Badge, Card, Avatar and AvatarGroup, Alert and Separator
