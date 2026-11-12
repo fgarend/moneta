@@ -2,7 +2,8 @@
 // hyphen. Internal: Amount, Percent and Quantity read it. docs/decisions/money.md says why it is so.
 import { cn } from "cn";
 import { createElement, type ReactNode, useContext, useEffect } from "react";
-import { hiddenText, MoneyContext } from "#lib/money";
+import { MonetaContext } from "#hooks/moneta";
+import { hiddenText } from "#lib/money";
 
 const sizes = { default: "type-amount", lg: "type-amount-lg" };
 // Every piece of money, by its data-slot.
@@ -64,7 +65,7 @@ function useValue(
     className: string | undefined;
   },
 ): { className: string; words: ReactNode } {
-  const provided = useContext(MoneyContext);
+  const provided = useContext(MonetaContext);
   // One listener serves every piece, as adding the same one again does nothing. It stays after the last piece, and
   // does nothing then.
   useEffect(() => {
@@ -80,7 +81,7 @@ function useValue(
   if (isHidden) {
     if (provided.hiddenLabel === undefined) {
       throw new Error(
-        `${piece}: a hidden value needs a hiddenLabel on MoneyProvider.`,
+        `${piece}: a hidden value needs a hiddenLabel on MonetaProvider.`,
       );
     }
     return {
@@ -92,7 +93,7 @@ function useValue(
     const label = emptyLabel ?? provided.emptyLabel;
     if (label === undefined) {
       throw new Error(
-        `${piece}: no value needs an emptyLabel, on it or on MoneyProvider.`,
+        `${piece}: no value needs an emptyLabel, on it or on MonetaProvider.`,
       );
     }
     return { className: classes, words: wordsFor(dash, label) };

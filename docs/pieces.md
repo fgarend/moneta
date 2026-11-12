@@ -55,7 +55,7 @@ A piece with no gap listed may still have some.
 | `kbd` | raw | |
 | `label` | raw | |
 | `link` | reviewed | |
-| `money-provider` | reviewed | |
+| `moneta-provider` | reviewed | |
 | `native-select` | raw | **Edited:** 36 px, and `sm` 32 |
 | `pagination` | reviewed | |
 | `percent` | reviewed | |

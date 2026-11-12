@@ -4,7 +4,7 @@ import { expect, within } from "storybook/test";
 import { Caught } from "../../.storybook/caught.js";
 import { useFormatDate } from "./date.js";
 import { DateTime } from "./date-time.js";
-import { MoneyProvider } from "./money-provider.js";
+import { MonetaProvider } from "./moneta-provider.js";
 
 // A day of another year, so its year shows whatever year the clock says, and a moment of it.
 const day = "2001-01-01";
@@ -101,12 +101,12 @@ const ThisYearAndTime: Story = {
   },
 };
 
-// No date: a dash screen readers skip, and the app's words they read, from the piece or from MoneyProvider.
+// No date: a dash screen readers skip, and the app's words they read, from the piece or from MonetaProvider.
 const Empty: Story = {
   render: () => (
-    <MoneyProvider emptyLabel={noDate}>
+    <MonetaProvider emptyLabel={noDate}>
       <DateTime value={null} />
-    </MoneyProvider>
+    </MonetaProvider>
   ),
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -126,7 +126,7 @@ const EmptyWithoutWords: Story = {
   play: async ({ canvasElement }) => {
     await expect(
       within(canvasElement).getByText(
-        "DateTime: no date needs an emptyLabel, on it or on MoneyProvider.",
+        "DateTime: no date needs an emptyLabel, on it or on MonetaProvider.",
       ),
     ).toBeVisible();
   },

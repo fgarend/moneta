@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 import { I18nProvider } from "react-aria-components";
 import { expect, within } from "storybook/test";
 import { Caught } from "../../.storybook/caught.js";
-import { MoneyProvider } from "./money-provider.js";
+import { MonetaProvider } from "./moneta-provider.js";
 import { Quantity } from "./quantity.js";
 
 const minus = "−";
@@ -153,9 +153,9 @@ const Empty: Story = {
   args: { value: null },
   decorators: [
     (Story) => (
-      <MoneyProvider emptyLabel={noValue}>
+      <MonetaProvider emptyLabel={noValue}>
         <Story />
-      </MoneyProvider>
+      </MonetaProvider>
     ),
   ],
   play: async ({ canvasElement }) => {
@@ -171,9 +171,9 @@ const Empty: Story = {
 const Hidden: Story = {
   decorators: [
     (Story) => (
-      <MoneyProvider hiddenLabel={noValue} isHidden={true}>
+      <MonetaProvider hiddenLabel={noValue} isHidden={true}>
         <Story />
-      </MoneyProvider>
+      </MonetaProvider>
     ),
   ],
   play: async ({ canvasElement }) => {
@@ -194,7 +194,7 @@ const EmptyWithoutWords: Story = {
   play: async ({ canvasElement }) => {
     await expect(
       within(canvasElement).getByText(
-        "Quantity: no value needs an emptyLabel, on it or on MoneyProvider.",
+        "Quantity: no value needs an emptyLabel, on it or on MonetaProvider.",
       ),
     ).toBeVisible();
   },

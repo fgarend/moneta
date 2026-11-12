@@ -114,7 +114,7 @@ the version installed. It holds only what exists, and each reviewed piece adds i
 - **It takes the size and weight of its text,** in the theme's primary.
 - **Its words say where it goes, read alone:** "the fee schedule", not "here". When it opens a new tab, it says so in
   the app's words, as an icon with hidden text, which Link does not add.
-- **It goes through the app's router,** with `render` on each link or `RouterProvider` once at the root.
+- **It goes through the app's router,** with `render` on each link or `navigate` and `useHref` on `MonetaProvider`.
 - **`isDisabled` dims it and takes it out of the tab order.** A text that says why is often better than a link that
   leads nowhere.
 
@@ -125,7 +125,8 @@ the version installed. It holds only what exists, and each reviewed piece adds i
 - **`"short"` for rows and details, `"long"` for titles, `"numeric"` for documents and `"month"` for periods.**
   This year's dates leave the year out.
 - **`relative` in lists of recent things,** as a statement's rows, where "Hoje" and "Ontem" read faster than a date.
-- **A time only when it matters,** with `showTime`, and the zone with `timeZone` when the browser's is not the one.
+- **A time only when it matters,** with `showTime`, and the app's zone with `timeZone` on `MonetaProvider` when the
+  browser's is not the one, or on a date for another, as a market's hours.
 - **A day is typed in a `DateField`,** with a `label`, or an `aria-label` where its label is elsewhere, and a
   `description` when the day needs explaining. `size="sm"` for a dense place, as a page's tools.
 - **`onChange` gives the ISO day once it is whole, and `null` once it is cleared.** A day half typed changes nothing
@@ -146,18 +147,18 @@ the version installed. It holds only what exists, and each reviewed piece adds i
   text where no piece can go.
 - **`Quantity` for shares or units,** as a decimal string, with the decimals given, zeros too. Its unit is yours,
   around it or in the column's header. `useFormatQuantity` gives its text where no piece can go.
-- **`MoneyProvider`, once at the root,** with `emptyLabel`, what screen readers hear for no value, in the app's words.
+- **`MonetaProvider`, once at the root,** with `emptyLabel`, what screen readers hear for no value, in the app's words.
   One inside another keeps what it is not given.
   `value={null}` shows a dash, and its own `emptyLabel` wins over the provider's. Without either, it throws.
 - **A change shows its plus with `sign="always"`,** as `+3,9%`, and zero takes no sign. The hooks take `{ sign }` too.
 - **`tone="positive"` or `"negative"` says good news or bad,** and only the app knows which: a debt that falls is
   negative and good. The tone only adds colour, so the sign, the column or the words around must say the same, as
   "Debt: −R$ 500,00 this month". With no tone, a value takes the colour of the text around it.
-- **Hidden values are `isHidden` on `MoneyProvider`,** with `hiddenLabel`, what screen readers hear, and your own
+- **Hidden values are `isHidden` on `MonetaProvider`,** with `hiddenLabel`, what screen readers hear, and your own
   control to turn it on. Every amount, percent and quantity shows `••••••`, with no sign and no colour, and the hooks
   give the dots too. A text only screen readers hear, as an `aria-label`, is yours to word while values are hidden,
   as "Pay the bill" in place of "Pay ••••••".
-- **The language is React Aria's,** from `I18nProvider`.
+- **The language is the app's,** `locale` on `MonetaProvider`, as `"pt-BR"`; with none, the browser's.
 - **A negative value takes the minus sign, `−`,** which screen readers read. A copy of one value, or of a table's
   cells, takes a hyphen, so a spreadsheet reads it as negative; a copy of more anywhere else keeps the minus.
 - **A value never wraps and is never cut.** What holds it makes room, as a table that scrolls.

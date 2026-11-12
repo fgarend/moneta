@@ -10,6 +10,15 @@ gets its number.
 
 - The guidelines' Layers: the pieces stack themselves, a menu or a tooltip over the dialog it opens in, as they
   already did.
+- `MonetaProvider`, once at the app's root, with the app's language in `locale`, its router in `navigate` and
+  `useHref`, its time zone in `timeZone`, which a date's own still overrides, and its words, as `MoneyProvider` had.
+
+### Changed
+
+- **Breaking:** `MoneyProvider` is now `MonetaProvider`, with the same props. To upgrade:
+  - rename it, and its import from `@fgarend/moneta/moneta-provider`;
+  - move `I18nProvider`'s `locale` and `RouterProvider`'s `navigate` and `useHref` onto it, if the app used them;
+  - a piece's error that named `MoneyProvider` now names `MonetaProvider`.
 
 ## [0.13.0] - 2026-11-11
 
