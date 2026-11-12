@@ -29,18 +29,56 @@ stayed out of the first delivery for this. Until then, an app keeps what it has 
 2026-11-12: the providers, done in 0.14.0 as `MonetaProvider`; Sidebar; and AppLayout. **What it costs:** AppLayout
 decides where Sidebar lives, so Sidebar may change again with it.
 
-What is known so far:
-
-- shadcn's sidebar lacks `<nav>`, lists, `aria-current` and a skip link. Its trigger lacks `aria-expanded`, its
-  count sits outside the link's name, and it writes a cookie it never reads. It loses the current page in forced
-  colours.
-- Esc does not close its mobile sheet from a link with a `tooltip`, and the sheet stays open after navigating.
-- An empty navigation and a tooltip on a collapsed item are to be settled.
-- Less motion is covered by Motion's rule on what has a `data-slot`, and its test opens what moves.
+- **Sidebar, decided on 2026-11-12, one point at a time,** after a study of shadcn's aria sidebar, React Aria, Primer,
+  Polaris, Carbon, Atlassian, Spectrum, GOV.UK and the APG, and of an app's shell and prototype:
+  - **Our own, on React Aria, with shadcn's part names,** as Table became our own: a `<nav>` with a name, `ul` and
+    `li`, React Aria's `Link` with `aria-current="page"`, and Moneta's `Sheet` on a phone, as Primer, Carbon, GOV.UK
+    and the APG. Not shadcn's file edited, as nearly every part would change: its lists, `nav`, current page, count,
+    cookie, trigger, phone, English words and shortcut. Not React Aria's `NavigationTree`, a `treegrid`, which Primer
+    says never replaces navigation. **What it costs:** all the code ours, shadcn's improvements no longer come by
+    themselves, and its names with another behaviour may surprise whoever expects its API.
+  - **The essentials first:** groups of links each with a label, a link with its icon, the current page, a header and
+    a footer the app fills, and a Sheet on a phone. Collapsed to icons, counts, sections that open, nested items and a
+    shortcut wait in the roadmap. **What it costs:** the prototype shows collapse, counts and an opening section, so
+    the app will ask, and Sidebar changes again.
+  - **The skip link comes with AppLayout,** which knows where the content starts, as Polaris's and Carbon's frames
+    hold it; the named `nav` serves screen readers until then. **What it costs:** keyboard users wait for AppLayout.
+  - **The current page:** the background `--sidebar-accent`, its text at weight 500, the icon in gold
+    `--sidebar-primary`, and a light bar at the start, drawn as a border so forced colours keep it. The bar gives
+    11.5:1 on the graphite, the gold icon 5.3:1 on the item, and the background alone only 1.36:1. Hover takes the
+    background without the bar, and the focus outline shows on the current item too. **What it costs:** a light bar
+    draws less than a gold one, where gold twice on one item was the other choice.
+  - **The prototype's faint gradient and gold glow,** worked out of the sidebar's own colours with `color-mix`: the
+    gradient from `--sidebar`, darker at the top and lighter at the foot, and the glow from `--sidebar-primary` at 7%,
+    so dark mode and a replaced theme keep it. **What it costs:** gradient washes are a tell of generated design, and a
+    very different `--sidebar` may come out too dark or light.
+  - **Sizes:** 256 px wide, shadcn's `16rem`; items 36 px, Moneta's default control; icons 16 px, as a 36 px Button's.
+    **What it costs:** 16 px less content than the app's 240, a longer list than shadcn's and the app's 32 px items, and
+    smaller icons than the app's 18 and the prototype's 20.
+  - **Section labels at 12 px and weight 500, in sentence case, in a quieter colour,** a new token,
+    `--sidebar-muted-foreground`, in both themes, held by `test/theme.test.ts`. **What it costs:** one more token for a
+    replaced theme.
+  - **On a phone, below 768 px:** a `SidebarTrigger` the app places, with `aria-expanded`, opens the sidebar in a
+    `Sheet` from the start, which closes on navigating, Esc or a press outside. **What it costs:** the navigation sits
+    behind a press, and the app places the trigger until AppLayout.
+  - **Parts, shadcn's names:** `SidebarProvider`, `Sidebar`, `SidebarHeader`, `SidebarContent`, `SidebarFooter`,
+    `SidebarGroup`, `SidebarGroupLabel`, `SidebarMenu`, `SidebarMenuItem`, `SidebarMenuButton` with `href` and
+    `isActive`, and `SidebarTrigger`. **What it costs:** `SidebarMenuButton` and `isActive` say less than a link and the
+    current page.
+  - **Words, asked by TypeScript:** the `nav`'s name, which the phone's `Sheet` takes too; the trigger's name; and the
+    `Sheet`'s `closeLabel`. **What it costs:** three required words for a desktop-only navigation.
+  - **A long label wraps** to a second line, nothing lost at 200% or with text spacing. **What it costs:** shadcn and
+    the prototype cut with an ellipsis, every item one height.
+  - **An empty group is the app's to leave out;** the sidebar hides nothing itself.
+  - **WCAG to check:** 1.3.1 and 4.1.2 by the `nav`, its name, the lists and `aria-current`; 1.4.1 and 1.4.11 by the
+    current page's marks and their contrast; forced colours by the bar; 2.1.1 and 2.4.7 by keyboard and focus; 2.5.8
+    by the 36 px items; 1.4.10 and 1.4.12 by the phone's Sheet and the wrapping labels.
+- Known from shadcn's sidebar, which the decisions above answer: no `<nav>`, lists, `aria-current` or skip link; a
+  trigger without `aria-expanded`; a count outside the link's name; a cookie written and never read; the current page
+  lost in forced colours; a phone's sheet that stays open after navigating; Esc on a link with a tooltip, unconfirmed.
 - `use-mobile` falls under the coverage of `stories`, so it needs a story, or an exclusion.
-- Its gradient and glow are to be asked (recommended: yes, by eye).
-- Links through whichever router an app uses, through `MonetaProvider`: the sidebar passes `href`, `routerOptions`
-  and `render` on. `createLink` on a sidebar button reloaded the page on Enter, when it was tried.
+- Links go through the app's router through `MonetaProvider`; `createLink` on a sidebar button reloaded the page on
+  Enter, when it was tried.
 - The sidebar's layer, and a top bar's that stays in view, against Table's sticky header at `z-20` and the dialogs at
   `z-50`, as Layers left them; shadcn's sidebar is `z-10`.
 

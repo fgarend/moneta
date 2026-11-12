@@ -9,8 +9,8 @@ known and what is still to ask, are in [`roadmap-notes.md`](roadmap-notes.md), r
 ## Next, in order
 
 1. **Sidebar and AppLayout.** The app's shell, starting with a study, after its providers.
-   - Sidebar, with navigation, a skip link and the current page
-   - AppLayout
+   - Sidebar: groups of links, the current page, and a Sheet on a phone
+   - AppLayout, with the skip link
 2. **Colours of meaning.** Success, warning and information, in light and dark, beside gain and loss.
    - their names, and `variant` or `tone`
    - the palette of categories and of the charts
@@ -80,6 +80,8 @@ Each becomes an item when its time comes.
 - **Announcing a table's sort.** If `aria-sort` alone proves too little.
 - **The pages a pagination draws, worked out.** If a second app needs it.
 - **The sample page's text in the dark stories.** Light's colour, where its dark screenshot is right.
+- **Sidebar's further functions.** Collapsed to icons with tooltips, counts, sections that open, nested items, a
+  keyboard shortcut. When an app asks.
 - **Skeleton's and Progress's less motion, asked of each browser.** As the overlays' is, in place of reading the
   style sheets.
 - **An overlay stuck entering or leaving in WebKit.** React Aria waits on a transition the browser cancels, as
