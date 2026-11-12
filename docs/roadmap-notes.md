@@ -24,10 +24,17 @@ after each family.
 
 ## Layers
 
-Motion, Layers and Icons were one item, split as each crosses every piece with checks of its own. The order of what
-sits above what: shadcn writes `z-50` on every overlay, so a tooltip over a dialog relies on the order in the DOM, and
-Table, Item, ButtonGroup, ToggleGroup and Avatar use `z-10` to `z-30` inside. One step.
+Motion, Layers and Icons were one item, split as each crosses every piece with checks of its own. Decided on
+2026-11-12, after a study of the pieces, of React Aria, shadcn and Tailwind, and of Atlassian, Carbon, Polaris, Primer,
+Material, Spectrum and Chakra. One step, with no change to a piece.
 
+- **Today's order kept, as a rule, with no layer tokens:** the page; inside a piece, what sticks, as Table's header,
+  at `z-10` to `z-30`; the modal overlays, Dialog, AlertDialog and Sheet, at shadcn's `z-50`; and what floats, Popover,
+  Tooltip, HoverCard, the menus and Select, above them all at React Aria's inline `z-index: 100000`, which beats
+  shadcn's `z-50` on them. So a menu or a tooltip opened in a dialog shows over it, as in Chakra, MUI and Primer.
+  **What it costs:** the `z-50` that does nothing stays in those files, and a piece to come, as a toast above a
+  dialog or the sidebar, picks its number among these, where Primer, Chakra and MUI name each layer.
+- **A test holds the order in each browser,** proved by a failure planted in it.
 ## Icons
 
 Their sizes: 12, 14, 16, 20 and 24 px across the pieces, and 8 in Avatar, mostly 16, from Lucide. To ask first
@@ -52,6 +59,8 @@ stayed out of the first delivery for this. Until then, an app keeps what it has 
   `createLink` on a sidebar button reloaded the page on Enter, when it was tried.
 - To say: how an app gives React Aria its locale, through `I18nProvider`, as without it React Aria's own words
   follow the browser's language.
+- The sidebar's layer, and a top bar's that stays in view, against Table's sticky header at `z-20` and the dialogs at
+  `z-50`, as Layers left them; shadcn's sidebar is `z-10`.
 
 ## Colours of meaning
 
@@ -165,7 +174,7 @@ with each family. No reviewed piece has a default text, so shadcn's written stri
 - Steps, Banner, and Meter, which says how much of a limit is used, unlike Progress, with a target's mark.
 - A bar of actions fixed at the foot of the page, a list virtualised for thousands of rows, on React Aria's
   `Virtualizer`, and Toast. To ask for Toast: React Aria's is still `UNSTABLE_`, and shadcn's was announced for
-  Base UI.
+  Base UI; and its layer, above a dialog's `z-50`, and below or above what floats at `100000`, as Layers left it.
 
 ## Charts
 

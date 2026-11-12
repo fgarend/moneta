@@ -9,6 +9,7 @@ known and what is still to ask, are in [`roadmap-notes.md`](roadmap-notes.md), r
 ## Next, in order
 
 1. **Layers.** The order of what sits above what, as shadcn writes `z-50` on every overlay.
+   - today's order as a rule, held by a test, with no layer tokens
 2. **Icons.** Their sizes, which may join One scale of sizes.
 3. **Sidebar, AppLayout and providers.** The app's shell, starting with a study.
    - Sidebar, with navigation, a skip link and the current page
