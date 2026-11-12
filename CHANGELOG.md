@@ -6,6 +6,19 @@ gets its number.
 
 ## [Unreleased]
 
+## [0.16.0] - 2026-11-12
+
+AppLayout: the app's shell, the sidebar beside the page's main, a sticky bar, content up to 1440 px or the full
+width, and a skip link first.
+
+### Added
+
+- `AppLayout`, the app's shell, which arranges the sidebar beside `AppMain`, the page's `<main>`, the sidebar sticky
+  at full height and the page's bar at the top; `AppHeader` and `AppHeaderActions`, the bar; and `AppContent`, the
+  content, up to 1440 px or the full width, centred with the bar. With `tall` and the page's scroll padding in the theme.
+- `SkipLink`, a link past what repeats to the page's content, first, out of sight until the keyboard reaches it,
+  moving focus to its target.
+
 ## [0.15.0] - 2026-11-12
 
 Sidebar: the app's main navigation, sections of links through its router, the current page marked for every reader,
@@ -332,7 +345,8 @@ and dark. `README.md` says how to install and use it.
 
 A rehearsal of the release's path, not meant to be installed. Use a later version.
 
-[Unreleased]: https://github.com/fgarend/moneta/compare/v0.15.0...HEAD
+[Unreleased]: https://github.com/fgarend/moneta/compare/v0.16.0...HEAD
+[0.16.0]: https://github.com/fgarend/moneta/compare/v0.15.0...v0.16.0
 [0.15.0]: https://github.com/fgarend/moneta/compare/v0.14.0...v0.15.0
 [0.14.0]: https://github.com/fgarend/moneta/compare/v0.13.0...v0.14.0
 [0.13.0]: https://github.com/fgarend/moneta/compare/v0.12.0...v0.13.0

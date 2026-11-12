@@ -32,6 +32,7 @@ A piece with no gap listed may still have some.
 | `alert` | raw | |
 | `alert-dialog` | raw | |
 | `amount` | reviewed | |
+| `app-layout` | reviewed | |
 | `aspect-ratio` | raw | |
 | `avatar` | raw | |
 | `badge` | raw | **Edited:** `badgeVariants` is not exported |
@@ -70,6 +71,7 @@ A piece with no gap listed may still have some.
 | `sheet` | raw | **Edited:** React Aria's types are not exported, its close button's name comes from `closeLabel`, it sets `--surface`, and its `aria-label` or `aria-labelledby` names its dialog |
 | `sidebar` | reviewed | |
 | `skeleton` | raw | **Edited:** it pulses only when its reader has not asked for less motion |
+| `skip-link` | reviewed | |
 | `slider` | raw | **Code:** drops its children |
 | `spinner` | raw | **Default text:** "Loading". **Code:** spins with no regard for reduced motion |
 | `switch` | raw | **Edited:** on React Aria's `SwitchField` and `SwitchButton`, with an 18 px track. **Code:** does not grow for its children |

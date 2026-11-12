@@ -105,6 +105,16 @@ the version installed. It holds only what exists, and each reviewed piece adds i
 - **A row that opens something puts a `Link` in its `ItemTitle`,** quiet, and the whole row follows it. The row open
   beside the list takes `aria-current="true"`.
 
+## App layout
+
+- **The shell, once, in the app's layout route:** a `SidebarProvider` around a `SkipLink` and an `AppLayout`, which
+  holds the `Sidebar` and an `AppMain`.
+- **The `SkipLink` first,** to `#main`, in your words, as "Skip to the content". Without it, keyboard users go through
+  every link of the sidebar on every page.
+- **Each page draws an `AppHeader` and an `AppContent` in `AppMain`.** The bar holds the `SidebarTrigger`, the page's
+  breadcrumb, and its tools in `AppHeaderActions`. The content holds the page's sections, 40 px apart.
+- **`width="full"` on `AppContent` for a page that needs every column,** as a wide table; the rest stop at 1440 px.
+
 ## Sidebar
 
 - **The app's main navigation, at the start of its screen,** in a `SidebarProvider` with the `SidebarTrigger` that

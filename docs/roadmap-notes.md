@@ -22,18 +22,6 @@ scale of sizes may need a touch when they arrive, and Sidebar's study may change
 later: a page that puts the pieces together, a pre-release tried in an app before a version, and a review of the whole
 after each family.
 
-## AppLayout
-
-The last of three steps, decided on 2026-11-12: the providers, done in 0.14.0 as `MonetaProvider`; Sidebar, done in
-0.15.0; and AppLayout, which decides where Sidebar lives, so Sidebar may change again with it.
-
-- The skip link, which waits for it as it knows where the content starts, as Polaris's and Carbon's frames hold it.
-- Where `SidebarTrigger` sits on a phone, as in a top bar.
-- The sidebar's layer, and a top bar's that stays in view, against Table's sticky header at `z-20` and the dialogs at
-  `z-50`, as Layers left them; shadcn's sidebar is `z-10`.
-- An app's shell today: a sticky top bar with a breadcrumb and the page's filters, the content up to 1440 px, and a
-  sidebar sticky at full height, its own list scrolling.
-
 ## Colours of meaning
 
 `--destructive` is the only one today: success, warning and information, and a palette for categories and for the
