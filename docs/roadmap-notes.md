@@ -25,14 +25,39 @@ after each family.
 ## Sidebar, AppLayout and providers
 
 Starting with a study, which is what this item asks first: how each is defined, and where it lives. `sidebar`
-stayed out of the first delivery for this. Until then, an app keeps what it has for its shell. What is known so far:
+stayed out of the first delivery for this. Until then, an app keeps what it has for its shell. Three steps, decided on
+2026-11-12, in this order: the providers, the smallest, which the dates wait on; Sidebar; and AppLayout. **What it
+costs:** AppLayout decides where Sidebar lives, so Sidebar may change again with it.
+
+- **The providers: one of Moneta's, `MonetaProvider`, once at the app's root,** with the language, the router, the
+  time zone and the app's words, in place of `MoneyProvider` and of React Aria's `I18nProvider` and `RouterProvider`
+  in the app, as Polaris's `AppProvider` and React Spectrum's `Provider`. **What it costs:** `MoneyProvider` is
+  renamed, a breaking change; it wraps React Aria's providers in an API of its own; and `isHidden`, which the app
+  switches, lives with the settings that stay. Its name says where it comes from, as `MantineProvider`, and never
+  meets an app's own `AppProvider`; it costs the library's name in the API, where Polaris says `AppProvider` and
+  Spectrum `Provider`.
+- **Its `timeZone` for the whole app, which a piece's own `timeZone` still overrides,** and the browser's with neither,
+  as a piece's `emptyLabel` overrides the provider's. **What it costs:** two places for one setting.
+- **`MoneyProvider` removed at once,** marked **Breaking:** with its upgrade step, its name changed to `MonetaProvider`
+  with the same props, as a rename before 1.0 and the policy for deprecating waits for A stable API. **What it
+  costs:** an app breaks on the update until it renames, where an alias for a version would give it time.
+- **The language and the router under React Aria's own names,** `locale` to its `I18nProvider`, and `navigate` and
+  `useHref` to its `RouterProvider`, so its guides for each router hold. **What it costs:** `useHref` reads as a hook,
+  where a `router` of our own would be clearer, and would need keeping in step with React Aria.
+- **One inside another keeps what it is not given,** as `MoneyProvider` does, so a part of a page can hide its values
+  or take another zone. With none, the browser's language and zone, and a piece with no value and no words throws,
+  as today.
+- **WCAG to check:** 3.1.1 and 3.1.2 stay the app's, as `locale` sets React Aria's words and formats, not the page's
+  `lang`.
+
+What is known so far:
 
 - shadcn's sidebar lacks `<nav>`, lists, `aria-current` and a skip link. Its trigger lacks `aria-expanded`, its
   count sits outside the link's name, and it writes a cookie it never reads. It loses the current page in forced
   colours.
 - Esc does not close its mobile sheet from a link with a `tooltip`, and the sheet stays open after navigating.
 - An empty navigation and a tooltip on a collapsed item are to be settled.
-- A check for reduced motion arrives with it, as shadcn's files have no `motion-reduce`.
+- Less motion is covered by Motion's rule on what has a `data-slot`, and its test opens what moves.
 - `use-mobile` falls under the coverage of `stories`, so it needs a story, or an exclusion.
 - Its gradient and glow are to be asked (recommended: yes, by eye).
 - A provider for the app's time zone, which `DateTime` and `useFormatDate` read, deferred by Dates on 2026-11-11; and

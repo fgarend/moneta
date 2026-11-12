@@ -11,7 +11,7 @@ known and what is still to ask, are in [`roadmap-notes.md`](roadmap-notes.md), r
 1. **Sidebar, AppLayout and providers.** The app's shell, starting with a study.
    - Sidebar, with navigation, a skip link and the current page
    - AppLayout
-   - providers, with the language React Aria speaks
+   - `MonetaProvider`, with the language, the router, the time zone and the app's words, in place of `MoneyProvider`
 2. **Colours of meaning.** Success, warning and information, in light and dark, beside gain and loss.
    - their names, and `variant` or `tone`
    - the palette of categories and of the charts
