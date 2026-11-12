@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { I18nProvider } from "react-aria-components";
-import { expect, fn, userEvent, within } from "storybook/test";
+import { expect, fn, userEvent, waitFor, within } from "storybook/test";
 import { Caught } from "../../.storybook/caught.js";
 import { DateField } from "./date-field.js";
 
@@ -97,17 +97,36 @@ const Default: Story = {
   },
 };
 
-// Typed in, day by day: the app hears the ISO day once it is whole, and null once it is cleared.
+// Typed in, part by part: the app hears the ISO day once it is whole, and null once it is cleared. Each part is typed
+// once focus has moved to it, as a person sees it move: React Aria moves it after a whole part, and a loaded browser
+// can take a key's time to do so, so keys typed at once land in the part before.
 const Typing: Story = {
   render: () => <DateField label={label} onChange={onChange} />,
   play: async ({ canvasElement }) => {
-    const [first] = segments(canvasElement) as [HTMLElement];
+    const [dayPart, month, year] = segments(canvasElement) as [
+      HTMLElement,
+      HTMLElement,
+      HTMLElement,
+    ];
     onChange.mockClear();
 
-    await userEvent.click(first);
-    await userEvent.keyboard("24102026");
+    await userEvent.click(dayPart);
+    await userEvent.keyboard("24");
+    await waitFor(() => expect(month).toHaveFocus());
+    await userEvent.keyboard("10");
+    await waitFor(() => expect(year).toHaveFocus());
+    await userEvent.keyboard("2026");
     await expect(onChange).toHaveBeenLastCalledWith(day);
-    await userEvent.keyboard("{Backspace>12/}");
+
+    // Each part cleared where it is, as Backspace on an empty part moves back to the one before.
+    for (const [part, digits] of [
+      [year, 4],
+      [month, 2],
+      [dayPart, 2],
+    ] as const) {
+      await userEvent.click(part);
+      await userEvent.keyboard("{Backspace}".repeat(digits));
+    }
     await expect(onChange).toHaveBeenLastCalledWith(null);
   },
 };
