@@ -218,6 +218,9 @@ importers:
       '@vitest/coverage-istanbul':
         specifier: 5.1.0
         version: 5.1.0(vitest@5.1.0)
+      axe-core:
+        specifier: 4.14.0
+        version: 4.14.0
       lucide-react:
         specifier: 1.70.0
         version: 1.70.0(@types/react@19.3.0)(react@19.3.1)

@@ -90,6 +90,8 @@ function storyProjects(): TestProjectInlineConfiguration[] {
     everyStory("visual", ["chromium"]),
     everyStory("visual", ["chromium"], { mode: "dark" }),
     everyStory("text-spacing", everyBrowser),
+    // Every story at 320 px, WCAG 1.4.10's width.
+    everyStory("reflow", everyBrowser),
     everyStory("focus", everyBrowser),
     // What is drawn over what: the page, what sticks, the modal overlays, and what floats.
     everyStory("layers", everyBrowser),

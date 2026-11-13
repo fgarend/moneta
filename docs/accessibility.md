@@ -17,7 +17,7 @@ which is run by hand.
   piece's gap written in [`pieces.md`](pieces.md). What it reports as incomplete, such as text
   on a gradient, does not fail.
 - **story:** a check in a story's `play` function.
-- **every story:** text spacing, and forced colours, which no criterion names but which
+- **every story:** text spacing, reflow at 320 px, and forced colours, which no criterion names but which
   people rely on, on all stories, with the same exception. Forced colours run in both modes. They look at what a story draws
   before its `play`, so not at an open overlay.
 - **script:** by hand, in [`accessibility-script.md`](accessibility-script.md), whose last
@@ -45,7 +45,7 @@ which is run by hand.
 | 1.4.3 Contrast (Minimum) | axe, test | axe on flat colours, and `test/theme.test.ts` on the theme's pairs, both modes, a value's tones and the colours of meaning among them |
 | 1.4.4 Resize Text | script | |
 | 1.4.5 Images of Text | app | |
-| 1.4.10 Reflow | story, coming, script | Section's story at 320 px, its several actions wrapping at 320 px, Amount on one line in a narrow column, Table's columns hidden or scrolled in its own area at 320 px, the sidebar in a sheet on a phone at 320 px, its long labels wrapping, and the application's structure at 320 px, its bar let go on a short screen |
+| 1.4.10 Reflow | every story, story, coming, script | Every story at 320 px in all three browsers: the page never scrolls sideways, an area that scrolls is reached by keyboard, and no text is cut by the width. Section's story at 320 px, its several actions wrapping at 320 px, Amount on one line in a narrow column, Table's columns hidden or scrolled in its own area at 320 px, the sidebar in a sheet on a phone at 320 px, its long labels wrapping, and the application's structure at 320 px, its bar let go on a short screen |
 | 1.4.11 Non-text Contrast | test, story, coming | `test/theme.test.ts` on borders and focus, both modes, Pagination's current page in `--input`, and DateField's invalid edge in `--destructive`, and each colour of categories on every surface and its tile's tint. Field (Actions and forms) and charts (Charts) to come |
 | 1.4.12 Text Spacing | every story | All three browsers |
 | 1.4.13 Content on Hover or Focus | none yet | With Tooltip (Overlays) |
@@ -94,6 +94,6 @@ A piece's stories show what it does in each of these that applies:
 - **Long text:** a long name, a word with no spaces, another language.
 - **Narrow and short screens:** 320px wide, and very short, as at a high zoom.
 - **Input:** keyboard alone, touch alone, a pointer crossing it.
-- **Preferences:** forced colours and text spacing, checked on every story. Reduced
+- **Preferences:** forced colours and text spacing, checked on every story, as is a width of 320 px. Reduced
   motion, asked of each browser by `.storybook/less-motion.test.tsx` for every piece that moves, and read from the
   rules with `.storybook/reduced-motion.ts` for Progress's indeterminate bar and Skeleton. Larger text.

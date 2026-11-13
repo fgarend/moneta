@@ -305,7 +305,7 @@ const Narrow: Story = {
   render: () => <Table aria-label={name}>{rows(true)}</Table>,
   decorators: [
     (Story) => (
-      <div className="w-80">
+      <div className="w-full max-w-80">
         <Story />
       </div>
     ),
@@ -366,7 +366,7 @@ const StickyHeader: Story = {
   ),
   decorators: [
     (Story) => (
-      <div className="flex h-64 w-80 flex-col">
+      <div className="flex h-64 w-full max-w-80 flex-col">
         <Story />
       </div>
     ),

@@ -21,8 +21,16 @@ What Moneta aims for, and how far its checks reach. How each criterion is checke
 - **Text spacing measures where each text sits,** with the spacing and without it, against the
   boxes around it that do not scroll. Only text counts, as that is what the criterion asks, so an
   icon cut by a fixed height goes unseen.
+- **Every story also reflows at 320 px,** WCAG 1.4.10's width, in the three browsers, with the 1rem the gallery
+  gives it: the page never scrolls sideways, axe's `scrollable-region-focusable` finds every area that scrolls
+  reached by keyboard, and no text is cut by the narrow width alone, measured as text spacing measures, wide
+  against narrow. A gap lets a story off as for the others, `gap-reflow`.
 
 ## Why
+
+Reflow on every story, as a table's hidden header widened the whole page on a phone on 2026-11-13, a mistake any
+piece can make and no story at 1280 px sees. The gallery's room, as with none, 30 stories failed by the 12 px a
+table or a list of rows reaches past its edge on purpose, which a page's margin always holds.
 
 WCAG 2.2 is the W3C's current Recommendation. The target has to be named in axe's settings:
 the addon's default stops short of it, and two tiny controls side by side pass, since axe's
@@ -44,8 +52,13 @@ run that passes says little by itself, so a list has to say what is left uncheck
   lost, since a touch area or a fixed height with padding overflows the same with no spacing.
 - **Comparing that overflow with and without the spacing.** No false reports, but a text cut in a piece
   whose touch area already overflows further went unseen, as a plant showed.
+- **Reflow only on the page,** that it never scrolls sideways. Shorter, but an area only a phone makes scroll could
+  be out of a keyboard's reach, and a text cut by the width unseen. **Reflow in Chromium only,** as screenshots,
+  though each browser lays out its own way. **A story with no room,** as text spacing renders it, which fails
+  every piece that reaches past its edge on purpose.
 
 ## History
 
 - 2026-11-05: Written, with the stories.
 - 2026-11-06: Gaps of raw pieces let off by check, and text spacing measured on the text.
+- 2026-11-13: Every story reflows at 320 px.

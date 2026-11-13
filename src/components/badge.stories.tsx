@@ -52,7 +52,7 @@ const meanings = [
 const Meanings: Story = {
   tags: ["visual"],
   render: () => (
-    <div className="flex gap-2 p-6">
+    <div className="flex flex-wrap gap-2 p-6">
       {meanings.map(([variant, words]) => (
         <Badge key={variant} variant={variant}>
           {words}
