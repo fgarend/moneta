@@ -10,12 +10,13 @@ known and what is still to ask, are in [`roadmap-notes.md`](roadmap-notes.md), r
 
 1. **One vocabulary of variants.** The same name for the same look in every piece, and a group's frame: one box
    with lines, a box each, or none.
-2. **The gallery as a guide.** Each piece's variants, sizes and states, in examples with fictitious data that reads
+2. **A table's hidden header.** It widens the page on a phone, a fix an app asked for.
+3. **The gallery as a guide.** Each piece's variants, sizes and states, in examples with fictitious data that reads
    as real use.
-3. **Display.** The pieces that show, reviewed or made.
+4. **Display.** The pieces that show, reviewed or made.
     - Badge, Card, Avatar and AvatarGroup, Alert and Separator
     - Stat, DescriptionList, Kbd, AspectRatio, ScrollArea, Timeline and TickerChip
-4. **Actions and forms.** The pieces that act and take input, reviewed or made.
+5. **Actions and forms.** The pieces that act and take input, reviewed or made.
     - Button, ButtonGroup and PageHeader
     - Input, InputGroup, Textarea, Label, Field, NativeSelect, Select and SearchField
     - Checkbox, RadioGroup, Switch, Toggle, ToggleGroup and Slider
@@ -26,25 +27,25 @@ known and what is still to ask, are in [`roadmap-notes.md`](roadmap-notes.md), r
     - how a form connects, with a server's errors
     - `combobox`, after a study
     - Button's `link` variant beside Link, and a disabled `LinkButton`, which is not dimmed
-5. **Overlays.** The pieces that open over the page, reviewed or made.
+6. **Overlays.** The pieces that open over the page, reviewed or made.
     - Dialog, AlertDialog and Sheet
     - Popover, HoverCard, DropdownMenu, ContextMenu, Tooltip and Toggletip
     - text spacing and forced colours on what an overlay draws when open
-6. **The rest.** The other pieces, reviewed or made.
+7. **The rest.** The other pieces, reviewed or made.
     - Tabs, Progress, Meter, Empty, Skeleton and Spinner
     - Breadcrumb, Steps and Banner
     - Collapsible, IconTile, StatGroup and AllocationBar
     - a bar of actions at the page's foot, a virtualised list, and Toast
     - `calendar`, after a study
-7. **Charts.** Line, area, bars and donut, a ring and BarList, each with a table of its data.
-8. **MoneyInput.** Entering an amount.
-9. **CurrencySelect.** Choosing a currency.
-10. **A stable API.** What each state promises after 1.0.
+8. **Charts.** Line, area, bars and donut, a ring and BarList, each with a table of its data.
+9. **MoneyInput.** Entering an amount.
+10. **CurrencySelect.** Choosing a currency.
+11. **A stable API.** What each state promises after 1.0.
     - every piece reviewed
     - the accessibility script run by hand, with a screen reader and real zoom
     - a policy for deprecating
-11. **Stricter checks.** `exactOptionalPropertyTypes`, if React Aria's types pass it.
-12. **Release 1.0.0.**
+12. **Stricter checks.** `exactOptionalPropertyTypes`, if React Aria's types pass it.
+13. **Release 1.0.0.**
 
 ## Later, in no order
 

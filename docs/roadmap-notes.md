@@ -62,6 +62,12 @@ Spectrum and Atlassian, of which none writes down a shared vocabulary and Radix 
   line in `process.md`, and how an app reads it in the guidelines. No version of its own, as Layers; it goes out
   with the next.
 
+## A table's hidden header
+
+- Reported by an app on 2026-11-13: a `TableHead` with `hideHeader` draws an `sr-only` span, `position: absolute`, and
+  `table-container` is not `relative`, so on a 375 px screen a table wider than its card makes the whole page scroll
+  sideways. The fix asked: `relative` on `table-container`, with a story at 375 px that fails first.
+
 ## The gallery as a guide
 
 - Raised on 2026-11-13: the gallery is a guide for whoever uses Moneta, to see what exists and how to use it, with
@@ -73,13 +79,17 @@ Spectrum and Atlassian, of which none writes down a shared vocabulary and Radix 
 ## Display
 
 - Badge, deciding its finance colours on a dark surface, with tones for success, warning, danger and information, a
-  dot, and a count beside a section's title.
+  dot, and a count beside a section's title. With it, whether `--negative` gets a red of its own, close to
+  `--destructive` and told apart from it in both themes, as an app asked on 2026-11-13: a position down 3% wears a
+  failed import's red on the same screen. `theme.md` chose one red, so the theme keeps one; asked again.
 - Card, whose title is a `div`, to take a heading's level as `docs/decisions/components.md` says, deciding where
   code shared by pieces lives, and whether an app gets a `Heading` that reads the level. Two second forms an app
   builds by classes today: a card with no padding, its content to the edges, for a table or a group of numbers; and
   a title at a section's size, for a card that is a part of the page.
 - Section came early, before Sidebar, and Table comes there too.
-- Avatar with its group, AvatarGroup, whose fallback's text an app measured at 4.34:1.
+- Avatar with its group, AvatarGroup, whose fallback's text an app measured at 4.34:1. Drawn as a `span`, keeping its
+  `flex`, as an app asked on 2026-11-13: it sits beside a name inside a `p` or a `span`, as an `ItemDescription`, where
+  a `div` is not allowed and React warns.
 - Alert. Item moved to Lists of rows. Separator, Stat, DescriptionList, Kbd, AspectRatio, ScrollArea,
   Timeline and TickerChip.
 
@@ -92,7 +102,9 @@ Spectrum and Atlassian, of which none writes down a shared vocabulary and Radix 
   the 3:1 of WCAG 1.4.11.
 - Select, and when to use it or NativeSelect.
 - Checkbox, which draws a check when indeterminate, and RadioGroup, in a row as well, their items growing for their
-  label, which today they do not. Switch, Toggle, and ToggleGroup, weighing a segmented control, SegmentedControl,
+  label, which today they do not. A visible label that is also their name and what a click takes, written in the
+  guidelines, as a `FieldLabel` around the box and its words: an app asked on 2026-11-13, as it names each by
+  `aria-label` and hides the words beside it, so a click on them checks nothing. Switch, Toggle, and ToggleGroup, weighing a segmented control, SegmentedControl,
   against a radio in line.
 - DateField came early, before Sidebar. SearchField, FilePicker, ChoiceCard, and `combobox` after a study like
   Sidebar's.
