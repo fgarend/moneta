@@ -6,6 +6,10 @@ gets its number.
 
 ## [Unreleased]
 
+## [0.21.1] - 2026-11-13
+
+A table's hidden header no longer widens the page on a narrow screen.
+
 ### Fixed
 
 - A table's hidden header no longer widens the page on a narrow screen: its words, kept for screen readers, stay in
@@ -400,7 +404,8 @@ and dark. `README.md` says how to install and use it.
 
 A rehearsal of the release's path, not meant to be installed. Use a later version.
 
-[Unreleased]: https://github.com/fgarend/moneta/compare/v0.21.0...HEAD
+[Unreleased]: https://github.com/fgarend/moneta/compare/v0.21.1...HEAD
+[0.21.1]: https://github.com/fgarend/moneta/compare/v0.21.0...v0.21.1
 [0.21.0]: https://github.com/fgarend/moneta/compare/v0.20.0...v0.21.0
 [0.20.0]: https://github.com/fgarend/moneta/compare/v0.19.0...v0.20.0
 [0.19.0]: https://github.com/fgarend/moneta/compare/v0.18.0...v0.19.0
