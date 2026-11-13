@@ -22,31 +22,6 @@ scale of sizes may need a touch when they arrive, and Sidebar's study may change
 later: a page that puts the pieces together, a pre-release tried in an app before a version, and a review of the whole
 after each family.
 
-## Layout and text
-
-What replaces the `flex`, `gap` and `text` classes an app writes, which shadcn does not have. Decided on 2026-11-12,
-one point at a time, after a study of shadcn, Spectrum 2, Primer, Polaris, Atlassian, Radix, Chakra, Mantine, MUI and
-Catalyst, and a count of the classes in a real app's 41 screens built on Moneta: 168 `className`, 413 classes, nearly
-three quarters of them layout. Four patterns made a third of them: `flex flex-col gap-10` 26 times, a page's sections,
-which `AppContent` already lays; `text-muted-foreground` 21; `flex items-center gap-2` 21, 16 of them a section's
-title with a count; and `flex flex-wrap items-center gap-2` 8, several controls in an action's place.
-
-- **No layout pieces of our own,** no Stack or Inline: each pattern becomes a fix in the piece it belongs to, and an
-  app's own layout stays Tailwind, as shadcn and Catalyst have it and Spectrum 2 chose when it dropped its Flex and
-  Grid. **What it costs:** the roadmap's "no class of its own" is not reached, and an app's `gap-2` is off any scale
-  of ours. Stack and Inline, as Primer and Atlassian keep them, can come back once these fixes land, if what is left
-  still repeats.
-- **Muted text outside a piece is the theme's class,** `text-muted-foreground`, as shadcn's typography shows it,
-  written in the guidelines. **What it costs:** a class in the app, its contrast tested on the page, a card and
-  `--muted` only.
-- **`SectionTitle` lays what it holds in a row,** centred, 8 px apart, so a count beside it takes no class; a count is
-  a `Badge variant="secondary"`, as the guidelines will say. **What it costs:** each screen picks its badge; a piece
-  for counts if Tabs and tables take them too.
-- **`SectionAction` and `CardAction` lay several controls in a row,** centred, 8 px apart, wrapping on a narrow
-  screen, as `AppHeaderActions` does. `CardAction` is shadcn's, its edit written in `pieces.md`.
-- **WCAG to check:** 1.4.10, a row of actions wrapping at 320 px, by a story; 1.3.1, the count read inside the title's
-  heading, by a story.
-
 ## The families
 
 The final pieces: every piece a complete library for money would have, whether or not a page needs it yet, as
