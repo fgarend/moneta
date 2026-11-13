@@ -6,6 +6,11 @@ gets its number.
 
 ## [Unreleased]
 
+### Added
+
+- The guidelines' Variants: a variant's name means one look in every piece, a control's, a surface's or a
+  meaning's, and a group joins or parts its items by `spacing`. No piece changes.
+
 ## [0.20.0] - 2026-11-12
 
 Layout and text: a section's title lays a count beside its words, and a section's or a card's action lays several

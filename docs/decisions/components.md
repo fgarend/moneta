@@ -37,6 +37,15 @@ pieces is in [`../pieces.md`](../pieces.md), and how a piece is analysed is in [
   names; its time zone, `timeZone`, which a piece's own overrides; and its words and hidden values, as
   `docs/decisions/money.md` says. One inside another keeps what it is not given. What it holds for the pieces is
   `src/hooks/moneta.ts`, internal.
+- **One vocabulary of variants: a name means one look in every piece, by shadcn's names.** `default` is a piece's
+  usual look. A control, as `Button`, `Badge` and `Toggle`, takes `secondary`, a soft fill, `outline`, a border,
+  `ghost`, no frame until the pointer is over it, and `link`, text alone. A surface, as `Item`, and `Card` and
+  `StatGroup` when they come, takes `outline`, `muted`, a soft fill, and `ghost`, no frame, named only where its usual
+  look has one. A meaning, `destructive`, `success`, `warning` and `info`, is a `variant` too, as `theme.md` says. A
+  group's boxes join or part by `spacing`, as shadcn's `ToggleGroup`: `0` draws one box with lines between, more a
+  box each that far apart, and `variant` the look of the boxes. A look one piece alone needs keeps a name of its own,
+  as `Tabs`' `line`, `ItemMedia`'s `icon` and `image` and `Button`'s `gold`, and enters the vocabulary when a second
+  piece needs it. Each variant's analysis names it from here, or gives the reason for a new name.
 - **The gallery groups the pieces by purpose, under shadcn's own groups,** as its docs list its components: Form &
   Input, Layout & Navigation, Overlays & Dialogs, Feedback & Status, Display & Media, and Misc. Its first level is
   `Components`, then `Sample`, and blocks and foundations will be levels of their own. A piece of ours goes in the
@@ -221,6 +230,15 @@ pieces is in [`../pieces.md`](../pieces.md), and how a piece is analysed is in [
   `src/hooks/level.ts`, which Section and ItemGroup read.
 - **No router,** as Moneta knows no app, React Aria's docs recommended `render` on 2026-11-09, and `RouterProvider`
   still works. Table and GridList rows cannot be an `<a>`, so with a router they navigate through `onAction`.
+- **One vocabulary,** as a name learned on one piece then holds on the next, and a group of numbers showed on
+  2026-11-13 the same choice other groups make. **shadcn's names,** as Moneta starts from shadcn, an example of its
+  docs works as it is, and of shadcn, Radix Themes, Chakra, Mantine, Spectrum and Atlassian, read that day, none
+  writes down a shared vocabulary, so other names would bring no firmer one. **Two families,** as shadcn keeps
+  `secondary` for controls, an action's rank, and `muted` for `Item`, a calm surface, so no file of shadcn's is
+  edited. **What it costs:** one soft fill keeps two names, and `ghost` on a surface shows nothing under the pointer.
+  **`spacing`,** as shadcn's `ToggleGroup` already joins its items at `0`, and one prop serves every group. **What it
+  costs:** the name says a distance, `0` meaning lines is learned, and an app picks any step of the scale. **The
+  analysis keeps it,** as every new variant passes one, and `cva` does not expose its names to a test.
 - **Groups by purpose,** as whoever builds a screen looks for something for a form or an overlay, not for where a
   piece came from or its level, which are rules for this repository. shadcn's groups, as they are, as its users know
   them. **What it costs:** some are odd, as Button in Form & Input and Toggle in Misc, and they differ from the
@@ -362,6 +380,12 @@ pieces is in [`../pieces.md`](../pieces.md), and how a piece is analysed is in [
 
 ## Alternatives considered
 
+- **Radix's and Chakra's names,** `solid`, `soft`, `surface`, `outline` and `ghost` or `plain`, the most repeated across
+  their pieces, which would rename every piece of shadcn's. **One name for a soft fill,** `secondary` on `Item`, which
+  edits shadcn's file, or `muted` on `Button` and `Badge`, which breaks a real app's 43 uses. **`plain` for a surface
+  with no frame,** as Chakra, a name shadcn does not have. **A name for the group's shape,** as Chakra's `attached` or
+  a `layout` of `joined` and `separate`, or **two pieces,** as Mantine's StatsGroup and StatsGrid. **Every name in the
+  vocabulary at once,** one piece's too, a longer list. **A test of the names,** reading each piece's source, fragile.
 - **Token, piece, composed piece and region.** The roadmap's first proposal.
 - **The gallery by origin, `UI` and our own,** as its first stories had it from the folder's name, by level alone,
   or by whether a piece is reviewed, which moves it, and its link, at its review.
@@ -422,3 +446,4 @@ pieces is in [`../pieces.md`](../pieces.md), and how a piece is analysed is in [
 - 2026-11-12: Sidebar, our own.
 - 2026-11-12: AppLayout and SkipLink.
 - 2026-11-12: Layout and text: what a title and an action hold, and no layout pieces.
+- 2026-11-13: One vocabulary of variants.

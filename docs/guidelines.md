@@ -43,6 +43,20 @@ the version installed. It holds only what exists, and each reviewed piece adds i
 - **The controls in a row with a page's main action are 40 px as well,** so the row lines up.
 - **The radius is `--radius`,** and every piece takes its corners from it.
 
+## Variants
+
+- **A variant's name means one look in every piece,** by shadcn's names, and with none a piece shows its usual look.
+- **A control takes `secondary`, `outline`, `ghost` or `link`:** a soft fill for a secondary action, a border, no frame
+  until the pointer is over it, and text alone. `Button` and `Badge` read them, and `Toggle` its `outline`.
+- **A surface takes `outline`, `muted` or `ghost`:** a border, a soft fill, and no frame where its usual look has one.
+  `Item` reads them.
+- **A meaning takes `destructive`, `success`, `warning` or `info`,** on `Badge` and `Alert`, with the words saying it
+  too, as Colour says.
+- **A group joins its items in one box by `spacing={0}`,** with lines between, and parts them into a box each by a
+  larger step, with `variant` the look of each box. `ToggleGroup` reads it.
+- **A name one piece alone has is its own,** as `Tabs`' `line`, `ItemMedia`'s `icon` and `image`, and `Button`'s
+  `gold`.
+
 ## Text
 
 - **The font is Geist, in `--font`,** with tabular figures in amounts, so digits line up in a column.
