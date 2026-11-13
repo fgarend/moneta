@@ -6,6 +6,11 @@ gets its number.
 
 ## [Unreleased]
 
+### Fixed
+
+- A table's hidden header no longer widens the page on a narrow screen: its words, kept for screen readers, stay in
+  the table's own area, which now scrolls them with it.
+
 ## [0.21.0] - 2026-11-13
 
 One vocabulary of variants: a variant's name means one look in every piece, which the guidelines now say.

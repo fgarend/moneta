@@ -551,6 +551,10 @@ const RowActions: Story = {
 
     await expect(header.getBoundingClientRect().height).toBeGreaterThan(0);
     await expect(header.firstElementChild).toHaveClass("sr-only");
+    // Hidden, its words stay in the table's own area, so they scroll with it and never widen the page.
+    await expect((header.firstElementChild as HTMLElement).offsetParent).toBe(
+      canvasElement.querySelector('[data-slot="table-container"]'),
+    );
     await expect(canvas.getAllByRole("button")).toHaveLength(payments.length);
     await expect([width, height]).toEqual([target, target]);
     await expect(
