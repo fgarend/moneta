@@ -22,16 +22,23 @@ function Tabs({ className, ...props }: ComponentProps<typeof TabsPrimitive>) {
 }
 
 const tabsListVariants = cva(
-  "group/tabs-list inline-flex w-fit items-center justify-center rounded-lg p-0.75 text-muted-foreground group-data-horizontal/tabs:h-9 group-data-vertical/tabs:h-fit group-data-vertical/tabs:flex-col data-[variant=line]:rounded-none",
+  "group/tabs-list inline-flex w-fit items-center justify-center rounded-lg p-0.75 text-muted-foreground group-data-vertical/tabs:h-fit group-data-vertical/tabs:flex-col data-[variant=line]:rounded-none",
   {
     variants: {
       variant: {
         default: "bg-muted",
         line: "gap-1 bg-transparent",
       },
+      // The scale's heights, as a row's buttons have them, when the tabs lie in a row.
+      size: {
+        sm: "group-data-horizontal/tabs:h-8",
+        default: "group-data-horizontal/tabs:h-9",
+        lg: "group-data-horizontal/tabs:h-10",
+      },
     },
     defaultVariants: {
       variant: "default",
+      size: "default",
     },
   },
 );
@@ -39,6 +46,7 @@ const tabsListVariants = cva(
 function TabsList({
   className,
   variant = "default",
+  size = "default",
   ...props
 }: ComponentProps<typeof TabListPrimitive> &
   VariantProps<typeof tabsListVariants>) {
@@ -46,7 +54,8 @@ function TabsList({
     <TabListPrimitive
       data-slot="tabs-list"
       data-variant={variant}
-      className={cn(tabsListVariants({ variant }), className)}
+      data-size={size}
+      className={cn(tabsListVariants({ variant, size }), className)}
       {...props}
     />
   );

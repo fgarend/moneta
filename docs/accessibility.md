@@ -68,7 +68,7 @@ which is run by hand.
 | 2.5.3 Label in Name | story, app | Pagination's Previous and Next named by their words; elsewhere the visible name and the accessible one |
 | 2.5.4 Motion Actuation | none yet | |
 | 2.5.7 Dragging Movements | none yet | |
-| 2.5.8 Target Size (Minimum) | axe, story | Table's sortable headers, at least 24 px tall, a row's action, 32 px, and DateField's parts, 24 px each way in any font |
+| 2.5.8 Target Size (Minimum) | axe, story | Each control's sizes, 32 px or more, by its `Sizes` story, Table's sortable headers, at least 24 px tall, a row's action, 32 px, and DateField's parts, 24 px each way in any font |
 | 3.1.1 Language of Page | app | |
 | 3.1.2 Language of Parts | app | |
 | 3.2.1 On Focus | none yet | |

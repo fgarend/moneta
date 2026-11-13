@@ -13,8 +13,10 @@ The look Moneta has by default, which whoever uses it can replace. How an app re
 - **The radius is shadcn's `small`,** `0.45rem`, chosen by the owner on shadcn/create.
 - **`--input` is stronger than the prototype's,** `#8e8c84`, to reach 3:1 against both the page and a card.
 - **A piece is edited when the theme alone cannot reach it:** `tabs`, whose inactive text fails on our `muted`, and the heights.
-- **Controls are 36 px by default, 40 for a page's main actions and 32 for dense ones,** by each piece's `cva`, with `xs` left
-  as shadcn has it. `docs/pieces.md` marks each edit.
+- **Controls are 36 px by default, 40 for a page's main actions and 32 for dense ones,** by shadcn's `size`: `default`,
+  `lg` and `sm`, on every control a row holds side by side, Button, Toggle, ToggleGroup, Input, InputGroup, Select,
+  NativeSelect, DateField and Tabs, as classes in each piece, with `xs` left as shadcn has it. Their icons are 14 px at
+  `sm` and 16 above, as shadcn sizes them. Lists and tables take `density`, apart. `docs/pieces.md` marks each edit.
 - **Gold is a variant of `Button`,** so an app names it and writes no colour.
 - **`--positive` and `--negative` colour a value's tone,** good news and bad: a green of our own, `#157347` in light
   and `#74d19a` in dark, with as much contrast as the red, and `--negative` reads `--destructive`, so the theme keeps
@@ -123,6 +125,12 @@ The look Moneta has by default, which whoever uses it can replace. How an app re
   each shade is chosen by hand.
 - **An orange warning,** as Atlassian's text and Spectrum's notice, since an amber nearly matched the gold in dark.
   **What it costs:** it sits nearer the red, so the words must say the meaning.
+- **One scale for the controls a row holds,** as Primer, Carbon, Spectrum and shadcn give buttons, fields and selects
+  one height per name, so a field beside a page's main action lines up with it by `size="lg"`. shadcn's names, which
+  Button and Toggle already take, so nothing breaks; the heights as its classes, so its updates merge as before.
+  `density` stays for rows, which hold controls of 32 px either way, as Spectrum, Primer and MUI part them. **What it
+  costs:** Badge, Kbd, Avatar, Checkbox, RadioGroup and Switch keep sizes of their own, and Avatar's and Item's names
+  mean other heights; `default` does not say its size; an app cannot change every control at once.
 - **Categories apart from meanings,** as Primer forbids meaning in data colours: a category must tell apart and say
   nothing, where a meaning needs text contrast and a name that says good or bad. One token each, as the meanings, the
   same for a tile's icon and a chart's marks. Eight, as Atlassian, Okabe–Ito and a list of categories need, sober at
@@ -176,6 +184,10 @@ The look Moneta has by default, which whoever uses it can replace. How an app re
   format favours, which would add dozens of tokens.
 - **Five tokens per meaning,** text, soft and strong backgrounds and borders, as Primer's.
 - **An amber warning,** as Primer's `#9a6700`, the yellow everyone knows.
+- **`small`, `medium` and `large`,** as Primer's and MUI's, which would rename every piece's `size`; **`size` for
+  rows,** as Carbon's, which would read as a control's 32 px; **the heights as tokens,** as Primer's and shadcn's newer
+  styles, which would edit every control's file, and wait in the roadmap's Later; **16 px icons at `sm`,** as Primer's,
+  larger than its 12 px text.
 - **A soft background per category,** a `-soft` token beside each, as Atlassian, Primer and the prototype fix theirs,
   which can be added later without breaking.
 - **Five categories, in shadcn's `--chart-N`,** which a list of categories passes, or eight `--chart-N`, a name a
@@ -206,3 +218,4 @@ The look Moneta has by default, which whoever uses it can replace. How an app re
 - 2026-11-12: `tall` and the scroll padding, for AppLayout.
 - 2026-11-12: `--success`, `--warning` and `--info`.
 - 2026-11-12: `--category-1` to `--category-8`, with `--chart-1` to `--chart-5` reading them.
+- 2026-11-12: One scale of sizes on every control a row holds.

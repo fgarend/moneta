@@ -6,6 +6,12 @@ gets its number.
 
 ## [Unreleased]
 
+### Added
+
+- `size` on `Input`, `InputGroup` and `TabsList`, and `lg` on `Select`'s trigger, `NativeSelect` and `DateField`, so
+  every control a row holds side by side is 32, 36 or 40 px by `sm`, `default` or `lg`, as `Button` is. `Input`'s
+  `size` replaces the input's own, its width in characters.
+
 ## [0.18.0] - 2026-11-12
 
 The palette of categories: eight colours that tell apart and say nothing, in light and dark, on the list's icon tile

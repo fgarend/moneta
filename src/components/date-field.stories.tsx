@@ -2,6 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 import { I18nProvider } from "react-aria-components";
 import { expect, fn, userEvent, waitFor, within } from "storybook/test";
 import { Caught } from "../../.storybook/caught.js";
+import { height, scale, sizes } from "../../.storybook/sizes.js";
 import { DateField } from "./date-field.js";
 
 const label = "Date";
@@ -12,7 +13,7 @@ const day = "2026-10-24";
 const onChange = fn();
 
 // What the guidelines give a field: 36 px, or 32 at size="sm"; and each part a target of 24 px, whatever the font.
-const height = 36;
+const defaultHeight = 36;
 const smallHeight = 32;
 const target = 24;
 
@@ -93,7 +94,7 @@ const Default: Story = {
     await expect(describedBy(first)).toContain(description);
     await expect(
       Math.round(box(canvasElement).getBoundingClientRect().height),
-    ).toBe(height);
+    ).toBe(defaultHeight);
   },
 };
 
@@ -245,6 +246,32 @@ const NotIso: Story = {
   },
 };
 
+// Each size of the scale, so a field lines up with the buttons beside it: 32, 36 and 40 px.
+const Sizes: Story = {
+  tags: ["visual"],
+  render: () => (
+    <div className="flex flex-col gap-3">
+      {sizes.map((size) => (
+        <DateField
+          aria-label={`${label} ${size}`}
+          defaultValue={day}
+          key={size}
+          size={size}
+        />
+      ))}
+    </div>
+  ),
+  play: async ({ canvasElement }) => {
+    const controls = [
+      ...canvasElement.querySelectorAll('[data-slot="date-input"]'),
+    ];
+
+    await expect(controls.map(height)).toEqual(
+      sizes.map((size) => scale[size]),
+    );
+  },
+};
+
 export default meta;
 export {
   Controlled,
@@ -253,6 +280,7 @@ export {
   Invalid,
   InvalidByApp,
   NotIso,
+  Sizes,
   Small,
   Typing,
 };

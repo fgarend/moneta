@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { expect, within } from "storybook/test";
+import { height, scale, sizes } from "../../.storybook/sizes.js";
 import { Toggle } from "./toggle.js";
 
 const label = "Hide amounts";
@@ -43,5 +44,28 @@ const Pressed: Story = {
   },
 };
 
+// Each size of the scale: 32, 36 and 40 px.
+const Sizes: Story = {
+  tags: ["visual"],
+  render: () => (
+    <div className="flex items-start gap-3">
+      {sizes.map((size) => (
+        <Toggle key={size} size={size}>
+          {label}
+        </Toggle>
+      ))}
+    </div>
+  ),
+  play: async ({ canvasElement }) => {
+    const controls = [
+      ...canvasElement.querySelectorAll('[data-slot="toggle"]'),
+    ];
+
+    await expect(controls.map(height)).toEqual(
+      sizes.map((size) => scale[size]),
+    );
+  },
+};
+
 export default meta;
-export { Default, Pressed };
+export { Default, Pressed, Sizes };

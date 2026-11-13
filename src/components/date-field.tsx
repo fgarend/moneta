@@ -54,7 +54,7 @@ function dayOf(
   throw new Error(`DateField: "${value}" is not an ISO day, as "2026-10-24".`);
 }
 
-const sizes = { default: "h-9", sm: "h-8" };
+const sizes = { default: "h-9", sm: "h-8", lg: "h-10" };
 
 function DateField({
   label,
