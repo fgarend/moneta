@@ -6,6 +6,12 @@ gets its number.
 
 ## [Unreleased]
 
+### Changed
+
+- `SectionTitle` lays what it holds in a row, centred and 8 px apart, so a count beside its words, a
+  `Badge variant="secondary"`, takes no class.
+- `SectionAction` and `CardAction` lay several controls in a row, 8 px apart, which wraps where they do not fit.
+
 ## [0.19.0] - 2026-11-12
 
 One scale of sizes: every control a row holds side by side at 32, 36 or 40 px, by `sm`, `default` or `lg`.

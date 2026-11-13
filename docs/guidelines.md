@@ -51,6 +51,10 @@ the version installed. It holds only what exists, and each reviewed piece adds i
 - **One emphasis at each level:** 600 for titles and amounts of note, 500 for an amount in a row, 400 for the rest.
 - **An app gets the scale through the pieces,** with no class of its own: `Section`'s and `Card`'s titles and
   descriptions, `Table`'s header and `Amount` already read it. A page's title has no piece yet.
+- **Secondary text outside a piece is `text-muted-foreground`,** the theme's class, as shadcn's typography shows it.
+  Where a piece has a description, as `ItemDescription`, `CardDescription` or `SectionDescription`, it uses it.
+- **An app's own layout is Tailwind's,** `flex`, `grid` and `gap-*`, on the space scale above. Moneta has no Stack or
+  Inline: what a piece holds, it lays out itself.
 
 ## Space
 
@@ -91,6 +95,9 @@ the version installed. It holds only what exists, and each reviewed piece adds i
   often holds cards.
 - **`SectionHeader` holds `SectionTitle`, and may hold a `SectionDescription` and a `SectionAction`,** such as tabs or a
   button, which moves under the title when the header is narrow. The content follows the header, 16 px below it.
+- **A count beside a title is a `Badge variant="secondary"`** inside `SectionTitle`, which lays it 8 px after its
+  words, and reads it as part of the heading.
+- **Several controls in `SectionAction` or `CardAction` lie in a row,** 8 px apart, and wrap where they do not fit.
 - **A title's level comes from where it sits:** 2 at the top of a page, below the page's 1, and one more in each section
   it sits in. `level` sets it by hand, where the page's outline needs another.
 - **It is no landmark,** so a page of sections keeps its landmarks few, and its titles give its structure.

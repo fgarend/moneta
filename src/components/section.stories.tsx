@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { expect, within } from "storybook/test";
+import { Badge } from "./badge.js";
 import { Button } from "./button.js";
 import { Card, CardContent } from "./card.js";
 import {
@@ -24,6 +25,27 @@ const titleLine = "24px";
 const titleWeight = "600";
 const toDescription = 4;
 const toContent = 16;
+// What sits beside a title, and between an action's controls: 8 px, as the guidelines give a row.
+const between = 8;
+const count = "12";
+const actions = ["Group by class", "Group by account", "Export as a sheet"];
+
+function rowOf(element: Element): {
+  left: number;
+  right: number;
+  top: number;
+  bottom: number;
+} {
+  const { left, right, top, bottom } = element.getBoundingClientRect();
+  return { left, right, top, bottom };
+}
+
+// Where a text ends, as its own box, not its parent's.
+function textEnd(element: Element): number {
+  const range = document.createRange();
+  range.selectNodeContents(element.firstChild as Node);
+  return range.getBoundingClientRect().right;
+}
 
 function gapBetween(above: Element, below: Element): number {
   return (
@@ -214,5 +236,107 @@ const Narrow: Story = {
   },
 };
 
+// A count beside the title, read inside its heading, 8 px after its words and centred on their line.
+const TitleWithCount: Story = {
+  tags: ["visual"],
+  args: {
+    children: (
+      <SectionHeader>
+        <SectionTitle>
+          {title}
+          <Badge variant="secondary">{count}</Badge>
+        </SectionTitle>
+      </SectionHeader>
+    ),
+  },
+  play: async ({ canvasElement }) => {
+    const heading = within(canvasElement).getByRole("heading");
+    const badge = within(heading).getByText(count);
+    const words = rowOf(heading);
+    const mark = rowOf(badge);
+
+    await expect(Math.round(mark.left - textEnd(heading))).toBe(between);
+    await expect(
+      Math.round((mark.top + mark.bottom) / 2 - (words.top + words.bottom) / 2),
+    ).toBe(0);
+  },
+};
+
+// Several controls in a section's action lie in a row, 8 px apart, centred on one another.
+const SeveralActions: Story = {
+  tags: ["visual"],
+  args: {
+    children: (
+      <SectionHeader>
+        <SectionTitle>{title}</SectionTitle>
+        <SectionDescription>{description}</SectionDescription>
+        <SectionAction>
+          <Button size="sm" variant="outline">
+            {actions[0]}
+          </Button>
+          <Button variant="outline">{actions[2]}</Button>
+        </SectionAction>
+      </SectionHeader>
+    ),
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const [first, second] = [actions[0], actions[2]].map((name) =>
+      rowOf(canvas.getByRole("button", { name })),
+    ) as [ReturnType<typeof rowOf>, ReturnType<typeof rowOf>];
+
+    await expect(Math.round(second.left - first.right)).toBe(between);
+    await expect(
+      Math.round(
+        (first.top + first.bottom) / 2 - (second.top + second.bottom) / 2,
+      ),
+    ).toBe(0);
+  },
+};
+
+// On a phone, the controls that do not fit go to a next row, 8 px below, and nothing runs off the screen.
+const SeveralActionsNarrow: Story = {
+  globals: { viewport: { value: "mobile1" } },
+  args: {
+    children: (
+      <SectionHeader>
+        <SectionTitle>{title}</SectionTitle>
+        <SectionAction>
+          {actions.map((name) => (
+            <Button key={name} variant="outline">
+              {name}
+            </Button>
+          ))}
+        </SectionAction>
+      </SectionHeader>
+    ),
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const buttons = actions.map((name) =>
+      rowOf(canvas.getByRole("button", { name })),
+    );
+    const section = canvasElement.querySelector(
+      '[data-slot="section"]',
+    ) as Element;
+    const last = buttons.at(-1) as ReturnType<typeof rowOf>;
+    const first = buttons[0] as ReturnType<typeof rowOf>;
+
+    await expect(section.scrollWidth).toBe(section.clientWidth);
+    await expect(last.top).toBeGreaterThan(first.top);
+    await expect(Math.round(last.top - first.bottom)).toBe(between);
+  },
+};
+
 export default meta;
-export { Deep, Default, LevelByHand, Narrow, Nested, TitleOnly };
+export {
+  Deep,
+  Default,
+  LevelByHand,
+  Narrow,
+  Nested,
+  SeveralActions,
+  SeveralActionsNarrow,
+  TitleOnly,
+  TitleWithCount,
+};
