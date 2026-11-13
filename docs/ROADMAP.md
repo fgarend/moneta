@@ -4,16 +4,14 @@ Moneta is the source of truth for components: an app builds its screens from its
 own. What it lacks is added here, in this order, which a new need can change. The details of each item, what is
 known and what is still to ask, are in [`roadmap-notes.md`](roadmap-notes.md), read when the item starts.
 
-**Now:** 1. The gallery as a guide.
+**Now:** 1. Display.
 
 ## Next, in order
 
-1. **The gallery as a guide.** Each piece's variants, sizes and states, in examples with fictitious data that reads
-   as real use.
-2. **Display.** The pieces that show, reviewed or made.
-    - Badge, Card, Avatar and AvatarGroup, Alert and Separator
-    - Stat, DescriptionList, Kbd, AspectRatio, ScrollArea, Timeline and TickerChip
-3. **Actions and forms.** The pieces that act and take input, reviewed or made.
+1. **Display.** The pieces that show, reviewed or made.
+    - Stat and StatGroup, then Badge, Card, Alert, and Avatar and AvatarGroup
+    - Separator, Kbd, AspectRatio and ScrollArea, then DescriptionList, Timeline and TickerChip
+2. **Actions and forms.** The pieces that act and take input, reviewed or made.
     - Button, ButtonGroup and PageHeader
     - Input, InputGroup, Textarea, Label, Field, NativeSelect, Select and SearchField
     - Checkbox, RadioGroup, Switch, Toggle, ToggleGroup and Slider
@@ -24,25 +22,25 @@ known and what is still to ask, are in [`roadmap-notes.md`](roadmap-notes.md), r
     - how a form connects, with a server's errors
     - `combobox`, after a study
     - Button's `link` variant beside Link, and a disabled `LinkButton`, which is not dimmed
-4. **Overlays.** The pieces that open over the page, reviewed or made.
+3. **Overlays.** The pieces that open over the page, reviewed or made.
     - Dialog, AlertDialog and Sheet
     - Popover, HoverCard, DropdownMenu, ContextMenu, Tooltip and Toggletip
     - text spacing and forced colours on what an overlay draws when open
-5. **The rest.** The other pieces, reviewed or made.
+4. **The rest.** The other pieces, reviewed or made.
     - Tabs, Progress, Meter, Empty, Skeleton and Spinner
     - Breadcrumb, Steps and Banner
-    - Collapsible, IconTile, StatGroup and AllocationBar
+    - Collapsible, IconTile and AllocationBar
     - a bar of actions at the page's foot, a virtualised list, and Toast
     - `calendar`, after a study
-6. **Charts.** Line, area, bars and donut, a ring and BarList, each with a table of its data.
-7. **MoneyInput.** Entering an amount.
-8. **CurrencySelect.** Choosing a currency.
-9. **A stable API.** What each state promises after 1.0.
+5. **Charts.** Line, area, bars and donut, a ring and BarList, each with a table of its data.
+6. **MoneyInput.** Entering an amount.
+7. **CurrencySelect.** Choosing a currency.
+8. **A stable API.** What each state promises after 1.0.
     - every piece reviewed
     - the accessibility script run by hand, with a screen reader and real zoom
     - a policy for deprecating
-10. **Stricter checks.** `exactOptionalPropertyTypes`, if React Aria's types pass it.
-11. **Release 1.0.0.**
+9. **Stricter checks.** `exactOptionalPropertyTypes`, if React Aria's types pass it.
+10. **Release 1.0.0.**
 
 ## Later, in no order
 
@@ -78,6 +76,8 @@ Each becomes an item when its time comes.
 - **The sample page's text in the dark stories.** Light's colour, where its dark screenshot is right.
 - **A less-motion test that stalled once in WebKit.** Opening and closing Dialog stopped the page past every wait,
   1 run in 7 after Playwright 1.65.0 on 2026-11-12, and never again alone or under load. If it returns.
+- **A Firefox page that crashed once, out of memory.** In `make stories` on 2026-11-13, a run after reflow entered,
+  with every test run passing, and not on the next run. If it returns.
 - **Sidebar's further functions.** Collapsed to icons with tooltips, counts, sections that open, nested items, a
   keyboard shortcut. When an app asks.
 - **Skeleton's and Progress's less motion, asked of each browser.** As the overlays' is, in place of reading the
@@ -88,6 +88,9 @@ Each becomes an item when its time comes.
 
 ## Done
 
+- **The gallery as a guide.** A page per piece, from its comment and its stories, every example checked, one
+  fictitious household's data, Item as the model, and the sample page on AppLayout and Sidebar. No version of its
+  own; it goes out with the next.
 - **Reflow at 320 px.** A table's hidden header no longer widens the page, and every story is checked at 320 px in
   each browser: no sideways scroll, every area that scrolls reached by keyboard, no text cut. 0.21.1.
 - **One vocabulary of variants.** A name means one look in every piece, by shadcn's names: a control's, a surface's

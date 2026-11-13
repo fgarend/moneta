@@ -35,19 +35,27 @@ with each family. No reviewed piece has a default text, so shadcn's written stri
 **Done when:** an app can build every screen from Moneta's pieces with no class of its own, and leaves Tailwind for
 `styles.css`. Until then, it keeps Tailwind only for the classes it still writes.
 
-## The gallery as a guide
-
-- Raised on 2026-11-13: the gallery is a guide for whoever uses Moneta, to see what exists and how to use it, with
-  each piece's variants, sizes and states in combination, and fictitious data that reads as real use.
-- Today its stories are mostly checks, as Badge's three, with no page per piece.
-- To decide: a page per piece and what it holds, which stories are examples and which checks, so screenshots do not
-  grow with the examples, and one piece made the model, the others following in their own steps.
-- The sample page is a desktop's: a 240 px navigation and 48 px of margin on each side make it 480 px wide at 320 px,
-  so the reflow check lets it off by `gap-reflow`, since 2026-11-13. Rebuilt on `AppLayout` and `Sidebar`, which
-  already fit a phone, as an example of a real screen, it drops the tag.
-
 ## Display
 
+Each piece, at its step, follows the gallery's guide, as `docs/decisions/components.md` says: its page by `autodocs`,
+its and its props' comments as JSDoc, its stories exported where written in the order they teach, a story that only
+checks by `!autodocs`, and its data from `.storybook/data.ts`, added rather than changed.
+
+- Stat and StatGroup first, StatGroup moved here from The rest, analysed on 2026-11-12 and 2026-11-13, one point at a
+  time, before the vocabulary of variants and the guide came first. Decided:
+  - StatGroup is a `dl`, each Stat a `div` in it, its label a `dt`, its value a `dd`, as Chakra's: read together,
+    the count announced, no ARIA, and no landmark to jump between numbers, as the group's section title is one.
+  - Its parts: `StatGroup`, `Stat`, `StatLabel`, `StatValue` and `StatDescription`, the note under the number, a
+    `dd`, the word Card, Section and Item use for the muted text under the main one.
+  - `StatValue` carries `type-amount-lg`, 24/32 at 600 with tabular figures, so plain text, a " + " between amounts
+    or a count match; the formatting stays with `Amount`, `Percent` and `Quantity`, given `size="lg"`, which a story
+    checks.
+  - A change goes in `StatDescription`, a value with `sign="always"` and its tone beside the app's words, as
+    `money.md` refused a Delta piece; a badge comes by composition.
+  - Its boxes by the vocabulary: `spacing={0}`, its default, one box with lines between, as the sample page's totals;
+    more, a box each; `variant="muted"` for soft boxes; `variant="ghost"` for none. Each drawn before it is built.
+  - Still to ask: a button beside the label, as an app's "opens" icon, and loading and empty.
+  - The sample page's totals then use it, and its `CardAction className="flex gap-1"` goes, now redundant.
 - Badge, deciding its finance colours on a dark surface, with tones for success, warning, danger and information, a
   dot, and a count beside a section's title. With it, whether `--negative` gets a red of its own, close to
   `--destructive` and told apart from it in both themes, as an app asked on 2026-11-13: a position down 3% wears a
@@ -113,8 +121,7 @@ with each family. No reviewed piece has a default text, so shadcn's written stri
 
 - Tabs, with a count in a tab and tools to the right of its list. Progress, Empty, and Skeleton, with one pattern
   for loading, error and empty. Spinner and Breadcrumb. Pagination moved to Table.
-- Collapsible, IconTile, StatGroup, as the sample page's summary strip draws it, which is also what KpiStrip meant,
-  and AllocationBar. IconTile may take over the colour of categories that `ItemMedia`'s tile has by `category`, since
+- Collapsible, IconTile and AllocationBar. StatGroup moved to Display, with Stat. IconTile may take over the colour of categories that `ItemMedia`'s tile has by `category`, since
   0.18.0; then the colour moves there and Item uses it. `calendar` after
   a study like Sidebar's.
 - Link came early, before Sidebar.

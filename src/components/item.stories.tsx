@@ -1,20 +1,16 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import {
-  CarIcon,
-  GiftIcon,
-  GraduationCapIcon,
-  HeartPulseIcon,
-  HouseIcon,
-  PawPrintIcon,
-  PiggyBank,
-  PlaneIcon,
-  ShoppingCartIcon,
-  TagIcon,
-  TvIcon,
-} from "lucide-react";
+import { PiggyBank, TagIcon } from "lucide-react";
 import { RouterProvider } from "react-aria-components";
 import { expect, fn, userEvent, within } from "storybook/test";
 import { Caught } from "../../.storybook/caught.js";
+import {
+  accounts,
+  cents,
+  days,
+  longAccount,
+  payments,
+  spending,
+} from "../../.storybook/data.js";
 import { Amount } from "./amount.js";
 import { Badge } from "./badge.js";
 import { Button } from "./button.js";
@@ -48,15 +44,6 @@ const description = "Balance 1,250.00";
 const action = "Details";
 const linked = "Checking";
 const heading = "Accounts";
-const accounts = [
-  { id: "a1", name: "Account 1234", detail: "Example Bank" },
-  { id: "a2", name: "Account 5678", detail: "Fictitious Broker" },
-  { id: "a3", name: "Savings", detail: "Example Bank" },
-];
-const longName =
-  "A fictitious joint savings account whose name is long enough to need more than one line";
-const longDetail =
-  "Opened for a fictitious family's holidays, kept at a fictitious bank, with a detail that runs to three lines or more on a phone";
 
 // What the guidelines give a list of rows: a line under each row but the last, no box of its own, and the table's ends.
 const line = "1px";
@@ -94,13 +81,17 @@ function rows() {
 const meta = {
   title: "Components/Display & Media/Item",
   component: ItemGroup,
+  subcomponents: { Item, ItemMedia, ItemValue, ItemAction },
+  tags: ["autodocs"],
 } satisfies Meta<typeof ItemGroup>;
 
 type Story = StoryObj<typeof meta>;
 
-// Loose on a page: a list, each item one of its items, a line under each row but the last and no box around a row,
-// its text lined up with the page, its rows reaching 12 px out on each side.
-const Default: Story = {
+/**
+ * Loose on a page: a list, each item one of its items, a line under each row but the last and no box around a row,
+ * its text lined up with the page, its rows reaching 12 px out on each side.
+ */
+export const Default: Story = {
   tags: ["visual"],
   render: () => (
     <section className="p-6">
@@ -136,8 +127,10 @@ const Default: Story = {
   },
 };
 
-// In a card, alone in its content: edge to edge, with a line above, its text lined up with the card's title.
-const InCard: Story = {
+/**
+ * In a card, alone in its content: edge to edge, with a line above, its text lined up with the card's title.
+ */
+export const InCard: Story = {
   render: () => (
     <Card>
       <CardHeader>
@@ -171,14 +164,16 @@ const InCard: Story = {
   },
 };
 
-// Narrow, a long title and a long description wrap, and are never cut.
-const LongText: Story = {
+/**
+ * Narrow, a long title and a long description wrap, and are never cut.
+ */
+export const LongText: Story = {
   render: () => (
     <ItemGroup>
       <Item>
         <ItemContent>
-          <ItemTitle>{longName}</ItemTitle>
-          <ItemDescription>{longDetail}</ItemDescription>
+          <ItemTitle>{longAccount.name}</ItemTitle>
+          <ItemDescription>{longAccount.detail}</ItemDescription>
         </ItemContent>
       </Item>
     </ItemGroup>
@@ -193,7 +188,7 @@ const LongText: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    for (const text of [longName, longDetail]) {
+    for (const text of [longAccount.name, longAccount.detail]) {
       const element = canvas.getByText(text);
       await expect(element.getBoundingClientRect().height).toBeGreaterThan(
         lineHeight,
@@ -201,14 +196,16 @@ const LongText: Story = {
       await expect(element.scrollHeight).toBe(element.clientHeight);
     }
     await expect(
-      canvas.getByText(longDetail).getBoundingClientRect().height,
+      canvas.getByText(longAccount.detail).getBoundingClientRect().height,
     ).toBeGreaterThan(lineHeight * 2);
   },
 };
 
-// Alone, out of a list, an item is no item of a list, and keeps its box when outlined; one that opens has its link in
-// its title.
-const Alone: Story = {
+/**
+ * Alone, out of a list, an item is no item of a list, and keeps its box when outlined; one that opens has its link
+ * in its title.
+ */
+export const Alone: Story = {
   render: () => (
     <div className="flex flex-col gap-4">
       <Item variant="outline">
@@ -251,8 +248,10 @@ const Alone: Story = {
 const header = "Goal";
 const footer = "Updated today";
 
-// Every part: media as an icon and as it is, a header and a footer, and a value with nothing under it.
-const AllParts: Story = {
+/**
+ * Every part: media as an icon and as it is, a header and a footer, and a value with nothing under it.
+ */
+export const AllParts: Story = {
   render: () => (
     <ItemGroup>
       <Item>
@@ -292,12 +291,14 @@ const AllParts: Story = {
   },
 };
 
-// A row that opens: a click on an empty part of it goes to the link in its title, so keyboards and screen readers
-// keep one short link while a pointer has the whole row, which shows a pointer over it. A click on text
-// being selected stays where it is, and one with Ctrl or Cmd reaches the link with its key.
 const navigate = fn();
 
-const RowLink: Story = {
+/**
+ * A row that opens: a click on an empty part of it goes to the link in its title, so keyboards and screen readers
+ * keep one short link while a pointer has the whole row, which shows a pointer over it. A click on text being
+ * selected stays where it is, and one with Ctrl or Cmd reaches the link with its key.
+ */
+export const RowLink: Story = {
   render: () => (
     <RouterProvider navigate={navigate}>
       <ItemGroup>
@@ -357,11 +358,13 @@ const RowLink: Story = {
   },
 };
 
-// The row open beside the list, as in a side panel: aria-current, at --muted with a bar of --primary at its start,
-// which moves none of its text.
 const bar = "3px";
 
-const CurrentRow: Story = {
+/**
+ * The row open beside the list, as in a side panel: aria-current, at --muted with a bar of --primary at its start,
+ * which moves none of its text.
+ */
+export const CurrentRow: Story = {
   render: () => (
     <ItemGroup>
       {accounts.map((account) => (
@@ -404,30 +407,16 @@ const CurrentRow: Story = {
   },
 };
 
-// A row as the prototypes draw it: an icon on a tile, a title and its detail, and the value at the end, with a line
-// under it, as the day it was paid or a badge. The value is at the text's weight, keeps its tone, and never wraps,
-// while a long title gives way.
-const payments = [
-  {
-    id: "p1",
-    name: "Central Market",
-    detail: "Food",
-    value: "-286.4",
-    when: "Today",
-  },
-  {
-    id: "p2",
-    name: "A fictitious rent, paid to a landlord with a long name",
-    detail: "Home",
-    value: "-1850",
-    when: "Pending",
-  },
-];
 const tile = 40;
 const icon = 20;
 const detailSize = "12px";
 
-const IconAndValue: Story = {
+/**
+ * A row as the prototypes draw it: an icon on a tile, a title and its detail, and the value at the end, with a line
+ * under it, as the day it was paid or a badge. The value is at the text's weight, keeps its tone, and never wraps,
+ * while a long title gives way.
+ */
+export const IconAndValue: Story = {
   tags: ["visual"],
   render: () => (
     <section className="w-full max-w-96 p-6">
@@ -517,40 +506,9 @@ const IconAndValue: Story = {
   },
 };
 
-// Groups: a day's payments under its title, a heading that names the list, with the day's total at its end, as a
-// table's groups: small, semibold and muted, 12 px above the first and 32 above the next, a strong line under it.
-const days = [
-  {
-    id: "today",
-    title: "Today, October 24",
-    total: "-335.3",
-    rows: [
-      { id: "d1", name: "Central Market", value: "-286.4" },
-      { id: "d2", name: "Corner Bakery", value: "-48.9" },
-    ],
-  },
-  {
-    id: "yesterday",
-    title: "Yesterday, October 23",
-    total: "6250",
-    rows: [
-      { id: "d3", name: "Fictitious salary", value: "7250" },
-      { id: "d4", name: "Between accounts", value: "-1000" },
-    ],
-  },
-];
 const groupSize = "12px";
 const firstGap = "12px";
 const groupGap = "32px";
-
-// Fictitious sums are still sums: a decimal string in cents, exact.
-function cents(value: string): bigint {
-  const [whole = "0", decimals = ""] = value.split(".");
-  const sign = whole.startsWith("-") ? -1n : 1n;
-  return (
-    BigInt(whole) * 100n + sign * BigInt(decimals.padEnd(2, "0").slice(0, 2))
-  );
-}
 
 function statement() {
   return days.map((day) => (
@@ -578,20 +536,6 @@ function statement() {
   ));
 }
 
-// A tile takes its category's colour, the icon in it and the tile at a tenth of it, a fifth in dark; past eight the
-// colours repeat, and a row with no category keeps the quiet tile.
-const spending = [
-  { category: 1, name: "Groceries", Icon: ShoppingCartIcon },
-  { category: 2, name: "Home", Icon: HouseIcon },
-  { category: 3, name: "Transport", Icon: CarIcon },
-  { category: 4, name: "Health", Icon: HeartPulseIcon },
-  { category: 5, name: "Education", Icon: GraduationCapIcon },
-  { category: 6, name: "Travel", Icon: PlaneIcon },
-  { category: 7, name: "Subscriptions", Icon: TvIcon },
-  { category: 8, name: "Gifts", Icon: GiftIcon },
-  { category: 9, name: "Pets", Icon: PawPrintIcon },
-];
-
 function tiles(canvasElement: HTMLElement): HTMLElement[] {
   return [
     ...canvasElement.querySelectorAll('[data-slot="item-media"]'),
@@ -609,7 +553,11 @@ function tintOf(value: string, near: Element): string {
   return backgroundColor;
 }
 
-const Categories: Story = {
+/**
+ * A tile takes its category's colour, the icon in it and the tile at a tenth of it, a fifth in dark; past eight the
+ * colours repeat, and a row with no category keeps the quiet tile.
+ */
+export const Categories: Story = {
   tags: ["visual"],
   render: () => (
     <section className="w-full max-w-96 p-6">
@@ -662,8 +610,11 @@ const Categories: Story = {
   },
 };
 
-// A number that names no category, nought, below it or a fraction, keeps the quiet tile, as no category does.
-const CategoryOutOfRange: Story = {
+/**
+ * A number that names no category, nought, below it or a fraction, keeps the quiet tile, as no category does.
+ */
+export const CategoryOutOfRange: Story = {
+  tags: ["!autodocs"],
   render: () => (
     <ItemGroup>
       {[0, -1, 2.5].map((category) => (
@@ -690,7 +641,11 @@ const CategoryOutOfRange: Story = {
   },
 };
 
-const Groups: Story = {
+/**
+ * Groups: a day's payments under its title, a heading that names the list, with the day's total at its end, as a
+ * table's groups: small, semibold and muted, 12 px above the first and 32 above the next, a strong line under it.
+ */
+export const Groups: Story = {
   tags: ["visual"],
   render: () => <div className="p-6">{statement()}</div>,
   play: async ({ canvasElement }) => {
@@ -745,11 +700,13 @@ const Groups: Story = {
   },
 };
 
-// In a section, a group's title is a level below the section's; in a card, the groups run edge to edge together; and a
-// group may have no total.
 const noTotal = "Other accounts";
 
-const GroupsInSection: Story = {
+/**
+ * In a section, a group's title is a level below the section's; in a card, the groups run edge to edge together; and
+ * a group may have no total.
+ */
+export const GroupsInSection: Story = {
   render: () => (
     <Section>
       <SectionHeader>
@@ -781,12 +738,14 @@ const GroupsInSection: Story = {
   },
 };
 
-// An action on a row: a quiet icon button of 32 px, whose name joins the app's one word to the row's title, and which
-// takes no more height than the row's text, so a row with one is as tall as one without.
 const edit = "Edit";
 const target = 32;
 
-const RowAction: Story = {
+/**
+ * An action on a row: a quiet icon button of 32 px, whose name joins the app's one word to the row's title, and
+ * which takes no more height than the row's text, so a row with one is as tall as one without.
+ */
+export const RowAction: Story = {
   render: () => (
     <ItemGroup>
       {accounts.map((account, index) => (
@@ -829,8 +788,11 @@ const RowAction: Story = {
   },
 };
 
-// An action in a row with no title says so, as its name could not say which row it acts on.
-const ActionWithoutTitle: Story = {
+/**
+ * An action in a row with no title says so, as its name could not say which row it acts on.
+ */
+export const ActionWithoutTitle: Story = {
+  tags: ["!autodocs"],
   render: () => (
     <Caught>
       <ItemGroup>
@@ -854,10 +816,12 @@ const ActionWithoutTitle: Story = {
   },
 };
 
-// Empty: the group's title stays, and the app's words take the rows' place, centred and muted.
 const emptyText = "No payments today.";
 
-const Empty: Story = {
+/**
+ * Empty: the group's title stays, and the app's words take the rows' place, centred and muted.
+ */
+export const Empty: Story = {
   render: () => (
     <ItemGroup title={days[0]?.title}>
       <ItemEmpty>{emptyText}</ItemEmpty>
@@ -878,14 +842,16 @@ const Empty: Story = {
   },
 };
 
-// Loading, as a table's: the first time, shapes of a row that a screen reader skips; on a reload, the rows as they
-// are under a running bar. Either way the list is busy, and the app's words are heard.
 const loadingLabel = "Loading accounts";
 // A row with an icon, a title and its description, as the shapes stand: the description's line, 20 px, under the
 // title's, 20, with 4 between, and 12 above and below.
 const rowHeight = 68;
 
-const FirstLoad: Story = {
+/**
+ * Loading, as a table's: the first time, shapes of a row that a screen reader skips; on a reload, the rows as they
+ * are under a running bar. Either way the list is busy, and the app's words are heard.
+ */
+export const FirstLoad: Story = {
   tags: ["visual"],
   render: () => (
     <div className="p-6">
@@ -917,7 +883,11 @@ const FirstLoad: Story = {
   },
 };
 
-const FirstLoadFew: Story = {
+/**
+ * Fewer shapes than the default five, when an app knows the list is short.
+ */
+export const FirstLoadFew: Story = {
+  tags: ["!autodocs"],
   render: () => (
     <ItemGroup isLoading={true} loadingLabel={loadingLabel} loadingRows={3} />
   ),
@@ -928,7 +898,10 @@ const FirstLoadFew: Story = {
   },
 };
 
-const Reloading: Story = {
+/**
+ * Loading again: the rows stay as they are, under a running bar, while the list is busy.
+ */
+export const Reloading: Story = {
   render: () => (
     <ItemGroup isLoading={true} loadingLabel={loadingLabel}>
       {rows()}
@@ -949,7 +922,11 @@ const Reloading: Story = {
   },
 };
 
-const NotLoading: Story = {
+/**
+ * Loading ended: the list is no longer busy, and the bar and the shapes are gone.
+ */
+export const NotLoading: Story = {
+  tags: ["!autodocs"],
   render: () => (
     <ItemGroup isLoading={false} loadingLabel={loadingLabel}>
       {rows()}
@@ -964,8 +941,6 @@ const NotLoading: Story = {
   },
 };
 
-// Compact: rows with 8 px above and below, a 32 px tile, and groups 20 px apart, 8 under the first's top; and its
-// shapes while loading as close. A row's shapes stand as tall as a row.
 const compactSpace = "8px";
 const compactTile = 32;
 const compactFirstGap = "8px";
@@ -988,7 +963,11 @@ function paymentRow(row: { id: string; name: string; value: string }) {
   );
 }
 
-const Compact: Story = {
+/**
+ * Compact: rows with 8 px above and below, a 32 px tile, and groups 20 px apart, 8 under the first's top; and its
+ * shapes while loading as close. A row's shapes stand as tall as a row.
+ */
+export const Compact: Story = {
   tags: ["visual"],
   render: () => (
     <div className="p-6">
@@ -1031,11 +1010,13 @@ const Compact: Story = {
   },
 };
 
-// A short list that has more: one line in its card's footer, the app's words with a link to the rest at its end.
 const shown = "Showing 3 of 12 · ";
 const seeAll = "See all accounts";
 
-const SeeAll: Story = {
+/**
+ * A short list that has more: one line in its card's footer, the app's words with a link to the rest at its end.
+ */
+export const SeeAll: Story = {
   render: () => (
     <Card>
       <CardHeader>
@@ -1066,26 +1047,3 @@ const SeeAll: Story = {
 };
 
 export default meta;
-export {
-  ActionWithoutTitle,
-  AllParts,
-  Alone,
-  Categories,
-  CategoryOutOfRange,
-  Compact,
-  CurrentRow,
-  Default,
-  Empty,
-  FirstLoad,
-  FirstLoadFew,
-  Groups,
-  GroupsInSection,
-  IconAndValue,
-  InCard,
-  LongText,
-  NotLoading,
-  Reloading,
-  RowAction,
-  RowLink,
-  SeeAll,
-};

@@ -12,11 +12,12 @@ const preview: Preview = {
     }),
   ],
   parameters: {
-    // Pieces first, under shadcn's groups as its docs list its components, then the sample page, each in the
-    // alphabet's order. Storybook reads this as text, so it names no import, and test/pieces.test.ts reads it too.
+    // Pieces first, under shadcn's groups as its docs list its components, then the sample page, each piece in the
+    // alphabet's order, as its files load, and each piece's stories in its file's, as its page teaches them. Storybook
+    // reads this as text, so it names no import, and test/pieces.test.ts reads it too.
     options: {
       storySort: {
-        method: "alphabetical",
+        method: "configure",
         order: [
           "Components",
           [

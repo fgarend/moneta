@@ -71,6 +71,12 @@
       "linter": { "rules": { "style": { "noDefaultExport": "off" } } }
     },
     {
+      // Storybook reads a story's comment where the story is exported, for the piece's page, and keeps the file's
+      // order, so each story is exported where it is written.
+      "includes": ["**/*.stories.tsx"],
+      "linter": { "rules": { "style": { "useExportsLast": "off" } } }
+    },
+    {
       // The repository's checks run on Node, and read its files.
       "includes": ["test/**"],
       "linter": { "rules": { "correctness": { "noNodejsModules": "off" } } }
