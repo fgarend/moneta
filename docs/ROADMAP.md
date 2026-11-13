@@ -9,7 +9,7 @@ known and what is still to ask, are in [`roadmap-notes.md`](roadmap-notes.md), r
 ## Next, in order
 
 1. **Display.** The pieces that show, reviewed or made.
-    - Stat and StatGroup, then Badge, Card, Alert, and Avatar and AvatarGroup
+    - IconTile, then Stat and StatGroup, then Badge, Card, Alert, and Avatar and AvatarGroup
     - Separator, Kbd, AspectRatio and ScrollArea, then DescriptionList, Timeline and TickerChip
 2. **Actions and forms.** The pieces that act and take input, reviewed or made.
     - Button, ButtonGroup and PageHeader
@@ -29,7 +29,7 @@ known and what is still to ask, are in [`roadmap-notes.md`](roadmap-notes.md), r
 4. **The rest.** The other pieces, reviewed or made.
     - Tabs, Progress, Meter, Empty, Skeleton and Spinner
     - Breadcrumb, Steps and Banner
-    - Collapsible, IconTile and AllocationBar
+    - Collapsible and AllocationBar
     - a bar of actions at the page's foot, a virtualised list, and Toast
     - `calendar`, after a study
 5. **Charts.** Line, area, bars and donut, a ring and BarList, each with a table of its data.

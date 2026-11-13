@@ -41,7 +41,49 @@ Each piece, at its step, follows the gallery's guide, as `docs/decisions/compone
 its and its props' comments as JSDoc, its stories exported where written in the order they teach, a story that only
 checks by `!autodocs`, and its data from `.storybook/data.ts`, added rather than changed.
 
-- Stat and StatGroup first, StatGroup moved here from The rest, analysed on 2026-11-12 and 2026-11-13, one point at a
+- IconTile first, moved here from The rest on 2026-11-13, when Stat's analysis reached its icon: an icon in a square
+  or a circle, in a soft tone, solid, outlined or emphasised, as the list of gaps put it on 2026-11-09. It is the
+  prototype's most repeated element, in Stat, panels, lists and cells, and the app's in Stat and panels. Seen on
+  2026-11-13:
+  - the prototype's overview draws a 48 px filled circle left of a number's label and value, white on the text's
+    colour, the first one gold; its goals draw the same circle beside a card's title; its accounts', goals' and
+    portfolio's summaries draw no icon;
+  - of shadcn, Tremor, Mantine, Untitled UI, Chakra and Ant Design, the icon is optional everywhere: most often a
+    bare muted glyph of 16 to 22 px at the label row's end, then a tile or circle at the left, 48 px above the label
+    (Untitled) or small before it (Tremor); a brand or tinted fill, or a colour per number, is rare;
+  - `ItemMedia variant="icon"`, a 40 px tile at `--muted`, coloured by `category` since 0.18.0, which would draw an
+    IconTile and keep its props.
+  Decided on 2026-11-13, one point at a time, each drawn:
+  - **What its colour says follows the theme's families:** a category's soft tint tells kinds apart; neutral, soft
+    in a row with none, or solid as the anchor of a number or a card's title, says weight, not meaning; gold, the
+    brand, marks the screen's headline. No meaning's colour: a value's tone, a change's sign and arrow, and Badge
+    say good or bad where they are read, as the prototype's own green and red tiles, defined, were used on none of
+    its 29 screens. A `tone` as Amount's waits for a screen that asks.
+  - **Two shapes,** by `shape`: a square by default, as in rows, and `shape="circle"`, as by a number or a card's
+    title.
+  - **Three tones,** by `variant`: `default`, soft, neutral or the category's tint by `category={n}`; `solid`, the
+    text's colour with the icon in the background's, a name of its own; and `gold`, which enters the vocabulary as a
+    second piece needs it. Gold on a tile once per screen, for its headline, beside one gold action: the guidelines'
+    "gold is for little" says so.
+  - **Three sizes,** its own scale as Avatar's: `sm` 32 px with a 16 px icon, `default` 40 with 20, `lg` 48 with 24.
+  - **Always decorative,** hidden from screen readers, as words beside it always say what it is; never alone, as the
+    guidelines say. A name of its own waits for a screen that shows it alone.
+  - **The parent says how it behaves,** as a title takes its level from where it sits: an IconTile is written
+    straight in Item, Stat or Empty, which lays it out and gives its shape, size and tone, a prop given by hand
+    winning. In Item, a square of 40 px, or 32 in a compact list. So `ItemMedia` keeps images and avatars, as
+    shadcn's, and loses `variant="icon"` and `category`, a breaking change in Moneta's own stories and sample page
+    alone, as the app's one `ItemMedia` holds an avatar. Stat and Empty follow at their steps.
+  - **Its icon is its child,** as every icon in Moneta and shadcn, typed as one element, so an empty tile or a text
+    fails the types.
+  - **A rule across pieces came with it:** a piece takes its defaults from where it sits. It may also give Amount
+    its size in `StatValue`, Avatar its size in a row and a control its size in a table's row, each weighed at its
+    piece's step.
+  - WCAG: 1.1.1, hidden as decoration, by a story; 1.4.1, a category's colour with its name beside; 1.4.11, the icon
+    at 3:1 on each tile in both modes, by `test/theme.test.ts`; forced colours, the icon kept when the tile's fill
+    goes, by the check on every story.
+  - A new piece and a breaking change, so 0.22.0.
+- Stat and StatGroup next, StatGroup moved here from The rest, its icon an IconTile written in Stat, a solid circle
+  of 48 px left of its label and value by default, as the prototype's overview, gold for the headline, analysed on 2026-11-12 and 2026-11-13, one point at a
   time, before the vocabulary of variants and the guide came first. Decided:
   - StatGroup is a `dl`, each Stat a `div` in it, its label a `dt`, its value a `dd`, as Chakra's: read together,
     the count announced, no ARIA, and no landmark to jump between numbers, as the group's section title is one.
@@ -49,17 +91,30 @@ checks by `!autodocs`, and its data from `.storybook/data.ts`, added rather than
     `dd`, the word Card, Section and Item use for the muted text under the main one.
   - `StatValue` carries `type-amount-lg`, 24/32 at 600 with tabular figures, so plain text, a " + " between amounts
     or a count match; the formatting stays with `Amount`, `Percent` and `Quantity`, given `size="lg"`, which a story
-    checks.
+    checks. To weigh again by the rule that came with IconTile: `StatValue` giving them their size.
   - A change goes in `StatDescription`, a value with `sign="always"` and its tone beside the app's words, as
     `money.md` refused a Delta piece; a badge comes by composition.
   - Its boxes by the vocabulary: `spacing={0}`, its default, one box with lines between, as the sample page's totals;
     more, a box each; `variant="muted"` for soft boxes; `variant="ghost"` for none. Each drawn before it is built.
-  - Still to ask: a button beside the label, as an app's "opens" icon, and loading and empty.
+  - `StatAction`, a quiet icon button beside the label, as `ItemAction`: 32 px to touch, taking no more height than
+    the label's line, its name the app's one word joined to the label, as "Open Invested", and an error with no
+    label, as an app opens what a number is made of from it.
+  - Loading as `ItemGroup` and `Table`: `isLoading` and `loadingLabel` on `StatGroup`; the first time, the labels
+    stay and a shape takes each value's place; on a reload, the values stay; either way the group is busy and the
+    app's words are heard. No value is `Amount`'s dash, with the app's words, so nothing new.
+  - The model of the guide: its page by `autodocs`, JSDoc on its parts and props, examples in the order they teach,
+    checks off the page, and the household's totals from `.storybook/data.ts`.
+  - WCAG: 1.3.1, the list read as terms and values, by a story; 1.4.1, a change said by its sign and the app's words;
+    1.4.3, the muted label on the card; 1.4.10, the boxes wrapping at 320 px, by the reflow check; 2.5.8, the action's
+    32 px; 4.1.2, the action's name; 4.1.3, the load heard, by a story.
   - The sample page's totals then use it, and its `CardAction className="flex gap-1"` goes, now redundant.
+  - A new piece, so a version of its own.
 - Badge, deciding its finance colours on a dark surface, with tones for success, warning, danger and information, a
   dot, and a count beside a section's title. With it, whether `--negative` gets a red of its own, close to
   `--destructive` and told apart from it in both themes, as an app asked on 2026-11-13: a position down 3% wears a
-  failed import's red on the same screen. `theme.md` chose one red, so the theme keeps one; asked again.
+  failed import's red on the same screen. `theme.md` chose one red, so the theme keeps one; asked again. With them, whether
+  `--positive` stays green or turns blue, raised on 2026-11-13, as one decision for values, changes, charts and
+  badges; an IconTile takes no meaning's colour, decided the same day.
 - Card, whose title is a `div`, to take a heading's level as `docs/decisions/components.md` says, deciding where
   code shared by pieces lives, and whether an app gets a `Heading` that reads the level. Two second forms an app
   builds by classes today: a card with no padding, its content to the edges, for a table or a group of numbers; and
@@ -121,9 +176,7 @@ checks by `!autodocs`, and its data from `.storybook/data.ts`, added rather than
 
 - Tabs, with a count in a tab and tools to the right of its list. Progress, Empty, and Skeleton, with one pattern
   for loading, error and empty. Spinner and Breadcrumb. Pagination moved to Table.
-- Collapsible, IconTile and AllocationBar. StatGroup moved to Display, with Stat. IconTile may take over the colour of categories that `ItemMedia`'s tile has by `category`, since
-  0.18.0; then the colour moves there and Item uses it. `calendar` after
-  a study like Sidebar's.
+- Collapsible and AllocationBar. StatGroup and IconTile moved to Display. `calendar` after a study like Sidebar's.
 - Link came early, before Sidebar.
 - Steps, Banner, and Meter, which says how much of a limit is used, unlike Progress, with a target's mark.
 - A bar of actions fixed at the foot of the page, a list virtualised for thousands of rows, on React Aria's
