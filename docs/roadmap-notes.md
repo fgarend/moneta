@@ -22,36 +22,6 @@ scale of sizes may need a touch when they arrive, and Sidebar's study may change
 later: a page that puts the pieces together, a pre-release tried in an app before a version, and a review of the whole
 after each family.
 
-## One scale of sizes
-
-The look's 32, 36 and 40 px. Decided on 2026-11-12, one point at a time, after a study of shadcn, Primer, Polaris,
-Carbon, Atlassian, Spectrum and MUI, which mostly give buttons, fields and selects one height per name, so a row lines
-up. Today only Button, Toggle and ToggleGroup have all three; Select, NativeSelect and DateField stop at 36; Input,
-InputGroup and Tabs have only 36, so a field beside a page's main action takes `h-10` by hand, as the sample page does.
-
-- **The controls a row holds side by side follow it:** Button, Toggle, ToggleGroup, Input, InputGroup, Select,
-  NativeSelect, DateField and Tabs, each at 32, 36 and 40. Badge, Kbd, Avatar, Checkbox, RadioGroup and Switch keep
-  their own sizes, as none of the systems studied grows a badge to a control's height. **What it costs:** Avatar's and
-  Item's size names mean other heights.
-- **shadcn's names, `sm`, `default` and `lg`,** which Button and Toggle already take, so nothing breaks; the fields
-  gain what they lack. Button's `xs`, 24 px, stays outside the scale. **What it costs:** `default` does not say its
-  size, as `medium` would, and `xs` is an exception.
-- **`density` stays for ItemGroup and Table,** `default` or `compact`, apart from a control's size, as Spectrum, Primer
-  and MUI part them: rows of 44 or 36 px hold controls of 32 either way. **What it costs:** one more word, and a row of
-  44 px is off the scale, being a row and not a control.
-- **Item's `size` as shadcn writes it,** whose `default` and `sm` are the same in shadcn's own file, a gap written in
-  `pieces.md`. **What it costs:** a value that does nothing may mislead.
-- **Icons as shadcn sizes them:** 12 px at `xs`, 14 at `sm`, 16 at `default` and `lg`, following the text, which is
-  12 px at `sm`; written into the guidelines, with the other pieces' own sizes as they are. **What it costs:**
-  Lucide's stroke is thinner at 14.
-- **The heights as classes in each piece,** `h-8`, `h-9` and `h-10`, as shadcn writes them, so its updates merge as
-  before. **What it costs:** an app cannot change every control at once; tokens for that wait in Later's "The scale of
-  the whole system".
-- **A `Sizes` story in each of the nine,** measuring 32, 36 and 40 px, and Button's icons at 14 and 16. The sample
-  page's field beside its main action takes `size="lg"` in place of `h-10`, checked as tall as the button. **What it
-  costs:** a new control may forget its story, as a single list of them would.
-- **WCAG to check:** 2.5.8, each size at 24 px or more, by the stories; the rest as each piece has it.
-
 ## Layout and text
 
 What replaces `flex`, `gap-*` and `text-*`, which shadcn does not have and most of an app's classes are. Own code,
