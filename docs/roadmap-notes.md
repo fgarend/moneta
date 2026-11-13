@@ -35,33 +35,27 @@ with each family. No reviewed piece has a default text, so shadcn's written stri
 **Done when:** an app can build every screen from Moneta's pieces with no class of its own, and leaves Tailwind for
 `styles.css`. Until then, it keeps Tailwind only for the classes it still writes.
 
-## The gallery as a guide
-
-The gallery as a guide for whoever uses Moneta: what exists and how to use it, each piece's variants, sizes and
-states, in examples with fictitious data that reads as real use. Raised and decided on 2026-11-13, one point at a
-time, after reading Storybook 10's docs on docs pages, tags and descriptions, and shadcn's and Radix Themes' pages.
-Today: 261 stories, every one a test with a `play`, 42 with a screenshot, unevenly spread, Table with 37 and 20
-pieces with one or two, each file inventing its own data, and no page per piece.
-
-- **A page per piece, Storybook's own,** by `@storybook/addon-docs` and the `autodocs` tag: the piece's comment,
-  its first story, a table of controls to try each prop, and its other stories, each with its comment, as the docs
-  prefer comments to parameters. **What it costs:** Storybook's order and form, and a new package to keep. A piece
-  that needs more can take an MDX page of its own later.
-- **Every example passes every check,** axe, reflow, text spacing, forced colours, focus, layers and motion, in the
-  three browsers; only a `visual` one takes a screenshot. **What it costs:** run time grows with each example.
-- **A story that only checks leaves the page** by `!autodocs`, and stays in the sidebar and the tests.
-- **One fictitious household's money, in `.storybook/data.ts`,** as `sizes.ts`: accounts, cards, payments,
-  holdings, people and institutions, in reais and some dollars, with made-up names that read real. Each piece moves
-  its stories to it in its own step; data is added rather than changed, so screenshots hold.
-- **Item is the model,** a reviewed piece, so nothing else changes in it: its variants, sizes, density, media and
-  categories, loading and empty, and holding `Amount` and `Badge`, sorted into examples and checks.
-- The sample page is a desktop's: a 240 px navigation and 48 px of margin on each side make it 480 px wide at 320 px,
-  so the reflow check lets it off by `gap-reflow`, since 2026-11-13. Rebuilt here on `AppLayout` and `Sidebar`, with
-  the shared data, it drops the tag, shown before it is committed.
-- No version of its own: the gallery is published with a release, so the guide goes out with the next.
-
 ## Display
 
+Each piece, at its step, follows the gallery's guide, as `docs/decisions/components.md` says: its page by `autodocs`,
+its and its props' comments as JSDoc, its stories exported where written in the order they teach, a story that only
+checks by `!autodocs`, and its data from `.storybook/data.ts`, added rather than changed.
+
+- Stat and StatGroup first, StatGroup moved here from The rest, analysed on 2026-11-12 and 2026-11-13, one point at a
+  time, before the vocabulary of variants and the guide came first. Decided:
+  - StatGroup is a `dl`, each Stat a `div` in it, its label a `dt`, its value a `dd`, as Chakra's: read together,
+    the count announced, no ARIA, and no landmark to jump between numbers, as the group's section title is one.
+  - Its parts: `StatGroup`, `Stat`, `StatLabel`, `StatValue` and `StatDescription`, the note under the number, a
+    `dd`, the word Card, Section and Item use for the muted text under the main one.
+  - `StatValue` carries `type-amount-lg`, 24/32 at 600 with tabular figures, so plain text, a " + " between amounts
+    or a count match; the formatting stays with `Amount`, `Percent` and `Quantity`, given `size="lg"`, which a story
+    checks.
+  - A change goes in `StatDescription`, a value with `sign="always"` and its tone beside the app's words, as
+    `money.md` refused a Delta piece; a badge comes by composition.
+  - Its boxes by the vocabulary: `spacing={0}`, its default, one box with lines between, as the sample page's totals;
+    more, a box each; `variant="muted"` for soft boxes; `variant="ghost"` for none. Each drawn before it is built.
+  - Still to ask: a button beside the label, as an app's "opens" icon, and loading and empty.
+  - The sample page's totals then use it, and its `CardAction className="flex gap-1"` goes, now redundant.
 - Badge, deciding its finance colours on a dark surface, with tones for success, warning, danger and information, a
   dot, and a count beside a section's title. With it, whether `--negative` gets a red of its own, close to
   `--destructive` and told apart from it in both themes, as an app asked on 2026-11-13: a position down 3% wears a
@@ -127,8 +121,7 @@ pieces with one or two, each file inventing its own data, and no page per piece.
 
 - Tabs, with a count in a tab and tools to the right of its list. Progress, Empty, and Skeleton, with one pattern
   for loading, error and empty. Spinner and Breadcrumb. Pagination moved to Table.
-- Collapsible, IconTile, StatGroup, as the sample page's summary strip draws it, which is also what KpiStrip meant,
-  and AllocationBar. IconTile may take over the colour of categories that `ItemMedia`'s tile has by `category`, since
+- Collapsible, IconTile and AllocationBar. StatGroup moved to Display, with Stat. IconTile may take over the colour of categories that `ItemMedia`'s tile has by `category`, since
   0.18.0; then the colour moves there and Item uses it. `calendar` after
   a study like Sidebar's.
 - Link came early, before Sidebar.
