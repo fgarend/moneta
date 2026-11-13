@@ -78,6 +78,8 @@ Each becomes an item when its time comes.
 - **The sample page's text in the dark stories.** Light's colour, where its dark screenshot is right.
 - **A less-motion test that stalled once in WebKit.** Opening and closing Dialog stopped the page past every wait,
   1 run in 7 after Playwright 1.65.0 on 2026-11-12, and never again alone or under load. If it returns.
+- **A Firefox page that crashed once, out of memory.** In `make stories` on 2026-11-13, a run after reflow entered,
+  with every test run passing, and not on the next run. If it returns.
 - **Sidebar's further functions.** Collapsed to icons with tooltips, counts, sections that open, nested items, a
   keyboard shortcut. When an app asks.
 - **Skeleton's and Progress's less motion, asked of each browser.** As the overlays' is, in place of reading the

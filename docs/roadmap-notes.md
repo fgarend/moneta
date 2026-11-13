@@ -37,14 +37,28 @@ with each family. No reviewed piece has a default text, so shadcn's written stri
 
 ## The gallery as a guide
 
-- Raised on 2026-11-13: the gallery is a guide for whoever uses Moneta, to see what exists and how to use it, with
-  each piece's variants, sizes and states in combination, and fictitious data that reads as real use.
-- Today its stories are mostly checks, as Badge's three, with no page per piece.
-- To decide: a page per piece and what it holds, which stories are examples and which checks, so screenshots do not
-  grow with the examples, and one piece made the model, the others following in their own steps.
+The gallery as a guide for whoever uses Moneta: what exists and how to use it, each piece's variants, sizes and
+states, in examples with fictitious data that reads as real use. Raised and decided on 2026-11-13, one point at a
+time, after reading Storybook 10's docs on docs pages, tags and descriptions, and shadcn's and Radix Themes' pages.
+Today: 261 stories, every one a test with a `play`, 42 with a screenshot, unevenly spread, Table with 37 and 20
+pieces with one or two, each file inventing its own data, and no page per piece.
+
+- **A page per piece, Storybook's own,** by `@storybook/addon-docs` and the `autodocs` tag: the piece's comment,
+  its first story, a table of controls to try each prop, and its other stories, each with its comment, as the docs
+  prefer comments to parameters. **What it costs:** Storybook's order and form, and a new package to keep. A piece
+  that needs more can take an MDX page of its own later.
+- **Every example passes every check,** axe, reflow, text spacing, forced colours, focus, layers and motion, in the
+  three browsers; only a `visual` one takes a screenshot. **What it costs:** run time grows with each example.
+- **A story that only checks leaves the page** by `!autodocs`, and stays in the sidebar and the tests.
+- **One fictitious household's money, in `.storybook/data.ts`,** as `sizes.ts`: accounts, cards, payments,
+  holdings, people and institutions, in reais and some dollars, with made-up names that read real. Each piece moves
+  its stories to it in its own step; data is added rather than changed, so screenshots hold.
+- **Item is the model,** a reviewed piece, so nothing else changes in it: its variants, sizes, density, media and
+  categories, loading and empty, and holding `Amount` and `Badge`, sorted into examples and checks.
 - The sample page is a desktop's: a 240 px navigation and 48 px of margin on each side make it 480 px wide at 320 px,
-  so the reflow check lets it off by `gap-reflow`, since 2026-11-13. Rebuilt on `AppLayout` and `Sidebar`, which
-  already fit a phone, as an example of a real screen, it drops the tag.
+  so the reflow check lets it off by `gap-reflow`, since 2026-11-13. Rebuilt here on `AppLayout` and `Sidebar`, with
+  the shared data, it drops the tag, shown before it is committed.
+- No version of its own: the gallery is published with a release, so the guide goes out with the next.
 
 ## Display
 
