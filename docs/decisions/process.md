@@ -52,8 +52,9 @@ How decisions are kept, and how the work moves.
   - **Its relations:** the pieces used with it, those to design with it, and those it could be confused
     with. A neighbour is read up to its boundary with this piece, and keeps a step of its own.
   - **Its contract:** its parts and props, by the library's conventions, its states, such as loading,
-    error, disabled, read-only and empty, its sizes and variants, the tokens it reads or asks for, what it
-    leaves to whoever uses it, its semantics and keyboard, and the WCAG criteria that apply.
+    error, disabled, read-only and empty, its sizes and variants, each named from `components.md`'s vocabulary or
+    with the reason for a new name, the tokens it reads or asks for, what it leaves to whoever uses it, its
+    semantics and keyboard, and the WCAG criteria that apply.
   - **Its text:** where each word it shows comes from, as it has none of its own, and how it reads in
     another language.
   - **Its behaviour:** on narrow and short screens, in density, with reduced motion, in light and dark, and
@@ -118,3 +119,4 @@ rest.
 - 2026-11-09: The analysis covers tokens, blocks and new variants, names the levels and says how users move.
 - 2026-11-09: A shadcn piece enters under the rule, with what the CLI wrote kept in `upstream/shadcn/`.
 - 2026-11-10: Pieces that share one design are one step.
+- 2026-11-13: A variant's name comes from the vocabulary.

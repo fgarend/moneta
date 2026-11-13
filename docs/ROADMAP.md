@@ -4,14 +4,17 @@ Moneta is the source of truth for components: an app builds its screens from its
 own. What it lacks is added here, in this order, which a new need can change. The details of each item, what is
 known and what is still to ask, are in [`roadmap-notes.md`](roadmap-notes.md), read when the item starts.
 
-**Now:** 1. Display.
+**Now:** 1. A table's hidden header.
 
 ## Next, in order
 
-1. **Display.** The pieces that show, reviewed or made.
+1. **A table's hidden header.** It widens the page on a phone, a fix an app asked for.
+2. **The gallery as a guide.** Each piece's variants, sizes and states, in examples with fictitious data that reads
+   as real use.
+3. **Display.** The pieces that show, reviewed or made.
     - Badge, Card, Avatar and AvatarGroup, Alert and Separator
     - Stat, DescriptionList, Kbd, AspectRatio, ScrollArea, Timeline and TickerChip
-2. **Actions and forms.** The pieces that act and take input, reviewed or made.
+4. **Actions and forms.** The pieces that act and take input, reviewed or made.
     - Button, ButtonGroup and PageHeader
     - Input, InputGroup, Textarea, Label, Field, NativeSelect, Select and SearchField
     - Checkbox, RadioGroup, Switch, Toggle, ToggleGroup and Slider
@@ -22,25 +25,25 @@ known and what is still to ask, are in [`roadmap-notes.md`](roadmap-notes.md), r
     - how a form connects, with a server's errors
     - `combobox`, after a study
     - Button's `link` variant beside Link, and a disabled `LinkButton`, which is not dimmed
-3. **Overlays.** The pieces that open over the page, reviewed or made.
+5. **Overlays.** The pieces that open over the page, reviewed or made.
     - Dialog, AlertDialog and Sheet
     - Popover, HoverCard, DropdownMenu, ContextMenu, Tooltip and Toggletip
     - text spacing and forced colours on what an overlay draws when open
-4. **The rest.** The other pieces, reviewed or made.
+6. **The rest.** The other pieces, reviewed or made.
     - Tabs, Progress, Meter, Empty, Skeleton and Spinner
     - Breadcrumb, Steps and Banner
     - Collapsible, IconTile, StatGroup and AllocationBar
     - a bar of actions at the page's foot, a virtualised list, and Toast
     - `calendar`, after a study
-5. **Charts.** Line, area, bars and donut, a ring and BarList, each with a table of its data.
-6. **MoneyInput.** Entering an amount.
-7. **CurrencySelect.** Choosing a currency.
-8. **A stable API.** What each state promises after 1.0.
+7. **Charts.** Line, area, bars and donut, a ring and BarList, each with a table of its data.
+8. **MoneyInput.** Entering an amount.
+9. **CurrencySelect.** Choosing a currency.
+10. **A stable API.** What each state promises after 1.0.
     - every piece reviewed
     - the accessibility script run by hand, with a screen reader and real zoom
     - a policy for deprecating
-9. **Stricter checks.** `exactOptionalPropertyTypes`, if React Aria's types pass it.
-10. **Release 1.0.0.**
+11. **Stricter checks.** `exactOptionalPropertyTypes`, if React Aria's types pass it.
+12. **Release 1.0.0.**
 
 ## Later, in no order
 
@@ -64,6 +67,7 @@ Each becomes an item when its time comes.
 - **An update bot.**
 - **Storybook's accepted advisories and deprecated loader.** When Storybook moves.
 - **`make watch`.** When running every story to check one slows the work.
+- **The update command in `updating.md`.** It kept a package at its version once, found on 2026-11-13.
 - **`actionlint`.** If a workflow fails on something it finds.
 - **Biome's `noTailwindArbitraryValue`.** In place of our own scan of classes.
 - **The gallery's own types.** TypeScript skips most of `.storybook/`, found on 2026-11-09.
@@ -85,6 +89,8 @@ Each becomes an item when its time comes.
 
 ## Done
 
+- **One vocabulary of variants.** A name means one look in every piece, by shadcn's names: a control's, a surface's
+  and a meaning's, and a group's boxes joined or parted by `spacing`. No piece changed. 0.21.0.
 - **Layout and text.** No layout pieces of our own: `SectionTitle`, `SectionAction` and `CardAction` lay what they
   hold, and the guidelines give muted text and counts. 0.20.0.
 - **One scale of sizes.** Every control a row holds at 32, 36 or 40 px by shadcn's `sm`, `default` and `lg`, the

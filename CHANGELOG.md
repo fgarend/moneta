@@ -6,6 +6,15 @@ gets its number.
 
 ## [Unreleased]
 
+## [0.21.0] - 2026-11-13
+
+One vocabulary of variants: a variant's name means one look in every piece, which the guidelines now say.
+
+### Added
+
+- The guidelines' Variants: a variant's name means one look in every piece, a control's, a surface's or a
+  meaning's, and a group joins or parts its items by `spacing`. No piece changes.
+
 ## [0.20.0] - 2026-11-12
 
 Layout and text: a section's title lays a count beside its words, and a section's or a card's action lays several
@@ -386,7 +395,8 @@ and dark. `README.md` says how to install and use it.
 
 A rehearsal of the release's path, not meant to be installed. Use a later version.
 
-[Unreleased]: https://github.com/fgarend/moneta/compare/v0.20.0...HEAD
+[Unreleased]: https://github.com/fgarend/moneta/compare/v0.21.0...HEAD
+[0.21.0]: https://github.com/fgarend/moneta/compare/v0.20.0...v0.21.0
 [0.20.0]: https://github.com/fgarend/moneta/compare/v0.19.0...v0.20.0
 [0.19.0]: https://github.com/fgarend/moneta/compare/v0.18.0...v0.19.0
 [0.18.0]: https://github.com/fgarend/moneta/compare/v0.17.0...v0.18.0

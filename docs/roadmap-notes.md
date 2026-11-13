@@ -35,14 +35,34 @@ with each family. No reviewed piece has a default text, so shadcn's written stri
 **Done when:** an app can build every screen from Moneta's pieces with no class of its own, and leaves Tailwind for
 `styles.css`. Until then, it keeps Tailwind only for the classes it still writes.
 
+## A table's hidden header
+
+- Reported by an app on 2026-11-13: a `TableHead` with `hideHeader` draws an `sr-only` span, `position: absolute`, and
+  `table-container` is not `relative`, so on a 375 px screen a table wider than its card makes the whole page scroll
+  sideways. The fix asked: `relative` on `table-container`, with a story at 375 px that fails first.
+
+## The gallery as a guide
+
+- Raised on 2026-11-13: the gallery is a guide for whoever uses Moneta, to see what exists and how to use it, with
+  each piece's variants, sizes and states in combination, and fictitious data that reads as real use.
+- Today its stories are mostly checks, as Badge's three, with no page per piece.
+- To decide: a page per piece and what it holds, which stories are examples and which checks, so screenshots do not
+  grow with the examples, and one piece made the model, the others following in their own steps.
+
 ## Display
 
 - Badge, deciding its finance colours on a dark surface, with tones for success, warning, danger and information, a
-  dot, and a count beside a section's title.
+  dot, and a count beside a section's title. With it, whether `--negative` gets a red of its own, close to
+  `--destructive` and told apart from it in both themes, as an app asked on 2026-11-13: a position down 3% wears a
+  failed import's red on the same screen. `theme.md` chose one red, so the theme keeps one; asked again.
 - Card, whose title is a `div`, to take a heading's level as `docs/decisions/components.md` says, deciding where
-  code shared by pieces lives, and whether an app gets a `Heading` that reads the level.
+  code shared by pieces lives, and whether an app gets a `Heading` that reads the level. Two second forms an app
+  builds by classes today: a card with no padding, its content to the edges, for a table or a group of numbers; and
+  a title at a section's size, for a card that is a part of the page.
 - Section came early, before Sidebar, and Table comes there too.
-- Avatar with its group, AvatarGroup, whose fallback's text an app measured at 4.34:1.
+- Avatar with its group, AvatarGroup, whose fallback's text an app measured at 4.34:1. Drawn as a `span`, keeping its
+  `flex`, as an app asked on 2026-11-13: it sits beside a name inside a `p` or a `span`, as an `ItemDescription`, where
+  a `div` is not allowed and React warns.
 - Alert. Item moved to Lists of rows. Separator, Stat, DescriptionList, Kbd, AspectRatio, ScrollArea,
   Timeline and TickerChip.
 
@@ -55,7 +75,9 @@ with each family. No reviewed piece has a default text, so shadcn's written stri
   the 3:1 of WCAG 1.4.11.
 - Select, and when to use it or NativeSelect.
 - Checkbox, which draws a check when indeterminate, and RadioGroup, in a row as well, their items growing for their
-  label, which today they do not. Switch, Toggle, and ToggleGroup, weighing a segmented control, SegmentedControl,
+  label, which today they do not. A visible label that is also their name and what a click takes, written in the
+  guidelines, as a `FieldLabel` around the box and its words: an app asked on 2026-11-13, as it names each by
+  `aria-label` and hides the words beside it, so a click on them checks nothing. Switch, Toggle, and ToggleGroup, weighing a segmented control, SegmentedControl,
   against a radio in line.
 - DateField came early, before Sidebar. SearchField, FilePicker, ChoiceCard, and `combobox` after a study like
   Sidebar's.
@@ -176,6 +198,9 @@ With `check-release`'s rules for the numbers after it, as a change that breaks t
   warns of 11 `SIGTERM` listeners, with this many browser projects.
 - **`make watch`.** Repeats the tests on each saved file. Weighed when running all of `make stories` to check one
   test slows the work, with the time measured.
+- **The update command in `updating.md`.** On 2026-11-13, `pnpm add -D lucide-react` with no version said the
+  lockfile was up to date and kept 1.69.0, though 1.70.0 was past the release age; `lucide-react@1.70.0` moved it.
+  Whether the command should name the version, or `pnpm update --latest` serves.
 - **`actionlint`.** Biome reads a workflow's YAML, but not GitHub's rules. It ran once by hand on 2026-11-06, with
   nothing found, and would be one more image to keep. Weighed if a workflow fails on something it finds.
 - **Biome's `noTailwindArbitraryValue`.** It may replace the class scan in `test/pieces.test.ts`, which is a long
