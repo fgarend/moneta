@@ -9,7 +9,8 @@ known and what is still to ask, are in [`roadmap-notes.md`](roadmap-notes.md), r
 ## Next, in order
 
 1. **Display.** The pieces that show, reviewed or made.
-    - IconTile, then Stat and StatGroup, then Badge, Card, Alert, and Avatar and AvatarGroup
+    - IconTile; then the local checks' time, a step of the pipeline; then Stat and StatGroup, then Badge, Card,
+      Alert, and Avatar and AvatarGroup
     - Separator, Kbd, AspectRatio and ScrollArea, then DescriptionList, Timeline and TickerChip
 2. **Actions and forms.** The pieces that act and take input, reviewed or made.
     - Button, ButtonGroup and PageHeader
@@ -63,7 +64,6 @@ Each becomes an item when its time comes.
 - **An image vulnerability scan.**
 - **An update bot.**
 - **Storybook's accepted advisories and deprecated loader.** When Storybook moves.
-- **`make watch`.** When running every story to check one slows the work.
 - **The update command in `updating.md`.** It kept a package at its version once, found on 2026-11-13.
 - **`actionlint`.** If a workflow fails on something it finds.
 - **Biome's `noTailwindArbitraryValue`.** In place of our own scan of classes.
