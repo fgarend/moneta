@@ -155,7 +155,7 @@ const Narrow: Story = {
   render: () => <Pagination aria-label={name}>{links()}</Pagination>,
   decorators: [
     (Story) => (
-      <div className="w-80">
+      <div className="w-full max-w-80">
         <Story />
       </div>
     ),

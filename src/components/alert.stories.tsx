@@ -60,7 +60,7 @@ const meanings = [
 const Meanings: Story = {
   tags: ["visual"],
   render: () => (
-    <div className="flex w-96 flex-col gap-2 p-6">
+    <div className="flex w-full max-w-96 flex-col gap-2 p-6">
       {meanings.map(([variant, words]) => (
         <Alert key={variant} variant={variant}>
           <AlertTitle>{words}</AlertTitle>

@@ -18,7 +18,7 @@ const last = "Eighth payment";
 const meta = {
   title: "Components/Layout & Navigation/Scroll Area",
   component: ScrollArea,
-  tags: ["raw"],
+  tags: ["raw", "gap-reflow"],
   parameters: { a11y: { test: "todo" } },
   args: {
     className: "h-16",

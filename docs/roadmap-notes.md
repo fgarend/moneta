@@ -35,12 +35,6 @@ with each family. No reviewed piece has a default text, so shadcn's written stri
 **Done when:** an app can build every screen from Moneta's pieces with no class of its own, and leaves Tailwind for
 `styles.css`. Until then, it keeps Tailwind only for the classes it still writes.
 
-## A table's hidden header
-
-- Reported by an app on 2026-11-13: a `TableHead` with `hideHeader` draws an `sr-only` span, `position: absolute`, and
-  `table-container` is not `relative`, so on a 375 px screen a table wider than its card makes the whole page scroll
-  sideways. The fix asked: `relative` on `table-container`, with a story at 375 px that fails first.
-
 ## The gallery as a guide
 
 - Raised on 2026-11-13: the gallery is a guide for whoever uses Moneta, to see what exists and how to use it, with
@@ -48,6 +42,9 @@ with each family. No reviewed piece has a default text, so shadcn's written stri
 - Today its stories are mostly checks, as Badge's three, with no page per piece.
 - To decide: a page per piece and what it holds, which stories are examples and which checks, so screenshots do not
   grow with the examples, and one piece made the model, the others following in their own steps.
+- The sample page is a desktop's: a 240 px navigation and 48 px of margin on each side make it 480 px wide at 320 px,
+  so the reflow check lets it off by `gap-reflow`, since 2026-11-13. Rebuilt on `AppLayout` and `Sidebar`, which
+  already fit a phone, as an example of a real screen, it drops the tag.
 
 ## Display
 
@@ -65,6 +62,9 @@ with each family. No reviewed piece has a default text, so shadcn's written stri
   a `div` is not allowed and React warns.
 - Alert. Item moved to Lists of rows. Separator, Stat, DescriptionList, Kbd, AspectRatio, ScrollArea,
   Timeline and TickerChip.
+- ScrollArea takes no focus, so a keyboard cannot scroll it when what it holds overflows, as axe says at 1280 px and
+  the reflow check at 320 px; both let its story off, `gap-reflow` since 2026-11-13. Its review gives it focus and a
+  name only when it overflows, as `Table` measures its area, and drops both tags.
 
 ## Actions and forms
 

@@ -328,7 +328,8 @@ function Table({
   return (
     <div
       className={cn(
-        "@container/table -mx-3 scroll-shadows overflow-x-auto in-data-[slot=card]:mx-0",
+        // Positioned, so a text hidden for screen readers, as a header's, stays in its scroll and never widens the page.
+        "@container/table relative -mx-3 scroll-shadows overflow-x-auto in-data-[slot=card]:mx-0",
         // With a sticky header it fills its place and scrolls in it, clear of the header's 36 px when a row takes focus;
         // without, it grows with its rows.
         stickyHeader ? "max-h-full scroll-pt-9" : "shrink-0",

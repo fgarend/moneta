@@ -8,6 +8,7 @@ const listRow =
 const exemptions = [
   { check: "axe", mark: /test: "todo"/u },
   { check: "forced colours", mark: /"gap-forced-colors"/u },
+  { check: "reflow", mark: /"gap-reflow"/u },
 ];
 const extension = /\.tsx$/u;
 const rawTag = /tags: \[[^\]]*"raw"/u;

@@ -40,7 +40,7 @@ const Default: Story = {
 const Sizes: Story = {
   tags: ["visual"],
   render: () => (
-    <div className="flex items-start gap-3">
+    <div className="flex flex-wrap items-start gap-3">
       {sizes.map((size) => (
         <ToggleGroup
           aria-label={`${group} ${size}`}

@@ -9,16 +9,18 @@ The state of each piece, shadcn's and our own, as `test/pieces.test.ts` keeps it
   in the guidelines and its line in the changelog, and no default text. 1.0 needs every piece here.
 
 Every piece has stories, run in light and in dark, which draw every part and branch of its code, as coverage asks.
-A story passes axe, text spacing and forced colours unless its row says otherwise. Each of these was measured on
-2026-11-06, in the browsers that check runs in, and lets that story off that check until the piece is reviewed:
+A story passes axe, text spacing, forced colours and reflow unless its row says otherwise. Each of these was measured
+on 2026-11-06, reflow on 2026-11-13, in the browsers that check runs in, and lets that story off that check until the
+piece is reviewed:
 
 - **axe:** the story keeps axe's `todo` mode, which warns.
 - **forced colours:** the story has the tag `gap-forced-colors`.
+- **reflow:** the story has the tag `gap-reflow`.
 
 So a clean piece that gets worse turns a check red, and `test/pieces.test.ts` holds the stories and this table to the
 same list. A pass says little here:
 
-- Text spacing and forced colours do not run a story's `play`, and look only inside its own container. So they never
+- Text spacing, forced colours and reflow do not run a story's `play`, and look only inside its own container. So they never
   see an open overlay's content, which axe does.
 - Nothing checks the keyboard beyond where focus lands, closing an overlay, target size beyond axe, or a long
   text.
@@ -65,7 +67,7 @@ A piece with no gap listed may still have some.
 | `quantity` | reviewed | |
 | `radio-group` | raw | **Code:** an item does not grow for its children. **Edited:** on React Aria's `RadioField` and `RadioButton` |
 | `section` | reviewed | |
-| `scroll-area` | raw | **axe:** takes no focus when nothing in it can, so the keyboard cannot scroll it |
+| `scroll-area` | raw | **axe:** takes no focus when nothing in it can, so the keyboard cannot scroll it. **reflow:** the same at 320 px, where its lines overflow |
 | `select` | raw | **Edited:** default 36 px, `sm` 32 and `lg` 40, and its separator is hidden from screen readers. **forced colours:** the chevron keeps its own colour, in Chromium |
 | `separator` | raw | |
 | `sheet` | raw | **Edited:** React Aria's types are not exported, its close button's name comes from `closeLabel`, it sets `--surface`, and its `aria-label` or `aria-labelledby` names its dialog |

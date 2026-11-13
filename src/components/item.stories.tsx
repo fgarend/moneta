@@ -185,7 +185,7 @@ const LongText: Story = {
   ),
   decorators: [
     (Story) => (
-      <div className="w-80">
+      <div className="w-full max-w-80">
         <Story />
       </div>
     ),
@@ -430,7 +430,7 @@ const detailSize = "12px";
 const IconAndValue: Story = {
   tags: ["visual"],
   render: () => (
-    <section className="w-96 p-6">
+    <section className="w-full max-w-96 p-6">
       <h2 className="type-title">{heading}</h2>
       <ItemGroup>
         {payments.map((payment) => (
@@ -612,7 +612,7 @@ function tintOf(value: string, near: Element): string {
 const Categories: Story = {
   tags: ["visual"],
   render: () => (
-    <section className="w-96 p-6">
+    <section className="w-full max-w-96 p-6">
       <h2 className="type-title">Spending</h2>
       <ItemGroup>
         {spending.map(({ category, name, Icon }) => (

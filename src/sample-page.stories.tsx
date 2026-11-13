@@ -488,8 +488,9 @@ function colourOf(value: string, near: Element): string {
 const meta = {
   title: "Sample/Page",
   component: SamplePage,
-  // The gap of Select, written in docs/pieces.md, reaches the page that draws it.
-  tags: ["visual", "gap-forced-colors"],
+  // The gap of Select, written in docs/pieces.md, reaches the page that draws it. Its layout is a desktop's, until the
+  // gallery as a guide builds it on AppLayout and Sidebar, as the roadmap says.
+  tags: ["visual", "gap-forced-colors", "gap-reflow"],
   parameters: { layout: "fullscreen" },
 } satisfies Meta<typeof SamplePage>;
 

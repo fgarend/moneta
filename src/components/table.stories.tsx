@@ -305,7 +305,7 @@ const Narrow: Story = {
   render: () => <Table aria-label={name}>{rows(true)}</Table>,
   decorators: [
     (Story) => (
-      <div className="w-80">
+      <div className="w-full max-w-80">
         <Story />
       </div>
     ),
@@ -366,7 +366,7 @@ const StickyHeader: Story = {
   ),
   decorators: [
     (Story) => (
-      <div className="flex h-64 w-80 flex-col">
+      <div className="flex h-64 w-full max-w-80 flex-col">
         <Story />
       </div>
     ),
@@ -551,6 +551,10 @@ const RowActions: Story = {
 
     await expect(header.getBoundingClientRect().height).toBeGreaterThan(0);
     await expect(header.firstElementChild).toHaveClass("sr-only");
+    // Hidden, its words stay in the table's own area, so they scroll with it and never widen the page.
+    await expect((header.firstElementChild as HTMLElement).offsetParent).toBe(
+      canvasElement.querySelector('[data-slot="table-container"]'),
+    );
     await expect(canvas.getAllByRole("button")).toHaveLength(payments.length);
     await expect([width, height]).toEqual([target, target]);
     await expect(
