@@ -6,11 +6,15 @@ import {
   GraduationCapIcon,
   HeartPulseIcon,
   HouseIcon,
+  Landmark,
   PawPrintIcon,
+  PiggyBank,
   PlaneIcon,
   ShoppingCartIcon,
   TvIcon,
+  Wallet,
 } from "lucide-react";
+import type { Money } from "#lib/money";
 
 // Its accounts, each with the institution that keeps it.
 const accounts = [
@@ -80,6 +84,106 @@ const spending = [
   { category: 9, name: "Pets", Icon: PawPrintIcon },
 ];
 
+function dollars(amount: string): Money {
+  return { amount, currency: "USD" };
+}
+
+// Its month in totals, each with its change, good news here, spending that fell too, though its sign is a minus.
+const totals = [
+  { name: "Balance", amount: dollars("12480.5"), change: "0.039" },
+  { name: "Income", amount: dollars("8450"), change: "0.058" },
+  { name: "Spending", amount: dollars("4184.35"), change: "-0.021" },
+  { name: "Invested", amount: dollars("96300"), change: "0.016" },
+];
+// Its payments of the last days, in dollars, each in its group, on its day, paid or not yet.
+const recentPayments = [
+  {
+    name: "Example Company",
+    group: "Income",
+    day: "Today",
+    state: "Paid",
+    amount: dollars("7250"),
+  },
+  {
+    name: "Central Market",
+    group: "Food",
+    day: "Today",
+    state: "Paid",
+    amount: dollars("-286.4"),
+  },
+  {
+    name: "Corner Bakery",
+    group: "Food",
+    day: "Yesterday",
+    state: "Paid",
+    amount: dollars("-48.9"),
+  },
+  {
+    name: "Rent",
+    group: "Home",
+    day: "Yesterday",
+    state: "Scheduled",
+    amount: dollars("-1850"),
+  },
+  {
+    name: "Example Gym",
+    group: "Health",
+    day: "Tuesday",
+    state: "Paid",
+    amount: dollars("-129.9"),
+  },
+  {
+    name: "Between accounts",
+    group: "Transfer",
+    day: "Tuesday",
+    state: "Paid",
+    amount: dollars("-1000"),
+  },
+  {
+    name: "Example Bond 2035",
+    group: "Investment",
+    day: "Monday",
+    state: "Pending",
+    amount: dollars("-1500"),
+  },
+];
+// The days the payments fall on, each with what its payments add up to, which the page's check sums again.
+const paymentDays = [
+  { name: "Today", subtotal: dollars("6963.6") },
+  { name: "Yesterday", subtotal: dollars("-1898.9") },
+  { name: "Tuesday", subtotal: dollars("-1129.9") },
+  { name: "Monday", subtotal: dollars("-1500") },
+];
+// Three of the person's accounts, and how many there are in all.
+const accountBalances = [
+  {
+    name: "Checking 1234",
+    bank: "Example Bank",
+    icon: Landmark,
+    balance: dollars("4230.5"),
+  },
+  {
+    name: "Savings",
+    bank: "Example Bank",
+    icon: PiggyBank,
+    balance: dollars("6000"),
+  },
+  {
+    name: "Brokerage",
+    bank: "Fictitious Broker",
+    icon: Wallet,
+    balance: dollars("2250"),
+  },
+];
+const accountCount = 5;
+// How far into its food budget it is, in percent.
+const foodUsed = 87;
+const budgets = [
+  { name: "Food", used: foodUsed },
+  { name: "Home", used: 77 },
+  { name: "Leisure", used: 42 },
+];
+
 // Fictitious sums are still sums: a decimal string in cents, exact.
 function cents(value: string): bigint {
   const [whole = "0", decimals = ""] = value.split(".");
@@ -89,4 +193,18 @@ function cents(value: string): bigint {
   );
 }
 
-export { accounts, cents, days, longAccount, payments, spending };
+export {
+  accountBalances,
+  accountCount,
+  accounts,
+  budgets,
+  cents,
+  days,
+  foodUsed,
+  longAccount,
+  paymentDays,
+  payments,
+  recentPayments,
+  spending,
+  totals,
+};

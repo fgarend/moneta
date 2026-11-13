@@ -1,5 +1,5 @@
-// A whole money screen drawn from the real pieces, with fictitious data, so the theme is judged on a page and not one
-// piece at a time. It is no piece of the package, and its navigation stands in for the roadmap's Sidebar.
+// A whole money screen drawn from the real pieces, with the gallery's fictitious household, so the theme is judged on
+// a page and not one piece at a time, on a phone as on a desktop. It is no piece of the package.
 // biome-ignore-all lint/style/noJsxLiterals: the words of a page are its content, and no piece here holds default text.
 // biome-ignore-all lint/style/useComponentExportOnlyModules: the page's parts are this story's own, and enter no package.
 import type { Meta, StoryObj } from "@storybook/react-vite";
@@ -11,14 +11,29 @@ import {
   Filter,
   Home,
   Landmark,
-  PiggyBank,
   Plus,
   Target,
   Wallet,
 } from "lucide-react";
 import { I18nProvider } from "react-aria-components";
 import { expect, within } from "storybook/test";
+import {
+  accountBalances,
+  accountCount,
+  budgets,
+  cents,
+  foodUsed,
+  paymentDays,
+  recentPayments,
+  totals,
+} from "../.storybook/data.js";
 import { Amount } from "./components/amount.js";
+import {
+  AppContent,
+  AppHeader,
+  AppLayout,
+  AppMain,
+} from "./components/app-layout.js";
 import { Badge } from "./components/badge.js";
 import { Button } from "./components/button.js";
 import {
@@ -42,7 +57,6 @@ import {
 } from "./components/item.js";
 import { Link } from "./components/link.js";
 import { MonetaProvider } from "./components/moneta-provider.js";
-import type { Money } from "./components/money.js";
 import { Percent } from "./components/percent.js";
 import { Progress } from "./components/progress.js";
 import {
@@ -52,6 +66,19 @@ import {
   SelectTrigger,
   SelectValue,
 } from "./components/select.js";
+import {
+  Sidebar,
+  SidebarContent,
+  SidebarGroup,
+  SidebarGroupLabel,
+  SidebarHeader,
+  SidebarMenu,
+  SidebarMenuButton,
+  SidebarMenuItem,
+  SidebarProvider,
+  SidebarTrigger,
+} from "./components/sidebar.js";
+import { SkipLink } from "./components/skip-link.js";
 import {
   Table,
   TableBody,
@@ -63,18 +90,11 @@ import {
 } from "./components/table.js";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "./components/tabs.js";
 
-interface NavigationItem {
-  name: string;
-  icon: typeof Home;
-  current?: boolean;
-}
-
 const displaySize = "32px";
 const amountSize = "24px";
 const tabular = "tabular-nums";
 const periods = ["Week", "Month", "Year"];
 const selectedPeriod = "Month";
-const foodUsed = 87;
 const navigation = [
   { name: "Overview", icon: Home, current: true },
   { name: "Payments", icon: ArrowLeftRight },
@@ -85,111 +105,6 @@ const wealth = [
   { name: "Accounts", icon: Landmark },
   { name: "Portfolio", icon: Wallet },
 ];
-function dollars(amount: string): Money {
-  return { amount, currency: "USD" };
-}
-
-// Each change is good news here, spending that fell too, though its sign is a minus.
-const totals = [
-  { name: "Balance", amount: dollars("12480.5"), change: "0.039" },
-  { name: "Income", amount: dollars("8450"), change: "0.058" },
-  { name: "Spending", amount: dollars("4184.35"), change: "-0.021" },
-  { name: "Invested", amount: dollars("96300"), change: "0.016" },
-];
-const payments = [
-  {
-    name: "Example Company",
-    group: "Income",
-    day: "Today",
-    state: "Paid",
-    amount: dollars("7250"),
-  },
-  {
-    name: "Central Market",
-    group: "Food",
-    day: "Today",
-    state: "Paid",
-    amount: dollars("-286.4"),
-  },
-  {
-    name: "Corner Bakery",
-    group: "Food",
-    day: "Yesterday",
-    state: "Paid",
-    amount: dollars("-48.9"),
-  },
-  {
-    name: "Rent",
-    group: "Home",
-    day: "Yesterday",
-    state: "Scheduled",
-    amount: dollars("-1850"),
-  },
-  {
-    name: "Example Gym",
-    group: "Health",
-    day: "Tuesday",
-    state: "Paid",
-    amount: dollars("-129.9"),
-  },
-  {
-    name: "Between accounts",
-    group: "Transfer",
-    day: "Tuesday",
-    state: "Paid",
-    amount: dollars("-1000"),
-  },
-  {
-    name: "Example Bond 2035",
-    group: "Investment",
-    day: "Monday",
-    state: "Pending",
-    amount: dollars("-1500"),
-  },
-];
-// The days the payments fall on, each with what its payments add up to, which the page's check sums again.
-const days = [
-  { name: "Today", subtotal: dollars("6963.6") },
-  { name: "Yesterday", subtotal: dollars("-1898.9") },
-  { name: "Tuesday", subtotal: dollars("-1129.9") },
-  { name: "Monday", subtotal: dollars("-1500") },
-];
-// Three of the person's accounts, and how many there are in all.
-const accounts = [
-  {
-    name: "Checking 1234",
-    bank: "Example Bank",
-    icon: Landmark,
-    balance: dollars("4230.5"),
-  },
-  {
-    name: "Savings",
-    bank: "Example Bank",
-    icon: PiggyBank,
-    balance: dollars("6000"),
-  },
-  {
-    name: "Brokerage",
-    bank: "Fictitious Broker",
-    icon: Wallet,
-    balance: dollars("2250"),
-  },
-];
-const accountCount = 5;
-const budgets = [
-  { name: "Food", used: foodUsed },
-  { name: "Home", used: 77 },
-  { name: "Leisure", used: 42 },
-];
-
-// Fictitious sums are still sums: a decimal string in cents, exact.
-function cents(value: string): bigint {
-  const [whole = "0", decimals = ""] = value.split(".");
-  const sign = whole.startsWith("-") ? -1n : 1n;
-  return (
-    BigInt(whole) * 100n + sign * BigInt(decimals.padEnd(2, "0").slice(0, 2))
-  );
-}
 
 function sum(values: string[]): bigint {
   return values.reduce((all, value) => all + cents(value), 0n);
@@ -203,45 +118,46 @@ function toneOf(group: string): "positive" | "negative" | undefined {
   return group === "Transfer" ? undefined : "negative";
 }
 
-function NavigationLinks({ items }: { items: NavigationItem[] }) {
+function NavigationGroup({
+  label,
+  items,
+}: {
+  label: string;
+  items: { name: string; icon: typeof Home; current?: boolean }[];
+}) {
   return (
-    <ul className="flex flex-col gap-1">
-      {items.map(({ name, icon: Icon, current }) => (
-        <li key={name}>
-          <a
-            aria-current={current ? "page" : undefined}
-            className="flex items-center gap-2 rounded-md px-2 py-2 outline-1 outline-transparent hover:bg-sidebar-accent aria-[current=page]:bg-sidebar-accent aria-[current=page]:font-medium aria-[current=page]:text-sidebar-accent-foreground"
-            href="#sample"
-          >
-            <Icon aria-hidden="true" className="size-4" />
-            {name}
-          </a>
-        </li>
-      ))}
-    </ul>
+    <SidebarGroup>
+      <SidebarGroupLabel>{label}</SidebarGroupLabel>
+      <SidebarMenu>
+        {items.map(({ name, icon: Icon, current }) => (
+          <SidebarMenuItem key={name}>
+            <SidebarMenuButton href="#sample" isActive={current === true}>
+              <Icon />
+              {name}
+            </SidebarMenuButton>
+          </SidebarMenuItem>
+        ))}
+      </SidebarMenu>
+    </SidebarGroup>
   );
 }
 
 function Navigation() {
   return (
-    <nav
-      aria-label="Main"
-      className="w-60 shrink-0 bg-sidebar px-3 py-4 text-sm text-sidebar-foreground [--ring:var(--sidebar-ring)]"
-    >
-      <p className="px-2 pb-6 font-semibold">Moneta</p>
-      <NavigationLinks items={navigation} />
-      <p className="px-2 pt-6 pb-2 text-xs text-sidebar-foreground/70">
-        Wealth
-      </p>
-      <NavigationLinks items={wealth} />
-    </nav>
+    <Sidebar aria-label="Main" closeLabel="Close the menu">
+      <SidebarHeader>Moneta</SidebarHeader>
+      <SidebarContent>
+        <NavigationGroup items={navigation} label="Money" />
+        <NavigationGroup items={wealth} label="Wealth" />
+      </SidebarContent>
+    </Sidebar>
   );
 }
 
 function PageHeader() {
   return (
     <header className="flex flex-wrap items-end gap-3">
-      <div className="min-w-0 flex-1">
+      <div className="min-w-0 grow basis-60">
         <p className="mb-2 text-xs text-muted-foreground">
           Saturday, October 24
         </p>
@@ -283,9 +199,10 @@ function Totals() {
         </Tabs>
       </div>
       <Card className="py-0">
-        <div className="grid grid-cols-2 divide-x lg:grid-cols-4">
+        {/* The card's edge shows through 1 px between the totals, so the lines follow them as they wrap. */}
+        <div className="grid gap-px bg-border sm:grid-cols-2 lg:grid-cols-4">
           {totals.map(({ name, amount, change }) => (
-            <div className="p-5" key={name}>
+            <div className="bg-card p-5" key={name}>
               <p className="type-label text-muted-foreground">{name}</p>
               <p className="mt-1">
                 <Amount size="lg" value={amount} />
@@ -329,7 +246,7 @@ function Payments() {
               <TableHead align="end">Amount</TableHead>
             </TableRow>
           </TableHeader>
-          {days.map((day) => (
+          {paymentDays.map((day) => (
             <TableBody key={day.name}>
               <TableGroupRow>
                 <TableHead scope="row">{day.name}</TableHead>
@@ -340,7 +257,7 @@ function Payments() {
                   <Amount sign="always" value={day.subtotal} />
                 </TableCell>
               </TableGroupRow>
-              {payments
+              {recentPayments
                 .filter((payment) => payment.day === day.name)
                 .map(({ name, group, state, amount }) => (
                   <TableRow key={name}>
@@ -400,7 +317,7 @@ function SidePanels() {
         </CardHeader>
         <CardContent>
           <ItemGroup>
-            {accounts.map(({ name, bank, icon: Icon, balance }) => (
+            {accountBalances.map(({ name, bank, icon: Icon, balance }) => (
               <Item key={name}>
                 <ItemMedia variant="icon">
                   <Icon aria-hidden="true" />
@@ -422,7 +339,7 @@ function SidePanels() {
         </CardContent>
         <CardFooter>
           <p>
-            Showing {accounts.length} of {accountCount} ·{" "}
+            Showing {accountBalances.length} of {accountCount} ·{" "}
             <Link href="#accounts">See all accounts</Link>
           </p>
         </CardFooter>
@@ -456,20 +373,31 @@ function SamplePage() {
   return (
     <I18nProvider locale="en-US">
       <MonetaProvider emptyLabel="No value yet" hiddenLabel="Hidden value">
-        <div
-          className="flex min-h-screen bg-background font-sans text-foreground"
-          data-testid="sample-font"
-        >
-          <Navigation />
-          <main className="mx-auto flex w-full min-w-0 max-w-7xl flex-1 flex-col gap-10 px-12 py-10">
-            <PageHeader />
-            <Totals />
-            <div className="grid gap-4 lg:grid-cols-3 lg:items-start">
-              <Payments />
-              <SidePanels />
-            </div>
-          </main>
-        </div>
+        <SidebarProvider>
+          <div
+            className="bg-background font-sans text-foreground"
+            data-testid="sample-font"
+          >
+            <SkipLink href="#main">Skip to the content</SkipLink>
+            <AppLayout>
+              <Navigation />
+              <AppMain>
+                <AppHeader>
+                  <SidebarTrigger aria-label="Open the menu" />
+                  <span>Money / Overview</span>
+                </AppHeader>
+                <AppContent>
+                  <PageHeader />
+                  <Totals />
+                  <div className="grid gap-4 lg:grid-cols-3 lg:items-start">
+                    <Payments />
+                    <SidePanels />
+                  </div>
+                </AppContent>
+              </AppMain>
+            </AppLayout>
+          </div>
+        </SidebarProvider>
       </MonetaProvider>
     </I18nProvider>
   );
@@ -488,9 +416,8 @@ function colourOf(value: string, near: Element): string {
 const meta = {
   title: "Sample/Page",
   component: SamplePage,
-  // The gap of Select, written in docs/pieces.md, reaches the page that draws it. Its layout is a desktop's, until the
-  // gallery as a guide builds it on AppLayout and Sidebar, as the roadmap says.
-  tags: ["visual", "gap-forced-colors", "gap-reflow"],
+  // The gap of Select, written in docs/pieces.md, reaches the page that draws it.
+  tags: ["visual", "gap-forced-colors"],
   parameters: { layout: "fullscreen" },
 } satisfies Meta<typeof SamplePage>;
 
@@ -519,13 +446,15 @@ const Default: Story = {
 
     // A row per payment and per day, under the header; each payment opens by its title, and each day adds up.
     await expect(recent.getAllByRole("row")).toHaveLength(
-      payments.length + days.length + 1,
+      recentPayments.length + paymentDays.length + 1,
     );
-    await expect(recent.getAllByRole("link")).toHaveLength(payments.length);
-    for (const day of days) {
+    await expect(recent.getAllByRole("link")).toHaveLength(
+      recentPayments.length,
+    );
+    for (const day of paymentDays) {
       await expect(
         sum(
-          payments
+          recentPayments
             .filter((payment) => payment.day === day.name)
             .map((payment) => payment.amount.amount),
         ),
@@ -559,7 +488,7 @@ const Default: Story = {
         .closest('[data-slot="card"]') as HTMLElement,
     );
     await expect(accountList.getAllByRole("listitem")).toHaveLength(
-      accounts.length,
+      accountBalances.length,
     );
     await expect(
       accountList.getByRole("link", { name: "See all accounts" }),
