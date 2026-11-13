@@ -29,16 +29,25 @@ const ItemContext = createContext<{ titleId: string | undefined }>({
 
 // While its rows load, the app's words for it, heard; without, nothing is said.
 type ListLoading =
-  | { isLoading: boolean; loadingLabel: string; loadingRows?: number }
+  | {
+      /** Whether its rows load: the first time, shapes of a row; after, a running bar over the rows. */
+      isLoading: boolean;
+      /** The app's words for the load, which a screen reader hears. */
+      loadingLabel: string;
+      /** How many shapes of a row the first load draws. */
+      loadingRows?: number;
+    }
   | { isLoading?: never; loadingLabel?: never; loadingRows?: never };
 
 // A list's ends: a table's, 12 px loose on a page, where it reaches as much out, and 20 px in a card.
 const listEnds =
   "group/item-group -mx-3 flex flex-col in-data-[slot=card]:mx-0";
 
-// A list of rows: one thing per row, read across, with a line between rows and no box of their own. With a title, a
-// group, as a day's: its title a heading a level below its section's, which names the list, and its total at its end,
-// as a table's groups, 12 px above the first and 32 above the next, with a strong line under it.
+/**
+ * A list of rows: one thing per row, read across, with a line between rows and no box of their own. With a title, a
+ * group, as a day's: its title a heading a level below its section's, which names the list, and its total at its
+ * end, as a table's groups, 12 px above the first and 32 above the next, with a strong line under it.
+ */
 function ItemGroup({
   className,
   title,
@@ -51,11 +60,11 @@ function ItemGroup({
   ...props
 }: Omit<ComponentProps<"ul">, "title"> &
   ListLoading & {
-    // Rows of about 64 px, or 48 where many are read at once.
+    /** Rows of about 64 px, or 48 where many are read at once. */
     density?: "default" | "compact";
-    // The group's title, as a day.
+    /** The group's title, as a day. */
     title?: ReactNode;
-    // What its rows add up to, as an Amount.
+    /** What its rows add up to, as an Amount. */
     total?: ReactNode;
   }) {
   const level = useContext(SectionLevel);
@@ -153,7 +162,9 @@ function LoadingRows({ count }: { count: number }) {
   ));
 }
 
-// No rows: the app's words in their place, centred and muted, under the group's title.
+/**
+ * No rows: the app's words in their place, centred and muted, under the group's title.
+ */
 function ItemEmpty({ className, ...props }: ComponentProps<"li">) {
   return (
     <li
@@ -206,7 +217,9 @@ const itemVariants = cva(
 // The link in an item's title, which a click anywhere empty in it follows.
 const titleLink = '[data-slot="item-title"] a[href]';
 
-// One thing, read across. In a list, a row, whose state, aria-current, and whose clicks are the row's; alone, a box.
+/**
+ * One thing, read across. In a list, a row, whose state, aria-current, and whose clicks are the row's; alone, a box.
+ */
 function Item({
   className,
   variant = "default",
@@ -308,7 +321,7 @@ function ItemMedia({
   ...props
 }: ComponentProps<"div"> &
   VariantProps<typeof itemMediaVariants> & {
-    // The row's category, from 1, which colours an icon's tile, as the app numbers its categories.
+    /** The row's category, from 1, which colours an icon's tile, as the app numbers its categories. */
     category?: number;
   }) {
   return (
@@ -366,15 +379,17 @@ function ItemDescription({ className, ...props }: ComponentProps<"p">) {
   );
 }
 
-// The value at a row's end, as an amount, aligned to it and at the text's weight, which never wraps while the title
-// gives way, with an optional line under it, small and muted, as the day it was paid, or a badge.
+/**
+ * The value at a row's end, as an amount, aligned to it and at the text's weight, which never wraps while the title
+ * gives way, with an optional line under it, small and muted, as the day it was paid, or a badge.
+ */
 function ItemValue({
   className,
   detail,
   children,
   ...props
 }: ComponentProps<"div"> & {
-  // What is said under the value, as a date or a badge.
+  /** What is said under the value, as a date or a badge. */
   detail?: ReactNode;
 }) {
   return (
@@ -394,9 +409,11 @@ function ItemValue({
   );
 }
 
-// An action on an item: a quiet icon button of 32 px, whose name joins the app's one word to the item's title, as "Edit
-// Account 1234", and which takes less than a line of text's height, so a row keeps its own. An item with no title
-// throws, as its action would have no name to say which item it acts on.
+/**
+ * An action on an item: a quiet icon button of 32 px, whose name joins the app's one word to the item's title, as
+ * "Edit Account 1234", and which takes less than a line of text's height, so a row keeps its own. An item with no
+ * title throws, as its action would have no name to say which item it acts on.
+ */
 function ItemAction({
   "aria-label": label,
   className,

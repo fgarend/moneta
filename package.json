@@ -40,6 +40,7 @@
   "devDependencies": {
     "@biomejs/biome": "2.6.6",
     "@storybook/addon-a11y": "10.6.6",
+    "@storybook/addon-docs": "10.6.6",
     "@storybook/addon-themes": "10.6.6",
     "@storybook/addon-vitest": "10.6.6",
     "@storybook/react-vite": "10.6.6",

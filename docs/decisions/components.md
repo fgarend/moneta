@@ -37,6 +37,13 @@ pieces is in [`../pieces.md`](../pieces.md), and how a piece is analysed is in [
   names; its time zone, `timeZone`, which a piece's own overrides; and its words and hidden values, as
   `docs/decisions/money.md` says. One inside another keeps what it is not given. What it holds for the pieces is
   `src/hooks/moneta.ts`, internal.
+- **The gallery is a guide too.** A piece tagged `autodocs` has a page of its own, by `@storybook/addon-docs`: its
+  comment, its first story, a table of its props with their comments, a tab for each part an app writes, and its
+  other stories in its file's order, each with its comment. So a piece's and a prop's comments are JSDoc, which an
+  editor also shows, and a story is exported where it is written, with its JSDoc above. A story that only checks, as
+  an error or a corner, takes `!autodocs`, and stays in the sidebar and the tests; every other story is an example,
+  and every check runs on it. The stories draw from one fictitious household's money, `.storybook/data.ts`, to which
+  data is added rather than changed. `Item` is the model, and each piece follows at its own step.
 - **One vocabulary of variants: a name means one look in every piece, by shadcn's names.** `default` is a piece's
   usual look. A control, as `Button`, `Badge` and `Toggle`, takes `secondary`, a soft fill, `outline`, a border,
   `ghost`, no frame until the pointer is over it, and `link`, text alone. A surface, as `Item`, and `Card` and
@@ -230,6 +237,11 @@ pieces is in [`../pieces.md`](../pieces.md), and how a piece is analysed is in [
   `src/hooks/level.ts`, which Section and ItemGroup read.
 - **No router,** as Moneta knows no app, React Aria's docs recommended `render` on 2026-11-09, and `RouterProvider`
   still works. Table and GridList rows cannot be an `<a>`, so with a router they navigate through `onAction`.
+- **The gallery as a guide,** as whoever builds a screen first looks for what exists and how it is used, and stories
+  that were only checks said neither. **Storybook's own page,** as it reads the stories and comments that exist, and
+  Storybook 10's docs prefer comments to parameters. **What it costs:** its order and form, a package to keep, a lint
+  rule, exports last, off in stories, and a table of controls that a story drawn by `render` cannot fill. **Examples
+  checked,** as a guide is what people copy. **What it costs:** run time grows with each example.
 - **One vocabulary,** as a name learned on one piece then holds on the next, and a group of numbers showed on
   2026-11-13 the same choice other groups make. **shadcn's names,** as Moneta starts from shadcn, an example of its
   docs works as it is, and of shadcn, Radix Themes, Chakra, Mantine, Spectrum and Atlassian, read that day, none
@@ -380,6 +392,11 @@ pieces is in [`../pieces.md`](../pieces.md), and how a piece is analysed is in [
 
 ## Alternatives considered
 
+- **A page written by hand, in MDX,** as shadcn's site has, about 50 pages to keep beside the stories, or **stories
+  alone,** with no words on what to use and when. **Descriptions as parameters,** a string in each story, which the
+  docs keep for where a comment cannot go. **The alphabet's order with `Default` first,** which teaches nothing after
+  it. **Examples left unchecked,** by `!test`, which could break unseen. **Data in each file,** as before, each piece
+  in a world of its own.
 - **Radix's and Chakra's names,** `solid`, `soft`, `surface`, `outline` and `ghost` or `plain`, the most repeated across
   their pieces, which would rename every piece of shadcn's. **One name for a soft fill,** `secondary` on `Item`, which
   edits shadcn's file, or `muted` on `Button` and `Badge`, which breaks a real app's 43 uses. **`plain` for a surface
@@ -447,3 +464,4 @@ pieces is in [`../pieces.md`](../pieces.md), and how a piece is analysed is in [
 - 2026-11-12: AppLayout and SkipLink.
 - 2026-11-12: Layout and text: what a title and an action hold, and no layout pieces.
 - 2026-11-13: One vocabulary of variants.
+- 2026-11-13: The gallery as a guide.
