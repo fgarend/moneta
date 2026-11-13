@@ -35,33 +35,6 @@ with each family. No reviewed piece has a default text, so shadcn's written stri
 **Done when:** an app can build every screen from Moneta's pieces with no class of its own, and leaves Tailwind for
 `styles.css`. Until then, it keeps Tailwind only for the classes it still writes.
 
-## One vocabulary of variants
-
-The same name for the same look in every piece. Raised on 2026-11-13 in Stat's analysis, where a group of numbers is
-drawn three ways, one box with lines between, a box each, or no box, a choice other groups share. Decided the same
-day, one point at a time, each option drawn, after a study of the variants of shadcn, Radix Themes, Chakra, Mantine,
-Spectrum and Atlassian, of which none writes down a shared vocabulary and Radix and Chakra repeat names the most.
-
-- **shadcn's names, each one look in every piece,** and `default` each piece's usual look. **What it costs:** shadcn
-  has two names for a soft fill.
-- **Two families of looks.** A control, as Button, Badge and Toggle, takes `secondary`, `outline`, `ghost` and `link`;
-  a surface, as Item, Card and StatGroup, takes `outline`, `muted` and `ghost`. `secondary` ranks an action, `muted`
-  calms a surface, so no shadcn file is edited. **What it costs:** one soft fill keeps two names.
-- **`ghost` is a surface with no frame too,** named only where a piece's usual look has one, as Card's. **What it
-  costs:** on a surface it shows nothing under the pointer, as a control's does.
-- **Meanings stay in `variant`,** `destructive`, `success`, `warning` and `info`, shared by Badge and Alert, as
-  `theme.md` decided.
-- **A group's boxes join or part by `spacing`,** as shadcn's ToggleGroup: `0` one box with lines between, more a box
-  each that far apart, with `variant` the look of the boxes. **What it costs:** the name says a distance, and an app
-  can pick any step of the scale.
-- **A name one piece alone needs stays in it,** as Tabs' `line`, ItemMedia's `icon` and `image`, Button's `gold`,
-  and enters the vocabulary when a second piece needs the look.
-- **The analysis keeps it,** asking each variant for its name from the vocabulary or the reason for a new one, with
-  no test, as `cva` does not expose its names.
-- No piece changes: today's names fit. The vocabulary is written in `docs/decisions/components.md`, the analysis'
-  line in `process.md`, and how an app reads it in the guidelines. No version of its own, as Layers; it goes out
-  with the next.
-
 ## A table's hidden header
 
 - Reported by an app on 2026-11-13: a `TableHead` with `hideHeader` draws an `sr-only` span, `position: absolute`, and
