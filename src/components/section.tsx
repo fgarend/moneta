@@ -41,7 +41,11 @@ function SectionTitle({ className, level, ...props }: HeadingProps) {
   const fromSection = useContext(SectionLevel);
   return (
     <Heading
-      className={cn("text-lg/6 font-semibold", className)}
+      // What it holds lies in a row, as a count beside its words.
+      className={cn(
+        "flex items-center gap-2 text-lg/6 font-semibold",
+        className,
+      )}
       data-slot="section-title"
       level={level ?? fromSection}
       {...props}
@@ -63,7 +67,8 @@ function SectionAction({ className, ...props }: ComponentProps<"div">) {
   return (
     <div
       className={cn(
-        "mt-1 @sm/section-header:col-start-2 @sm/section-header:row-span-2 @sm/section-header:row-start-1 @sm/section-header:mt-0",
+        // Several controls lie in a row, which wraps where they do not fit.
+        "mt-1 flex flex-wrap items-center gap-2 @sm/section-header:col-start-2 @sm/section-header:row-span-2 @sm/section-header:row-start-1 @sm/section-header:mt-0",
         className,
       )}
       data-slot="section-action"

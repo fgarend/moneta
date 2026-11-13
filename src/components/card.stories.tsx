@@ -68,5 +68,32 @@ const Default: Story = {
   },
 };
 
+// Several controls in a card's action lie in a row, 8 px apart, centred on one another.
+const SeveralActions: Story = {
+  args: {
+    children: (
+      <CardHeader>
+        <CardTitle>{title}</CardTitle>
+        <CardDescription>{description}</CardDescription>
+        <CardAction>
+          <Button size="sm" variant="outline">
+            {action}
+          </Button>
+          <Button size="sm">{footer}</Button>
+        </CardAction>
+      </CardHeader>
+    ),
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const [first, second] = [action, footer].map((name) =>
+      canvas.getByRole("button", { name }).getBoundingClientRect(),
+    ) as [DOMRect, DOMRect];
+
+    await expect(Math.round(second.left - first.right)).toBe(8);
+    await expect(Math.round(second.top - first.top)).toBe(0);
+  },
+};
+
 export default meta;
-export { Default };
+export { Default, SeveralActions };

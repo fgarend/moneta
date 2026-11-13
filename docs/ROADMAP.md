@@ -4,15 +4,14 @@ Moneta is the source of truth for components: an app builds its screens from its
 own. What it lacks is added here, in this order, which a new need can change. The details of each item, what is
 known and what is still to ask, are in [`roadmap-notes.md`](roadmap-notes.md), read when the item starts.
 
-**Now:** 1. Layout and text.
+**Now:** 1. Display.
 
 ## Next, in order
 
-1. **Layout and text.** What replaces the `flex`, `gap` and `text` classes an app writes.
-2. **Display.** The pieces that show, reviewed or made.
+1. **Display.** The pieces that show, reviewed or made.
     - Badge, Card, Avatar and AvatarGroup, Alert and Separator
     - Stat, DescriptionList, Kbd, AspectRatio, ScrollArea, Timeline and TickerChip
-3. **Actions and forms.** The pieces that act and take input, reviewed or made.
+2. **Actions and forms.** The pieces that act and take input, reviewed or made.
     - Button, ButtonGroup and PageHeader
     - Input, InputGroup, Textarea, Label, Field, NativeSelect, Select and SearchField
     - Checkbox, RadioGroup, Switch, Toggle, ToggleGroup and Slider
@@ -23,25 +22,25 @@ known and what is still to ask, are in [`roadmap-notes.md`](roadmap-notes.md), r
     - how a form connects, with a server's errors
     - `combobox`, after a study
     - Button's `link` variant beside Link, and a disabled `LinkButton`, which is not dimmed
-4. **Overlays.** The pieces that open over the page, reviewed or made.
+3. **Overlays.** The pieces that open over the page, reviewed or made.
     - Dialog, AlertDialog and Sheet
     - Popover, HoverCard, DropdownMenu, ContextMenu, Tooltip and Toggletip
     - text spacing and forced colours on what an overlay draws when open
-5. **The rest.** The other pieces, reviewed or made.
+4. **The rest.** The other pieces, reviewed or made.
     - Tabs, Progress, Meter, Empty, Skeleton and Spinner
     - Breadcrumb, Steps and Banner
     - Collapsible, IconTile, StatGroup and AllocationBar
     - a bar of actions at the page's foot, a virtualised list, and Toast
     - `calendar`, after a study
-6. **Charts.** Line, area, bars and donut, a ring and BarList, each with a table of its data.
-7. **MoneyInput.** Entering an amount.
-8. **CurrencySelect.** Choosing a currency.
-9. **A stable API.** What each state promises after 1.0.
+5. **Charts.** Line, area, bars and donut, a ring and BarList, each with a table of its data.
+6. **MoneyInput.** Entering an amount.
+7. **CurrencySelect.** Choosing a currency.
+8. **A stable API.** What each state promises after 1.0.
     - every piece reviewed
     - the accessibility script run by hand, with a screen reader and real zoom
     - a policy for deprecating
-10. **Stricter checks.** `exactOptionalPropertyTypes`, if React Aria's types pass it.
-11. **Release 1.0.0.**
+9. **Stricter checks.** `exactOptionalPropertyTypes`, if React Aria's types pass it.
+10. **Release 1.0.0.**
 
 ## Later, in no order
 
@@ -49,6 +48,7 @@ Each becomes an item when its time comes.
 
 - **A registry.** When a tarball stops being enough.
 - **A local link.** When installing a build each time slows the work.
+- **Stack and Inline.** If an app's screens still repeat a layout once the pieces lay their own.
 - **The scale of the whole system.** A preference for larger text, for every piece at once.
 - **Screenshots below the medium breakpoint, and below 800 px.**
 - **A top bar that stays in view.** When something needs it.
@@ -85,6 +85,8 @@ Each becomes an item when its time comes.
 
 ## Done
 
+- **Layout and text.** No layout pieces of our own: `SectionTitle`, `SectionAction` and `CardAction` lay what they
+  hold, and the guidelines give muted text and counts. 0.20.0.
 - **One scale of sizes.** Every control a row holds at 32, 36 or 40 px by shadcn's `sm`, `default` and `lg`, the
   fields gaining what they lacked, with a `Sizes` story in each. 0.19.0.
 - **The palette of categories.** `--category-1` to `--category-8`, which tell apart and say nothing, with shadcn's

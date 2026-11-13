@@ -22,20 +22,6 @@ scale of sizes may need a touch when they arrive, and Sidebar's study may change
 later: a page that puts the pieces together, a pre-release tried in an app before a version, and a review of the whole
 after each family.
 
-## Layout and text
-
-What replaces `flex`, `gap-*` and `text-*`, which shadcn does not have and most of an app's classes are. Own code,
-the rule's third step, so a page shows the need first.
-
-- To ask: which pieces and their names, and how far their props go (recommended: the fewest that remove the most
-  classes, against a mini-language of layout to maintain). Against it: most libraries take layout pieces for bloat
-  beside Tailwind, and Spectrum 2 dropped its own, so the question includes whether an app keeps Tailwind for
-  layout alone.
-
-The measure of the final pieces is the classes an app's screens write. On a real app on 2026-11-06: 1,683 uses in
-47 of its 59 screen files, 606 of text, 548 of layout, 192 of space and size, 140 of colour and surface, and 197
-others not sorted.
-
 ## The families
 
 The final pieces: every piece a complete library for money would have, whether or not a page needs it yet, as
@@ -62,7 +48,8 @@ with each family. No reviewed piece has a default text, so shadcn's written stri
 
 ## Actions and forms
 
-- Button's variants, ButtonGroup, PageHeader, Input, InputGroup, whose addon, such as a currency's symbol, a screen
+- Button's variants, ButtonGroup, PageHeader, as an app's own draws it, its context, title and actions each in a row
+  that wraps, Input, InputGroup, whose addon, such as a currency's symbol, a screen
   reader does not read as part of the field's name, Textarea, Label, NativeSelect and Slider.
 - Field, which does not link its description or error, and decides the contrast of the control's border against
   the 3:1 of WCAG 1.4.11.

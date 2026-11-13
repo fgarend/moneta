@@ -80,6 +80,9 @@ pieces is in [`../pieces.md`](../pieces.md), and how a piece is analysed is in [
   description and 16 px between its header and its content.
 - **Its action moves under the title when the header is narrower than 384 px,** by a container query on the header,
   so it holds wherever the section sits.
+- **Its title lays what it holds in a row,** centred, 8 px apart, so a count beside its words takes no class; **its
+  action lays several controls in a row,** 8 px apart, which wraps where they do not fit, as `CardAction` and
+  `AppHeaderActions` do.
 
 ### Link
 
@@ -350,6 +353,13 @@ pieces is in [`../pieces.md`](../pieces.md), and how a piece is analysed is in [
 - **`SkipLink` moving focus,** as GOV.UK and Atlassian, since Safari and VoiceOver may only scroll otherwise. **What it
   costs:** `AppMain` hides its own outline, as a landmark is not a control.
 
+- **No layout pieces of our own,** after a count of a real app's classes on its 41 screens built on Moneta: of 168
+  `className`, a third were four patterns, each owned by a piece, a page's sections, which `AppContent` lays, a
+  title's count, several actions, and muted text, which is the theme's class. Each pattern became a fix in its piece,
+  and an app's own layout stays Tailwind, as shadcn and Catalyst have it and Spectrum 2 chose when it dropped its Flex
+  and Grid. **What it costs:** an app still writes classes for its own layout, off any scale of ours; a title's
+  inline emphasis is spaced as an item of its row.
+
 ## Alternatives considered
 
 - **Token, piece, composed piece and region.** The roadmap's first proposal.
@@ -396,6 +406,10 @@ pieces is in [`../pieces.md`](../pieces.md), and how a piece is analysed is in [
 - **A translucent bar with a blur,** lighter, as an app's.
 - **`sidebar` as a prop of `AppLayout`,** which would draw the `<main>` itself, unlike every other piece's children.
 
+- **Stack and Inline,** as Primer, Atlassian, Polaris and Mantine keep them, which would duplicate Tailwind for the few
+  rows left once the pieces lay their own; **a `Text` piece,** for a colour the theme's class already gives; **a
+  `count` on `SectionTitle`,** which Tabs and tables would each want again.
+
 ## History
 
 - 2026-11-09: Written, with the conventions that cross pieces, and Section.
@@ -407,3 +421,4 @@ pieces is in [`../pieces.md`](../pieces.md), and how a piece is analysed is in [
 - 2026-11-12: `MonetaProvider`, in place of `MoneyProvider`.
 - 2026-11-12: Sidebar, our own.
 - 2026-11-12: AppLayout and SkipLink.
+- 2026-11-12: Layout and text: what a title and an action hold, and no layout pieces.
