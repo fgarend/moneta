@@ -24,17 +24,28 @@ after each family.
 
 ## Layout and text
 
-What replaces `flex`, `gap-*` and `text-*`, which shadcn does not have and most of an app's classes are. Own code,
-the rule's third step, so a page shows the need first.
+What replaces the `flex`, `gap` and `text` classes an app writes, which shadcn does not have. Decided on 2026-11-12,
+one point at a time, after a study of shadcn, Spectrum 2, Primer, Polaris, Atlassian, Radix, Chakra, Mantine, MUI and
+Catalyst, and a count of the classes in a real app's 41 screens built on Moneta: 168 `className`, 413 classes, nearly
+three quarters of them layout. Four patterns made a third of them: `flex flex-col gap-10` 26 times, a page's sections,
+which `AppContent` already lays; `text-muted-foreground` 21; `flex items-center gap-2` 21, 16 of them a section's
+title with a count; and `flex flex-wrap items-center gap-2` 8, several controls in an action's place.
 
-- To ask: which pieces and their names, and how far their props go (recommended: the fewest that remove the most
-  classes, against a mini-language of layout to maintain). Against it: most libraries take layout pieces for bloat
-  beside Tailwind, and Spectrum 2 dropped its own, so the question includes whether an app keeps Tailwind for
-  layout alone.
-
-The measure of the final pieces is the classes an app's screens write. On a real app on 2026-11-06: 1,683 uses in
-47 of its 59 screen files, 606 of text, 548 of layout, 192 of space and size, 140 of colour and surface, and 197
-others not sorted.
+- **No layout pieces of our own,** no Stack or Inline: each pattern becomes a fix in the piece it belongs to, and an
+  app's own layout stays Tailwind, as shadcn and Catalyst have it and Spectrum 2 chose when it dropped its Flex and
+  Grid. **What it costs:** the roadmap's "no class of its own" is not reached, and an app's `gap-2` is off any scale
+  of ours. Stack and Inline, as Primer and Atlassian keep them, can come back once these fixes land, if what is left
+  still repeats.
+- **Muted text outside a piece is the theme's class,** `text-muted-foreground`, as shadcn's typography shows it,
+  written in the guidelines. **What it costs:** a class in the app, its contrast tested on the page, a card and
+  `--muted` only.
+- **`SectionTitle` lays what it holds in a row,** centred, 8 px apart, so a count beside it takes no class; a count is
+  a `Badge variant="secondary"`, as the guidelines will say. **What it costs:** each screen picks its badge; a piece
+  for counts if Tabs and tables take them too.
+- **`SectionAction` and `CardAction` lay several controls in a row,** centred, 8 px apart, wrapping on a narrow
+  screen, as `AppHeaderActions` does. `CardAction` is shadcn's, its edit written in `pieces.md`.
+- **WCAG to check:** 1.4.10, a row of actions wrapping at 320 px, by a story; 1.3.1, the count read inside the title's
+  heading, by a story.
 
 ## The families
 
@@ -62,7 +73,8 @@ with each family. No reviewed piece has a default text, so shadcn's written stri
 
 ## Actions and forms
 
-- Button's variants, ButtonGroup, PageHeader, Input, InputGroup, whose addon, such as a currency's symbol, a screen
+- Button's variants, ButtonGroup, PageHeader, as an app's own draws it, its context, title and actions each in a row
+  that wraps, Input, InputGroup, whose addon, such as a currency's symbol, a screen
   reader does not read as part of the field's name, Textarea, Label, NativeSelect and Slider.
 - Field, which does not link its description or error, and decides the contrast of the control's border against
   the 3:1 of WCAG 1.4.11.

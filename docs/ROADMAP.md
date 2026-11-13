@@ -9,6 +9,7 @@ known and what is still to ask, are in [`roadmap-notes.md`](roadmap-notes.md), r
 ## Next, in order
 
 1. **Layout and text.** What replaces the `flex`, `gap` and `text` classes an app writes.
+   - `SectionTitle`, `SectionAction` and `CardAction` laying what they hold, and the guidelines on muted text and counts
 2. **Display.** The pieces that show, reviewed or made.
     - Badge, Card, Avatar and AvatarGroup, Alert and Separator
     - Stat, DescriptionList, Kbd, AspectRatio, ScrollArea, Timeline and TickerChip
