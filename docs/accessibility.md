@@ -29,7 +29,7 @@ which is run by hand.
 
 | Criterion | How | Notes |
 | --- | --- | --- |
-| 1.1.1 Non-text Content | axe | |
+| 1.1.1 Non-text Content | axe, story | IconTile hidden from screen readers as decoration, its words beside it |
 | 1.2.1 Audio-only and Video-only | app | |
 | 1.2.2 Captions (Prerecorded) | app | |
 | 1.2.3 Audio Description or Media Alternative | app | |
@@ -46,7 +46,7 @@ which is run by hand.
 | 1.4.4 Resize Text | script | |
 | 1.4.5 Images of Text | app | |
 | 1.4.10 Reflow | every story, story, coming, script | Every story at 320 px in all three browsers: the page never scrolls sideways, an area that scrolls is reached by keyboard, and no text is cut by the width. Section's story at 320 px, its several actions wrapping at 320 px, Amount on one line in a narrow column, Table's columns hidden or scrolled in its own area at 320 px, the sidebar in a sheet on a phone at 320 px, its long labels wrapping, and the application's structure at 320 px, its bar let go on a short screen |
-| 1.4.11 Non-text Contrast | test, story, coming | `test/theme.test.ts` on borders and focus, both modes, Pagination's current page in `--input`, and DateField's invalid edge in `--destructive`, and each colour of categories on every surface and its tile's tint. Field (Actions and forms) and charts (Charts) to come |
+| 1.4.11 Non-text Contrast | test, story, coming | `test/theme.test.ts` on borders and focus, both modes, Pagination's current page in `--input`, and DateField's invalid edge in `--destructive`, and each colour of categories on every surface and its tile's tint, and an icon on each IconTile's tone. Field (Actions and forms) and charts (Charts) to come |
 | 1.4.12 Text Spacing | every story | All three browsers |
 | 1.4.13 Content on Hover or Focus | none yet | With Tooltip (Overlays) |
 | 2.1.1 Keyboard | story, none yet | DateField's story types a day and clears it; React Aria's in the raw pieces, with each family's review |

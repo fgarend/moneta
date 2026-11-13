@@ -19,6 +19,7 @@ import { Separator } from "#components/separator";
 import { Skeleton } from "#components/skeleton";
 import { deepest, SectionLevel } from "#hooks/level";
 import { followTitle, rowFill } from "#hooks/row";
+import { TilePlace } from "#hooks/tile";
 
 // Whether an item sits in a list of rows, where it is one of its items.
 const InList = createContext(false);
@@ -214,6 +215,16 @@ const itemVariants = cva(
   },
 );
 
+// An IconTile in an item: a square at the row's start, level with the title's top when a description follows, 40 px,
+// or 32 in a compact list.
+const rowTile = {
+  shape: "square",
+  className:
+    "group-has-data-[slot=item-description]/item:translate-y-0.5 group-has-data-[slot=item-description]/item:self-start",
+  sizeClassName:
+    "in-data-[density=compact]:size-8 in-data-[density=compact]:[&_svg:not([class*='size-'])]:size-4",
+} as const;
+
 // The link in an item's title, which a click anywhere empty in it follows.
 const titleLink = '[data-slot="item-title"] a[href]';
 
@@ -258,21 +269,23 @@ function Item({
   );
   return (
     <ItemContext.Provider value={{ titleId }}>
-      {inList ? (
-        <li
-          aria-current={current}
-          className={cn(
-            rowFill,
-            "relative border-b px-3 py-3 last:border-0 in-data-[density=compact]:py-2 in-data-[slot=card]:px-5 has-[[data-slot=item-title]_a[href]]:cursor-pointer has-[[data-slot=item-title]_a[href]]:hover:[--row-hover:color-mix(in_oklab,var(--muted)_50%,transparent)] has-data-[slot=item-action]:hover:[--row-hover:color-mix(in_oklab,var(--muted)_50%,transparent)] aria-[current=true]:before:absolute aria-[current=true]:before:inset-y-0 aria-[current=true]:before:start-0 aria-[current=true]:before:w-0.75 aria-[current=true]:before:bg-primary",
-          )}
-          data-slot="item-row"
-          ref={row as React.RefObject<HTMLLIElement>}
-        >
-          {item}
-        </li>
-      ) : (
-        item
-      )}
+      <TilePlace.Provider value={rowTile}>
+        {inList ? (
+          <li
+            aria-current={current}
+            className={cn(
+              rowFill,
+              "relative border-b px-3 py-3 last:border-0 in-data-[density=compact]:py-2 in-data-[slot=card]:px-5 has-[[data-slot=item-title]_a[href]]:cursor-pointer has-[[data-slot=item-title]_a[href]]:hover:[--row-hover:color-mix(in_oklab,var(--muted)_50%,transparent)] has-data-[slot=item-action]:hover:[--row-hover:color-mix(in_oklab,var(--muted)_50%,transparent)] aria-[current=true]:before:absolute aria-[current=true]:before:inset-y-0 aria-[current=true]:before:start-0 aria-[current=true]:before:w-0.75 aria-[current=true]:before:bg-primary",
+            )}
+            data-slot="item-row"
+            ref={row as React.RefObject<HTMLLIElement>}
+          >
+            {item}
+          </li>
+        ) : (
+          item
+        )}
+      </TilePlace.Provider>
     </ItemContext.Provider>
   );
 }
@@ -283,8 +296,6 @@ const itemMediaVariants = cva(
     variants: {
       variant: {
         default: "bg-transparent",
-        // An icon on a tile of 40 px, where the eye starts each row, quiet until a category colours it.
-        icon: "size-10 rounded-lg bg-muted text-foreground in-data-[density=compact]:size-8 [&_svg:not([class*='size-'])]:size-5 in-data-[density=compact]:[&_svg:not([class*='size-'])]:size-4",
         image:
           "size-10 overflow-hidden rounded-sm group-data-[size=sm]/item:size-8 group-data-[size=xs]/item:size-6 [&_img]:size-full [&_img]:object-cover",
       },
@@ -295,44 +306,19 @@ const itemMediaVariants = cva(
   },
 );
 
-// The colours of categories, in the theme's order: the icon in the colour, on a tenth of it, a fifth in dark.
-const categoryColours = [
-  "bg-category-1/10 text-category-1 dark:bg-category-1/20",
-  "bg-category-2/10 text-category-2 dark:bg-category-2/20",
-  "bg-category-3/10 text-category-3 dark:bg-category-3/20",
-  "bg-category-4/10 text-category-4 dark:bg-category-4/20",
-  "bg-category-5/10 text-category-5 dark:bg-category-5/20",
-  "bg-category-6/10 text-category-6 dark:bg-category-6/20",
-  "bg-category-7/10 text-category-7 dark:bg-category-7/20",
-  "bg-category-8/10 text-category-8 dark:bg-category-8/20",
-];
-
-// A category from 1 takes its colour, and past the last they repeat; a number that names none takes no colour.
-function categoryColour(category: number | undefined): string | undefined {
-  return category !== undefined && Number.isInteger(category) && category >= 1
-    ? categoryColours[(category - 1) % categoryColours.length]
-    : undefined;
-}
-
+/**
+ * An image or an avatar at an item's start. An icon is an IconTile, written straight in the item.
+ */
 function ItemMedia({
   className,
   variant = "default",
-  category,
   ...props
-}: ComponentProps<"div"> &
-  VariantProps<typeof itemMediaVariants> & {
-    /** The row's category, from 1, which colours an icon's tile, as the app numbers its categories. */
-    category?: number;
-  }) {
+}: ComponentProps<"div"> & VariantProps<typeof itemMediaVariants>) {
   return (
     <div
       data-slot="item-media"
       data-variant={variant}
-      className={cn(
-        itemMediaVariants({ variant }),
-        categoryColour(category),
-        className,
-      )}
+      className={cn(itemMediaVariants({ variant }), className)}
       {...props}
     />
   );

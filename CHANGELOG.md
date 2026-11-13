@@ -6,6 +6,25 @@ gets its number.
 
 ## [Unreleased]
 
+## [0.22.0] - 2026-11-13
+
+IconTile: an icon on a square or a circle, which takes its shape and size from where it sits.
+
+### Added
+
+- `IconTile`, an icon on a square or a circle, where the eye starts a row or a number: `default`, soft, neutral or a
+  category's tint by `category`, `solid` in the text's colour, or `gold` for the screen's headline, at 32, 40 or 48 px
+  by `size`, by `shape` a square or a circle. Always hidden from screen readers. Written in an `Item`, it is a square
+  at the row's start, 40 px or 32 in a compact list, unless its props say otherwise.
+- The guidelines' Icon tiles, and gold for a screen's headline beside its main action.
+- Comments on `Item`'s parts and props, which an editor shows on hover.
+
+### Changed
+
+- **Breaking:** `ItemMedia` loses `variant="icon"` and `category`, as an icon in an item is now an `IconTile`. To
+  upgrade, write `<IconTile category={n}><Icon /></IconTile>` straight in the `Item`, in place of
+  `<ItemMedia variant="icon" category={n}><Icon /></ItemMedia>`. `ItemMedia` keeps images and avatars.
+
 ## [0.21.1] - 2026-11-13
 
 A table's hidden header no longer widens the page on a narrow screen.
@@ -404,7 +423,8 @@ and dark. `README.md` says how to install and use it.
 
 A rehearsal of the release's path, not meant to be installed. Use a later version.
 
-[Unreleased]: https://github.com/fgarend/moneta/compare/v0.21.1...HEAD
+[Unreleased]: https://github.com/fgarend/moneta/compare/v0.22.0...HEAD
+[0.22.0]: https://github.com/fgarend/moneta/compare/v0.21.1...v0.22.0
 [0.21.1]: https://github.com/fgarend/moneta/compare/v0.21.0...v0.21.1
 [0.21.0]: https://github.com/fgarend/moneta/compare/v0.20.0...v0.21.0
 [0.20.0]: https://github.com/fgarend/moneta/compare/v0.19.0...v0.20.0

@@ -41,7 +41,8 @@ Each piece, at its step, follows the gallery's guide, as `docs/decisions/compone
 its and its props' comments as JSDoc, its stories exported where written in the order they teach, a story that only
 checks by `!autodocs`, and its data from `.storybook/data.ts`, added rather than changed.
 
-- Stat and StatGroup first, StatGroup moved here from The rest, analysed on 2026-11-12 and 2026-11-13, one point at a
+- Stat and StatGroup next, StatGroup moved here from The rest, its icon an IconTile written in Stat, a solid circle
+  of 48 px left of its label and value by default, as the prototype's overview, gold for the headline, analysed on 2026-11-12 and 2026-11-13, one point at a
   time, before the vocabulary of variants and the guide came first. Decided:
   - StatGroup is a `dl`, each Stat a `div` in it, its label a `dt`, its value a `dd`, as Chakra's: read together,
     the count announced, no ARIA, and no landmark to jump between numbers, as the group's section title is one.
@@ -49,17 +50,30 @@ checks by `!autodocs`, and its data from `.storybook/data.ts`, added rather than
     `dd`, the word Card, Section and Item use for the muted text under the main one.
   - `StatValue` carries `type-amount-lg`, 24/32 at 600 with tabular figures, so plain text, a " + " between amounts
     or a count match; the formatting stays with `Amount`, `Percent` and `Quantity`, given `size="lg"`, which a story
-    checks.
+    checks. To weigh again by the rule that came with IconTile: `StatValue` giving them their size.
   - A change goes in `StatDescription`, a value with `sign="always"` and its tone beside the app's words, as
     `money.md` refused a Delta piece; a badge comes by composition.
   - Its boxes by the vocabulary: `spacing={0}`, its default, one box with lines between, as the sample page's totals;
     more, a box each; `variant="muted"` for soft boxes; `variant="ghost"` for none. Each drawn before it is built.
-  - Still to ask: a button beside the label, as an app's "opens" icon, and loading and empty.
+  - `StatAction`, a quiet icon button beside the label, as `ItemAction`: 32 px to touch, taking no more height than
+    the label's line, its name the app's one word joined to the label, as "Open Invested", and an error with no
+    label, as an app opens what a number is made of from it.
+  - Loading as `ItemGroup` and `Table`: `isLoading` and `loadingLabel` on `StatGroup`; the first time, the labels
+    stay and a shape takes each value's place; on a reload, the values stay; either way the group is busy and the
+    app's words are heard. No value is `Amount`'s dash, with the app's words, so nothing new.
+  - The model of the guide: its page by `autodocs`, JSDoc on its parts and props, examples in the order they teach,
+    checks off the page, and the household's totals from `.storybook/data.ts`.
+  - WCAG: 1.3.1, the list read as terms and values, by a story; 1.4.1, a change said by its sign and the app's words;
+    1.4.3, the muted label on the card; 1.4.10, the boxes wrapping at 320 px, by the reflow check; 2.5.8, the action's
+    32 px; 4.1.2, the action's name; 4.1.3, the load heard, by a story.
   - The sample page's totals then use it, and its `CardAction className="flex gap-1"` goes, now redundant.
+  - A new piece, so a version of its own.
 - Badge, deciding its finance colours on a dark surface, with tones for success, warning, danger and information, a
   dot, and a count beside a section's title. With it, whether `--negative` gets a red of its own, close to
   `--destructive` and told apart from it in both themes, as an app asked on 2026-11-13: a position down 3% wears a
-  failed import's red on the same screen. `theme.md` chose one red, so the theme keeps one; asked again.
+  failed import's red on the same screen. `theme.md` chose one red, so the theme keeps one; asked again. With them, whether
+  `--positive` stays green or turns blue, raised on 2026-11-13, as one decision for values, changes, charts and
+  badges; an IconTile takes no meaning's colour, decided the same day.
 - Card, whose title is a `div`, to take a heading's level as `docs/decisions/components.md` says, deciding where
   code shared by pieces lives, and whether an app gets a `Heading` that reads the level. Two second forms an app
   builds by classes today: a card with no padding, its content to the edges, for a table or a group of numbers; and
@@ -73,6 +87,32 @@ checks by `!autodocs`, and its data from `.storybook/data.ts`, added rather than
 - ScrollArea takes no focus, so a keyboard cannot scroll it when what it holds overflows, as axe says at 1280 px and
   the reflow check at 320 px; both let its story off, `gap-reflow` since 2026-11-13. Its review gives it focus and a
   name only when it overflows, as `Table` measures its area, and drops both tags.
+
+## The local checks' time
+
+A step of the pipeline, before Stat, as the owner asked on 2026-11-13, when `make check` had grown slow
+on the machine. Measured that day, each check alone, each with 8 to 12 s to start its container: lint 29 s, types
+34 s, test 49 s, of which Vitest itself 7 s, stories 2 min 8 s in Chromium, 3 min 7 s in Firefox and 2 min 31 s in
+WebKit, package 1 min 22 s, and storybook-build 34 s. About 11 min, nearly 8 of them in the stories, which go through
+every story 29 times, 12 in Chromium, 10 in Firefox and 7 in WebKit, one browser after another, where continuous
+integration runs the three together. The stories' times are high, as another `make stories` ran at the same moment:
+both failed, as a browser closed, a click waited 12 s and the coverage's temporary file went missing. One run used
+9.9 of the 11.7 GB Docker had.
+
+To ask, one at a time, each measured:
+
+- **Which checks at which moment:** while making a piece, before a commit, before a pull request. Recommended today:
+  lint, types and test before each commit, with Chromium's stories when the look changes, and everything before the
+  pull request.
+- **One piece's stories alone,** in Chromium with no coverage, as the 100% threshold fails on a part. The storybook
+  projects' tests come from the story files, and the other projects' from one file per check, which names each test
+  by its story's id, so one filter may not reach both. `make watch`, repeating the tests on each saved file, moved
+  here from Later, is weighed with it.
+- **Firefox's and WebKit's stories left to continuous integration before a pull request,** which runs them together
+  and is main's rule anyway. **What it costs:** a failure in one browser alone, as WebKit's on v0.2.0, shows a round
+  later, and `CLAUDE.md`'s rhythm, where `make check` passes before the pull request opens, changes.
+- **Memory:** fewer projects at once in Vitest, or more memory for Docker, which is the machine's setting, not the
+  repository's. Two runs at once fail, and the Firefox page that crashed out of memory, in Later, may share the cause.
 
 ## Actions and forms
 
@@ -121,9 +161,7 @@ checks by `!autodocs`, and its data from `.storybook/data.ts`, added rather than
 
 - Tabs, with a count in a tab and tools to the right of its list. Progress, Empty, and Skeleton, with one pattern
   for loading, error and empty. Spinner and Breadcrumb. Pagination moved to Table.
-- Collapsible, IconTile and AllocationBar. StatGroup moved to Display, with Stat. IconTile may take over the colour of categories that `ItemMedia`'s tile has by `category`, since
-  0.18.0; then the colour moves there and Item uses it. `calendar` after
-  a study like Sidebar's.
+- Collapsible and AllocationBar. StatGroup and IconTile moved to Display. `calendar` after a study like Sidebar's.
 - Link came early, before Sidebar.
 - Steps, Banner, and Meter, which says how much of a limit is used, unlike Progress, with a target's mark.
 - A bar of actions fixed at the foot of the page, a list virtualised for thousands of rows, on React Aria's
@@ -203,8 +241,6 @@ With `check-release`'s rules for the numbers after it, as a change that breaks t
   go when Storybook takes the plugin 0.9.1 or later, which has no `glob`, as `pnpm-workspace.yaml` says.
 - **Storybook's deprecated loader.** Every test run warns `DEP0205`, and it goes when Storybook moves. Vitest also
   warns of 11 `SIGTERM` listeners, with this many browser projects.
-- **`make watch`.** Repeats the tests on each saved file. Weighed when running all of `make stories` to check one
-  test slows the work, with the time measured.
 - **The update command in `updating.md`.** On 2026-11-13, `pnpm add -D lucide-react` with no version said the
   lockfile was up to date and kept 1.69.0, though 1.70.0 was past the release age; `lucide-react@1.70.0` moved it.
   Whether the command should name the version, or `pnpm update --latest` serves.

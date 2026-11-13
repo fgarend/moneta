@@ -21,6 +21,7 @@ import {
   CardHeader,
   CardTitle,
 } from "./card.js";
+import { IconTile } from "./icon-tile.js";
 import {
   Item,
   ItemAction,
@@ -81,7 +82,7 @@ function rows() {
 const meta = {
   title: "Components/Display & Media/Item",
   component: ItemGroup,
-  subcomponents: { Item, ItemMedia, ItemValue, ItemAction },
+  subcomponents: { Item, IconTile, ItemMedia, ItemValue, ItemAction },
   tags: ["autodocs"],
 } satisfies Meta<typeof ItemGroup>;
 
@@ -249,16 +250,16 @@ const header = "Goal";
 const footer = "Updated today";
 
 /**
- * Every part: media as an icon and as it is, a header and a footer, and a value with nothing under it.
+ * Every part: an icon on its tile and media as it is, a header and a footer, and a value with nothing under it.
  */
 export const AllParts: Story = {
   render: () => (
     <ItemGroup>
       <Item>
         <ItemHeader>{header}</ItemHeader>
-        <ItemMedia variant="icon">
+        <IconTile>
           <PiggyBank aria-hidden={true} />
-        </ItemMedia>
+        </IconTile>
         <ItemContent>
           <ItemTitle>{title}</ItemTitle>
         </ItemContent>
@@ -279,15 +280,15 @@ export const AllParts: Story = {
   ),
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const media = [
-      ...canvasElement.querySelectorAll('[data-slot="item-media"]'),
-    ];
 
     await expect(canvas.getByText(header)).toBeVisible();
     await expect(canvas.getByText(footer)).toBeVisible();
     await expect(
-      media.map((part) => part.getAttribute("data-variant")),
-    ).toEqual(["icon", "default"]);
+      canvasElement.querySelectorAll('[data-slot="icon-tile"]'),
+    ).toHaveLength(1);
+    await expect(
+      canvasElement.querySelector('[data-slot="item-media"]'),
+    ).toHaveAttribute("data-variant", "default");
   },
 };
 
@@ -424,9 +425,9 @@ export const IconAndValue: Story = {
       <ItemGroup>
         {payments.map((payment) => (
           <Item key={payment.id}>
-            <ItemMedia variant="icon">
+            <IconTile>
               <PiggyBank aria-hidden={true} />
-            </ItemMedia>
+            </IconTile>
             <ItemContent>
               <ItemTitle>{payment.name}</ItemTitle>
               <ItemDescription>{payment.detail}</ItemDescription>
@@ -453,7 +454,7 @@ export const IconAndValue: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const media = canvasElement.querySelector(
-      '[data-slot="item-media"]',
+      '[data-slot="icon-tile"]',
     ) as Element;
     const [first, second] = [
       ...canvasElement.querySelectorAll('[data-slot="item-value"]'),
@@ -538,7 +539,7 @@ function statement() {
 
 function tiles(canvasElement: HTMLElement): HTMLElement[] {
   return [
-    ...canvasElement.querySelectorAll('[data-slot="item-media"]'),
+    ...canvasElement.querySelectorAll('[data-slot="icon-tile"]'),
   ] as HTMLElement[];
 }
 
@@ -565,18 +566,18 @@ export const Categories: Story = {
       <ItemGroup>
         {spending.map(({ category, name, Icon }) => (
           <Item key={name}>
-            <ItemMedia category={category} variant="icon">
+            <IconTile category={category}>
               <Icon aria-hidden={true} />
-            </ItemMedia>
+            </IconTile>
             <ItemContent>
               <ItemTitle>{name}</ItemTitle>
             </ItemContent>
           </Item>
         ))}
         <Item>
-          <ItemMedia variant="icon">
+          <IconTile>
             <TagIcon aria-hidden={true} />
-          </ItemMedia>
+          </IconTile>
           <ItemContent>
             <ItemTitle>No category</ItemTitle>
           </ItemContent>
@@ -607,37 +608,6 @@ export const Categories: Story = {
     await expect(getComputedStyle(plain).backgroundColor).toBe(
       colourOf("var(--muted)", canvasElement),
     );
-  },
-};
-
-/**
- * A number that names no category, nought, below it or a fraction, keeps the quiet tile, as no category does.
- */
-export const CategoryOutOfRange: Story = {
-  tags: ["!autodocs"],
-  render: () => (
-    <ItemGroup>
-      {[0, -1, 2.5].map((category) => (
-        <Item key={category}>
-          <ItemMedia category={category} variant="icon">
-            <TagIcon aria-hidden={true} />
-          </ItemMedia>
-          <ItemContent>
-            <ItemTitle>{`Category ${category}`}</ItemTitle>
-          </ItemContent>
-        </Item>
-      ))}
-    </ItemGroup>
-  ),
-  play: async ({ canvasElement }) => {
-    for (const media of tiles(canvasElement)) {
-      await expect(getComputedStyle(media).backgroundColor).toBe(
-        colourOf("var(--muted)", canvasElement),
-      );
-      await expect(getComputedStyle(media).color).toBe(
-        colourOf("var(--foreground)", canvasElement),
-      );
-    }
   },
 };
 
@@ -949,9 +919,9 @@ const compactGap = "20px";
 function paymentRow(row: { id: string; name: string; value: string }) {
   return (
     <Item key={row.id}>
-      <ItemMedia variant="icon">
+      <IconTile>
         <PiggyBank aria-hidden={true} />
-      </ItemMedia>
+      </IconTile>
       <ItemContent>
         <ItemTitle>{row.name}</ItemTitle>
         <ItemDescription>{description}</ItemDescription>
@@ -987,7 +957,7 @@ export const Compact: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const [row] = canvas.getAllByRole("listitem") as [HTMLElement];
-    const media = row.querySelector('[data-slot="item-media"]') as Element;
+    const media = row.querySelector('[data-slot="icon-tile"]') as Element;
     const shape = canvasElement.querySelector(
       '[data-slot="item-loading"]',
     ) as HTMLElement;

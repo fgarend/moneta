@@ -9,7 +9,8 @@ known and what is still to ask, are in [`roadmap-notes.md`](roadmap-notes.md), r
 ## Next, in order
 
 1. **Display.** The pieces that show, reviewed or made.
-    - Stat and StatGroup, then Badge, Card, Alert, and Avatar and AvatarGroup
+    - The local checks' time, a step of the pipeline; then Stat and StatGroup, then Badge, Card, Alert, and Avatar
+      and AvatarGroup
     - Separator, Kbd, AspectRatio and ScrollArea, then DescriptionList, Timeline and TickerChip
 2. **Actions and forms.** The pieces that act and take input, reviewed or made.
     - Button, ButtonGroup and PageHeader
@@ -29,7 +30,7 @@ known and what is still to ask, are in [`roadmap-notes.md`](roadmap-notes.md), r
 4. **The rest.** The other pieces, reviewed or made.
     - Tabs, Progress, Meter, Empty, Skeleton and Spinner
     - Breadcrumb, Steps and Banner
-    - Collapsible, IconTile and AllocationBar
+    - Collapsible and AllocationBar
     - a bar of actions at the page's foot, a virtualised list, and Toast
     - `calendar`, after a study
 5. **Charts.** Line, area, bars and donut, a ring and BarList, each with a table of its data.
@@ -63,7 +64,6 @@ Each becomes an item when its time comes.
 - **An image vulnerability scan.**
 - **An update bot.**
 - **Storybook's accepted advisories and deprecated loader.** When Storybook moves.
-- **`make watch`.** When running every story to check one slows the work.
 - **The update command in `updating.md`.** It kept a package at its version once, found on 2026-11-13.
 - **`actionlint`.** If a workflow fails on something it finds.
 - **Biome's `noTailwindArbitraryValue`.** In place of our own scan of classes.
@@ -88,6 +88,8 @@ Each becomes an item when its time comes.
 
 ## Done
 
+- **IconTile.** An icon on a square or a circle, soft, solid or gold, at 32, 40 or 48 px, which takes its defaults
+  from where it sits, as in an Item, in place of ItemMedia's icon variant. 0.22.0.
 - **The gallery as a guide.** A page per piece, from its comment and its stories, every example checked, one
   fictitious household's data, Item as the model, and the sample page on AppLayout and Sidebar. No version of its
   own; it goes out with the next.

@@ -52,9 +52,10 @@ A piece with no gap listed may still have some.
 | `empty` | raw | |
 | `field` | raw | **Code:** does not link its description or error, which its story does by hand. **Edited:** React Aria's `Group` |
 | `hover-card` | raw | **Code:** its dialog has no name unless given `aria-label`. Opening by focus or hover is not checked |
+| `icon-tile` | reviewed | |
 | `input` | raw | **Edited:** default 36 px, `sm` 32 and `lg` 40, by a `size` in place of the input's own, its width in characters |
 | `input-group` | raw | **Edited:** default 36 px, `sm` 32 and `lg` 40, its input as tall as the group, its addon is React Aria's `Group`, and pulls a button or `kbd` 4 or 2 px toward the edge |
-| `item` | reviewed | **Edited:** `ItemMedia`'s icon tile takes a category's colour by `category={n}`. **Code:** `Item`'s `size` has `default` and `sm` the same, as shadcn's own file has them |
+| `item` | reviewed | **Edited:** an icon is an `IconTile` in the item, which says its shape and size, and `ItemMedia` holds an image or an avatar. **Code:** `Item`'s `size` has `default` and `sm` the same, as shadcn's own file has them |
 | `kbd` | raw | |
 | `label` | raw | |
 | `link` | reviewed | |

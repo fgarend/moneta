@@ -37,6 +37,14 @@ pieces is in [`../pieces.md`](../pieces.md), and how a piece is analysed is in [
   names; its time zone, `timeZone`, which a piece's own overrides; and its words and hidden values, as
   `docs/decisions/money.md` says. One inside another keeps what it is not given. What it holds for the pieces is
   `src/hooks/moneta.ts`, internal.
+- **A piece takes its defaults from where it sits,** as a title takes its level: the piece around it says how it
+  behaves there, and a prop given by hand wins. An `IconTile` in an `Item` is a square at the row's start, 40 px or
+  32 in a compact list, by a context of `src/hooks/tile.ts`. Other pieces follow at their steps, as Stat with its
+  tile and its value's size, Avatar in a row and a control in a table's row.
+- **`IconTile` is an icon on a square or a circle,** where the eye starts a row or a number. Its colour says weight,
+  not meaning: `default`, soft, neutral or a category's tint by `category={n}`; `solid`, in the text's colour; and
+  `gold`, the screen's headline, once per screen. `shape` is `square` or `circle`, and `size` 32, 40 or 48 px with an
+  icon of 16, 20 or 24. Its one icon is its child. It is a `span`, always hidden from screen readers.
 - **The gallery is a guide too.** A piece tagged `autodocs` has a page of its own, by `@storybook/addon-docs`: its
   comment, its first story, a table of its props with their comments, a tab for each part an app writes, and its
   other stories in its file's order, each with its comment. So a piece's and a prop's comments are JSDoc, which an
@@ -51,8 +59,8 @@ pieces is in [`../pieces.md`](../pieces.md), and how a piece is analysed is in [
   look has one. A meaning, `destructive`, `success`, `warning` and `info`, is a `variant` too, as `theme.md` says. A
   group's boxes join or part by `spacing`, as shadcn's `ToggleGroup`: `0` draws one box with lines between, more a
   box each that far apart, and `variant` the look of the boxes. A look one piece alone needs keeps a name of its own,
-  as `Tabs`' `line`, `ItemMedia`'s `icon` and `image` and `Button`'s `gold`, and enters the vocabulary when a second
-  piece needs it. Each variant's analysis names it from here, or gives the reason for a new name.
+  as `Tabs`' `line`, `ItemMedia`'s `image` and `IconTile`'s `solid`, and enters the vocabulary when a second
+  piece needs it, as `gold`, the brand, did when `IconTile` took it after `Button`. Each variant's analysis names it from here, or gives the reason for a new name.
 - **The gallery groups the pieces by purpose, under shadcn's own groups,** as its docs list its components: Form &
   Input, Layout & Navigation, Overlays & Dialogs, Feedback & Status, Display & Media, and Misc. Its first level is
   `Components`, then `Sample`, and blocks and foundations will be levels of their own. A piece of ours goes in the
@@ -65,7 +73,8 @@ pieces is in [`../pieces.md`](../pieces.md), and how a piece is analysed is in [
   in a card, where a `CardContent` holding only a list loses its side padding and gains a line above. An `Item` alone
   stays a `<div>`, with its variants.
 - **Titles and descriptions wrap,** never cut.
-- **`ItemMedia variant="icon"` is a 40 px tile at `--muted`** with a 20 px icon, which Colours of meaning will tint.
+- **An icon in an item is an `IconTile` written straight in it,** a square of 40 px at the row's start, or 32 in a
+  compact list, by the item's word. `ItemMedia` holds an image or an avatar, as shadcn's.
 - **An `ItemGroup` with a `title` is a group,** as a day's: its title a heading a level below its section's, which
   names its list, and its `total` at its end, as a table's groups: 12 px semibold muted, the total at 500 and the
   rows' size, a `--border-strong` line under it, 12 px above the first and 32 above the next. A `CardContent` holding
@@ -237,6 +246,15 @@ pieces is in [`../pieces.md`](../pieces.md), and how a piece is analysed is in [
   `src/hooks/level.ts`, which Section and ItemGroup read.
 - **No router,** as Moneta knows no app, React Aria's docs recommended `render` on 2026-11-09, and `RouterProvider`
   still works. Table and GridList rows cannot be an `<a>`, so with a router they navigate through `onAction`.
+- **Defaults from where a piece sits,** as an app's screens would otherwise repeat a size or a shape the place
+  already knows, and the piece around keeps its layout. shadcn wraps instead, a part per piece, as `ItemMedia` and
+  `EmptyMedia`, each with its own tile, two already. **What it costs:** where a default comes from is not seen in the
+  code that uses it, as a title's level.
+- **`IconTile`'s colours,** as the prototype draws its tiles in rows soft by category and by its numbers and goals in
+  solid circles, one gold, and as of shadcn, Tremor, Mantine, Untitled UI, Chakra and Ant Design read on 2026-11-13,
+  the icon is optional everywhere and a colour per number rare. No meaning's colour, as the value and the change say
+  it where it is read, an outflow is not bad news, a red tile reads as an error, and the prototype's own green and
+  red tiles, defined, were used on none of its screens. **What it costs:** no tile says good or bad at a glance.
 - **The gallery as a guide,** as whoever builds a screen first looks for what exists and how it is used, and stories
   that were only checks said neither. **Storybook's own page,** as it reads the stories and comments that exist, and
   Storybook 10's docs prefer comments to parameters. **What it costs:** its order and form, a package to keep, a lint
@@ -392,6 +410,10 @@ pieces is in [`../pieces.md`](../pieces.md), and how a piece is analysed is in [
 
 ## Alternatives considered
 
+- **A part per piece for its icon,** `ItemMedia`, `StatMedia`, `EmptyMedia`, as shadcn's, each repeating the tile.
+  **The app composing a tile's shape and size each time.** **An icon by a prop,** as `icon={WalletIcon}`, the one piece
+  that would take one so. **Tiles green for money in and red for money out.** **An outlined tile,** which no screen
+  of the prototype uses. **A name for a tile alone,** which no screen needs yet.
 - **A page written by hand, in MDX,** as shadcn's site has, about 50 pages to keep beside the stories, or **stories
   alone,** with no words on what to use and when. **Descriptions as parameters,** a string in each story, which the
   docs keep for where a comment cannot go. **The alphabet's order with `Default` first,** which teaches nothing after
@@ -465,3 +487,4 @@ pieces is in [`../pieces.md`](../pieces.md), and how a piece is analysed is in [
 - 2026-11-12: Layout and text: what a title and an action hold, and no layout pieces.
 - 2026-11-13: One vocabulary of variants.
 - 2026-11-13: The gallery as a guide.
+- 2026-11-13: IconTile, and defaults from where a piece sits.

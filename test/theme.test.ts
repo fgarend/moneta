@@ -116,6 +116,9 @@ describe.each(["light", "dark"])("the %s theme", (mode) => {
     ["info", "card", text],
     ["info", "muted", text],
     ["gold-foreground", "gold", text],
+    // An icon on each tile: soft, solid, in the text's colour with the icon in the background's, and gold, above.
+    ["foreground", "muted", nonText],
+    ["background", "foreground", nonText],
     ["sidebar-foreground", "sidebar", text],
     ["sidebar-accent-foreground", "sidebar-accent", text],
     ["sidebar-primary-foreground", "sidebar-primary", text],
