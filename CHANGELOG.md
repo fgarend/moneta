@@ -6,6 +6,20 @@ gets its number.
 
 ## [Unreleased]
 
+### Added
+
+- `IconTile`, an icon on a square or a circle, where the eye starts a row or a number: `default`, soft, neutral or a
+  category's tint by `category`, `solid` in the text's colour, or `gold` for the screen's headline, at 32, 40 or 48 px
+  by `size`, by `shape` a square or a circle. Always hidden from screen readers. Written in an `Item`, it is a square
+  at the row's start, 40 px or 32 in a compact list, unless its props say otherwise.
+- The guidelines' Icon tiles, and gold for a screen's headline beside its main action.
+
+### Changed
+
+- **Breaking:** `ItemMedia` loses `variant="icon"` and `category`, as an icon in an item is now an `IconTile`. To
+  upgrade, write `<IconTile category={n}><Icon /></IconTile>` straight in the `Item`, in place of
+  `<ItemMedia variant="icon" category={n}><Icon /></ItemMedia>`. `ItemMedia` keeps images and avatars.
+
 ## [0.21.1] - 2026-11-13
 
 A table's hidden header no longer widens the page on a narrow screen.

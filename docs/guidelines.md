@@ -20,12 +20,13 @@ the version installed. It holds only what exists, and each reviewed piece adds i
   error are close for many readers. `--success` is a gain's green, `--positive`, which stays a value's good news.
 - **`--positive` and `--negative` are a value's good news and bad,** through `tone` on `Amount`, `Percent` and
   `Quantity`. `--negative` is `--destructive`'s red.
-- **Gold is for little.** `Button`'s `variant="gold"`, at most once per screen, with `--gold-foreground` on it. Never a
-  page's or a card's background, and never text, as it reaches only 1.66:1 on the page.
+- **Gold is for little.** `Button`'s `variant="gold"` for the screen's main action, and `IconTile`'s `variant="gold"`
+  for its headline, as its main number, each at most once per screen, with `--gold-foreground` on it. Never a page's
+  or a card's background, and never text, as it reaches only 1.66:1 on the page.
 - **The sidebar is the one dark surface in light,** `--sidebar`, and what sits on it reads `--sidebar-foreground`,
   `--sidebar-muted-foreground`, `--sidebar-accent`, `--sidebar-border` and `--sidebar-ring`, as `Sidebar` does.
-- **`--category-1` to `--category-8` tell categories apart, and say nothing,** as a row's category on `ItemMedia`'s
-  tile, through `category={n}`, and later a chart's series, in their order. Past eight they repeat, so a name always
+- **`--category-1` to `--category-8` tell categories apart, and say nothing,** as a row's category on its
+  `IconTile`, through `category={n}`, and later a chart's series, in their order. Past eight they repeat, so a name always
   goes beside a colour, never the colour alone. Never for a state, which the colours of meaning say, and never as text.
   `--chart-1` to `--chart-5` are the first five, for shadcn's chart.
 
@@ -54,8 +55,10 @@ the version installed. It holds only what exists, and each reviewed piece adds i
   too, as Colour says.
 - **A group joins its items in one box by `spacing={0}`,** with lines between, and parts them into a box each by a
   larger step, with `variant` the look of each box. `ToggleGroup` reads it.
-- **A name one piece alone has is its own,** as `Tabs`' `line`, `ItemMedia`'s `icon` and `image`, and `Button`'s
-  `gold`.
+- **`gold` is the brand,** on `Button` and `IconTile`, at most once per screen each, as Colour says.
+- **A name one piece alone has is its own,** as `Tabs`' `line`, `ItemMedia`'s `image` and `IconTile`'s `solid`.
+- **A piece takes its defaults from where it sits,** as an `IconTile` in an `Item` is a square of 40 px, and a prop
+  given by hand wins.
 
 ## Text
 
@@ -117,6 +120,16 @@ the version installed. It holds only what exists, and each reviewed piece adds i
 - **It is no landmark,** so a page of sections keeps its landmarks few, and its titles give its structure.
 - **The page puts 40 px between sections,** as a section has no space around itself.
 
+## Icon tiles
+
+- **An icon on a tile marks where the eye starts,** a row or a number, and is always decoration: the words beside it
+  say what it is, so it never stands alone.
+- **Its colour says weight, not meaning.** `default`, soft, for many, in rows: neutral, or a category's tint by
+  `category={n}`. `solid`, in the text's colour, for few, as the anchor of a number or a card's title. `gold` for the
+  screen's headline, once. Good or bad news goes in the value, the change and a `Badge`, never on the tile.
+- **A square in a row, a circle by a number or a card's title,** by `shape`, at 32, 40 or 48 px by `size`. Where a
+  piece holds it, the piece says which, and a prop given by hand wins.
+
 ## Lists of rows
 
 - **A list of rows is one thing per row, read across,** as an account, a transaction or a bill, with its value at the
@@ -126,7 +139,7 @@ the version installed. It holds only what exists, and each reviewed piece adds i
 - **Rows grouped, as by day, go in one `ItemGroup` per group,** with its `title` and its `total`, which follows its
   rows' `sign` and takes no `tone`.
 - **A row's value goes in an `ItemValue` at its end,** as an `Amount`, with a date or a badge as its `detail`, and its
-  icon in an `ItemMedia variant="icon"`.
+  icon in an `IconTile` written straight in the `Item`, which makes it a square at the row's start.
 - **An action per row is an `ItemAction`** in its `ItemActions`, with one word as its `aria-label`, as "Edit"; the row's
   title completes its name. Several actions go in a `DropdownMenu` whose trigger is an `ItemAction`.
 - **A short list that has more says so in its card's `CardFooter`,** in one line of your words with a `Link` to the

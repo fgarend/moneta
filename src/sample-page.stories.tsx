@@ -45,13 +45,13 @@ import {
   CardHeader,
   CardTitle,
 } from "./components/card.js";
+import { IconTile } from "./components/icon-tile.js";
 import { Input } from "./components/input.js";
 import {
   Item,
   ItemContent,
   ItemDescription,
   ItemGroup,
-  ItemMedia,
   ItemTitle,
   ItemValue,
 } from "./components/item.js";
@@ -319,9 +319,9 @@ function SidePanels() {
           <ItemGroup>
             {accountBalances.map(({ name, bank, icon: Icon, balance }) => (
               <Item key={name}>
-                <ItemMedia variant="icon">
+                <IconTile>
                   <Icon aria-hidden="true" />
-                </ItemMedia>
+                </IconTile>
                 <ItemContent>
                   <ItemTitle>
                     <Link href={`#${name}`} isQuiet={true}>
