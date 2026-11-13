@@ -35,12 +35,49 @@ with each family. No reviewed piece has a default text, so shadcn's written stri
 **Done when:** an app can build every screen from Moneta's pieces with no class of its own, and leaves Tailwind for
 `styles.css`. Until then, it keeps Tailwind only for the classes it still writes.
 
+## One vocabulary of variants
+
+The same name for the same look in every piece. Raised on 2026-11-13 in Stat's analysis, where a group of numbers is
+drawn three ways, one box with lines between, a box each, or no box, a choice other groups share. Decided the same
+day, one point at a time, each option drawn, after a study of the variants of shadcn, Radix Themes, Chakra, Mantine,
+Spectrum and Atlassian, of which none writes down a shared vocabulary and Radix and Chakra repeat names the most.
+
+- **shadcn's names, each one look in every piece,** and `default` each piece's usual look. **What it costs:** shadcn
+  has two names for a soft fill.
+- **Two families of looks.** A control, as Button, Badge and Toggle, takes `secondary`, `outline`, `ghost` and `link`;
+  a surface, as Item, Card and StatGroup, takes `outline`, `muted` and `ghost`. `secondary` ranks an action, `muted`
+  calms a surface, so no shadcn file is edited. **What it costs:** one soft fill keeps two names.
+- **`ghost` is a surface with no frame too,** named only where a piece's usual look has one, as Card's. **What it
+  costs:** on a surface it shows nothing under the pointer, as a control's does.
+- **Meanings stay in `variant`,** `destructive`, `success`, `warning` and `info`, shared by Badge and Alert, as
+  `theme.md` decided.
+- **A group's boxes join or part by `spacing`,** as shadcn's ToggleGroup: `0` one box with lines between, more a box
+  each that far apart, with `variant` the look of the boxes. **What it costs:** the name says a distance, and an app
+  can pick any step of the scale.
+- **A name one piece alone needs stays in it,** as Tabs' `line`, ItemMedia's `icon` and `image`, Button's `gold`,
+  and enters the vocabulary when a second piece needs the look.
+- **The analysis keeps it,** asking each variant for its name from the vocabulary or the reason for a new one, with
+  no test, as `cva` does not expose its names.
+- No piece changes: today's names fit. The vocabulary is written in `docs/decisions/components.md`, the analysis'
+  line in `process.md`, and how an app reads it in the guidelines. No version of its own, as Layers; it goes out
+  with the next.
+
+## The gallery as a guide
+
+- Raised on 2026-11-13: the gallery is a guide for whoever uses Moneta, to see what exists and how to use it, with
+  each piece's variants, sizes and states in combination, and fictitious data that reads as real use.
+- Today its stories are mostly checks, as Badge's three, with no page per piece.
+- To decide: a page per piece and what it holds, which stories are examples and which checks, so screenshots do not
+  grow with the examples, and one piece made the model, the others following in their own steps.
+
 ## Display
 
 - Badge, deciding its finance colours on a dark surface, with tones for success, warning, danger and information, a
   dot, and a count beside a section's title.
 - Card, whose title is a `div`, to take a heading's level as `docs/decisions/components.md` says, deciding where
-  code shared by pieces lives, and whether an app gets a `Heading` that reads the level.
+  code shared by pieces lives, and whether an app gets a `Heading` that reads the level. Two second forms an app
+  builds by classes today: a card with no padding, its content to the edges, for a table or a group of numbers; and
+  a title at a section's size, for a card that is a part of the page.
 - Section came early, before Sidebar, and Table comes there too.
 - Avatar with its group, AvatarGroup, whose fallback's text an app measured at 4.34:1.
 - Alert. Item moved to Lists of rows. Separator, Stat, DescriptionList, Kbd, AspectRatio, ScrollArea,
@@ -176,6 +213,9 @@ With `check-release`'s rules for the numbers after it, as a change that breaks t
   warns of 11 `SIGTERM` listeners, with this many browser projects.
 - **`make watch`.** Repeats the tests on each saved file. Weighed when running all of `make stories` to check one
   test slows the work, with the time measured.
+- **The update command in `updating.md`.** On 2026-11-13, `pnpm add -D lucide-react` with no version said the
+  lockfile was up to date and kept 1.69.0, though 1.70.0 was past the release age; `lucide-react@1.70.0` moved it.
+  Whether the command should name the version, or `pnpm update --latest` serves.
 - **`actionlint`.** Biome reads a workflow's YAML, but not GitHub's rules. It ran once by hand on 2026-11-06, with
   nothing found, and would be one more image to keep. Weighed if a workflow fails on something it finds.
 - **Biome's `noTailwindArbitraryValue`.** It may replace the class scan in `test/pieces.test.ts`, which is a long
