@@ -249,8 +249,9 @@ function PageHeader() {
       </div>
       <Input
         aria-label="Search payments"
-        className="h-10 w-60"
+        className="w-60"
         placeholder="Search payments"
+        size="lg"
       />
       <Button aria-label="Notices" size="icon-lg" variant="ghost">
         <Bell />
@@ -501,6 +502,10 @@ const Default: Story = {
     await expect(
       canvas.getByRole("heading", { level: 1, name: "Overview" }),
     ).toBeVisible();
+    // The search beside the page's main action takes its size, so the row lines up.
+    await expect(
+      canvas.getByRole("textbox", { name: "Search payments" }).offsetHeight,
+    ).toBe(canvas.getByRole("button", { name: "New payment" }).offsetHeight);
     await expect(
       within(canvas.getByRole("navigation", { name: "Main" })).getByRole(
         "link",

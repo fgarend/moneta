@@ -43,21 +43,21 @@ A piece with no gap listed may still have some.
 | `checkbox` | raw | **Code:** does not grow for its children. **Edited:** on React Aria's `CheckboxField` and `CheckboxButton`, and a dash on a filled box when indeterminate |
 | `collapsible` | raw | **Code:** its trigger has no style of its own |
 | `context-menu` | raw | |
-| `date-field` | reviewed | |
+| `date-field` | reviewed | **Edited:** `lg` 40 px, beside 36 and `sm` 32 |
 | `date-time` | reviewed | |
 | `dialog` | raw | **Edited:** 16 px from each edge by `inset-x-4`, and React Aria's types are not exported, and its close button's name comes from `closeLabel`, and it sets `--surface` |
 | `dropdown-menu` | raw | |
 | `empty` | raw | |
 | `field` | raw | **Code:** does not link its description or error, which its story does by hand. **Edited:** React Aria's `Group` |
 | `hover-card` | raw | **Code:** its dialog has no name unless given `aria-label`. Opening by focus or hover is not checked |
-| `input` | raw | **Edited:** 36 px |
-| `input-group` | raw | **Edited:** 36 px, its addon is React Aria's `Group`, and pulls a button or `kbd` 4 or 2 px toward the edge |
-| `item` | reviewed | **Edited:** `ItemMedia`'s icon tile takes a category's colour by `category={n}` |
+| `input` | raw | **Edited:** default 36 px, `sm` 32 and `lg` 40, by a `size` in place of the input's own, its width in characters |
+| `input-group` | raw | **Edited:** default 36 px, `sm` 32 and `lg` 40, its input as tall as the group, its addon is React Aria's `Group`, and pulls a button or `kbd` 4 or 2 px toward the edge |
+| `item` | reviewed | **Edited:** `ItemMedia`'s icon tile takes a category's colour by `category={n}`. **Code:** `Item`'s `size` has `default` and `sm` the same, as shadcn's own file has them |
 | `kbd` | raw | |
 | `label` | raw | |
 | `link` | reviewed | |
 | `moneta-provider` | reviewed | |
-| `native-select` | raw | **Edited:** 36 px, and `sm` 32 |
+| `native-select` | raw | **Edited:** default 36 px, `sm` 32 and `lg` 40 |
 | `pagination` | reviewed | |
 | `percent` | reviewed | |
 | `popover` | raw | **Code:** its title does not name it |
@@ -66,7 +66,7 @@ A piece with no gap listed may still have some.
 | `radio-group` | raw | **Code:** an item does not grow for its children. **Edited:** on React Aria's `RadioField` and `RadioButton` |
 | `section` | reviewed | |
 | `scroll-area` | raw | **axe:** takes no focus when nothing in it can, so the keyboard cannot scroll it |
-| `select` | raw | **Edited:** default 36 px, and `sm` 32, and its separator is hidden from screen readers. **forced colours:** the chevron keeps its own colour, in Chromium |
+| `select` | raw | **Edited:** default 36 px, `sm` 32 and `lg` 40, and its separator is hidden from screen readers. **forced colours:** the chevron keeps its own colour, in Chromium |
 | `separator` | raw | |
 | `sheet` | raw | **Edited:** React Aria's types are not exported, its close button's name comes from `closeLabel`, it sets `--surface`, and its `aria-label` or `aria-labelledby` names its dialog |
 | `sidebar` | reviewed | |
@@ -76,7 +76,7 @@ A piece with no gap listed may still have some.
 | `spinner` | raw | **Default text:** "Loading". **Code:** spins with no regard for reduced motion |
 | `switch` | raw | **Edited:** on React Aria's `SwitchField` and `SwitchButton`, with an 18 px track. **Code:** does not grow for its children |
 | `table` | reviewed | |
-| `tabs` | raw | **Edited:** 36 px, and its inactive text reads `muted-foreground`, as `foreground/60` is 3.89:1 on our `muted`, its trigger is as tall as its list, and `tabsListVariants` is not exported |
+| `tabs` | raw | **Edited:** default 36 px, `sm` 32 and `lg` 40 on `TabsList`, and its inactive text reads `muted-foreground`, as `foreground/60` is 3.89:1 on our `muted`, its trigger is as tall as its list, and `tabsListVariants` is not exported |
 | `textarea` | raw | |
 | `toggle` | raw | **Edited:** default 36 px, `sm` 32 and `lg` 40, `sm`'s text is 12 px, and `toggleVariants` is not exported |
 | `toggle-group` | raw | **Edited:** each item draws a `Toggle` |

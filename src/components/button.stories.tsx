@@ -1,5 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
+import { DownloadIcon } from "lucide-react";
 import { expect, within } from "storybook/test";
+import { height, scale, sizes } from "../../.storybook/sizes.js";
 import { Button, LinkButton } from "./button.js";
 
 // shadcn's Button and LinkButton, on React Aria, which tests their keyboard and press behaviour itself. Of WCAG 2.2, 4.1.2
@@ -7,8 +9,6 @@ import { Button, LinkButton } from "./button.js";
 // theme. Not checked: 1.4.11 (contrast of its edges), 2.4.7 (focus visible), its other variants, and real screen readers.
 const label = "Pay";
 const defaultHeight = 36;
-const smallHeight = 32;
-const largeHeight = 40;
 // What --gold paints, as it is the one name here that shadcn does not have.
 const gold = "rgb(240, 189, 42)";
 
@@ -30,24 +30,6 @@ const Default: Story = {
     await expect(button).toHaveAttribute("type", "button");
     // Its own height, so the theme and Tailwind reach what every story draws.
     await expect(button.offsetHeight).toBe(defaultHeight);
-  },
-};
-
-const Small: Story = {
-  args: { size: "sm" },
-  play: async ({ canvasElement }) => {
-    const button = within(canvasElement).getByRole("button", { name: label });
-
-    await expect(button.offsetHeight).toBe(smallHeight);
-  },
-};
-
-const Large: Story = {
-  args: { size: "lg" },
-  play: async ({ canvasElement }) => {
-    const button = within(canvasElement).getByRole("button", { name: label });
-
-    await expect(button.offsetHeight).toBe(largeHeight);
   },
 };
 
@@ -98,5 +80,32 @@ const Link: Story = {
   },
 };
 
+// Each size of the scale, 32, 36 and 40 px, its icon 14 px at sm, as its text shrinks, and 16 above.
+const Sizes: Story = {
+  tags: ["visual"],
+  render: () => (
+    <div className="flex items-start gap-3">
+      {sizes.map((size) => (
+        <Button key={size} size={size}>
+          <DownloadIcon />
+          {label}
+        </Button>
+      ))}
+    </div>
+  ),
+  play: async ({ canvasElement }) => {
+    const buttons = within(canvasElement).getAllByRole("button");
+    const icon = { sm: 14, default: 16, lg: 16 };
+
+    for (const [index, size] of sizes.entries()) {
+      const button = buttons[index] as HTMLElement;
+      await expect(height(button)).toBe(scale[size]);
+      await expect(height(button.querySelector("svg") as Element)).toBe(
+        icon[size],
+      );
+    }
+  },
+};
+
 export default meta;
-export { Default, Disabled, Gold, Large, Link, MergesClasses, Small, Submit };
+export { Default, Disabled, Gold, Link, MergesClasses, Sizes, Submit };

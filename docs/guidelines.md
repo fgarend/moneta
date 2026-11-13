@@ -32,8 +32,14 @@ the version installed. It holds only what exists, and each reviewed piece adds i
 ## Size
 
 - **Controls are 36 px tall by default, 40 at `size="lg"` for a page's main action, and 32 at `size="sm"` for a dense
-  place,** such as a table's row. That holds for `Button`, `Input`, `InputGroup`, `NativeSelect`, `Pagination`, `Select`,
-  `Tabs`, `Toggle` and `ToggleGroup`, where each has the size. `xs` is shadcn's, outside this scale.
+  place,** such as a table's row. That holds for every control a row holds side by side: `Button`, `Toggle`,
+  `ToggleGroup`, `Input`, `InputGroup`, `Select`'s trigger, `NativeSelect`, `DateField` and `TabsList`. `Pagination` is
+  36. `xs` is shadcn's, outside this scale. `Badge`, `Kbd`, `Avatar`, `Checkbox`, `RadioGroup` and `Switch` have sizes
+  of their own.
+- **A control's icon is 14 px at `sm` and 16 at `default` and `lg`,** following its text, which is 12 px at `sm`, and 12
+  at `xs`. A list's tile holds 20, or 16 when compact.
+- **A list or a table is denser by `density="compact"`,** not by `size`: its rows grow closer, and the controls in them
+  stay 32 px.
 - **The controls in a row with a page's main action are 40 px as well,** so the row lines up.
 - **The radius is `--radius`,** and every piece takes its corners from it.
 

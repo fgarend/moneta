@@ -22,18 +22,6 @@ scale of sizes may need a touch when they arrive, and Sidebar's study may change
 later: a page that puts the pieces together, a pre-release tried in an app before a version, and a review of the whole
 after each family.
 
-## One scale of sizes
-
-The look's 32, 36 and 40 px, on every piece, as only 9 follow it today. Badge, Avatar, Item, Checkbox, Switch and
-Table's rows do not, and Item's `default` and `sm` are the same. Input has no `lg`, so a field in a row with a page's
-main action takes `h-10` by hand, as the sample page does. Table chose its own first, rows of about 44 px and
-`density="compact"` of about 36 px, which this item may rename.
-
-- To ask: the names of the sizes for every piece, as Button has `xs`, `sm`, `default`, `lg` and `icon-*`.
-- The icons' sizes, Icons' item folded in here on 2026-11-12, as an icon already follows its control's size: Button's
-  12, 14, 16 and 16 px at 24, 32, 36 and 40; 16 in the menus, Select, Tabs, Pagination and Alert; 20 in a list's tile,
-  16 when compact; 12 in Badge and Kbd; 14 in Table; 24 in AlertDialog's media; and 8 in Avatar's badge. From Lucide.
-
 ## Layout and text
 
 What replaces `flex`, `gap-*` and `text-*`, which shadcn does not have and most of an app's classes are. Own code,

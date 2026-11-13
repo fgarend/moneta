@@ -2,6 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 import { Autocomplete } from "react-aria-components";
 import { expect, userEvent, within } from "storybook/test";
 import { settled } from "../../.storybook/settled.js";
+import { height, scale, sizes } from "../../.storybook/sizes.js";
 import {
   Select,
   SelectContent,
@@ -236,5 +237,34 @@ const Searchable: Story = {
   },
 };
 
+// Each size of the scale, so a field lines up with the buttons beside it: 32, 36 and 40 px.
+const Sizes: Story = {
+  tags: ["visual"],
+  render: () => (
+    <div className="flex items-start gap-3">
+      {sizes.map((size) => (
+        <Select
+          aria-label={`${name} ${size}`}
+          key={size}
+          placeholder={placeholder}
+        >
+          <SelectTrigger size={size}>
+            <SelectValue />
+          </SelectTrigger>
+        </Select>
+      ))}
+    </div>
+  ),
+  play: async ({ canvasElement }) => {
+    const controls = [
+      ...canvasElement.querySelectorAll('[data-slot="select-trigger"]'),
+    ];
+
+    await expect(controls.map(height)).toEqual(
+      sizes.map((size) => scale[size]),
+    );
+  },
+};
+
 export default meta;
-export { Default, Grouped, Multiple, Open, Searchable, WordedValue };
+export { Default, Grouped, Multiple, Open, Searchable, Sizes, WordedValue };

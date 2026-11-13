@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { expect, within } from "storybook/test";
+import { height, scale, sizes } from "../../.storybook/sizes.js";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "./tabs.js";
 
 const list = "Account views";
@@ -50,5 +51,33 @@ const Default: Story = {
   },
 };
 
+// Each size of the scale, so tabs line up with the buttons beside them: 32, 36 and 40 px.
+const Sizes: Story = {
+  tags: ["visual"],
+  render: () => (
+    <div className="flex items-start gap-3">
+      {sizes.map((size) => (
+        <Tabs key={size}>
+          <TabsList aria-label={`${list} ${size}`} size={size}>
+            <TabsTrigger id={balance}>{balance}</TabsTrigger>
+            <TabsTrigger id={history}>{history}</TabsTrigger>
+          </TabsList>
+          <TabsContent id={balance}>{content}</TabsContent>
+          <TabsContent id={history}>{history}</TabsContent>
+        </Tabs>
+      ))}
+    </div>
+  ),
+  play: async ({ canvasElement }) => {
+    const controls = [
+      ...canvasElement.querySelectorAll('[data-slot="tabs-list"]'),
+    ];
+
+    await expect(controls.map(height)).toEqual(
+      sizes.map((size) => scale[size]),
+    );
+  },
+};
+
 export default meta;
-export { Default };
+export { Default, Sizes };
