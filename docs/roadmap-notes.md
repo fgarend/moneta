@@ -35,11 +35,24 @@ with each family. No reviewed piece has a default text, so shadcn's written stri
 **Done when:** an app can build every screen from Moneta's pieces with no class of its own, and leaves Tailwind for
 `styles.css`. Until then, it keeps Tailwind only for the classes it still writes.
 
-## A table's hidden header
+## Reflow at 320 px
 
 - Reported by an app on 2026-11-13: a `TableHead` with `hideHeader` draws an `sr-only` span, `position: absolute`, and
-  `table-container` is not `relative`, so on a 375 px screen a table wider than its card makes the whole page scroll
-  sideways. The fix asked: `relative` on `table-container`, with a story at 375 px that fails first.
+  `table-container` is not positioned, so the span leaves the table's scroll and sits where its column would be: on
+  a 375 px screen, a table wider than its card makes the whole page scroll sideways. Any `sr-only` text in a table
+  does it. `ScrollArea` is `relative` for this; the menus sit in their own layers.
+- **The fix:** `relative` on `table-container`, as the app asked, one place for every hidden text in a table, with a
+  story of an overflowing table with a hidden header that fails first.
+- **A check of every story at 320 px,** WCAG 1.4.10's width, decided on 2026-11-13 so the same mistake is found in any
+  piece, in every browser, as text spacing and axe, since each lays out its own way. In each story:
+  - the page never scrolls sideways; an area that scrolls on its own, as a wide table's, is allowed;
+  - such an area can be reached by keyboard, by axe's `scrollable-region-focusable` at 320 px, as at 1280 px little
+    overflows;
+  - no text is cut by the narrow width alone, measured as text spacing measures, wide against narrow, so what a
+    closed panel already hides does not count. The measure is shared by both checks.
+- **What it costs:** run time, and what it finds, such as an ellipsis on purpose, is fixed or let off by a tag of its
+  own, `docs/pieces.md`'s rule, each decided one at a time.
+- A fix, so 0.21.1.
 
 ## The gallery as a guide
 

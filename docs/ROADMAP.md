@@ -4,11 +4,12 @@ Moneta is the source of truth for components: an app builds its screens from its
 own. What it lacks is added here, in this order, which a new need can change. The details of each item, what is
 known and what is still to ask, are in [`roadmap-notes.md`](roadmap-notes.md), read when the item starts.
 
-**Now:** 1. A table's hidden header.
+**Now:** 1. Reflow at 320 px.
 
 ## Next, in order
 
-1. **A table's hidden header.** It widens the page on a phone, a fix an app asked for.
+1. **Reflow at 320 px.** A table's hidden header that widens the page on a phone, a fix an app asked for, and a
+   check of every story at 320 px.
 2. **The gallery as a guide.** Each piece's variants, sizes and states, in examples with fictitious data that reads
    as real use.
 3. **Display.** The pieces that show, reviewed or made.
