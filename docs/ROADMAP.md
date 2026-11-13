@@ -9,8 +9,8 @@ known and what is still to ask, are in [`roadmap-notes.md`](roadmap-notes.md), r
 ## Next, in order
 
 1. **Display.** The pieces that show, reviewed or made.
-    - IconTile; then the local checks' time, a step of the pipeline; then Stat and StatGroup, then Badge, Card,
-      Alert, and Avatar and AvatarGroup
+    - The local checks' time, a step of the pipeline; then Stat and StatGroup, then Badge, Card, Alert, and Avatar
+      and AvatarGroup
     - Separator, Kbd, AspectRatio and ScrollArea, then DescriptionList, Timeline and TickerChip
 2. **Actions and forms.** The pieces that act and take input, reviewed or made.
     - Button, ButtonGroup and PageHeader
@@ -88,6 +88,8 @@ Each becomes an item when its time comes.
 
 ## Done
 
+- **IconTile.** An icon on a square or a circle, soft, solid or gold, at 32, 40 or 48 px, which takes its defaults
+  from where it sits, as in an Item, in place of ItemMedia's icon variant. 0.22.0.
 - **The gallery as a guide.** A page per piece, from its comment and its stories, every example checked, one
   fictitious household's data, Item as the model, and the sample page on AppLayout and Sidebar. No version of its
   own; it goes out with the next.

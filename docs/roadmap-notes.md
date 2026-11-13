@@ -41,47 +41,6 @@ Each piece, at its step, follows the gallery's guide, as `docs/decisions/compone
 its and its props' comments as JSDoc, its stories exported where written in the order they teach, a story that only
 checks by `!autodocs`, and its data from `.storybook/data.ts`, added rather than changed.
 
-- IconTile first, moved here from The rest on 2026-11-13, when Stat's analysis reached its icon: an icon in a square
-  or a circle, in a soft tone, solid, outlined or emphasised, as the list of gaps put it on 2026-11-09. It is the
-  prototype's most repeated element, in Stat, panels, lists and cells, and the app's in Stat and panels. Seen on
-  2026-11-13:
-  - the prototype's overview draws a 48 px filled circle left of a number's label and value, white on the text's
-    colour, the first one gold; its goals draw the same circle beside a card's title; its accounts', goals' and
-    portfolio's summaries draw no icon;
-  - of shadcn, Tremor, Mantine, Untitled UI, Chakra and Ant Design, the icon is optional everywhere: most often a
-    bare muted glyph of 16 to 22 px at the label row's end, then a tile or circle at the left, 48 px above the label
-    (Untitled) or small before it (Tremor); a brand or tinted fill, or a colour per number, is rare;
-  - `ItemMedia variant="icon"`, a 40 px tile at `--muted`, coloured by `category` since 0.18.0, which would draw an
-    IconTile and keep its props.
-  Decided on 2026-11-13, one point at a time, each drawn:
-  - **What its colour says follows the theme's families:** a category's soft tint tells kinds apart; neutral, soft
-    in a row with none, or solid as the anchor of a number or a card's title, says weight, not meaning; gold, the
-    brand, marks the screen's headline. No meaning's colour: a value's tone, a change's sign and arrow, and Badge
-    say good or bad where they are read, as the prototype's own green and red tiles, defined, were used on none of
-    its 29 screens. A `tone` as Amount's waits for a screen that asks.
-  - **Two shapes,** by `shape`: a square by default, as in rows, and `shape="circle"`, as by a number or a card's
-    title.
-  - **Three tones,** by `variant`: `default`, soft, neutral or the category's tint by `category={n}`; `solid`, the
-    text's colour with the icon in the background's, a name of its own; and `gold`, which enters the vocabulary as a
-    second piece needs it. Gold on a tile once per screen, for its headline, beside one gold action: the guidelines'
-    "gold is for little" says so.
-  - **Three sizes,** its own scale as Avatar's: `sm` 32 px with a 16 px icon, `default` 40 with 20, `lg` 48 with 24.
-  - **Always decorative,** hidden from screen readers, as words beside it always say what it is; never alone, as the
-    guidelines say. A name of its own waits for a screen that shows it alone.
-  - **The parent says how it behaves,** as a title takes its level from where it sits: an IconTile is written
-    straight in Item, Stat or Empty, which lays it out and gives its shape, size and tone, a prop given by hand
-    winning. In Item, a square of 40 px, or 32 in a compact list. So `ItemMedia` keeps images and avatars, as
-    shadcn's, and loses `variant="icon"` and `category`, a breaking change in Moneta's own stories and sample page
-    alone, as the app's one `ItemMedia` holds an avatar. Stat and Empty follow at their steps.
-  - **Its icon is its child,** as every icon in Moneta and shadcn, typed as one element, so an empty tile or a text
-    fails the types.
-  - **A rule across pieces came with it:** a piece takes its defaults from where it sits. It may also give Amount
-    its size in `StatValue`, Avatar its size in a row and a control its size in a table's row, each weighed at its
-    piece's step.
-  - WCAG: 1.1.1, hidden as decoration, by a story; 1.4.1, a category's colour with its name beside; 1.4.11, the icon
-    at 3:1 on each tile in both modes, by `test/theme.test.ts`; forced colours, the icon kept when the tile's fill
-    goes, by the check on every story.
-  - A new piece and a breaking change, so 0.22.0.
 - Stat and StatGroup next, StatGroup moved here from The rest, its icon an IconTile written in Stat, a solid circle
   of 48 px left of its label and value by default, as the prototype's overview, gold for the headline, analysed on 2026-11-12 and 2026-11-13, one point at a
   time, before the vocabulary of variants and the guide came first. Decided:
@@ -131,7 +90,7 @@ checks by `!autodocs`, and its data from `.storybook/data.ts`, added rather than
 
 ## The local checks' time
 
-A step of the pipeline, between IconTile and Stat, as the owner asked on 2026-11-13, when `make check` had grown slow
+A step of the pipeline, before Stat, as the owner asked on 2026-11-13, when `make check` had grown slow
 on the machine. Measured that day, each check alone, each with 8 to 12 s to start its container: lint 29 s, types
 34 s, test 49 s, of which Vitest itself 7 s, stories 2 min 8 s in Chromium, 3 min 7 s in Firefox and 2 min 31 s in
 WebKit, package 1 min 22 s, and storybook-build 34 s. About 11 min, nearly 8 of them in the stories, which go through
