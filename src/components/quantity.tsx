@@ -8,7 +8,7 @@ import { formatQuantity, type Sign } from "#lib/money";
 function Quantity({
   value,
   emptyLabel,
-  size = "default",
+  size,
   sign = "auto",
   tone,
   className,

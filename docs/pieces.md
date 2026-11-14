@@ -77,6 +77,7 @@ A piece with no gap listed may still have some.
 | `skip-link` | reviewed | |
 | `slider` | raw | **Code:** drops its children |
 | `spinner` | raw | **Default text:** "Loading". **Code:** spins with no regard for reduced motion |
+| `stat` | reviewed | |
 | `switch` | raw | **Edited:** on React Aria's `SwitchField` and `SwitchButton`, with an 18 px track. **Code:** does not grow for its children |
 | `table` | reviewed | |
 | `tabs` | raw | **Edited:** default 36 px, `sm` 32 and `lg` 40 on `TabsList`, and its inactive text reads `muted-foreground`, as `foreground/60` is 3.89:1 on our `muted`, its trigger is as tall as its list, and `tabsListVariants` is not exported |

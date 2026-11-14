@@ -8,7 +8,7 @@ import { formatMoney, type Money, type Sign } from "#lib/money";
 function Amount({
   value,
   emptyLabel,
-  size = "default",
+  size,
   sign = "auto",
   tone,
   hideCurrency = false,

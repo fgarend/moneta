@@ -80,6 +80,13 @@ import {
 } from "./components/sidebar.js";
 import { SkipLink } from "./components/skip-link.js";
 import {
+  Stat,
+  StatDescription,
+  StatGroup,
+  StatLabel,
+  StatValue,
+} from "./components/stat.js";
+import {
   Table,
   TableBody,
   TableCell,
@@ -198,23 +205,20 @@ function Totals() {
           ))}
         </Tabs>
       </div>
-      <Card className="py-0">
-        {/* The card's edge shows through 1 px between the totals, so the lines follow them as they wrap. */}
-        <div className="grid gap-px bg-border sm:grid-cols-2 lg:grid-cols-4">
-          {totals.map(({ name, amount, change }) => (
-            <div className="bg-card p-5" key={name}>
-              <p className="type-label text-muted-foreground">{name}</p>
-              <p className="mt-1">
-                <Amount size="lg" value={amount} />
-              </p>
-              <p className="mt-2 text-xs text-muted-foreground">
-                <Percent sign="always" tone="positive" value={change} /> this
-                month
-              </p>
-            </div>
-          ))}
-        </div>
-      </Card>
+      <StatGroup>
+        {totals.map(({ name, amount, change }) => (
+          <Stat key={name}>
+            <StatLabel>{name}</StatLabel>
+            <StatValue>
+              <Amount value={amount} />
+            </StatValue>
+            <StatDescription>
+              <Percent sign="always" tone="positive" value={change} /> this
+              month
+            </StatDescription>
+          </Stat>
+        ))}
+      </StatGroup>
     </section>
   );
 }
@@ -225,7 +229,7 @@ function Payments() {
       <CardHeader>
         <CardTitle>Recent payments</CardTitle>
         <CardDescription>The last three days</CardDescription>
-        <CardAction className="flex gap-1">
+        <CardAction>
           <Button size="sm" variant="ghost">
             <Filter />
             Filter

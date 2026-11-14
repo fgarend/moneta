@@ -1,7 +1,13 @@
 // What every piece of money shares: its text, what it shows with no value or hidden, and a copy of one taking a
 // hyphen. Internal: Amount, Percent and Quantity read it. docs/decisions/money.md says why it is so.
 import { cn } from "cn";
-import { createElement, type ReactNode, useContext, useEffect } from "react";
+import {
+  createContext,
+  createElement,
+  type ReactNode,
+  useContext,
+  useEffect,
+} from "react";
 import { MonetaContext } from "#hooks/moneta";
 import { hiddenText } from "#lib/money";
 
@@ -16,6 +22,10 @@ const tones = { positive: "text-positive", negative: "text-negative" };
 
 type ValueSize = keyof typeof sizes;
 type ValueTone = keyof typeof tones;
+
+// The size of a value where it sits, which the piece around it says, as a number's: a size given by hand wins.
+// Internal: StatValue gives it.
+const ValueSizeContext = createContext<ValueSize | undefined>(undefined);
 
 // A copy of one value, and of nothing more, takes a hyphen for its minus, as spreadsheets read only that as
 // negative. A copy of more is the browser's own, as it lets a page replace a copy but not change one.
@@ -60,12 +70,13 @@ function useValue(
   }: {
     isEmpty: boolean;
     emptyLabel: string | undefined;
-    size: ValueSize;
+    size: ValueSize | undefined;
     tone: ValueTone | undefined;
     className: string | undefined;
   },
 ): { className: string; words: ReactNode } {
   const provided = useContext(MonetaContext);
+  const placed = useContext(ValueSizeContext);
   // One listener serves every piece, as adding the same one again does nothing. It stays after the last piece, and
   // does nothing then.
   useEffect(() => {
@@ -74,7 +85,7 @@ function useValue(
   const isHidden = provided.isHidden === true;
   const classes = cn(
     "whitespace-nowrap",
-    sizes[size],
+    sizes[size ?? placed ?? "default"],
     !isHidden && tone && tones[tone],
     className,
   );
@@ -101,4 +112,4 @@ function useValue(
   return { className: classes, words: null };
 }
 
-export { useValue, type ValueSize, type ValueTone };
+export { useValue, type ValueSize, ValueSizeContext, type ValueTone };
