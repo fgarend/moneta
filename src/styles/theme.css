@@ -94,16 +94,16 @@
   --muted-foreground: #5f636a;
   --accent: #ecebe6;
   --accent-foreground: #23262b;
-  --destructive: #c4281c;
+  --destructive: #bb1c12;
   /* The tone of a value, good news or bad, as the app says. Loss takes the theme's one red. Again under .dark, to take
      its red there. */
-  --positive: #157347;
+  --positive: #107044;
   --negative: var(--destructive);
   /* The colours of meaning, each one token, read as text and drawn soft from it. Success is a gain's green, and
      warning an orange, away from the brand's gold. Again under .dark. */
   --success: var(--positive);
-  --warning: #9e4c00;
-  --info: #1d5fbf;
+  --warning: #9c4b00;
+  --info: #1b5dbd;
   /* The colour of the surface a piece sits on, which what sticks over a table's rows takes: the page here, and a
      card's, a sheet's or a dialog's inside them, which set it. Again under .dark, to take its page there. */
   --surface: var(--background);
@@ -166,12 +166,12 @@
   --muted-foreground: #b4b7bd;
   --accent: #30333a;
   --accent-foreground: #f4f4f2;
-  --destructive: #ffa394;
-  --positive: #74d19a;
+  --destructive: #ffad9d;
+  --positive: #77d49d;
   --negative: var(--destructive);
   --success: var(--positive);
   --warning: #ffb46b;
-  --info: #7aa7f5;
+  --info: #97c6ff;
   --surface: var(--background);
   --scroll-shadow: oklch(0 0 0 / 0.5);
   --border: #35383d;

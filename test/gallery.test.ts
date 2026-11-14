@@ -38,3 +38,29 @@ it.each([
     expect(differing).toEqual([]);
   },
 );
+
+// A piece's page opens with what it is, then what it is for and what is not recommended, in its component's comment,
+// which the page shows first. The pieces that have it so far.
+const explained = [["badge", "Badge"]];
+const anyText = /\S/u;
+
+it.each(explained)(
+  "explains on %s's page what it is for and what is not recommended",
+  async (file, piece) => {
+    const source = await readFile(
+      new URL(`src/components/${file}.tsx`, root),
+      "utf8",
+    );
+    const comment =
+      source.match(
+        new RegExp(
+          String.raw`/\*\*((?:(?!\*/)[\s\S])*)\*/\s*function ${piece}\b`,
+          "u",
+        ),
+      )?.[1] ?? "";
+
+    expect(comment).toMatch(anyText);
+    expect(comment).toContain("Use it for");
+    expect(comment).toContain("Not recommended");
+  },
+);

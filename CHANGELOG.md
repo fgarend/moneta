@@ -6,6 +6,22 @@ gets its number.
 
 ## [Unreleased]
 
+### Added
+
+- `Badge` reviewed: a state in its meaning's variant with an icon of its own shape, written with
+  `data-icon="inline-start"`; a kind in `secondary` or `outline`; `default` for the one thing that should stand out.
+- A piece's page opens with what it is, what it is for and what is not recommended, Badge's first.
+- The guidelines' Badges.
+
+### Changed
+
+- **Breaking:** `Badge` only shows. It loses `render`, its `ghost` and `link` variants, its hover and its focus. To
+  upgrade, put the link in the row's title, and write a `secondary` or `outline` badge in place of `ghost` or `link`.
+- `Badge`'s words wrap, line under line, rather than leave a narrow column, and its corners are the theme's `xl`.
+- The colours of meaning move a little, so each reads at 4.5:1 as a badge's words on its own tint over every
+  surface: `--destructive` `#bb1c12` and `#ffad9d`, `--positive` and `--success` `#107044` and `#77d49d`, `--warning`
+  `#9c4b00` in light, and `--info` `#1b5dbd` and `#97c6ff`. A value's tones move with them.
+
 ## [0.23.0] - 2026-11-14
 
 Stat and StatGroup: numbers of note read together, as a month's totals.

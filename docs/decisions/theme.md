@@ -18,14 +18,16 @@ The look Moneta has by default, which whoever uses it can replace. How an app re
   NativeSelect, DateField and Tabs, as classes in each piece, with `xs` left as shadcn has it. Their icons are 14 px at
   `sm` and 16 above, as shadcn sizes them. Lists and tables take `density`, apart. `docs/pieces.md` marks each edit.
 - **Gold is a variant of `Button`,** so an app names it and writes no colour.
-- **`--positive` and `--negative` colour a value's tone,** good news and bad: a green of our own, `#157347` in light
-  and `#74d19a` in dark, with as much contrast as the red, and `--negative` reads `--destructive`, so the theme keeps
+- **`--positive` and `--negative` colour a value's tone,** good news and bad: a green of our own, `#107044` in light
+  and `#77d49d` in dark, with as much contrast as the red, and `--negative` reads `--destructive`, so the theme keeps
   one red. A value that names another is declared again under `.dark`, as it is worked out where it is declared.
   `test/theme.test.ts` holds both to 4.5:1 on the page, a card and `--muted`, and holds each such value to `.dark`.
 - **`--success`, `--warning` and `--info`, the colours of meaning,** beside `--destructive`, one token each, read as
   text at 4.5:1 on the page, a card and `--muted` in both modes, and drawn soft from it by opacity. `--success` is
-  `var(--positive)`; `--warning` an orange, `#9e4c00` in light and `#ffb46b` in dark, away from the gold; `--info` a
-  blue, `#1d5fbf` and `#7aa7f5`. No base palette under them.
+  `var(--positive)`; `--warning` an orange, `#9c4b00` in light and `#ffb46b` in dark, away from the gold; `--info` a
+  blue, `#1b5dbd` and `#97c6ff`; `--destructive` `#bb1c12` and `#ffad9d`. No base palette under them. Each reads at
+  4.5:1 too as a badge's words on its own tint, 10% in light and 20% in dark, over the page, a card and `--muted`,
+  which `test/theme.test.ts` holds as it holds the categories' tints.
 - **`--category-1` to `--category-8`, the colours of categories,** which tell apart and say nothing: teal, olive, plum,
   violet, rose, copper, steel and mustard, in that order, one token each. Each is 3:1 as a mark on the page, a card and
   `--muted`, and on its own tint there, 10% in light and 20% in dark, in both modes. Olive, plum, copper and steel are
@@ -139,9 +141,21 @@ The look Moneta has by default, which whoever uses it can replace. How an app re
   from it: teal first, furthest from the gold and the meanings, mustard, the hue nearest the gold, last. **What it
   costs:** a category's green may meet success's; the tint shifts with what lies under it; eight are hard to tell apart,
   so a name always goes beside a colour; some marks read heavier; teal may read as a gain.
+- **The colours of meaning darkened in light and paled in dark, the least that reaches 4.5:1 on their tint,** as a
+  badge's words fell short of it on `--muted`, 3.67:1 at worst, and `--info` on a dark card, each in its own hue. A
+  lighter tint was no way out, as even 4% left the red short in light. **What it costs:** a value's tones move with
+  them, a little, and `--info` in dark is paler.
+- **Green for good news, and one red,** asked again on 2026-11-14 with Badge: green is the convention of banks and
+  brokers here and in the US, and the sign and the words say good or bad, so colour only adds; two close reds are
+  hard to tell apart, and red-green colour blindness sees both as one brown, while an error comes in an alert with its
+  icon and words. **What it costs:** colour does not help those who most need it; a theme for colour blindness, or
+  a red of its own for loss, replaces one token.
 
 ## Alternatives considered
 
+- **Blue for good news,** which red-green colour blindness tells from red, but `--info` already is, so a paid bill and a
+  scheduled one would match. **A crimson of its own for loss,** `#b0234f` and `#ff9ec0`. **A lighter tint for a
+  badge,** which loses the tint before it reaches 4.5:1. **No meaning's badge on `--muted`,** a rule easy to break.
 - **40 px for everything.** As the prototype's top actions, but a form's fields feel too large for a card, measured on the
   sample page on 2026-11-06.
 - **32 px, `aria-nova`'s default.** No edit, but a page's main action loses its presence.
@@ -219,3 +233,4 @@ The look Moneta has by default, which whoever uses it can replace. How an app re
 - 2026-11-12: `--success`, `--warning` and `--info`.
 - 2026-11-12: `--category-1` to `--category-8`, with `--chart-1` to `--chart-5` reading them.
 - 2026-11-12: One scale of sizes on every control a row holds.
+- 2026-11-14: The colours of meaning on their own tint, green for good news, and one red, again.

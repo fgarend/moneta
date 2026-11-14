@@ -52,7 +52,10 @@ pieces is in [`../pieces.md`](../pieces.md), and how a piece is analysed is in [
   editor also shows, and a story is exported where it is written, with its JSDoc above. A story that only checks, as
   an error or a corner, takes `!autodocs`, and stays in the sidebar and the tests; every other story is an example,
   and every check runs on it. The stories draw from one fictitious household's money, `.storybook/data.ts`, to which
-  data is added rather than changed. `Item` is the model, and each piece follows at its own step.
+  data is added rather than changed. `Item` is the model, and each piece follows at its own step. A page opens with
+  what the piece is, in a sentence, then **Use it for** and **Not recommended**, each with its reason and what to use
+  instead, in its component's comment; `test/gallery.test.ts` holds the pieces that have it, Badge first, and the
+  pieces before it follow in a step of their own.
 - **One vocabulary of variants: a name means one look in every piece, by shadcn's names.** `default` is a piece's
   usual look. A control, as `Button`, `Badge` and `Toggle`, takes `secondary`, a soft fill, `outline`, a border,
   `ghost`, no frame until the pointer is over it, and `link`, text alone. A surface, as `Item` and `StatGroup`, and `Card`
@@ -119,6 +122,20 @@ pieces is in [`../pieces.md`](../pieces.md), and how a piece is analysed is in [
 - **Loading as a list's:** `isLoading` with the app's `loadingLabel` makes the group busy and says the words in a
   status; a `StatValue` left empty draws a shape in its place, which a screen reader skips, and one with its value
   keeps it.
+
+### Badge
+
+- **A badge only shows,** a `<span>`: no `render` to draw it as a link, no hover, no focus, and no `ghost` or `link`
+  variant. It is 20 px tall where 2.5.8 asks 24 to press, its word does not say where a link goes, and the row's title
+  holds the link already. A filter that looks like one is a chip.
+- **Its variants:** `default`, dark and filled, shadcn's, for the one thing that should stand out; `secondary` for a
+  kind or a count; `outline` for a quiet kind; and the meanings, `success`, `warning`, `destructive` and `info`, on a
+  tint of 10%, 20% in dark, for a state.
+- **A state takes an icon of its own shape,** written before its word with `data-icon="inline-start"`, as shadcn's
+  badge takes one, 12 px and hidden from screen readers. No `dot`: a dot says a state from a kind, but not one state
+  from another without colour.
+- **A kind takes its word alone,** in `secondary`; its category's colour stays on the row's IconTile.
+- **Its words wrap** rather than leave their column, line under line, each 20 px, its corners the theme's `xl`.
 
 ### Section
 
@@ -288,6 +305,13 @@ pieces is in [`../pieces.md`](../pieces.md), and how a piece is analysed is in [
   not choose how many go to a line, four stand two and two up to 1024 px, and more than four share one line. **Its ghost's own spacing,** as with
   no box there are no lines, and at 0 its numbers would touch. **What it costs:** one default that depends on the
   variant.
+- **A badge that only shows,** as its size and its word make a poor link, and the row already has one. **What it
+  costs:** an app that drew one as a
+  link or used `ghost` or `link` changes it. **An icon for a state,** by what the badge already takes, as each shape
+  holds without colour. **What it costs:** the app picks an icon per state and keeps it the same. **Words that wrap,**
+  as no word is lost. **What it costs:** a row with a long badge grows. **The page's three parts,** as a guide that
+  shows only what to do leaves out what not to. **What it costs:** pages unlike each other until the pieces before
+  Badge get theirs.
 - **The gallery as a guide,** as whoever builds a screen first looks for what exists and how it is used, and stories
   that were only checks said neither. **Storybook's own page,** as it reads the stories and comments that exist, and
   Storybook 10's docs prefer comments to parameters. **What it costs:** its order and form, a package to keep, a lint
@@ -453,6 +477,9 @@ pieces is in [`../pieces.md`](../pieces.md), and how a piece is analysed is in [
   of 0 for a ghost,** which leaves one with no `spacing` touching. **A `StatChange` part,** as a badge, where a change
   beside the app's words says more, and a badge comes by composition. **A link in the label,** in place of an action,
   which each app would name and draw its own way.
+- **A badge drawn as a link,** by `render`, as shadcn's. **A `dot` on a state,** as the prototype's. **A kind in its
+  category's colour,** which needs eight more shades of text in each mode. **A soft `default`,** as the prototype's,
+  which drops `secondary`. **An ellipsis on a long badge,** which hides words with no way to read them.
 - **A page written by hand, in MDX,** as shadcn's site has, about 50 pages to keep beside the stories, or **stories
   alone,** with no words on what to use and when. **Descriptions as parameters,** a string in each story, which the
   docs keep for where a comment cannot go. **The alphabet's order with `Default` first,** which teaches nothing after
@@ -528,3 +555,4 @@ pieces is in [`../pieces.md`](../pieces.md), and how a piece is analysed is in [
 - 2026-11-13: The gallery as a guide.
 - 2026-11-13: IconTile, and defaults from where a piece sits.
 - 2026-11-14: Stat.
+- 2026-11-14: Badge, and a page's three parts.
