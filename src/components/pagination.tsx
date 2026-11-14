@@ -12,8 +12,22 @@ type PaginationName =
   | { "aria-label": string; "aria-labelledby"?: never }
   | { "aria-labelledby": string; "aria-label"?: never };
 
-// The app's summary at the start, the pages at the end. Narrow, by its own width, only Previous, the current page and
-// Next stay, as arrows.
+/**
+ * Pages of rows, under a table or a list, each page with an address of its own.
+ *
+ * The app's summary at the start, the pages at the end. Narrow, by its own width, only Previous, the current page and
+ * Next stay, as arrows.
+ *
+ * **Use it for**
+ *
+ * - Rows too many to show at once, moved through in order.
+ * - The rows shown, said by `PaginationSummary`, as "15–28 of 142".
+ *
+ * **Not recommended**
+ *
+ * - One page: draw no pagination.
+ * - Finding one thing among many: a filter or a search serves better.
+ */
 function Pagination({
   className,
   ...props

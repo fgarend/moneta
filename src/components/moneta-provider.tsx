@@ -11,6 +11,21 @@ type MonetaRouter =
   | { navigate: RouterProps["navigate"]; useHref?: RouterProps["useHref"] }
   | { navigate?: never; useHref?: never };
 
+/**
+ * Once at the app's root: its language, its router, its time zone, the words the pieces need, and whether values are
+ * hidden.
+ *
+ * **Use it for**
+ *
+ * - `locale`, `navigate` and `useHref`, and `timeZone` when the browser's is not the app's.
+ * - `emptyLabel` and `hiddenLabel`, what screen readers hear for no value and for hidden ones.
+ * - `isHidden`, turned on by the app's own control.
+ *
+ * **Not recommended**
+ *
+ * - One per page: one at the root, and another inside only to change a part, as it keeps what it is not given.
+ * - Hiding values one by one: `isHidden` hides every amount, percent and quantity at once.
+ */
 function MonetaProvider({
   locale,
   navigate,

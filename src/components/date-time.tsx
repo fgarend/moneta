@@ -6,6 +6,20 @@ import { useLocale } from "react-aria-components";
 import { MonetaContext } from "#hooks/moneta";
 import { type DateFormat, formatDate } from "#lib/date";
 
+/**
+ * A day or a moment, from an ISO string, in one of four formats and the app's language.
+ *
+ * **Use it for**
+ *
+ * - `"short"` in rows and details, `"long"` in titles, `"numeric"` in documents and `"month"` for periods.
+ * - `relative` in lists of recent things, where "Today" reads faster than a date.
+ * - A time, with `showTime`, only when the hour matters.
+ *
+ * **Not recommended**
+ *
+ * - A JavaScript `Date`: give an ISO string, as `"2026-10-24"`.
+ * - A date inside a sentence: use `useFormatDate`.
+ */
 function DateTime({
   value,
   format = "short",

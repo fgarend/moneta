@@ -42,10 +42,6 @@ its and its props' comments as JSDoc, its stories exported where written in the 
 checks by `!autodocs`, and its data from `.storybook/data.ts`, added rather than changed. Its page opens with what
 it is, then "Use it for" and "Not recommended", as Badge's.
 
-- The pages of the pieces before Badge next, each its sentence, "Use it for" and "Not recommended", as Badge's, in
-  one step, with `test/gallery.test.ts`'s list of pieces that have it turned into every reviewed piece.
-  Every reviewed piece and our own, as Item, IconTile, Stat, Section, Table, Link, Pagination, Sidebar, AppLayout,
-  SkipLink, Amount, Percent, Quantity, DateField, DateTime and MonetaProvider; a raw piece gets its own at its review.
 - Card, whose title is a `div`, to take a heading's level as `docs/decisions/components.md` says, deciding where
   code shared by pieces lives, and whether an app gets a `Heading` that reads the level. Two second forms an app
   builds by classes today: a card with no padding, its content to the edges, for a table or a group of numbers; and

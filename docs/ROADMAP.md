@@ -9,7 +9,7 @@ known and what is still to ask, are in [`roadmap-notes.md`](roadmap-notes.md), r
 ## Next, in order
 
 1. **Display.** The pieces that show, reviewed or made.
-    - The pages of the pieces before Badge, then Card, Alert, and Avatar and AvatarGroup
+    - Card, Alert, and Avatar and AvatarGroup
     - Separator, Kbd, AspectRatio and ScrollArea, then DescriptionList, Timeline and TickerChip
 2. **Actions and forms.** The pieces that act and take input, reviewed or made.
     - Button, ButtonGroup and PageHeader
@@ -88,6 +88,8 @@ Each becomes an item when its time comes.
 
 ## Done
 
+- **The pieces' pages.** Every reviewed piece's page opens with what it is, what it is for and what is not
+  recommended. 0.25.0.
 - **Badge.** A label that only shows: a state with its meaning and an icon of its own shape, a kind in `secondary`,
   words that wrap, the colours of meaning at 4.5:1 on their own tint, and a page that says what not to do. 0.24.0.
 - **Stat and StatGroup.** Numbers of note read together, as a list of terms and values: a label, a value at 24/32

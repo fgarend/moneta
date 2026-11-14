@@ -191,6 +191,21 @@ const currentBar =
 const ends =
   "first:ps-3 last:pe-3 in-data-[slot=card]:first:ps-5 in-data-[slot=card]:last:pe-5";
 
+/**
+ * Rows compared down their columns, under headers.
+ *
+ * **Use it for**
+ *
+ * - Values compared across many rows, as a statement or a list of holdings.
+ * - Groups with subtotals, a total, sorting, rows selected to act on together, and pages under it.
+ * - A narrow screen, with the columns that matter least hidden by `hideBelow`.
+ *
+ * **Not recommended**
+ *
+ * - Things read across, each with its value at the end: use `ItemGroup`.
+ * - The attributes of one thing: a description list, to come.
+ * - Numbers centred or at the start: they go at the end, with their header.
+ */
 function Table({
   caption,
   className,

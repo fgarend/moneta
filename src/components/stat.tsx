@@ -45,9 +45,21 @@ const boxes = {
 
 /**
  * Numbers of note, read together, as a month's totals: a list of terms and values, each `Stat` a label and its value,
- * which a screen reader reads as such, with how many. Its boxes by `spacing`: `0`, one box with lines between; more,
- * a box each that far apart; and `variant` their look, a card's, soft, or none, which parts them by 24 px. Its columns
+ * which a screen reader reads as such, with how many. Its boxes by `spacing`: `0`, one box with lines between; more, a
+ * box each that far apart; and `variant` their look, a card's, soft, or none, which parts them by 24 px. Its columns
  * come from its own width, as shadcn's dashboard: one, two from 576 px, and all on one line from 1024.
+ *
+ * **Use it for**
+ *
+ * - A few totals at the top of a page or in a card, each its label, its value and a note under it.
+ * - A change in `StatDescription`, beside your words, as "+3.9% this month".
+ * - An icon and an action, written in `StatLabel`.
+ *
+ * **Not recommended**
+ *
+ * - Many values, or values to compare: use `ItemGroup` or `Table`.
+ * - One number in a sentence: use `Amount`.
+ * - An icon or an action outside `StatLabel`, which a list of terms and values does not allow.
  */
 function StatGroup({
   className,

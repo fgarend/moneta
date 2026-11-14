@@ -4,8 +4,23 @@
 import { cn } from "cn";
 import type { ComponentProps } from "react";
 
-// What sticks: the sidebar at full height, and the bar at the top at z-40, above what sticks inside a piece and below
-// the dialogs, on a screen tall enough, where the theme keeps the page's scroll clear of it.
+/**
+ * The app's shell: the sidebar at the start, and each page's bar and content beside it.
+ *
+ * What sticks: the sidebar at full height, and the bar at the top at z-40, above what sticks inside a piece and below
+ * the dialogs, on a screen tall enough, where the theme keeps the page's scroll clear of it.
+ *
+ * **Use it for**
+ *
+ * - Once, in the app's layout route, inside a `SidebarProvider`, after a `SkipLink`.
+ * - Each page's `AppHeader` and `AppContent` in `AppMain`, the content's sections 40 px apart.
+ * - `width="full"` on `AppContent` for a page that needs every column, as a wide table.
+ *
+ * **Not recommended**
+ *
+ * - A shell per page, or one inside another.
+ * - A page with no `SkipLink` before it: keyboard users would go through the sidebar each time.
+ */
 function AppLayout({ className, ...props }: ComponentProps<"div">) {
   return (
     <div
