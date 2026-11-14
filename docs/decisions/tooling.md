@@ -28,6 +28,10 @@ How the repository runs, and how its versions are chosen.
   compares the two lists. `stories` has one box per browser, which `make stories BROWSER=webkit`
   repeats. With no `BROWSER`, it runs the three one after another, as continuous integration does. `storybook-build`, the gallery a release publishes, is a
   check too.
+- **Each moment has its checks.** Before each commit, `make lint`, `make types` and `make test`, with
+  `make stories BROWSER=chromium` when the commit touches `src/` or a story. Before a pull request, `make check`, whole.
+- **One stories run at a time.** `make stories` stops at once, with a message, when another one runs, which it finds
+  by its container's label, `moneta.check=stories`.
 - **Stories run in Storybook, and every test in Vitest,** the browsers through Playwright:
   Chromium, Firefox and WebKit. `test` runs logic and the repository's checks in Node, and
   `stories` everything in a browser, so nothing runs twice.
@@ -85,6 +89,15 @@ How the repository runs, and how its versions are chosen.
   there. On 2026-11-11, the three at once opened about twenty browsers on ten cores: the first story of a file took
   up to 5 seconds in Firefox, and now and then past the 15 seconds a test is given, and a line only WebKit ran passed
   the coverage here and failed it in a box. **What it costs:** a longer `make stories`.
+- **Each moment's checks,** as `make check` alone took 4 min on 2026-11-13, lint, types and test about 2, and
+  Chromium's stories 1. A commit in the middle of a branch is not checked in every browser, as continuous integration
+  checks only the last one anyway. **What it costs:** a failure in Firefox or WebKit alone shows only before the pull
+  request.
+- **One stories run at a time,** as each browser's stories alone reached 9.9 to 10.6 of Docker's 11.7 GB on
+  2026-11-13, and two runs share coverage's folder: two at once failed, a browser closed, a click waited 12 s, the
+  coverage's temporary file went missing, and `make check` seemed to take 11 min. The container marks a run, so a run
+  stopped leaves no lock behind. **What it costs:** a few lines of shell in the `Makefile`, and a run left over, as
+  after a crash of Docker, blocks the next until it is stopped, as the message says how.
 - **The gallery's build as a check,** so a change that breaks it shows in its pull request, not at the next release,
   after the merge. **What it costs:** about a minute more per pull request, and the release builds it again.
 - **Screenshots in Chromium alone,** since each browser draws a little differently and needs
@@ -190,6 +203,18 @@ How the repository runs, and how its versions are chosen.
 - **`make add`, and a `make add-peer`.** Both are rare, and a target only wraps the command. Their
   cost is a long command, kept in `docs/updating.md`, that `make help` does not show.
 
+- **A command for one piece's stories, and `make watch`.** About 35 s for one piece in place of 1 min for every story
+  in Chromium, but the storybook projects and the checks' projects need two filters, by file and by story's id, and
+  it misses the stories of the pieces that use it, as Item's when IconTile changed. `make watch` would run every
+  check's project again on each save, as each goes through every story.
+- **Firefox's and WebKit's stories left to continuous integration before a pull request.** About 2.5 min less, but a
+  failure in one browser alone, as WebKit's on v0.2.0, would show a round later.
+- **Fewer workers in Vitest.** Firefox's stories with 2 workers reached 9.1 GB, against 10.5, and took 84 s, against
+  86: each project opens its own browser, so the workers are not what fills the memory.
+- **A lock file.** Simple, but a run stopped would leave it behind, to be removed by hand.
+- **More memory for Docker.** The machine's setting, not the repository's, and it would not stop two runs sharing
+  coverage's folder.
+
 ## History
 
 - 2026-11-04 to 2026-11-06: Containers, static checks, stories, coverage, screenshots, the build, the package's
@@ -206,3 +231,4 @@ How the repository runs, and how its versions are chosen.
 - 2026-11-11: The stories' browsers one after another on the machine.
 - 2026-11-11: No animation in a screenshot, in place of animations held at their start.
 - 2026-11-11: An overlay's entrance played to its end in its stories, as WebKit left it at its start.
+- 2026-11-13: Each moment's checks, and one stories run at a time.

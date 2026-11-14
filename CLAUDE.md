@@ -100,7 +100,8 @@ gives the right result:
 2. The user decides them, one at a time.
 3. Write the tests and show them failing. In a step without code, write the
    checks or the document to review instead.
-4. Implement, then show the tests passing. `make check` passes before the pull request opens.
+4. Implement, then show the tests passing. Each commit passes the checks `docs/decisions/tooling.md`
+   gives it, and `make check` passes before the pull request opens.
 5. The user approves each commit. Once the user says the step is aligned, Claude pushes its
    branch and opens its pull request, and the user merges it once `checks` passes.
 
