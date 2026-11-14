@@ -6,6 +6,10 @@ gets its number.
 
 ## [Unreleased]
 
+## [0.25.0] - 2026-11-14
+
+The pieces' pages: each reviewed piece says what it is, what it is for and what is not recommended.
+
 ### Added
 
 - Every reviewed piece's page, and its comment in an editor, opens with what it is, what it is for and what is not
@@ -469,7 +473,8 @@ and dark. `README.md` says how to install and use it.
 
 A rehearsal of the release's path, not meant to be installed. Use a later version.
 
-[Unreleased]: https://github.com/fgarend/moneta/compare/v0.24.0...HEAD
+[Unreleased]: https://github.com/fgarend/moneta/compare/v0.25.0...HEAD
+[0.25.0]: https://github.com/fgarend/moneta/compare/v0.24.0...v0.25.0
 [0.24.0]: https://github.com/fgarend/moneta/compare/v0.23.0...v0.24.0
 [0.23.0]: https://github.com/fgarend/moneta/compare/v0.22.0...v0.23.0
 [0.22.0]: https://github.com/fgarend/moneta/compare/v0.21.1...v0.22.0
