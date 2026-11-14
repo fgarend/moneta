@@ -35,17 +35,17 @@ which is run by hand.
 | 1.2.3 Audio Description or Media Alternative | app | |
 | 1.2.4 Captions (Live) | app | |
 | 1.2.5 Audio Description | app | |
-| 1.3.1 Info and Relationships | axe, story | Stories find elements by role and name, Section's the level of its titles and a count read inside its heading, Table's name and its rows' titles, a list of rows as a list, its groups' headings naming their lists, the sidebar a named `nav` of lists named by their sections, a date as a `<time>` with its ISO value, and the words for no value or a hidden one, and the minus, of Amount, Percent and Quantity |
+| 1.3.1 Info and Relationships | axe, story | Stories find elements by role and name, Section's the level of its titles and a count read inside its heading, Table's name and its rows' titles, a list of rows as a list, its groups' headings naming their lists, a group of numbers as a list of terms and values, the sidebar a named `nav` of lists named by their sections, a date as a `<time>` with its ISO value, and the words for no value or a hidden one, and the minus, of Amount, Percent and Quantity |
 | 1.3.2 Meaningful Sequence | script | |
 | 1.3.3 Sensory Characteristics | app | |
 | 1.3.4 Orientation | script | Nothing here locks it |
 | 1.3.5 Identify Input Purpose | none yet | With the form controls (Actions and forms) |
-| 1.4.1 Use of Color | story, app | Link's underline, and the sidebar's current page, by a bar and a bolder text. A category's colour beside its name, which the guidelines ask. A value's tone only adds colour, and its sign or words are the app's |
+| 1.4.1 Use of Color | story, app | Link's underline, and the sidebar's current page, by a bar and a bolder text. A category's colour beside its name, which the guidelines ask. A value's tone only adds colour, and its sign or words are the app's, as a number's change by its sign beside the app's words |
 | 1.4.2 Audio Control | app | |
 | 1.4.3 Contrast (Minimum) | axe, test | axe on flat colours, and `test/theme.test.ts` on the theme's pairs, both modes, a value's tones and the colours of meaning among them |
 | 1.4.4 Resize Text | script | |
 | 1.4.5 Images of Text | app | |
-| 1.4.10 Reflow | every story, story, coming, script | Every story at 320 px in all three browsers: the page never scrolls sideways, an area that scrolls is reached by keyboard, and no text is cut by the width. Section's story at 320 px, its several actions wrapping at 320 px, Amount on one line in a narrow column, Table's columns hidden or scrolled in its own area at 320 px, the sidebar in a sheet on a phone at 320 px, its long labels wrapping, and the application's structure at 320 px, its bar let go on a short screen |
+| 1.4.10 Reflow | every story, story, coming, script | Every story at 320 px in all three browsers: the page never scrolls sideways, an area that scrolls is reached by keyboard, and no text is cut by the width. Section's story at 320 px, its several actions wrapping at 320 px, Amount on one line in a narrow column, a group of numbers one to a line in a narrow column, a long label wrapping, Table's columns hidden or scrolled in its own area at 320 px, the sidebar in a sheet on a phone at 320 px, its long labels wrapping, and the application's structure at 320 px, its bar let go on a short screen |
 | 1.4.11 Non-text Contrast | test, story, coming | `test/theme.test.ts` on borders and focus, both modes, Pagination's current page in `--input`, and DateField's invalid edge in `--destructive`, and each colour of categories on every surface and its tile's tint, and an icon on each IconTile's tone. Field (Actions and forms) and charts (Charts) to come |
 | 1.4.12 Text Spacing | every story | All three browsers |
 | 1.4.13 Content on Hover or Focus | none yet | With Tooltip (Overlays) |
@@ -68,7 +68,7 @@ which is run by hand.
 | 2.5.3 Label in Name | story, app | Pagination's Previous and Next named by their words; elsewhere the visible name and the accessible one |
 | 2.5.4 Motion Actuation | none yet | |
 | 2.5.7 Dragging Movements | none yet | |
-| 2.5.8 Target Size (Minimum) | axe, story | Each control's sizes, 32 px or more, by its `Sizes` story, Table's sortable headers, at least 24 px tall, a row's action, 32 px, and DateField's parts, 24 px each way in any font |
+| 2.5.8 Target Size (Minimum) | axe, story | Each control's sizes, 32 px or more, by its `Sizes` story, Table's sortable headers, at least 24 px tall, a row's action and a number's, 32 px, and DateField's parts, 24 px each way in any font |
 | 3.1.1 Language of Page | app | |
 | 3.1.2 Language of Parts | app | |
 | 3.2.1 On Focus | none yet | |
@@ -82,8 +82,8 @@ which is run by hand.
 | 3.3.4 Error Prevention (Legal, Financial, Data) | app | Heavy in a money interface: review and confirm |
 | 3.3.7 Redundant Entry | app | |
 | 3.3.8 Accessible Authentication (Minimum) | app | |
-| 4.1.2 Name, Role, Value | axe, story | A row's action named by its word and the row's title, in a table and a list, DateField's group named by its label, its parts' values and its disabled state, and the sidebar's current link said to be the page, and its trigger's `aria-expanded` |
-| 4.1.3 Status Messages | story, coming | Table's selection bar, a status whose text changes with the count, Table's and a list's loading words, and Pagination's summary; Alert (Display) to come |
+| 4.1.2 Name, Role, Value | axe, story | A row's action named by its word and the row's title, in a table and a list, a number's by its word and its label, DateField's group named by its label, its parts' values and its disabled state, and the sidebar's current link said to be the page, and its trigger's `aria-expanded` |
+| 4.1.3 Status Messages | story, coming | Table's selection bar, a status whose text changes with the count, Table's, a list's and a group of numbers' loading words, and Pagination's summary; Alert (Display) to come |
 
 ## Corner cases
 

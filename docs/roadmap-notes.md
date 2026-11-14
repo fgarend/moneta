@@ -41,7 +41,7 @@ Each piece, at its step, follows the gallery's guide, as `docs/decisions/compone
 its and its props' comments as JSDoc, its stories exported where written in the order they teach, a story that only
 checks by `!autodocs`, and its data from `.storybook/data.ts`, added rather than changed.
 
-- Stat and StatGroup next, StatGroup moved here from The rest, its icon an IconTile written in Stat, a solid circle
+- Stat and StatGroup next, StatGroup moved here from The rest, its icon an IconTile written in StatLabel, a solid circle
   of 48 px left of its label and value by default, as the prototype's overview, gold for the headline, analysed on 2026-11-12 and 2026-11-13, one point at a
   time, before the vocabulary of variants and the guide came first. Decided:
   - StatGroup is a `dl`, each Stat a `div` in it, its label a `dt`, its value a `dd`, as Chakra's: read together,
@@ -57,6 +57,17 @@ checks by `!autodocs`, and its data from `.storybook/data.ts`, added rather than
   - Its boxes by the vocabulary: `spacing={0}`, its default, one box with lines between, as the sample page's totals;
     more, a box each; `variant="muted"` for soft boxes; `variant="ghost"` for none, as in a card or a page's head.
     The four drawn and kept on 2026-11-14, the first icon gold and the rest solid.
+  - Its columns by its own width, not the screen's, so it works the same across a page and in a narrow column, as
+    shadcn's dashboard steps them: one, two from 576 px, `@xl`, and all on one line from 1024, `@5xl`, where shadcn
+    has four, so three fill the line. Against the sample's 1, 2 and 4 by the screen, which overflow in a narrow
+    column, and against as many as fit at 256 px each, first chosen, which drew the sample's four as three and one.
+    Decided on 2026-11-14.
+  - `variant="ghost"` parts its numbers by 24 px, `spacing={6}`, by default, as with no box there are no lines
+    between, and at 0 they would touch; a `spacing` given wins. Against the same 0 as the rest, one rule for every
+    variant, which leaves a ghost with no `spacing` broken. Decided on 2026-11-14.
+  - The IconTile and `StatAction` are written in `StatLabel`, the `dt`, since a `div` in a `dl` holds only `dt` and
+    `dd`; the Stat still draws the tile left of its label and value. Valid HTML, against writing them in Stat as in
+    Item, which axe passes for the hidden tile but not the button. Decided on 2026-11-14.
   - `StatAction`, a quiet icon button beside the label, as `ItemAction`: 32 px to touch, taking no more height than
     the label's line, its name the app's one word joined to the label, as "Open Invested", and an error with no
     label, as an app opens what a number is made of from it.

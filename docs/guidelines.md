@@ -50,11 +50,12 @@ the version installed. It holds only what exists, and each reviewed piece adds i
 - **A control takes `secondary`, `outline`, `ghost` or `link`:** a soft fill for a secondary action, a border, no frame
   until the pointer is over it, and text alone. `Button` and `Badge` read them, and `Toggle` its `outline`.
 - **A surface takes `outline`, `muted` or `ghost`:** a border, a soft fill, and no frame where its usual look has one.
-  `Item` reads them.
+  `Item` and `StatGroup` read them.
 - **A meaning takes `destructive`, `success`, `warning` or `info`,** on `Badge` and `Alert`, with the words saying it
   too, as Colour says.
 - **A group joins its items in one box by `spacing={0}`,** with lines between, and parts them into a box each by a
-  larger step, with `variant` the look of each box. `ToggleGroup` reads it.
+  larger step, with `variant` the look of each box. `ToggleGroup` and `StatGroup` read it. With no box, as a
+  `ghost` `StatGroup`, the items stand 24 px apart unless given a `spacing`.
 - **`gold` is the brand,** on `Button` and `IconTile`, at most once per screen each, as Colour says.
 - **A name one piece alone has is its own,** as `Tabs`' `line`, `ItemMedia`'s `image` and `IconTile`'s `solid`.
 - **A piece takes its defaults from where it sits,** as an `IconTile` in an `Item` is a square of 40 px, and a prop
@@ -129,6 +130,21 @@ the version installed. It holds only what exists, and each reviewed piece adds i
   screen's headline, once. Good or bad news goes in the value, the change and a `Badge`, never on the tile.
 - **A square in a row, a circle by a number or a card's title,** by `shape`, at 32, 40 or 48 px by `size`. Where a
   piece holds it, the piece says which, and a prop given by hand wins.
+
+## Numbers
+
+- **Numbers of note read together go in a `StatGroup`,** as a month's totals, each a `Stat` with its `StatLabel`, its
+  `StatValue` and, if there is one, a `StatDescription` under it.
+- **A value is an `Amount`, a `Percent` or a `Quantity` in the `StatValue`,** which gives it its size, or plain text,
+  as a count; a change goes in the `StatDescription`, a value with `sign="always"` and its `tone` beside your words, as
+  "+3.9% this month".
+- **An icon is an `IconTile` written in the `StatLabel`,** which makes it a solid circle of 48 px left of the label and
+  the value; `variant="gold"` on the screen's headline, once.
+- **An action on a number is a `StatAction`** in its `StatLabel`, with one word as its `aria-label`, as "Open"; the
+  label completes its name.
+- **A group's boxes:** one box with lines between, by default; `spacing` for a box each; `variant="muted"` for soft
+  boxes; `variant="ghost"` for none, as in a card or a page's head. Its columns follow its own width: one, two from 576 px,
+  and all on one line from 1024.
 
 ## Lists of rows
 

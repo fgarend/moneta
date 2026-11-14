@@ -6,6 +6,21 @@ gets its number.
 
 ## [Unreleased]
 
+### Added
+
+- `StatGroup` and `Stat`, numbers of note read together, as a month's totals: a list of terms and values, each
+  `Stat` a `StatLabel`, a `StatValue` at 24/32 and 600, and a `StatDescription` under it, as a change beside your
+  words. Its boxes by `spacing`, one box with lines between by default or a box each, and by `variant`, `muted` or
+  `ghost`; its columns by its own width, one, two from 576 px, and all on one line from 1024. An `IconTile` written in the `StatLabel` is a solid
+  circle of 48 px left of the label and the value, and a `StatAction` there a quiet button named by its word and the
+  label. `isLoading` and `loadingLabel` draw a shape in place of each empty value, and say the words.
+- The guidelines' Numbers.
+
+### Changed
+
+- `Amount`, `Percent` and `Quantity` with no `size` take the one of where they sit, `lg` in a `StatValue`, and the
+  text's otherwise, as before.
+
 ## [0.22.0] - 2026-11-13
 
 IconTile: an icon on a square or a circle, which takes its shape and size from where it sits.

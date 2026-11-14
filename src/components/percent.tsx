@@ -8,7 +8,7 @@ import { formatPercent, type Sign } from "#lib/money";
 function Percent({
   value,
   emptyLabel,
-  size = "default",
+  size,
   sign = "auto",
   tone,
   className,

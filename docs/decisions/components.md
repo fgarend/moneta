@@ -39,8 +39,9 @@ pieces is in [`../pieces.md`](../pieces.md), and how a piece is analysed is in [
   `src/hooks/moneta.ts`, internal.
 - **A piece takes its defaults from where it sits,** as a title takes its level: the piece around it says how it
   behaves there, and a prop given by hand wins. An `IconTile` in an `Item` is a square at the row's start, 40 px or
-  32 in a compact list, by a context of `src/hooks/tile.ts`. Other pieces follow at their steps, as Stat with its
-  tile and its value's size, Avatar in a row and a control in a table's row.
+  32 in a compact list, by a context of `src/hooks/tile.ts`; in a `Stat`, a solid circle of 48 px. A `StatValue`
+  gives the `Amount`, `Percent` or `Quantity` in it its size, `lg`, by a context of `src/hooks/use-value.ts`. Other
+  pieces follow at their steps, as Avatar in a row and a control in a table's row.
 - **`IconTile` is an icon on a square or a circle,** where the eye starts a row or a number. Its colour says weight,
   not meaning: `default`, soft, neutral or a category's tint by `category={n}`; `solid`, in the text's colour; and
   `gold`, the screen's headline, once per screen. `shape` is `square` or `circle`, and `size` 32, 40 or 48 px with an
@@ -54,11 +55,12 @@ pieces is in [`../pieces.md`](../pieces.md), and how a piece is analysed is in [
   data is added rather than changed. `Item` is the model, and each piece follows at its own step.
 - **One vocabulary of variants: a name means one look in every piece, by shadcn's names.** `default` is a piece's
   usual look. A control, as `Button`, `Badge` and `Toggle`, takes `secondary`, a soft fill, `outline`, a border,
-  `ghost`, no frame until the pointer is over it, and `link`, text alone. A surface, as `Item`, and `Card` and
-  `StatGroup` when they come, takes `outline`, `muted`, a soft fill, and `ghost`, no frame, named only where its usual
+  `ghost`, no frame until the pointer is over it, and `link`, text alone. A surface, as `Item` and `StatGroup`, and `Card`
+  when it comes, takes `outline`, `muted`, a soft fill, and `ghost`, no frame, named only where its usual
   look has one. A meaning, `destructive`, `success`, `warning` and `info`, is a `variant` too, as `theme.md` says. A
   group's boxes join or part by `spacing`, as shadcn's `ToggleGroup`: `0` draws one box with lines between, more a
-  box each that far apart, and `variant` the look of the boxes. A look one piece alone needs keeps a name of its own,
+  box each that far apart, and `variant` the look of the boxes. With no box, as `StatGroup`'s `ghost`, there are no
+  lines between, so its default parts them by 24 px. A look one piece alone needs keeps a name of its own,
   as `Tabs`' `line`, `ItemMedia`'s `image` and `IconTile`'s `solid`, and enters the vocabulary when a second
   piece needs it, as `gold`, the brand, did when `IconTile` took it after `Button`. Each variant's analysis names it from here, or gives the reason for a new name.
 - **The gallery groups the pieces by purpose, under shadcn's own groups,** as its docs list its components: Form &
@@ -95,6 +97,28 @@ pieces is in [`../pieces.md`](../pieces.md), and how a piece is analysed is in [
   alone, follows with its keys, as a table's row; it shows a pointer and, in a list, a hover at half `--muted`. A
   row with `aria-current="true"` is drawn at `--muted` with a 3 px bar of `--primary`. Both share
   `src/hooks/row.ts` with Table.
+
+### Stat
+
+- **`StatGroup` is a list of terms and values,** a `<dl>`, each `Stat` a `<div>` in it, its `StatLabel` a `<dt>`, and
+  its `StatValue` and `StatDescription` each a `<dd>`, so a screen reader reads them together and says how many. No
+  ARIA, and no landmark, as the section's title around it is one.
+- **The tile and the action are written in `StatLabel`,** as a `<div>` in a `<dl>` holds only `<dt>` and `<dd>`; the
+  `Stat` draws the tile left of its label and value all the same, 20 px in, 12 from the text.
+- **`StatValue` is at 24/32 and 600 with tabular figures,** `type-amount-lg`, for an amount, a count or plain text,
+  and gives its size to the value in it; a size given by hand wins. `StatDescription` is the note under it, 12 px and
+  muted, as a change by a `Percent` with `sign="always"` beside the app's words; a value in it keeps its own size.
+- **Its boxes by the vocabulary:** `spacing={0}`, by default, one box at a card's ring and corners with a line
+  between each, which follows them as they wrap; more, a box each; `variant="muted"`, soft; `variant="ghost"`, none,
+  no padding, and 24 px apart unless given a `spacing`.
+- **Its columns come from its own width,** as shadcn's dashboard steps its cards: one, two from 576 px, and all on
+  one line from 1024, where shadcn has four.
+- **An action is a `StatAction`,** as `ItemAction`: a quiet icon button of 32 px at the label's end, named by the
+  app's one word and the label, as "Open Invested", no taller than the label's line. A stat with no label makes it
+  throw.
+- **Loading as a list's:** `isLoading` with the app's `loadingLabel` makes the group busy and says the words in a
+  status; a `StatValue` left empty draws a shape in its place, which a screen reader skips, and one with its value
+  keeps it.
 
 ### Section
 
@@ -255,6 +279,15 @@ pieces is in [`../pieces.md`](../pieces.md), and how a piece is analysed is in [
   the icon is optional everywhere and a colour per number rare. No meaning's colour, as the value and the change say
   it where it is read, an outflow is not bad news, a red tile reads as an error, and the prototype's own green and
   red tiles, defined, were used on none of its screens. **What it costs:** no tile says good or bad at a glance.
+- **Stat as a list of terms and values,** as Chakra's `Stat` reads, and a number's label and value belong together
+  where a list of rows reads across. **Its tile in its label,** as the HTML allows a `<dl>`'s `<div>` only terms and
+  values, so a validator passes it, which writing it in the `Stat` would not, axe passing only the hidden tile. **What
+  it costs:** the tile is written in a different place than in an `Item`. **Its columns by its own width,** as a group
+  works the same across a page and in a narrow column, **in shadcn's steps,** as its dashboard, so four never stand
+  three and one, **and all on one line at the widest,** so three leave no empty box. **What it costs:** the app does
+  not choose how many go to a line, four stand two and two up to 1024 px, and more than four share one line. **Its ghost's own spacing,** as with
+  no box there are no lines, and at 0 its numbers would touch. **What it costs:** one default that depends on the
+  variant.
 - **The gallery as a guide,** as whoever builds a screen first looks for what exists and how it is used, and stories
   that were only checks said neither. **Storybook's own page,** as it reads the stories and comments that exist, and
   Storybook 10's docs prefer comments to parameters. **What it costs:** its order and form, a package to keep, a lint
@@ -414,6 +447,12 @@ pieces is in [`../pieces.md`](../pieces.md), and how a piece is analysed is in [
   **The app composing a tile's shape and size each time.** **An icon by a prop,** as `icon={WalletIcon}`, the one piece
   that would take one so. **Tiles green for money in and red for money out.** **An outlined tile,** which no screen
   of the prototype uses. **A name for a tile alone,** which no screen needs yet.
+- **A Stat's tile written in the `Stat`,** as in an `Item`, which the HTML forbids. **Columns by the screen,** 1, 2
+  and 4, as the sample page had, which overflow in a narrow column. **As many as fit at 256 px each,** first chosen,
+  which drew the sample page's four as three and one. **The same `spacing`
+  of 0 for a ghost,** which leaves one with no `spacing` touching. **A `StatChange` part,** as a badge, where a change
+  beside the app's words says more, and a badge comes by composition. **A link in the label,** in place of an action,
+  which each app would name and draw its own way.
 - **A page written by hand, in MDX,** as shadcn's site has, about 50 pages to keep beside the stories, or **stories
   alone,** with no words on what to use and when. **Descriptions as parameters,** a string in each story, which the
   docs keep for where a comment cannot go. **The alphabet's order with `Default` first,** which teaches nothing after
@@ -488,3 +527,4 @@ pieces is in [`../pieces.md`](../pieces.md), and how a piece is analysed is in [
 - 2026-11-13: One vocabulary of variants.
 - 2026-11-13: The gallery as a guide.
 - 2026-11-13: IconTile, and defaults from where a piece sits.
+- 2026-11-14: Stat.
