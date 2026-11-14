@@ -41,46 +41,6 @@ Each piece, at its step, follows the gallery's guide, as `docs/decisions/compone
 its and its props' comments as JSDoc, its stories exported where written in the order they teach, a story that only
 checks by `!autodocs`, and its data from `.storybook/data.ts`, added rather than changed.
 
-- Stat and StatGroup next, StatGroup moved here from The rest, its icon an IconTile written in StatLabel, a solid circle
-  of 48 px left of its label and value by default, as the prototype's overview, gold for the headline, analysed on 2026-11-12 and 2026-11-13, one point at a
-  time, before the vocabulary of variants and the guide came first. Decided:
-  - StatGroup is a `dl`, each Stat a `div` in it, its label a `dt`, its value a `dd`, as Chakra's: read together,
-    the count announced, no ARIA, and no landmark to jump between numbers, as the group's section title is one.
-  - Its parts: `StatGroup`, `Stat`, `StatLabel`, `StatValue` and `StatDescription`, the note under the number, a
-    `dd`, the word Card, Section and Item use for the muted text under the main one.
-  - `StatValue` carries `type-amount-lg`, 24/32 at 600 with tabular figures, so plain text, a " + " between amounts
-    or a count match; the formatting stays with `Amount`, `Percent` and `Quantity`. `StatValue` gives them their
-    size, `lg`, by the rule that came with IconTile, read where they share it, `useValue`, and a size given by hand
-    wins; a value in `StatDescription` keeps its own. Decided on 2026-11-14.
-  - A change goes in `StatDescription`, a value with `sign="always"` and its tone beside the app's words, as
-    `money.md` refused a Delta piece; a badge comes by composition.
-  - Its boxes by the vocabulary: `spacing={0}`, its default, one box with lines between, as the sample page's totals;
-    more, a box each; `variant="muted"` for soft boxes; `variant="ghost"` for none, as in a card or a page's head.
-    The four drawn and kept on 2026-11-14, the first icon gold and the rest solid.
-  - Its columns by its own width, not the screen's, so it works the same across a page and in a narrow column, as
-    shadcn's dashboard steps them: one, two from 576 px, `@xl`, and all on one line from 1024, `@5xl`, where shadcn
-    has four, so three fill the line. Against the sample's 1, 2 and 4 by the screen, which overflow in a narrow
-    column, and against as many as fit at 256 px each, first chosen, which drew the sample's four as three and one.
-    Decided on 2026-11-14.
-  - `variant="ghost"` parts its numbers by 24 px, `spacing={6}`, by default, as with no box there are no lines
-    between, and at 0 they would touch; a `spacing` given wins. Against the same 0 as the rest, one rule for every
-    variant, which leaves a ghost with no `spacing` broken. Decided on 2026-11-14.
-  - The IconTile and `StatAction` are written in `StatLabel`, the `dt`, since a `div` in a `dl` holds only `dt` and
-    `dd`; the Stat still draws the tile left of its label and value. Valid HTML, against writing them in Stat as in
-    Item, which axe passes for the hidden tile but not the button. Decided on 2026-11-14.
-  - `StatAction`, a quiet icon button beside the label, as `ItemAction`: 32 px to touch, taking no more height than
-    the label's line, its name the app's one word joined to the label, as "Open Invested", and an error with no
-    label, as an app opens what a number is made of from it.
-  - Loading as `ItemGroup` and `Table`: `isLoading` and `loadingLabel` on `StatGroup`; the first time, the labels
-    stay and a shape takes each value's place; on a reload, the values stay; either way the group is busy and the
-    app's words are heard. No value is `Amount`'s dash, with the app's words, so nothing new.
-  - The model of the guide: its page by `autodocs`, JSDoc on its parts and props, examples in the order they teach,
-    checks off the page, and the household's totals from `.storybook/data.ts`.
-  - WCAG: 1.3.1, the list read as terms and values, by a story; 1.4.1, a change said by its sign and the app's words;
-    1.4.3, the muted label on the card; 1.4.10, the boxes wrapping at 320 px, by the reflow check; 2.5.8, the action's
-    32 px; 4.1.2, the action's name; 4.1.3, the load heard, by a story.
-  - The sample page's totals then use it, and its `CardAction className="flex gap-1"` goes, now redundant.
-  - A new piece, so a version of its own.
 - Badge, deciding its finance colours on a dark surface, with tones for success, warning, danger and information, a
   dot, and a count beside a section's title. With it, whether `--negative` gets a red of its own, close to
   `--destructive` and told apart from it in both themes, as an app asked on 2026-11-13: a position down 3% wears a

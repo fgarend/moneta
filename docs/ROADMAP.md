@@ -9,7 +9,7 @@ known and what is still to ask, are in [`roadmap-notes.md`](roadmap-notes.md), r
 ## Next, in order
 
 1. **Display.** The pieces that show, reviewed or made.
-    - Stat and StatGroup, then Badge, Card, Alert, and Avatar and AvatarGroup
+    - Badge, then Card, Alert, and Avatar and AvatarGroup
     - Separator, Kbd, AspectRatio and ScrollArea, then DescriptionList, Timeline and TickerChip
 2. **Actions and forms.** The pieces that act and take input, reviewed or made.
     - Button, ButtonGroup and PageHeader
@@ -88,6 +88,9 @@ Each becomes an item when its time comes.
 
 ## Done
 
+- **Stat and StatGroup.** Numbers of note read together, as a list of terms and values: a label, a value at 24/32
+  that gives its size to the Amount in it, and a note under it, its icon a circle in its label, its boxes by
+  `spacing` and `variant`, its columns by its own width in shadcn's steps, and its loading. 0.23.0.
 - **The local checks' time.** `make check` takes 4 min when it runs alone; before each commit lint, types and
   test, with Chromium's stories when `src/` or a story changes, and a second stories run stops at once. No version of
   its own.
