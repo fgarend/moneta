@@ -183,6 +183,26 @@ describe.each(["light", "dark"])("the categories in %s", (mode) => {
   );
 });
 
+// The colours of meaning as a badge's words: 4.5:1 on their own tint, at the categories' share, over every surface
+// they meet. A value's tones are two of them, so they hold too.
+const meanings = ["destructive", "success", "warning", "info"];
+
+describe.each(["light", "dark"])("the meanings in %s", (mode) => {
+  it.each(
+    meanings.flatMap((meaning) =>
+      surfaces.map((surface) => [meaning, surface] as const),
+    ),
+  )("reads %s at 4.5:1 on its tint over %s", async (meaning, surface) => {
+    const theme = (await themes())[mode] ?? {};
+    const [colour = "", under = ""] = [theme[meaning], theme[surface]];
+
+    expect(colour).toMatch(hexColour);
+    expect(
+      contrast(colour, over(colour, under, tint[mode] ?? 0)),
+    ).toBeGreaterThanOrEqual(text);
+  });
+});
+
 // shadcn's chart colours, which its chart reads, are the first five categories.
 it("points shadcn's chart colours to the first five categories", async () => {
   const theme = await readFile(new URL("src/styles/theme.css", root), "utf8");

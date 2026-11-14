@@ -39,14 +39,13 @@ with each family. No reviewed piece has a default text, so shadcn's written stri
 
 Each piece, at its step, follows the gallery's guide, as `docs/decisions/components.md` says: its page by `autodocs`,
 its and its props' comments as JSDoc, its stories exported where written in the order they teach, a story that only
-checks by `!autodocs`, and its data from `.storybook/data.ts`, added rather than changed.
+checks by `!autodocs`, and its data from `.storybook/data.ts`, added rather than changed. Its page opens with what
+it is, then "Use it for" and "Not recommended", as Badge's.
 
-- Badge, deciding its finance colours on a dark surface, with tones for success, warning, danger and information, a
-  dot, and a count beside a section's title. With it, whether `--negative` gets a red of its own, close to
-  `--destructive` and told apart from it in both themes, as an app asked on 2026-11-13: a position down 3% wears a
-  failed import's red on the same screen. `theme.md` chose one red, so the theme keeps one; asked again. With them, whether
-  `--positive` stays green or turns blue, raised on 2026-11-13, as one decision for values, changes, charts and
-  badges; an IconTile takes no meaning's colour, decided the same day.
+- The pages of the pieces before Badge next, each its sentence, "Use it for" and "Not recommended", as Badge's, in
+  one step, with `test/gallery.test.ts`'s list of pieces that have it turned into every reviewed piece.
+  Every reviewed piece and our own, as Item, IconTile, Stat, Section, Table, Link, Pagination, Sidebar, AppLayout,
+  SkipLink, Amount, Percent, Quantity, DateField, DateTime and MonetaProvider; a raw piece gets its own at its review.
 - Card, whose title is a `div`, to take a heading's level as `docs/decisions/components.md` says, deciding where
   code shared by pieces lives, and whether an app gets a `Heading` that reads the level. Two second forms an app
   builds by classes today: a card with no padding, its content to the edges, for a table or a group of numbers; and

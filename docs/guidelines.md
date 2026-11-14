@@ -107,6 +107,17 @@ the version installed. It holds only what exists, and each reviewed piece adds i
 - **The pieces stack themselves:** a dialog or a sheet over the page, and a menu, a tooltip or a select's list over
   the dialog it opens in. Give them no `z-index`.
 
+## Badges
+
+- **A badge is a short label beside something,** one or two words, read at a glance. It is never pressed: the link
+  is the row's title, and a filter is a chip.
+- **A state takes its meaning's variant and an icon of its own shape,** as `<CheckIcon data-icon="inline-start" />`
+  for paid, a clock for due, an alert for overdue and a calendar for scheduled, the same icon for a state on every
+  screen.
+- **A kind takes its word alone,** in `secondary`, or `outline` to be quiet; its category's colour goes on the row's
+  `IconTile`.
+- **`default`, dark and filled, is for the one thing that should stand out,** as a new holding.
+
 ## Section
 
 - **A part of a page under one title, with no box of its own.** `Card` is for a group that needs a surface. A section
