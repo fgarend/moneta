@@ -39,54 +39,11 @@ with each family. No reviewed piece has a default text, so shadcn's written stri
 
 Each piece, at its step, follows the gallery's guide, as `docs/decisions/components.md` says: its page by `autodocs`,
 its and its props' comments as JSDoc, its stories exported where written in the order they teach, a story that only
-checks by `!autodocs`, and its data from `.storybook/data.ts`, added rather than changed. Asked on 2026-11-14: each
-piece's page says what it is, what it is for, and what is not recommended; how, and whether the pieces before get
-it, decided on 2026-11-14: in its component's comment, which the page shows first, a sentence on what it is, then
-"Use it for" and "Not recommended", each with its reason and what to use instead, as a rule in
-`docs/decisions/components.md`. Badge is the first; the pieces before it get theirs in a step of their own, right
-after, so each step stays small, against all of them in Badge's step.
+checks by `!autodocs`, and its data from `.storybook/data.ts`, added rather than changed. Its page opens with what
+it is, then "Use it for" and "Not recommended", as Badge's.
 
-- Badge, deciding its finance colours on a dark surface, with tones for success, warning, danger and information, a
-  dot, and a count beside a section's title. With it, whether `--negative` gets a red of its own, close to
-  `--destructive` and told apart from it in both themes, as an app asked on 2026-11-13: a position down 3% wears a
-  failed import's red on the same screen. `theme.md` chose one red, so the theme keeps one; asked again. Decided on
-  2026-11-14: one red still, as two close reds are hard to tell apart, and red-green colour blindness sees both as
-  one brown; an error comes in an alert with its icon and words, a loss as a value with its minus; and `--negative`
-  is a token of its own, which an app splits without touching a piece. Against a crimson of its own, which sets a
-  market's fall apart from an error that asks for action. With them, whether
-  `--positive` stays green or turns blue, raised on 2026-11-13, as one decision for values, changes, charts and
-  badges; an IconTile takes no meaning's colour, decided the same day. Decided on 2026-11-14: it stays green, the
-  convention of banks and brokers here and in the US, as the sign and the app's words say good or bad and the colour
-  only adds, against blue, which red-green colour blindness tells from red but `--info` already is, so a paid bill
-  and a scheduled one would match. A theme for colour blindness can replace the one token.
-  The colours of meaning reach 4.5:1 as a badge's text on their own tint, 10% in light and 20% in dark, over the
-  page, a card and `--muted`, measured on 2026-11-14 short of it on `--muted` in both modes, 3.67 at worst, and
-  `--info` on a dark card. Decided on 2026-11-14: each tone moves the least that reaches it, in its own hue, darker in
-  light and paler in dark, `--info` the most, `#7aa7f5` to about `#97c6ff`, and `test/theme.test.ts` holds it as it
-  holds the categories' tints. Against keeping the tones and no meaning's badge on `--muted`, a rule easy to break.
-  A state's mark, decided on 2026-11-14: an icon, by what `Badge` already takes, `data-icon="inline-start"`, each
-  state its own shape, as a check for paid and a clock for due, seen without colour too, as 1.4.1 asks; a kind, as
-  an expense, takes its word alone. Against the prototype's `dot`, which says a state from a kind but not one state
-  from another without colour, and no mark at all. A story shows it, and the guidelines say it.
-  A count beside a section's title stays as `Section` made it, a `secondary` badge in `SectionTitle`, heard in its
-  heading; reviewed on 2026-11-14: its number at 12.7:1 and 11.5:1, its pill faint on a white card, which 1.4.11 does
-  not ask of what is not a control.
-  A badge only shows, decided on 2026-11-14: `render`, the hover of a badge that is a link, its focus ring and its
-  `ghost` and `link` variants go, a breaking change, as a badge is a label nobody expects to press, 20 px tall where
-  2.5.8 asks 24, a second link to what the row's title opens, and a link whose words, "Due", do not say where it goes;
-  a filter that looks like one is the chips of Actions and forms. Against keeping `render`, which an app may use.
-  Its `default` stays shadcn's, dark and filled, decided on 2026-11-14: to stand out once, as "New", with `secondary`
-  for a common label and `outline` for a quiet one, as the guidelines say. Against a soft default, as the prototype's,
-  which drops `secondary` and breaks a section's count.
-  A kind's badge stays `secondary`, its category's colour on the row's IconTile, decided on 2026-11-14, as the
-  colours of categories are made for marks, 3:1, and half reach only 3.3:1 as text on their tint. Against
-  `category={n}` on Badge, as the prototype colours its kinds, which needs eight more shades of text in each mode.
-  A long badge wraps, decided on 2026-11-14: it grows by lines of 20 px, its corners 10 px, still a pill on one line,
-  as today it keeps one line and leaves a narrow column, and at 320 px the page scrolls sideways. Its page says one
-  or two words. Against an ellipsis, which hides words with no way to read them.
-  WCAG at its step: 1.4.1, a state by its word and its icon's shape; 1.4.3, each tone on its tint over every surface,
-  by the theme's test; 1.4.10, a long badge wrapping at 320 px, by a story; 1.1.1, its icon hidden, its word heard.
-- The pages of the pieces before Badge, each its sentence, "Use it for" and "Not recommended", as Badge's, in one step.
+- The pages of the pieces before Badge next, each its sentence, "Use it for" and "Not recommended", as Badge's, in
+  one step, with `test/gallery.test.ts`'s list of pieces that have it turned into every reviewed piece.
   Every reviewed piece and our own, as Item, IconTile, Stat, Section, Table, Link, Pagination, Sidebar, AppLayout,
   SkipLink, Amount, Percent, Quantity, DateField, DateTime and MonetaProvider; a raw piece gets its own at its review.
 - Card, whose title is a `div`, to take a heading's level as `docs/decisions/components.md` says, deciding where
