@@ -45,7 +45,31 @@ it is, then "Use it for" and "Not recommended", as Badge's.
 - Card, whose title is a `div`, to take a heading's level as `docs/decisions/components.md` says, deciding where
   code shared by pieces lives, and whether an app gets a `Heading` that reads the level. Two second forms an app
   builds by classes today: a card with no padding, its content to the edges, for a table or a group of numbers; and
-  a title at a section's size, for a card that is a part of the page.
+  a title at a section's size, for a card that is a part of the page. Decided:
+  - CardTitle a heading, decided on 2026-11-14: its level one below where the card sits, as SectionTitle's, a level
+    given by hand wins; what the card holds goes one level deeper only when the card has a title, read from its direct
+    children, so no level is skipped. Against a heading whose content stays at its level, which reads its groups as the
+    card's siblings. Its Not recommended says a CardHeader wrapped in another component is not seen; a story covers it.
+  - No Heading for the app, decided on 2026-11-14: every title comes from a piece, Section, Card or ItemGroup, which
+    gives its size and weight; a title where no piece covers it is a missing piece, added to the roadmap. Against an
+    exported Heading, which an app would style by its own classes.
+  - A StatGroup alone in a CardContent runs edge to edge, decided on 2026-11-14, as a table and a list of rows do: the
+    content loses its side padding and gains a line above, the group drops its own box, its lines reach the card's
+    edges, and its text lines up with the card's title. Against a prop on CardContent, which the app must remember and
+    which differs from the table and the list.
+  - size="lg" on Card, decided on 2026-11-14: a card that is a part of the page, its title at a section's size, 18/24,
+    and its padding 24 px, the opposite of size="sm"; its level from where it sits, h2 at the page's top. As an app
+    writes text-lg/6 font-semibold on CardTitle and its own section and h2 today. Against a Section with its title above
+    the card, which takes the title out of it.
+  - No variants but its default, decided on 2026-11-14: the app uses no other card, a frameless one is a Section, and a
+    soft one comes with a real use, as the vocabulary says. Against muted and ghost now, two looks to keep, ghost
+    repeating Section.
+  - Its page, kept on 2026-11-14: a surface that holds one group of things under its title; for a group that needs a
+    surface, a table, a list or a group of numbers alone in its content, and a part of the page with `size="lg"`; not
+    for a part that needs no surface, a card in a card, a `CardHeader` wrapped in another component, or a whole card
+    as a link or a button. WCAG: 1.3.1, its title a heading at its level, by stories; 1.4.3, its description on the
+    card, by the theme's test; 1.4.10, a long title and an action wrapping at 320 px, by a story; 1.4.11 not asked of a
+    surface. Its image at the top keeps shadcn's corners.
 - Section came early, before Sidebar, and Table comes there too.
 - Avatar with its group, AvatarGroup, whose fallback's text an app measured at 4.34:1. Drawn as a `span`, keeping its
   `flex`, as an app asked on 2026-11-13: it sits beside a name inside a `p` or a `span`, as an `ItemDescription`, where
