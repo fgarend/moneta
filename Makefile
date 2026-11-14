@@ -43,7 +43,14 @@ ifeq ($(BROWSER),)
 	done; \
 	exit $$failed
 else
-	$(RUN) tools pnpm exec vitest run --mode stories --coverage --project '*($(BROWSER))'
+# Two runs at once share coverage's folder and Docker's memory, and both fail at random: a second stops at once. Its
+# container, not a lock file, marks a run, so a run stopped leaves nothing behind.
+	@if [ -n "$$(docker ps -q --filter label=moneta.check=stories)" ]; then \
+		echo "Another stories run is running. Wait for it, or stop it:" \
+			"docker stop \$$(docker ps -q --filter label=moneta.check=stories)" >&2; \
+		exit 1; \
+	fi
+	$(RUN) --label moneta.check=stories tools pnpm exec vitest run --mode stories --coverage --project '*($(BROWSER))'
 endif
 
 package: ## The build, packed into .package, with that tarball installed and checked in a throwaway app

@@ -88,32 +88,6 @@ checks by `!autodocs`, and its data from `.storybook/data.ts`, added rather than
   the reflow check at 320 px; both let its story off, `gap-reflow` since 2026-11-13. Its review gives it focus and a
   name only when it overflows, as `Table` measures its area, and drops both tags.
 
-## The local checks' time
-
-A step of the pipeline, before Stat, as the owner asked on 2026-11-13, when `make check` had grown slow
-on the machine. Measured that day, each check alone, each with 8 to 12 s to start its container: lint 29 s, types
-34 s, test 49 s, of which Vitest itself 7 s, stories 2 min 8 s in Chromium, 3 min 7 s in Firefox and 2 min 31 s in
-WebKit, package 1 min 22 s, and storybook-build 34 s. About 11 min, nearly 8 of them in the stories, which go through
-every story 29 times, 12 in Chromium, 10 in Firefox and 7 in WebKit, one browser after another, where continuous
-integration runs the three together. The stories' times are high, as another `make stories` ran at the same moment:
-both failed, as a browser closed, a click waited 12 s and the coverage's temporary file went missing. One run used
-9.9 of the 11.7 GB Docker had.
-
-To ask, one at a time, each measured:
-
-- **Which checks at which moment:** while making a piece, before a commit, before a pull request. Recommended today:
-  lint, types and test before each commit, with Chromium's stories when the look changes, and everything before the
-  pull request.
-- **One piece's stories alone,** in Chromium with no coverage, as the 100% threshold fails on a part. The storybook
-  projects' tests come from the story files, and the other projects' from one file per check, which names each test
-  by its story's id, so one filter may not reach both. `make watch`, repeating the tests on each saved file, moved
-  here from Later, is weighed with it.
-- **Firefox's and WebKit's stories left to continuous integration before a pull request,** which runs them together
-  and is main's rule anyway. **What it costs:** a failure in one browser alone, as WebKit's on v0.2.0, shows a round
-  later, and `CLAUDE.md`'s rhythm, where `make check` passes before the pull request opens, changes.
-- **Memory:** fewer projects at once in Vitest, or more memory for Docker, which is the machine's setting, not the
-  repository's. Two runs at once fail, and the Firefox page that crashed out of memory, in Later, may share the cause.
-
 ## Actions and forms
 
 - Button's variants, ButtonGroup, PageHeader, as an app's own draws it, its context, title and actions each in a row

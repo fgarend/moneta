@@ -9,8 +9,7 @@ known and what is still to ask, are in [`roadmap-notes.md`](roadmap-notes.md), r
 ## Next, in order
 
 1. **Display.** The pieces that show, reviewed or made.
-    - The local checks' time, a step of the pipeline; then Stat and StatGroup, then Badge, Card, Alert, and Avatar
-      and AvatarGroup
+    - Stat and StatGroup, then Badge, Card, Alert, and Avatar and AvatarGroup
     - Separator, Kbd, AspectRatio and ScrollArea, then DescriptionList, Timeline and TickerChip
 2. **Actions and forms.** The pieces that act and take input, reviewed or made.
     - Button, ButtonGroup and PageHeader
@@ -77,7 +76,8 @@ Each becomes an item when its time comes.
 - **A less-motion test that stalled once in WebKit.** Opening and closing Dialog stopped the page past every wait,
   1 run in 7 after Playwright 1.65.0 on 2026-11-12, and never again alone or under load. If it returns.
 - **A Firefox page that crashed once, out of memory.** In `make stories` on 2026-11-13, a run after reflow entered,
-  with every test run passing, and not on the next run. If it returns.
+  with every test run passing, and not on the next run. Each browser's stories alone reach about 10 of Docker's
+  11.7 GB. If it returns.
 - **Sidebar's further functions.** Collapsed to icons with tooltips, counts, sections that open, nested items, a
   keyboard shortcut. When an app asks.
 - **Skeleton's and Progress's less motion, asked of each browser.** As the overlays' is, in place of reading the
@@ -88,6 +88,9 @@ Each becomes an item when its time comes.
 
 ## Done
 
+- **The local checks' time.** `make check` takes 4 min when it runs alone; before each commit lint, types and
+  test, with Chromium's stories when `src/` or a story changes, and a second stories run stops at once. No version of
+  its own.
 - **IconTile.** An icon on a square or a circle, soft, solid or gold, at 32, 40 or 48 px, which takes its defaults
   from where it sits, as in an Item, in place of ItemMedia's icon variant. 0.22.0.
 - **The gallery as a guide.** A page per piece, from its comment and its stories, every example checked, one
