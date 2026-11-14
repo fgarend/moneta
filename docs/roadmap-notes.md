@@ -88,36 +88,6 @@ checks by `!autodocs`, and its data from `.storybook/data.ts`, added rather than
   the reflow check at 320 px; both let its story off, `gap-reflow` since 2026-11-13. Its review gives it focus and a
   name only when it overflows, as `Table` measures its area, and drops both tags.
 
-## The local checks' time
-
-A step of the pipeline, before Stat, as the owner asked on 2026-11-13, when `make check` had grown slow
-on the machine. Measured that day, each check alone, each with 8 to 12 s to start its container: lint 29 s, types
-34 s, test 49 s, of which Vitest itself 7 s, stories 2 min 8 s in Chromium, 3 min 7 s in Firefox and 2 min 31 s in
-WebKit, package 1 min 22 s, and storybook-build 34 s. About 11 min, nearly 8 of them in the stories, which go through
-every story 29 times, 12 in Chromium, 10 in Firefox and 7 in WebKit, one browser after another, where continuous
-integration runs the three together. The stories' times are high, as another `make stories` ran at the same moment:
-both failed, as a browser closed, a click waited 12 s and the coverage's temporary file went missing. One run used
-9.9 of the 11.7 GB Docker had.
-
-Measured again the same day, one run at a time: stories 59 s in Chromium, 1 min 26 s in Firefox and 60 s in WebKit,
-and `make check` whole 4 min, so the 11 were the two runs at once. Continuous integration took 3 min for pull request
-26, its slowest box Firefox's stories. Each browser's stories alone reach 9.9 to 10.6 of Docker's 11.7 GB; Firefox's
-with 4 workers took 73 s and reached 10.0, with 2 took 84 s and reached 9.1, so the workers are not what fills it.
-
-Decided, one at a time:
-
-- **Which checks at which moment:** lint, types and test before each commit, with Chromium's stories,
-  `make stories BROWSER=chromium`, when the commit touches `src/` or a story, and `make check` whole before the pull
-  request. Every commit is not checked in every browser, as continuous integration checks only the last one anyway.
-- **No command for one piece's stories.** Its two filters, by file and by story's id, would need code of our own, it
-  saves about a minute and a half, and it misses the stories of the pieces that use it. `make watch` stays out too, as
-  every check that goes through all the stories would run again on each save.
-- **Firefox's and WebKit's stories stay in `make check`,** at 4 min, so a failure in one browser alone shows before
-  the pull request, and `CLAUDE.md`'s rhythm stays.
-- **A second stories run stops at once,** with a message, when another runs: it looks for a running container of the
-  stories, not a lock file, so nothing is left when a run is stopped. More memory for Docker is the machine's setting,
-  and fewer workers barely lower the peak.
-
 ## Actions and forms
 
 - Button's variants, ButtonGroup, PageHeader, as an app's own draws it, its context, title and actions each in a row
