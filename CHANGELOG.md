@@ -6,6 +6,10 @@ gets its number.
 
 ## [Unreleased]
 
+## [0.23.0] - 2026-11-14
+
+Stat and StatGroup: numbers of note read together, as a month's totals.
+
 ### Added
 
 - `StatGroup` and `Stat`, numbers of note read together, as a month's totals: a list of terms and values, each
@@ -438,7 +442,8 @@ and dark. `README.md` says how to install and use it.
 
 A rehearsal of the release's path, not meant to be installed. Use a later version.
 
-[Unreleased]: https://github.com/fgarend/moneta/compare/v0.22.0...HEAD
+[Unreleased]: https://github.com/fgarend/moneta/compare/v0.23.0...HEAD
+[0.23.0]: https://github.com/fgarend/moneta/compare/v0.22.0...v0.23.0
 [0.22.0]: https://github.com/fgarend/moneta/compare/v0.21.1...v0.22.0
 [0.21.1]: https://github.com/fgarend/moneta/compare/v0.21.0...v0.21.1
 [0.21.0]: https://github.com/fgarend/moneta/compare/v0.20.0...v0.21.0
