@@ -46,6 +46,9 @@ it is, then "Use it for" and "Not recommended", as Badge's.
   one step, with `test/gallery.test.ts`'s list of pieces that have it turned into every reviewed piece.
   Every reviewed piece and our own, as Item, IconTile, Stat, Section, Table, Link, Pagination, Sidebar, AppLayout,
   SkipLink, Amount, Percent, Quantity, DateField, DateTime and MonetaProvider; a raw piece gets its own at its review.
+  Decided on 2026-11-14: only the piece whose page it is, as Stat or Item, gets the three; its parts keep their
+  sentence, and a part's trap goes in the piece's "Not recommended", which is read first. Against each part too,
+  about 60 in place of 16, many with little to say.
 - Card, whose title is a `div`, to take a heading's level as `docs/decisions/components.md` says, deciding where
   code shared by pieces lives, and whether an app gets a `Heading` that reads the level. Two second forms an app
   builds by classes today: a card with no padding, its content to the edges, for a table or a group of numbers; and
