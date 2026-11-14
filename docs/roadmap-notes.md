@@ -99,20 +99,24 @@ integration runs the three together. The stories' times are high, as another `ma
 both failed, as a browser closed, a click waited 12 s and the coverage's temporary file went missing. One run used
 9.9 of the 11.7 GB Docker had.
 
-To ask, one at a time, each measured:
+Measured again the same day, one run at a time: stories 59 s in Chromium, 1 min 26 s in Firefox and 60 s in WebKit,
+and `make check` whole 4 min, so the 11 were the two runs at once. Continuous integration took 3 min for pull request
+26, its slowest box Firefox's stories. Each browser's stories alone reach 9.9 to 10.6 of Docker's 11.7 GB; Firefox's
+with 4 workers took 73 s and reached 10.0, with 2 took 84 s and reached 9.1, so the workers are not what fills it.
 
-- **Which checks at which moment:** while making a piece, before a commit, before a pull request. Recommended today:
-  lint, types and test before each commit, with Chromium's stories when the look changes, and everything before the
-  pull request.
-- **One piece's stories alone,** in Chromium with no coverage, as the 100% threshold fails on a part. The storybook
-  projects' tests come from the story files, and the other projects' from one file per check, which names each test
-  by its story's id, so one filter may not reach both. `make watch`, repeating the tests on each saved file, moved
-  here from Later, is weighed with it.
-- **Firefox's and WebKit's stories left to continuous integration before a pull request,** which runs them together
-  and is main's rule anyway. **What it costs:** a failure in one browser alone, as WebKit's on v0.2.0, shows a round
-  later, and `CLAUDE.md`'s rhythm, where `make check` passes before the pull request opens, changes.
-- **Memory:** fewer projects at once in Vitest, or more memory for Docker, which is the machine's setting, not the
-  repository's. Two runs at once fail, and the Firefox page that crashed out of memory, in Later, may share the cause.
+Decided, one at a time:
+
+- **Which checks at which moment:** lint, types and test before each commit, with Chromium's stories,
+  `make stories BROWSER=chromium`, when the commit touches `src/` or a story, and `make check` whole before the pull
+  request. Every commit is not checked in every browser, as continuous integration checks only the last one anyway.
+- **No command for one piece's stories.** Its two filters, by file and by story's id, would need code of our own, it
+  saves about a minute and a half, and it misses the stories of the pieces that use it. `make watch` stays out too, as
+  every check that goes through all the stories would run again on each save.
+- **Firefox's and WebKit's stories stay in `make check`,** at 4 min, so a failure in one browser alone shows before
+  the pull request, and `CLAUDE.md`'s rhythm stays.
+- **A second stories run stops at once,** with a message, when another runs: it looks for a running container of the
+  stories, not a lock file, so nothing is left when a run is stopped. More memory for Docker is the machine's setting,
+  and fewer workers barely lower the peak.
 
 ## Actions and forms
 
