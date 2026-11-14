@@ -49,12 +49,14 @@ checks by `!autodocs`, and its data from `.storybook/data.ts`, added rather than
   - Its parts: `StatGroup`, `Stat`, `StatLabel`, `StatValue` and `StatDescription`, the note under the number, a
     `dd`, the word Card, Section and Item use for the muted text under the main one.
   - `StatValue` carries `type-amount-lg`, 24/32 at 600 with tabular figures, so plain text, a " + " between amounts
-    or a count match; the formatting stays with `Amount`, `Percent` and `Quantity`, given `size="lg"`, which a story
-    checks. To weigh again by the rule that came with IconTile: `StatValue` giving them their size.
+    or a count match; the formatting stays with `Amount`, `Percent` and `Quantity`. `StatValue` gives them their
+    size, `lg`, by the rule that came with IconTile, read where they share it, `useValue`, and a size given by hand
+    wins; a value in `StatDescription` keeps its own. Decided on 2026-11-14.
   - A change goes in `StatDescription`, a value with `sign="always"` and its tone beside the app's words, as
     `money.md` refused a Delta piece; a badge comes by composition.
   - Its boxes by the vocabulary: `spacing={0}`, its default, one box with lines between, as the sample page's totals;
-    more, a box each; `variant="muted"` for soft boxes; `variant="ghost"` for none. Each drawn before it is built.
+    more, a box each; `variant="muted"` for soft boxes; `variant="ghost"` for none, as in a card or a page's head.
+    The four drawn and kept on 2026-11-14, the first icon gold and the rest solid.
   - `StatAction`, a quiet icon button beside the label, as `ItemAction`: 32 px to touch, taking no more height than
     the label's line, its name the app's one word joined to the label, as "Open Invested", and an error with no
     label, as an app opens what a number is made of from it.
