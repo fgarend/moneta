@@ -39,10 +39,39 @@ it.each([
   },
 );
 
-// A piece's page opens with what it is, then what it is for and what is not recommended, in its component's comment,
-// which the page shows first. The pieces that have it so far.
-const explained = [["badge", "Badge"]];
+// A reviewed piece's page opens with what it is, then what it is for and what is not recommended, in the comment of
+// the piece whose page it is, which the page shows first. A raw piece gets its own at its review.
+const pages: Record<string, string> = {
+  amount: "Amount",
+  "app-layout": "AppLayout",
+  badge: "Badge",
+  "date-field": "DateField",
+  "date-time": "DateTime",
+  "icon-tile": "IconTile",
+  item: "ItemGroup",
+  link: "Link",
+  "moneta-provider": "MonetaProvider",
+  pagination: "Pagination",
+  percent: "Percent",
+  quantity: "Quantity",
+  section: "Section",
+  sidebar: "Sidebar",
+  "skip-link": "SkipLink",
+  stat: "StatGroup",
+  table: "Table",
+};
+const reviewedRow = /^\| `(?<name>[a-z-]+)` \| reviewed \|/gmu;
+const explained = Object.entries(pages);
 const anyText = /\S/u;
+
+it("names the piece of every reviewed page", async () => {
+  const list = await readFile(new URL("docs/pieces.md", root), "utf8");
+  const reviewed = [...list.matchAll(reviewedRow)].map(
+    ({ groups }) => groups?.["name"],
+  );
+
+  expect(new Set(Object.keys(pages))).toEqual(new Set(reviewed));
+});
 
 it.each(explained)(
   "explains on %s's page what it is for and what is not recommended",

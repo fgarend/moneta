@@ -5,6 +5,20 @@ import { useLocale } from "react-aria-components";
 import { useValue, type ValueSize, type ValueTone } from "#hooks/use-value";
 import { formatPercent, type Sign } from "#lib/money";
 
+/**
+ * A ratio as a percent, given as a fraction of one, with exactly the decimals given.
+ *
+ * **Use it for**
+ *
+ * - A change, a return or a share of a budget.
+ * - A column of ratios, each sent in one precision, as `"0.1500"`.
+ *
+ * **Not recommended**
+ *
+ * - `"45.9"` for 45.9%: give `"0.459"`.
+ * - Rounding for the screen: send the decimals to show, as it shows them all.
+ * - Money or shares: use `Amount` or `Quantity`.
+ */
 function Percent({
   value,
   emptyLabel,

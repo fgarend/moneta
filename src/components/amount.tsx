@@ -5,6 +5,21 @@ import { useLocale } from "react-aria-components";
 import { useValue, type ValueSize, type ValueTone } from "#hooks/use-value";
 import { formatMoney, type Money, type Sign } from "#lib/money";
 
+/**
+ * An amount of money, exact, in its currency's decimals and the app's language.
+ *
+ * **Use it for**
+ *
+ * - A balance, a payment or a total, in a row, a cell or a sentence on screen.
+ * - One of note, with `size="lg"`, or the size of where it sits, as in a `StatValue`.
+ * - A change, with `sign="always"` and the app's `tone` for good news or bad.
+ *
+ * **Not recommended**
+ *
+ * - A ratio or shares: use `Percent` or `Quantity`.
+ * - A number: give a decimal string, as `"-1234.50"`, which it never rounds.
+ * - Text where no piece can go, as a chart's axis or a page's title: use `useFormatMoney`, so the two never differ.
+ */
 function Amount({
   value,
   emptyLabel,

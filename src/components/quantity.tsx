@@ -5,6 +5,18 @@ import { useLocale } from "react-aria-components";
 import { useValue, type ValueSize, type ValueTone } from "#hooks/use-value";
 import { formatQuantity, type Sign } from "#lib/money";
 
+/**
+ * A quantity, as shares or units, with exactly the decimals given.
+ *
+ * **Use it for**
+ *
+ * - Shares held or units bought, its unit in your words beside it or in the column's header.
+ *
+ * **Not recommended**
+ *
+ * - Money or a ratio: use `Amount` or `Percent`.
+ * - A count in a sentence, as "3 accounts": plain text reads better.
+ */
 function Quantity({
   value,
   emptyLabel,

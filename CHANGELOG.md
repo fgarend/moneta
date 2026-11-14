@@ -6,6 +6,13 @@ gets its number.
 
 ## [Unreleased]
 
+### Added
+
+- Every reviewed piece's page, and its comment in an editor, opens with what it is, what it is for and what is not
+  recommended, each with what to use instead: `Amount`, `Percent`, `Quantity`, `DateTime`, `DateField`,
+  `MonetaProvider`, `AppLayout`, `Sidebar`, `SkipLink`, `Section`, `Link`, `ItemGroup`, `Table`, `Pagination`,
+  `IconTile` and `StatGroup`.
+
 ## [0.24.0] - 2026-11-14
 
 Badge reviewed: a label that only shows, a state with an icon of its own shape.

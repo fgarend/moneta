@@ -56,6 +56,19 @@ function dayOf(
 
 const sizes = { default: "h-9", sm: "h-8", lg: "h-10" };
 
+/**
+ * A field to type a day, which gives an ISO day once it is whole, and `null` once cleared.
+ *
+ * **Use it for**
+ *
+ * - A due date or a period's start, with a `label`, or an `aria-label` where its label is elsewhere.
+ * - Its rules, `isRequired`, `minValue` and `maxValue`, each broken in your words with `errorMessage`.
+ *
+ * **Not recommended**
+ *
+ * - Choosing on a calendar, or a moment with its hours: DatePicker and TimeField are to come.
+ * - Acting on each key typed: a day half typed changes nothing until it is whole.
+ */
 function DateField({
   label,
   "aria-label": ariaLabel,

@@ -54,8 +54,8 @@ pieces is in [`../pieces.md`](../pieces.md), and how a piece is analysed is in [
   and every check runs on it. The stories draw from one fictitious household's money, `.storybook/data.ts`, to which
   data is added rather than changed. `Item` is the model, and each piece follows at its own step. A page opens with
   what the piece is, in a sentence, then **Use it for** and **Not recommended**, each with its reason and what to use
-  instead, in its component's comment; `test/gallery.test.ts` holds the pieces that have it, Badge first, and the
-  pieces before it follow in a step of their own.
+  instead, in the comment of the piece whose page it is, as `StatGroup` for Stat's, while its parts keep their sentence;
+  `test/gallery.test.ts` holds every reviewed piece to it, and a raw piece gets its own at its review.
 - **One vocabulary of variants: a name means one look in every piece, by shadcn's names.** `default` is a piece's
   usual look. A control, as `Button`, `Badge` and `Toggle`, takes `secondary`, a soft fill, `outline`, a border,
   `ghost`, no frame until the pointer is over it, and `link`, text alone. A surface, as `Item` and `StatGroup`, and `Card`
@@ -306,12 +306,11 @@ pieces is in [`../pieces.md`](../pieces.md), and how a piece is analysed is in [
   no box there are no lines, and at 0 its numbers would touch. **What it costs:** one default that depends on the
   variant.
 - **A badge that only shows,** as its size and its word make a poor link, and the row already has one. **What it
-  costs:** an app that drew one as a
-  link or used `ghost` or `link` changes it. **An icon for a state,** by what the badge already takes, as each shape
-  holds without colour. **What it costs:** the app picks an icon per state and keeps it the same. **Words that wrap,**
-  as no word is lost. **What it costs:** a row with a long badge grows. **The page's three parts,** as a guide that
-  shows only what to do leaves out what not to. **What it costs:** pages unlike each other until the pieces before
-  Badge get theirs.
+  costs:** an app that drew one as a link or used `ghost` or `link` changes it. **An icon for a state,** by what the
+  badge already takes, as each shape holds without colour. **What it costs:** the app picks an icon per state and
+  keeps it the same. **Words that wrap,** as no word is lost. **What it costs:** a row with a long badge grows. **The
+  page's three parts,** as a guide that shows only what to do leaves out what not to, **on the piece whose page it
+  is,** as a part's trap is read first there. **What it costs:** a part's tab says less than its piece's page.
 - **The gallery as a guide,** as whoever builds a screen first looks for what exists and how it is used, and stories
   that were only checks said neither. **Storybook's own page,** as it reads the stories and comments that exist, and
   Storybook 10's docs prefer comments to parameters. **What it costs:** its order and form, a package to keep, a lint
@@ -556,3 +555,4 @@ pieces is in [`../pieces.md`](../pieces.md), and how a piece is analysed is in [
 - 2026-11-13: IconTile, and defaults from where a piece sits.
 - 2026-11-14: Stat.
 - 2026-11-14: Badge, and a page's three parts.
+- 2026-11-14: The three parts on every reviewed piece's page.

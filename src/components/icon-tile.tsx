@@ -42,8 +42,19 @@ function categoryColour(category: number | undefined): string | undefined {
 /**
  * An icon on a square or a circle, where the eye starts a row or a number. Its colour says weight, not meaning: soft,
  * neutral or a category's tint; solid, in the text's colour; or gold, the screen's headline, once per screen. It is
- * always decoration, hidden from screen readers, as the words beside it say what it is. The piece it sits in says
- * how it behaves there, and a prop given by hand wins.
+ * always decoration, hidden from screen readers, as the words beside it say what it is. The piece it sits in says how
+ * it behaves there, and a prop given by hand wins.
+ *
+ * **Use it for**
+ *
+ * - A row's start, in an `Item`, soft, or in its category's tint with `category`.
+ * - A number, in a `StatLabel`, solid, and gold for the screen's headline, once.
+ *
+ * **Not recommended**
+ *
+ * - Good or bad news: it goes in the value, the change and a `Badge`.
+ * - Alone: it is hidden from screen readers, so words beside it say what it is.
+ * - As a button: it is never pressed.
  */
 function IconTile({
   shape,

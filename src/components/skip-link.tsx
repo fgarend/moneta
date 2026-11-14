@@ -19,6 +19,17 @@ function moveFocus(event: MouseEvent<HTMLAnchorElement>, id: string): void {
   target.focus();
 }
 
+/**
+ * The page's first element, out of sight until the keyboard reaches it, which moves focus to the content.
+ *
+ * **Use it for**
+ *
+ * - Once, first in the shell, to `#main`, in your words, as "Skip to the content".
+ *
+ * **Not recommended**
+ *
+ * - More than one on a page, or a target missing from it.
+ */
 function SkipLink({
   href,
   className,

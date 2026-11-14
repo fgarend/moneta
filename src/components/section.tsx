@@ -5,6 +5,20 @@ import { type ComponentProps, useContext } from "react";
 import { Heading, type HeadingProps } from "react-aria-components";
 import { deepest, SectionLevel } from "#hooks/level";
 
+/**
+ * A titled part of a page, with no box of its own: a header with its title, a description and an action, then its
+ * content.
+ *
+ * **Use it for**
+ *
+ * - The parts of a page, each under one title, 40 px apart.
+ * - A count beside its title, as a `secondary` badge in `SectionTitle`, and its tools in `SectionAction`.
+ *
+ * **Not recommended**
+ *
+ * - A group that needs a surface: use `Card`, which a section often holds.
+ * - A level set by hand, unless the page's outline needs another: it takes one from where it sits.
+ */
 function Section({ className, ...props }: ComponentProps<"section">) {
   const level = useContext(SectionLevel);
   return (

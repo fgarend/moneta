@@ -7,6 +7,20 @@ import {
   type LinkProps as LinkPrimitiveProps,
 } from "react-aria-components";
 
+/**
+ * A link in text or in a cell, through the app's router, underlined, in its text's size and weight.
+ *
+ * **Use it for**
+ *
+ * - A link in a sentence, its words saying where it goes, read alone.
+ * - A row's title in a table or a list, with `isQuiet`, where its place says it is a link.
+ *
+ * **Not recommended**
+ *
+ * - An action: use `Button`. A link drawn as a button: use `LinkButton`.
+ * - Words as "here" or "click", which say nothing read alone.
+ * - `isQuiet` in a sentence, where an underline is the only sign of a link.
+ */
 function Link({
   className,
   isQuiet = false,

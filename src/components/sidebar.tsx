@@ -51,6 +51,19 @@ type SidebarName =
 const surface =
   "flex h-full w-64 flex-col sidebar-glow text-sidebar-foreground [--ring:var(--sidebar-ring)]";
 
+/**
+ * The app's main navigation, at the start of its screen, and a sheet on a phone.
+ *
+ * **Use it for**
+ *
+ * - The app's places, in sections of links, the page shown now marked with `isActive`.
+ * - Your brand at its top, and the person signed in at its foot.
+ *
+ * **Not recommended**
+ *
+ * - An action, as "New payment": it belongs in the page's bar.
+ * - Long labels or deep trees: keep labels to a word or two, and one level.
+ */
 function Sidebar({
   closeLabel,
   className,

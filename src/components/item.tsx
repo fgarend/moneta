@@ -46,8 +46,20 @@ const listEnds =
 
 /**
  * A list of rows: one thing per row, read across, with a line between rows and no box of their own. With a title, a
- * group, as a day's: its title a heading a level below its section's, which names the list, and its total at its
- * end, as a table's groups, 12 px above the first and 32 above the next, with a strong line under it.
+ * group, as a day's: its title a heading a level below its section's, which names the list, and its total at its end,
+ * as a table's groups, 12 px above the first and 32 above the next, with a strong line under it.
+ *
+ * **Use it for**
+ *
+ * - Accounts, payments or bills, each a row with its icon, its title, its detail and its value.
+ * - Rows grouped, as by day, each group with its title and its total.
+ * - One action per row, an `ItemAction`, or a link in the row's title, which the whole row follows.
+ *
+ * **Not recommended**
+ *
+ * - Comparing values down columns: use `Table`.
+ * - More than one link per row: the row's title holds it.
+ * - A box around each row: a list has lines between rows, and an `Item` alone has its box.
  */
 function ItemGroup({
   className,
