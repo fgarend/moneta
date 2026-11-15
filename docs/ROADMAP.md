@@ -9,7 +9,7 @@ known and what is still to ask, are in [`roadmap-notes.md`](roadmap-notes.md), r
 ## Next, in order
 
 1. **Display.** The pieces that show, reviewed or made.
-    - Separator, Kbd, AspectRatio and ScrollArea, then DescriptionList, Timeline and TickerChip
+    - Kbd, AspectRatio and ScrollArea, then DescriptionList, Timeline and TickerChip
 2. **Actions and forms.** The pieces that act and take input, reviewed or made.
     - Button, ButtonGroup and PageHeader
     - Input, InputGroup, Textarea, Label, Field, NativeSelect, Select and SearchField
@@ -87,6 +87,8 @@ Each becomes an item when its time comes.
 
 ## Done
 
+- **Separator.** A line between two groups, heard as a separator, across or upright, in `--border`, with no space of
+  its own. 0.29.0.
 - **Avatar and AvatarGroup.** A person's picture or initials beside their name, hidden from screen readers, a `span`
   that sits in a sentence, a row's size in a list, its initials while the picture loads, a state by an icon and words,
   and a joint account's holders named by the app's words. 0.28.0.

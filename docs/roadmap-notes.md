@@ -45,20 +45,6 @@ it is, then "Use it for" and "Not recommended", as Badge's.
 - Section came early, before Sidebar, and Table comes there too.
 - An institution's logo, as a bank's or a broker's, raised on 2026-11-15: an `Avatar` in a square form, as Polaris'
   and Atlassian's for an organisation, its initials when there is no picture, when an app shows one; none does yet.
-- Separator, React Aria's, a `<hr>` across and an upright line that takes the height of what it sits beside, in
-  `--border`, with no space of its own; `ItemSeparator`, `ButtonGroupSeparator`, `FieldSeparator` and the menus' use
-  it, and no app does. Decided:
-  - Heard as a separator, as today, decided on 2026-11-15: it parts groups a screen reader should hear parted, as a
-    menu's; a line only seen is a border. Against decorative by default, Radix', which would take the meaning from
-    the menus' unless each asked for it.
-  - No space of its own, decided on 2026-11-15, as shadcn's: the gap of the column or row it sits in places it.
-    Against 16 px of its own, which adds to a column's gap.
-  - In `--border`, decided on 2026-11-15, the line of a card's edge and a list's rows. Against `--border-strong`,
-    which competes with the line under a group's title.
-  - Its page, kept on 2026-11-15: a line between two groups, heard as a separator; for groups in a menu, a form or a
-    bar, and upright between controls in a row; not for a line only seen, which is a border, not between a list's
-    or a table's rows, and with no space of its own. WCAG: 1.3.1, its role across and upright, by stories; 1.4.11 not
-    asked.
 - Item moved to Lists of rows. Stat, DescriptionList, Kbd, AspectRatio, ScrollArea, Timeline and TickerChip.
 - ScrollArea takes no focus, so a keyboard cannot scroll it when what it holds overflows, as axe says at 1280 px and
   the reflow check at 320 px; both let its story off, `gap-reflow` since 2026-11-13. Its review gives it focus and a
