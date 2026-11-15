@@ -6,6 +6,10 @@ gets its number.
 
 ## [Unreleased]
 
+## [0.27.1] - 2026-11-15
+
+A card with no title, under a section's, starts its table at its top.
+
 ### Fixed
 
 - A `Card` with no header, under a section's title, starts a table, a list of rows or numbers joined in one box at
@@ -513,7 +517,8 @@ and dark. `README.md` says how to install and use it.
 
 A rehearsal of the release's path, not meant to be installed. Use a later version.
 
-[Unreleased]: https://github.com/fgarend/moneta/compare/v0.27.0...HEAD
+[Unreleased]: https://github.com/fgarend/moneta/compare/v0.27.1...HEAD
+[0.27.1]: https://github.com/fgarend/moneta/compare/v0.27.0...v0.27.1
 [0.27.0]: https://github.com/fgarend/moneta/compare/v0.26.0...v0.27.0
 [0.26.0]: https://github.com/fgarend/moneta/compare/v0.25.0...v0.26.0
 [0.25.0]: https://github.com/fgarend/moneta/compare/v0.24.0...v0.25.0
