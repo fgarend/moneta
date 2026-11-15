@@ -60,7 +60,7 @@ pieces is in [`../pieces.md`](../pieces.md), and how a piece is analysed is in [
   usual look. A control, as `Button`, `Badge` and `Toggle`, takes `secondary`, a soft fill, `outline`, a border,
   `ghost`, no frame until the pointer is over it, and `link`, text alone. A surface, as `Item` and `StatGroup`, takes
   `outline`, `muted`, a soft fill, and `ghost`, no frame, named only where its usual look has one; `Card` has its
-  default alone, as a frameless one is a `Section`. A meaning, `destructive`, `success`, `warning` and `info`, is a `variant` too, as `theme.md` says. A
+  default alone, as a frameless one is a `Section`. A message, as `Alert`, takes the meanings and its default alone. A meaning, `destructive`, `success`, `warning` and `info`, is a `variant` too, as `theme.md` says. A
   group's boxes join or part by `spacing`, as shadcn's `ToggleGroup`: `0` draws one box with lines between, more a
   box each that far apart, and `variant` the look of the boxes. With no box, as `StatGroup`'s `ghost`, there are no
   lines between, so its default parts them by 24 px. A look one piece alone needs keeps a name of its own,
@@ -136,6 +136,19 @@ pieces is in [`../pieces.md`](../pieces.md), and how a piece is analysed is in [
   from another without colour.
 - **A kind takes its word alone,** in `secondary`; its category's colour stays on the row's IconTile.
 - **Its words wrap** rather than leave their column, line under line, each 20 px, its corners the theme's `xl`.
+
+### Alert
+
+- **Heard by its meaning:** `destructive` is `role="alert"`, heard at once; `success`, `warning`, `info` and its
+  default are `role="status"`, heard once the reader finishes. **Named by its `AlertTitle`,** among its own children,
+  in a fragment too; with no title, no name, and an `aria-label` given wins.
+- **An icon by its meaning,** drawn by the alert and hidden from screen readers, the same on every screen: a circle
+  with a mark, a check, a triangle and an `i`. Its default has none unless the app writes one.
+- **A tint of its meaning,** 10% in light and 20% in dark, as a badge's, its icon and title in its meaning's colour
+  and its description in the text's; its default the card's, with its border.
+- **Its action a column at its end,** several controls 8 px apart in the text's colour, which moves under its words
+  when the alert is narrower than 384 px, by a container query, as `SectionAction`.
+- **Its description lays out what it holds:** paragraphs 8 px apart, and a list with markers, 4 px between items.
 
 ### Card
 
@@ -327,6 +340,15 @@ pieces is in [`../pieces.md`](../pieces.md), and how a piece is analysed is in [
   keeps it the same. **Words that wrap,** as no word is lost. **What it costs:** a row with a long badge grows. **The
   page's three parts,** as a guide that shows only what to do leaves out what not to, **on the piece whose page it
   is,** as a part's trap is read first there. **What it costs:** a part's tab says less than its piece's page.
+- **An alert heard by its meaning,** as Polaris' banner, so news that can wait does not cut what a screen reader
+  says. **What it costs:** a `destructive` alert already on the screen when a page opens is marked to interrupt.
+  **Named by its title,** as an app wrote it by hand at each use. **What it costs:** a title kept in another component
+  is not seen, as a card's. **An icon by its meaning, drawn by the alert,** as Polaris, Carbon and Atlassian, as an
+  alert's meaning is its state, where a badge has many states per meaning. **What it costs:** an app cannot change a
+  meaning's icon. **A tint, and its description in the text's colour,** so an alert stands apart from the cards around
+  it, and a long text reads easily. **What it costs:** one more edit to shadcn's file. **Its action a column,** so a
+  long action never covers its words at 320 px. **Lists laid out,** as an app writes a paragraph and a list in one.
+  **What it costs:** an app that wants a list with no markers removes them.
 - **A card's content one level below its title only when it has one,** read from its own children, as a level skipped
   breaks the outline. **What it costs:** a header kept in another component is not seen, which its page says. **No
   `Heading` for the app,** as an app would style one by its own classes. **What it costs:** a title no piece covers
@@ -502,6 +524,11 @@ pieces is in [`../pieces.md`](../pieces.md), and how a piece is analysed is in [
 - **A badge drawn as a link,** by `render`, as shadcn's. **A `dot` on a state,** as the prototype's. **A kind in its
   category's colour,** which needs eight more shades of text in each mode. **A soft `default`,** as the prototype's,
   which drops `secondary`. **An ellipsis on a long badge,** which hides words with no way to read them.
+- **An alert always `role="alert"`,** shadcn's, which cuts a screen reader for any news, or **no role,** the app's to
+  give at each use. **An alert named by the app.** **An icon the app writes,** as a badge's, which it may forget.
+  **shadcn's look,** the card's background with all its words in colour and its description at 90%, unmeasured, or
+  **all its words in colour on a tint,** which tires in a long text. **Its action in a corner,** shadcn's, with 72 px
+  kept for it.
 - **A card's content at its title's level,** which reads its groups as the title's siblings. **A `Heading` exported
   for the app.** **A prop on `CardContent` for edge to edge,** which the app must remember, unlike a table and a list.
   **A `Section` with its title above the card,** in place of `size="lg"`, which takes the title out of it. **`muted`
@@ -584,3 +611,4 @@ pieces is in [`../pieces.md`](../pieces.md), and how a piece is analysed is in [
 - 2026-11-14: Badge, and a page's three parts.
 - 2026-11-14: The three parts on every reviewed piece's page.
 - 2026-11-15: Card.
+- 2026-11-15: Alert.

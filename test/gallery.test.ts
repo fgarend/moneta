@@ -42,6 +42,7 @@ it.each([
 // A reviewed piece's page opens with what it is, then what it is for and what is not recommended, in the comment of
 // the piece whose page it is, which the page shows first. A raw piece gets its own at its review.
 const pages: Record<string, string> = {
+  alert: "Alert",
   amount: "Amount",
   "app-layout": "AppLayout",
   badge: "Badge",

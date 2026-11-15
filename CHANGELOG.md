@@ -6,6 +6,20 @@ gets its number.
 
 ## [Unreleased]
 
+### Added
+
+- `Alert` reviewed: its page, an icon by its meaning, a tint of its meaning with its description in the text's
+  colour, its name from its `AlertTitle`, its action at its end and under its words when narrow, and paragraphs and
+  lists laid out in its description.
+- The guidelines' Alerts.
+
+### Changed
+
+- **Breaking:** an `Alert` is `role="alert"` only when `destructive`; `success`, `warning`, `info` and its default
+  are `role="status"`, heard once a screen reader finishes. To upgrade, find those by the role `status`. An
+  `aria-labelledby` written to its title can go, as it now gives itself one.
+- `AlertAction` is a column at the alert's end, no longer placed over its corner.
+
 ## [0.26.0] - 2026-11-15
 
 Card reviewed: a titled surface at its level, a size for a part of the page, and numbers edge to edge.
