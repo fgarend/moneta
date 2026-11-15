@@ -75,6 +75,9 @@ it is, then "Use it for" and "Not recommended", as Badge's.
   rows selected on other pages are not on the screen to copy, which its words must say,
   Toolbar, a bar of actions on what is selected, a period switcher, previous and next around a label such as a
   month, and React Aria's `ColorSwatchPicker`.
+- A single chosen filter shown beside its `Select` as a chip whose ✕ sets it back to all, as an app asked on
+  2026-11-15, today a button in a `Badge`, which never is pressed: whether `TagGroup`'s chips cover one chip, whether
+  it is part of Toolbar, or whether it should exist at all, as it repeats the `Select`'s value.
 - Button's `link` variant, a button drawn as a link, and `LinkButton`'s, nearly a `Link` but 36 px tall and
   padded, now that `Link` exists: whether each stays, changes or goes. `LinkButton`'s `disabled:` classes do not match
   a disabled link, which React Aria draws as a `span`, so it is not dimmed; Pagination dims its own links since
@@ -93,7 +96,9 @@ it is, then "Use it for" and "Not recommended", as Badge's.
   attribute.
 - The close button's name came before, in 0.6.0, and this review may change it.
 - Toggletip, which opens on a click and on touch, as Tooltip does not open on touch, so it is never the only place
-  of a piece of information.
+  of a piece of information. With it, a value locked with its reason, as an app asked on 2026-11-15, today a lock
+  button in a `Badge` that opens a `Popover`, the reason also the value's description: whether a Toggletip beside the
+  value covers it, and how the value looks, a disabled `Select`, plain text or another.
 
 ## The rest
 
