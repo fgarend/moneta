@@ -6,6 +6,18 @@ gets its number.
 
 ## [Unreleased]
 
+### Added
+
+- `Card` reviewed: its page, `size="lg"` for a card that is a part of the page, with a section's title and 24 px
+  around, and numbers joined in one box, alone in its content, running edge to edge.
+- The guidelines' Cards.
+
+### Changed
+
+- **Breaking:** `CardTitle` is a heading, `h2` at the page's top and one level below where the card sits, and takes
+  `level`; what a titled card holds sits one level below it. Its look is the same. To upgrade, write the words alone
+  in it, with no heading of your own inside or around it.
+
 ## [0.25.0] - 2026-11-14
 
 The pieces' pages: each reviewed piece says what it is, what it is for and what is not recommended.

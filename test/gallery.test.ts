@@ -45,6 +45,7 @@ const pages: Record<string, string> = {
   amount: "Amount",
   "app-layout": "AppLayout",
   badge: "Badge",
+  card: "Card",
   "date-field": "DateField",
   "date-time": "DateTime",
   "icon-tile": "IconTile",

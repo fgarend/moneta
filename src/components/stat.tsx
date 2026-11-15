@@ -96,6 +96,7 @@ function StatGroup({
             isJoined && cn("overflow-hidden", boxes[variant]),
             className,
           )}
+          data-joined={isJoined || undefined}
           data-slot="stat-group"
           data-spacing={gap}
           data-variant={variant}
@@ -129,7 +130,9 @@ function Stat({ className, ...props }: ComponentProps<"div">) {
           variant: "solid",
           className: cn(
             "absolute",
-            isGhost ? "start-0 top-0" : "start-5 top-5",
+            isGhost
+              ? "start-0 top-0"
+              : "start-(--stat-inset) top-(--stat-inset)",
           ),
         }}
       >
@@ -138,7 +141,10 @@ function Stat({ className, ...props }: ComponentProps<"div">) {
             "relative min-w-0",
             isGhost
               ? "has-data-[slot=icon-tile]:ps-15"
-              : "p-5 has-data-[slot=icon-tile]:ps-20",
+              : "p-(--stat-inset) [--stat-inset:--spacing(5)] has-data-[slot=icon-tile]:*:ms-15",
+            // Joined in a card, its padding the card's, so its text lines up with the card's title at every size.
+            isJoined &&
+              "in-data-[slot=card-content]:[--stat-inset:var(--card-spacing)]",
             // Joined, a line at its start and its top, which the group's edge hides where it has none beside it.
             isJoined ? "-ms-px -mt-px border-s border-t" : boxes[variant],
             className,
