@@ -9,7 +9,7 @@ known and what is still to ask, are in [`roadmap-notes.md`](roadmap-notes.md), r
 ## Next, in order
 
 1. **Display.** The pieces that show, reviewed or made.
-    - A card with no title, then Avatar and AvatarGroup
+    - Avatar and AvatarGroup
     - Separator, Kbd, AspectRatio and ScrollArea, then DescriptionList, Timeline and TickerChip
 2. **Actions and forms.** The pieces that act and take input, reviewed or made.
     - Button, ButtonGroup and PageHeader
@@ -88,6 +88,8 @@ Each becomes an item when its time comes.
 
 ## Done
 
+- **A card with no title.** Under a section's title, a table, a list of rows or joined numbers start at its top, with
+  no line above. 0.27.1.
 - **Alert.** A message heard by its meaning, `alert` when something went wrong and `status` for the rest, named by
   its title, with its meaning's icon and tint, its action at its end and under its words when narrow, and lists laid
   out in its description. 0.27.0.

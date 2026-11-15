@@ -42,13 +42,6 @@ its and its props' comments as JSDoc, its stories exported where written in the 
 checks by `!autodocs`, and its data from `.storybook/data.ts`, added rather than changed. Its page opens with what
 it is, then "Use it for" and "Not recommended", as Badge's.
 
-- A card with no title, as an app asked on 2026-11-15: a `Section` holds the title, a count and the controls, and a
-  `Card` with no header under it holds only a table, 37 tables in one app, which closes the gap by its own classes.
-  Card 0.26.0 leaves 20 px and a line above a table, a list or joined numbers alone in a headerless card, a corner no
-  story covered. Decided on 2026-11-15: accepted, and when a card has no header, what runs edge to edge starts at its
-  top, with no padding and no line above; its page says a card with no title under a section's is an ordinary use.
-  Against moving the section's title, count and controls into a `Card size="lg"`, which leaves the corner open and
-  asks the card's header for all the section's has.
 - Section came early, before Sidebar, and Table comes there too.
 - Avatar with its group, AvatarGroup, whose fallback's text an app measured at 4.34:1. Drawn as a `span`, keeping its
   `flex`, as an app asked on 2026-11-13: it sits beside a name inside a `p` or a `span`, as an `ItemDescription`, where
