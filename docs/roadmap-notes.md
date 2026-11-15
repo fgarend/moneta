@@ -46,33 +46,6 @@ it is, then "Use it for" and "Not recommended", as Badge's.
 - Avatar with its group, AvatarGroup, whose fallback's text an app measured at 4.34:1. Drawn as a `span`, keeping its
   `flex`, as an app asked on 2026-11-13: it sits beside a name inside a `p` or a `span`, as an `ItemDescription`, where
   a `div` is not allowed and React warns.
-- Alert, every variant `role="alert"`, which interrupts a screen reader even for news that can wait, and its
-  meanings drawn as `destructive`, its action in a corner with 72 px kept for it. Decided:
-  - Announced by its meaning, decided on 2026-11-15: `destructive` as `alert`, at once; `success`, `warning`, `info`
-    and its default as `status`, once the reader finishes, as Polaris' banner. Against no role, the app's to give at
-    each use, which is easy to forget.
-  - Named by its title, decided on 2026-11-15: the alert labelled by its `AlertTitle`, as an app writes by hand at
-    each use today; with no title, no name, and an `aria-label` given wins. Against the app's own.
-  - An icon by its meaning, decided on 2026-11-15, drawn by the alert, the same on every screen and hidden from screen
-    readers: a circle with a mark for `destructive`, a check for `success`, a triangle for `warning` and an `i` for
-    `info`; its default has none unless the app writes one. As Polaris, Carbon and Atlassian. Against the app's own,
-    as a badge's, where a state has many words per meaning; an alert's meaning is its state.
-  - Its look, decided on 2026-11-15: a tint of its meaning, 10% in light and 20% in dark, as a badge's, its icon and
-    title in its meaning's colour and its description in the text's; its default the card's, with its border.
-    Against shadcn's, the card's background with all its words in colour and the description at 90%, unmeasured, which
-    reads as one more card; and against all its words in colour, which tires in a long text.
-  - Its action a column at its end, decided on 2026-11-15, which moves under its words when the alert is narrow, as
-    `SectionAction`, several controls 8 px apart, at its logical end. Against the corner kept with `end`, where a long
-    action covers the words at 320 px.
-  - Its description lays out what it holds, decided on 2026-11-15: paragraphs 8 px apart, and a list with markers,
-    indented, 4 px between items, as an app writes a paragraph and a list in one. Against the app's classes each time.
-  - Its page, kept on 2026-11-15: a message about a part of the page or what just happened, in its meaning's colour
-    and icon, under its title; for something wrong, something that asks attention, a result or news, an action that
-    settles it, and several things of one kind as a list; not for a message that comes and goes, a field's error, a
-    row's state, asking to confirm, or its meaning in its words alone. WCAG: 1.3.1, its name and role, by stories;
-    1.4.1, its icon, by a story; 1.4.3, its title on its tint, measured, and its description on each tint, added to
-    the theme's test; 1.4.10, a long title and its action under its words at 320 px, by a story; 4.1.3, its role by
-    its meaning, by a story; 1.4.11 not asked.
 - Item moved to Lists of rows. Separator, Stat, DescriptionList, Kbd, AspectRatio, ScrollArea, Timeline and
   TickerChip.
 - ScrollArea takes no focus, so a keyboard cannot scroll it when what it holds overflows, as axe says at 1280 px and

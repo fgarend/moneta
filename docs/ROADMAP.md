@@ -9,7 +9,7 @@ known and what is still to ask, are in [`roadmap-notes.md`](roadmap-notes.md), r
 ## Next, in order
 
 1. **Display.** The pieces that show, reviewed or made.
-    - Alert, and Avatar and AvatarGroup
+    - Avatar and AvatarGroup
     - Separator, Kbd, AspectRatio and ScrollArea, then DescriptionList, Timeline and TickerChip
 2. **Actions and forms.** The pieces that act and take input, reviewed or made.
     - Button, ButtonGroup and PageHeader
@@ -88,6 +88,9 @@ Each becomes an item when its time comes.
 
 ## Done
 
+- **Alert.** A message heard by its meaning, `alert` when something went wrong and `status` for the rest, named by
+  its title, with its meaning's icon and tint, its action at its end and under its words when narrow, and lists laid
+  out in its description. 0.27.0.
 - **Card.** A titled surface at its level: its title a heading one level below where it sits and what it holds one
   below that, `size="lg"` for a part of the page, and numbers joined in one box running edge to edge, lined up with
   its title. 0.26.0.
