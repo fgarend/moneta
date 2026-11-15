@@ -58,6 +58,7 @@ const pages: Record<string, string> = {
   percent: "Percent",
   quantity: "Quantity",
   section: "Section",
+  separator: "Separator",
   sidebar: "Sidebar",
   "skip-link": "SkipLink",
   stat: "StatGroup",

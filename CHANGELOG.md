@@ -6,6 +6,10 @@ gets its number.
 
 ## [Unreleased]
 
+### Added
+
+- `Separator` reviewed: its page, the guidelines' Separators, and stories across and upright. It draws as before.
+
 ## [0.28.0] - 2026-11-15
 
 Avatar reviewed: a person beside their name, hidden from screen readers, its state and its group in the app's words.
