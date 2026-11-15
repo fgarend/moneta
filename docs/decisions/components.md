@@ -162,7 +162,8 @@ pieces is in [`../pieces.md`](../pieces.md), and how a piece is analysed is in [
 - **Edge to edge:** a `CardContent` holding only a table, a selection bar and a table, a list of rows, or numbers
   joined in one box loses its side padding and gains a line above. The numbers drop their box, their padding the
   card's, so their text lines up with its title at every size, and at its foot the card drops its own, so their lines
-  reach its edges. Numbers apart, or with no box, keep its padding.
+  reach its edges. Numbers apart, or with no box, keep its padding. With no header, a card under a section's title,
+  what runs edge to edge starts at its top, with no line above.
 - **No `Heading` for the app:** every title comes from a piece, `Section`, `Card` or `ItemGroup`, with its size and
   weight; a title no piece covers is a missing piece, for the roadmap.
 
@@ -612,3 +613,4 @@ pieces is in [`../pieces.md`](../pieces.md), and how a piece is analysed is in [
 - 2026-11-14: The three parts on every reviewed piece's page.
 - 2026-11-15: Card.
 - 2026-11-15: Alert.
+- 2026-11-15: A card with no title, under a section's.

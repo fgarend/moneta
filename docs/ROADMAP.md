@@ -88,6 +88,8 @@ Each becomes an item when its time comes.
 
 ## Done
 
+- **A card with no title.** Under a section's title, a table, a list of rows or joined numbers start at its top, with
+  no line above. 0.27.1.
 - **Alert.** A message heard by its meaning, `alert` when something went wrong and `status` for the rest, named by
   its title, with its meaning's icon and tint, its action at its end and under its words when narrow, and lists laid
   out in its description. 0.27.0.

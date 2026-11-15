@@ -6,6 +6,16 @@ gets its number.
 
 ## [Unreleased]
 
+## [0.27.1] - 2026-11-15
+
+A card with no title, under a section's, starts its table at its top.
+
+### Fixed
+
+- A `Card` with no header, under a section's title, starts a table, a list of rows or numbers joined in one box at
+  its top, with no padding and no line above. An app that closed the gap by its own classes, as `py-0` on `Card` and
+  `border-t-0` on `CardContent`, can drop them.
+
 ## [0.27.0] - 2026-11-15
 
 Alert reviewed: a message heard by its meaning, with its icon and tint, named by its title.
@@ -507,7 +517,8 @@ and dark. `README.md` says how to install and use it.
 
 A rehearsal of the release's path, not meant to be installed. Use a later version.
 
-[Unreleased]: https://github.com/fgarend/moneta/compare/v0.27.0...HEAD
+[Unreleased]: https://github.com/fgarend/moneta/compare/v0.27.1...HEAD
+[0.27.1]: https://github.com/fgarend/moneta/compare/v0.27.0...v0.27.1
 [0.27.0]: https://github.com/fgarend/moneta/compare/v0.26.0...v0.27.0
 [0.26.0]: https://github.com/fgarend/moneta/compare/v0.25.0...v0.26.0
 [0.25.0]: https://github.com/fgarend/moneta/compare/v0.24.0...v0.25.0
