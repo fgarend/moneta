@@ -35,6 +35,8 @@ function hasTitle(children: ReactNode): boolean {
  * - A table, a list of rows or a group of numbers joined in one box, alone in its content, which runs to the card's
  *   edges.
  * - A part of the page, with `size="lg"`: its title at a section's size, and 24 px around what it holds.
+ * - A surface with no title of its own under a section's, as a table whose `Section` holds its title, a count and its
+ *   controls: what runs edge to edge then starts at the card's top.
  *
  * **Not recommended**
  *
@@ -137,10 +139,11 @@ function CardContent({ className, ...props }: ComponentProps<"div">) {
     <div
       data-slot="card-content"
       className={cn(
-        "px-(--card-spacing) has-[>[data-slot=table-container]:only-child]:border-t has-[>[data-slot=table-container]:only-child]:px-0 has-[>[data-slot=table-selection-bar]:first-child+[data-slot=table-container]:last-child]:border-t has-[>[data-slot=table-selection-bar]:first-child+[data-slot=table-container]:last-child]:px-0 has-[>[data-slot=item-group]]:not-has-[>:not([data-slot=item-group])]:border-t has-[>[data-slot=item-group]]:not-has-[>:not([data-slot=item-group])]:px-0",
+        // A line above only below a header. First, with no header, it draws none and rises to the card's top.
+        "px-(--card-spacing) not-first:has-[>[data-slot=table-container]:only-child]:border-t has-[>[data-slot=table-container]:only-child]:px-0 not-first:has-[>[data-slot=table-selection-bar]:first-child+[data-slot=table-container]:last-child]:border-t has-[>[data-slot=table-selection-bar]:first-child+[data-slot=table-container]:last-child]:px-0 not-first:has-[>[data-slot=item-group]]:not-has-[>:not([data-slot=item-group])]:border-t has-[>[data-slot=item-group]]:not-has-[>:not([data-slot=item-group])]:px-0",
         // Numbers joined in one box, alone, run edge to edge, the card their box; apart or with no box, they keep its
         // padding.
-        "has-[>[data-slot=stat-group-box]:only-child>[data-joined]]:border-t has-[>[data-slot=stat-group-box]:only-child>[data-joined]]:px-0 [&>[data-slot=stat-group-box]:only-child>[data-joined]]:rounded-none [&>[data-slot=stat-group-box]:only-child>[data-joined]]:bg-transparent [&>[data-slot=stat-group-box]:only-child>[data-joined]]:ring-0",
+        "not-first:has-[>[data-slot=stat-group-box]:only-child>[data-joined]]:border-t first:has-[>[data-slot=table-container]:only-child]:-mt-(--card-spacing) first:has-[>[data-slot=table-selection-bar]:first-child+[data-slot=table-container]:last-child]:-mt-(--card-spacing) first:has-[>[data-slot=item-group]]:not-has-[>:not([data-slot=item-group])]:-mt-(--card-spacing) first:has-[>[data-slot=stat-group-box]:only-child>[data-joined]]:-mt-(--card-spacing) has-[>[data-slot=stat-group-box]:only-child>[data-joined]]:px-0 [&>[data-slot=stat-group-box]:only-child>[data-joined]]:rounded-none [&>[data-slot=stat-group-box]:only-child>[data-joined]]:bg-transparent [&>[data-slot=stat-group-box]:only-child>[data-joined]]:ring-0",
         className,
       )}
       {...props}

@@ -14,6 +14,14 @@ import {
 import { Item, ItemContent, ItemGroup, ItemTitle } from "./item.js";
 import { Section, SectionHeader, SectionTitle } from "./section.js";
 import { Stat, StatGroup, StatLabel, StatValue } from "./stat.js";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "./table.js";
 
 const title = "Savings";
 const description = "Fictitious account";
@@ -204,6 +212,63 @@ const HeaderInAComponent: Story = {
 
 // A group of numbers alone in its content runs edge to edge, as a table and a list do: a line above, no box of its
 // own, its lines reaching the card's sides and its foot, and its text lined up with the card's title.
+// A table as the card holds it: a header and one row.
+function table() {
+  return (
+    <Table aria-label={title}>
+      <TableHeader>
+        <TableRow>
+          <TableHead>{stats[0]}</TableHead>
+        </TableRow>
+      </TableHeader>
+      <TableBody>
+        <TableRow>
+          <TableCell>{row}</TableCell>
+        </TableRow>
+      </TableBody>
+    </Table>
+  );
+}
+
+const edgeToEdge = [
+  ["table", table()],
+  ["list", grouped()],
+  ["numbers", numbers()],
+] as const;
+
+/**
+ * With no title, under a section's, what runs edge to edge starts at the card's top, with no padding and no line
+ * above it: a table, a list of rows, or numbers joined in one box. The section's header holds the title, a count and
+ * the controls.
+ */
+const WithoutTitle: Story = {
+  render: () => (
+    <div className="flex flex-col gap-10">
+      {edgeToEdge.map(([kind, inside]) => (
+        <Section key={kind}>
+          <SectionHeader>
+            <SectionTitle>{outer}</SectionTitle>
+          </SectionHeader>
+          <Card data-kind={kind}>
+            <CardContent>{inside}</CardContent>
+          </Card>
+        </Section>
+      ))}
+    </div>
+  ),
+  play: async ({ canvasElement }) => {
+    for (const card of canvasElement.querySelectorAll('[data-slot="card"]')) {
+      const inside = card.querySelector(
+        '[data-slot="card-content"]',
+      ) as HTMLElement;
+      await expect(getComputedStyle(inside).borderTopWidth).toBe("0px");
+      await expect(Math.round(inside.getBoundingClientRect().top)).toBe(
+        Math.round(card.getBoundingClientRect().top),
+      );
+    }
+  },
+};
+
 const Numbers: Story = {
   tags: ["visual"],
   args: {
@@ -393,4 +458,5 @@ export {
   NumbersApart,
   NumbersBySize,
   SeveralActions,
+  WithoutTitle,
 };

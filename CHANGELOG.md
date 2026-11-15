@@ -6,6 +6,12 @@ gets its number.
 
 ## [Unreleased]
 
+### Fixed
+
+- A `Card` with no header, under a section's title, starts a table, a list of rows or numbers joined in one box at
+  its top, with no padding and no line above. An app that closed the gap by its own classes, as `py-0` on `Card` and
+  `border-t-0` on `CardContent`, can drop them.
+
 ## [0.27.0] - 2026-11-15
 
 Alert reviewed: a message heard by its meaning, with its icon and tint, named by its title.

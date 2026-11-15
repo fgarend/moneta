@@ -137,6 +137,8 @@ the version installed. It holds only what exists, and each reviewed piece adds i
   not in a component of your own, so what the card holds sits one level below its title.
 - **A table, a list of rows or a group of numbers joined in one box, alone in its `CardContent`,** runs edge to edge,
   its text lined up with the card's title.
+- **A card with no title of its own may sit under a section's,** as a table whose `Section` holds its title, a count
+  and its controls; the table then starts at the card's top.
 - **`size="lg"` for a card that is a part of the page,** its title a section's, 18/24, with 24 px around; `size="sm"`
   for a small one, 12 px around.
 - **A whole card is never a link or a button:** a link goes in its title, and its actions in `CardAction`.
