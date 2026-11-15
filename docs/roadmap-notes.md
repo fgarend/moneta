@@ -45,7 +45,37 @@ it is, then "Use it for" and "Not recommended", as Badge's.
 - Section came early, before Sidebar, and Table comes there too.
 - Avatar with its group, AvatarGroup, whose fallback's text an app measured at 4.34:1. Drawn as a `span`, keeping its
   `flex`, as an app asked on 2026-11-13: it sits beside a name inside a `p` or a `span`, as an `ItemDescription`, where
-  a `div` is not allowed and React warns.
+  a `div` is not allowed and React warns. An app uses it with initials alone, hidden from screen readers, beside the
+  name: 24 px in a cell and a choice, 32 in a list's row, 40 in a page's head; never its group, its count or its
+  badge. Decided:
+  - Always hidden from screen readers, decided on 2026-11-15: its picture and initials are decoration, as an
+    `IconTile`, and the name beside it in words is heard, as an app does by hand at each use. Against an optional
+    `name` that makes it an image, which most often says the name twice.
+  - Its initials as they are, decided on 2026-11-15: `--muted-foreground` on `--muted`, 5.15:1 in light and 6.29:1 in
+    dark, measured on 2026-11-15, where the 4.34:1 above is not found, the colours unchanged since 2026-11-07; the
+    pair joins the theme's test. Against the text's colour, 12.95:1, which competes with the name beside it.
+  - Every part a `span`, decided on 2026-11-15, its picture an `img`, so it sits wherever text does. Against keeping
+    `div`, which an app wraps or keeps out of a sentence.
+  - Its size from its place, decided on 2026-11-15: in an `Item`, an `IconTile`'s, 40 px or 32 in a compact list, so
+    the rows' titles line up; elsewhere 32; a size given wins. Against the app's `size` on each row.
+  - `AvatarBadge` kept, decided on 2026-11-15: an icon of its own shape, written by the app, and the app's words,
+    required, which a screen reader hears though the rest is hidden; not drawn at 24 px, where its words are still
+    heard. Against removing it, as no app uses it, and against 12 px with an 8 px icon at 24 px, which covers the
+    small avatar.
+  - `AvatarGroup` kept, decided on 2026-11-15, for the holders of a joint account: named by the app's words,
+    required, as "Ana, Bruno and 3 more", its count hidden as the words say it, and its ring the colour of the surface
+    it sits on, `--surface`, where today it is always the page's. Against removing it until a use.
+  - Its picture over time, decided on 2026-11-15: the initials while it loads and when it fails, and a new picture
+    tried again, where today a picture that failed keeps the initials for good. Against keeping an empty circle
+    while it loads.
+  - Its page, kept on 2026-11-15: a person's picture, or their initials, beside their name; for a person beside their
+    name, a row's start, a person's state, and a joint account's holders; not alone, not for a kind, which is an
+    `IconTile`, not for an institution's logo, and not a state by colour alone. WCAG: 1.1.1, its picture and initials
+    hidden and a group's and a badge's words heard, by stories; 1.3.1, inside a sentence as a `span`, by a story;
+    1.4.1, a badge's icon, by a story; 1.4.3, the initials and the count on `--muted`, by the theme's test; 1.4.11
+    not asked.
+- An institution's logo, as a bank's or a broker's, raised on 2026-11-15: an `Avatar` in a square form, as Polaris'
+  and Atlassian's for an organisation, its initials when there is no picture, when an app shows one; none does yet.
 - Item moved to Lists of rows. Separator, Stat, DescriptionList, Kbd, AspectRatio, ScrollArea, Timeline and
   TickerChip.
 - ScrollArea takes no focus, so a keyboard cannot scroll it when what it holds overflows, as axe says at 1280 px and
