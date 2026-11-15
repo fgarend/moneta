@@ -43,9 +43,8 @@ checks by `!autodocs`, and its data from `.storybook/data.ts`, added rather than
 it is, then "Use it for" and "Not recommended", as Badge's.
 
 - Section came early, before Sidebar, and Table comes there too.
-- Avatar with its group, AvatarGroup, whose fallback's text an app measured at 4.34:1. Drawn as a `span`, keeping its
-  `flex`, as an app asked on 2026-11-13: it sits beside a name inside a `p` or a `span`, as an `ItemDescription`, where
-  a `div` is not allowed and React warns.
+- An institution's logo, as a bank's or a broker's, raised on 2026-11-15: an `Avatar` in a square form, as Polaris'
+  and Atlassian's for an organisation, its initials when there is no picture, when an app shows one; none does yet.
 - Item moved to Lists of rows. Separator, Stat, DescriptionList, Kbd, AspectRatio, ScrollArea, Timeline and
   TickerChip.
 - ScrollArea takes no focus, so a keyboard cannot scroll it when what it holds overflows, as axe says at 1280 px and

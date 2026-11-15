@@ -118,6 +118,17 @@ the version installed. It holds only what exists, and each reviewed piece adds i
   narrow.
 - **Several things of one kind are one alert,** a list in its description, written as `<ul>` and `<li>`.
 
+## Avatars
+
+- **An avatar is a person's picture, or their initials, beside their name in words,** which is what a screen reader
+  hears; never alone.
+- **Its size follows where it sits:** 24 px in a cell or a choice, 32 by default, 40 in a page's head, and in a list's
+  row, the row's.
+- **A person's state is an `AvatarBadge`,** an icon of its own shape and your words for it, as "Holder".
+- **The holders of a joint account are an `AvatarGroup`,** with your words for who they are, as "Ana, Bruno and 3
+  more".
+- **A kind is an `IconTile`,** not an avatar.
+
 ## Badges
 
 - **A badge is a short label beside something,** one or two words, read at a glance. It is never pressed: the link
