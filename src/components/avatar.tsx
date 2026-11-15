@@ -53,11 +53,12 @@ function AvatarImage({
   src,
   ...props
 }: Omit<ComponentProps<"img">, "alt">) {
-  const [state, setState] = useState<ImageState>(src ? "loading" : "error");
+  // With no picture it never loads, so its initials stay.
+  const [state, setState] = useState<ImageState>("loading");
   const [shown, setShown] = useState(src);
   if (src !== shown) {
     setShown(src);
-    setState(src ? "loading" : "error");
+    setState("loading");
   }
   return (
     <img

@@ -92,7 +92,14 @@ const Default: Story = {
 
 // With no picture, the initials stand in for it, hidden from screen readers too.
 const Initials: Story = {
-  args: { children: <AvatarFallback>{initials}</AvatarFallback> },
+  args: {
+    children: (
+      <>
+        <AvatarImage />
+        <AvatarFallback>{initials}</AvatarFallback>
+      </>
+    ),
+  },
   play: async ({ canvasElement }) => {
     const fallback = slot(canvasElement, "avatar-fallback");
 
