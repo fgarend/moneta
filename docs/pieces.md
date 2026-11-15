@@ -36,7 +36,7 @@ A piece with no gap listed may still have some.
 | `amount` | reviewed | |
 | `app-layout` | reviewed | |
 | `aspect-ratio` | raw | |
-| `avatar` | raw | |
+| `avatar` | reviewed | **Edited:** every part a `span`; hidden from screen readers, its picture with no alt and its initials hidden; its initials while the picture loads, and a new picture tried again; a row's size in an `Item`; `AvatarBadge` takes the app's words, heard, and is not drawn at 24 px; `AvatarGroup` is an image named by the app's words, its count hidden; their rings the surface's colour |
 | `badge` | reviewed | **Edited:** `badgeVariants` is not exported; `success`, `warning` and `info` variants, drawn as `destructive`; it only shows, with no `render`, `ghost`, `link`, hover or focus; and its words wrap, its corners `xl` |
 | `breadcrumb` | raw | **Edited:** the current page is React Aria's Link, marked and disabled. **Default text:** "breadcrumb" and "More" |
 | `button` | raw | **Edited:** default 36 px, `sm` 32 and `lg` 40, the same for `icon`, `icon-sm` and `icon-lg`, with the variant `gold`. `sm`'s text is 12 px, `secondary`'s hover reads `--secondary-hover`, and `buttonVariants` is not exported |

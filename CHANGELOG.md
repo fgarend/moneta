@@ -6,6 +6,26 @@ gets its number.
 
 ## [Unreleased]
 
+### Added
+
+- `Avatar` reviewed: its page, the guidelines' Avatars, a row's size in an `Item`, and its initials while the picture
+  loads.
+
+### Changed
+
+- **Breaking:** an `Avatar` is hidden from screen readers, so the name beside it is what is heard: `AvatarImage` takes
+  no `alt`, and its initials are hidden. To upgrade, drop `alt` and any `aria-hidden` written on it.
+- **Breaking:** `AvatarBadge` takes `label`, the state in your words, which a screen reader hears, and is not drawn at
+  24 px. `AvatarGroup` takes `aria-label`, who they are in your words, as "Ana, Bruno and 3 more", and its count is
+  hidden. To upgrade, give both their words.
+- **Breaking:** every part of `Avatar` is a `span`, so it sits inside a sentence. CSS that targets its parts as `div`
+  changes to their `data-slot`.
+- The rings of `AvatarGroup` and `AvatarBadge` are the colour of the surface they sit on, as a card's.
+
+### Fixed
+
+- A picture changed after one that failed is tried again, where the initials stayed for good.
+
 ## [0.27.1] - 2026-11-15
 
 A card with no title, under a section's, starts its table at its top.

@@ -40,8 +40,9 @@ pieces is in [`../pieces.md`](../pieces.md), and how a piece is analysed is in [
 - **A piece takes its defaults from where it sits,** as a title takes its level: the piece around it says how it
   behaves there, and a prop given by hand wins. An `IconTile` in an `Item` is a square at the row's start, 40 px or
   32 in a compact list, by a context of `src/hooks/tile.ts`; in a `Stat`, a solid circle of 48 px. A `StatValue`
-  gives the `Amount`, `Percent` or `Quantity` in it its size, `lg`, by a context of `src/hooks/use-value.ts`. Other
-  pieces follow at their steps, as Avatar in a row and a control in a table's row.
+  gives the `Amount`, `Percent` or `Quantity` in it its size, `lg`, by a context of `src/hooks/use-value.ts`. An
+  `Avatar` in an `Item` takes the row's size, 40 px or 32 in a compact list, by its classes. Other pieces follow at
+  their steps, as a control in a table's row.
 - **`IconTile` is an icon on a square or a circle,** where the eye starts a row or a number. Its colour says weight,
   not meaning: `default`, soft, neutral or a category's tint by `category={n}`; `solid`, in the text's colour; and
   `gold`, the screen's headline, once per screen. `shape` is `square` or `circle`, and `size` 32, 40 or 48 px with an
@@ -136,6 +137,18 @@ pieces is in [`../pieces.md`](../pieces.md), and how a piece is analysed is in [
   from another without colour.
 - **A kind takes its word alone,** in `secondary`; its category's colour stays on the row's IconTile.
 - **Its words wrap** rather than leave their column, line under line, each 20 px, its corners the theme's `xl`.
+
+### Avatar
+
+- **Hidden from screen readers,** as an `IconTile`: its picture takes no alt and its initials are hidden, as the name
+  beside it in words is what is heard. Every part is a `span`, so it sits wherever text does.
+- **Its initials while the picture loads and when it fails,** under the picture, and a new picture is tried again.
+- **Its sizes,** 24, 32 and 40 px, and in an `Item` the row's, 40 or 32 in a compact list; a size given wins.
+- **`AvatarBadge`, a state:** an icon of its own shape, written by the app, at the avatar's corner, and the app's
+  words, required, which a screen reader hears. At 24 px it is not drawn, and its words are still heard.
+- **`AvatarGroup`, the holders of a joint account:** an image named by the app's words, required, as "Ana, Bruno and
+  3 more", its `AvatarGroupCount` hidden, as the words say it. Each avatar's ring is the colour of the surface it sits
+  on, `--surface`.
 
 ### Alert
 
@@ -341,6 +354,12 @@ pieces is in [`../pieces.md`](../pieces.md), and how a piece is analysed is in [
   keeps it the same. **Words that wrap,** as no word is lost. **What it costs:** a row with a long badge grows. **The
   page's three parts,** as a guide that shows only what to do leaves out what not to, **on the piece whose page it
   is,** as a part's trap is read first there. **What it costs:** a part's tab says less than its piece's page.
+- **An avatar always hidden,** as every app writes the name beside it, so a name in it is heard twice. **What it
+  costs:** an avatar alone says nothing, which its page does not recommend. **Its size from a row,** as an
+  `IconTile`'s, so the rows' titles line up. **What it costs:** its size is not seen in the code that uses it. **A
+  badge with words and an icon,** as a state by colour alone fails WCAG 1.4.1. **What it costs:** the app writes both,
+  and at 24 px, where an icon does not fit, only its words remain. **A group named by the app,** for a joint
+  account. **What it costs:** a part no app uses yet.
 - **An alert heard by its meaning,** as Polaris' banner, so news that can wait does not cut what a screen reader
   says. **What it costs:** a `destructive` alert already on the screen when a page opens is marked to interrupt.
   **Named by its title,** as an app wrote it by hand at each use. **What it costs:** a title kept in another component
@@ -525,6 +544,10 @@ pieces is in [`../pieces.md`](../pieces.md), and how a piece is analysed is in [
 - **A badge drawn as a link,** by `render`, as shadcn's. **A `dot` on a state,** as the prototype's. **A kind in its
   category's colour,** which needs eight more shades of text in each mode. **A soft `default`,** as the prototype's,
   which drops `secondary`. **An ellipsis on a long badge,** which hides words with no way to read them.
+- **An avatar named by an optional `name`,** which says a name twice beside the one in words. **The text's colour for
+  its initials,** 12.95:1, which competes with the name. **Its badge removed,** or **at 12 px with an 8 px icon at
+  24 px,** which covers a small avatar. **Its group removed** until a use. **An empty circle while its picture
+  loads,** shadcn's.
 - **An alert always `role="alert"`,** shadcn's, which cuts a screen reader for any news, or **no role,** the app's to
   give at each use. **An alert named by the app.** **An icon the app writes,** as a badge's, which it may forget.
   **shadcn's look,** the card's background with all its words in colour and its description at 90%, unmeasured, or
@@ -614,3 +637,4 @@ pieces is in [`../pieces.md`](../pieces.md), and how a piece is analysed is in [
 - 2026-11-15: Card.
 - 2026-11-15: Alert.
 - 2026-11-15: A card with no title, under a section's.
+- 2026-11-15: Avatar.

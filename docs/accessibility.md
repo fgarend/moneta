@@ -29,7 +29,7 @@ which is run by hand.
 
 | Criterion | How | Notes |
 | --- | --- | --- |
-| 1.1.1 Non-text Content | axe, story | IconTile hidden from screen readers as decoration, its words beside it, and a badge's icon hidden, its word heard |
+| 1.1.1 Non-text Content | axe, story | IconTile hidden from screen readers as decoration, its words beside it, an avatar's picture and initials hidden, its group heard as the app's words and its badge's words heard, and a badge's icon hidden, its word heard |
 | 1.2.1 Audio-only and Video-only | app | |
 | 1.2.2 Captions (Prerecorded) | app | |
 | 1.2.3 Audio Description or Media Alternative | app | |
@@ -40,7 +40,7 @@ which is run by hand.
 | 1.3.3 Sensory Characteristics | app | |
 | 1.3.4 Orientation | script | Nothing here locks it |
 | 1.3.5 Identify Input Purpose | none yet | With the form controls (Actions and forms) |
-| 1.4.1 Use of Color | story, app | Link's underline, and the sidebar's current page, by a bar and a bolder text. A category's colour beside its name, which the guidelines ask. A badge's state by its word and its icon's shape, by a story, and an alert's meaning by its icon's shape, by a story. A value's tone only adds colour, and its sign or words are the app's, as a number's change by its sign beside the app's words |
+| 1.4.1 Use of Color | story, app | Link's underline, and the sidebar's current page, by a bar and a bolder text. A category's colour beside its name, which the guidelines ask. A badge's state by its word and its icon's shape, by a story, an avatar's badge by its icon and words, by a story, and an alert's meaning by its icon's shape, by a story. A value's tone only adds colour, and its sign or words are the app's, as a number's change by its sign beside the app's words |
 | 1.4.2 Audio Control | app | |
 | 1.4.3 Contrast (Minimum) | axe, test | axe on flat colours, and `test/theme.test.ts` on the theme's pairs, both modes, a value's tones and the colours of meaning among them, and each colour of meaning as a badge's words on its tint over every surface, and the text on each tint, as an alert's description |
 | 1.4.4 Resize Text | script | |
