@@ -9,7 +9,6 @@ known and what is still to ask, are in [`roadmap-notes.md`](roadmap-notes.md), r
 ## Next, in order
 
 1. **Display.** The pieces that show, reviewed or made.
-    - Avatar and AvatarGroup
     - Separator, Kbd, AspectRatio and ScrollArea, then DescriptionList, Timeline and TickerChip
 2. **Actions and forms.** The pieces that act and take input, reviewed or made.
     - Button, ButtonGroup and PageHeader
@@ -88,6 +87,9 @@ Each becomes an item when its time comes.
 
 ## Done
 
+- **Avatar and AvatarGroup.** A person's picture or initials beside their name, hidden from screen readers, a `span`
+  that sits in a sentence, a row's size in a list, its initials while the picture loads, a state by an icon and words,
+  and a joint account's holders named by the app's words. 0.28.0.
 - **A card with no title.** Under a section's title, a table, a list of rows or joined numbers start at its top, with
   no line above. 0.27.1.
 - **Alert.** A message heard by its meaning, `alert` when something went wrong and `status` for the rest, named by
