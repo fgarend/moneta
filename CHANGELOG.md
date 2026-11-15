@@ -6,6 +6,10 @@ gets its number.
 
 ## [Unreleased]
 
+## [0.28.0] - 2026-11-15
+
+Avatar reviewed: a person beside their name, hidden from screen readers, its state and its group in the app's words.
+
 ### Added
 
 - `Avatar` reviewed: its page, the guidelines' Avatars, a row's size in an `Item`, and its initials while the picture
@@ -537,7 +541,8 @@ and dark. `README.md` says how to install and use it.
 
 A rehearsal of the release's path, not meant to be installed. Use a later version.
 
-[Unreleased]: https://github.com/fgarend/moneta/compare/v0.27.1...HEAD
+[Unreleased]: https://github.com/fgarend/moneta/compare/v0.28.0...HEAD
+[0.28.0]: https://github.com/fgarend/moneta/compare/v0.27.1...v0.28.0
 [0.27.1]: https://github.com/fgarend/moneta/compare/v0.27.0...v0.27.1
 [0.27.0]: https://github.com/fgarend/moneta/compare/v0.26.0...v0.27.0
 [0.26.0]: https://github.com/fgarend/moneta/compare/v0.25.0...v0.26.0
