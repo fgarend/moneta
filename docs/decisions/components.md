@@ -28,7 +28,7 @@ pieces is in [`../pieces.md`](../pieces.md), and how a piece is analysed is in [
 - **A title takes its level from where it sits.** A `Section` counts one level more for what it holds, a title
   outside any starts at 2, below the page's 1, it stops at 6, and `level` given by hand wins. React Aria's `Heading`
   draws it. Each piece with a title follows this at its review, and a `Dialog` or `Sheet` starts again at 2, as
-  React's context crosses portals.
+  React's context crosses portals. A `Card` counts one more for its title, and for what it holds only when it has one.
 - **Moneta chooses no router.** A piece with a link passes `href`, `routerOptions` and `render` on to React Aria, so
   an app routes through `render` on each link or through `navigate` and `useHref` on `MonetaProvider` once at its
   root.
@@ -58,9 +58,9 @@ pieces is in [`../pieces.md`](../pieces.md), and how a piece is analysed is in [
   `test/gallery.test.ts` holds every reviewed piece to it, and a raw piece gets its own at its review.
 - **One vocabulary of variants: a name means one look in every piece, by shadcn's names.** `default` is a piece's
   usual look. A control, as `Button`, `Badge` and `Toggle`, takes `secondary`, a soft fill, `outline`, a border,
-  `ghost`, no frame until the pointer is over it, and `link`, text alone. A surface, as `Item` and `StatGroup`, and `Card`
-  when it comes, takes `outline`, `muted`, a soft fill, and `ghost`, no frame, named only where its usual
-  look has one. A meaning, `destructive`, `success`, `warning` and `info`, is a `variant` too, as `theme.md` says. A
+  `ghost`, no frame until the pointer is over it, and `link`, text alone. A surface, as `Item` and `StatGroup`, takes
+  `outline`, `muted`, a soft fill, and `ghost`, no frame, named only where its usual look has one; `Card` has its
+  default alone, as a frameless one is a `Section`. A meaning, `destructive`, `success`, `warning` and `info`, is a `variant` too, as `theme.md` says. A
   group's boxes join or part by `spacing`, as shadcn's `ToggleGroup`: `0` draws one box with lines between, more a
   box each that far apart, and `variant` the look of the boxes. With no box, as `StatGroup`'s `ghost`, there are no
   lines between, so its default parts them by 24 px. A look one piece alone needs keeps a name of its own,
@@ -136,6 +136,22 @@ pieces is in [`../pieces.md`](../pieces.md), and how a piece is analysed is in [
   from another without colour.
 - **A kind takes its word alone,** in `secondary`; its category's colour stays on the row's IconTile.
 - **Its words wrap** rather than leave their column, line under line, each 20 px, its corners the theme's `xl`.
+
+### Card
+
+- **`CardTitle` is a heading,** React Aria's `Heading`, one level below where the card sits, `h2` at the page's top,
+  and a level given by hand wins. What the card holds sits one level below its title only when a `CardHeader` with a
+  `CardTitle` is among its own children, in a fragment too, so no level is skipped. A header kept in another component
+  is not seen, and what the card holds stays at its title's level.
+- **`size`:** `sm`, 12 px around and a 14 px title; its default, 20 px and 15/22; and `lg`, a part of the page, 24 px
+  and a section's title, 18/24.
+- **Its default look alone,** as a frameless card is a `Section`, and a soft one comes with a use.
+- **Edge to edge:** a `CardContent` holding only a table, a selection bar and a table, a list of rows, or numbers
+  joined in one box loses its side padding and gains a line above. The numbers drop their box, their padding the
+  card's, so their text lines up with its title at every size, and at its foot the card drops its own, so their lines
+  reach its edges. Numbers apart, or with no box, keep its padding.
+- **No `Heading` for the app:** every title comes from a piece, `Section`, `Card` or `ItemGroup`, with its size and
+  weight; a title no piece covers is a missing piece, for the roadmap.
 
 ### Section
 
@@ -284,7 +300,7 @@ pieces is in [`../pieces.md`](../pieces.md), and how a piece is analysed is in [
   meaning, so a button cannot become a `div` unnoticed.
 - **A level from where it sits,** as a fixed default per piece is wrong once a `Card` sits in a `Section`, as the
   sample page has. **What it costs:** a level is not seen in the code that uses the piece. The context is internal to
-  `src/hooks/level.ts`, which Section and ItemGroup read.
+  `src/hooks/level.ts`, which Section, Card and ItemGroup read.
 - **No router,** as Moneta knows no app, React Aria's docs recommended `render` on 2026-11-09, and `RouterProvider`
   still works. Table and GridList rows cannot be an `<a>`, so with a router they navigate through `onAction`.
 - **Defaults from where a piece sits,** as an app's screens would otherwise repeat a size or a shape the place
@@ -311,6 +327,13 @@ pieces is in [`../pieces.md`](../pieces.md), and how a piece is analysed is in [
   keeps it the same. **Words that wrap,** as no word is lost. **What it costs:** a row with a long badge grows. **The
   page's three parts,** as a guide that shows only what to do leaves out what not to, **on the piece whose page it
   is,** as a part's trap is read first there. **What it costs:** a part's tab says less than its piece's page.
+- **A card's content one level below its title only when it has one,** read from its own children, as a level skipped
+  breaks the outline. **What it costs:** a header kept in another component is not seen, which its page says. **No
+  `Heading` for the app,** as an app would style one by its own classes. **What it costs:** a title no piece covers
+  waits for its piece. **`size="lg"`** for a card that is a part of the page, as an app wrote a section's title on
+  `CardTitle` by classes. **What it costs:** a third size to keep. **Numbers edge to edge only when joined,** as their
+  lines are what reaches the edge, and boxes apart or words with no box would touch it. **What it costs:** two cases
+  to remember, as a table and a list have one.
 - **The gallery as a guide,** as whoever builds a screen first looks for what exists and how it is used, and stories
   that were only checks said neither. **Storybook's own page,** as it reads the stories and comments that exist, and
   Storybook 10's docs prefer comments to parameters. **What it costs:** its order and form, a package to keep, a lint
@@ -479,6 +502,10 @@ pieces is in [`../pieces.md`](../pieces.md), and how a piece is analysed is in [
 - **A badge drawn as a link,** by `render`, as shadcn's. **A `dot` on a state,** as the prototype's. **A kind in its
   category's colour,** which needs eight more shades of text in each mode. **A soft `default`,** as the prototype's,
   which drops `secondary`. **An ellipsis on a long badge,** which hides words with no way to read them.
+- **A card's content at its title's level,** which reads its groups as the title's siblings. **A `Heading` exported
+  for the app.** **A prop on `CardContent` for edge to edge,** which the app must remember, unlike a table and a list.
+  **A `Section` with its title above the card,** in place of `size="lg"`, which takes the title out of it. **`muted`
+  and `ghost` cards now,** two looks to keep, `ghost` repeating `Section`.
 - **A page written by hand, in MDX,** as shadcn's site has, about 50 pages to keep beside the stories, or **stories
   alone,** with no words on what to use and when. **Descriptions as parameters,** a string in each story, which the
   docs keep for where a comment cannot go. **The alphabet's order with `Default` first,** which teaches nothing after
@@ -556,3 +583,4 @@ pieces is in [`../pieces.md`](../pieces.md), and how a piece is analysed is in [
 - 2026-11-14: Stat.
 - 2026-11-14: Badge, and a page's three parts.
 - 2026-11-14: The three parts on every reviewed piece's page.
+- 2026-11-15: Card.

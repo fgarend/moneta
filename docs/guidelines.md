@@ -118,6 +118,18 @@ the version installed. It holds only what exists, and each reviewed piece adds i
   `IconTile`.
 - **`default`, dark and filled, is for the one thing that should stand out,** as a new holding.
 
+## Cards
+
+- **A card is a surface for one group of things under its title,** as a list of accounts or a form. A part that needs
+  no surface is a `Section`, and a card holds no other card.
+- **`CardHeader` holds `CardTitle`, and may hold a `CardDescription` and a `CardAction`,** written in the card itself,
+  not in a component of your own, so what the card holds sits one level below its title.
+- **A table, a list of rows or a group of numbers joined in one box, alone in its `CardContent`,** runs edge to edge,
+  its text lined up with the card's title.
+- **`size="lg"` for a card that is a part of the page,** its title a section's, 18/24, with 24 px around; `size="sm"`
+  for a small one, 12 px around.
+- **A whole card is never a link or a button:** a link goes in its title, and its actions in `CardAction`.
+
 ## Section
 
 - **A part of a page under one title, with no box of its own.** `Card` is for a group that needs a surface. A section

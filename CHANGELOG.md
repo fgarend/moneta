@@ -6,6 +6,22 @@ gets its number.
 
 ## [Unreleased]
 
+## [0.26.0] - 2026-11-15
+
+Card reviewed: a titled surface at its level, a size for a part of the page, and numbers edge to edge.
+
+### Added
+
+- `Card` reviewed: its page, `size="lg"` for a card that is a part of the page, with a section's title and 24 px
+  around, and numbers joined in one box, alone in its content, running edge to edge.
+- The guidelines' Cards.
+
+### Changed
+
+- **Breaking:** `CardTitle` is a heading, `h2` at the page's top and one level below where the card sits, and takes
+  `level`; what a titled card holds sits one level below it. Its look is the same. To upgrade, write the words alone
+  in it, with no heading of your own inside or around it.
+
 ## [0.25.0] - 2026-11-14
 
 The pieces' pages: each reviewed piece says what it is, what it is for and what is not recommended.
@@ -473,7 +489,8 @@ and dark. `README.md` says how to install and use it.
 
 A rehearsal of the release's path, not meant to be installed. Use a later version.
 
-[Unreleased]: https://github.com/fgarend/moneta/compare/v0.25.0...HEAD
+[Unreleased]: https://github.com/fgarend/moneta/compare/v0.26.0...HEAD
+[0.26.0]: https://github.com/fgarend/moneta/compare/v0.25.0...v0.26.0
 [0.25.0]: https://github.com/fgarend/moneta/compare/v0.24.0...v0.25.0
 [0.24.0]: https://github.com/fgarend/moneta/compare/v0.23.0...v0.24.0
 [0.23.0]: https://github.com/fgarend/moneta/compare/v0.22.0...v0.23.0
