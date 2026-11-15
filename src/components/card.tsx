@@ -1,27 +1,17 @@
 import { cn } from "cn";
 import {
-  Children,
   type ComponentProps,
   createContext,
-  Fragment,
   isValidElement,
   type ReactNode,
   useContext,
 } from "react";
 import { Heading, type HeadingProps } from "react-aria-components";
+import { partsOf } from "#hooks/children";
 import { deepest, SectionLevel } from "#hooks/level";
 
 // The level of a card's title, one below where the card sits, which CardTitle takes.
 const TitleLevel = createContext(2);
-
-// Its own children, those in a fragment among them too, as a header written under a condition.
-function partsOf(children: ReactNode): ReactNode[] {
-  return Children.toArray(children).flatMap((child) =>
-    isValidElement<{ children?: ReactNode }>(child) && child.type === Fragment
-      ? partsOf(child.props.children)
-      : [child],
-  );
-}
 
 // Whether a CardHeader among its own children holds a CardTitle. A header kept in another component is not seen.
 function hasTitle(children: ReactNode): boolean {

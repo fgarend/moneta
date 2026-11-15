@@ -31,7 +31,7 @@ A piece with no gap listed may still have some.
 
 | Piece | State | Known gaps |
 | --- | --- | --- |
-| `alert` | raw | **Edited:** `success`, `warning` and `info` variants, drawn as `destructive`. **Code:** every variant is `role="alert"`, which interrupts a screen reader even for news that can wait |
+| `alert` | reviewed | **Edited:** `role="alert"` for `destructive` and `status` for the rest; named by its `AlertTitle`; an icon by its meaning; a tint of its meaning, its description in the text's colour; `success`, `warning` and `info` variants; its action a column at its end, under its words when narrow, in the text's colour; and its description lays out paragraphs and lists |
 | `alert-dialog` | raw | |
 | `amount` | reviewed | |
 | `app-layout` | reviewed | |

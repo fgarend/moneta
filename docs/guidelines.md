@@ -107,6 +107,17 @@ the version installed. It holds only what exists, and each reviewed piece adds i
 - **The pieces stack themselves:** a dialog or a sheet over the page, and a menu, a tooltip or a select's list over
   the dialog it opens in. Give them no `z-index`.
 
+## Alerts
+
+- **An alert is a message about a part of the page or what just happened,** under a title that says what, with what
+  to do in its description. It stays until what it says changes; a message that comes and goes is a toast.
+- **Its variant is its meaning:** `destructive` for something wrong, which a screen reader hears at once; `warning`
+  for something that asks attention, `success` for a result and `info` for news, which it hears once it finishes.
+  The alert draws the meaning's icon itself.
+- **An action that settles it goes in `AlertAction`,** at its end, which moves under the words when the alert is
+  narrow.
+- **Several things of one kind are one alert,** a list in its description, written as `<ul>` and `<li>`.
+
 ## Badges
 
 - **A badge is a short label beside something,** one or two words, read at a glance. It is never pressed: the link

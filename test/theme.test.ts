@@ -201,6 +201,28 @@ describe.each(["light", "dark"])("the meanings in %s", (mode) => {
       contrast(colour, over(colour, under, tint[mode] ?? 0)),
     ).toBeGreaterThanOrEqual(text);
   });
+
+  // An alert's description, in the text's colour, on its meaning's tint.
+  it.each(
+    meanings.flatMap((meaning) =>
+      surfaces.map((surface) => [meaning, surface] as const),
+    ),
+  )(
+    "reads the text at 4.5:1 on %s's tint over %s",
+    async (meaning, surface) => {
+      const theme = (await themes())[mode] ?? {};
+      const [colour = "", under = "", words = ""] = [
+        theme[meaning],
+        theme[surface],
+        theme["foreground"],
+      ];
+
+      expect(words).toMatch(hexColour);
+      expect(
+        contrast(words, over(colour, under, tint[mode] ?? 0)),
+      ).toBeGreaterThanOrEqual(text);
+    },
+  );
 });
 
 // shadcn's chart colours, which its chart reads, are the first five categories.
