@@ -6,6 +6,10 @@ gets its number.
 
 ## [Unreleased]
 
+## [0.31.0] - 2026-11-16
+
+AspectRatio reviewed: a picture that fills its shape, cropped, and a card's cover.
+
 ### Added
 
 - `AspectRatio` reviewed: its page, the guidelines' Pictures, and a card's cover: as a `Card`'s first child it reaches
@@ -578,7 +582,8 @@ and dark. `README.md` says how to install and use it.
 
 A rehearsal of the release's path, not meant to be installed. Use a later version.
 
-[Unreleased]: https://github.com/fgarend/moneta/compare/v0.30.1...HEAD
+[Unreleased]: https://github.com/fgarend/moneta/compare/v0.31.0...HEAD
+[0.31.0]: https://github.com/fgarend/moneta/compare/v0.30.1...v0.31.0
 [0.30.1]: https://github.com/fgarend/moneta/compare/v0.30.0...v0.30.1
 [0.30.0]: https://github.com/fgarend/moneta/compare/v0.29.0...v0.30.0
 [0.29.0]: https://github.com/fgarend/moneta/compare/v0.28.0...v0.29.0
