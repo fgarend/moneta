@@ -6,6 +6,22 @@ gets its number.
 
 ## [Unreleased]
 
+## [0.34.0] - 2026-11-16
+
+DescriptionList, the details of one thing, and light's paper and lines in a true grey.
+
+### Added
+
+- `DescriptionList`, with `DescriptionItem`, `DescriptionTerm` and `DescriptionDetails`: the details of one thing,
+  each a term and its value, side by side with the value at the end, and one above the other below 288 px. Its page,
+  and the guidelines' Details of one thing.
+
+### Changed
+
+- In light, the paper and its lines are a true grey, red, green and blue equal, each at its own lightness, where they
+  read slightly bluish: the page `#f9f9f9`, `--secondary` and `--accent` `#f0f0f0`, `--muted` `#f3f3f3`, `--border`
+  `#e6e6e6`, `--border-strong` `#c8c8c8` and `--input` `#8a8a8a`. Every contrast holds; dark does not change.
+
 ## [0.33.0] - 2026-11-16
 
 The gold theme revised: cool paper in light, a lighter graphite in dark, and the sidebar's own gradient.
@@ -615,7 +631,8 @@ and dark. `README.md` says how to install and use it.
 
 A rehearsal of the release's path, not meant to be installed. Use a later version.
 
-[Unreleased]: https://github.com/fgarend/moneta/compare/v0.33.0...HEAD
+[Unreleased]: https://github.com/fgarend/moneta/compare/v0.34.0...HEAD
+[0.34.0]: https://github.com/fgarend/moneta/compare/v0.33.0...v0.34.0
 [0.33.0]: https://github.com/fgarend/moneta/compare/v0.32.0...v0.33.0
 [0.32.0]: https://github.com/fgarend/moneta/compare/v0.31.0...v0.32.0
 [0.31.0]: https://github.com/fgarend/moneta/compare/v0.30.1...v0.31.0

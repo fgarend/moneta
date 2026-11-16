@@ -170,8 +170,8 @@ function hue(colour: string): number | undefined {
   return (sixth * degreesPerSixth + fullTurn) % fullTurn;
 }
 
-// The neutrals are drawn on the graphite's hue, a cool blue grey, as the text and the sidebar are, and none at a
-// yellow one, which made the paper read as dirty.
+// The neutrals are a true grey or on the graphite's hue, a cool blue grey, as the text and the sidebar are, and none
+// at a yellow one, which made the paper read as dirty.
 const neutrals = [
   "background",
   "card",
@@ -195,6 +195,24 @@ describe.each(["light", "dark"])("the neutrals in %s", (mode) => {
     expect(hue(colour) ?? coolest).toBeGreaterThanOrEqual(coolest);
     expect(hue(colour) ?? coolest).toBeLessThanOrEqual(warmest);
   });
+});
+
+// Light's paper and lines are a true grey, red, green and blue equal, as one on the graphite's hue read bluish.
+const greys = [
+  "background",
+  "secondary",
+  "accent",
+  "muted",
+  "border",
+  "border-strong",
+  "input",
+];
+
+it.each(greys)("draws light's %s in a true grey", async (name) => {
+  const colour = (await themes())["light"]?.[name] ?? "";
+
+  expect(colour).toMatch(hexColour);
+  expect(hue(colour)).toBeUndefined();
 });
 
 const categories = [1, 2, 3, 4, 5, 6, 7, 8];

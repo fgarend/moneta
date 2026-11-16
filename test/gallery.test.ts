@@ -51,6 +51,7 @@ const pages: Record<string, string> = {
   card: "Card",
   "date-field": "DateField",
   "date-time": "DateTime",
+  "description-list": "DescriptionList",
   "icon-tile": "IconTile",
   item: "ItemGroup",
   kbd: "Kbd",

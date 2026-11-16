@@ -166,6 +166,14 @@ pieces is in [`../pieces.md`](../pieces.md), and how a piece is analysed is in [
 - **It fills its place:** what is left of a column of fixed height, as a panel's or a card's, shrinking to it as
   any area that scrolls does.
 
+### DescriptionList
+
+- **The details of one thing, a `dl`:** each pair a `DescriptionItem`, a `div` holding its `DescriptionTerm`, a `dt`
+  in `--muted-foreground`, and its `DescriptionDetails`, a `dd`, as `StatGroup` holds its numbers, 8 px apart, with no
+  line between.
+- **The value at the end,** as a row's amount, and **one above the other below 288 px** of the list's own width, by a
+  container query, the value then at the start.
+
 ### Avatar
 
 - **Hidden from screen readers,** as an `IconTile`: its picture takes no alt and its initials are hidden, as the name
@@ -399,6 +407,10 @@ pieces is in [`../pieces.md`](../pieces.md), and how a piece is analysed is in [
   goes on,** as macOS hides a scrollbar until it scrolls. **What it costs:** it draws on `--surface`, so a place of
   another colour sets it. **It fills its place,** so an app writes no height. **What it costs:** in a place that
   grows, it never scrolls.
+- **The details of one thing with the value at the end,** as an app writes them and a row's amount sits, so numbers
+  line up. **What it costs:** a long text value reads from the right, until the list is narrow. **No lines,** as the
+  details of one thing are not a list of things. **What it costs:** across a wide card the eye crosses a gap. **A
+  `div` for each pair,** as HTML allows, so a pair shown only sometimes is one item. **What it costs:** a part more.
 - **An avatar always hidden,** as every app writes the name beside it, so a name in it is heard twice. **What it
   costs:** an avatar alone says nothing, which its page does not recommend. **Its size from a row,** as an
   `IconTile`'s, so the rows' titles line up. **What it costs:** its size is not seen in the code that uses it. **A
@@ -600,6 +612,9 @@ pieces is in [`../pieces.md`](../pieces.md), and how a piece is analysed is in [
 - **Focus always,** a stop that does nothing when it fits. **An optional name,** a region heard with no name. **A
   thin scrollbar in `--border`,** 1.20:1, or **in `--input`,** 3.20:1, drawn unlike the rest. **A height of the app's,**
   a class, or **a prop of heights,** a scale no other piece has.
+- **A column of terms with the value at its start,** as a form read, or **a term above its value always,** twice as
+  tall. **A line between pairs,** as `Item`'s rows. **Three parts,** as Catalyst's, a fragment for a pair shown only
+  sometimes.
 - **An avatar named by an optional `name`,** which says a name twice beside the one in words. **The text's colour for
   its initials,** 12.95:1, which competes with the name. **Its badge removed,** or **at 12 px with an 8 px icon at
   24 px,** which covers a small avatar. **Its group removed** until a use. **An empty circle while its picture
@@ -699,3 +714,4 @@ pieces is in [`../pieces.md`](../pieces.md), and how a piece is analysed is in [
 - 2026-11-15: A card's ends at every size.
 - 2026-11-16: AspectRatio.
 - 2026-11-16: ScrollArea.
+- 2026-11-16: DescriptionList.

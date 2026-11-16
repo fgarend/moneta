@@ -47,6 +47,7 @@ A piece with no gap listed may still have some.
 | `context-menu` | raw | |
 | `date-field` | reviewed | **Edited:** `lg` 40 px, beside 36 and `sm` 32, and no fill in dark, as in light |
 | `date-time` | reviewed | |
+| `description-list` | reviewed | |
 | `dialog` | raw | **Edited:** 16 px from each edge by `inset-x-4`, and React Aria's types are not exported, and its close button's name comes from `closeLabel`, and it sets `--surface` |
 | `dropdown-menu` | raw | |
 | `empty` | raw | |
