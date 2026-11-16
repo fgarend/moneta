@@ -6,6 +6,19 @@ gets its number.
 
 ## [Unreleased]
 
+### Changed
+
+- The gold theme revised. In light, the paper and the neutrals are cool, on the graphite's hue: the page `#f8f9fa`,
+  and `--secondary`, `--muted`, `--accent`, `--border`, `--border-strong` and `--input` with it. In dark, a lighter
+  graphite: the page `#2f3133`, a card `#3a3c3f`, the sidebar `#262829` and its item marked `#3a3c3f`, the text and
+  `--primary` `#f1f3f5`, and the scroll shadow lighter. The text, the sidebar in light and the gold stay.
+- The tints of a badge, an alert and an icon tile are 10% in dark too, as in light, and in dark the colours of
+  meaning and categories 1, 4, 5 and 8 are a little paler, so each keeps its contrast on the lighter graphite.
+- In dark, a field, a checkbox, a radio and an `outline` button have no fill, as in light, so their placeholder and
+  border keep their contrast on the lighter graphite.
+- **Breaking:** the sidebar's surface is `sidebar-gradient`, its own graphite darker at the top, with no glow of gold;
+  `sidebar-glow` is gone. To upgrade, write `sidebar-gradient` where `sidebar-glow` was.
+
 ## [0.32.0] - 2026-11-16
 
 ScrollArea reviewed: a named area that scrolls in its place, reached by the keyboard when it scrolls.

@@ -15,7 +15,7 @@ import {
 } from "react";
 import { partsOf } from "#hooks/children";
 
-// A meaning on a tint of its colour, 10% in light and 20% in dark, as a badge's, its icon and title in its colour and
+// A meaning on a tint of its colour, 10% in both modes, as a badge's, its icon and title in its colour and
 // its description in the text's. Its default is the card's.
 const alertVariants = cva(
   "group/alert @container/alert w-full rounded-lg border px-2.5 py-2 text-start text-sm",
@@ -24,12 +24,12 @@ const alertVariants = cva(
       variant: {
         default: "bg-card text-card-foreground",
         destructive:
-          "border-transparent bg-destructive/10 text-destructive dark:bg-destructive/20 **:data-[slot=alert-description]:text-foreground",
+          "border-transparent bg-destructive/10 text-destructive **:data-[slot=alert-description]:text-foreground",
         success:
-          "border-transparent bg-success/10 text-success dark:bg-success/20 **:data-[slot=alert-description]:text-foreground",
+          "border-transparent bg-success/10 text-success **:data-[slot=alert-description]:text-foreground",
         warning:
-          "border-transparent bg-warning/10 text-warning dark:bg-warning/20 **:data-[slot=alert-description]:text-foreground",
-        info: "border-transparent bg-info/10 text-info dark:bg-info/20 **:data-[slot=alert-description]:text-foreground",
+          "border-transparent bg-warning/10 text-warning **:data-[slot=alert-description]:text-foreground",
+        info: "border-transparent bg-info/10 text-info **:data-[slot=alert-description]:text-foreground",
       },
     },
     defaultVariants: {

@@ -21,6 +21,12 @@ const blueWeight = 0.0722;
 const ambient = 0.05;
 const channelMax = 255;
 const hexBase = 16;
+const itemApart = 1.3;
+const degreesPerSixth = 60;
+const fullTurn = 360;
+// The graphite's hues, from the sidebar's darkest step to the text's.
+const coolest = 200;
+const warmest = 225;
 
 function channel(value: number): number {
   return value <= lowChannel
@@ -133,6 +139,8 @@ describe.each(["light", "dark"])("the %s theme", (mode) => {
     ["ring", "card", nonText],
     ["sidebar-ring", "sidebar", nonText],
     ["sidebar-ring", "sidebar-accent", nonText],
+    // The current item's fill, apart from the sidebar as much in dark as in light.
+    ["sidebar-accent", "sidebar", itemApart],
   ])("has %s on %s at %d:1 or more", async (one, other, minimum) => {
     const theme = (await themes())[mode] ?? {};
     const [first = "", second = ""] = [theme[one], theme[other]];
@@ -143,10 +151,56 @@ describe.each(["light", "dark"])("the %s theme", (mode) => {
   });
 });
 
+// The hue of a colour written #rrggbb, in degrees, or none for a grey with no hue at all.
+function hue(colour: string): number | undefined {
+  const [red = 0, green = 0, blue = 0] = [1, 3, 5].map((start) =>
+    Number.parseInt(colour.slice(start, start + 2), hexBase),
+  );
+  const highest = Math.max(red, green, blue);
+  const spread = highest - Math.min(red, green, blue);
+  if (spread === 0) {
+    return;
+  }
+  const sixth =
+    highest === red
+      ? (green - blue) / spread
+      : highest === green
+        ? (blue - red) / spread + 2
+        : (red - green) / spread + 4;
+  return (sixth * degreesPerSixth + fullTurn) % fullTurn;
+}
+
+// The neutrals are drawn on the graphite's hue, a cool blue grey, as the text and the sidebar are, and none at a
+// yellow one, which made the paper read as dirty.
+const neutrals = [
+  "background",
+  "card",
+  "foreground",
+  "muted-foreground",
+  "primary",
+  "secondary",
+  "muted",
+  "accent",
+  "border",
+  "border-strong",
+  "input",
+  "ring",
+];
+
+describe.each(["light", "dark"])("the neutrals in %s", (mode) => {
+  it.each(neutrals)("draws %s on the graphite's hue", async (name) => {
+    const colour = (await themes())[mode]?.[name] ?? "";
+
+    expect(colour).toMatch(hexColour);
+    expect(hue(colour) ?? coolest).toBeGreaterThanOrEqual(coolest);
+    expect(hue(colour) ?? coolest).toBeLessThanOrEqual(warmest);
+  });
+});
+
 const categories = [1, 2, 3, 4, 5, 6, 7, 8];
 const surfaces = ["background", "card", "muted"];
-// The share of a category's colour in its tile's tint, as the tile draws it in each mode.
-const tint: Record<string, number> = { light: 0.1, dark: 0.2 };
+// The share of a category's colour in its tile's tint, as the tile draws it in both modes.
+const tint = 0.1;
 
 // One colour over another at a share of it, as a browser lays a translucent fill over what is under it.
 function over(colour: string, under: string, share: number): string {
@@ -177,7 +231,7 @@ describe.each(["light", "dark"])("the categories in %s", (mode) => {
       expect(colour).toMatch(hexColour);
       expect(contrast(colour, under)).toBeGreaterThanOrEqual(nonText);
       expect(
-        contrast(colour, over(colour, under, tint[mode] ?? 0)),
+        contrast(colour, over(colour, under, tint)),
       ).toBeGreaterThanOrEqual(nonText);
     },
   );
@@ -197,9 +251,9 @@ describe.each(["light", "dark"])("the meanings in %s", (mode) => {
     const [colour = "", under = ""] = [theme[meaning], theme[surface]];
 
     expect(colour).toMatch(hexColour);
-    expect(
-      contrast(colour, over(colour, under, tint[mode] ?? 0)),
-    ).toBeGreaterThanOrEqual(text);
+    expect(contrast(colour, over(colour, under, tint))).toBeGreaterThanOrEqual(
+      text,
+    );
   });
 
   // An alert's description, in the text's colour, on its meaning's tint.
@@ -218,9 +272,9 @@ describe.each(["light", "dark"])("the meanings in %s", (mode) => {
       ];
 
       expect(words).toMatch(hexColour);
-      expect(
-        contrast(words, over(colour, under, tint[mode] ?? 0)),
-      ).toBeGreaterThanOrEqual(text);
+      expect(contrast(words, over(colour, under, tint))).toBeGreaterThanOrEqual(
+        text,
+      );
     },
   );
 });

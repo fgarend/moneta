@@ -47,9 +47,9 @@ type SidebarName =
   | { "aria-label": string; "aria-labelledby"?: never }
   | { "aria-labelledby": string; "aria-label"?: never };
 
-// The dark surface, its glow, and the ring drawn on it, as the theme asks of an area with a surface of its own.
+// The dark surface, its gradient, and the ring drawn on it, as the theme asks of an area with a surface of its own.
 const surface =
-  "flex h-full w-64 flex-col sidebar-glow text-sidebar-foreground [--ring:var(--sidebar-ring)]";
+  "flex h-full w-64 flex-col sidebar-gradient text-sidebar-foreground [--ring:var(--sidebar-ring)]";
 
 /**
  * The app's main navigation, at the start of its screen, and a sheet on a phone.

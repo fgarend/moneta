@@ -5,32 +5,35 @@ The look Moneta has by default, which whoever uses it can replace. How an app re
 
 ## What holds today
 
-- **In light: the prototype's colours,** warm paper, white cards, a cool graphite sidebar and text, and one gold accent.
-  The page is `#faf9f6`, the sidebar `#303338`, text `#23262b`, and gold `#f0bd2a`, in shadcn's token names, plus `--gold`
+- **In light: cool paper,** white cards, a graphite sidebar and text, and one gold accent. The page is `#f8f9fa`, the
+  sidebar `#303338`, text `#23262b`, and gold `#f0bd2a`, and every neutral is drawn on the graphite's hue, which
+  `test/theme.test.ts` holds, in shadcn's token names, plus `--gold`
   and `--gold-foreground`, as shadcn has no slot for an accent that is neither `--primary` nor `--accent`.
 - **Values are written in hex,** as shadcn's customization guide keeps them, and `test/theme.test.ts` holds the pairs
   every piece paints to 4.5:1 for text and 3:1 for the rest.
 - **The radius is shadcn's `small`,** `0.45rem`, chosen by the owner on shadcn/create.
-- **`--input` is stronger than the prototype's,** `#8e8c84`, to reach 3:1 against both the page and a card.
+- **`--input` is stronger than the prototype's,** `#858b94`, to reach 3:1 against both the page and a card.
 - **A piece is edited when the theme alone cannot reach it:** `tabs`, whose inactive text fails on our `muted`, and the heights.
+- **A field has no fill, in both modes:** shadcn's `--input` at 30% in dark is gone from the fields, `Checkbox`,
+  `RadioGroup` and `outline` `Button`, so a placeholder keeps 4.5:1 on the lighter graphite, and the border 3:1.
 - **Controls are 36 px by default, 40 for a page's main actions and 32 for dense ones,** by shadcn's `size`: `default`,
   `lg` and `sm`, on every control a row holds side by side, Button, Toggle, ToggleGroup, Input, InputGroup, Select,
   NativeSelect, DateField and Tabs, as classes in each piece, with `xs` left as shadcn has it. Their icons are 14 px at
   `sm` and 16 above, as shadcn sizes them. Lists and tables take `density`, apart. `docs/pieces.md` marks each edit.
 - **Gold is a variant of `Button`,** so an app names it and writes no colour.
 - **`--positive` and `--negative` colour a value's tone,** good news and bad: a green of our own, `#107044` in light
-  and `#77d49d` in dark, with as much contrast as the red, and `--negative` reads `--destructive`, so the theme keeps
+  and `#89dbab` in dark, with as much contrast as the red, and `--negative` reads `--destructive`, so the theme keeps
   one red. A value that names another is declared again under `.dark`, as it is worked out where it is declared.
   `test/theme.test.ts` holds both to 4.5:1 on the page, a card and `--muted`, and holds each such value to `.dark`.
 - **`--success`, `--warning` and `--info`, the colours of meaning,** beside `--destructive`, one token each, read as
   text at 4.5:1 on the page, a card and `--muted` in both modes, and drawn soft from it by opacity. `--success` is
-  `var(--positive)`; `--warning` an orange, `#9c4b00` in light and `#ffb46b` in dark, away from the gold; `--info` a
-  blue, `#1b5dbd` and `#97c6ff`; `--destructive` `#bb1c12` and `#ffad9d`. No base palette under them. Each reads at
-  4.5:1 too as a badge's words on its own tint, 10% in light and 20% in dark, over the page, a card and `--muted`,
+  `var(--positive)`; `--warning` an orange, `#9c4b00` in light and `#ffba76` in dark, away from the gold; `--info` a
+  blue, `#1b5dbd` and `#a1ccff`; `--destructive` `#bb1c12` and `#ffb7a9`. No base palette under them. Each reads at
+  4.5:1 too as a badge's words on its own tint, 10% in both modes, over the page, a card and `--muted`,
   which `test/theme.test.ts` holds as it holds the categories' tints.
 - **`--category-1` to `--category-8`, the colours of categories,** which tell apart and say nothing: teal, olive, plum,
   violet, rose, copper, steel and mustard, in that order, one token each. Each is 3:1 as a mark on the page, a card and
-  `--muted`, and on its own tint there, 10% in light and 20% in dark, in both modes. Olive, plum, copper and steel are
+  `--muted`, and on its own tint there, 10% in both modes. Olive, plum, copper and steel are
   deeper in light and paler in dark, so neighbours stay apart for a colour-blind eye. shadcn's `--chart-1` to
   `--chart-5`, its greys before, read the first five.
 - **The font is Geist, in `--font`,** which `--font-sans` reads, so an app can change it. `--font-heading` stays as shadcn writes
@@ -52,7 +55,7 @@ The look Moneta has by default, which whoever uses it can replace. How an app re
   each end of an area that scrolls sideways while there is more there, in `--scroll-shadow`. **`sticky-fill`** gives
   what sticks in a table the surface, with its row's state, `--row-fill`, drawn over it. **`progress-run`** runs a
   part of an indeterminate bar across its track, which stands still and dashed when less motion is asked for.
-- **`--border-strong` marks structure,** under a group's title and over a total: warm, darker than `--border` in
+- **`--border-strong` marks structure,** under a group's title and over a total: darker than `--border` in
   light and lighter in dark, which `test/theme.test.ts` holds.
 - **Keyboard focus is a solid outline,** 2 px with 2 px of offset, in `--ring`, from one unlayered rule in the theme. It is
   shadcn's own rule, widened to fields, to what keeps focus on a hidden input, and to a date field's box, around the part
@@ -64,9 +67,8 @@ The look Moneta has by default, which whoever uses it can replace. How an app re
   the theme on what has a `data-slot`: tw-animate-css's entrance and exit keep their fade and lose their slide and
   zoom, and a transition keeps colour, opacity and a ring's shadow. `.storybook/less-motion.test.tsx` asks each browser
   for less motion and watches every animation as a piece opens, closes or changes.
-- **The sidebar's surface is `sidebar-glow`,** a utility: `--sidebar`, a little darker at the top and lighter at the
-  foot, with a faint glow of `--sidebar-primary` at the top left, all by `color-mix`, so dark mode and a replaced theme
-  keep it. **`--sidebar-muted-foreground`** is a quieter text on it, for a section's label, `#a3a6ad` in light and
+- **The sidebar's surface is `sidebar-gradient`,** a utility: `--sidebar`, 12% darker at the top and its own from
+  three quarters down, by `color-mix`, so dark mode and a replaced theme keep it; no gold on it but the item marked. **`--sidebar-muted-foreground`** is a quieter text on it, for a section's label, `#a3a6ad` in light and
   `#8f939a` in dark, which `test/theme.test.ts` holds at 4.5:1.
 - **`tall`, a variant for a screen at least 480 px tall,** where a bar sticks; and **the page's scroll padding,**
   `4.5rem` on `html` while `AppLayout`'s bar is there, so focus is never hidden under it.
@@ -74,10 +76,10 @@ The look Moneta has by default, which whoever uses it can replace. How an app re
   `z-30`; the modal overlays, Dialog, AlertDialog and Sheet, at shadcn's `z-50`; and what floats, Popover, Tooltip,
   HoverCard, the menus and Select, at React Aria's own `z-index: 100000`, set on the element, which beats shadcn's
   `z-50` there. No layer tokens. `.storybook/layers.test.tsx` checks in each browser what is drawn over what.
-- **In dark: the prototype's graphite, near black, in small steps.** The page is `#1a1b1e`, the sidebar a step darker at
-  `#121316`, and a card a step lighter at `#232529`, so what is nearer is lighter. Text is `#f4f4f2`, as on the prototype's
-  sidebar. Gold stays the same in both, and `color-scheme: dark` darkens the
-  browser's own controls.
+- **In dark: a lighter graphite, in small steps.** The page is `#2f3133`, the sidebar a step darker at `#262829`, its
+  item marked `#3a3c3f`, and a card a step lighter at `#3a3c3f`, so what is nearer is lighter. Text, `--primary` and
+  the focus outline are `#f1f3f5`. The colours of meaning and categories are paler than in light, and the scroll shadow
+  35% of black. Gold stays the same in both, and `color-scheme: dark` darkens the browser's own controls.
 - **An app sets the mode, with the class `.dark`,** as shadcn does, with no switch or provider of ours.
 - **`docs/guidelines.md` says how to use the look,** in short rules for whoever builds a screen, with only what exists,
   and a section for each reviewed piece. `test/guidelines.test.ts` checks that each variable it names is declared.
@@ -86,8 +88,13 @@ The look Moneta has by default, which whoever uses it can replace. How an app re
 
 - **A cool dark,** since the prototypes have no dark, and their graphite and the light text on it are what they have of one,
   so both modes read as one product. **What it costs:** it is the dark many apps have, so gold carries the identity, the
-  paper's warmth is gone in dark, and the sidebar is only 1.08:1 from the page, so the item marked and the text set it apart.
-- **The prototype's light, as it is,** since warm paper against cool graphite is what keeps it from reading yellow.
+  sidebar is only 1.13:1 from the page, so the item marked and the text set it apart.
+- **Cool neutrals, on the graphite's hue,** since six neutrals at a yellow hue beside a cool text, sidebar and dark made
+  the paper read as dirty, as the owner found on 2026-11-16. **What it costs:** the prototype's warmth is gone, and gold
+  alone carries the warmth.
+- **A lighter graphite in dark,** chosen in a test of palettes on 2026-11-15, less heavy than near black. **What it
+  costs:** the colours of meaning and categories are paler, and their tints 10%, as 20% would leave them short of
+  contrast on `--muted`, so a tint is quieter than before.
 - **Graphite and paper,** since the dark sidebar beside light content is what gives a screen its identity, and a white
   sidebar reads as any app on shadcn. An app that wants one changes `--sidebar-*`.
 - **One gold,** kept for little, so it still means something. It fails as text on paper, at 1.66:1, so it is a fill.
@@ -173,6 +180,15 @@ The look Moneta has by default, which whoever uses it can replace. How an app re
   found it too yellow and too far from the prototypes.
 - **A graphite page in dark, `#303338`, with a near-black sidebar.** The light sidebar's colour, but the two darks did not
   read as one family, a mid grey dulled the content, and `--input` was at 3.14:1.
+- **The prototype's warm paper, `#faf9f6`,** kept until 2026-11-16, which read as dirty beside the cool text and sidebar.
+- **The prototype's near black, `#1a1b1e`, with a sidebar of `#121316`,** kept until 2026-11-16, heavier than the lighter
+  graphite.
+- **A faint glow of gold on the sidebar,** until 2026-11-16, and **a lighter top,** which left a section's label at
+  4.2:1 and the item marked at 1.1:1 from it.
+- **A field's fill of `--input` at 30% in dark,** shadcn's, which leaves a placeholder at 3.74:1 on a card, or **at
+  10%,** 4.89:1, with the border at 3.11:1 from it.
+- **Tints of 20% in dark,** as on near black, which leave the colours of meaning short of 4.5:1 on `--muted`, or would
+  have them nearly white.
 - **A warm near-black, `#1b1a18`,** the paper's family. Adopted on 2026-11-07, and dropped the same day, with the warm light,
   as too yellow and too far from the prototypes.
 - **The sidebar the same as the page, with a line between.** The calmest, but the sidebar is no longer a surface of its own.
@@ -234,3 +250,5 @@ The look Moneta has by default, which whoever uses it can replace. How an app re
 - 2026-11-12: `--category-1` to `--category-8`, with `--chart-1` to `--chart-5` reading them.
 - 2026-11-12: One scale of sizes on every control a row holds.
 - 2026-11-14: The colours of meaning on their own tint, green for good news, and one red, again.
+- 2026-11-16: The gold theme revised: cool paper, a lighter graphite in dark, `sidebar-gradient`, and tints of 10% in
+  both modes.
