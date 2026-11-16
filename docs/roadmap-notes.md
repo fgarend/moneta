@@ -57,6 +57,16 @@ screenshots change with it. The light theme's paper read as dirty: six of its ne
 - **To do then:** `docs/decisions/theme.md`, whose reasons for the warm paper, the near black and `sidebar-glow` change;
   `test/theme.test.ts` and `.storybook/themes.ts`, which repeat the colours; the categories checked on their own
   tints; the scroll shadow in the lighter dark; and every screenshot taken again.
+- **Decided at the step, on 2026-11-16:**
+  - The dark sidebar's item marked on `#3a3c3f`, a card's, 1.34:1 from the sidebar as light's is 1.36:1, its text at
+    10.05:1, and its line `--sidebar-border` the same, as in light. Against `#292b30` as today, 1.05:1, which is lost,
+    and `#45484c`, 1.61:1, stronger than light's.
+  - Dark's whites follow its text, `#f1f3f5`: `--primary`, `--ring`, `--sidebar-accent-foreground` and
+    `--sidebar-ring`, and `--primary-foreground` the page, `#2f3133`, 11.74:1. Against `#f4f4f2` as today, the last
+    warm neutral in dark; light's sidebar keeps it, as it stays as it is.
+  - The scroll shadow in dark at 35% of black, about today's weight on the near black, against 50%, heavier on the
+    lighter graphite; the screenshots of `Table` and `ScrollArea` show it.
+  - `sidebar-glow` renamed `sidebar-gradient`, as it no longer glows; only `Sidebar` uses it, and no app.
 
 ## Display
 
