@@ -6,6 +6,11 @@ gets its number.
 
 ## [Unreleased]
 
+### Fixed
+
+- In a `Card` of `size="sm"` or `size="lg"`, a table, a list of rows, its group's header and the selection bar running
+  edge to edge start at the card's spacing, 12 or 24 px, lined up with its title, where they kept 20 px.
+
 ## [0.30.0] - 2026-11-15
 
 Kbd reviewed: a key, or several pressed together, a symbol's name in words.

@@ -75,8 +75,8 @@ pieces is in [`../pieces.md`](../pieces.md), and how a piece is analysed is in [
 ### Item
 
 - **`ItemGroup` is a list of rows,** `<ul role="list">`, and an `Item` in it an `<li>`, a row with a `--border` line
-  under it but the last and no box of its own, at a table's ends: 12 px loose, where it reaches as much out, and 20 px
-  in a card, where a `CardContent` holding only a list loses its side padding and gains a line above. An `Item` alone
+  under it but the last and no box of its own, at a table's ends: 12 px loose, where it reaches as much out, and the
+  card's spacing in a card, where a `CardContent` holding only a list loses its side padding and gains a line above. An `Item` alone
   stays a `<div>`, with its variants.
 - **Titles and descriptions wrap,** never cut.
 - **An icon in an item is an `IconTile` written straight in it,** a square of 40 px at the row's start, or 32 in a
@@ -240,8 +240,10 @@ pieces is in [`../pieces.md`](../pieces.md), and how a piece is analysed is in [
   but `TableEmpty`'s.
 - **`hideBelow="sm" | "md" | "lg"` on each cell of a column hides it** by the width of the table's own area, a
   container, with `display: none`.
-- **Its ends follow its place:** 20 px in a card, where a `CardContent` holding only a table loses its side padding
-  and gains a line above, and 12 px loose, where its area reaches 12 px out on each side.
+- **Its ends follow its place:** the card's spacing in a card, 12, 20 or 24 px by its size, where a `CardContent`
+  holding only a table loses its side padding and gains a line above, and 12 px loose, where its area reaches 12 px
+  out on each side. What is measured from them, the column after the boxes and a header over a child's toggle, adds
+  to them.
 - **Narrow, it scrolls in its own area,** with row titles that stick at its start, `scroll-shadows` at the end that has
   more, row titles of at least 128 px, and the area takes focus, its role and the table's name only while it overflows.
 - **Values in its rows are at 400,** set by the table on the pieces of value in its bodies.
@@ -662,3 +664,4 @@ pieces is in [`../pieces.md`](../pieces.md), and how a piece is analysed is in [
 - 2026-11-15: Avatar.
 - 2026-11-15: Separator.
 - 2026-11-15: Kbd.
+- 2026-11-15: A card's ends at every size.

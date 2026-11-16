@@ -79,8 +79,9 @@ the version installed. It holds only what exists, and each reviewed piece adds i
 - **In multiples of 4 px:** 4 between a label and what it names, as a value or a bar, and between `Card`'s title and
   description, 8 to 12 within a group, 16 to 20 in a card, 16 between cards, 40 between sections, and 40 to 48 around a
   page. Inside is smaller than between, so what belongs together reads together.
-- **`Card` has 20 px around its content, and `Table` 12 px in a cell, with 20 at each end of a row in a card,** so a
-  table in a card lines up with the card's title. Loose on a page, a table's text lines up with the page, and its rows
+- **`Card` has 20 px around its content, 12 at `sm` and 24 at `lg`, and `Table` 12 px in a cell, with the card's
+  spacing at each end of a row in a card,** so a table or a list in a card lines up with the card's title at every
+  size. Loose on a page, a table's text lines up with the page, and its rows
   reach 12 px out on each side.
 
 ## Focus

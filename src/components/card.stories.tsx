@@ -241,6 +241,64 @@ const edgeToEdge = [
  * above it: a table, a list of rows, or numbers joined in one box. The section's header holds the title, a count and
  * the controls.
  */
+// Where a text starts inside its box, past its padding.
+function textStart(element: Element): number {
+  return (
+    element.getBoundingClientRect().left +
+    Number.parseFloat(getComputedStyle(element).paddingInlineStart)
+  );
+}
+
+/**
+ * At every size, a table's and a list's ends follow the card's spacing, 12, 20 or 24 px, so their text lines up with
+ * the card's title, as joined numbers do.
+ */
+const EndsBySize: Story = {
+  tags: ["!autodocs"],
+  render: () => (
+    <div className="flex flex-col gap-6">
+      {(["sm", "default", "lg"] as const).flatMap((size) =>
+        edgeToEdge.map(([kind, inside]) => (
+          <Card data-kind={kind} key={`${size}-${kind}`} size={size}>
+            <CardHeader>
+              <CardTitle>{size}</CardTitle>
+            </CardHeader>
+            <CardContent>{inside}</CardContent>
+          </Card>
+        )),
+      )}
+    </div>
+  ),
+  play: async ({ canvasElement }) => {
+    for (const card of canvasElement.querySelectorAll('[data-slot="card"]')) {
+      const titleStart = Math.round(
+        (
+          card.querySelector('[data-slot="card-title"]') as Element
+        ).getBoundingClientRect().left,
+      );
+      // The first of each: a table's header, a row's title, a group's header, and a number's label.
+      const starts = [
+        "th",
+        '[data-slot="item-title"]',
+        '[data-slot="item-group-header"]',
+        '[data-slot="stat-label"]',
+      ]
+        .map((selector) => card.querySelector(selector))
+        .filter((part) => part !== null)
+        .map((part) =>
+          Math.round(
+            part.matches("th, [data-slot=item-group-header]")
+              ? textStart(part)
+              : part.getBoundingClientRect().left,
+          ),
+        );
+      for (const start of starts) {
+        await expect(start).toBe(titleStart);
+      }
+    }
+  },
+};
+
 const WithoutTitle: Story = {
   render: () => (
     <div className="flex flex-col gap-10">
@@ -449,6 +507,7 @@ export {
   ContentUnderTitle,
   ContentWithoutTitle,
   Default,
+  EndsBySize,
   HeaderInAComponent,
   InSection,
   Large,
