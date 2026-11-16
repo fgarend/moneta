@@ -112,7 +112,7 @@ function DateField({
       {label === undefined ? null : <Label>{label}</Label>}
       <DateInput
         className={cn(
-          "flex w-full min-w-0 items-center rounded-lg border border-input bg-transparent px-2.5 text-base tabular-nums transition-colors outline-none md:text-sm dark:bg-input/30",
+          "flex w-full min-w-0 items-center rounded-lg border border-input bg-transparent px-2.5 text-base tabular-nums transition-colors outline-none md:text-sm",
           "data-focus-within:border-ring data-focus-within:ring-3 data-focus-within:ring-ring/50",
           "data-invalid:border-destructive data-invalid:ring-3 data-invalid:ring-destructive/20 dark:data-invalid:border-destructive/50 dark:data-invalid:ring-destructive/40",
           "data-disabled:cursor-not-allowed data-disabled:bg-input/50 data-disabled:opacity-50 dark:data-disabled:bg-input/80",

@@ -39,13 +39,13 @@ A piece with no gap listed may still have some.
 | `avatar` | reviewed | **Edited:** every part a `span`; hidden from screen readers, its picture with no alt and its initials hidden; its initials while the picture loads, and a new picture tried again; a row's size in an `Item`; `AvatarBadge` takes the app's words, heard, and is not drawn at 24 px; `AvatarGroup` is an image named by the app's words, its count hidden; their rings the surface's colour |
 | `badge` | reviewed | **Edited:** `badgeVariants` is not exported; `success`, `warning` and `info` variants, drawn as `destructive`; it only shows, with no `render`, `ghost`, `link`, hover or focus; and its words wrap, its corners `xl` |
 | `breadcrumb` | raw | **Edited:** the current page is React Aria's Link, marked and disabled. **Default text:** "breadcrumb" and "More" |
-| `button` | raw | **Edited:** default 36 px, `sm` 32 and `lg` 40, the same for `icon`, `icon-sm` and `icon-lg`, with the variant `gold`. `sm`'s text is 12 px, `secondary`'s hover reads `--secondary-hover`, and `buttonVariants` is not exported |
+| `button` | raw | **Edited:** default 36 px, `sm` 32 and `lg` 40, the same for `icon`, `icon-sm` and `icon-lg`, with the variant `gold`. `sm`'s text is 12 px, `secondary`'s hover reads `--secondary-hover`, `outline` has no fill of `--input` in dark, as in light, and `buttonVariants` is not exported |
 | `button-group` | raw | **Edited:** React Aria's `Group`, and `buttonGroupVariants` is not exported |
 | `card` | reviewed | **Edited:** `CardTitle` is a heading, one level below where the card sits, and what a titled card holds one level below it; `size="lg"`, 24 px and a section's title; `CardAction` lays several controls in a row, 8 px apart, wrapping; it reads the scale of text, with 20 px around its content, sets `--surface`, and a content holding only a table, a selection bar and a table, or numbers joined in one box runs edge to edge, from its top when it has no header; an `AspectRatio` as its first child is its cover, edge to edge |
-| `checkbox` | raw | **Code:** does not grow for its children. **Edited:** on React Aria's `CheckboxField` and `CheckboxButton`, and a dash on a filled box when indeterminate |
+| `checkbox` | raw | **Code:** does not grow for its children. **Edited:** on React Aria's `CheckboxField` and `CheckboxButton`, and a dash on a filled box when indeterminate, and no fill in dark, as in light |
 | `collapsible` | raw | **Code:** its trigger has no style of its own |
 | `context-menu` | raw | |
-| `date-field` | reviewed | **Edited:** `lg` 40 px, beside 36 and `sm` 32 |
+| `date-field` | reviewed | **Edited:** `lg` 40 px, beside 36 and `sm` 32, and no fill in dark, as in light |
 | `date-time` | reviewed | |
 | `dialog` | raw | **Edited:** 16 px from each edge by `inset-x-4`, and React Aria's types are not exported, and its close button's name comes from `closeLabel`, and it sets `--surface` |
 | `dropdown-menu` | raw | |
@@ -53,23 +53,23 @@ A piece with no gap listed may still have some.
 | `field` | raw | **Code:** does not link its description or error, which its story does by hand. **Edited:** React Aria's `Group` |
 | `hover-card` | raw | **Code:** its dialog has no name unless given `aria-label`. Opening by focus or hover is not checked |
 | `icon-tile` | reviewed | |
-| `input` | raw | **Edited:** default 36 px, `sm` 32 and `lg` 40, by a `size` in place of the input's own, its width in characters |
-| `input-group` | raw | **Edited:** default 36 px, `sm` 32 and `lg` 40, its input as tall as the group, its addon is React Aria's `Group`, and pulls a button or `kbd` 4 or 2 px toward the edge |
+| `input` | raw | **Edited:** default 36 px, `sm` 32 and `lg` 40, by a `size` in place of the input's own, its width in characters, and no fill in dark, as in light |
+| `input-group` | raw | **Edited:** default 36 px, `sm` 32 and `lg` 40, its input as tall as the group, its addon is React Aria's `Group`, and pulls a button or `kbd` 4 or 2 px toward the edge, and no fill in dark, as in light |
 | `item` | reviewed | **Edited:** an icon is an `IconTile` in the item, which says its shape and size, and `ItemMedia` holds an image or an avatar. **Code:** `Item`'s `size` has `default` and `sm` the same, as shadcn's own file has them |
 | `kbd` | reviewed | **Edited:** `label`, a symbol's name in words, heard in its place; `KbdGroup` typed as the `kbd` it draws |
 | `label` | raw | |
 | `link` | reviewed | |
 | `moneta-provider` | reviewed | |
-| `native-select` | raw | **Edited:** default 36 px, `sm` 32 and `lg` 40 |
+| `native-select` | raw | **Edited:** default 36 px, `sm` 32 and `lg` 40, and no fill in dark, as in light |
 | `pagination` | reviewed | |
 | `percent` | reviewed | |
 | `popover` | raw | **Code:** its title does not name it |
 | `progress` | raw | **Edited:** indeterminate, a part of the bar runs across it, still and dashed with less motion |
 | `quantity` | reviewed | |
-| `radio-group` | raw | **Code:** an item does not grow for its children. **Edited:** on React Aria's `RadioField` and `RadioButton` |
+| `radio-group` | raw | **Code:** an item does not grow for its children. **Edited:** on React Aria's `RadioField` and `RadioButton`, and no fill in dark, as in light |
 | `section` | reviewed | |
 | `scroll-area` | reviewed | **Edited:** named by `aria-label` or `aria-labelledby`, required; a region that takes focus only when what it holds overflows; the browser's scrollbar; a shadow at each end where it goes on; it fills what is left of its place |
-| `select` | raw | **Edited:** default 36 px, `sm` 32 and `lg` 40, and its separator is hidden from screen readers. **forced colours:** the chevron keeps its own colour, in Chromium |
+| `select` | raw | **Edited:** default 36 px, `sm` 32 and `lg` 40, its separator is hidden from screen readers, and no fill in dark, as in light. **forced colours:** the chevron keeps its own colour, in Chromium |
 | `separator` | reviewed | |
 | `sheet` | raw | **Edited:** React Aria's types are not exported, its close button's name comes from `closeLabel`, it sets `--surface`, and its `aria-label` or `aria-labelledby` names its dialog |
 | `sidebar` | reviewed | |
@@ -81,7 +81,7 @@ A piece with no gap listed may still have some.
 | `switch` | raw | **Edited:** on React Aria's `SwitchField` and `SwitchButton`, with an 18 px track. **Code:** does not grow for its children |
 | `table` | reviewed | |
 | `tabs` | raw | **Edited:** default 36 px, `sm` 32 and `lg` 40 on `TabsList`, and its inactive text reads `muted-foreground`, as `foreground/60` is 3.89:1 on our `muted`, its trigger is as tall as its list, and `tabsListVariants` is not exported |
-| `textarea` | raw | |
+| `textarea` | raw | **Edited:** no fill in dark, as in light |
 | `toggle` | raw | **Edited:** default 36 px, `sm` 32 and `lg` 40, `sm`'s text is 12 px, and `toggleVariants` is not exported |
 | `toggle-group` | raw | **Edited:** each item draws a `Toggle` |
 | `tooltip` | raw | **Code:** its trigger breaks with a Fragment as a child. While open, React Aria stops Esc from reaching what is around it, so in an overlay the first Esc closes only the tooltip. **Edited:** appears in 100 ms, as the other overlays |

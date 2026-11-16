@@ -25,6 +25,8 @@ import {
   SidebarTrigger,
 } from "./sidebar.js";
 
+// The sidebar's surface, a gradient of its own graphite and nothing over it.
+const gradient = /^linear-gradient/u;
 const name = "Main";
 const close = "Close the menu";
 const open = "Open the menu";
@@ -157,9 +159,8 @@ const Default: Story = {
     await expect(
       Math.round((icon as Element).getBoundingClientRect().width),
     ).toBe(iconSize);
-    await expect(getComputedStyle(nav).backgroundImage).toContain(
-      "radial-gradient",
-    );
+    // Its own graphite, darker at the top, with no glow of gold.
+    await expect(getComputedStyle(nav).backgroundImage).toMatch(gradient);
   },
 };
 

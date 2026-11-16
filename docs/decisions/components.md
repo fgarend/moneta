@@ -131,7 +131,7 @@ pieces is in [`../pieces.md`](../pieces.md), and how a piece is analysed is in [
   holds the link already. A filter that looks like one is a chip.
 - **Its variants:** `default`, dark and filled, shadcn's, for the one thing that should stand out; `secondary` for a
   kind or a count; `outline` for a quiet kind; and the meanings, `success`, `warning`, `destructive` and `info`, on a
-  tint of 10%, 20% in dark, for a state.
+  tint of 10%, for a state.
 - **A state takes an icon of its own shape,** written before its word with `data-icon="inline-start"`, as shadcn's
   badge takes one, 12 px and hidden from screen readers. No `dot`: a dot says a state from a kind, but not one state
   from another without colour.
@@ -185,7 +185,7 @@ pieces is in [`../pieces.md`](../pieces.md), and how a piece is analysed is in [
   in a fragment too; with no title, no name, and an `aria-label` given wins.
 - **An icon by its meaning,** drawn by the alert and hidden from screen readers, the same on every screen: a circle
   with a mark, a check, a triangle and an `i`. Its default has none unless the app writes one.
-- **A tint of its meaning,** 10% in light and 20% in dark, as a badge's, its icon and title in its meaning's colour
+- **A tint of its meaning,** 10% in both modes, as a badge's, its icon and title in its meaning's colour
   and its description in the text's; its default the card's, with its border.
 - **Its action a column at its end,** several controls 8 px apart in the text's colour, which moves under its words
   when the alert is narrower than 384 px, by a container query, as `SectionAction`.
@@ -321,7 +321,7 @@ pieces is in [`../pieces.md`](../pieces.md), and how a piece is analysed is in [
 - **The current page, `isActive`,** is said to screen readers by `aria-current="page"`, and drawn on `--sidebar-accent`
   with a bolder text, a gold icon and a 4 px bar at its start, a border, so forced colours keep it; its padding gives
   up the bar's width. Hover takes the background alone.
-- **256 px wide, items of 36 px and icons of 16,** on the theme's `sidebar-glow`, its sections' labels in
+- **256 px wide, items of 36 px and icons of 16,** on the theme's `sidebar-gradient`, its sections' labels in
   `--sidebar-muted-foreground`; a long label wraps.
 - **On a phone, below 768 px,** it leaves the screen, and `SidebarTrigger`, out of sight on a wider one, opens it in a
   `Sheet` from the start, named as the `nav` is, with `closeLabel` on its close button. A followed link closes it.

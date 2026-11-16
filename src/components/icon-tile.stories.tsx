@@ -30,11 +30,10 @@ function colourOf(value: string, near: Element): string {
   return color;
 }
 
-// The tint a tile draws from a colour, as the browser resolves it, in light and in dark.
+// The tint a tile draws from a colour, 10% in both modes, as the browser resolves it.
 function tintOf(value: string, near: Element): string {
-  const share = document.documentElement.classList.contains("dark") ? 20 : 10;
   const probe = document.createElement("span");
-  probe.style.backgroundColor = `color-mix(in oklab, ${value} ${share}%, transparent)`;
+  probe.style.backgroundColor = `color-mix(in oklab, ${value} 10%, transparent)`;
   near.append(probe);
   const { backgroundColor } = getComputedStyle(probe);
   probe.remove();

@@ -22,14 +22,14 @@ const variants = {
 
 // The colours of categories, in the theme's order: the icon in the colour, on a tenth of it, a fifth in dark.
 const categoryColours = [
-  "bg-category-1/10 text-category-1 dark:bg-category-1/20",
-  "bg-category-2/10 text-category-2 dark:bg-category-2/20",
-  "bg-category-3/10 text-category-3 dark:bg-category-3/20",
-  "bg-category-4/10 text-category-4 dark:bg-category-4/20",
-  "bg-category-5/10 text-category-5 dark:bg-category-5/20",
-  "bg-category-6/10 text-category-6 dark:bg-category-6/20",
-  "bg-category-7/10 text-category-7 dark:bg-category-7/20",
-  "bg-category-8/10 text-category-8 dark:bg-category-8/20",
+  "bg-category-1/10 text-category-1",
+  "bg-category-2/10 text-category-2",
+  "bg-category-3/10 text-category-3",
+  "bg-category-4/10 text-category-4",
+  "bg-category-5/10 text-category-5",
+  "bg-category-6/10 text-category-6",
+  "bg-category-7/10 text-category-7",
+  "bg-category-8/10 text-category-8",
 ];
 
 // A category from 1 takes its colour, and past the last they repeat; a number that names none takes no colour.

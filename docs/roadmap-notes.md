@@ -35,29 +35,6 @@ with each family. No reviewed piece has a default text, so shadcn's written stri
 **Done when:** an app can build every screen from Moneta's pieces with no class of its own, and leaves Tailwind for
 `styles.css`. Until then, it keeps Tailwind only for the classes it still writes.
 
-## The gold theme revised
-
-Drawn and chosen by the owner on 2026-11-16, before more pieces are reviewed on the old colours, as each one's
-screenshots change with it. The light theme's paper read as dirty: six of its neutrals sit at a yellow hue, 45° to 50°
-(`#faf9f6`, `#ecebe6`, `#eeede8`, `#e7e5df`, `#c8c5bc`, `#8e8c84`), beside a text, a sidebar and a dark that are cool,
-218° to 225°. The graphite and the gold stay.
-
-- **Light, chosen:** the page `#f8f9fa`, 1.05:1 from a white card, the paper's own step, as `#f5f6f8` at 1.08:1 cut the
-  cards out. The rest drawn on the graphite's hue: `--secondary` and `--accent` `#eef0f3`, `--muted` `#f1f3f5`,
-  `--border` `#e3e6ea`, `--border-strong` `#c4c9d0` and `--input` `#858b94`. Text, `--primary`, the sidebar and gold
-  as they are.
-- **Dark, chosen:** a lighter graphite in place of the near black, liked in a test of palettes on 2026-11-15: the page
-  `#2f3133`, a card `#3a3c3f`, the sidebar `#262829`, `--secondary`, `--muted` and `--accent` `#45484c`, `--border`
-  `#4a4d51`, `--border-strong` `#62666c`, `--input` `#8d939a`, text `#f1f3f5` and muted `#b4b9bf`.
-- **The sidebar, chosen:** a gradient of its own graphite, its top 12% darker (`#2a2d31` in light, `#212324` in dark)
-  down to `--sidebar` at 75% of its height, with no glow of gold. A top lighter instead failed: a section's label
-  at 4.2:1 and the item marked at 1.1:1 from it.
-- **Contrast, measured on the drawings:** text, muted text and the colours of meaning at 4.5:1 or more, and the
-  input and the eight categories at 3:1 or more, on the page and on a card in both modes; text on gold 8.7:1.
-- **To do then:** `docs/decisions/theme.md`, whose reasons for the warm paper, the near black and `sidebar-glow` change;
-  `test/theme.test.ts` and `.storybook/themes.ts`, which repeat the colours; the categories checked on their own
-  tints; the scroll shadow in the lighter dark; and every screenshot taken again.
-
 ## Display
 
 Each piece, at its step, follows the gallery's guide, as `docs/decisions/components.md` says: its page by `autodocs`,
