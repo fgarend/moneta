@@ -88,6 +88,8 @@ Each becomes an item when its time comes.
 
 ## Done
 
+- **A card's ends at every size.** A table, a list of rows and the selection bar run to a card's edges at its spacing,
+  12, 20 or 24 px, lined up with its title. 0.30.1.
 - **Kbd.** A key, or several pressed together, side by side, on `--muted`, a symbol's name in words heard in its
   place. 0.30.0.
 - **Separator.** A line between two groups, heard as a separator, across or upright, in `--border`, with no space of

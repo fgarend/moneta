@@ -40,7 +40,7 @@ type ListLoading =
     }
   | { isLoading?: never; loadingLabel?: never; loadingRows?: never };
 
-// A list's ends: a table's, 12 px loose on a page, where it reaches as much out, and 20 px in a card.
+// A list's ends: a table's, 12 px loose on a page, where it reaches as much out, and the card's spacing in a card.
 const listEnds =
   "group/item-group -mx-3 flex flex-col in-data-[slot=card]:mx-0";
 
@@ -119,7 +119,7 @@ function ItemGroup({
     >
       {isGroup ? (
         <div
-          className="flex items-baseline justify-between gap-3 border-b border-border-strong px-3 pb-1.5 in-data-[slot=card]:px-5"
+          className="flex items-baseline justify-between gap-3 border-b border-border-strong px-3 pb-1.5 in-data-[slot=card]:px-(--card-spacing)"
           data-slot="item-group-header"
         >
           <Heading
@@ -159,7 +159,7 @@ function LoadingRows({ count }: { count: number }) {
   return Array.from({ length: count }, (_, row) => (
     <li
       aria-hidden="true"
-      className="flex items-center gap-2.5 border-b px-3 py-3 last:border-0 in-data-[density=compact]:py-2 in-data-[slot=card]:px-5"
+      className="flex items-center gap-2.5 border-b px-3 py-3 last:border-0 in-data-[density=compact]:py-2 in-data-[slot=card]:px-(--card-spacing)"
       data-slot="item-loading"
       // biome-ignore lint/suspicious/noArrayIndexKey: shapes with no identity of their own.
       key={row}
@@ -182,7 +182,7 @@ function ItemEmpty({ className, ...props }: ComponentProps<"li">) {
   return (
     <li
       className={cn(
-        "px-3 py-10 text-center text-muted-foreground in-data-[slot=card]:px-5",
+        "px-3 py-10 text-center text-muted-foreground in-data-[slot=card]:px-(--card-spacing)",
         className,
       )}
       data-slot="item-empty"
@@ -287,7 +287,7 @@ function Item({
             aria-current={current}
             className={cn(
               rowFill,
-              "relative border-b px-3 py-3 last:border-0 in-data-[density=compact]:py-2 in-data-[slot=card]:px-5 has-[[data-slot=item-title]_a[href]]:cursor-pointer has-[[data-slot=item-title]_a[href]]:hover:[--row-hover:color-mix(in_oklab,var(--muted)_50%,transparent)] has-data-[slot=item-action]:hover:[--row-hover:color-mix(in_oklab,var(--muted)_50%,transparent)] aria-[current=true]:before:absolute aria-[current=true]:before:inset-y-0 aria-[current=true]:before:start-0 aria-[current=true]:before:w-0.75 aria-[current=true]:before:bg-primary",
+              "relative border-b px-3 py-3 last:border-0 in-data-[density=compact]:py-2 in-data-[slot=card]:px-(--card-spacing) has-[[data-slot=item-title]_a[href]]:cursor-pointer has-[[data-slot=item-title]_a[href]]:hover:[--row-hover:color-mix(in_oklab,var(--muted)_50%,transparent)] has-data-[slot=item-action]:hover:[--row-hover:color-mix(in_oklab,var(--muted)_50%,transparent)] aria-[current=true]:before:absolute aria-[current=true]:before:inset-y-0 aria-[current=true]:before:start-0 aria-[current=true]:before:w-0.75 aria-[current=true]:before:bg-primary",
             )}
             data-slot="item-row"
             ref={row as React.RefObject<HTMLLIElement>}

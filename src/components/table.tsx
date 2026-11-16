@@ -186,10 +186,9 @@ function useTable(part: string): TableState {
 const currentBar =
   "in-aria-[current=true]:first:before:absolute in-aria-[current=true]:first:before:inset-y-0 in-aria-[current=true]:first:before:start-0 in-aria-[current=true]:first:before:w-0.75 in-aria-[current=true]:first:before:bg-primary";
 
-// A table's ends: 12 px loose on a page, where its area reaches out as much, and 20 px in a card, lined up with its
-// title.
-const ends =
-  "first:ps-3 last:pe-3 in-data-[slot=card]:first:ps-5 in-data-[slot=card]:last:pe-5";
+// A table's ends, --table-end: 12 px loose on a page, where its area reaches out as much, and the card's spacing in a
+// card, lined up with its title at every size.
+const ends = "first:ps-(--table-end) last:pe-(--table-end)";
 
 /**
  * Rows compared down their columns, under headers.
@@ -345,6 +344,8 @@ function Table({
       className={cn(
         // Positioned, so a text hidden for screen readers, as a header's, stays in its scroll and never widens the page.
         "@container/table relative -mx-3 scroll-shadows overflow-x-auto in-data-[slot=card]:mx-0",
+        // Its ends, and what is measured from them: the box's column, 16 px, and a child's toggle, 40.
+        "[--table-end:--spacing(3)] in-data-[slot=card]:[--table-end:var(--card-spacing)] [--table-after-box:calc(var(--table-end)+--spacing(4))] [--table-after-toggle:calc(var(--table-end)+--spacing(10))]",
         // With a sticky header it fills its place and scrolls in it, clear of the header's 36 px when a row takes focus;
         // without, it grows with its rows.
         stickyHeader ? "max-h-full scroll-pt-9" : "shrink-0",
@@ -700,8 +701,8 @@ function TableHead({
               "sticky start-0 z-10 min-w-32 px-3 py-3 align-middle font-normal in-data-[density=compact]:py-2",
               currentBar,
               "sticky-fill",
-              // After a column of boxes that sticks too: the box and its start, 12 px loose and 20 in a card.
-              "in-[tr:has([data-slot=table-select])]:start-7 in-data-[slot=card]:in-[tr:has([data-slot=table-select])]:start-9",
+              // After a column of boxes that sticks too: the box and its start.
+              "in-[tr:has([data-slot=table-select])]:start-(--table-after-box)",
             )
           : cn(
               "h-9 px-3 align-middle type-label whitespace-nowrap text-muted-foreground first:sticky first:start-0 first:bg-(--surface) has-data-[slot=table-select-all]:w-px has-data-[slot=table-select-all]:pe-0",
@@ -710,8 +711,8 @@ function TableHead({
               "in-data-sticky-header:sticky in-data-sticky-header:top-0 in-data-sticky-header:z-20 in-data-sticky-header:bg-(--surface) in-data-sticky-header:after:absolute in-data-sticky-header:after:inset-x-0 in-data-sticky-header:after:bottom-0 in-data-sticky-header:after:h-px in-data-sticky-header:after:bg-border",
               // Once rows have children, the titles' header keeps their button's room too, 40 px, so it stands over their
               // text: the first column, or the second after the boxes.
-              "in-data-has-children:first:not-has-data-[slot=table-select-all]:ps-13 in-data-[slot=card]:in-data-has-children:first:not-has-data-[slot=table-select-all]:ps-15 in-data-has-children:in-[tr:has([data-slot=table-select-all])]:nth-2:ps-13",
-              "in-[tr:has([data-slot=table-select-all])]:nth-2:sticky in-[tr:has([data-slot=table-select-all])]:nth-2:start-7 in-[tr:has([data-slot=table-select-all])]:nth-2:bg-(--surface) in-data-[slot=card]:in-[tr:has([data-slot=table-select-all])]:nth-2:start-9",
+              "in-data-has-children:first:not-has-data-[slot=table-select-all]:ps-(--table-after-toggle) in-data-has-children:in-[tr:has([data-slot=table-select-all])]:nth-2:ps-13",
+              "in-[tr:has([data-slot=table-select-all])]:nth-2:sticky in-[tr:has([data-slot=table-select-all])]:nth-2:start-(--table-after-box) in-[tr:has([data-slot=table-select-all])]:nth-2:bg-(--surface)",
             ),
         className,
       )}
@@ -975,7 +976,7 @@ function TableSelectionBar({
     <div
       className={cn(
         isShown
-          ? "-mx-3 flex min-h-10 flex-wrap items-center gap-x-3 gap-y-2 rounded-md bg-muted px-3 py-1 in-data-[slot=card]:mx-0 in-data-[slot=card]:rounded-none in-data-[slot=card]:px-5"
+          ? "-mx-3 flex min-h-10 flex-wrap items-center gap-x-3 gap-y-2 rounded-md bg-muted px-3 py-1 in-data-[slot=card]:mx-0 in-data-[slot=card]:rounded-none in-data-[slot=card]:px-(--card-spacing)"
           : "contents",
         className,
       )}
