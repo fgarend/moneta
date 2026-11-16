@@ -118,6 +118,12 @@ the version installed. It holds only what exists, and each reviewed piece adds i
   narrow.
 - **Several things of one kind are one alert,** a list in its description, written as `<ul>` and `<li>`.
 
+## Separators
+
+- **A `Separator` parts two groups a screen reader should hear parted,** as in a menu, a form or a bar, across or
+  upright between controls in a row. A line only seen, as under a title, is a border.
+- **It has no space of its own:** the gap of the column or row it sits in places it.
+
 ## Avatars
 
 - **An avatar is a person's picture, or their initials, beside their name in words,** which is what a screen reader

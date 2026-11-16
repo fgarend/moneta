@@ -6,6 +6,14 @@ gets its number.
 
 ## [Unreleased]
 
+## [0.29.0] - 2026-11-15
+
+Separator reviewed: a line between two groups, heard as a separator.
+
+### Added
+
+- `Separator` reviewed: its page, the guidelines' Separators, and stories across and upright. It draws as before.
+
 ## [0.28.0] - 2026-11-15
 
 Avatar reviewed: a person beside their name, hidden from screen readers, its state and its group in the app's words.
@@ -541,7 +549,8 @@ and dark. `README.md` says how to install and use it.
 
 A rehearsal of the release's path, not meant to be installed. Use a later version.
 
-[Unreleased]: https://github.com/fgarend/moneta/compare/v0.28.0...HEAD
+[Unreleased]: https://github.com/fgarend/moneta/compare/v0.29.0...HEAD
+[0.29.0]: https://github.com/fgarend/moneta/compare/v0.28.0...v0.29.0
 [0.28.0]: https://github.com/fgarend/moneta/compare/v0.27.1...v0.28.0
 [0.27.1]: https://github.com/fgarend/moneta/compare/v0.27.0...v0.27.1
 [0.27.0]: https://github.com/fgarend/moneta/compare/v0.26.0...v0.27.0

@@ -138,6 +138,13 @@ pieces is in [`../pieces.md`](../pieces.md), and how a piece is analysed is in [
 - **A kind takes its word alone,** in `secondary`; its category's colour stays on the row's IconTile.
 - **Its words wrap** rather than leave their column, line under line, each 20 px, its corners the theme's `xl`.
 
+### Separator
+
+- **Heard as a separator,** React Aria's: a `<hr>` across, and an upright line with its orientation. A line only seen
+  is a border.
+- **No space of its own,** as shadcn's: the gap of the column or row it sits in places it. **In `--border`,** the line
+  of a card's edge and a list's rows.
+
 ### Avatar
 
 - **Hidden from screen readers,** as an `IconTile`: its picture takes no alt and its initials are hidden, as the name
@@ -354,6 +361,8 @@ pieces is in [`../pieces.md`](../pieces.md), and how a piece is analysed is in [
   keeps it the same. **Words that wrap,** as no word is lost. **What it costs:** a row with a long badge grows. **The
   page's three parts,** as a guide that shows only what to do leaves out what not to, **on the piece whose page it
   is,** as a part's trap is read first there. **What it costs:** a part's tab says less than its piece's page.
+- **A separator heard,** as React Aria draws it, so the menus that use it keep their meaning. **What it costs:** an
+  app that draws a line only for its look makes a screen reader say "separator", which its page warns against.
 - **An avatar always hidden,** as every app writes the name beside it, so a name in it is heard twice. **What it
   costs:** an avatar alone says nothing, which its page does not recommend. **Its size from a row,** as an
   `IconTile`'s, so the rows' titles line up. **What it costs:** its size is not seen in the code that uses it. **A
@@ -544,6 +553,9 @@ pieces is in [`../pieces.md`](../pieces.md), and how a piece is analysed is in [
 - **A badge drawn as a link,** by `render`, as shadcn's. **A `dot` on a state,** as the prototype's. **A kind in its
   category's colour,** which needs eight more shades of text in each mode. **A soft `default`,** as the prototype's,
   which drops `secondary`. **An ellipsis on a long badge,** which hides words with no way to read them.
+- **A decorative separator by default,** Radix', which takes the meaning from the menus' unless each asks for it.
+  **Space of its own,** 16 px, which adds to a column's gap. **`--border-strong`,** which competes with the line under
+  a group's title.
 - **An avatar named by an optional `name`,** which says a name twice beside the one in words. **The text's colour for
   its initials,** 12.95:1, which competes with the name. **Its badge removed,** or **at 12 px with an 8 px icon at
   24 px,** which covers a small avatar. **Its group removed** until a use. **An empty circle while its picture
@@ -638,3 +650,4 @@ pieces is in [`../pieces.md`](../pieces.md), and how a piece is analysed is in [
 - 2026-11-15: Alert.
 - 2026-11-15: A card with no title, under a section's.
 - 2026-11-15: Avatar.
+- 2026-11-15: Separator.

@@ -70,7 +70,7 @@ A piece with no gap listed may still have some.
 | `section` | reviewed | |
 | `scroll-area` | raw | **axe:** takes no focus when nothing in it can, so the keyboard cannot scroll it. **reflow:** the same at 320 px, where its lines overflow |
 | `select` | raw | **Edited:** default 36 px, `sm` 32 and `lg` 40, and its separator is hidden from screen readers. **forced colours:** the chevron keeps its own colour, in Chromium |
-| `separator` | raw | |
+| `separator` | reviewed | |
 | `sheet` | raw | **Edited:** React Aria's types are not exported, its close button's name comes from `closeLabel`, it sets `--surface`, and its `aria-label` or `aria-labelledby` names its dialog |
 | `sidebar` | reviewed | |
 | `skeleton` | raw | **Edited:** it pulses only when its reader has not asked for less motion |
