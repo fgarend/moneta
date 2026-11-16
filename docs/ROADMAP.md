@@ -11,7 +11,7 @@ known and what is still to ask, are in [`roadmap-notes.md`](roadmap-notes.md), r
 1. **The gold theme revised.** Cool greys and white in light, in place of the yellowish ones, a lighter graphite in
    dark, and a graphite gradient on the sidebar in place of its gold glow.
 2. **Display.** The pieces that show, reviewed or made.
-    - ScrollArea, then DescriptionList, Timeline and TickerChip
+    - DescriptionList, Timeline and TickerChip
 3. **Actions and forms.** The pieces that act and take input, reviewed or made.
     - Button, ButtonGroup and PageHeader
     - Input, InputGroup, Textarea, Label, Field, NativeSelect, Select and SearchField
@@ -85,11 +85,16 @@ Each becomes an item when its time comes.
   style sheets.
 - **An overlay stuck entering or leaving in WebKit and Chromium.** React Aria waits on a transition the browser
   cancels, as `duration-100` makes every property transition; found headless in WebKit on 2026-11-11, and in Chromium
-  as a sidebar's sheet closed on 2026-11-12. Whether a browser with a window does it is unknown.
+  as a sidebar's sheet closed on 2026-11-12, and in WebKit as it opened, its focus left on the page, once on
+  2026-11-16. Whether a browser with a window does it is unknown.
+- **A table's area in the focus test.** It takes focus when it scrolls, as ScrollArea does, and the focus test
+  does not draw it; found on 2026-11-16.
 - **The Harbor theme.** A second look, in blue, light and dark, which an app chooses in place of the gold one.
 
 ## Done
 
+- **ScrollArea.** An area that fills what is left of its place and scrolls there, a named region that takes focus
+  only when it scrolls, with the browser's scrollbar and a shadow where it goes on. 0.32.0.
 - **AspectRatio.** A box of one shape that a picture fills, cropped, on `--muted` with the corners of an alert, and a
   card's cover as its first child, edge to edge. 0.31.0.
 - **A card's ends at every size.** A table, a list of rows and the selection bar run to a card's edges at its spacing,

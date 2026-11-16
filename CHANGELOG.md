@@ -6,6 +6,22 @@ gets its number.
 
 ## [Unreleased]
 
+## [0.32.0] - 2026-11-16
+
+ScrollArea reviewed: a named area that scrolls in its place, reached by the keyboard when it scrolls.
+
+### Added
+
+- `ScrollArea` reviewed: its page, the guidelines' Areas that scroll, and a shadow at each end where it goes on.
+
+### Changed
+
+- **Breaking:** `ScrollArea` takes its name, `aria-label` or `aria-labelledby`, as `Table`, which a screen reader
+  hears when it takes focus. When what it holds overflows, it is a region that takes focus, so the keyboard scrolls
+  it. To upgrade, give it your words, or the title's id.
+- **Breaking:** `ScrollArea` fills what is left of its place, which sets its height, and shows the browser's
+  scrollbar. To upgrade, drop the height written on it, and give its place one.
+
 ## [0.31.0] - 2026-11-16
 
 AspectRatio reviewed: a picture that fills its shape, cropped, and a card's cover.
@@ -582,7 +598,8 @@ and dark. `README.md` says how to install and use it.
 
 A rehearsal of the release's path, not meant to be installed. Use a later version.
 
-[Unreleased]: https://github.com/fgarend/moneta/compare/v0.31.0...HEAD
+[Unreleased]: https://github.com/fgarend/moneta/compare/v0.32.0...HEAD
+[0.32.0]: https://github.com/fgarend/moneta/compare/v0.31.0...v0.32.0
 [0.31.0]: https://github.com/fgarend/moneta/compare/v0.30.1...v0.31.0
 [0.30.1]: https://github.com/fgarend/moneta/compare/v0.30.0...v0.30.1
 [0.30.0]: https://github.com/fgarend/moneta/compare/v0.29.0...v0.30.0

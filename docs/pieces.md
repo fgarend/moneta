@@ -68,7 +68,7 @@ A piece with no gap listed may still have some.
 | `quantity` | reviewed | |
 | `radio-group` | raw | **Code:** an item does not grow for its children. **Edited:** on React Aria's `RadioField` and `RadioButton` |
 | `section` | reviewed | |
-| `scroll-area` | raw | **axe:** takes no focus when nothing in it can, so the keyboard cannot scroll it. **reflow:** the same at 320 px, where its lines overflow |
+| `scroll-area` | reviewed | **Edited:** named by `aria-label` or `aria-labelledby`, required; a region that takes focus only when what it holds overflows; the browser's scrollbar; a shadow at each end where it goes on; it fills what is left of its place |
 | `select` | raw | **Edited:** default 36 px, `sm` 32 and `lg` 40, and its separator is hidden from screen readers. **forced colours:** the chevron keeps its own colour, in Chromium |
 | `separator` | reviewed | |
 | `sheet` | raw | **Edited:** React Aria's types are not exported, its close button's name comes from `closeLabel`, it sets `--surface`, and its `aria-label` or `aria-labelledby` names its dialog |

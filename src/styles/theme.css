@@ -216,7 +216,7 @@
 
 /* Keyboard focus, as a solid outline, which a shadow ring is not in forced colours and fails 3:1 at 50%. Unlayered, so it
    beats each piece's outline-none. shadcn's own rule, widened to fields, to what keeps focus on a hidden input, and to
-   a date field's box, around the part that has it. */
+   a date field's box, around the part that has it, and to an area that scrolls. */
 :is(
   button,
   a[href],
@@ -228,7 +228,8 @@
   [role="checkbox"],
   [role="radio"],
   [role="switch"],
-  [role="slider"]
+  [role="slider"],
+  [data-slot="scroll-area"]
 ):focus-visible,
 :is(
   [data-slot="checkbox"],
@@ -279,6 +280,36 @@
       transparent
     )
     right / 0.75rem 100% no-repeat scroll,
+    var(--surface);
+}
+
+/* The same, at each of its four ends, for an area that scrolls across and down. */
+@utility scroll-shadows-xy {
+  background:
+    linear-gradient(to right, var(--surface) 30%, transparent) left / 2.5rem
+    100% no-repeat local,
+    linear-gradient(to left, var(--surface) 30%, transparent) right / 2.5rem
+    100% no-repeat local,
+    linear-gradient(to bottom, var(--surface) 30%, transparent) top / 100%
+    2.5rem no-repeat local,
+    linear-gradient(to top, var(--surface) 30%, transparent) bottom / 100%
+    2.5rem no-repeat local,
+    radial-gradient(farthest-side at 0 50%, var(--scroll-shadow), transparent)
+    left / 0.75rem 100% no-repeat scroll,
+    radial-gradient(
+      farthest-side at 100% 50%,
+      var(--scroll-shadow),
+      transparent
+    )
+    right / 0.75rem 100% no-repeat scroll,
+    radial-gradient(farthest-side at 50% 0, var(--scroll-shadow), transparent)
+    top / 100% 0.75rem no-repeat scroll,
+    radial-gradient(
+      farthest-side at 50% 100%,
+      var(--scroll-shadow),
+      transparent
+    )
+    bottom / 100% 0.75rem no-repeat scroll,
     var(--surface);
 }
 

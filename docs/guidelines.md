@@ -138,6 +138,15 @@ the version installed. It holds only what exists, and each reviewed piece adds i
 - **A document read whole, as a receipt or a statement, keeps its own shape,** as a crop would hide a value; text
   never goes in one.
 
+## Areas that scroll
+
+- **A long list or text in a place of fixed height goes in a `ScrollArea`,** as a panel's body, a card as tall as the
+  one beside it or a column: it fills what is left under the title and scrolls there. In a place that grows, let the
+  page scroll.
+- **Name it with the title above it,** as `aria-labelledby`, or your words in `aria-label`, which a screen reader
+  hears when it takes focus.
+- **A table, a menu, a select and the sidebar scroll their own lists:** none goes in one.
+
 ## Avatars
 
 - **An avatar is a person's picture, or their initials, beside their name in words,** which is what a screen reader

@@ -156,6 +156,16 @@ pieces is in [`../pieces.md`](../pieces.md), and how a piece is analysed is in [
   `--muted` until it loads and with the corners of an alert, `--radius`.
 - **A card's cover:** as a `Card`'s first child it reaches the card's edge, with the card's corners, as an `img` does.
 
+### ScrollArea
+
+- **Named, and a stop only when it scrolls:** `aria-label` or `aria-labelledby`, one of them, required, as `Table`'s.
+  When what it holds overflows, it is a region with that name that takes focus, so the arrows scroll it, measured as
+  `Table` measures its area; one that fits adds no stop.
+- **The browser's scrollbar,** as `Table`, `Sidebar` and the menus have it, and **a shadow at each end where it goes
+  on,** across and down, by `scroll-shadows` on `--surface`.
+- **It fills its place:** what is left of a column of fixed height, as a panel's or a card's, shrinking to it as
+  any area that scrolls does.
+
 ### Avatar
 
 - **Hidden from screen readers,** as an `IconTile`: its picture takes no alt and its initials are hidden, as the name
@@ -383,6 +393,12 @@ pieces is in [`../pieces.md`](../pieces.md), and how a piece is analysed is in [
   costs:** a picture loses its sides or its top, so a document read whole does not take it. **`--muted` and corners
   of its own,** so its area shows before the picture loads. **A card's cover,** so covers of a grid of cards are of
   one height. **What it costs:** an edit to `Card`, which takes it as it takes an `img`.
+- **An area named and a stop only when it scrolls,** as `Table`'s, so the keyboard reaches what overflows and adds no
+  stop where it fits. **What it costs:** it measures itself, and every app names it. **The browser's scrollbar,** the
+  same as every other area's and outside 1.4.11. **What it costs:** its look is each system's. **A shadow where it
+  goes on,** as macOS hides a scrollbar until it scrolls. **What it costs:** it draws on `--surface`, so a place of
+  another colour sets it. **It fills its place,** so an app writes no height. **What it costs:** in a place that
+  grows, it never scrolls.
 - **An avatar always hidden,** as every app writes the name beside it, so a name in it is heard twice. **What it
   costs:** an avatar alone says nothing, which its page does not recommend. **Its size from a row,** as an
   `IconTile`'s, so the rows' titles line up. **What it costs:** its size is not seen in the code that uses it. **A
@@ -581,6 +597,9 @@ pieces is in [`../pieces.md`](../pieces.md), and how a piece is analysed is in [
 - **A picture shown whole,** with bands of `--muted`, which keeps a document's values but leaves the box half empty.
   **Nothing of its own,** which leaves a blank until the picture loads. **A cover only inside `CardContent`,** which
   keeps the card's padding around it.
+- **Focus always,** a stop that does nothing when it fits. **An optional name,** a region heard with no name. **A
+  thin scrollbar in `--border`,** 1.20:1, or **in `--input`,** 3.20:1, drawn unlike the rest. **A height of the app's,**
+  a class, or **a prop of heights,** a scale no other piece has.
 - **An avatar named by an optional `name`,** which says a name twice beside the one in words. **The text's colour for
   its initials,** 12.95:1, which competes with the name. **Its badge removed,** or **at 12 px with an 8 px icon at
   24 px,** which covers a small avatar. **Its group removed** until a use. **An empty circle while its picture
@@ -679,3 +698,4 @@ pieces is in [`../pieces.md`](../pieces.md), and how a piece is analysed is in [
 - 2026-11-15: Kbd.
 - 2026-11-15: A card's ends at every size.
 - 2026-11-16: AspectRatio.
+- 2026-11-16: ScrollArea.
