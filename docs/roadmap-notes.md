@@ -35,6 +35,15 @@ with each family. No reviewed piece has a default text, so shadcn's written stri
 **Done when:** an app can build every screen from Moneta's pieces with no class of its own, and leaves Tailwind for
 `styles.css`. Until then, it keeps Tailwind only for the classes it still writes.
 
+## Light's neutrals in a true grey
+
+Asked by the owner through an app on 2026-11-16, after 0.33.0: the light neutrals on the graphite's hue read slightly
+bluish. Decided on 2026-11-16: the page, `--secondary`, `--accent`, `--muted`, `--border`, `--border-strong` and
+`--input` in a true grey, red, green and blue equal, each at its own lightness, so every contrast holds: `#f9f9f9`,
+`#f0f0f0`, `#f0f0f0`, `#f3f3f3`, `#e6e6e6`, `#c8c8c8` and `#8a8a8a`, `--input` at 3.28:1 on the page. The text,
+`--primary`, the sidebar, gold and dark stay. Against keeping the graphite's hue, chosen the same day, which a true
+grey beside the cool text may read a little warmer than; far less than the yellow before.
+
 ## Display
 
 Each piece, at its step, follows the gallery's guide, as `docs/decisions/components.md` says: its page by `autodocs`,
