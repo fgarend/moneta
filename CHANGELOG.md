@@ -6,6 +6,10 @@ gets its number.
 
 ## [Unreleased]
 
+## [0.30.1] - 2026-11-15
+
+A card's table and list line up with its title at every size.
+
 ### Fixed
 
 - In a `Card` of `size="sm"` or `size="lg"`, a table, a list of rows, its group's header and the selection bar running
@@ -563,7 +567,8 @@ and dark. `README.md` says how to install and use it.
 
 A rehearsal of the release's path, not meant to be installed. Use a later version.
 
-[Unreleased]: https://github.com/fgarend/moneta/compare/v0.30.0...HEAD
+[Unreleased]: https://github.com/fgarend/moneta/compare/v0.30.1...HEAD
+[0.30.1]: https://github.com/fgarend/moneta/compare/v0.30.0...v0.30.1
 [0.30.0]: https://github.com/fgarend/moneta/compare/v0.29.0...v0.30.0
 [0.29.0]: https://github.com/fgarend/moneta/compare/v0.28.0...v0.29.0
 [0.28.0]: https://github.com/fgarend/moneta/compare/v0.27.1...v0.28.0
