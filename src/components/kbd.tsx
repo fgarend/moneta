@@ -1,7 +1,30 @@
 import { cn } from "cn";
+import type { ComponentProps } from "react";
 import { Keyboard as KbdPrimitive } from "react-aria-components";
 
-function Kbd({ className, ...props }: React.ComponentProps<"kbd">) {
+/**
+ * A key to press, or several pressed together, as a shortcut beside the action it takes.
+ *
+ * **Use it for**
+ *
+ * - A shortcut beside its action, in a menu, a tooltip or a hint, each key a `Kbd` in a `KbdGroup`, side by side.
+ * - A key shown as a symbol, as ⌘, with its name in words in `label`, as "Command", which a screen reader hears.
+ *
+ * **Not recommended**
+ *
+ * - The only way to an action: every shortcut has a control that a pointer and a screen reader reach.
+ * - A sequence, as G then I, with nothing between: write your word for "then" between its groups.
+ * - A label or a count: use `Badge`.
+ */
+function Kbd({
+  className,
+  label,
+  children,
+  ...props
+}: ComponentProps<"kbd"> & {
+  /** The key's name in words, as "Command" for ⌘, which a screen reader hears in place of its symbol. */
+  label?: string;
+}) {
   return (
     <KbdPrimitive
       data-slot="kbd"
@@ -10,11 +33,21 @@ function Kbd({ className, ...props }: React.ComponentProps<"kbd">) {
         className,
       )}
       {...props}
-    />
+    >
+      {label === undefined ? (
+        children
+      ) : (
+        <>
+          <span aria-hidden="true">{children}</span>
+          <span className="sr-only">{label}</span>
+        </>
+      )}
+    </KbdPrimitive>
   );
 }
 
-function KbdGroup({ className, ...props }: React.ComponentProps<"div">) {
+// Keys pressed together, side by side, inside one kbd.
+function KbdGroup({ className, ...props }: ComponentProps<"kbd">) {
   return (
     <KbdPrimitive
       data-slot="kbd-group"

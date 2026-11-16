@@ -144,6 +144,11 @@ pieces is in [`../pieces.md`](../pieces.md), and how a piece is analysed is in [
   is a border.
 - **No space of its own,** as shadcn's: the gap of the column or row it sits in places it. **In `--border`,** the line
   of a card's edge and a list's rows.
+### Kbd
+
+- **A key, React Aria's `Keyboard`,** a `kbd` of 20 px on `--muted`, with no border; keys pressed together side by
+  side in a `KbdGroup`, itself a `kbd`.
+- **A symbol's name in words:** `label`, as "Command" for ⌘, is heard in its place, the symbol hidden.
 
 ### Avatar
 
@@ -363,6 +368,9 @@ pieces is in [`../pieces.md`](../pieces.md), and how a piece is analysed is in [
   is,** as a part's trap is read first there. **What it costs:** a part's tab says less than its piece's page.
 - **A separator heard,** as React Aria draws it, so the menus that use it keep their meaning. **What it costs:** an
   app that draws a line only for its look makes a screen reader say "separator", which its page warns against.
+- **A symbol's name in words,** as a screen reader reads ⌘ as "place of interest sign". **What it costs:** one prop,
+  which the app gives each symbol. **Keys side by side,** as shadcn, GitHub and Linear. **What it costs:** keys pressed
+  together look as a sequence would, so a sequence writes "then" between its groups.
 - **An avatar always hidden,** as every app writes the name beside it, so a name in it is heard twice. **What it
   costs:** an avatar alone says nothing, which its page does not recommend. **Its size from a row,** as an
   `IconTile`'s, so the rows' titles line up. **What it costs:** its size is not seen in the code that uses it. **A
@@ -556,6 +564,8 @@ pieces is in [`../pieces.md`](../pieces.md), and how a piece is analysed is in [
 - **A decorative separator by default,** Radix', which takes the meaning from the menus' unless each asks for it.
   **Space of its own,** 16 px, which adds to a column's gap. **`--border-strong`,** which competes with the line under
   a group's title.
+- **A symbol alone,** heard as its Unicode name, or **words alone,** where a Mac shows symbols. **A "+" between
+  keys.** **A key with a border and a thicker foot,** as a physical key, which weighs more in a menu's row.
 - **An avatar named by an optional `name`,** which says a name twice beside the one in words. **The text's colour for
   its initials,** 12.95:1, which competes with the name. **Its badge removed,** or **at 12 px with an 8 px icon at
   24 px,** which covers a small avatar. **Its group removed** until a use. **An empty circle while its picture
@@ -651,3 +661,4 @@ pieces is in [`../pieces.md`](../pieces.md), and how a piece is analysed is in [
 - 2026-11-15: A card with no title, under a section's.
 - 2026-11-15: Avatar.
 - 2026-11-15: Separator.
+- 2026-11-15: Kbd.

@@ -6,6 +6,11 @@ gets its number.
 
 ## [Unreleased]
 
+### Added
+
+- `Kbd` reviewed: its page, the guidelines' Keys, and `label`, a symbol's name in words, as "Command" for ⌘, which a
+  screen reader hears in its place.
+
 ## [0.29.0] - 2026-11-15
 
 Separator reviewed: a line between two groups, heard as a separator.

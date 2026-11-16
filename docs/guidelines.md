@@ -123,6 +123,12 @@ the version installed. It holds only what exists, and each reviewed piece adds i
 - **A `Separator` parts two groups a screen reader should hear parted,** as in a menu, a form or a bar, across or
   upright between controls in a row. A line only seen, as under a title, is a border.
 - **It has no space of its own:** the gap of the column or row it sits in places it.
+## Keys
+
+- **A shortcut goes beside its action,** in a menu, a tooltip or a hint, each key a `Kbd` in a `KbdGroup`, side by
+  side. It is never the only way to the action.
+- **A key shown as a symbol takes its name in words,** as `<Kbd label="Command">⌘</Kbd>`. A sequence writes your word
+  for "then" between its groups.
 
 ## Avatars
 

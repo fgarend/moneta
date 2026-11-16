@@ -56,7 +56,7 @@ A piece with no gap listed may still have some.
 | `input` | raw | **Edited:** default 36 px, `sm` 32 and `lg` 40, by a `size` in place of the input's own, its width in characters |
 | `input-group` | raw | **Edited:** default 36 px, `sm` 32 and `lg` 40, its input as tall as the group, its addon is React Aria's `Group`, and pulls a button or `kbd` 4 or 2 px toward the edge |
 | `item` | reviewed | **Edited:** an icon is an `IconTile` in the item, which says its shape and size, and `ItemMedia` holds an image or an avatar. **Code:** `Item`'s `size` has `default` and `sm` the same, as shadcn's own file has them |
-| `kbd` | raw | |
+| `kbd` | reviewed | **Edited:** `label`, a symbol's name in words, heard in its place; `KbdGroup` typed as the `kbd` it draws |
 | `label` | raw | |
 | `link` | reviewed | |
 | `moneta-provider` | reviewed | |
