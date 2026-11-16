@@ -59,6 +59,7 @@ const pages: Record<string, string> = {
   pagination: "Pagination",
   percent: "Percent",
   quantity: "Quantity",
+  "scroll-area": "ScrollArea",
   section: "Section",
   separator: "Separator",
   sidebar: "Sidebar",

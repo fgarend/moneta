@@ -23,6 +23,7 @@ import {
 import { Input } from "../src/components/input.js";
 import { Link } from "../src/components/link.js";
 import { RadioGroup, RadioGroupItem } from "../src/components/radio-group.js";
+import { ScrollArea } from "../src/components/scroll-area.js";
 import {
   Select,
   SelectContent,
@@ -155,6 +156,16 @@ const pieces: [string, ReactElement][] = [
       </TabsList>
       <TabsContent id={label}>{label}</TabsContent>
     </Tabs>,
+  ],
+  [
+    "ScrollArea",
+    <div className="flex h-10 flex-col" key="a">
+      <ScrollArea aria-label={label}>
+        <p>{label}</p>
+        <p>{label}</p>
+        <p>{label}</p>
+      </ScrollArea>
+    </div>,
   ],
 ];
 

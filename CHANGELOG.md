@@ -6,6 +6,18 @@ gets its number.
 
 ## [Unreleased]
 
+### Added
+
+- `ScrollArea` reviewed: its page, the guidelines' Areas that scroll, and a shadow at each end where it goes on.
+
+### Changed
+
+- **Breaking:** `ScrollArea` takes its name, `aria-label` or `aria-labelledby`, as `Table`, which a screen reader
+  hears when it takes focus. When what it holds overflows, it is a region that takes focus, so the keyboard scrolls
+  it. To upgrade, give it your words, or the title's id.
+- **Breaking:** `ScrollArea` fills what is left of its place, which sets its height, and shows the browser's
+  scrollbar. To upgrade, drop the height written on it, and give its place one.
+
 ## [0.31.0] - 2026-11-16
 
 AspectRatio reviewed: a picture that fills its shape, cropped, and a card's cover.
