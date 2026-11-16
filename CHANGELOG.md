@@ -6,6 +6,10 @@ gets its number.
 
 ## [Unreleased]
 
+## [0.32.0] - 2026-11-16
+
+ScrollArea reviewed: a named area that scrolls in its place, reached by the keyboard when it scrolls.
+
 ### Added
 
 - `ScrollArea` reviewed: its page, the guidelines' Areas that scroll, and a shadow at each end where it goes on.
@@ -594,7 +598,8 @@ and dark. `README.md` says how to install and use it.
 
 A rehearsal of the release's path, not meant to be installed. Use a later version.
 
-[Unreleased]: https://github.com/fgarend/moneta/compare/v0.31.0...HEAD
+[Unreleased]: https://github.com/fgarend/moneta/compare/v0.32.0...HEAD
+[0.32.0]: https://github.com/fgarend/moneta/compare/v0.31.0...v0.32.0
 [0.31.0]: https://github.com/fgarend/moneta/compare/v0.30.1...v0.31.0
 [0.30.1]: https://github.com/fgarend/moneta/compare/v0.30.0...v0.30.1
 [0.30.0]: https://github.com/fgarend/moneta/compare/v0.29.0...v0.30.0
