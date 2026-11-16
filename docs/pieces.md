@@ -35,13 +35,13 @@ A piece with no gap listed may still have some.
 | `alert-dialog` | raw | |
 | `amount` | reviewed | |
 | `app-layout` | reviewed | |
-| `aspect-ratio` | raw | |
+| `aspect-ratio` | reviewed | **Edited:** what it holds fills it, cropped, on `--muted` with corners `--radius` |
 | `avatar` | reviewed | **Edited:** every part a `span`; hidden from screen readers, its picture with no alt and its initials hidden; its initials while the picture loads, and a new picture tried again; a row's size in an `Item`; `AvatarBadge` takes the app's words, heard, and is not drawn at 24 px; `AvatarGroup` is an image named by the app's words, its count hidden; their rings the surface's colour |
 | `badge` | reviewed | **Edited:** `badgeVariants` is not exported; `success`, `warning` and `info` variants, drawn as `destructive`; it only shows, with no `render`, `ghost`, `link`, hover or focus; and its words wrap, its corners `xl` |
 | `breadcrumb` | raw | **Edited:** the current page is React Aria's Link, marked and disabled. **Default text:** "breadcrumb" and "More" |
 | `button` | raw | **Edited:** default 36 px, `sm` 32 and `lg` 40, the same for `icon`, `icon-sm` and `icon-lg`, with the variant `gold`. `sm`'s text is 12 px, `secondary`'s hover reads `--secondary-hover`, and `buttonVariants` is not exported |
 | `button-group` | raw | **Edited:** React Aria's `Group`, and `buttonGroupVariants` is not exported |
-| `card` | reviewed | **Edited:** `CardTitle` is a heading, one level below where the card sits, and what a titled card holds one level below it; `size="lg"`, 24 px and a section's title; `CardAction` lays several controls in a row, 8 px apart, wrapping; it reads the scale of text, with 20 px around its content, sets `--surface`, and a content holding only a table, a selection bar and a table, or numbers joined in one box runs edge to edge, from its top when it has no header |
+| `card` | reviewed | **Edited:** `CardTitle` is a heading, one level below where the card sits, and what a titled card holds one level below it; `size="lg"`, 24 px and a section's title; `CardAction` lays several controls in a row, 8 px apart, wrapping; it reads the scale of text, with 20 px around its content, sets `--surface`, and a content holding only a table, a selection bar and a table, or numbers joined in one box runs edge to edge, from its top when it has no header; an `AspectRatio` as its first child is its cover, edge to edge |
 | `checkbox` | raw | **Code:** does not grow for its children. **Edited:** on React Aria's `CheckboxField` and `CheckboxButton`, and a dash on a filled box when indeterminate |
 | `collapsible` | raw | **Code:** its trigger has no style of its own |
 | `context-menu` | raw | |

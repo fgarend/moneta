@@ -6,6 +6,17 @@ gets its number.
 
 ## [Unreleased]
 
+### Added
+
+- `AspectRatio` reviewed: its page, the guidelines' Pictures, and a card's cover: as a `Card`'s first child it reaches
+  the card's edge, with the card's corners.
+
+### Changed
+
+- **Breaking:** what an `AspectRatio` holds fills it, cropped, as a picture covers it, on `--muted` and with the
+  corners of an alert. To upgrade, drop the classes written to fill it, as `size-full object-cover`, and a background
+  or corners of your own.
+
 ## [0.30.1] - 2026-11-15
 
 A card's table and list line up with its title at every size.
