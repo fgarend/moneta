@@ -45,7 +45,20 @@ it is, then "Use it for" and "Not recommended", as Badge's.
 - Section came early, before Sidebar, and Table comes there too.
 - An institution's logo, as a bank's or a broker's, raised on 2026-11-15: an `Avatar` in a square form, as Polaris'
   and Atlassian's for an organisation, its initials when there is no picture, when an app shows one; none does yet.
-- Item moved to Lists of rows. Stat, DescriptionList, Kbd, AspectRatio, ScrollArea, Timeline and TickerChip.
+- Kbd, React Aria's `Keyboard`, a `kbd` of 20 px on `--muted`, and `KbdGroup` for keys pressed together; no piece
+  or app uses it. Decided:
+  - A symbol's name in words, decided on 2026-11-15: a key shown as a symbol, as ⌘, takes `label`, as "Command",
+    which a screen reader hears, the symbol hidden; a key in words is heard as it is. Against the symbol alone, heard
+    as "place of interest sign", and against words alone, where a Mac shows symbols.
+  - Keys side by side, as today, decided on 2026-11-15, as shadcn, GitHub and Linear, each key its own box. Against a
+    "+" between them; a sequence writes the app's word for "then" between its groups.
+  - Its look as today, decided on 2026-11-15: `--muted`, with no border. Against a border with a thicker foot, as a
+    physical key, which weighs more in a menu's row.
+  - Its page, kept on 2026-11-15: a key, or several pressed together, beside the action it takes; for a shortcut in a
+    menu, a tooltip or a hint, and a symbol with its name in words; not as the only way to an action, not a sequence
+    with nothing between, and not a label or a count. WCAG: 1.1.1, a symbol hidden and its name heard, by a story;
+    1.3.1, each key a `kbd`, by a story; 1.4.3, by the theme's test; 2.1.4 not asked of the piece.
+- Item moved to Lists of rows. Stat, DescriptionList, AspectRatio, ScrollArea, Timeline and TickerChip.
 - ScrollArea takes no focus, so a keyboard cannot scroll it when what it holds overflows, as axe says at 1280 px and
   the reflow check at 320 px; both let its story off, `gap-reflow` since 2026-11-13. Its review gives it focus and a
   name only when it overflows, as `Table` measures its area, and drops both tags.
