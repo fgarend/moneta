@@ -9,7 +9,7 @@ known and what is still to ask, are in [`roadmap-notes.md`](roadmap-notes.md), r
 ## Next, in order
 
 1. **Display.** The pieces that show, reviewed or made.
-    - AspectRatio and ScrollArea, then DescriptionList, Timeline and TickerChip
+    - ScrollArea, then DescriptionList, Timeline and TickerChip
 2. **Actions and forms.** The pieces that act and take input, reviewed or made.
     - Button, ButtonGroup and PageHeader
     - Input, InputGroup, Textarea, Label, Field, NativeSelect, Select and SearchField
@@ -88,6 +88,8 @@ Each becomes an item when its time comes.
 
 ## Done
 
+- **AspectRatio.** A box of one shape that a picture fills, cropped, on `--muted` with the corners of an alert, and a
+  card's cover as its first child, edge to edge. 0.31.0.
 - **A card's ends at every size.** A table, a list of rows and the selection bar run to a card's edges at its spacing,
   12, 20 or 24 px, lined up with its title. 0.30.1.
 - **Kbd.** A key, or several pressed together, side by side, on `--muted`, a symbol's name in words heard in its
