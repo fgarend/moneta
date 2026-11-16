@@ -42,6 +42,11 @@ its and its props' comments as JSDoc, its stories exported where written in the 
 checks by `!autodocs`, and its data from `.storybook/data.ts`, added rather than changed. Its page opens with what
 it is, then "Use it for" and "Not recommended", as Badge's.
 
+- A card's ends at every size, as an app measured on 2026-11-15: in a `Card size="lg"`, a table alone in its content
+  starts 4 px before the card's title, its ends a card's 20 px against the title's 24; at `size="sm"`, 8 px the other
+  way. A table's ends, a list's rows and its group's header, and the selection bar keep 20 px in a card, where joined
+  numbers follow the card's spacing since 0.26.0. Decided on 2026-11-15: they follow the card's spacing, 12, 20 or
+  24 px, so their text lines up with its title at every size, as Card's page says; the default does not change.
 - Section came early, before Sidebar, and Table comes there too.
 - An institution's logo, as a bank's or a broker's, raised on 2026-11-15: an `Avatar` in a square form, as Polaris'
   and Atlassian's for an organisation, its initials when there is no picture, when an app shows one; none does yet.
