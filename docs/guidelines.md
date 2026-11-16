@@ -131,6 +131,13 @@ the version installed. It holds only what exists, and each reviewed piece adds i
 - **A key shown as a symbol takes its name in words,** as `<Kbd label="Command">⌘</Kbd>`. A sequence writes your word
   for "then" between its groups.
 
+## Pictures
+
+- **A picture whose shape must hold at any width goes in an `AspectRatio`,** as a place's photo or a map, which fills
+  it, cropped, so the page does not move when it loads. Its `alt` is your words for what it shows.
+- **A document read whole, as a receipt or a statement, keeps its own shape,** as a crop would hide a value; text
+  never goes in one.
+
 ## Avatars
 
 - **An avatar is a person's picture, or their initials, beside their name in words,** which is what a screen reader
@@ -163,6 +170,8 @@ the version installed. It holds only what exists, and each reviewed piece adds i
   its text lined up with the card's title.
 - **A card with no title of its own may sit under a section's,** as a table whose `Section` holds its title, a count
   and its controls; the table then starts at the card's top.
+- **A cover is an `AspectRatio` as the card's first child,** edge to edge, so covers of a grid of cards are of one
+  height.
 - **`size="lg"` for a card that is a part of the page,** its title a section's, 18/24, with 24 px around; `size="sm"`
   for a small one, 12 px around.
 - **A whole card is never a link or a button:** a link goes in its title, and its actions in `CardAction`.

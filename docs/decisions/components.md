@@ -150,6 +150,12 @@ pieces is in [`../pieces.md`](../pieces.md), and how a piece is analysed is in [
   side in a `KbdGroup`, itself a `kbd`.
 - **A symbol's name in words:** `label`, as "Command" for ⌘, is heard in its place, the symbol hidden.
 
+### AspectRatio
+
+- **A box of one shape,** `ratio`, width over height, that what it holds fills, cropped, as a picture covers it, on
+  `--muted` until it loads and with the corners of an alert, `--radius`.
+- **A card's cover:** as a `Card`'s first child it reaches the card's edge, with the card's corners, as an `img` does.
+
 ### Avatar
 
 - **Hidden from screen readers,** as an `IconTile`: its picture takes no alt and its initials are hidden, as the name
@@ -373,6 +379,10 @@ pieces is in [`../pieces.md`](../pieces.md), and how a piece is analysed is in [
 - **A symbol's name in words,** as a screen reader reads ⌘ as "place of interest sign". **What it costs:** one prop,
   which the app gives each symbol. **Keys side by side,** as shadcn, GitHub and Linear. **What it costs:** keys pressed
   together look as a sequence would, so a sequence writes "then" between its groups.
+- **What it holds fills it, cropped,** as shadcn's example, so a picture of any shape keeps the box's. **What it
+  costs:** a picture loses its sides or its top, so a document read whole does not take it. **`--muted` and corners
+  of its own,** so its area shows before the picture loads. **A card's cover,** so covers of a grid of cards are of
+  one height. **What it costs:** an edit to `Card`, which takes it as it takes an `img`.
 - **An avatar always hidden,** as every app writes the name beside it, so a name in it is heard twice. **What it
   costs:** an avatar alone says nothing, which its page does not recommend. **Its size from a row,** as an
   `IconTile`'s, so the rows' titles line up. **What it costs:** its size is not seen in the code that uses it. **A
@@ -568,6 +578,9 @@ pieces is in [`../pieces.md`](../pieces.md), and how a piece is analysed is in [
   a group's title.
 - **A symbol alone,** heard as its Unicode name, or **words alone,** where a Mac shows symbols. **A "+" between
   keys.** **A key with a border and a thicker foot,** as a physical key, which weighs more in a menu's row.
+- **A picture shown whole,** with bands of `--muted`, which keeps a document's values but leaves the box half empty.
+  **Nothing of its own,** which leaves a blank until the picture loads. **A cover only inside `CardContent`,** which
+  keeps the card's padding around it.
 - **An avatar named by an optional `name`,** which says a name twice beside the one in words. **The text's colour for
   its initials,** 12.95:1, which competes with the name. **Its badge removed,** or **at 12 px with an 8 px icon at
   24 px,** which covers a small avatar. **Its group removed** until a use. **An empty circle while its picture
@@ -665,3 +678,4 @@ pieces is in [`../pieces.md`](../pieces.md), and how a piece is analysed is in [
 - 2026-11-15: Separator.
 - 2026-11-15: Kbd.
 - 2026-11-15: A card's ends at every size.
+- 2026-11-16: AspectRatio.

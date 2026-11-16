@@ -62,6 +62,8 @@ function Card({
       data-size={size}
       className={cn(
         "group/card flex flex-col gap-(--card-spacing) [--surface:var(--card)] overflow-hidden rounded-xl bg-card py-(--card-spacing) text-sm text-card-foreground ring-1 ring-foreground/10 [--card-spacing:--spacing(5)] has-data-[slot=card-footer]:pb-0 has-[>img:first-child]:pt-0 data-[size=sm]:[--card-spacing:--spacing(3)] data-[size=sm]:has-data-[slot=card-footer]:pb-0 data-[size=lg]:[--card-spacing:--spacing(6)] *:[img:first-child]:rounded-t-xl *:[img:last-child]:rounded-b-xl",
+        // A cover reaches its edge, as an image does, and takes its corners.
+        "has-[>[data-slot=aspect-ratio]:first-child]:pt-0 *:data-[slot=aspect-ratio]:first:rounded-none",
         // Numbers joined at its foot reach its edge, as their lines do.
         "has-[>[data-slot=card-content]:last-child>[data-slot=stat-group-box]:only-child>[data-joined]]:pb-0",
         className,

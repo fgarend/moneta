@@ -45,7 +45,7 @@ it is, then "Use it for" and "Not recommended", as Badge's.
 - Section came early, before Sidebar, and Table comes there too.
 - An institution's logo, as a bank's or a broker's, raised on 2026-11-15: an `Avatar` in a square form, as Polaris'
   and Atlassian's for an organisation, its initials when there is no picture, when an app shows one; none does yet.
-- Item moved to Lists of rows. Stat, DescriptionList, AspectRatio, ScrollArea, Timeline and TickerChip.
+- Item moved to Lists of rows. Stat, DescriptionList, ScrollArea, Timeline and TickerChip.
 - ScrollArea takes no focus, so a keyboard cannot scroll it when what it holds overflows, as axe says at 1280 px and
   the reflow check at 320 px; both let its story off, `gap-reflow` since 2026-11-13. Its review gives it focus and a
   name only when it overflows, as `Table` measures its area, and drops both tags.
