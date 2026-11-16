@@ -74,7 +74,7 @@
 
 :root {
   --font: "Geist Variable", sans-serif;
-  --background: #f8f9fa;
+  --background: #f9f9f9;
   --foreground: #23262b;
   --card: #ffffff;
   --card-foreground: #23262b;
@@ -82,7 +82,7 @@
   --popover-foreground: #23262b;
   --primary: #2b2e33;
   --primary-foreground: #ffffff;
-  --secondary: #eef0f3;
+  --secondary: #f0f0f0;
   --secondary-foreground: #23262b;
   /* Secondary with 5% of the text in, as shadcn's Button had it on hover. Again under .dark, to mix there. */
   --secondary-hover: color-mix(
@@ -90,9 +90,9 @@
     var(--secondary),
     var(--foreground) 5%
   );
-  --muted: #f1f3f5;
+  --muted: #f3f3f3;
   --muted-foreground: #5f636a;
-  --accent: #eef0f3;
+  --accent: #f0f0f0;
   --accent-foreground: #23262b;
   --destructive: #bb1c12;
   /* The tone of a value, good news or bad, as the app says. Loss takes the theme's one red. Again under .dark, to take
@@ -109,10 +109,10 @@
   --surface: var(--background);
   /* The shadow at an edge of an area that scrolls sideways, which shows there is more. */
   --scroll-shadow: oklch(0 0 0 / 0.14);
-  --border: #e3e6ea;
+  --border: #e6e6e6;
   /* The line that marks structure, under a group's title and over a total, apart from the line under every row. */
-  --border-strong: #c4c9d0;
-  --input: #858b94;
+  --border-strong: #c8c8c8;
+  --input: #8a8a8a;
   --ring: #2b2e33;
   --gold: #f0bd2a;
   --gold-foreground: #23262b;

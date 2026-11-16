@@ -5,14 +5,14 @@ The look Moneta has by default, which whoever uses it can replace. How an app re
 
 ## What holds today
 
-- **In light: cool paper,** white cards, a graphite sidebar and text, and one gold accent. The page is `#f8f9fa`, the
-  sidebar `#303338`, text `#23262b`, and gold `#f0bd2a`, and every neutral is drawn on the graphite's hue, which
-  `test/theme.test.ts` holds, in shadcn's token names, plus `--gold`
+- **In light: grey paper,** white cards, a graphite sidebar and text, and one gold accent. The page is `#f9f9f9`, the
+  sidebar `#303338`, text `#23262b`, and gold `#f0bd2a`; the paper and its lines are a true grey, and the text on the
+  graphite's hue, which `test/theme.test.ts` holds, in shadcn's token names, plus `--gold`
   and `--gold-foreground`, as shadcn has no slot for an accent that is neither `--primary` nor `--accent`.
 - **Values are written in hex,** as shadcn's customization guide keeps them, and `test/theme.test.ts` holds the pairs
   every piece paints to 4.5:1 for text and 3:1 for the rest.
 - **The radius is shadcn's `small`,** `0.45rem`, chosen by the owner on shadcn/create.
-- **`--input` is stronger than the prototype's,** `#858b94`, to reach 3:1 against both the page and a card.
+- **`--input` is stronger than the prototype's,** `#8a8a8a`, to reach 3:1 against both the page and a card.
 - **A piece is edited when the theme alone cannot reach it:** `tabs`, whose inactive text fails on our `muted`, and the heights.
 - **A field has no fill, in both modes:** shadcn's `--input` at 30% in dark is gone from the fields, `Checkbox`,
   `RadioGroup` and `outline` `Button`, so a placeholder keeps 4.5:1 on the lighter graphite, and the border 3:1.
@@ -89,9 +89,9 @@ The look Moneta has by default, which whoever uses it can replace. How an app re
 - **A cool dark,** since the prototypes have no dark, and their graphite and the light text on it are what they have of one,
   so both modes read as one product. **What it costs:** it is the dark many apps have, so gold carries the identity, the
   sidebar is only 1.13:1 from the page, so the item marked and the text set it apart.
-- **Cool neutrals, on the graphite's hue,** since six neutrals at a yellow hue beside a cool text, sidebar and dark made
-  the paper read as dirty, as the owner found on 2026-11-16. **What it costs:** the prototype's warmth is gone, and gold
-  alone carries the warmth.
+- **A true grey for the paper and its lines,** since six neutrals at a yellow hue beside a cool text, sidebar and dark
+  made the paper read as dirty, and on the graphite's hue it read bluish, as the owner found on 2026-11-16. **What it
+  costs:** the prototype's warmth is gone, and gold alone carries the warmth.
 - **A lighter graphite in dark,** chosen in a test of palettes on 2026-11-15, less heavy than near black. **What it
   costs:** the colours of meaning and categories are paler, and their tints 10%, as 20% would leave them short of
   contrast on `--muted`, so a tint is quieter than before.
@@ -180,6 +180,7 @@ The look Moneta has by default, which whoever uses it can replace. How an app re
   found it too yellow and too far from the prototypes.
 - **A graphite page in dark, `#303338`, with a near-black sidebar.** The light sidebar's colour, but the two darks did not
   read as one family, a mid grey dulled the content, and `--input` was at 3.14:1.
+- **Light's neutrals on the graphite's hue,** as `#f8f9fa`, in 0.33.0, which read slightly bluish.
 - **The prototype's warm paper, `#faf9f6`,** kept until 2026-11-16, which read as dirty beside the cool text and sidebar.
 - **The prototype's near black, `#1a1b1e`, with a sidebar of `#121316`,** kept until 2026-11-16, heavier than the lighter
   graphite.
@@ -252,3 +253,4 @@ The look Moneta has by default, which whoever uses it can replace. How an app re
 - 2026-11-14: The colours of meaning on their own tint, green for good news, and one red, again.
 - 2026-11-16: The gold theme revised: cool paper, a lighter graphite in dark, `sidebar-gradient`, and tints of 10% in
   both modes.
+- 2026-11-16: Light's paper and lines in a true grey.

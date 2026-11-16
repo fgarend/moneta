@@ -6,6 +6,12 @@ gets its number.
 
 ## [Unreleased]
 
+### Changed
+
+- In light, the paper and its lines are a true grey, red, green and blue equal, each at its own lightness, where they
+  read slightly bluish: the page `#f9f9f9`, `--secondary` and `--accent` `#f0f0f0`, `--muted` `#f3f3f3`, `--border`
+  `#e6e6e6`, `--border-strong` `#c8c8c8` and `--input` `#8a8a8a`. Every contrast holds; dark does not change.
+
 ## [0.33.0] - 2026-11-16
 
 The gold theme revised: cool paper in light, a lighter graphite in dark, and the sidebar's own gradient.
