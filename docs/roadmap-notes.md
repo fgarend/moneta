@@ -35,15 +35,6 @@ with each family. No reviewed piece has a default text, so shadcn's written stri
 **Done when:** an app can build every screen from Moneta's pieces with no class of its own, and leaves Tailwind for
 `styles.css`. Until then, it keeps Tailwind only for the classes it still writes.
 
-## Light's neutrals in a true grey
-
-Asked by the owner through an app on 2026-11-16, after 0.33.0: the light neutrals on the graphite's hue read slightly
-bluish. Decided on 2026-11-16: the page, `--secondary`, `--accent`, `--muted`, `--border`, `--border-strong` and
-`--input` in a true grey, red, green and blue equal, each at its own lightness, so every contrast holds: `#f9f9f9`,
-`#f0f0f0`, `#f0f0f0`, `#f3f3f3`, `#e6e6e6`, `#c8c8c8` and `#8a8a8a`, `--input` at 3.28:1 on the page. The text,
-`--primary`, the sidebar, gold and dark stay. Against keeping the graphite's hue, chosen the same day, which a true
-grey beside the cool text may read a little warmer than; far less than the yellow before.
-
 ## Display
 
 Each piece, at its step, follows the gallery's guide, as `docs/decisions/components.md` says: its page by `autodocs`,
@@ -55,23 +46,6 @@ it is, then "Use it for" and "Not recommended", as Badge's.
 - An institution's logo, as a bank's or a broker's, raised on 2026-11-15: an `Avatar` in a square form, as Polaris'
   and Atlassian's for an organisation, its initials when there is no picture, when an app shows one; none does yet.
 - Item moved to Lists of rows. Stat, Timeline and TickerChip.
-- DescriptionList, new, as shadcn has none: an app writes a `dl` by hand in a side panel, the term in
-  `--muted-foreground` and the value at the end, 10 px apart. Decided:
-  - The value at the end, decided on 2026-11-16, as an app writes it, so numbers line up as a row's amount and a
-    table's do. Against a column of terms with the value at its start, as a form read, and a term above its value.
-  - One above the other when narrow, decided on 2026-11-16: below 288 px of its own width, by a container query, as
-    Alert's action and StatGroup's columns follow theirs, the value then at the start. Against side by side always,
-    cramped on a phone.
-  - No lines, 8 px between pairs, decided on 2026-11-16, within a group's 8 to 12, as the details of one thing are
-    not a list of things, which `Item` and `Table` draw with a line under each. Against a line between pairs, which
-    guides the eye across a wide card; a variant can come with a use.
-  - Four parts, decided on 2026-11-16: `DescriptionList`, a `dl`; `DescriptionItem`, a `div` holding one pair;
-    `DescriptionTerm`, a `dt`; and `DescriptionDetails`, a `dd`, as `StatGroup`, `Stat`, `StatLabel` and `StatValue`,
-    so a pair shown only sometimes is one item. Against three parts, as Catalyst's, which needs a fragment for it.
-  - Its page, kept on 2026-11-16: the details of one thing, side by side with the value at the end, one above the
-    other below 288 px; for a thing's details in a panel, a card or a part of a page, values as `Amount`, `Percent`,
-    `DateTime` or text, and a pair shown only sometimes; not a list of things, values compared in columns, numbers of
-    note or details to edit. WCAG: 1.3.1 and 1.4.10 by a story, 1.4.3 by the theme's test, 1.4.12 by every story.
 
 ## Actions and forms
 
