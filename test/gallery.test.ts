@@ -52,6 +52,7 @@ const pages: Record<string, string> = {
   "date-time": "DateTime",
   "icon-tile": "IconTile",
   item: "ItemGroup",
+  kbd: "Kbd",
   link: "Link",
   "moneta-provider": "MonetaProvider",
   pagination: "Pagination",

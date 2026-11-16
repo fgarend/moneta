@@ -29,7 +29,7 @@ which is run by hand.
 
 | Criterion | How | Notes |
 | --- | --- | --- |
-| 1.1.1 Non-text Content | axe, story | IconTile hidden from screen readers as decoration, its words beside it, an avatar's picture and initials hidden, its group heard as the app's words and its badge's words heard, and a badge's icon hidden, its word heard |
+| 1.1.1 Non-text Content | axe, story | IconTile hidden from screen readers as decoration, its words beside it, a key's symbol hidden and its name in words heard, an avatar's picture and initials hidden, its group heard as the app's words and its badge's words heard, and a badge's icon hidden, its word heard |
 | 1.2.1 Audio-only and Video-only | app | |
 | 1.2.2 Captions (Prerecorded) | app | |
 | 1.2.3 Audio Description or Media Alternative | app | |

@@ -9,7 +9,7 @@ known and what is still to ask, are in [`roadmap-notes.md`](roadmap-notes.md), r
 ## Next, in order
 
 1. **Display.** The pieces that show, reviewed or made.
-    - Kbd, AspectRatio and ScrollArea, then DescriptionList, Timeline and TickerChip
+    - AspectRatio and ScrollArea, then DescriptionList, Timeline and TickerChip
 2. **Actions and forms.** The pieces that act and take input, reviewed or made.
     - Button, ButtonGroup and PageHeader
     - Input, InputGroup, Textarea, Label, Field, NativeSelect, Select and SearchField
@@ -88,6 +88,8 @@ Each becomes an item when its time comes.
 
 ## Done
 
+- **Kbd.** A key, or several pressed together, side by side, on `--muted`, a symbol's name in words heard in its
+  place. 0.30.0.
 - **Separator.** A line between two groups, heard as a separator, across or upright, in `--border`, with no space of
   its own. 0.29.0.
 - **Avatar and AvatarGroup.** A person's picture or initials beside their name, hidden from screen readers, a `span`

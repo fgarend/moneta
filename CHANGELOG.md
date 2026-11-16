@@ -6,6 +6,15 @@ gets its number.
 
 ## [Unreleased]
 
+## [0.30.0] - 2026-11-15
+
+Kbd reviewed: a key, or several pressed together, a symbol's name in words.
+
+### Added
+
+- `Kbd` reviewed: its page, the guidelines' Keys, and `label`, a symbol's name in words, as "Command" for ⌘, which a
+  screen reader hears in its place.
+
 ## [0.29.0] - 2026-11-15
 
 Separator reviewed: a line between two groups, heard as a separator.
@@ -549,7 +558,8 @@ and dark. `README.md` says how to install and use it.
 
 A rehearsal of the release's path, not meant to be installed. Use a later version.
 
-[Unreleased]: https://github.com/fgarend/moneta/compare/v0.29.0...HEAD
+[Unreleased]: https://github.com/fgarend/moneta/compare/v0.30.0...HEAD
+[0.30.0]: https://github.com/fgarend/moneta/compare/v0.29.0...v0.30.0
 [0.29.0]: https://github.com/fgarend/moneta/compare/v0.28.0...v0.29.0
 [0.28.0]: https://github.com/fgarend/moneta/compare/v0.27.1...v0.28.0
 [0.27.1]: https://github.com/fgarend/moneta/compare/v0.27.0...v0.27.1
