@@ -6,6 +6,12 @@ gets its number.
 
 ## [Unreleased]
 
+### Added
+
+- `DescriptionList`, with `DescriptionItem`, `DescriptionTerm` and `DescriptionDetails`: the details of one thing,
+  each a term and its value, side by side with the value at the end, and one above the other below 288 px. Its page,
+  and the guidelines' Details of one thing.
+
 ### Changed
 
 - In light, the paper and its lines are a true grey, red, green and blue equal, each at its own lightness, where they

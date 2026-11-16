@@ -176,6 +176,13 @@ const accountBalances = [
   },
 ];
 const accountCount = 5;
+// One account's details, as a side panel shows them: who holds it, where, since when and its balance.
+const accountDetails = {
+  holder: "Ana Fictícia",
+  institution: "Example Bank",
+  opened: "2021-03-12",
+  balance: dollars("4230.5"),
+};
 // How far into its food budget it is, in percent.
 const foodUsed = 87;
 const budgets = [
@@ -196,6 +203,7 @@ function cents(value: string): bigint {
 export {
   accountBalances,
   accountCount,
+  accountDetails,
   accounts,
   budgets,
   cents,

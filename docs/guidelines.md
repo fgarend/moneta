@@ -224,6 +224,14 @@ the version installed. It holds only what exists, and each reviewed piece adds i
   boxes; `variant="ghost"` for none, as in a card or a page's head. Its columns follow its own width: one, two from 576 px,
   and all on one line from 1024.
 
+## Details of one thing
+
+- **The details of one thing go in a `DescriptionList`,** as an account's holder, institution and balance in a side
+  panel, each pair a `DescriptionItem` with its `DescriptionTerm` and `DescriptionDetails`.
+- **A value is an `Amount`, a `Percent`, a `DateTime` or text,** which sits at the end, and under its term when the
+  list is narrow. A value missing is your words, as "None".
+- **A list of things is an `ItemGroup`, values compared are a `Table`, and numbers of note a `StatGroup`.**
+
 ## Lists of rows
 
 - **A list of rows is one thing per row, read across,** as an account, a transaction or a bill, with its value at the
