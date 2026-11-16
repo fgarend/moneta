@@ -69,27 +69,6 @@ it is, then "Use it for" and "Not recommended", as Badge's.
 - An institution's logo, as a bank's or a broker's, raised on 2026-11-15: an `Avatar` in a square form, as Polaris'
   and Atlassian's for an organisation, its initials when there is no picture, when an app shows one; none does yet.
 - Item moved to Lists of rows. Stat, DescriptionList, Timeline and TickerChip.
-- ScrollArea, a `div` that scrolls with a thin scrollbar in `--border`, as shadcn's today; no piece or app uses it.
-  It takes no focus, so a keyboard cannot scroll it when what it holds overflows, as axe says at 1280 px and the
-  reflow check at 320 px; both let its story off, `gap-reflow` since 2026-11-13. Decided:
-  - Focus only when it scrolls, decided on 2026-11-16: when what it holds overflows it is a region that takes focus,
-    so the arrows scroll it, measured as `Table` measures its area; one that fits adds no stop. Against focus always,
-    a stop that does nothing when it fits. Both tags drop.
-  - Its name required, decided on 2026-11-16: `aria-label` or `aria-labelledby`, one of them, as `Table`'s, which a
-    screen reader hears when it takes focus. Against an optional name, which leaves a region heard with no name.
-  - The browser's scrollbar, decided on 2026-11-16, as `Table`, `Sidebar` and the menus have it, the same everywhere
-    and the user agent's, outside 1.4.11. Against `--border`, 1.20:1 to 1.46:1, and against `--input`, 3.20:1 to
-    4.97:1, thin and drawn, unlike the rest.
-  - A shadow at each end where it goes on, decided on 2026-11-16, as `Table`'s `scroll-shadows`, across and down, so
-    a scrollbar hidden until scrolled, as macOS draws it, still shows there is more. Against no cue, and what it
-    costs: the utility gains its upright form in `theme.css`.
-  - It fills its place, decided on 2026-11-16: what is left of a place of fixed height, as `Table` with
-    `stickyHeader`, so an app writes no height of its own. Against a class of the app's, and a prop of heights, a
-    scale no other piece has. In a place that grows with it, it never scrolls, which its page says.
-  - Its page, kept on 2026-11-16: an area that fills what is left of a place of fixed height and scrolls there, with
-    a shadow at each end where it goes on; for a long list or text in a panel's body, a card as tall as its
-    neighbour or a column, named; not in a place that grows, not a table, a menu, a select or a sidebar. WCAG: 2.1.1
-    and 4.1.2 by a story; 1.4.10 by the check at 320 px; 2.4.7 by the focus test; 1.4.11 not asked of the piece.
 
 ## Actions and forms
 
