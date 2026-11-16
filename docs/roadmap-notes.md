@@ -219,6 +219,23 @@ With `check-release`'s rules for the numbers after it, as a change that breaks t
 - **The lowest version of each peer in `package`.** It tests only the version in `devDependencies`, so the floor of
   a range is a promise. `react` 19.0.0 was tried once, on 2026-11-05, with only the minimal `Button`. Weighed when
   there are more pieces.
+- **The Harbor theme.** Drawn and approved by the owner on 2026-11-15, after a navy and gold palette, a frosted one
+  and a light version with a navy sidebar were turned down as too dark, too yellow or not professional. It starts
+  from four colours: navy `#0A3C6E`, white, blue `#1783C1` and graphite `#333333`.
+  - **Light:** a white page and white cards with a `#e6e8eb` border, a light sidebar `#f7f8fa`, text `#1f2328`,
+    muted `#5f6670`, and blue only where it has a job: navy for the mark and the primary button, blue for charts
+    and the active item's icon, `#1474ad` for links, and `#e8eef6` behind the active item.
+  - **Dark:** graphite, mid-dark and not near-black: page `#2f3133`, cards `#3a3c3f`, sidebar `#262829`, borders
+    `#4a4d51`, text `#f1f3f5`, muted `#b4b9bf`, and `#82bbe2` for the primary button, links and charts. A night blue
+    dark, page `#1d3550` and cards `#26425f`, was liked too, and left aside.
+  - **Contrast, measured on the drawings:** text 15.8:1, muted 5.5:1, primary button 11.1:1, link 5.1:1. Blue
+    `#1783C1` under white text is 4.2:1, so it is never a text's background.
+  - **To ask then:** whether Moneta ships named themes, recommended as one CSS file per theme imported after
+    `theme.css`, as an app already redefines the variables (`docs/decisions/delivery.md`); whether gold stays the
+    default, recommended, as gold carries Moneta's look (`docs/decisions/theme.md`); what `gold` becomes in
+    `Button` and `IconTile`, a colour's name with no gold in Harbor; whether the light sidebar fits what
+    `theme.md` says the sidebar carries; the categories checked again beside the blue, as `--category-7` is a blue;
+    and how the gallery shows a theme.
 
 ## Done, in detail
 

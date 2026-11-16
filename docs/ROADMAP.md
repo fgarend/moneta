@@ -84,6 +84,7 @@ Each becomes an item when its time comes.
 - **An overlay stuck entering or leaving in WebKit and Chromium.** React Aria waits on a transition the browser
   cancels, as `duration-100` makes every property transition; found headless in WebKit on 2026-11-11, and in Chromium
   as a sidebar's sheet closed on 2026-11-12. Whether a browser with a window does it is unknown.
+- **The Harbor theme.** A second look, in blue, light and dark, which an app chooses in place of the gold one.
 
 ## Done
 
