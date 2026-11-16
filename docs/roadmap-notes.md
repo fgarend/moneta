@@ -45,7 +45,21 @@ it is, then "Use it for" and "Not recommended", as Badge's.
 - Section came early, before Sidebar, and Table comes there too.
 - An institution's logo, as a bank's or a broker's, raised on 2026-11-15: an `Avatar` in a square form, as Polaris'
   and Atlassian's for an organisation, its initials when there is no picture, when an app shows one; none does yet.
-- Item moved to Lists of rows. Stat, DescriptionList, AspectRatio, ScrollArea, Timeline and TickerChip.
+- AspectRatio, a `div` whose shape is `ratio`, as shadcn's today; no piece or app uses it, and a `Card` already takes
+  an `img` as its first child to its edge. Decided:
+  - What it holds fills it, cropped, decided on 2026-11-16: a picture, a map or a video covers the box, as shadcn's
+    own example. Against showing it whole with bands, which keeps a document's total but leaves the box half empty;
+    a document read whole does not take the piece.
+  - `--muted` and `--radius`, decided on 2026-11-16: its area shows before the picture loads, or when it fails, and
+    its corners are Alert's, as shadcn's example draws it. Against nothing of its own, which leaves a blank until then.
+  - A card's cover, decided on 2026-11-16: as a `Card`'s first child it reaches the card's edge, with the card's
+    corners, as an `img` there does, so covers of a grid of cards are of one height. Against keeping it inside
+    `CardContent` only, which needs no edit to `Card`.
+  - Its page, kept on 2026-11-16: a box of a fixed shape that a picture, a map or a video fills, cropped; for a picture
+    whose shape holds at any width, a card's cover and covers of one height; not text, which it would cut off, and
+    not a document read whole. WCAG: 1.1.1, the picture's `alt`, the app's, which axe asks for; 1.4.10, by the check
+    at 320 px; 1.4.12 not asked of the piece.
+- Item moved to Lists of rows. Stat, DescriptionList, ScrollArea, Timeline and TickerChip.
 - ScrollArea takes no focus, so a keyboard cannot scroll it when what it holds overflows, as axe says at 1280 px and
   the reflow check at 320 px; both let its story off, `gap-reflow` since 2026-11-13. Its review gives it focus and a
   name only when it overflows, as `Table` measures its area, and drops both tags.
