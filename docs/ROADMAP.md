@@ -9,7 +9,7 @@ known and what is still to ask, are in [`roadmap-notes.md`](roadmap-notes.md), r
 ## Next, in order
 
 1. **Display.** The pieces that show, reviewed or made.
-    - Timeline and TickerChip
+    - TickerChip
 2. **Actions and forms.** The pieces that act and take input, reviewed or made.
     - Button, ButtonGroup and PageHeader
     - Input, InputGroup, Textarea, Label, Field, NativeSelect, Select and SearchField
@@ -91,6 +91,8 @@ Each becomes an item when its time comes.
 
 ## Done
 
+- **Timeline.** The history of one thing, each event that happened or is expected, its dot coloured by its
+  meaning. 0.35.0.
 - **DescriptionList.** The details of one thing, side by side with the value at the end, one above the other below
   288 px. 0.34.0.
 - **Light's neutrals in a true grey.** The paper and its lines with red, green and blue equal, each at its own
