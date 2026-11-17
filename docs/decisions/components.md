@@ -174,6 +174,17 @@ pieces is in [`../pieces.md`](../pieces.md), and how a piece is analysed is in [
 - **The value at the end,** as a row's amount, and **one above the other below 288 px** of the list's own width, by a
   container query, the value then at the start.
 
+### Timeline
+
+- **The history of one thing, an `ol`:** each event a `TimelineItem`, an `li` drawing an 8 px dot and a 1 px
+  `--border-strong` line on to the next, holding its `TimelineTitle`, 14 px at 500, its `TimelineTime`, 12 px in
+  `--muted-foreground`, and an optional `TimelineDescription`, 16 px apart, in the order the app writes them.
+- **Each event happened or is expected:** `isExpected` draws its dot hollow, its title muted, and the line reaching it
+  dashed, by CSS from the item before. **Its dot takes a meaning,** `variant` from `destructive`, `success`, `warning`
+  and `info`, which its words say too. Its dot is a border, so it stays in forced colours.
+- **No part for no events, no loading and no order of its own:** the app writes its words in its place, shows a
+  `Skeleton`, and writes the events oldest first.
+
 ### Avatar
 
 - **Hidden from screen readers,** as an `IconTile`: its picture takes no alt and its initials are hidden, as the name
@@ -411,6 +422,11 @@ pieces is in [`../pieces.md`](../pieces.md), and how a piece is analysed is in [
   line up. **What it costs:** a long text value reads from the right, until the list is narrow. **No lines,** as the
   details of one thing are not a list of things. **What it costs:** across a wide card the eye crosses a gap. **A
   `div` for each pair,** as HTML allows, so a pair shown only sometimes is one item. **What it costs:** a part more.
+- **A timeline of what happened and what is expected,** as who drives tells it from Steps: a person reads a
+  timeline, which others make happen, and moves through steps. **What it costs:** no mark of a current event, the
+  last that happened being it. **Its dot drawn by a border,** so forced colours keep it. **What it costs:** its
+  colour is the system's there, and its words carry its meaning. **The app's order,** as a reversed order by CSS is
+  read the other way, against 1.3.2. **What it costs:** an app that wants the newest first reverses its own list.
 - **An avatar always hidden,** as every app writes the name beside it, so a name in it is heard twice. **What it
   costs:** an avatar alone says nothing, which its page does not recommend. **Its size from a row,** as an
   `IconTile`'s, so the rows' titles line up. **What it costs:** its size is not seen in the code that uses it. **A
@@ -615,6 +631,10 @@ pieces is in [`../pieces.md`](../pieces.md), and how a piece is analysed is in [
 - **A column of terms with the value at its start,** as a form read, or **a term above its value always,** twice as
   tall. **A line between pairs,** as `Item`'s rows. **Three parts,** as Catalyst's, a fragment for a pair shown only
   sometimes.
+- **A timeline of the past alone,** as MOJ's and Primer's, or **a tracker with a current step,** as Mantine's.
+  **An `ItemGroup` variant,** whose lines, tiles and values fight the line between events. **An icon in a larger
+  dot,** as Primer's. **A `TimelineValue`, a `reverse` prop, a fold of the middle, a required name, a
+  `TimelineEmpty` and `isLoading`,** each for no use yet.
 - **An avatar named by an optional `name`,** which says a name twice beside the one in words. **The text's colour for
   its initials,** 12.95:1, which competes with the name. **Its badge removed,** or **at 12 px with an 8 px icon at
   24 px,** which covers a small avatar. **Its group removed** until a use. **An empty circle while its picture
@@ -715,3 +735,4 @@ pieces is in [`../pieces.md`](../pieces.md), and how a piece is analysed is in [
 - 2026-11-16: AspectRatio.
 - 2026-11-16: ScrollArea.
 - 2026-11-16: DescriptionList.
+- 2026-11-17: Timeline.

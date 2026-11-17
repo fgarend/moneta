@@ -232,6 +232,19 @@ the version installed. It holds only what exists, and each reviewed piece adds i
   list is narrow. A value missing is your words, as "None".
 - **A list of things is an `ItemGroup`, values compared are a `Table`, and numbers of note a `StatGroup`.**
 
+## History of one thing
+
+- **What happened to one thing goes in a `Timeline`,** as a transfer's or an order's, oldest first, each event a
+  `TimelineItem` with its `TimelineTitle` and `TimelineTime`.
+- **What is expected comes at the end,** in a `TimelineItem` with `isExpected`, its time in your words around a
+  `DateTime`, as "Expected on Nov 17".
+- **An event's meaning is in its words,** and its `variant` colours its dot. An amount goes in its text, as an
+  `Amount`.
+- **A long history shows its last events** and a `Link` to the whole of it. With other lists on the screen, name it
+  by its heading with `aria-labelledby`. With no events, write your words in its place.
+- **A process a person moves through is not a timeline,** and many things with their values are an `ItemGroup` or a
+  `Table`.
+
 ## Lists of rows
 
 - **A list of rows is one thing per row, read across,** as an account, a transaction or a bill, with its value at the

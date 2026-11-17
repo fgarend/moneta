@@ -6,6 +6,12 @@ gets its number.
 
 ## [Unreleased]
 
+### Added
+
+- `Timeline`, with `TimelineItem`, `TimelineTitle`, `TimelineTime` and `TimelineDescription`: the history of one
+  thing, each event that happened or is expected, its dot coloured by its meaning. Its page, and the guidelines'
+  History of one thing.
+
 ## [0.34.0] - 2026-11-16
 
 DescriptionList, the details of one thing, and light's paper and lines in a true grey.

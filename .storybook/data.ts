@@ -183,6 +183,67 @@ const accountDetails = {
   opened: "2021-03-12",
   balance: dollars("4230.5"),
 };
+// A transfer's history, oldest first, each moment in UTC, with its credit still expected on a day.
+const transferHistory = {
+  events: [
+    { id: "e1", title: "Requested", at: "2026-11-12T09:14:00Z" },
+    { id: "e2", title: "Approved", at: "2026-11-12T09:20:00Z" },
+    { id: "e3", title: "Sent to the bank", at: "2026-11-13T08:02:00Z" },
+  ],
+  expected: { id: "e4", title: "Credit", on: "2026-11-17" },
+};
+// A transfer the bank refused, sent again and credited, with what each event means.
+const resentTransfer = [
+  { id: "r1", title: "Requested", at: "2026-11-12T09:14:00Z" },
+  {
+    id: "r2",
+    title: "Refused by the bank",
+    at: "2026-11-12T14:05:00Z",
+    meaning: "destructive",
+  },
+  { id: "r3", title: "Sent again", at: "2026-11-13T08:02:00Z" },
+  {
+    id: "r4",
+    title: "Credited",
+    at: "2026-11-13T10:40:00Z",
+    meaning: "success",
+  },
+] as const;
+// A payment partly refunded, in dollars, by its holder.
+const refund = {
+  paid: dollars("200"),
+  refunded: dollars("50"),
+  by: "Ana Fictícia",
+  events: {
+    paid: "2026-11-03T10:12:00Z",
+    refunded: "2026-11-08T16:30:00Z",
+    done: "2026-11-10T09:01:00Z",
+  },
+};
+// A monthly contribution's last two and its next, of 24 in all.
+const contributions = {
+  count: 24,
+  made: [
+    { id: "c1", at: "2026-10-01T08:00:00Z" },
+    { id: "c2", at: "2026-11-01T08:00:00Z" },
+  ],
+  next: "2026-12-01",
+};
+// Events whose titles run long, as a phone shows them.
+const longEvents = [
+  {
+    id: "l1",
+    title:
+      "Sent again to a fictitious bank, after its holder corrected the account's number",
+    at: "2026-11-13T08:02:00Z",
+  },
+  {
+    id: "l2",
+    title:
+      "Credited to a fictitious joint savings account whose name is long enough to wrap",
+    at: "2026-11-13T10:40:00Z",
+  },
+];
 // How far into its food budget it is, in percent.
 const foodUsed = 87;
 const budgets = [
@@ -207,12 +268,17 @@ export {
   accounts,
   budgets,
   cents,
+  contributions,
   days,
   foodUsed,
   longAccount,
+  longEvents,
   paymentDays,
   payments,
   recentPayments,
+  refund,
+  resentTransfer,
   spending,
   totals,
+  transferHistory,
 };
