@@ -1,7 +1,10 @@
 // One fictitious household's money, which every story draws from, so the gallery reads as one app in use. Every name
 // is made up; data is added rather than changed, so a story's screenshot holds.
 import {
+  Building2Icon,
   CarIcon,
+  ChartLineIcon,
+  CoinsIcon,
   GiftIcon,
   GraduationCapIcon,
   HeartPulseIcon,
@@ -244,6 +247,40 @@ const longEvents = [
     at: "2026-11-13T10:40:00Z",
   },
 ];
+// Assets it holds, each with its traded code, its issuer's name, its type's icon and category, and the day's change,
+// a fraction of one. Every code and name is made up.
+const holdings = [
+  {
+    ticker: "FCTA3",
+    name: "Fictitious Energy",
+    icon: ChartLineIcon,
+    category: 1,
+    value: dollars("7640"),
+    change: "0.014",
+  },
+  {
+    ticker: "DMMY11",
+    name: "Dummy Logistics",
+    icon: Building2Icon,
+    category: 4,
+    value: dollars("7111.4"),
+    change: "0.002",
+  },
+  {
+    ticker: "EXCN-USD",
+    name: "Example Coin",
+    icon: CoinsIcon,
+    category: 7,
+    value: dollars("9450"),
+    change: "-0.021",
+  },
+];
+// Funds of one type, which need no mark.
+const funds = [
+  { ticker: "DMMY11", name: "Dummy Logistics", value: dollars("7111.4") },
+  { ticker: "FCTL11", name: "Fictitious Towers", value: dollars("4820") },
+  { ticker: "EXRE11", name: "Example Real Estate", value: dollars("2315.7") },
+];
 // How far into its food budget it is, in percent.
 const foodUsed = 87;
 const budgets = [
@@ -271,6 +308,8 @@ export {
   contributions,
   days,
   foodUsed,
+  funds,
+  holdings,
   longAccount,
   longEvents,
   paymentDays,

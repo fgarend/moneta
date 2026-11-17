@@ -6,6 +6,11 @@ gets its number.
 
 ## [Unreleased]
 
+### Added
+
+- `TickerChip`: an asset by its traded code, in a pill, linking to its page, with an optional `IconTile` or `Avatar`
+  as its mark and the company's name for screen readers. Its page, and the guidelines' Assets by code.
+
 ## [0.35.0] - 2026-11-17
 
 Timeline, the history of one thing.
