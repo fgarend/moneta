@@ -35,31 +35,6 @@ with each family. No reviewed piece has a default text, so shadcn's written stri
 **Done when:** an app can build every screen from Moneta's pieces with no class of its own, and leaves Tailwind for
 `styles.css`. Until then, it keeps Tailwind only for the classes it still writes.
 
-## Text
-
-Raised on 2026-11-17 with A paragraph's line height: an app writes text of its own outside the pieces, 20 `<p>` in
-one app's newer screens, seven of them a muted note of one line, as "no quote", the rest sentences, which no piece
-gives a step of the scale, so it writes `text-muted-foreground` itself. To ask: a paragraph and a note, their colour,
-the space between paragraphs and a line's longest measure, against a rule on every `p`, which reaches pieces' parts.
-
-Decided:
-- A paragraph and a note, decided on 2026-11-17: the app's own sentences at 14/24, and a muted line at 14/20 in the
-  place of something that did not come, as "No quote for this day", 13 of one app's 20. Against shadcn's Typeset, a
-  container's style for long documents at 15 px and 1.75, which would bend the scale. What stays out: a table's note
-  under its card, with Table; a line of an entity's facts with icons, a composition; a page's "not found", with Empty.
-- One piece with a variant, decided on 2026-11-17: `<Text>` and `<Text variant="note">`, always a `p`, with no `as`.
-  `note` is a new name in the vocabulary, as none says text in the place of what did not come, and `muted` is
-  `StatGroup`'s soft box. Against `Paragraph` and `Note`, each named by itself.
-- No margin, and `CardContent` lays what it holds 12 px apart, decided on 2026-11-17, as `Section` does 16, so the app
-  writes no gap. Against a margin between two `Text`, which adds to a section's gap, and nothing, the app's own gap.
-  A card holding two things now has 12 px between them, and an app's `gap-3` there becomes idle.
-- A paragraph's measure `max-w-prose`, 65 characters, decided on 2026-11-17, a note none. Against none, as most
-  libraries leave it to the layout, which in Moneta writes no class.
-- Its stories: Default, Note, InCard, Wide and LongWord. Tests: a `p` with no margin, 24 or 20 px, `--foreground` or
-  `--muted-foreground`, 65 characters at most for a paragraph, and a card's content 12 px apart. WCAG: 1.3.1 by a
-  story, 1.4.3 by the theme's test, 1.4.10 and 1.4.12 by every story; 1.4.8, AAA, met in passing. A note is not
-  announced, as it is still text; a loading that ends in it is the app's to announce.
-
 ## Actions and forms
 
 - Button's variants, ButtonGroup, PageHeader, as an app's own draws it, its context, title and actions each in a row
