@@ -67,6 +67,7 @@ const pages: Record<string, string> = {
   "skip-link": "SkipLink",
   stat: "StatGroup",
   table: "Table",
+  timeline: "Timeline",
 };
 const reviewedRow = /^\| `(?<name>[a-z-]+)` \| reviewed \|/gmu;
 const explained = Object.entries(pages);

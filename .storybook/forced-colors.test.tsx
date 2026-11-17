@@ -15,9 +15,13 @@ function hasEdge(element: Element): boolean {
   );
 }
 
-// What only a fill told apart, with the fill gone: the current page, and an open popover.
+// What only a fill told apart, with the fill gone: the current page, an open popover, and a timeline's dot.
 function withoutEdge(root: Element): string[] {
-  return [...root.querySelectorAll('[aria-current="page"], :popover-open')]
+  return [
+    ...root.querySelectorAll(
+      '[aria-current="page"], :popover-open, [data-slot="timeline-dot"]',
+    ),
+  ]
     .filter((element) => !hasEdge(element))
     .map((element) => element.outerHTML);
 }
