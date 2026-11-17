@@ -67,6 +67,7 @@ const pages: Record<string, string> = {
   "skip-link": "SkipLink",
   stat: "StatGroup",
   table: "Table",
+  text: "Text",
   "ticker-chip": "TickerChip",
   timeline: "Timeline",
 };

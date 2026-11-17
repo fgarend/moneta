@@ -186,6 +186,7 @@ the version installed. It holds only what exists, and each reviewed piece adds i
 - **`size="lg"` for a card that is a part of the page,** its title a section's, 18/24, with 24 px around; `size="sm"`
   for a small one, 12 px around.
 - **A whole card is never a link or a button:** a link goes in its title, and its actions in `CardAction`.
+- **What a `CardContent` holds sits 12 px apart,** so write no gap of your own there.
 
 ## Section
 
@@ -256,6 +257,14 @@ the version installed. It holds only what exists, and each reviewed piece adds i
   without in one column or sentence.
 - **Give the company's `name` where it is not written beside,** so a screen reader hears whose code it is.
 - **The change and the price go beside it,** as a `Percent` and an `Amount`, in their own columns in a table.
+
+## Text
+
+- **Your own sentences are a `Text`,** each paragraph one, at 14/24 and 65 characters at most, which the place
+  around lays apart: 16 px in a section, 12 in a card.
+- **A line in the place of what did not come is a `Text` with `variant="note"`,** muted, as "No quote for this day".
+  A whole page or area with nothing is an `Empty`.
+- **A piece's own text is its part,** as an alert's description, and a title is a piece's title.
 
 ## Lists of rows
 

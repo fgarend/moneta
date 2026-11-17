@@ -6,6 +6,16 @@ gets its number.
 
 ## [Unreleased]
 
+### Added
+
+- `Text`: the app's own text outside the pieces, a paragraph at 14/24 and 65 characters at most, or with
+  `variant="note"` a muted line in the place of something that did not come. Its page, and the guidelines' Text.
+
+### Changed
+
+- What a `CardContent` holds sits 12 px apart, as a section's content does 16. A gap of your own on it still wins,
+  so `flex flex-col gap-3` written there can go. Content of one thing does not change.
+
 ## [0.37.0] - 2026-11-17
 
 A paragraph's step in the scale, and interface text on the 4 px grid.

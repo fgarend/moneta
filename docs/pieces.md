@@ -41,7 +41,7 @@ A piece with no gap listed may still have some.
 | `breadcrumb` | raw | **Edited:** the current page is React Aria's Link, marked and disabled. **Default text:** "breadcrumb" and "More" |
 | `button` | raw | **Edited:** default 36 px, `sm` 32 and `lg` 40, the same for `icon`, `icon-sm` and `icon-lg`, with the variant `gold`. `sm`'s text is 12 px, `secondary`'s hover reads `--secondary-hover`, `outline` has no fill of `--input` in dark, as in light, and `buttonVariants` is not exported |
 | `button-group` | raw | **Edited:** React Aria's `Group`, and `buttonGroupVariants` is not exported |
-| `card` | reviewed | **Edited:** `CardTitle` is a heading, one level below where the card sits, and what a titled card holds one level below it; `size="lg"`, 24 px and a section's title; `CardAction` lays several controls in a row, 8 px apart, wrapping; it reads the scale of text, with 20 px around its content, sets `--surface`, and a content holding only a table, a selection bar and a table, or numbers joined in one box runs edge to edge, from its top when it has no header; an `AspectRatio` as its first child is its cover, edge to edge |
+| `card` | reviewed | **Edited:** `CardTitle` is a heading, one level below where the card sits, and what a titled card holds one level below it; `size="lg"`, 24 px and a section's title; `CardAction` lays several controls in a row, 8 px apart, wrapping; it reads the scale of text, with 20 px around its content, sets `--surface`, and a content holding only a table, a selection bar and a table, or numbers joined in one box runs edge to edge, from its top when it has no header; an `AspectRatio` as its first child is its cover, edge to edge; what its content holds sits 12 px apart |
 | `checkbox` | raw | **Code:** does not grow for its children. **Edited:** on React Aria's `CheckboxField` and `CheckboxButton`, and a dash on a filled box when indeterminate, and no fill in dark, as in light |
 | `collapsible` | raw | **Code:** its trigger has no style of its own |
 | `context-menu` | raw | |
@@ -82,6 +82,7 @@ A piece with no gap listed may still have some.
 | `switch` | raw | **Edited:** on React Aria's `SwitchField` and `SwitchButton`, with an 18 px track. **Code:** does not grow for its children |
 | `table` | reviewed | |
 | `tabs` | raw | **Edited:** default 36 px, `sm` 32 and `lg` 40 on `TabsList`, and its inactive text reads `muted-foreground`, as `foreground/60` is 3.89:1 on our `muted`, its trigger is as tall as its list, and `tabsListVariants` is not exported |
+| `text` | reviewed | |
 | `textarea` | raw | **Edited:** no fill in dark, as in light |
 | `ticker-chip` | reviewed | |
 | `timeline` | reviewed | |
