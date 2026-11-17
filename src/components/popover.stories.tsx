@@ -35,6 +35,9 @@ const meta = {
 
 type Story = StoryObj<typeof meta>;
 
+// A paragraph's line height, the scale's type-paragraph.
+const paragraph = "24px";
+
 const Default: Story = {
   play: async ({ canvasElement }) => {
     await expect(
@@ -58,6 +61,9 @@ const Open: Story = {
       within(popover).getByRole("heading", { name: title }),
     ).toBeInTheDocument();
     await expect(popover).toHaveTextContent(description);
+    await expect(
+      getComputedStyle(within(popover).getByText(description)).lineHeight,
+    ).toBe(paragraph);
   },
 };
 

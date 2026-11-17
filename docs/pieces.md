@@ -32,7 +32,7 @@ A piece with no gap listed may still have some.
 | Piece | State | Known gaps |
 | --- | --- | --- |
 | `alert` | reviewed | **Edited:** `role="alert"` for `destructive` and `status` for the rest; named by its `AlertTitle`; an icon by its meaning; a tint of its meaning, its description in the text's colour; `success`, `warning` and `info` variants; its action a column at its end, under its words when narrow, in the text's colour; and its description lays out paragraphs and lists |
-| `alert-dialog` | raw | |
+| `alert-dialog` | raw | **Edited:** its description a paragraph, at 14/24 |
 | `amount` | reviewed | |
 | `app-layout` | reviewed | |
 | `aspect-ratio` | reviewed | **Edited:** what it holds fills it, cropped, on `--muted` with corners `--radius` |
@@ -48,10 +48,10 @@ A piece with no gap listed may still have some.
 | `date-field` | reviewed | **Edited:** `lg` 40 px, beside 36 and `sm` 32, and no fill in dark, as in light |
 | `date-time` | reviewed | |
 | `description-list` | reviewed | |
-| `dialog` | raw | **Edited:** 16 px from each edge by `inset-x-4`, and React Aria's types are not exported, and its close button's name comes from `closeLabel`, and it sets `--surface` |
+| `dialog` | raw | **Edited:** 16 px from each edge by `inset-x-4`, and React Aria's types are not exported, and its close button's name comes from `closeLabel`, and it sets `--surface`, and its description is a paragraph, at 14/24 |
 | `dropdown-menu` | raw | |
-| `empty` | raw | |
-| `field` | raw | **Code:** does not link its description or error, which its story does by hand. **Edited:** React Aria's `Group` |
+| `empty` | raw | **Edited:** its description a paragraph, at 14/24 |
+| `field` | raw | **Code:** does not link its description or error, which its story does by hand. **Edited:** React Aria's `Group`, and its label, content and description at 20 px, on the grid |
 | `hover-card` | raw | **Code:** its dialog has no name unless given `aria-label`. Opening by focus or hover is not checked |
 | `icon-tile` | reviewed | |
 | `input` | raw | **Edited:** default 36 px, `sm` 32 and `lg` 40, by a `size` in place of the input's own, its width in characters, and no fill in dark, as in light |
@@ -64,7 +64,7 @@ A piece with no gap listed may still have some.
 | `native-select` | raw | **Edited:** default 36 px, `sm` 32 and `lg` 40, and no fill in dark, as in light |
 | `pagination` | reviewed | |
 | `percent` | reviewed | |
-| `popover` | raw | **Code:** its title does not name it |
+| `popover` | raw | **Code:** its title does not name it. **Edited:** its description a paragraph, at 14/24 |
 | `progress` | raw | **Edited:** indeterminate, a part of the bar runs across it, still and dashed with less motion |
 | `quantity` | reviewed | |
 | `radio-group` | raw | **Code:** an item does not grow for its children. **Edited:** on React Aria's `RadioField` and `RadioButton`, and no fill in dark, as in light |
@@ -72,7 +72,7 @@ A piece with no gap listed may still have some.
 | `scroll-area` | reviewed | **Edited:** named by `aria-label` or `aria-labelledby`, required; a region that takes focus only when what it holds overflows; the browser's scrollbar; a shadow at each end where it goes on; it fills what is left of its place |
 | `select` | raw | **Edited:** default 36 px, `sm` 32 and `lg` 40, its separator is hidden from screen readers, and no fill in dark, as in light. **forced colours:** the chevron keeps its own colour, in Chromium |
 | `separator` | reviewed | |
-| `sheet` | raw | **Edited:** React Aria's types are not exported, its close button's name comes from `closeLabel`, it sets `--surface`, and its `aria-label` or `aria-labelledby` names its dialog |
+| `sheet` | raw | **Edited:** React Aria's types are not exported, its close button's name comes from `closeLabel`, it sets `--surface`, and its `aria-label` or `aria-labelledby` names its dialog, and its description is a paragraph, at 14/24 |
 | `sidebar` | reviewed | |
 | `skeleton` | raw | **Edited:** it pulses only when its reader has not asked for less motion |
 | `skip-link` | reviewed | |

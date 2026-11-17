@@ -164,7 +164,7 @@ function SheetDescription({
   return (
     <div
       data-slot="sheet-description"
-      className={cn("text-sm text-muted-foreground", className)}
+      className={cn("type-paragraph text-muted-foreground", className)}
       {...props}
     />
   );

@@ -35,15 +35,12 @@ with each family. No reviewed piece has a default text, so shadcn's written stri
 **Done when:** an app can build every screen from Moneta's pieces with no class of its own, and leaves Tailwind for
 `styles.css`. Until then, it keeps Tailwind only for the classes it still writes.
 
-## A paragraph's line height
+## Text
 
-Raised on 2026-11-17 with TickerChip, which is 24 px tall: the scale has one body step, 14/20, for interface text
-and for paragraphs alike, so a piece within a sentence, a 24 px chip, pushes its line apart, and paragraphs read
-tight, at 1.43. To add a step for text read in lines, as a description in an alert, a card, a section, an item or a
-timeline, or a summary: 14/24, at 1.71, near shadcn's typography, whose paragraphs are `leading-7` on 16 px, and above
-the 1.5 that WCAG 1.4.8 asks at AAA. A piece meant for a sentence is then 24 px at most, as TickerChip, `Badge` and
-`Kbd`. To decide at its step: which pieces' text is a paragraph, and the screenshots that move. **What it costs:** two
-body steps to choose between, and until it lands a chip in a paragraph opens its line by 4 px.
+Raised on 2026-11-17 with A paragraph's line height: an app writes text of its own outside the pieces, 20 `<p>` in
+one app's newer screens, seven of them a muted note of one line, as "no quote", the rest sentences, which no piece
+gives a step of the scale, so it writes `text-muted-foreground` itself. To ask: a paragraph and a note, their colour,
+the space between paragraphs and a line's longest measure, against a rule on every `p`, which reaches pieces' parts.
 
 ## Actions and forms
 

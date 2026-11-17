@@ -4,12 +4,11 @@ Moneta is the source of truth for components: an app builds its screens from its
 own. What it lacks is added here, in this order, which a new need can change. The details of each item, what is
 known and what is still to ask, are in [`roadmap-notes.md`](roadmap-notes.md), read when the item starts.
 
-**Now:** 1. A paragraph's line height.
+**Now:** 1. Text.
 
 ## Next, in order
 
-1. **A paragraph's line height.** 14/24 in the scale for text read in lines, so a piece within a sentence,
-   up to 24 px, keeps the lines even.
+1. **Text.** The app's own paragraph and note, read from the scale, with no class of its own.
 2. **Actions and forms.** The pieces that act and take input, reviewed or made.
     - Button, ButtonGroup and PageHeader
     - Input, InputGroup, Textarea, Label, Field, NativeSelect, Select and SearchField
@@ -92,6 +91,8 @@ Each becomes an item when its time comes.
 
 ## Done
 
+- **A paragraph's line height.** 14/24 for text written in sentences, the descriptions of seven pieces, and
+  interface text's titles and details at 20 px, on the 4 px grid. 0.37.0.
 - **TickerChip.** An asset by its traded code in a pill, linking to its page, with an optional logo or type in a
   circle concentric with it, and the company's name heard after the code. 0.36.0.
 - **Timeline.** The history of one thing, each event that happened or is expected, its dot coloured by its

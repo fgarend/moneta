@@ -199,6 +199,11 @@ export const LongText: Story = {
     await expect(
       canvas.getByText(longAccount.detail).getBoundingClientRect().height,
     ).toBeGreaterThan(lineHeight * 2);
+    for (const text of [longAccount.name, longAccount.detail]) {
+      await expect(getComputedStyle(canvas.getByText(text)).lineHeight).toBe(
+        `${lineHeight}px`,
+      );
+    }
   },
 };
 

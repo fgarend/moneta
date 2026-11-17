@@ -39,12 +39,15 @@ The look Moneta has by default, which whoever uses it can replace. How an app re
 - **The font is Geist, in `--font`,** which `--font-sans` reads, so an app can change it. `--font-heading` stays as shadcn writes
   it, costing nothing unused, so a piece that reads it later still finds it.
 - **A scale of text and of space,** so sizes are chosen once. Text, with line heights on a 4 px grid but the title's: 32/40 for a
-  page's title, 24/32 for an amount of note, 18/24 for a section, 15/22 for a card's title, 14/20 for the body, 13/20 for a
-  label and 12/16 for a caption. Space, in multiples of 4 px: 8 to 12 within a group, 16 to 20 in a card, 16 between cards,
+  page's title, 24/32 for an amount of note, 18/24 for a section, 15/22 for a card's title, 14/24 for a paragraph, 14/20
+  for the body, 13/20 for a label and 12/16 for a caption. A paragraph is text written in sentences to read in lines,
+  as a message's, a dialog's, an empty place's or an event's description, so a piece of 24 px at most sits in a
+  sentence and keeps its lines even; the body is interface text, a row's or a field's title and detail, one line by
+  nature and dense, at 20 px, Tailwind's `leading-snug` and `leading-normal` left off the grid. Space, in multiples of 4 px: 8 to 12 within a group, 16 to 20 in a card, 16 between cards,
   40 between sections, and 40 to 48 around a page. Inside is smaller than between, so what belongs together reads together.
 - **One emphasis at each level.** 600 for titles and amounts of note, 500 for an amount in a row, 400 for the rest.
-- **Five text styles, internal to the pieces:** `type-display`, `type-amount-lg`, `type-amount`, `type-title` and
-  `type-label`. They are `@utility`, as shadcn's guide says, and Tailwind writes only those a piece uses, so an app on
+- **Six text styles, internal to the pieces:** `type-display`, `type-amount-lg`, `type-amount`, `type-title`,
+  `type-paragraph` and `type-label`. They are `@utility`, as shadcn's guide says, and Tailwind writes only those a piece uses, so an app on
   `styles.css` reaches them through a piece. The rest of the scale is Tailwind's own steps.
 - **`Card` reads the scale, and has 20 px around its content.** **`Table` has a quiet header with no fill and 12 px
   rows, with a line under each but the last,** 20 px at each end in a card, so it lines up with the card's title, and
@@ -254,3 +257,4 @@ The look Moneta has by default, which whoever uses it can replace. How an app re
 - 2026-11-16: The gold theme revised: cool paper, a lighter graphite in dark, `sidebar-gradient`, and tints of 10% in
   both modes.
 - 2026-11-16: Light's paper and lines in a true grey.
+- 2026-11-17: A paragraph's step, 14/24, and the body's titles and details at 20 px, on the grid.

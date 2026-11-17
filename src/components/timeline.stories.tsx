@@ -28,6 +28,8 @@ const ring = "1px";
 const dot = '[data-slot="timeline-dot"]';
 const line = '[data-slot="timeline-line"]';
 const cardTitle = "Contributions";
+// A description is a paragraph, the scale's type-paragraph.
+const paragraph = "24px";
 const expectedOn = "Expected on";
 
 function colourOf(value: string, near: Element): string {
@@ -122,6 +124,7 @@ const Default: Story = {
       colourOf("var(--muted-foreground)", canvasElement),
     );
     await expect(getComputedStyle(lastDot).borderTopWidth).toBe(ring);
+    await expect(getComputedStyle(lastTitle).lineHeight).toBe("20px");
     await expect(getComputedStyle(lastTitle).color).toBe(
       colourOf("var(--muted-foreground)", canvasElement),
     );
@@ -221,6 +224,7 @@ const WithDetails: Story = {
     await expect(getComputedStyle(description).color).toBe(
       colourOf("var(--muted-foreground)", canvasElement),
     );
+    await expect(getComputedStyle(description).lineHeight).toBe(paragraph);
   },
 };
 

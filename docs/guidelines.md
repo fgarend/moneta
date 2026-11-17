@@ -65,7 +65,9 @@ the version installed. It holds only what exists, and each reviewed piece adds i
 
 - **The font is Geist, in `--font`,** with tabular figures in amounts, so digits line up in a column.
 - **The scale,** in px of size and line height: 32/40 for a page's title, 24/32 for an amount of note, 18/24 for a
-  section, 15/22 for a card's title, 14/20 for the body, 13/20 for a label and 12/16 for a caption.
+  section, 15/22 for a card's title, 14/24 for a paragraph, 14/20 for the body, 13/20 for a label and 12/16 for a
+  caption. A paragraph is text written in sentences, as a message's or a dialog's description, so a piece of 24 px at
+  most, as a `TickerChip` or a `Badge`, sits in a sentence without opening its line.
 - **One emphasis at each level:** 600 for titles and amounts of note, 500 for an amount in a row, 400 for the rest.
 - **An app gets the scale through the pieces,** with no class of its own: `Section`'s and `Card`'s titles and
   descriptions, `Table`'s header and `Amount` already read it. A page's title has no piece yet.
