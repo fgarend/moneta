@@ -35,13 +35,6 @@ with each family. No reviewed piece has a default text, so shadcn's written stri
 **Done when:** an app can build every screen from Moneta's pieces with no class of its own, and leaves Tailwind for
 `styles.css`. Until then, it keeps Tailwind only for the classes it still writes.
 
-## Text
-
-Raised on 2026-11-17 with A paragraph's line height: an app writes text of its own outside the pieces, 20 `<p>` in
-one app's newer screens, seven of them a muted note of one line, as "no quote", the rest sentences, which no piece
-gives a step of the scale, so it writes `text-muted-foreground` itself. To ask: a paragraph and a note, their colour,
-the space between paragraphs and a line's longest measure, against a rule on every `p`, which reaches pieces' parts.
-
 ## Actions and forms
 
 - Button's variants, ButtonGroup, PageHeader, as an app's own draws it, its context, title and actions each in a row
@@ -93,7 +86,8 @@ the space between paragraphs and a line's longest measure, against a rule on eve
 ## The rest
 
 - Tabs, with a count in a tab and tools to the right of its list. Progress, Empty, and Skeleton, with one pattern
-  for loading, error and empty. Spinner and Breadcrumb. Pagination moved to Table.
+  for loading, error and empty. Spinner and Breadcrumb. Pagination moved to Table. Empty takes a page's "not found", as an app writes it in a
+  `p` today, raised on 2026-11-17 with Text.
 - Collapsible and AllocationBar. StatGroup and IconTile moved to Display. `calendar` after a study like Sidebar's.
 - Link came early, before Sidebar.
 - Steps, Banner, and Meter, which says how much of a limit is used, unlike Progress, with a target's mark.
@@ -146,6 +140,9 @@ With `check-release`'s rules for the numbers after it, as a change that breaks t
 
 ## Later
 
+- **A table's note.** Raised on 2026-11-17 with Text: an app writes what a table says of itself, as "prices at the
+  market's close", under its card in 13/20 muted, by a part of its own. To ask: a part of `Table`, or of `Card`, and
+  shadcn's `TableCaption`, which sits at the table's foot inside it.
 - **An institution's logo.** Raised on 2026-11-15: a bank's or a broker's, as an `Avatar` in a square form, as
   Polaris' and Atlassian's for an organisation, its initials when there is no picture, when an app shows one; none
   does yet. In a `TickerChip` a logo is a circle, as a mark follows the shape that holds it.

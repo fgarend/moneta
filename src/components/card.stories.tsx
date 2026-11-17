@@ -184,6 +184,32 @@ const ContentUnderTitle: Story = {
   },
 };
 
+// What its content holds sits 12 px apart, as a section's 16, so an app writes no gap of its own.
+const ContentApart: Story = {
+  tags: ["visual"],
+  args: {
+    children: (
+      <>
+        <CardHeader>
+          <CardTitle>{title}</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <p>{content}</p>
+          <p>{footer}</p>
+        </CardContent>
+      </>
+    ),
+  },
+  play: async ({ canvasElement }) => {
+    const first = within(canvasElement).getByText(content);
+    const second = within(canvasElement).getByText(footer);
+
+    await expect(
+      second.getBoundingClientRect().top - first.getBoundingClientRect().bottom,
+    ).toBe(12);
+  },
+};
+
 // With no title, what it holds takes the level the title would, so no level is skipped.
 const ContentWithoutTitle: Story = {
   args: { children: <CardContent>{grouped()}</CardContent> },
@@ -504,6 +530,7 @@ const LongTitle: Story = {
 
 export default meta;
 export {
+  ContentApart,
   ContentUnderTitle,
   ContentWithoutTitle,
   Default,

@@ -6,6 +6,20 @@ gets its number.
 
 ## [Unreleased]
 
+## [0.38.0] - 2026-11-17
+
+Text, the app's own paragraph and note, and a card's content 12 px apart.
+
+### Added
+
+- `Text`: the app's own text outside the pieces, a paragraph at 14/24 and 65 characters at most, or with
+  `variant="note"` a muted line in the place of something that did not come. Its page, and the guidelines' Text.
+
+### Changed
+
+- What a `CardContent` holds sits 12 px apart, as a section's content does 16. A gap of your own on it still wins,
+  so `flex flex-col gap-3` written there can go. Content of one thing does not change.
+
 ## [0.37.0] - 2026-11-17
 
 A paragraph's step in the scale, and interface text on the 4 px grid.
@@ -662,7 +676,8 @@ and dark. `README.md` says how to install and use it.
 
 A rehearsal of the release's path, not meant to be installed. Use a later version.
 
-[Unreleased]: https://github.com/fgarend/moneta/compare/v0.37.0...HEAD
+[Unreleased]: https://github.com/fgarend/moneta/compare/v0.38.0...HEAD
+[0.38.0]: https://github.com/fgarend/moneta/compare/v0.37.0...v0.38.0
 [0.37.0]: https://github.com/fgarend/moneta/compare/v0.36.0...v0.37.0
 [0.36.0]: https://github.com/fgarend/moneta/compare/v0.35.0...v0.36.0
 [0.35.0]: https://github.com/fgarend/moneta/compare/v0.34.0...v0.35.0

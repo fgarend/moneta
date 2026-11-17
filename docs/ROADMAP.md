@@ -4,12 +4,11 @@ Moneta is the source of truth for components: an app builds its screens from its
 own. What it lacks is added here, in this order, which a new need can change. The details of each item, what is
 known and what is still to ask, are in [`roadmap-notes.md`](roadmap-notes.md), read when the item starts.
 
-**Now:** 1. Text.
+**Now:** 1. Actions and forms.
 
 ## Next, in order
 
-1. **Text.** The app's own paragraph and note, read from the scale, with no class of its own.
-2. **Actions and forms.** The pieces that act and take input, reviewed or made.
+1. **Actions and forms.** The pieces that act and take input, reviewed or made.
     - Button, ButtonGroup and PageHeader
     - Input, InputGroup, Textarea, Label, Field, NativeSelect, Select and SearchField
     - Checkbox, RadioGroup, Switch, Toggle, ToggleGroup and Slider
@@ -20,25 +19,25 @@ known and what is still to ask, are in [`roadmap-notes.md`](roadmap-notes.md), r
     - how a form connects, with a server's errors
     - `combobox`, after a study
     - Button's `link` variant beside Link, and a disabled `LinkButton`, which is not dimmed
-3. **Overlays.** The pieces that open over the page, reviewed or made.
+2. **Overlays.** The pieces that open over the page, reviewed or made.
     - Dialog, AlertDialog and Sheet
     - Popover, HoverCard, DropdownMenu, ContextMenu, Tooltip and Toggletip
     - text spacing and forced colours on what an overlay draws when open
-4. **The rest.** The other pieces, reviewed or made.
+3. **The rest.** The other pieces, reviewed or made.
     - Tabs, Progress, Meter, Empty, Skeleton and Spinner
     - Breadcrumb, Steps and Banner
     - Collapsible and AllocationBar
     - a bar of actions at the page's foot, a virtualised list, and Toast
     - `calendar`, after a study
-5. **Charts.** Line, area, bars and donut, a ring and BarList, each with a table of its data.
-6. **MoneyInput.** Entering an amount.
-7. **CurrencySelect.** Choosing a currency.
-8. **A stable API.** What each state promises after 1.0.
+4. **Charts.** Line, area, bars and donut, a ring and BarList, each with a table of its data.
+5. **MoneyInput.** Entering an amount.
+6. **CurrencySelect.** Choosing a currency.
+7. **A stable API.** What each state promises after 1.0.
     - every piece reviewed
     - the accessibility script run by hand, with a screen reader and real zoom
     - a policy for deprecating
-9. **Stricter checks.** `exactOptionalPropertyTypes`, if React Aria's types pass it.
-10. **Release 1.0.0.**
+8. **Stricter checks.** `exactOptionalPropertyTypes`, if React Aria's types pass it.
+9. **Release 1.0.0.**
 
 ## Later, in no order
 
@@ -48,6 +47,7 @@ Each becomes an item when its time comes.
 - **A local link.** When installing a build each time slows the work.
 - **Stack and Inline.** If an app's screens still repeat a layout once the pieces lay their own.
 - **An institution's logo.** An `Avatar` in a square form, when an app shows one.
+- **A table's note.** What a table says of itself, under it, when its place is decided.
 - **The scale of the whole system.** A preference for larger text, for every piece at once.
 - **Screenshots below the medium breakpoint, and below 800 px.**
 - **A top bar that stays in view.** When something needs it.
@@ -91,6 +91,8 @@ Each becomes an item when its time comes.
 
 ## Done
 
+- **Text.** The app's own sentences as a paragraph at 14/24, 65 characters at most, or a muted note at 14/20,
+  with no margin, and a card's content 12 px apart. 0.38.0.
 - **A paragraph's line height.** 14/24 for text written in sentences, the descriptions of seven pieces, and
   interface text's titles and details at 20 px, on the 4 px grid. 0.37.0.
 - **TickerChip.** An asset by its traded code in a pill, linking to its page, with an optional logo or type in a

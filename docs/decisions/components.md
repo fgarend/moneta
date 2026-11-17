@@ -194,6 +194,12 @@ pieces is in [`../pieces.md`](../pieces.md), and how a piece is analysed is in [
   through `IconTile`'s place, as `Item` gives a row's. **The company's `name` optional,** heard after the code.
 - **The change and the price outside,** as a `Percent` and an `Amount` the app writes beside it.
 
+### Text
+
+- **The app's own text, a `p` with no margin:** a paragraph at `type-paragraph`, 14/24, in the colour around it and
+  `max-w-prose`, 65 characters; `variant="note"`, 14/20 in `--muted-foreground` with no limit, in the place of
+  something that did not come. A long word breaks. What holds it lays the space.
+
 ### Avatar
 
 - **Hidden from screen readers,** as an `IconTile`: its picture takes no alt and its initials are hidden, as the name
@@ -233,6 +239,8 @@ pieces is in [`../pieces.md`](../pieces.md), and how a piece is analysed is in [
   card's, so their text lines up with its title at every size, and at its foot the card drops its own, so their lines
   reach its edges. Numbers apart, or with no box, keep its padding. With no header, a card under a section's title,
   what runs edge to edge starts at its top, with no line above.
+- **What a `CardContent` holds sits 12 px apart,** a column with a gap, as a `Section`'s 16, which a gap of the app's
+  own replaces rather than adds to; a table under its selection bar, or groups of a list, lay their own space.
 - **No `Heading` for the app:** every title comes from a piece, `Section`, `Card` or `ItemGroup`, with its size and
   weight; a title no piece covers is a missing piece, for the roadmap.
 
@@ -442,6 +450,10 @@ pieces is in [`../pieces.md`](../pieces.md), and how a piece is analysed is in [
   **The mark written in it,** as `IconTile` and `Avatar`, reviewed once. **What it costs:** the chip sizes them.
   **24 px everywhere,** the target 2.5.8 asks. **What it costs:** a paragraph's line opens by 4 px until the scale
   has a paragraph's step.
+- **The app's text in a piece,** a paragraph and a note, so it writes no class for its own sentences. **What it
+  costs:** a piece for a `p`. **A measure of 65 characters,** as no layout of the app's writes one. **What it costs:**
+  a paragraph stops in the middle of a wide section. **A card's content lays its space,** as a section's does.
+  **What it costs:** inline content alone in it stretches to its width, as in any column.
 - **An avatar always hidden,** as every app writes the name beside it, so a name in it is heard twice. **What it
   costs:** an avatar alone says nothing, which its page does not recommend. **Its size from a row,** as an
   `IconTile`'s, so the rows' titles line up. **What it costs:** its size is not seen in the code that uses it. **A
@@ -654,6 +666,9 @@ pieces is in [`../pieces.md`](../pieces.md), and how a piece is analysed is in [
   change in a button,** as Kibo UI's. **A mark required, initials, or a square in the pill.** **A name required,** heard
   twice beside a written one. **A lighter look with no link.** **20 px in a sentence.** **An ellipsis on a long code.**
   **`--border` as `Badge`'s `outline`, or a `--muted` fill.** **Props for an icon, a category and a logo.**
+- **shadcn's Typeset,** a container's style for long documents at 15 px and 1.75. **`Paragraph` and `Note`,** two
+  pieces. **An `as` prop.** **A margin between two `Text`,** added to a section's gap, and **a measure left to the
+  layout.**
 - **An avatar named by an optional `name`,** which says a name twice beside the one in words. **The text's colour for
   its initials,** 12.95:1, which competes with the name. **Its badge removed,** or **at 12 px with an 8 px icon at
   24 px,** which covers a small avatar. **Its group removed** until a use. **An empty circle while its picture
@@ -756,3 +771,4 @@ pieces is in [`../pieces.md`](../pieces.md), and how a piece is analysed is in [
 - 2026-11-16: DescriptionList.
 - 2026-11-17: Timeline.
 - 2026-11-17: TickerChip.
+- 2026-11-17: Text, and a card's content 12 px apart.

@@ -146,6 +146,9 @@ function CardContent({ className, ...props }: ComponentProps<"div">) {
         // Numbers joined in one box, alone, run edge to edge, the card their box; apart or with no box, they keep its
         // padding.
         "not-first:has-[>[data-slot=stat-group-box]:only-child>[data-joined]]:border-t first:has-[>[data-slot=table-container]:only-child]:-mt-(--card-spacing) first:has-[>[data-slot=table-selection-bar]:first-child+[data-slot=table-container]:last-child]:-mt-(--card-spacing) first:has-[>[data-slot=item-group]]:not-has-[>:not([data-slot=item-group])]:-mt-(--card-spacing) first:has-[>[data-slot=stat-group-box]:only-child>[data-joined]]:-mt-(--card-spacing) has-[>[data-slot=stat-group-box]:only-child>[data-joined]]:px-0 [&>[data-slot=stat-group-box]:only-child>[data-joined]]:rounded-none [&>[data-slot=stat-group-box]:only-child>[data-joined]]:bg-transparent [&>[data-slot=stat-group-box]:only-child>[data-joined]]:ring-0",
+        // What it holds sits 12 px apart, as a section's 16, a gap an app's own replaces; a table under its selection
+        // bar, or groups of a list, lay their own space.
+        "flex flex-col gap-3 has-[>[data-slot=table-selection-bar]:first-child+[data-slot=table-container]:last-child]:gap-0 has-[>[data-slot=item-group]]:not-has-[>:not([data-slot=item-group])]:gap-0",
         className,
       )}
       {...props}
