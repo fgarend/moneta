@@ -35,17 +35,15 @@ with each family. No reviewed piece has a default text, so shadcn's written stri
 **Done when:** an app can build every screen from Moneta's pieces with no class of its own, and leaves Tailwind for
 `styles.css`. Until then, it keeps Tailwind only for the classes it still writes.
 
-## Display
+## A paragraph's line height
 
-Each piece, at its step, follows the gallery's guide, as `docs/decisions/components.md` says: its page by `autodocs`,
-its and its props' comments as JSDoc, its stories exported where written in the order they teach, a story that only
-checks by `!autodocs`, and its data from `.storybook/data.ts`, added rather than changed. Its page opens with what
-it is, then "Use it for" and "Not recommended", as Badge's.
-
-- Section came early, before Sidebar, and Table comes there too.
-- An institution's logo, as a bank's or a broker's, raised on 2026-11-15: an `Avatar` in a square form, as Polaris'
-  and Atlassian's for an organisation, its initials when there is no picture, when an app shows one; none does yet.
-- Item moved to Lists of rows. Stat and TickerChip.
+Raised on 2026-11-17 with TickerChip, which is 24 px tall: the scale has one body step, 14/20, for interface text
+and for paragraphs alike, so a piece within a sentence, a 24 px chip, pushes its line apart, and paragraphs read
+tight, at 1.43. To add a step for text read in lines, as a description in an alert, a card, a section, an item or a
+timeline, or a summary: 14/24, at 1.71, near shadcn's typography, whose paragraphs are `leading-7` on 16 px, and above
+the 1.5 that WCAG 1.4.8 asks at AAA. A piece meant for a sentence is then 24 px at most, as TickerChip, `Badge` and
+`Kbd`. To decide at its step: which pieces' text is a paragraph, and the screenshots that move. **What it costs:** two
+body steps to choose between, and until it lands a chip in a paragraph opens its line by 4 px.
 
 ## Actions and forms
 
@@ -151,6 +149,9 @@ With `check-release`'s rules for the numbers after it, as a change that breaks t
 
 ## Later
 
+- **An institution's logo.** Raised on 2026-11-15: a bank's or a broker's, as an `Avatar` in a square form, as
+  Polaris' and Atlassian's for an organisation, its initials when there is no picture, when an app shows one; none
+  does yet. In a `TickerChip` a logo is a circle, as a mark follows the shape that holds it.
 - **A registry.** Delivery is by tarball. Weighed when that stops being enough.
 - **A local link.** Installing a build each time may slow the daily work. A tarball installed in 1 to 2 seconds on
   2026-11-06, and it also catches packaging errors. Weighed when that slows it.

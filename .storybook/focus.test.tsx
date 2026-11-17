@@ -40,6 +40,7 @@ import {
   TabsTrigger,
 } from "../src/components/tabs.js";
 import { Textarea } from "../src/components/textarea.js";
+import { TickerChip } from "../src/components/ticker-chip.js";
 import { Toggle } from "../src/components/toggle.js";
 import "./preview.css";
 
@@ -119,6 +120,12 @@ const pieces: [string, ReactElement][] = [
     <Link href="#a" isQuiet={true} key="a">
       {label}
     </Link>,
+  ],
+  [
+    "TickerChip",
+    <TickerChip href="#a" key="a">
+      {label}
+    </TickerChip>,
   ],
   ["Input", <Input aria-label={label} key="a" />],
   ["DateField", <DateField aria-label={label} key="a" />],

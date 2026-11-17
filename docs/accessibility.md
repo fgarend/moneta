@@ -29,18 +29,18 @@ which is run by hand.
 
 | Criterion | How | Notes |
 | --- | --- | --- |
-| 1.1.1 Non-text Content | axe, story | IconTile hidden from screen readers as decoration, its words beside it, a key's symbol hidden and its name in words heard, an avatar's picture and initials hidden, its group heard as the app's words and its badge's words heard, and a badge's icon hidden, its word heard, and a picture in an AspectRatio named by the app's `alt` |
+| 1.1.1 Non-text Content | axe, story | IconTile hidden from screen readers as decoration, its words beside it, a key's symbol hidden and its name in words heard, an avatar's picture and initials hidden, its group heard as the app's words and its badge's words heard, and a badge's icon hidden, its word heard, and a picture in an AspectRatio named by the app's `alt`, and a ticker chip's mark hidden, its code and the app's name heard |
 | 1.2.1 Audio-only and Video-only | app | |
 | 1.2.2 Captions (Prerecorded) | app | |
 | 1.2.3 Audio Description or Media Alternative | app | |
 | 1.2.4 Captions (Live) | app | |
 | 1.2.5 Audio Description | app | |
-| 1.3.1 Info and Relationships | axe, story | Stories find elements by role and name, a separator across and upright with its orientation, an alert named by its title, Section's and Card's the level of their titles and what a card holds below its title, a count read inside its heading, Table's name and its rows' titles, a list of rows as a list, its groups' headings naming their lists, a group of numbers and the details of one thing as lists of terms and values, a history as an ordered list, the sidebar a named `nav` of lists named by their sections, a date as a `<time>` with its ISO value, and the words for no value or a hidden one, and the minus, of Amount, Percent and Quantity |
+| 1.3.1 Info and Relationships | axe, story | Stories find elements by role and name, a separator across and upright with its orientation, an alert named by its title, Section's and Card's the level of their titles and what a card holds below its title, a count read inside its heading, Table's name and its rows' titles, a list of rows as a list, its groups' headings naming their lists, a group of numbers and the details of one thing as lists of terms and values, a history as an ordered list, a ticker chip's link named by its code and the company's name, the sidebar a named `nav` of lists named by their sections, a date as a `<time>` with its ISO value, and the words for no value or a hidden one, and the minus, of Amount, Percent and Quantity |
 | 1.3.2 Meaningful Sequence | story, script | A timeline in the order written, which nothing reverses |
 | 1.3.3 Sensory Characteristics | app | |
 | 1.3.4 Orientation | script | Nothing here locks it |
 | 1.3.5 Identify Input Purpose | none yet | With the form controls (Actions and forms) |
-| 1.4.1 Use of Color | story, app | Link's underline, and the sidebar's current page, by a bar and a bolder text. A category's colour beside its name, which the guidelines ask. A badge's state by its word and its icon's shape, by a story, an avatar's badge by its icon and words, by a story, and an alert's meaning by its icon's shape, by a story. A timeline's event by its words, its dot's colour only adding to them. A value's tone only adds colour, and its sign or words are the app's, as a number's change by its sign beside the app's words |
+| 1.4.1 Use of Color | story, app | Link's underline, and the sidebar's current page, by a bar and a bolder text. A category's colour beside its name, which the guidelines ask. A badge's state by its word and its icon's shape, by a story, an avatar's badge by its icon and words, by a story, and an alert's meaning by its icon's shape, by a story. A timeline's event by its words, its dot's colour only adding to them. A ticker chip's link by its border and shape. A value's tone only adds colour, and its sign or words are the app's, as a number's change by its sign beside the app's words |
 | 1.4.2 Audio Control | app | |
 | 1.4.3 Contrast (Minimum) | axe, test | axe on flat colours, and `test/theme.test.ts` on the theme's pairs, both modes, a value's tones and the colours of meaning among them, and each colour of meaning as a badge's words on its tint over every surface, and the text on each tint, as an alert's description |
 | 1.4.4 Resize Text | script | |
@@ -61,14 +61,14 @@ which is run by hand.
 | 2.4.4 Link Purpose (In Context) | axe, test, app | axe finds a link with no name, and `test/link.test.ts` that `Link` asks for what it holds; its words are the app's |
 | 2.4.5 Multiple Ways | app | |
 | 2.4.6 Headings and Labels | app | |
-| 2.4.7 Focus Visible | test | `.storybook/focus.test.tsx`, on 15 pieces, in 3 browsers and in forced colours |
+| 2.4.7 Focus Visible | test | `.storybook/focus.test.tsx`, on 16 pieces, in 3 browsers and in forced colours |
 | 2.4.11 Focus Not Obscured (Minimum) | story | A row focused under Table's sticky header scrolls clear of it, and the page's scroll padding under AppLayout's sticky bar |
 | 2.5.1 Pointer Gestures | none yet | |
 | 2.5.2 Pointer Cancellation | none yet | |
 | 2.5.3 Label in Name | story, app | Pagination's Previous and Next named by their words; elsewhere the visible name and the accessible one |
 | 2.5.4 Motion Actuation | none yet | |
 | 2.5.7 Dragging Movements | none yet | |
-| 2.5.8 Target Size (Minimum) | axe, story | Each control's sizes, 32 px or more, by its `Sizes` story, Table's sortable headers, at least 24 px tall, a row's action and a number's, 32 px, and DateField's parts, 24 px each way in any font |
+| 2.5.8 Target Size (Minimum) | axe, story | Each control's sizes, 32 px or more, by its `Sizes` story, Table's sortable headers, at least 24 px tall, a row's action and a number's, 32 px, DateField's parts, 24 px each way in any font, and a ticker chip, 24 px tall |
 | 3.1.1 Language of Page | app | |
 | 3.1.2 Language of Parts | app | |
 | 3.2.1 On Focus | none yet | |

@@ -245,6 +245,16 @@ the version installed. It holds only what exists, and each reviewed piece adds i
 - **A process a person moves through is not a timeline,** and many things with their values are an `ItemGroup` or a
   `Table`.
 
+## Assets by code
+
+- **An asset in a table's column or a sentence is a `TickerChip`,** its code in a pill, linking to its page with
+  `href`. A full row for an asset, with its name and value, is an `Item`.
+- **A mark only where it tells something:** the issuer's logo, as an `Avatar`, or the type among mixed types, as an
+  `IconTile` in its category's tint, before the code. None where every asset shares a type, and all with or all
+  without in one column or sentence.
+- **Give the company's `name` where it is not written beside,** so a screen reader hears whose code it is.
+- **The change and the price go beside it,** as a `Percent` and an `Amount`, in their own columns in a table.
+
 ## Lists of rows
 
 - **A list of rows is one thing per row, read across,** as an account, a transaction or a bill, with its value at the

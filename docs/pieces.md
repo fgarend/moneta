@@ -83,6 +83,7 @@ A piece with no gap listed may still have some.
 | `table` | reviewed | |
 | `tabs` | raw | **Edited:** default 36 px, `sm` 32 and `lg` 40 on `TabsList`, and its inactive text reads `muted-foreground`, as `foreground/60` is 3.89:1 on our `muted`, its trigger is as tall as its list, and `tabsListVariants` is not exported |
 | `textarea` | raw | **Edited:** no fill in dark, as in light |
+| `ticker-chip` | reviewed | |
 | `timeline` | reviewed | |
 | `toggle` | raw | **Edited:** default 36 px, `sm` 32 and `lg` 40, `sm`'s text is 12 px, and `toggleVariants` is not exported |
 | `toggle-group` | raw | **Edited:** each item draws a `Toggle` |

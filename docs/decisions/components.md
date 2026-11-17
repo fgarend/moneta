@@ -185,6 +185,15 @@ pieces is in [`../pieces.md`](../pieces.md), and how a piece is analysed is in [
 - **No part for no events, no loading and no order of its own:** the app writes its words in its place, shows a
   `Skeleton`, and writes the events oldest first.
 
+### TickerChip
+
+- **An asset by its traded code, in a pill:** 24 px at least, a `--border-strong` border with no fill, the code at
+  12 px and 500, never cut or wrapped, and `--muted` under the pointer when it links. With `href`, a link to the
+  asset's page; with none, text.
+- **Its mark optional, written in it:** an `IconTile` or an `Avatar` takes a circle of 20 px, 2 px in all round,
+  through `IconTile`'s place, as `Item` gives a row's. **The company's `name` optional,** heard after the code.
+- **The change and the price outside,** as a `Percent` and an `Amount` the app writes beside it.
+
 ### Avatar
 
 - **Hidden from screen readers,** as an `IconTile`: its picture takes no alt and its initials are hidden, as the name
@@ -427,6 +436,12 @@ pieces is in [`../pieces.md`](../pieces.md), and how a piece is analysed is in [
   last that happened being it. **Its dot drawn by a border,** so forced colours keep it. **What it costs:** its
   colour is the system's there, and its words carry its meaning. **The app's order,** as a reversed order by CSS is
   read the other way, against 1.3.2. **What it costs:** an app that wants the newest first reverses its own list.
+- **A ticker in a chip,** a unit read in a sentence or a column, where a row does not fit. **What it costs:** a piece
+  beside `Badge`, told apart by its strong border. **A mark only where it tells something,** the logo, or the type
+  among mixed types, in a circle concentric with the pill. **What it costs:** two looks, with a mark and without.
+  **The mark written in it,** as `IconTile` and `Avatar`, reviewed once. **What it costs:** the chip sizes them.
+  **24 px everywhere,** the target 2.5.8 asks. **What it costs:** a paragraph's line opens by 4 px until the scale
+  has a paragraph's step.
 - **An avatar always hidden,** as every app writes the name beside it, so a name in it is heard twice. **What it
   costs:** an avatar alone says nothing, which its page does not recommend. **Its size from a row,** as an
   `IconTile`'s, so the rows' titles line up. **What it costs:** its size is not seen in the code that uses it. **A
@@ -635,6 +650,10 @@ pieces is in [`../pieces.md`](../pieces.md), and how a piece is analysed is in [
   **An `ItemGroup` variant,** whose lines, tiles and values fight the line between events. **An icon in a larger
   dot,** as Primer's. **A `TimelineValue`, a `reverse` prop, a fold of the middle, a required name, a
   `TimelineEmpty` and `isLoading`,** each for no use yet.
+- **A code label in a mono font at a row's start,** as an earlier design system's, and **a chip with a logo, price and
+  change in a button,** as Kibo UI's. **A mark required, initials, or a square in the pill.** **A name required,** heard
+  twice beside a written one. **A lighter look with no link.** **20 px in a sentence.** **An ellipsis on a long code.**
+  **`--border` as `Badge`'s `outline`, or a `--muted` fill.** **Props for an icon, a category and a logo.**
 - **An avatar named by an optional `name`,** which says a name twice beside the one in words. **The text's colour for
   its initials,** 12.95:1, which competes with the name. **Its badge removed,** or **at 12 px with an 8 px icon at
   24 px,** which covers a small avatar. **Its group removed** until a use. **An empty circle while its picture
@@ -736,3 +755,4 @@ pieces is in [`../pieces.md`](../pieces.md), and how a piece is analysed is in [
 - 2026-11-16: ScrollArea.
 - 2026-11-16: DescriptionList.
 - 2026-11-17: Timeline.
+- 2026-11-17: TickerChip.

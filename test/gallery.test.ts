@@ -67,6 +67,7 @@ const pages: Record<string, string> = {
   "skip-link": "SkipLink",
   stat: "StatGroup",
   table: "Table",
+  "ticker-chip": "TickerChip",
   timeline: "Timeline",
 };
 const reviewedRow = /^\| `(?<name>[a-z-]+)` \| reviewed \|/gmu;

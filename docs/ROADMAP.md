@@ -4,12 +4,12 @@ Moneta is the source of truth for components: an app builds its screens from its
 own. What it lacks is added here, in this order, which a new need can change. The details of each item, what is
 known and what is still to ask, are in [`roadmap-notes.md`](roadmap-notes.md), read when the item starts.
 
-**Now:** 1. Display.
+**Now:** 1. A paragraph's line height.
 
 ## Next, in order
 
-1. **Display.** The pieces that show, reviewed or made.
-    - TickerChip
+1. **A paragraph's line height.** 14/24 in the scale for text read in lines, so a piece within a sentence,
+   up to 24 px, keeps the lines even.
 2. **Actions and forms.** The pieces that act and take input, reviewed or made.
     - Button, ButtonGroup and PageHeader
     - Input, InputGroup, Textarea, Label, Field, NativeSelect, Select and SearchField
@@ -48,6 +48,7 @@ Each becomes an item when its time comes.
 - **A registry.** When a tarball stops being enough.
 - **A local link.** When installing a build each time slows the work.
 - **Stack and Inline.** If an app's screens still repeat a layout once the pieces lay their own.
+- **An institution's logo.** An `Avatar` in a square form, when an app shows one.
 - **The scale of the whole system.** A preference for larger text, for every piece at once.
 - **Screenshots below the medium breakpoint, and below 800 px.**
 - **A top bar that stays in view.** When something needs it.
@@ -91,6 +92,8 @@ Each becomes an item when its time comes.
 
 ## Done
 
+- **TickerChip.** An asset by its traded code in a pill, linking to its page, with an optional logo or type in a
+  circle concentric with it, and the company's name heard after the code. 0.36.0.
 - **Timeline.** The history of one thing, each event that happened or is expected, its dot coloured by its
   meaning. 0.35.0.
 - **DescriptionList.** The details of one thing, side by side with the value at the end, one above the other below
