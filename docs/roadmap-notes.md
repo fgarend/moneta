@@ -46,6 +46,44 @@ it is, then "Use it for" and "Not recommended", as Badge's.
 - An institution's logo, as a bank's or a broker's, raised on 2026-11-15: an `Avatar` in a square form, as Polaris'
   and Atlassian's for an organisation, its initials when there is no picture, when an app shows one; none does yet.
 - Item moved to Lists of rows. Stat, Timeline and TickerChip.
+- Timeline, new, as shadcn and React Aria have none, and no app shows one yet. Mantine, Ant Design, Chakra, MUI Lab,
+  Primer and MOJ's have one; Atlassian, Carbon, PatternFly and Base Web draw steps instead. Decided:
+  - The history of one thing, past and expected, decided on 2026-11-17: each event happened or is expected, and the
+    expected come at the end, as a transfer's credit, with no mark of a current one. What tells it apart from Steps
+    is who drives: a person reads a timeline, others make it happen, and moves through steps, as a form's. Against
+    the past alone, as MOJ's and Primer's, which leaves "when does it arrive" elsewhere, and a tracker with a current
+    step, which is Steps' look.
+  - Five parts, decided on 2026-11-17: `Timeline`, an `ol`; `TimelineItem`, an `li` drawing the dot and the line,
+    `isExpected` for an expected one; `TimelineTitle`; `TimelineTime`, a `DateTime` or the app's words; and an
+    optional `TimelineDescription`, named as `Item`'s. Against an `ItemGroup` variant, whose line under each row, tile
+    and value at the end fight the line between events.
+  - The dot takes a meaning, decided on 2026-11-17: `variant` on `TimelineItem`, `destructive`, `success`, `warning`
+    or `info`, the words saying it, as 1.4.1 asks; an expected one stays neutral. Against neutral dots alone, and an
+    icon in a larger dot, as Primer's, which mostly repeats the title; it can come with a use.
+  - A value in the text, decided on 2026-11-17: an `Amount` in the title or the description, as most events have
+    none. Against a `TimelineValue` at the end, as `ItemValue`, which can come when a history has a value on most.
+  - The app's order, decided on 2026-11-17: the piece draws the events as written, and its page and stories teach
+    oldest first, the expected at the end. Against a `reverse` prop, which an app's own `.reverse()` already does, and
+    a reversed order by CSS, which a screen reader reads the other way, against 1.3.2.
+  - Many events, decided on 2026-11-17: the app shows the last ones and a `Link` to the whole history, in a `Table`
+    or an `ItemGroup`. Against folding the middle behind a button, as GitHub's, which needs the app's words, focus and
+    an announcement, for no use yet.
+  - The expected drawn hollow, decided on 2026-11-17: an 8 px ring, its title muted, and a dashed line reaching it.
+    Against a plain line, which leaves a small ring alone to mark it. The rest as `Item`'s: a 14 px title at 500, the
+    time at 12 px muted, an 8 px dot, a 1 px `--border-strong` line, 16 px between events.
+  - Its name optional, decided on 2026-11-17: `aria-label` or `aria-labelledby` when the app gives one, its page
+    asking for the heading's when other lists share the screen. Against a name required, as `ScrollArea`'s, which
+    takes focus.
+  - No part for no events, decided on 2026-11-17, as a thing's history starts when it is made: the app writes its
+    words in its place. Against a `TimelineEmpty`, as `TableEmpty`, which a filter needs and a timeline has none.
+  - No loading, decided on 2026-11-17, as a history arrives with its thing: the app shows `Skeleton`. Against
+    `isLoading`, as `ItemGroup`'s, which reloads alone on a filter or a page.
+  - Its stories, kept on 2026-11-17: Default, a transfer with an expected credit; Meanings, a refusal sent again
+    and credited; With details, a refund's amount in the text and a description; In a card, the last events named by
+    the card's title, and a `Link` to the rest; Narrow, at 240 px with long titles. Tests: an `ol` of `li`, the
+    expected's mark and dashed line, the meaning's dot, and the dot in forced colours. WCAG: 1.3.1 and 1.3.2 by a
+    story, 1.4.1 by the page, 1.4.3 by the theme's test, 1.4.10 and 1.4.12 by every story; 1.4.11 does not apply, as
+    the dot and the line only repeat the words.
 
 ## Actions and forms
 
