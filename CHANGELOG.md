@@ -6,6 +6,10 @@ gets its number.
 
 ## [Unreleased]
 
+## [0.35.0] - 2026-11-17
+
+Timeline, the history of one thing.
+
 ### Added
 
 - `Timeline`, with `TimelineItem`, `TimelineTitle`, `TimelineTime` and `TimelineDescription`: the history of one
@@ -637,7 +641,8 @@ and dark. `README.md` says how to install and use it.
 
 A rehearsal of the release's path, not meant to be installed. Use a later version.
 
-[Unreleased]: https://github.com/fgarend/moneta/compare/v0.34.0...HEAD
+[Unreleased]: https://github.com/fgarend/moneta/compare/v0.35.0...HEAD
+[0.35.0]: https://github.com/fgarend/moneta/compare/v0.34.0...v0.35.0
 [0.34.0]: https://github.com/fgarend/moneta/compare/v0.33.0...v0.34.0
 [0.33.0]: https://github.com/fgarend/moneta/compare/v0.32.0...v0.33.0
 [0.32.0]: https://github.com/fgarend/moneta/compare/v0.31.0...v0.32.0
