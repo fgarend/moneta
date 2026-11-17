@@ -6,6 +6,10 @@ gets its number.
 
 ## [Unreleased]
 
+## [0.37.0] - 2026-11-17
+
+A paragraph's step in the scale, and interface text on the 4 px grid.
+
 ### Changed
 
 - A paragraph's step in the scale, 14/24: the descriptions of `Alert`, `Timeline`, `Dialog`, `AlertDialog`, `Sheet`,
@@ -658,7 +662,8 @@ and dark. `README.md` says how to install and use it.
 
 A rehearsal of the release's path, not meant to be installed. Use a later version.
 
-[Unreleased]: https://github.com/fgarend/moneta/compare/v0.36.0...HEAD
+[Unreleased]: https://github.com/fgarend/moneta/compare/v0.37.0...HEAD
+[0.37.0]: https://github.com/fgarend/moneta/compare/v0.36.0...v0.37.0
 [0.36.0]: https://github.com/fgarend/moneta/compare/v0.35.0...v0.36.0
 [0.35.0]: https://github.com/fgarend/moneta/compare/v0.34.0...v0.35.0
 [0.34.0]: https://github.com/fgarend/moneta/compare/v0.33.0...v0.34.0
