@@ -48,6 +48,7 @@ Each becomes an item when its time comes.
 - **A local link.** When installing a build each time slows the work.
 - **Stack and Inline.** If an app's screens still repeat a layout once the pieces lay their own.
 - **An institution's logo.** An `Avatar` in a square form, when an app shows one.
+- **A table's note.** What a table says of itself, under it, when its place is decided.
 - **The scale of the whole system.** A preference for larger text, for every piece at once.
 - **Screenshots below the medium breakpoint, and below 800 px.**
 - **A top bar that stays in view.** When something needs it.
