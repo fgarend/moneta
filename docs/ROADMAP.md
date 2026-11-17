@@ -10,9 +10,8 @@ known and what is still to ask, are in [`roadmap-notes.md`](roadmap-notes.md), r
 
 1. **A paragraph's line height.** 14/24 in the scale for text read in lines, so a piece within a sentence,
    up to 24 px, keeps the lines even.
-2. **The titles on the 4 px grid.** `ItemTitle`, `TimelineTitle` and `FieldContent` at 20 px, not 19.25.
-3. **Text.** The app's own paragraph and note, read from the scale, with no class of its own.
-4. **Actions and forms.** The pieces that act and take input, reviewed or made.
+2. **Text.** The app's own paragraph and note, read from the scale, with no class of its own.
+3. **Actions and forms.** The pieces that act and take input, reviewed or made.
     - Button, ButtonGroup and PageHeader
     - Input, InputGroup, Textarea, Label, Field, NativeSelect, Select and SearchField
     - Checkbox, RadioGroup, Switch, Toggle, ToggleGroup and Slider
@@ -23,25 +22,25 @@ known and what is still to ask, are in [`roadmap-notes.md`](roadmap-notes.md), r
     - how a form connects, with a server's errors
     - `combobox`, after a study
     - Button's `link` variant beside Link, and a disabled `LinkButton`, which is not dimmed
-5. **Overlays.** The pieces that open over the page, reviewed or made.
+4. **Overlays.** The pieces that open over the page, reviewed or made.
     - Dialog, AlertDialog and Sheet
     - Popover, HoverCard, DropdownMenu, ContextMenu, Tooltip and Toggletip
     - text spacing and forced colours on what an overlay draws when open
-6. **The rest.** The other pieces, reviewed or made.
+5. **The rest.** The other pieces, reviewed or made.
     - Tabs, Progress, Meter, Empty, Skeleton and Spinner
     - Breadcrumb, Steps and Banner
     - Collapsible and AllocationBar
     - a bar of actions at the page's foot, a virtualised list, and Toast
     - `calendar`, after a study
-7. **Charts.** Line, area, bars and donut, a ring and BarList, each with a table of its data.
-8. **MoneyInput.** Entering an amount.
-9. **CurrencySelect.** Choosing a currency.
-10. **A stable API.** What each state promises after 1.0.
+6. **Charts.** Line, area, bars and donut, a ring and BarList, each with a table of its data.
+7. **MoneyInput.** Entering an amount.
+8. **CurrencySelect.** Choosing a currency.
+9. **A stable API.** What each state promises after 1.0.
     - every piece reviewed
     - the accessibility script run by hand, with a screen reader and real zoom
     - a policy for deprecating
-11. **Stricter checks.** `exactOptionalPropertyTypes`, if React Aria's types pass it.
-12. **Release 1.0.0.**
+10. **Stricter checks.** `exactOptionalPropertyTypes`, if React Aria's types pass it.
+11. **Release 1.0.0.**
 
 ## Later, in no order
 

@@ -356,7 +356,7 @@ function ItemTitle({ className, ...props }: ComponentProps<"div">) {
       data-slot="item-title"
       id={titleId}
       className={cn(
-        "flex w-fit items-center gap-2 text-sm leading-snug font-medium underline-offset-4",
+        "flex w-fit items-center gap-2 text-sm leading-5 font-medium underline-offset-4",
         className,
       )}
       {...props}
@@ -369,7 +369,7 @@ function ItemDescription({ className, ...props }: ComponentProps<"p">) {
     <p
       data-slot="item-description"
       className={cn(
-        "text-start text-sm leading-normal font-normal text-muted-foreground group-data-[size=xs]/item:text-xs [&>a]:underline [&>a]:underline-offset-4 [&>a:hover]:text-primary",
+        "text-start text-sm font-normal text-muted-foreground group-data-[size=xs]/item:text-xs [&>a]:underline [&>a]:underline-offset-4 [&>a:hover]:text-primary",
         className,
       )}
       {...props}

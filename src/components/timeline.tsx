@@ -99,7 +99,7 @@ function TimelineTitle({ className, ...props }: ComponentProps<"div">) {
     <div
       data-slot="timeline-title"
       className={cn(
-        "leading-snug font-medium group-data-expected/timeline-item:text-muted-foreground",
+        "leading-5 font-medium group-data-expected/timeline-item:text-muted-foreground",
         className,
       )}
       {...props}
@@ -127,7 +127,7 @@ function TimelineDescription({ className, ...props }: ComponentProps<"p">) {
   return (
     <p
       data-slot="timeline-description"
-      className={cn("text-muted-foreground", className)}
+      className={cn("type-paragraph text-muted-foreground", className)}
       {...props}
     />
   );

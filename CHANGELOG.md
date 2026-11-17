@@ -6,6 +6,14 @@ gets its number.
 
 ## [Unreleased]
 
+### Changed
+
+- A paragraph's step in the scale, 14/24: the descriptions of `Alert`, `Timeline`, `Dialog`, `AlertDialog`, `Sheet`,
+  `Empty` and `Popover`, read in lines, are a little more open, and a `TickerChip` or a `Badge` in them keeps the
+  lines even.
+- Interface text on the 4 px grid, at 20 px: `ItemTitle` and `ItemDescription`, `TimelineTitle`, and a field's
+  label, content and description, from 19.25 and 21 px. A row with a title and a description is 1 px lower.
+
 ## [0.36.0] - 2026-11-17
 
 TickerChip, an asset by its code.

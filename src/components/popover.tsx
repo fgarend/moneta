@@ -64,7 +64,7 @@ function PopoverDescription({ className, ...props }: ComponentProps<"div">) {
   return (
     <div
       data-slot="popover-description"
-      className={cn("text-muted-foreground", className)}
+      className={cn("type-paragraph text-muted-foreground", className)}
       {...props}
     />
   );

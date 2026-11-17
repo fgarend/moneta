@@ -397,6 +397,12 @@
   font-weight: 600;
 }
 
+@utility type-paragraph {
+  font-size: 0.875rem;
+  line-height: 1.5rem;
+  font-weight: 400;
+}
+
 @utility type-label {
   font-size: 0.8125rem;
   line-height: 1.25rem;

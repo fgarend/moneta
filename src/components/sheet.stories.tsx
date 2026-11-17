@@ -44,6 +44,9 @@ const meta = {
 
 type Story = StoryObj<typeof meta>;
 
+// A paragraph's line height, the scale's type-paragraph.
+const paragraph = "24px";
+
 const Default: Story = {
   play: async ({ canvasElement }) => {
     await expect(
@@ -64,6 +67,9 @@ const Open: Story = {
     const sheet = await body.findByRole("dialog", { name: title });
     await settled(sheet);
     await expect(sheet).toHaveTextContent(description);
+    await expect(
+      getComputedStyle(within(sheet).getByText(description)).lineHeight,
+    ).toBe(paragraph);
     await expect(
       within(sheet).getByRole("button", { name: done }),
     ).toBeInTheDocument();

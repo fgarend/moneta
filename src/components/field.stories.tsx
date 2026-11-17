@@ -55,6 +55,12 @@ const Default: Story = {
     await expect(
       canvas.getByRole("textbox", { name: label }),
     ).toHaveAccessibleDescription(description);
+    // A field's label and description are interface text, at the body's 20 px.
+    for (const text of [label, description]) {
+      await expect(getComputedStyle(canvas.getByText(text)).lineHeight).toBe(
+        "20px",
+      );
+    }
   },
 };
 

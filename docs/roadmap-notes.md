@@ -56,13 +56,11 @@ Decided:
 - Interface text on the grid now, decided on 2026-11-17: `ItemDescription` and `FieldDescription` from 21 px, Tailwind's
   `leading-normal`, to 20. Against leaving them, off the 4 px grid the guidelines state.
 - A step of the scale, `type-paragraph`, beside `type-label` and `type-title`, internal, which the pieces read.
+- The titles on the grid too, decided on 2026-11-17, first raised as an item of their own: with the details at 20 px,
+  `ItemTitle`'s 19.25 left a compact row 1 px below its loading shape, so `ItemTitle`, `TimelineTitle`, `FieldLabel`
+  and `FieldContent` take 20 px, Tailwind's `leading-snug` gone. Against a loading shape of 59 px until then.
 - Stories: each paragraph's piece checks 24 px, `Item` and a field 20 px. WCAG: 1.4.12 by every story; 1.4.8, AAA, met
   in passing.
-
-## The titles on the 4 px grid
-
-Raised on 2026-11-17 with A paragraph's line height: `ItemTitle`, `TimelineTitle` and `FieldContent` read Tailwind's
-`leading-snug`, 19.25 px at 14 px, off the 4 px grid every other step is on. To ask: 20 px for each, and what moves.
 
 ## Text
 

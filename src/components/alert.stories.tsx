@@ -60,6 +60,9 @@ const meta = {
 
 type Story = StoryObj<typeof meta>;
 
+// A paragraph's line height, the scale's type-paragraph.
+const paragraph = "24px";
+
 // With no meaning, the card's look and no icon; heard once the reader finishes, named by its title.
 const Default: Story = {
   play: async ({ canvasElement }) => {
@@ -67,6 +70,9 @@ const Default: Story = {
 
     await expect(alert).toHaveTextContent(description);
     await expect(alert.querySelector("svg")).toBeNull();
+    await expect(
+      getComputedStyle(within(alert).getByText(description)).lineHeight,
+    ).toBe(paragraph);
     await expect(getComputedStyle(alert).backgroundColor).toBe(
       backgroundOf("var(--card)", canvasElement),
     );
