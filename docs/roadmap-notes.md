@@ -45,6 +45,32 @@ the 1.5 that WCAG 1.4.8 asks at AAA. A piece meant for a sentence is then 24 px 
 `Kbd`. To decide at its step: which pieces' text is a paragraph, and the screenshots that move. **What it costs:** two
 body steps to choose between, and until it lands a chip in a paragraph opens its line by 4 px.
 
+Decided:
+- A paragraph is text written in sentences to read in lines, decided on 2026-11-17: `AlertDescription`,
+  `TimelineDescription`, `DialogDescription`, `AlertDialogDescription`, `SheetDescription`, `EmptyDescription` and
+  `PopoverDescription` take 14/24. Interface text, a row's or a field's detail, a subtitle or a number's note, one line
+  by nature and dense, keeps its step. Against `FieldDescription` as a paragraph, read with its field as a label is.
+- The raw pieces now, decided on 2026-11-17: each takes one class, recorded in its commit and in `docs/pieces.md`, so
+  a dialog over a page of alerts reads one line height. Against the reviewed pieces alone and a known gap in the raw
+  ones until their review, two line heights on one screen for versions.
+- Interface text on the grid now, decided on 2026-11-17: `ItemDescription` and `FieldDescription` from 21 px, Tailwind's
+  `leading-normal`, to 20. Against leaving them, off the 4 px grid the guidelines state.
+- A step of the scale, `type-paragraph`, beside `type-label` and `type-title`, internal, which the pieces read.
+- Stories: each paragraph's piece checks 24 px, `Item` and a field 20 px. WCAG: 1.4.12 by every story; 1.4.8, AAA, met
+  in passing.
+
+## The titles on the 4 px grid
+
+Raised on 2026-11-17 with A paragraph's line height: `ItemTitle`, `TimelineTitle` and `FieldContent` read Tailwind's
+`leading-snug`, 19.25 px at 14 px, off the 4 px grid every other step is on. To ask: 20 px for each, and what moves.
+
+## Text
+
+Raised on 2026-11-17 with A paragraph's line height: an app writes text of its own outside the pieces, 20 `<p>` in
+one app's newer screens, seven of them a muted note of one line, as "no quote", the rest sentences, which no piece
+gives a step of the scale, so it writes `text-muted-foreground` itself. To ask: a paragraph and a note, their colour,
+the space between paragraphs and a line's longest measure, against a rule on every `p`, which reaches pieces' parts.
+
 ## Actions and forms
 
 - Button's variants, ButtonGroup, PageHeader, as an app's own draws it, its context, title and actions each in a row
