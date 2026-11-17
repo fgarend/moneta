@@ -46,6 +46,53 @@ it is, then "Use it for" and "Not recommended", as Badge's.
 - An institution's logo, as a bank's or a broker's, raised on 2026-11-15: an `Avatar` in a square form, as Polaris'
   and Atlassian's for an organisation, its initials when there is no picture, when an app shows one; none does yet.
 - Item moved to Lists of rows. Stat and TickerChip.
+- TickerChip, new: an asset named compactly where a row does not fit, as a table's cell or a sentence, and a way to it.
+  It came from an earlier design system as a code label in a mono font, at a row's start; no app shows one now, and
+  of the libraries only Kibo UI, in shadcn's community, has one, a button with logo, price and change. Decided:
+  - A chip, decided on 2026-11-17: a pill holding a mark and the code, which reads as one unit in a sentence or a
+    column. Against an asset shown only by `Item`, `Link` and `Percent`, which a full row already does, and against a
+    code label as the earlier one, at a row's start.
+  - The mark optional, decided on 2026-11-17, in a circle concentric with the pill, 20 px in 24 with 2 px all round:
+    the issuer's logo, as an `Avatar`, or the asset's type, as an `IconTile` in its category's tint, which the app
+    chooses, the chip giving them their size and shape as `Item` gives a row's. A mark where it tells something: a
+    logo, or the type among mixed types; none where every asset shares a type; all with or all without in one
+    column or sentence. Against a square in a pill, initials, which repeat the code, and a mark required, which
+    repeats one icon down a column of one type.
+  - The company's name optional and hidden, decided on 2026-11-17, read after the code, as "DMMY11, Dummy Logistics",
+    its page asking for it where the name is not beside. Against it required, heard twice in a row with a name.
+  - A link optional, decided on 2026-11-17, to the asset's page at the app's address, the same look at rest with one
+    or not, the pointer laying `--muted` under it; with none, text, never a button. Against a lighter look for a chip
+    with no link, a look more for a rare case.
+  - The change and the price outside, decided on 2026-11-17, written by the app with `Percent` and `Amount`, in a
+    column of their own in a table. Against a `change` inside, as Kibo UI's, which makes it a quote; a strip of
+    quotes can be a piece of its own.
+  - 24 px everywhere, decided on 2026-11-17, a minimum height, so text spacing does not cut it, and a target of
+    2.5.8's size; in a paragraph it opens its line by 4 px until A paragraph's line height. Against 20 px in a
+    sentence, with a 16 px mark too small for a logo.
+  - Its name TickerChip, decided on 2026-11-17, the finance word for a traded code. Against AssetChip, for an asset
+    with no code, shown by its name, and SymbolChip.
+  - Written with the pieces there are, decided on 2026-11-17: `<TickerChip href name>`, an `IconTile` or an
+    `Avatar`, and the code. Against props for an icon, a category and a logo, which repeat two pieces' API.
+  - A code never cut or wrapped, decided on 2026-11-17, as it is the asset's identity; a table scrolls in its own
+    area. Against an ellipsis, which hides what tells two options apart.
+  - A `--border-strong` border with no fill, decided on 2026-11-17, so it is not a `Badge`, which states, and forced
+    colours keep it. Against `--border`, as `Badge`'s `outline`, and a `--muted` fill, as the earlier label.
+  - Its stories, kept on 2026-11-17: Default, a type's icon as a link with its name; WithLogo, an `Avatar` and its
+    fallback; WithoutMark; InTable, mixed types with a `Percent` column; InText; Static, with no link; LongCode.
+    Tests: 24 px, the 20 px mark 2 px in, the border, the link and its name, none when static, the mark hidden, and
+    the border in forced colours. WCAG: 1.1.1, 1.3.1 and 2.5.8 by a story, 1.4.1 by its border and shape, 1.4.3 by
+    the theme's test, 1.4.10 and 1.4.12 by every story, 2.4.4 by the page, 2.4.7 by the focus test; 1.4.11 does not
+    apply, as the code says what it is.
+
+## A paragraph's line height
+
+Raised on 2026-11-17 with TickerChip, which is 24 px tall: the scale has one body step, 14/20, for interface text
+and for paragraphs alike, so a piece within a sentence, a 24 px chip, pushes its line apart, and paragraphs read
+tight, at 1.43. To add a step for text read in lines, as a description in an alert, a card, a section, an item or a
+timeline, or a summary: 14/24, at 1.71, near shadcn's typography, whose paragraphs are `leading-7` on 16 px, and above
+the 1.5 that WCAG 1.4.8 asks at AAA. A piece meant for a sentence is then 24 px at most, as TickerChip, `Badge` and
+`Kbd`. To decide at its step: which pieces' text is a paragraph, and the screenshots that move. **What it costs:** two
+body steps to choose between, and until it lands a chip in a paragraph opens its line by 4 px.
 
 ## Actions and forms
 
