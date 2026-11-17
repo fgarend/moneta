@@ -172,6 +172,9 @@ With `check-release`'s rules for the numbers after it, as a change that breaks t
 - **Update bot.** Left out for now, as `docs/decisions/tooling.md` says.
 - **Storybook's accepted advisories.** Through a docgen plugin Storybook installs and our settings never load. They
   go when Storybook takes the plugin 0.9.1 or later, which has no `glob`, as `pnpm-workspace.yaml` says.
+- **picomatch's accepted advisory.** A ReDoS on a crafted glob, through 4.0.7, with no fixed version, which stopped
+  the release of 0.38.0 on 2026-11-17. Only the tools reach it, matching the globs of our own settings, and the package
+  has no path to it. It goes when picomatch publishes a fixed version, as `pnpm-workspace.yaml` says.
 - **Storybook's deprecated loader.** Every test run warns `DEP0205`, and it goes when Storybook moves. Vitest also
   warns of 11 `SIGTERM` listeners, with this many browser projects.
 - **The update command in `updating.md`.** On 2026-11-13, `pnpm add -D lucide-react` with no version said the

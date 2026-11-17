@@ -22,5 +22,9 @@ audit:
     # plugin 0.9.1 or later, which has no glob.
     - GHSA-3g3m-2fjr-6pw4
     - GHSA-g3hv-75wg-m249
+    # picomatch through 4.0.7, a ReDoS on a crafted glob, with no fixed version, found on 2026-11-17. It comes only
+    # through the tools, such as Vite, Storybook and Tailwind, which match the globs of our own settings, and nothing of
+    # it reaches the package. It goes when picomatch publishes a fixed version.
+    - GHSA-fc5q-39xc-vjpf
 # pnpm's store, a volume in make install and a cache in the image's build.
 storeDir: /pnpm-store

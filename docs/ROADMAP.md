@@ -62,6 +62,7 @@ Each becomes an item when its time comes.
 - **An image vulnerability scan.**
 - **An update bot.**
 - **Storybook's accepted advisories and deprecated loader.** When Storybook moves.
+- **picomatch's accepted advisory.** When a fixed version is out.
 - **The update command in `updating.md`.** It kept a package at its version once, found on 2026-11-13.
 - **`actionlint`.** If a workflow fails on something it finds.
 - **Biome's `noTailwindArbitraryValue`.** In place of our own scan of classes.
