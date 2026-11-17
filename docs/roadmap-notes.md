@@ -35,33 +35,6 @@ with each family. No reviewed piece has a default text, so shadcn's written stri
 **Done when:** an app can build every screen from Moneta's pieces with no class of its own, and leaves Tailwind for
 `styles.css`. Until then, it keeps Tailwind only for the classes it still writes.
 
-## A paragraph's line height
-
-Raised on 2026-11-17 with TickerChip, which is 24 px tall: the scale has one body step, 14/20, for interface text
-and for paragraphs alike, so a piece within a sentence, a 24 px chip, pushes its line apart, and paragraphs read
-tight, at 1.43. To add a step for text read in lines, as a description in an alert, a card, a section, an item or a
-timeline, or a summary: 14/24, at 1.71, near shadcn's typography, whose paragraphs are `leading-7` on 16 px, and above
-the 1.5 that WCAG 1.4.8 asks at AAA. A piece meant for a sentence is then 24 px at most, as TickerChip, `Badge` and
-`Kbd`. To decide at its step: which pieces' text is a paragraph, and the screenshots that move. **What it costs:** two
-body steps to choose between, and until it lands a chip in a paragraph opens its line by 4 px.
-
-Decided:
-- A paragraph is text written in sentences to read in lines, decided on 2026-11-17: `AlertDescription`,
-  `TimelineDescription`, `DialogDescription`, `AlertDialogDescription`, `SheetDescription`, `EmptyDescription` and
-  `PopoverDescription` take 14/24. Interface text, a row's or a field's detail, a subtitle or a number's note, one line
-  by nature and dense, keeps its step. Against `FieldDescription` as a paragraph, read with its field as a label is.
-- The raw pieces now, decided on 2026-11-17: each takes one class, recorded in its commit and in `docs/pieces.md`, so
-  a dialog over a page of alerts reads one line height. Against the reviewed pieces alone and a known gap in the raw
-  ones until their review, two line heights on one screen for versions.
-- Interface text on the grid now, decided on 2026-11-17: `ItemDescription` and `FieldDescription` from 21 px, Tailwind's
-  `leading-normal`, to 20. Against leaving them, off the 4 px grid the guidelines state.
-- A step of the scale, `type-paragraph`, beside `type-label` and `type-title`, internal, which the pieces read.
-- The titles on the grid too, decided on 2026-11-17, first raised as an item of their own: with the details at 20 px,
-  `ItemTitle`'s 19.25 left a compact row 1 px below its loading shape, so `ItemTitle`, `TimelineTitle`, `FieldLabel`
-  and `FieldContent` take 20 px, Tailwind's `leading-snug` gone. Against a loading shape of 59 px until then.
-- Stories: each paragraph's piece checks 24 px, `Item` and a field 20 px. WCAG: 1.4.12 by every story; 1.4.8, AAA, met
-  in passing.
-
 ## Text
 
 Raised on 2026-11-17 with A paragraph's line height: an app writes text of its own outside the pieces, 20 `<p>` in
