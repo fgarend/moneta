@@ -37,75 +37,9 @@ with each family. No reviewed piece has a default text, so shadcn's written stri
 
 ## Actions and forms
 
-Button's step, decided:
-- Button, LinkButton and ButtonGroup in one step, decided on 2026-11-17, as Button and LinkButton share one design and
-  ButtonGroup shapes their corners. PageHeader comes after, in a step of its own.
-- `link` stays on Button and leaves LinkButton, decided on 2026-11-17: an action read as text, as "Show all" beside a
-  filter, as Chakra, Bootstrap, Atlassian and Polaris keep one, while a link drawn as text is a `Link`. Against
-  leaving both, which is clearer, as a button that looks like a link promises to go somewhere, and `ghost` is a quiet
-  action already.
-- `destructive` solid, decided on 2026-11-17: the red with its own foreground on it, white in light and graphite in
-  dark, as confirming what cannot be undone is a dialog's main action, with the weight of `default` and `gold`, and it
-  reaches 4.5:1 on every surface at rest and on hover, where the tint of 10 and 20% reached 3.47 in dark. A quiet
-  destructive action, as a row's "Remove", stays `ghost` or `outline`. Against text alone, also above 4.5:1 but light
-  for a confirmation, and shadcn's tint, which `Badge` and `Alert` keep for a meaning.
-- `xs` and `icon-xs` stay, decided on 2026-11-17, for a button inside another piece or beside a line of text, as a
-  chosen filter's ✕ or an information icon by a label, never in a row of controls, at 24 px, 2.5.8's least, with the
-  theme's radius in place of shadcn's arbitrary one. Against leaving them, a simpler scale, as a filter's ✕ may come
-  with `TagGroup`, while an icon beside text would have no size.
-- `isPending` from React Aria, decided on 2026-11-17: still focusable, pressing and submitting nothing, a spinner in
-  place of its icon or before its words, its width and words kept, and the app's `pendingLabel`, which TypeScript
-  asks for with it, heard with its name as it starts and ends, as `loadingLabel` on a table. The spinner turns with
-  less motion, as `Spinner`'s. Against shadcn's `Spinner` in a disabled button, own code for nothing, which loses
-  focus and says nothing to a screen reader.
-- Disabled, decided on 2026-11-17: `Button` and `LinkButton` alike at 50% with no pointer, by React Aria's
-  `data-disabled`, as a disabled link is a `span` that `disabled:` never reached; `aria-invalid` stays as shadcn's. The
-  guidelines say to show why, by a message or `isPending`, rather than disable with no reason. Against colours of its
-  own, which would read for low vision, as WCAG exempts an inactive control, more tokens for a state advised against.
-- An icon's sizes ask for a name, decided on 2026-11-17: with `icon`, `icon-xs`, `icon-sm` or `icon-lg`, TypeScript
-  asks for `aria-label` or `aria-labelledby`, as `closeLabel`, since axe sees only our stories. The guidelines prefer
-  `aria-label` to hidden words. Against leaving it to axe, simpler types; a visible name, as a tooltip, comes with the
-  overlays.
-- Words that wrap only when they do not fit, decided on 2026-11-17: a least height in place of a fixed one, the words
-  centred and balanced with room above and below, so a short label is 36 px on one line as today, and an icon's
-  sizes stay fixed, as `nowrap` scrolls a page sideways at 320 px against 1.4.10. Against never wrapping, as shadcn
-  and Material, which keeps a row's heights even; an ellipsis hides words.
-- Motion and forced colours as they are, decided on 2026-11-17: a press moves it 1 px, with no transition under less
-  motion, as a press's answer and not an animation, and its transparent border draws its edge in forced colours,
-  with stories for `destructive`, `isPending` and a disabled `LinkButton`. Against no move at all, closer to the rule.
-- ButtonGroup joins related actions, as "Download | Print" or an action and its menu, and takes the vocabulary's
-  `spacing`, decided on 2026-11-17: `0` by default, one box as today, and more, apart by that much and wrapping, so an
-  app lays a row of separate actions, as a form's "Save" and "Cancel", with no class of its own. Not a choice,
-  `ToggleGroup`, a field's addons, `InputGroup`, or arrow keys across a bar, `Toolbar`. Against a joined group alone
-  until a screen asks, as the pieces that hold buttons lay their own, which would leave an app writing `flex gap-2`.
-  Its default differs from `ToggleGroup`'s 2, shadcn's, as joining is what it always did.
-- A joined group stays on one line when narrow, decided on 2026-11-17: its buttons share the width at one height and
-  wrap their words, and the guidelines keep three actions joined at most, the rest in a menu at its end; a group
-  apart wraps. Against standing up when it does not fit, more code for a case the guidelines advise against, as four
-  joined still pass the edge at 320 px.
-- `--destructive-foreground`, decided on 2026-11-17: white in light and `#2f3133` in dark, held by the theme's test
-  to 4.5:1 on `--destructive`, as `--gold-foreground` on `--gold`, shadcn's former name. Against `--primary-foreground`,
-  the same values today, which a replaced theme could change apart from the red.
-- Its stories: `Destructive`, `InDialog`, `Pending`, `Disabled`, `LongLabel` and `Sizes` with `xs`, and ButtonGroup's
-  `Spacing` and `Narrow`. Tests: `destructive` at 4.5:1 or more at rest and on hover on a card, the page and `--muted`
-  in both modes, axe in an `AlertDialog`, a pending button focusable, `aria-disabled`, its spinner, width and words
-  kept and a press doing nothing, `Button` and `LinkButton` at 50% when disabled, words wrapping at 240 px with no
-  overflow and a short label at 36 px, `xs` at 24 px, a group joined at `0` and 8 px apart at `2`, wrapping, and a
-  joined group at 240 px at one height; types refusing an icon's size with no name, `link` on `LinkButton` and
-  `isPending` with no `pendingLabel`; the theme's test holding `--destructive-foreground`. WCAG: 1.4.3, 2.5.8, 4.1.2
-  and 1.4.10 by these, 1.4.12 and 2.4.7 by every story, 4.1.3 by React Aria's own tests, and 1.4.1 by a button's words.
-- What breaks, in 0.39.0 with its upgrade steps: `destructive`'s look, `link` on `LinkButton`, which becomes a `Link`,
-  an icon's sizes with no name, and words that may wrap.
-
-The family:
-
-- Button's variants, ButtonGroup, PageHeader, as an app's own draws it, its context, title and actions each in a row
+- PageHeader, as an app's own draws it, its context, title and actions each in a row
   that wraps, Input, InputGroup, whose addon, such as a currency's symbol, a screen
   reader does not read as part of the field's name, Textarea, Label, NativeSelect and Slider.
-- Button's `destructive` below 4.5:1, which an app's axe found in a dialog on 2026-11-17: its red text on its own red
-  tint at 4.30 on a card in dark and 3.72 on `--muted`, and on hover 3.47 and 3.07; in light, on hover, 4.31 on the
-  page and 4.01 on `--accent`. Fixed in Button's review, for every variant, in both modes, at rest and on hover, on
-  each surface a button sits on, and the app told which version has it.
 - Field, which does not link its description or error, and decides the contrast of the control's border against
   the 3:1 of WCAG 1.4.11.
 - Select, and when to use it or NativeSelect.

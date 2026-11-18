@@ -4,13 +4,12 @@ Moneta is the source of truth for components: an app builds its screens from its
 own. What it lacks is added here, in this order, which a new need can change. The details of each item, what is
 known and what is still to ask, are in [`roadmap-notes.md`](roadmap-notes.md), read when the item starts.
 
-**Now:** 1. Actions and forms, its step on Button, LinkButton and ButtonGroup, then 2. Hidden values by kind and 3. A
-TickerChip that opens a panel, before the family goes on.
+**Now:** 2. Hidden values by kind, then 3. A TickerChip that opens a panel, before Actions and forms goes on.
 
 ## Next, in order
 
 1. **Actions and forms.** The pieces that act and take input, reviewed or made.
-    - Button, ButtonGroup and PageHeader
+    - PageHeader
     - Input, InputGroup, Textarea, Label, Field, NativeSelect, Select and SearchField
     - Checkbox, RadioGroup, Switch, Toggle, ToggleGroup and Slider
     - NumberField, DatePicker, DateRangePicker and TimeField
@@ -19,9 +18,7 @@ TickerChip that opens a panel, before the family goes on.
     - CopyButton in Table's selection bar, copying the rows selected as Table's own copy builds them
     - how a form connects, with a server's errors
     - `combobox`, after a study
-    - Button's `link` variant beside Link, and a disabled `LinkButton`, which is not dimmed
-2. **Hidden values by kind.** The app says which values hiding hides, between Button's step and the rest of
-   Actions and forms.
+2. **Hidden values by kind.** The app says which values hiding hides, before the rest of Actions and forms.
 3. **A TickerChip that opens a panel.** A press the app handles, as a summary beside the list, its address kept
    for a new tab, before the rest of Actions and forms.
 4. **Overlays.** The pieces that open over the page, reviewed or made.
@@ -97,6 +94,9 @@ Each becomes an item when its time comes.
 
 ## Done
 
+- **Button, LinkButton and ButtonGroup.** A solid `destructive` readable on every surface, words that wrap, a wait
+  with the app's words, a name asked of an icon's sizes, a disabled link dimmed, and a group joined or apart by
+  `spacing`. 0.39.0.
 - **Text.** The app's own sentences as a paragraph at 14/24, 65 characters at most, or a muted note at 14/20,
   with no margin, and a card's content 12 px apart. 0.38.0.
 - **A paragraph's line height.** 14/24 for text written in sentences, the descriptions of seven pieces, and
