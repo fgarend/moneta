@@ -382,6 +382,9 @@ the version installed. It holds only what exists, and each reviewed piece adds i
   control to turn it on. Every amount, percent and quantity shows `••••••`, with no sign and no colour, and the hooks
   give the dots too. A text only screen readers hear, as an `aria-label`, is yours to word while values are hidden,
   as "Pay the bill" in place of "Pay ••••••".
+- **`hides` says which kinds hiding hides,** every amount, percent and quantity unless you say. `hides={["amount",
+  "quantity"]}` keeps percents shown, as a share or a change says nothing of size, with their sign and colour. Leave
+  percents hidden where a return on a sum the reader may know would tell the money.
 - **The language is the app's,** `locale` on `MonetaProvider`, as `"pt-BR"`; with none, the browser's.
 - **A negative value takes the minus sign, `−`,** which screen readers read. A copy of one value, or of a table's
   cells, takes a hyphen, so a spreadsheet reads it as negative; a copy of more anywhere else keeps the minus.

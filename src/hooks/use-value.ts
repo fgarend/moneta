@@ -8,7 +8,7 @@ import {
   useContext,
   useEffect,
 } from "react";
-import { MonetaContext } from "#hooks/moneta";
+import { type HiddenKind, isKindHidden, MonetaContext } from "#hooks/moneta";
 import { hiddenText } from "#lib/money";
 
 const sizes = { default: "type-amount", lg: "type-amount-lg" };
@@ -61,6 +61,7 @@ function wordsFor(symbol: string, label: string): ReactNode {
 // while it builds.
 function useValue(
   piece: string,
+  kind: HiddenKind,
   {
     isEmpty,
     emptyLabel,
@@ -82,7 +83,7 @@ function useValue(
   useEffect(() => {
     document.addEventListener("copy", copyWithHyphen);
   }, []);
-  const isHidden = provided.isHidden === true;
+  const isHidden = isKindHidden(provided, kind);
   const classes = cn(
     "whitespace-nowrap",
     sizes[size ?? placed ?? "default"],

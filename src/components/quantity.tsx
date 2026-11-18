@@ -37,7 +37,7 @@ function Quantity({
   tone?: ValueTone;
 }) {
   const { locale } = useLocale();
-  const shown = useValue("Quantity", {
+  const shown = useValue("Quantity", "quantity", {
     isEmpty: value === null,
     emptyLabel,
     size,

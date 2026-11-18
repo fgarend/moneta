@@ -2,7 +2,7 @@
 // whether values are hidden, which the app's own control turns on. docs/decisions/components.md says why it is so.
 import { type ComponentProps, type ReactNode, useContext } from "react";
 import { I18nProvider, RouterProvider } from "react-aria-components";
-import { MonetaContext } from "#hooks/moneta";
+import { type HiddenKind, MonetaContext } from "#hooks/moneta";
 
 type RouterProps = ComponentProps<typeof RouterProvider>;
 
@@ -19,12 +19,13 @@ type MonetaRouter =
  *
  * - `locale`, `navigate` and `useHref`, and `timeZone` when the browser's is not the app's.
  * - `emptyLabel` and `hiddenLabel`, what screen readers hear for no value and for hidden ones.
- * - `isHidden`, turned on by the app's own control.
+ * - `isHidden`, turned on by the app's own control, and `hides`, the kinds it hides: every amount, percent and
+ *   quantity unless it says, as `["amount", "quantity"]`, so percents, which say nothing of size, stay shown.
  *
  * **Not recommended**
  *
  * - One per page: one at the root, and another inside only to change a part, as it keeps what it is not given.
- * - Hiding values one by one: `isHidden` hides every amount, percent and quantity at once.
+ * - Hiding values one by one: `isHidden` hides every value of the kinds in `hides` at once.
  */
 function MonetaProvider({
   locale,
@@ -33,6 +34,7 @@ function MonetaProvider({
   timeZone,
   emptyLabel,
   isHidden,
+  hides,
   hiddenLabel,
   children,
 }: MonetaRouter & {
@@ -42,8 +44,10 @@ function MonetaProvider({
   timeZone?: string;
   // What screen readers hear for no value.
   emptyLabel?: string;
-  // Every value shows dots, and nothing of it stays in the page.
+  // Every value of the kinds in `hides` shows dots, and nothing of it stays in the page.
   isHidden?: boolean;
+  // The kinds hiding hides: all three unless it says. A kind left out shows as if nothing were hidden.
+  hides?: readonly HiddenKind[];
   // What screen readers hear for a hidden value.
   hiddenLabel?: string;
   children: ReactNode;
@@ -56,6 +60,7 @@ function MonetaProvider({
       value={{
         emptyLabel: emptyLabel ?? outer.emptyLabel,
         isHidden: isHidden ?? outer.isHidden,
+        hides: hides ?? outer.hides,
         hiddenLabel: hiddenLabel ?? outer.hiddenLabel,
         timeZone: timeZone ?? outer.timeZone,
       }}

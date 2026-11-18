@@ -6,6 +6,12 @@ gets its number.
 
 ## [Unreleased]
 
+### Added
+
+- `hides` on `MonetaProvider`, the kinds `isHidden` hides: `amount`, `percent` and `quantity`, all three unless you
+  say. `hides={["amount", "quantity"]}` keeps percents shown, with their sign and colour, in the pieces and the hooks,
+  as a share or a change says nothing of size. A provider inside another keeps the outer's.
+
 ## [0.39.0] - 2026-11-17
 
 Button, LinkButton and ButtonGroup reviewed: a solid destructive, words that wrap, a wait with your words, and a

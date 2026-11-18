@@ -31,10 +31,21 @@ const moment = "2001-01-01T14:32:00Z";
 const fees = "The fee schedule";
 const navigate = fn();
 
+// What --negative paints, read by the browser as a value's colour is.
+function colourOf(colour: string, near: Element): string {
+  const probe = document.createElement("span");
+  probe.style.color = colour;
+  near.append(probe);
+  const painted = getComputedStyle(probe).color;
+  probe.remove();
+  return painted;
+}
+
 // The words and the hidden values each story sets; Storybook cannot type a provider whose router is one of two shapes.
 type Words = {
   emptyLabel?: string;
   isHidden?: boolean;
+  hides?: readonly ("amount" | "percent" | "quantity")[];
   hiddenLabel?: string;
   children: ReactNode;
 };
@@ -186,6 +197,94 @@ const Hidden: Story = {
   },
 };
 
+// Hiding only some kinds: amounts and quantities show dots, and a percent, which says nothing of size, shows as if
+// nothing were hidden, its sign and tone too, the hooks alike.
+const HidesByKind: Story = {
+  render: function Render() {
+    const formatMoney = useFormatMoney();
+    const formatPercent = useFormatPercent();
+    const formatQuantity = useFormatQuantity();
+    return (
+      <dl>
+        <dt>{label}</dt>
+        <dd>{formatMoney(value)}</dd>
+        <dd>
+          <Amount value={value} />
+        </dd>
+        <dt>{shareLabel}</dt>
+        <dd>{formatPercent(share)}</dd>
+        <dd>
+          <Percent tone="negative" value={share} />
+        </dd>
+        <dt>{sharesLabel}</dt>
+        <dd>{formatQuantity(shares)}</dd>
+        <dd>
+          <Quantity value={shares} />
+        </dd>
+      </dl>
+    );
+  },
+  decorators: [
+    (Story) => (
+      <MonetaProvider
+        hiddenLabel={hiddenLabel}
+        hides={["amount", "quantity"]}
+        isHidden={true}
+      >
+        <Story />
+      </MonetaProvider>
+    ),
+  ],
+  play: async ({ canvasElement }) => {
+    const parts = [...canvasElement.querySelectorAll("dd")];
+    const percent = parts[3]?.querySelector("data") as HTMLElement;
+
+    await expect(parts.map((part) => part.textContent)).toEqual([
+      dots,
+      `${dots}${hiddenLabel}`,
+      `${minus}3,24%`,
+      `${minus}3,24%`,
+      dots,
+      `${dots}${hiddenLabel}`,
+    ]);
+    await expect(percent).toHaveAttribute("value", share);
+    await expect(getComputedStyle(percent).color).toBe(
+      colourOf("var(--negative)", canvasElement),
+    );
+  },
+};
+
+// A provider inside another keeps the kinds the outer one hides when it is given none.
+const HidesInherited: Story = {
+  args: { isHidden: true, hiddenLabel },
+  render: (args) => (
+    <MonetaProvider {...args} hides={["amount"]}>
+      <MonetaProvider emptyLabel={otherWords}>
+        <Amount value={value} />
+        <Percent value={share} />
+      </MonetaProvider>
+    </MonetaProvider>
+  ),
+  play: async ({ canvasElement }) => {
+    await expect(within(canvasElement).getByText(dots)).toBeVisible();
+    await expect(canvasElement.innerHTML).not.toContain("286");
+    await expect(
+      within(canvasElement).getByText(`${minus}3,24%`),
+    ).toBeVisible();
+  },
+};
+
+// With only shown kinds on the screen, no words for hidden values are needed.
+const ShownNeedsNoLabel: Story = {
+  args: { isHidden: true, children: <Percent value={share} /> },
+  render: (args) => <MonetaProvider {...args} hides={["amount"]} />,
+  play: async ({ canvasElement }) => {
+    await expect(
+      within(canvasElement).getByText(`${minus}3,24%`),
+    ).toBeVisible();
+  },
+};
+
 // A provider inside another keeps what it is not given, so one that only changes the words for no value never shows
 // what the app hid.
 const Nested: Story = {
@@ -301,9 +400,12 @@ export default meta;
 export {
   Default,
   Hidden,
+  HidesByKind,
+  HidesInherited,
   Nested,
   NestedSettings,
   Router,
+  ShownNeedsNoLabel,
   TimeZone,
   WithTheHook,
   WithTheHookInEnglish,
