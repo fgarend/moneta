@@ -6,6 +6,37 @@ gets its number.
 
 ## [Unreleased]
 
+## [0.43.0] - 2026-11-18
+
+TextField, and Field, Label, Input and Textarea reviewed: a field that links its words by itself, an asterisk on what
+is required, and read-only as a filled box.
+
+### Added
+
+- `TextField`, on React Aria's, which holds a `FieldLabel`, an `Input` or a `Textarea`, a `FieldDescription` and a
+  `FieldError`, and links them with no `id` of yours, laid out as `Field`, with its `orientation`. Its state is React
+  Aria's: `isRequired`, `isInvalid`, `isReadOnly` and `isDisabled`, and the `Form` around it decides when it validates.
+- An asterisk after the label of a required field, in the label's colour, which a screen reader skips, as it hears the
+  field is required. Say what it means once, above your form, in your words.
+- Pages for TextField, Field, Label, Input and Textarea, and the guidelines' Fields.
+
+### Changed
+
+- **Breaking:** in a field of React Aria, `FieldError` shows only while the field is invalid, linked to its box, and is
+  no `alert`; with no words of yours, it shows the browser's message. To upgrade, give the field `isInvalid` or a rule,
+  and your words; outside such a field it is an `alert`, as before.
+- **Breaking:** `FieldLabel` draws no card around a `Field`, which waits for ChoiceCard. To upgrade, nothing to write;
+  the label keeps its words and what it holds.
+- **Breaking:** `Label` and `FieldLabel` lay their words as text, on lines of 20 px, so a long label wraps cleanly and
+  the asterisk follows its last word, and a field's label turns red when invalid and dims when disabled. To upgrade,
+  nothing to write; a label holding an icon and words lays them as text.
+- Read-only is a filled box with no border in `Input`, `Textarea` and `DateField`, its text at full contrast.
+- `Textarea` grows with its text up to about 10 lines, 224 px, then scrolls in itself.
+- `FieldLegend` at 14/20 and 600, a step below a card's title, and 500 as a `label`; `FieldSeparator`'s words on the
+  surface it sits on.
+- `FieldDescription` is a paragraph React Aria links inside a field.
+- Across, a label beside a `FieldContent` keeps its width, level with a box of 36 px.
+
 ## [0.42.0] - 2026-11-18
 
 PageHeader, the head of a page: its title, what scopes it, a description and its actions.
@@ -737,7 +768,8 @@ and dark. `README.md` says how to install and use it.
 
 A rehearsal of the release's path, not meant to be installed. Use a later version.
 
-[Unreleased]: https://github.com/fgarend/moneta/compare/v0.42.0...HEAD
+[Unreleased]: https://github.com/fgarend/moneta/compare/v0.43.0...HEAD
+[0.43.0]: https://github.com/fgarend/moneta/compare/v0.42.0...v0.43.0
 [0.42.0]: https://github.com/fgarend/moneta/compare/v0.41.0...v0.42.0
 [0.41.0]: https://github.com/fgarend/moneta/compare/v0.40.0...v0.41.0
 [0.40.0]: https://github.com/fgarend/moneta/compare/v0.39.0...v0.40.0
