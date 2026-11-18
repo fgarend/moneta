@@ -4,8 +4,9 @@
 @import "tw-animate-css";
 @import "./shadcn.css";
 
-/* So an app's Tailwind reads the pieces, as it skips node_modules. */
+/* So an app's Tailwind reads the pieces and the classes their hooks hold, as it skips node_modules. */
 @source "../components";
+@source "../hooks";
 
 @custom-variant dark (&:is(.dark *));
 /* A screen tall enough for a bar that sticks, as one shorter lets it go (WCAG 1.4.10, C34). */

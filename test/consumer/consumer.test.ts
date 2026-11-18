@@ -132,6 +132,9 @@ it("imports every piece in Node", () => {
 // With no class of the package read by the app's Tailwind, the build still passes, and the pieces draw with no style.
 it.each([
   ["the classes of its pieces", /\.bg-primary/u],
+  // Classes a hook holds for the pieces, as a field's layout and a value's tone, which no piece repeats.
+  ["the classes of its hooks", /\.text-positive/u],
+  ["a field's layout, from its hook", /\.\\\*\\:w-full/u],
   ["the theme's values", /:root[^}]*--primary:/u],
   ["the animations", /animate-in/u],
   // Tailwind knows data-open by itself, and only shadcn's sheet reads it as data-state too.

@@ -19,7 +19,8 @@ What the library starts from.
 - **An update is never `--overwrite`,** which would replace our edits, but `make shadcn-update`.
 - **`cn` is the npm package of that name,** as shadcn delivers it.
 - **The theme's shape is shadcn's,** in `src/styles/theme.css`, and its values are Moneta's, as `theme.md` says.
-  A `@source` lets the app's Tailwind read the pieces, as it skips `node_modules`.
+  A `@source` for the pieces and one for their hooks let the app's Tailwind read the classes they hold, as it skips
+  `node_modules`; `test/consumer/consumer.test.ts` builds an app from the package to check both.
 - **`shadcn/tailwind.css` is copied to `src/styles/shadcn.css`,** with its base in `upstream/shadcn/` too. Our
   values go in `theme.css`, and it keeps only what the pieces use: its `scroll-fade-*`, `shimmer-*` and `no-scrollbar`
   utilities went, which no piece used, as an app writes no class of its own.
@@ -113,3 +114,4 @@ Since 0.5.0, lint holds every piece, and all of these were fixed or no longer ap
 - 2026-11-06: The theme's values moved to `theme.md`.
 - 2026-11-09: Every piece under one rule, in one folder, with shadcn's updates merged three ways.
 - 2026-11-10: `#lib/*` and `#hooks/*` in use.
+- 2026-11-18: A `@source` for the hooks, whose classes an app's Tailwind skipped.
