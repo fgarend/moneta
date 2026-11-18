@@ -122,6 +122,8 @@ describe.each(["light", "dark"])("the %s theme", (mode) => {
     ["info", "card", text],
     ["info", "muted", text],
     ["gold-foreground", "gold", text],
+    // A destructive button's words on its solid red.
+    ["destructive-foreground", "destructive", text],
     // An icon on each tile: soft, solid, in the text's colour with the icon in the background's, and gold, above.
     ["foreground", "muted", nonText],
     ["background", "foreground", nonText],

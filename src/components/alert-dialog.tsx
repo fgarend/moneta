@@ -175,7 +175,6 @@ function AlertDialogAction({
 function AlertDialogCancel({
   className,
   variant = "outline",
-  size = "default",
   ...props
 }: ComponentProps<typeof Button>) {
   return (
@@ -184,7 +183,6 @@ function AlertDialogCancel({
       data-slot="alert-dialog-cancel"
       className={cn(className)}
       variant={variant}
-      size={size}
       {...props}
     />
   );

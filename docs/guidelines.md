@@ -52,9 +52,9 @@ the version installed. It holds only what exists, and each reviewed piece adds i
 - **A surface takes `outline`, `muted` or `ghost`:** a border, a soft fill, and no frame where its usual look has one.
   `Item` and `StatGroup` read them.
 - **A meaning takes `destructive`, `success`, `warning` or `info`,** on `Badge` and `Alert`, with the words saying it
-  too, as Colour says.
+  too, as Colour says. `Button`'s `destructive` is solid, to confirm what cannot be undone.
 - **A group joins its items in one box by `spacing={0}`,** with lines between, and parts them into a box each by a
-  larger step, with `variant` the look of each box. `ToggleGroup` and `StatGroup` read it. With no box, as a
+  larger step, with `variant` the look of each box. `ToggleGroup`, `ButtonGroup` and `StatGroup` read it. With no box, as a
   `ghost` `StatGroup`, the items stand 24 px apart unless given a `spacing`.
 - **`gold` is the brand,** on `Button` and `IconTile`, at most once per screen each, as Colour says.
 - **A name one piece alone has is its own,** as `Tabs`' `line`, `ItemMedia`'s `image` and `IconTile`'s `solid`.
@@ -310,6 +310,24 @@ the version installed. It holds only what exists, and each reviewed piece adds i
 - **Links go through your router,** with `navigate` and `useHref` on `MonetaProvider`. On a phone, a followed link
   closes the sheet.
 - **A long label wraps** to a second line; keep labels short, as "Positions", so they rarely do.
+
+## Buttons
+
+- **A button does something, and its words say what,** in a few words, verb first, which wrap when they must.
+- **One look per weight:** `default` for most actions, `gold` for the screen's main one, once, `destructive` to confirm
+  what cannot be undone, as a dialog's main action, and `secondary`, `outline` or `ghost` for quieter ones. A quiet
+  destructive action, as a row's "Remove", is a `ghost` or an `outline` whose words say it. `link` is an action read
+  as text, as "Show all" beside a filter.
+- **Sizes by place:** 36 px, `sm` 32 in a dense row, `lg` 40 for a page's main actions, and `xs` or `icon-xs`, 24, only
+  inside another piece or beside a line of text, never in a row of controls.
+- **A button of an icon alone takes its name,** `aria-label` in your words, which TypeScript asks for.
+- **A wait is `isPending`,** with your words for it in `pendingLabel`, as "Sending": the button keeps its place and
+  focus, and a screen reader hears both.
+- **Say why rather than disable:** a message, or `isPending` while it works. `isDisabled` dims it and takes it out of
+  the tab order.
+- **Related actions join in a `ButtonGroup`,** three at most, the rest in a menu at its end, named by your
+  `aria-label`. With `spacing` above 0 it lays a row of separate actions, as a form's "Save" and "Cancel", which
+  wraps.
 
 ## Link
 

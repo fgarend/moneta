@@ -875,7 +875,10 @@ function TableRowAction({
   "aria-label": label,
   className,
   ...props
-}: Omit<ComponentProps<typeof Button>, "aria-label" | "size" | "variant"> & {
+}: Omit<
+  ComponentProps<typeof Button>,
+  "aria-label" | "isPending" | "pendingLabel" | "size" | "variant"
+> & {
   "aria-label": string;
 }) {
   const { titleId } = useContext(RowContext);

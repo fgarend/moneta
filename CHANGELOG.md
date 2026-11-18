@@ -6,6 +6,31 @@ gets its number.
 
 ## [Unreleased]
 
+### Added
+
+- `Button`'s `isPending`, React Aria's, with `pendingLabel`, your words for the wait: the button keeps its focus and
+  place, presses nothing, and shows a spinner in place of its icon, and a screen reader hears its name and your words.
+- `ButtonGroup`'s `spacing`, the vocabulary's: 0, by default, joins the buttons in one box, and more lays them apart,
+  wrapping, as a form's "Save" and "Cancel".
+- `--destructive-foreground`, the words on a solid red, white in light and graphite in dark.
+- Button's and ButtonGroup's pages, and the guidelines' Buttons.
+
+### Changed
+
+- **Breaking:** `destructive` is solid, the red under `--destructive-foreground`, readable at 4.5:1 on every surface at
+  rest and on hover, where the tint fell below in dark. To upgrade, nothing to write; a quiet destructive action, as a
+  row's "Remove", becomes a `ghost` or an `outline`.
+- **Breaking:** a `Button` at `icon`, `icon-xs`, `icon-sm` or `icon-lg` asks for `aria-label` or `aria-labelledby`, and
+  `isPending` for `pendingLabel`. To upgrade, give each its name in your words.
+- **Breaking:** `LinkButton` takes no `link` variant, as a link drawn as text is a `Link`. To upgrade, write `Link`.
+- **Breaking:** a button's words wrap when they do not fit, centred, its height a least one, so it never scrolls a
+  narrow page sideways. To upgrade, nothing to write; a button given a height of its own keeps it over `min-h`, unless
+  you write `min-h-0` with it.
+- A disabled `LinkButton` dims to 50%, as a `Button`, and a button's hover follows React Aria, so it never sticks
+  after a touch. `xs` and `icon-xs` take the theme's radius, as before.
+- `Dialog`'s and `Sheet`'s close buttons are named by `aria-label`, from `closeLabel`, as before.
+- In a joined `ButtonGroup`, the buttons share the width at one height, their words wrapping when narrow.
+
 ## [0.38.0] - 2026-11-17
 
 Text, the app's own paragraph and note, and a card's content 12 px apart.

@@ -21,7 +21,6 @@ function SheetTrigger({ ...props }: SheetTriggerPrimitiveProps) {
 function SheetClose({
   className,
   variant = "outline",
-  size = "default",
   ...props
 }: ComponentProps<typeof Button>) {
   return (
@@ -29,7 +28,6 @@ function SheetClose({
       slot="close"
       data-slot="sheet-close"
       variant={variant}
-      size={size}
       className={cn(className)}
       {...props}
     />
@@ -101,12 +99,13 @@ function Sheet({
           {children}
           {showCloseButton ? (
             <SheetClose
+              // CloseButton gives a name whenever the button shows.
+              aria-label={closeLabel as string}
               variant="ghost"
               className="absolute top-3 right-3"
               size="icon-sm"
             >
               <XIcon />
-              <span className="sr-only">{closeLabel}</span>
             </SheetClose>
           ) : null}
         </SheetPrimitive>
