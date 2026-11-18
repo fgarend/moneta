@@ -37,6 +37,34 @@ with each family. No reviewed piece has a default text, so shadcn's written stri
 
 ## Actions and forms
 
+PageHeader's step, decided:
+- Parts, decided on 2026-11-18, as `Card` and `Section`: `PageHeader`, `PageContext`, `PageTitle`, `PageDescription`
+  and `PageAction`. `PageTitle` is always an `h1` at `type-display`, 32/40, the page's one heading of level 1. Against
+  props, as an app's own takes `title` and `actions`, shorter but unlike every other piece.
+- `PageContext` above the title, decided on 2026-11-18, for what scopes the page, as whose accounts or which period,
+  in a row 8 px apart that wraps, 12 px above the title; not a label over the title, and not the way to the page,
+  which is the `AppHeader`'s. Against the bar's tools or the page's actions, away from the title it changes.
+- `PageTitle` lays what it holds in a row, decided on 2026-11-18, as `SectionTitle`: a mark before, an `Avatar` or an
+  `IconTile` at 40 px from its place, hidden from screen readers, and a `Badge` after, whose words join the heading.
+  Against a part of its own beside the `h1`.
+- `PageAction` as `SectionAction`, decided on 2026-11-18: at the header's end, under the description below 384 px of
+  the header's own width, its controls 8 px apart, wrapping. Against 448 px, which would part a page from a section.
+- `isLoading` on `PageTitle`, decided on 2026-11-18, with the app's `loadingLabel`, which TypeScript asks for: the
+  `h1` holds the words for screen readers and a shape of 40 px they skip, as a table's loading; the description and
+  the actions are the app's to leave out. Against the app's own `Skeleton`, with a class of its own.
+- `PageDescription` a `p` at `type-paragraph` in `--muted-foreground`, decided on 2026-11-18, 65 characters at most as
+  `Text`, 8 px under the title; the header 40 px from the content, as `AppContent` lays its parts. Against the wider
+  measure an app's own uses, which breaks two lines later and reads worse.
+- Its stories: `Default`, `WithContext`, `WithMark`, `Narrow`, `Loading` and `LongTitle`, and the sample page's head.
+  Tests: an `h1` at 32/40, a description at 14/24 muted and 65 characters at most, 8 px under the title, the context
+  12 px above, a mark at 40 px hidden and a badge in the heading's name, the action under the description below
+  384 px, wrapping, a loading heading named by `loadingLabel` with a 40 px shape, and a long title wrapping at 320 px;
+  types refusing `isLoading` with no `loadingLabel`. WCAG: 1.3.1 and 1.4.10 by these, 1.4.12 by every story; 2.4.6,
+  headings that describe, and 2.4.2, the page's `<title>`, are the app's, which the guidelines say. In 0.42.0, nothing
+  breaks.
+
+The family:
+
 - PageHeader, as an app's own draws it, its context, title and actions each in a row
   that wraps, Input, InputGroup, whose addon, such as a currency's symbol, a screen
   reader does not read as part of the field's name, Textarea, Label, NativeSelect and Slider.
