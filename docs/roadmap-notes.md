@@ -40,6 +40,10 @@ with each family. No reviewed piece has a default text, so shadcn's written stri
 - Button's variants, ButtonGroup, PageHeader, as an app's own draws it, its context, title and actions each in a row
   that wraps, Input, InputGroup, whose addon, such as a currency's symbol, a screen
   reader does not read as part of the field's name, Textarea, Label, NativeSelect and Slider.
+- Button's `destructive` below 4.5:1, which an app's axe found in a dialog on 2026-11-17: its red text on its own red
+  tint at 4.30 on a card in dark and 3.72 on `--muted`, and on hover 3.47 and 3.07; in light, on hover, 4.31 on the
+  page and 4.01 on `--accent`. Fixed in Button's review, for every variant, in both modes, at rest and on hover, on
+  each surface a button sits on, and the app told which version has it.
 - Field, which does not link its description or error, and decides the contrast of the control's border against
   the 3:1 of WCAG 1.4.11.
 - Select, and when to use it or NativeSelect.
