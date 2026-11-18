@@ -37,18 +37,69 @@ with each family. No reviewed piece has a default text, so shadcn's written stri
 
 ## Actions and forms
 
-- Input, InputGroup, whose addon, such as a currency's symbol, a screen
-  reader does not read as part of the field's name, Textarea, Label, NativeSelect and Slider.
-- Field, which does not link its description or error, and decides the contrast of the control's border against
-  the 3:1 of WCAG 1.4.11.
-- Select, and when to use it or NativeSelect.
+The fields' line in three steps, decided on 2026-11-18, as they share one box and one frame: Field, Label, Input
+and Textarea first, with `TextField`, as the frame decides how every field links its words; then InputGroup and
+SearchField; then NativeSelect and Select. Against one step, too large, and a piece a step, which would decide the
+links with no field to try them on.
+
+The first step, decided:
+- Parts linked by React Aria, decided on 2026-11-18: `TextField`, on React Aria's, holds `FieldLabel`, `Input` or
+  `Textarea`, `FieldDescription` and `FieldError`, and links them with no `id`, as React Aria's `Select` and
+  `DateField` do. Against shadcn's links by hand, which an app forgets with nothing to catch it, and one piece with
+  props, as `DateField`, which closes what a label, a description or the box can hold.
+- `TextField` a piece of its own, decided on 2026-11-18, in `text-field.tsx`, drawn with `Field`'s layout and its
+  `orientation`; `Field` stays for what has no React Aria field around it, and the parts serve both, linked in one,
+  plain in the other. Against `Field` as the text field, which would leave a label pointing at no box around a
+  `Switch` or a value, and one inside the other, as `TextField` makes a group inside it a presentation.
+- The error as React Aria's, decided on 2026-11-18: inside a field, `FieldError` shows only while the field is
+  invalid, linked to it, with no `alert`, and a submit moves focus to the first field invalid; outside a field, it
+  stays as today, with its `errors` list. Against shadcn's `alert`, which breaks in on each key and makes several
+  errors fight. An error that arrives while focus is elsewhere, as a server's, is heard only when focus comes back,
+  for the line of forms.
+- An asterisk on what is required, decided on 2026-11-18, drawn by the piece from `isRequired`, hidden from screen
+  readers, which hear it as required, in the label's colour; the legend that says what it means is the app's, once
+  a form. Against marking what is optional, GOV.UK's, a word on what is required, an asterisk the app writes, which it
+  can forget or leave on a field not required, and red, the theme's one colour of an error.
+- Read-only as a filled box with no border, decided on 2026-11-18, in `--muted`, its text at full contrast, in
+  `Input`, `Textarea` and `DateField`. Against the same box, which asks to be typed in, and plain text, which leaves
+  the form's line.
+- `Textarea` grows with its text up to about 10 lines, decided on 2026-11-18, then scrolls in itself; `field-sizing`
+  is in every browser, Chrome 123, Firefox 152 and Safari 26.2. Against growing with no limit, which pushes a
+  dialog's buttons away, and a fixed height, which scrolls three lines.
+- The form decides when a field validates, decided on 2026-11-18: `TextField` sets no `validationBehavior`, so React
+  Aria's `native` holds unless the `Form` says `aria`, as a form library asks. Against a fixed `aria`, as `DateField`'s,
+  which overrides its form.
+- A field's label at 14/20 and 500, decided on 2026-11-18, as shadcn's and as the words of `Button`, `Badge`, `Tabs`
+  and `Sidebar`: a control's name is the exception to 400 for the rest, written in the theme's decision. `Label`'s
+  line goes from 14 to 20 px. Against `type-label`, muted at 13, weaker than what is typed, and 400, which mixes the
+  label with the value.
+- The choice card leaves `FieldLabel`, decided on 2026-11-18, for `ChoiceCard`, with `Checkbox` and `RadioGroup`.
+  Against reviewing it now, before the pieces it holds, and leaving it, which keeps `Field` raw.
+- A group's legend at 14/20 and 600, decided on 2026-11-18, a step below a card's title and above a field's label;
+  its `label` variant takes the field label's type. Against 15 and 600, a card's title, and 16 and 500, shadcn's,
+  off the scale. `FieldSeparator`'s words take the surface's colour, `--surface`, not the page's.
+- Its stories: `TextField`'s `Default`, `Required`, `Invalid`, `ErrorOnlyWhenInvalid`, `InAForm`, `ReadOnly`,
+  `Disabled`, `Multiline`, `LongLabel`, `Across` and `ErrorList`; `Input`'s `ReadOnly` and `Edge`, its border 3:1 on
+  the page and a card, both modes; `Textarea`'s `Grows` and `ReadOnly`; `Label`'s `LongLabel`; `Field`'s `Legend`,
+  `SeparatorOnACard` and `NoCard`; `DateField`'s `ReadOnly`. WCAG: 1.3.1, 1.4.10, 1.4.11, 2.4.3, 3.3.1, 3.3.2 and
+  4.1.2 by these, 1.4.12 by every story; 1.3.5, the `autoComplete` an input passes on, and 3.2.2, a field that
+  changes nothing by itself, are the app's, which the guidelines say. In 0.43.0, `FieldLabel` loses its card,
+  `Label`'s line is 20 px, read-only changes its look, `Textarea` stops growing, and `FieldError` in a React Aria
+  field shows only while invalid and is no `alert`.
+
+The family:
+
+- InputGroup, whose addon, such as a currency's symbol, a screen reader does not read as part of the field's name,
+  and SearchField, the second step of the fields; NativeSelect and Select, and when to use each, the third; Slider.
+- `DateField` in parts, as `TextField`, and with no fixed `validationBehavior`, so its form decides, raised on
+  2026-11-18: a break for whoever uses it.
 - Checkbox, which draws a check when indeterminate, and RadioGroup, in a row as well, their items growing for their
   label, which today they do not. A visible label that is also their name and what a click takes, written in the
   guidelines, as a `FieldLabel` around the box and its words: an app asked on 2026-11-13, as it names each by
   `aria-label` and hides the words beside it, so a click on them checks nothing. Switch, Toggle, and ToggleGroup, weighing a segmented control, SegmentedControl,
   against a radio in line.
-- DateField came early, before Sidebar. SearchField, FilePicker, ChoiceCard, and `combobox` after a study like
-  Sidebar's.
+- DateField came early, before Sidebar. FilePicker, ChoiceCard, which takes the card `FieldLabel` drew around a
+  `Field` until 0.43.0, and `combobox` after a study like Sidebar's.
 - NumberField, DatePicker, DateRangePicker with presets such as the last 30 days, TimeField, a choice of many with
   removable chips, on React Aria's `TagGroup`, InputOTP, as `input-otp`, which brings a package of its own,
   CopyButton, which says it copied in a status message, and copies an amount through the way Money values takes,
@@ -62,7 +113,8 @@ with each family. No reviewed piece has a default text, so shadcn's written stri
   it is part of Toolbar, or whether it should exist at all, as it repeats the `Select`'s value.
 - To ask: forms, on React Aria's `Form`, with a server's errors through `validationErrors`, and how an app's form
   library connects, as Adobe documents React Hook Form and Zod. A form's states, such as dirty or touched, stay with
-  that library or the app.
+  that library or the app. A server's error arrives while focus is elsewhere, and `FieldError` is no `alert`, so it
+  is heard only when focus comes back to its field, unless the form says so.
 
 ## Overlays
 

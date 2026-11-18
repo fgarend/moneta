@@ -9,7 +9,10 @@ known and what is still to ask, are in [`roadmap-notes.md`](roadmap-notes.md), r
 ## Next, in order
 
 1. **Actions and forms.** The pieces that act and take input, reviewed or made.
-    - Input, InputGroup, Textarea, Label, Field, NativeSelect, Select and SearchField
+    - Field, Label, Input and Textarea, with TextField
+    - InputGroup and SearchField
+    - NativeSelect and Select
+    - DateField in parts, its form deciding when it validates
     - Checkbox, RadioGroup, Switch, Toggle, ToggleGroup and Slider
     - NumberField, DatePicker, DateRangePicker and TimeField
     - FilePicker, ChoiceCard, a choice of many with chips, InputOTP, CopyButton, Toolbar, a period switcher and
