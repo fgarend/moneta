@@ -6,11 +6,17 @@ import { Label } from "./label.js";
 
 const label = "Reference";
 const inputId = "label-reference";
+const longLabel =
+  "The reference the fictitious household gives every monthly transfer to its landlord";
+
+// A control's name: 14/20 and 500.
+const size = "14px";
+const line = "20px";
+const weight = "500";
 
 const meta = {
   title: "Components/Form & Input/Label",
   component: Label,
-  tags: ["raw"],
   args: { children: label },
 } satisfies Meta<typeof Label>;
 
@@ -51,5 +57,31 @@ const InAField: Story = {
   },
 };
 
+// A long label wraps on lines of 20 px, at 14 and 500, at the narrowest screen.
+const LongLabel: Story = {
+  tags: ["visual"],
+  args: { children: longLabel, htmlFor: inputId },
+  decorators: [
+    (Story) => (
+      <div className="w-full max-w-80">
+        <Story />
+        <Input id={inputId} />
+      </div>
+    ),
+  ],
+  play: async ({ canvasElement }) => {
+    const words = canvasElement.querySelector(
+      '[data-slot="label"]',
+    ) as HTMLElement;
+
+    await expect(getComputedStyle(words).fontSize).toBe(size);
+    await expect(getComputedStyle(words).lineHeight).toBe(line);
+    await expect(getComputedStyle(words).fontWeight).toBe(weight);
+    await expect(words.getBoundingClientRect().height).toBeGreaterThan(
+      Number.parseInt(line, 10),
+    );
+  },
+};
+
 export default meta;
-export { Default, InAField };
+export { Default, InAField, LongLabel };

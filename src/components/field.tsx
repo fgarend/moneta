@@ -1,12 +1,18 @@
 "use client";
 
-import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "cn";
-import { useMemo } from "react";
-import { Group, type GroupProps } from "react-aria-components";
+import { useContext, useMemo } from "react";
+import {
+  FieldErrorContext,
+  FieldError as FieldErrorPrimitive,
+  Group,
+  type GroupProps,
+  Text,
+} from "react-aria-components";
 
 import { Label } from "#components/label";
 import { Separator } from "#components/separator";
+import { type FieldOrientation, fieldVariants } from "#hooks/field";
 
 function FieldSet({ className, ...props }: React.ComponentProps<"fieldset">) {
   return (
@@ -21,6 +27,7 @@ function FieldSet({ className, ...props }: React.ComponentProps<"fieldset">) {
   );
 }
 
+// A group's title, a step below a card's and above a field's label; as a label, a field's label.
 function FieldLegend({
   className,
   variant = "legend",
@@ -31,7 +38,7 @@ function FieldLegend({
       data-slot="field-legend"
       data-variant={variant}
       className={cn(
-        "mb-1.5 font-medium data-[variant=label]:text-sm data-[variant=legend]:text-base",
+        "mb-1.5 text-sm leading-5 data-[variant=label]:font-medium data-[variant=legend]:font-semibold",
         className,
       )}
       {...props}
@@ -52,31 +59,27 @@ function FieldGroup({ className, ...props }: React.ComponentProps<"div">) {
   );
 }
 
-const fieldVariants = cva(
-  "group/field flex w-full gap-2 data-[invalid=true]:text-destructive",
-  {
-    variants: {
-      orientation: {
-        vertical: "flex-col *:w-full [&>.sr-only]:w-auto",
-        horizontal:
-          "flex-row items-center has-[>[data-slot=field-content]]:items-start *:data-[slot=field-label]:flex-auto has-[>[data-slot=field-content]]:[&>[role=checkbox],[role=radio]]:mt-px",
-        responsive:
-          "flex-col *:w-full @md/field-group:flex-row @md/field-group:items-center @md/field-group:*:w-auto @md/field-group:has-[>[data-slot=field-content]]:items-start @md/field-group:*:data-[slot=field-label]:flex-auto [&>.sr-only]:w-auto @md/field-group:has-[>[data-slot=field-content]]:[&>[role=checkbox],[role=radio]]:mt-px",
-      },
-    },
-    defaultVariants: {
-      orientation: "vertical",
-    },
-  },
-);
-
+/**
+ * A label and what it names laid out together, its words below, for what has no field of React Aria around it.
+ *
+ * **Use it for**
+ *
+ * - A value or a choice with its title and description, as a row of settings, across with `orientation`.
+ * - Several fields together, in a `FieldGroup`, or under a legend, in a `FieldSet`.
+ *
+ * **Not recommended**
+ *
+ * - Text typed in: `TextField` links its label, description and error by itself, which `Field` does not.
+ * - A box with its card: ChoiceCard is to come.
+ */
 function Field({
   className,
   orientation = "vertical",
   ...props
-}: Omit<GroupProps, "className"> & { className?: string } & VariantProps<
-    typeof fieldVariants
-  >) {
+}: Omit<GroupProps, "className"> & {
+  className?: string;
+  orientation?: FieldOrientation;
+}) {
   return (
     <Group
       data-slot="field"
@@ -107,11 +110,7 @@ function FieldLabel({
   return (
     <Label
       data-slot="field-label"
-      className={cn(
-        "group/field-label peer/field-label flex w-fit gap-2 leading-5 group-data-[disabled=true]/field:opacity-50 has-data-checked:border-primary/30 has-data-checked:bg-primary/5 has-data-selected:border-primary/30 has-data-selected:bg-primary/5 has-[>[data-slot=field]]:rounded-lg has-[>[data-slot=field]]:border has-[>[data-slot=field]]:not-has-[:disabled,[data-disabled]]:hover:bg-muted/50 has-[>[data-slot=field]]:has-[:focus-visible]:border-ring has-[>[data-slot=field]]:has-[:focus-visible]:ring-3 has-[>[data-slot=field]]:has-[:focus-visible]:ring-ring/50 *:data-[slot=field]:p-2.5 dark:has-data-checked:border-primary/20 dark:has-data-checked:bg-primary/10 dark:has-data-selected:border-primary/20 dark:has-data-selected:bg-primary/10",
-        "has-[>[data-slot=field]]:w-full has-[>[data-slot=field]]:flex-col",
-        className,
-      )}
+      className={cn("group/field-label peer/field-label w-fit", className)}
       {...props}
     />
   );
@@ -122,7 +121,7 @@ function FieldTitle({ className, ...props }: React.ComponentProps<"div">) {
     <div
       data-slot="field-label"
       className={cn(
-        "flex w-fit items-center gap-2 text-sm font-medium group-data-[disabled=true]/field:opacity-50",
+        "flex w-fit items-center gap-2 text-sm leading-5 font-medium group-data-[disabled=true]/field:opacity-50",
         className,
       )}
       {...props}
@@ -130,10 +129,16 @@ function FieldTitle({ className, ...props }: React.ComponentProps<"div">) {
   );
 }
 
-function FieldDescription({ className, ...props }: React.ComponentProps<"p">) {
+// Inside a field of React Aria, its description, which the field links to its box; elsewhere, words under a title.
+function FieldDescription({
+  className,
+  ...props
+}: Omit<React.ComponentProps<"p">, "slot">) {
   return (
-    <p
+    <Text
       data-slot="field-description"
+      elementType="p"
+      slot="description"
       className={cn(
         "text-left text-sm font-normal text-muted-foreground group-has-data-horizontal/field:text-balance [[data-variant=legend]+&]:-mt-1.5",
         "last:mt-0 nth-last-2:-mt-1",
@@ -165,7 +170,7 @@ function FieldSeparator({
       <Separator className="absolute inset-0 top-1/2" />
       {children ? (
         <span
-          className="relative mx-auto block w-fit bg-background px-2 text-muted-foreground"
+          className="relative mx-auto block w-fit bg-(--surface) px-2 text-muted-foreground"
           data-slot="field-separator-content"
         >
           {children}
@@ -175,6 +180,8 @@ function FieldSeparator({
   );
 }
 
+// Inside a field of React Aria, its error, shown only while the field is invalid and linked to its box, with no alert;
+// elsewhere, an alert. Errors given as a list, as a form library gives them, are said once each.
 function FieldError({
   className,
   children,
@@ -183,6 +190,7 @@ function FieldError({
 }: React.ComponentProps<"div"> & {
   errors?: Array<{ message?: string } | undefined>;
 }) {
+  const inField = useContext(FieldErrorContext) !== null;
   const content = useMemo(() => {
     if (children) {
       return children;
@@ -208,18 +216,26 @@ function FieldError({
       </ul>
     );
   }, [children, errors]);
+  const look = cn("text-sm font-normal text-destructive", className);
+
+  if (inField) {
+    return (
+      <FieldErrorPrimitive
+        className={look}
+        data-slot="field-error"
+        elementType="div"
+      >
+        {content ?? undefined}
+      </FieldErrorPrimitive>
+    );
+  }
 
   if (!content) {
     return null;
   }
 
   return (
-    <div
-      role="alert"
-      data-slot="field-error"
-      className={cn("text-sm font-normal text-destructive", className)}
-      {...props}
-    >
+    <div role="alert" data-slot="field-error" className={look} {...props}>
       {content}
     </div>
   );

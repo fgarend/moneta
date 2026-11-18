@@ -116,6 +116,7 @@ function DateField({
           "data-focus-within:border-ring data-focus-within:ring-3 data-focus-within:ring-ring/50",
           "data-invalid:border-destructive data-invalid:ring-3 data-invalid:ring-destructive/20 dark:data-invalid:border-destructive/50 dark:data-invalid:ring-destructive/40",
           "data-disabled:cursor-not-allowed data-disabled:bg-input/50 data-disabled:opacity-50 dark:data-disabled:bg-input/80",
+          "group-data-readonly/date-field:border-transparent group-data-readonly/date-field:bg-muted",
           sizes[size],
         )}
         data-slot="date-input"

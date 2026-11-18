@@ -359,6 +359,29 @@ the version installed. It holds only what exists, and each reviewed piece adds i
   leads nowhere.
 - **A summary beside, in place of the page, is `onPreview`,** as Assets by code says.
 
+## Fields
+
+- **Text is typed in a `TextField`,** which holds a `FieldLabel`, an `Input` or a `Textarea`, a `FieldDescription` and
+  a `FieldError`, in that order, and links them with no `id` of yours. `Field` lays out what has no field of its own,
+  as a row of settings, and links nothing.
+- **Every field has a visible label,** in your words. Where its label is elsewhere, the box takes an `aria-label`.
+- **`isRequired` marks the label with an asterisk,** which a screen reader skips, as it hears the field is required.
+  A form with required fields says what the asterisk means once, above its fields, in your words, as "* required".
+- **An error always has your words,** in `FieldError`, saying what to do, as "Enter a reference". A `FieldError`
+  with none shows the browser's message, in the browser's language. It shows only while the field is invalid, by
+  `isInvalid` or by a rule, and is heard with the field, not as an alert.
+- **The form decides when its fields validate.** By default a field checks its rules when it is left and when the
+  form is sent, and an invalid field stops the form and takes the focus. A form library, as React Hook Form, takes
+  `validationBehavior="aria"` on React Aria's `Form`, and decides itself.
+- **`isReadOnly` for a value that can be seen and copied but not changed here,** drawn as a filled box. `isDisabled`
+  for a field that does not apply now, which dims it and takes it out of the tab order; a text that says why is often
+  better.
+- **`autoComplete` for what a person gives about themselves,** as a name or an email, so the browser fills it in.
+- **A field changes nothing by itself as it is typed in,** as WCAG 3.2.2 asks: a page moves on when the person says so.
+- **A `Textarea` for several lines,** which grows with its text up to about 10 lines, then scrolls in itself.
+- **`FieldSet` and `FieldLegend` name a group of fields,** a title a step below a card's, and `FieldGroup` lays them
+  20 px apart.
+
 ## Dates
 
 - **A date is an ISO string,** `"2026-10-24"` for a day and `"2026-10-24T14:32:00Z"` for a moment, never a `Date`.

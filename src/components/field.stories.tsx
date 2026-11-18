@@ -1,5 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { expect, within } from "storybook/test";
+import { Card, CardContent } from "./card.js";
+import { Checkbox } from "./checkbox.js";
 import {
   Field,
   FieldContent,
@@ -25,7 +27,6 @@ const errorId = "field-reference-error";
 const meta = {
   title: "Components/Form & Input/Field",
   component: Field,
-  tags: ["raw"],
   decorators: [
     (Story) => (
       <FieldSet>
@@ -145,5 +146,81 @@ const ErrorList: Story = {
   },
 };
 
+// A group's legend, the one around every story, a title a step below a card's, at 14/20 and 600; its label variant,
+// a field's label, at 500.
+const Legend: Story = {
+  tags: ["visual"],
+  render: () => (
+    <FieldSet>
+      <FieldLegend variant="label">{title}</FieldLegend>
+    </FieldSet>
+  ),
+  play: async ({ canvasElement }) => {
+    const [group, asLabel] = [
+      ...canvasElement.querySelectorAll('[data-slot="field-legend"]'),
+    ].map((element) => getComputedStyle(element));
+
+    await expect([
+      group?.fontSize,
+      group?.lineHeight,
+      group?.fontWeight,
+    ]).toEqual(["14px", "20px", "600"]);
+    await expect([
+      asLabel?.fontSize,
+      asLabel?.lineHeight,
+      asLabel?.fontWeight,
+    ]).toEqual(["14px", "20px", "500"]);
+  },
+};
+
+// The words of a line between fields sit on the card's colour, not the page's.
+const SeparatorOnACard: Story = {
+  tags: ["visual"],
+  render: () => (
+    <Card>
+      <CardContent>
+        <FieldSeparator>{or}</FieldSeparator>
+      </CardContent>
+    </Card>
+  ),
+  play: async ({ canvasElement }) => {
+    const card = canvasElement.querySelector('[data-slot="card"]') as Element;
+
+    await expect(
+      getComputedStyle(within(canvasElement).getByText(or)).backgroundColor,
+    ).toBe(getComputedStyle(card).backgroundColor);
+  },
+};
+
+// A label around a field draws no card of its own, chosen or not: that look is ChoiceCard's, to come.
+const NoCard: Story = {
+  render: () => (
+    <FieldLabel>
+      <Field orientation="horizontal">
+        <Checkbox aria-label={title} defaultSelected={true} />
+        <FieldContent>
+          <FieldTitle>{title}</FieldTitle>
+        </FieldContent>
+      </Field>
+    </FieldLabel>
+  ),
+  play: async ({ canvasElement }) => {
+    const around = getComputedStyle(
+      canvasElement.querySelector('[data-slot="field-label"]') as Element,
+    );
+
+    await expect(around.borderTopWidth).toBe("0px");
+    await expect(around.backgroundColor).toBe("rgba(0, 0, 0, 0)");
+  },
+};
+
 export default meta;
-export { Composed, Default, ErrorList, Invalid };
+export {
+  Composed,
+  Default,
+  ErrorList,
+  Invalid,
+  Legend,
+  NoCard,
+  SeparatorOnACard,
+};

@@ -39,14 +39,14 @@ which is run by hand.
 | 1.3.2 Meaningful Sequence | story, script | A timeline in the order written, which nothing reverses |
 | 1.3.3 Sensory Characteristics | app | |
 | 1.3.4 Orientation | script | Nothing here locks it |
-| 1.3.5 Identify Input Purpose | none yet | With the form controls (Actions and forms) |
+| 1.3.5 Identify Input Purpose | app | `Input` passes `autoComplete` to its box, which the guidelines ask for what a person gives about themselves |
 | 1.4.1 Use of Color | story, app | Link's underline, and the sidebar's current page, by a bar and a bolder text. A category's colour beside its name, which the guidelines ask. A badge's state by its word and its icon's shape, by a story, an avatar's badge by its icon and words, by a story, and an alert's meaning by its icon's shape, by a story. A timeline's event by its words, its dot's colour only adding to them. A ticker chip's link by its border and shape. A value's tone only adds colour, and its sign or words are the app's, as a number's change by its sign beside the app's words |
 | 1.4.2 Audio Control | app | |
 | 1.4.3 Contrast (Minimum) | axe, test | axe on flat colours, and `test/theme.test.ts` on the theme's pairs, both modes, a value's tones and the colours of meaning among them, and each colour of meaning as a badge's words on its tint over every surface, and the text on each tint, as an alert's description |
 | 1.4.4 Resize Text | script | |
 | 1.4.5 Images of Text | app | |
-| 1.4.10 Reflow | every story, story, coming, script | Every story at 320 px in all three browsers: the page never scrolls sideways, an area that scrolls is reached by keyboard, and no text is cut by the width. Section's story at 320 px, its several actions wrapping at 320 px, a card's long title wrapping beside its action at 320 px, an alert's action moving under its words at 320 px, Amount on one line in a narrow column, a group of numbers one to a line in a narrow column, a description list's term above its value below 288 px, a timeline's long titles wrapping beside their dots, a long label wrapping, a long badge wrapping in its column, Table's columns hidden or scrolled in its own area at 320 px, the sidebar in a sheet on a phone at 320 px, its long labels wrapping, and the application's structure at 320 px, its bar let go on a short screen |
-| 1.4.11 Non-text Contrast | test, story, coming | `test/theme.test.ts` on borders and focus, both modes, Pagination's current page in `--input`, and DateField's invalid edge in `--destructive`, and each colour of categories on every surface and its tile's tint, and an icon on each IconTile's tone. Field (Actions and forms) and charts (Charts) to come |
+| 1.4.10 Reflow | every story, story, coming, script | Every story at 320 px in all three browsers: the page never scrolls sideways, an area that scrolls is reached by keyboard, and no text is cut by the width. Section's story at 320 px, its several actions wrapping at 320 px, a card's long title wrapping beside its action at 320 px, an alert's action moving under its words at 320 px, Amount on one line in a narrow column, a group of numbers one to a line in a narrow column, a description list's term above its value below 288 px, a timeline's long titles wrapping beside their dots, a long label wrapping, a field's long label wrapping at 320 px, a long badge wrapping in its column, Table's columns hidden or scrolled in its own area at 320 px, the sidebar in a sheet on a phone at 320 px, its long labels wrapping, and the application's structure at 320 px, its bar let go on a short screen |
+| 1.4.11 Non-text Contrast | test, story, coming | `test/theme.test.ts` on borders and focus, both modes, Pagination's current page in `--input`, and DateField's and TextField's invalid edge in `--destructive`, an input's edge 3:1 on the page and a card, and each colour of categories on every surface and its tile's tint, and an icon on each IconTile's tone. Select and the choices (Actions and forms) and charts (Charts) to come |
 | 1.4.12 Text Spacing | every story | All three browsers. A paragraph at 14/24 already meets 1.4.8's 1.5, at AAA |
 | 1.4.13 Content on Hover or Focus | none yet | With Tooltip (Overlays) |
 | 2.1.1 Keyboard | story, none yet | DateField's story types a day and clears it; an area that scrolls takes focus, and one that fits adds no stop; React Aria's in the raw pieces, with each family's review |
@@ -57,7 +57,7 @@ which is run by hand.
 | 2.3.1 Three Flashes or Below Threshold | none yet | |
 | 2.4.1 Bypass Blocks | story | The sidebar a named `nav`, and `SkipLink` first, moving focus to its target |
 | 2.4.2 Page Titled | app | |
-| 2.4.3 Focus Order | story | The skip link first, then the next Tab from its target |
+| 2.4.3 Focus Order | story | The skip link first, then the next Tab from its target, and a form that stops on an invalid field moving focus to it, by TextField's story |
 | 2.4.4 Link Purpose (In Context) | axe, test, app | axe finds a link with no name, and `test/link.test.ts` that `Link` asks for what it holds; its words are the app's |
 | 2.4.5 Multiple Ways | app | |
 | 2.4.6 Headings and Labels | app | |
@@ -72,17 +72,17 @@ which is run by hand.
 | 3.1.1 Language of Page | app | |
 | 3.1.2 Language of Parts | app | |
 | 3.2.1 On Focus | none yet | |
-| 3.2.2 On Input | none yet | With the form controls (Actions and forms) |
+| 3.2.2 On Input | app | A field changes nothing by itself as it is typed in, which the guidelines say; Select and the choices to come (Actions and forms) |
 | 3.2.3 Consistent Navigation | app | |
 | 3.2.4 Consistent Identification | app | |
 | 3.2.6 Consistent Help | app | |
-| 3.3.1 Error Identification | story, coming | DateField's error in the app's words, its parts invalid and described by it; the other form controls (Actions and forms) |
-| 3.3.2 Labels or Instructions | story, test, coming | DateField named by its label, its parts described by its description, and `test/date-field.test.ts` that it asks for a name; the other form controls (Actions and forms) |
+| 3.3.1 Error Identification | story, coming | DateField's error in the app's words, its parts invalid and described by it; TextField's, its box invalid and described by it, shown only while invalid, a list of errors each heard, and a form that stops on it; the other form controls (Actions and forms) |
+| 3.3.2 Labels or Instructions | story, test, coming | DateField named by its label, its parts described by its description, and `test/date-field.test.ts` that it asks for a name; TextField named by its label, described by its description, and its asterisk on what is required, hidden from screen readers, which hear it required; the other form controls (Actions and forms) |
 | 3.3.3 Error Suggestion | app | |
 | 3.3.4 Error Prevention (Legal, Financial, Data) | app | Heavy in a money interface: review and confirm |
 | 3.3.7 Redundant Entry | app | |
 | 3.3.8 Accessible Authentication (Minimum) | app | |
-| 4.1.2 Name, Role, Value | axe, story | An area that scrolls a region named by the app's words, a row's action named by its word and the row's title, in a table and a list, a number's by its word and its label, DateField's group named by its label, its parts' values and its disabled state, and the sidebar's current link said to be the page, and its trigger's `aria-expanded` |
+| 4.1.2 Name, Role, Value | axe, story | An area that scrolls a region named by the app's words, a row's action named by its word and the row's title, in a table and a list, a number's by its word and its label, DateField's group named by its label, its parts' values and its disabled state, TextField's box named by its label, read-only and disabled, and the sidebar's current link said to be the page, and its trigger's `aria-expanded` |
 | 4.1.3 Status Messages | story, coming | Table's selection bar, a status whose text changes with the count, Table's, a list's and a group of numbers' loading words, Pagination's summary, and an alert heard by its meaning, `alert` for `destructive` and `status` for the rest |
 
 ## Corner cases
