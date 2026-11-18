@@ -4,7 +4,8 @@ Moneta is the source of truth for components: an app builds its screens from its
 own. What it lacks is added here, in this order, which a new need can change. The details of each item, what is
 known and what is still to ask, are in [`roadmap-notes.md`](roadmap-notes.md), read when the item starts.
 
-**Now:** 1. Actions and forms.
+**Now:** 1. Actions and forms, its step on Button, LinkButton and ButtonGroup, then 2. Hidden values by kind and 3. A
+TickerChip that opens a panel, before the family goes on.
 
 ## Next, in order
 
@@ -19,25 +20,29 @@ known and what is still to ask, are in [`roadmap-notes.md`](roadmap-notes.md), r
     - how a form connects, with a server's errors
     - `combobox`, after a study
     - Button's `link` variant beside Link, and a disabled `LinkButton`, which is not dimmed
-2. **Overlays.** The pieces that open over the page, reviewed or made.
+2. **Hidden values by kind.** The app says which values hiding hides, between Button's step and the rest of
+   Actions and forms.
+3. **A TickerChip that opens a panel.** A press the app handles, as a summary beside the list, its address kept
+   for a new tab, before the rest of Actions and forms.
+4. **Overlays.** The pieces that open over the page, reviewed or made.
     - Dialog, AlertDialog and Sheet
     - Popover, HoverCard, DropdownMenu, ContextMenu, Tooltip and Toggletip
     - text spacing and forced colours on what an overlay draws when open
-3. **The rest.** The other pieces, reviewed or made.
+5. **The rest.** The other pieces, reviewed or made.
     - Tabs, Progress, Meter, Empty, Skeleton and Spinner
     - Breadcrumb, Steps and Banner
     - Collapsible and AllocationBar
     - a bar of actions at the page's foot, a virtualised list, and Toast
     - `calendar`, after a study
-4. **Charts.** Line, area, bars and donut, a ring and BarList, each with a table of its data.
-5. **MoneyInput.** Entering an amount.
-6. **CurrencySelect.** Choosing a currency.
-7. **A stable API.** What each state promises after 1.0.
+6. **Charts.** Line, area, bars and donut, a ring and BarList, each with a table of its data.
+7. **MoneyInput.** Entering an amount.
+8. **CurrencySelect.** Choosing a currency.
+9. **A stable API.** What each state promises after 1.0.
     - every piece reviewed
     - the accessibility script run by hand, with a screen reader and real zoom
     - a policy for deprecating
-8. **Stricter checks.** `exactOptionalPropertyTypes`, if React Aria's types pass it.
-9. **Release 1.0.0.**
+10. **Stricter checks.** `exactOptionalPropertyTypes`, if React Aria's types pass it.
+11. **Release 1.0.0.**
 
 ## Later, in no order
 
@@ -68,7 +73,7 @@ Each becomes an item when its time comes.
 - **Biome's `noTailwindArbitraryValue`.** In place of our own scan of classes.
 - **The gallery's own types.** TypeScript skips most of `.storybook/`, found on 2026-11-09.
 - **The lowest version of each peer in `package`.** When there are more pieces.
-- **More for a value, when a screen asks.** A unit, a value shown while hidden, a tone kept, a spoken text.
+- **More for a value, when a screen asks.** A unit, a tone kept, a spoken text.
 - **A table's virtualisation, resized columns and rows dragged.** When a screen needs them.
 - **Announcing a table's sort.** If `aria-sort` alone proves too little.
 - **The pages a pagination draws, worked out.** If a second app needs it.
