@@ -75,6 +75,25 @@ nothing, rather than a provider of its own around each percent, which the guidel
 read over their shoulder. It also takes Later's value shown while the rest are hidden, as "45% of the budget". To
 ask: whether, its form, by kind or by value, its default, and what the hooks and a chart's axis do.
 
+Decided:
+- The app may leave percents shown while hiding the rest, decided on 2026-11-17, as a percent alone says nothing of
+  size, and hiding everything takes away how things went. Against `money.md`'s reason, a return on a known sum, kept
+  as the default.
+- `hides` on `MonetaProvider`, decided on 2026-11-17: a list of `amount`, `percent` and `quantity`, what `isHidden`
+  hides, in the pieces' own names, one rule for the whole screen, the hooks by the same list. Against `showsPercents`,
+  a name for one kind, and a prop on each value, which `money.md` refused.
+- All three by default, decided on 2026-11-17, so nothing changes for whoever hides today and showing is a choice
+  written; a provider inside another keeps the outer's `hides` when not given one.
+- A kind left out of `hides` behaves as if hiding were off, decided on 2026-11-17: its value, sign and tone, its hook's
+  text, and no `hiddenLabel` asked unless a hidden piece shows. Against dropping the tone, as the number and sign
+  already say it.
+- Bars and charts follow the kind of what they show, decided on 2026-11-17: a share's bar `percent`, an axis in money
+  `amount` through the hooks, noted in their items.
+- Its stories, on `MonetaProvider`: `HidesByKind`, with amounts and quantities as dots and a percent with its sign and
+  tone, the hooks alike; `HidesInherited`, an inner provider keeping the outer's; and `ShownNeedsNoLabel`, a percent
+  shown with no `hiddenLabel`. Types: `hides` takes only the three kinds. WCAG: 1.3.1 and 4.1.2 as the hidden mode
+  today, nothing new. In 0.40.0, nothing breaks.
+
 ## A TickerChip that opens a panel
 
 Asked by an app on 2026-11-17, which puts a `TickerChip` in every column and sentence that names an asset: on a
@@ -104,7 +123,8 @@ press and a new tab go to one place, though a new tab then opens the list with i
 - Tabs, with a count in a tab and tools to the right of its list. Progress, Empty, and Skeleton, with one pattern
   for loading, error and empty. Spinner and Breadcrumb. Pagination moved to Table. Empty takes a page's "not found", as an app writes it in a
   `p` today, raised on 2026-11-17 with Text.
-- Collapsible and AllocationBar. StatGroup and IconTile moved to Display. `calendar` after a study like Sidebar's.
+- Collapsible and AllocationBar, which follows `hides`' `percent`, as a share's bar says what a percent does, decided
+  on 2026-11-17 with Hidden values by kind. StatGroup and IconTile moved to Display. `calendar` after a study like Sidebar's.
 - Link came early, before Sidebar.
 - Steps, Banner, and Meter, which says how much of a limit is used, unlike Progress, with a target's mark.
 - A bar of actions fixed at the foot of the page, a list virtualised for thousands of rows, on React Aria's
@@ -120,6 +140,9 @@ surface, under WCAG 1.4.11, and a table of the data beside each.
 - To ask: where `recharts` goes (recommended: an entry of its own).
 - To ask: a chart of one series, which the prototype draws in graphite rather than the first category; and past five
   or six series, the rest grouped into one, as Atlassian advises, drawn in a neutral.
+- While values are hidden, an axis or a label in money follows `hides`' `amount` through the hooks, decided on
+  2026-11-17 with Hidden values by kind. To weigh: a line of wealth over time says relative sizes, as "doubled in a
+  year", with no axis.
 
 ## Not to build, and to ask again
 
