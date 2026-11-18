@@ -65,35 +65,6 @@ with each family. No reviewed piece has a default text, so shadcn's written stri
   library connects, as Adobe documents React Hook Form and Zod. A form's states, such as dirty or touched, stay with
   that library or the app.
 
-## Hidden values by kind
-
-Asked by an app on 2026-11-17: with values hidden, its money and quantities go and its percents stay, with the bars
-of a share that say the same, as a percent alone, as 60% in one asset or +0.15% in a day, holds for any wealth. It
-asks that the app say which kinds hiding hides, as `hides={["amount", "quantity"]}`, everything when it says
-nothing, rather than a provider of its own around each percent, which the guidelines' one rule forbids. Against it,
-`docs/decisions/money.md`: a return on a known sum says what the money is, and whoever turns the mode on wants nothing
-read over their shoulder. It also takes Later's value shown while the rest are hidden, as "45% of the budget". To
-ask: whether, its form, by kind or by value, its default, and what the hooks and a chart's axis do.
-
-Decided:
-- The app may leave percents shown while hiding the rest, decided on 2026-11-17, as a percent alone says nothing of
-  size, and hiding everything takes away how things went. Against `money.md`'s reason, a return on a known sum, kept
-  as the default.
-- `hides` on `MonetaProvider`, decided on 2026-11-17: a list of `amount`, `percent` and `quantity`, what `isHidden`
-  hides, in the pieces' own names, one rule for the whole screen, the hooks by the same list. Against `showsPercents`,
-  a name for one kind, and a prop on each value, which `money.md` refused.
-- All three by default, decided on 2026-11-17, so nothing changes for whoever hides today and showing is a choice
-  written; a provider inside another keeps the outer's `hides` when not given one.
-- A kind left out of `hides` behaves as if hiding were off, decided on 2026-11-17: its value, sign and tone, its hook's
-  text, and no `hiddenLabel` asked unless a hidden piece shows. Against dropping the tone, as the number and sign
-  already say it.
-- Bars and charts follow the kind of what they show, decided on 2026-11-17: a share's bar `percent`, an axis in money
-  `amount` through the hooks, noted in their items.
-- Its stories, on `MonetaProvider`: `HidesByKind`, with amounts and quantities as dots and a percent with its sign and
-  tone, the hooks alike; `HidesInherited`, an inner provider keeping the outer's; and `ShownNeedsNoLabel`, a percent
-  shown with no `hiddenLabel`. Types: `hides` takes only the three kinds. WCAG: 1.3.1 and 4.1.2 as the hidden mode
-  today, nothing new. In 0.40.0, nothing breaks.
-
 ## A TickerChip that opens a panel
 
 Asked by an app on 2026-11-17, which puts a `TickerChip` in every column and sentence that names an asset: on a

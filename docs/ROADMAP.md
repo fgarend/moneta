@@ -4,7 +4,7 @@ Moneta is the source of truth for components: an app builds its screens from its
 own. What it lacks is added here, in this order, which a new need can change. The details of each item, what is
 known and what is still to ask, are in [`roadmap-notes.md`](roadmap-notes.md), read when the item starts.
 
-**Now:** 2. Hidden values by kind, then 3. A TickerChip that opens a panel, before Actions and forms goes on.
+**Now:** 2. A TickerChip that opens a panel, before Actions and forms goes on.
 
 ## Next, in order
 
@@ -18,28 +18,27 @@ known and what is still to ask, are in [`roadmap-notes.md`](roadmap-notes.md), r
     - CopyButton in Table's selection bar, copying the rows selected as Table's own copy builds them
     - how a form connects, with a server's errors
     - `combobox`, after a study
-2. **Hidden values by kind.** The app says which values hiding hides, before the rest of Actions and forms.
-3. **A TickerChip that opens a panel.** A press the app handles, as a summary beside the list, its address kept
+2. **A TickerChip that opens a panel.** A press the app handles, as a summary beside the list, its address kept
    for a new tab, before the rest of Actions and forms.
-4. **Overlays.** The pieces that open over the page, reviewed or made.
+3. **Overlays.** The pieces that open over the page, reviewed or made.
     - Dialog, AlertDialog and Sheet
     - Popover, HoverCard, DropdownMenu, ContextMenu, Tooltip and Toggletip
     - text spacing and forced colours on what an overlay draws when open
-5. **The rest.** The other pieces, reviewed or made.
+4. **The rest.** The other pieces, reviewed or made.
     - Tabs, Progress, Meter, Empty, Skeleton and Spinner
     - Breadcrumb, Steps and Banner
     - Collapsible and AllocationBar
     - a bar of actions at the page's foot, a virtualised list, and Toast
     - `calendar`, after a study
-6. **Charts.** Line, area, bars and donut, a ring and BarList, each with a table of its data.
-7. **MoneyInput.** Entering an amount.
-8. **CurrencySelect.** Choosing a currency.
-9. **A stable API.** What each state promises after 1.0.
+5. **Charts.** Line, area, bars and donut, a ring and BarList, each with a table of its data.
+6. **MoneyInput.** Entering an amount.
+7. **CurrencySelect.** Choosing a currency.
+8. **A stable API.** What each state promises after 1.0.
     - every piece reviewed
     - the accessibility script run by hand, with a screen reader and real zoom
     - a policy for deprecating
-10. **Stricter checks.** `exactOptionalPropertyTypes`, if React Aria's types pass it.
-11. **Release 1.0.0.**
+9. **Stricter checks.** `exactOptionalPropertyTypes`, if React Aria's types pass it.
+10. **Release 1.0.0.**
 
 ## Later, in no order
 
@@ -94,6 +93,8 @@ Each becomes an item when its time comes.
 
 ## Done
 
+- **Hidden values by kind.** `hides` on `MonetaProvider`, so an app hides its money and quantities and keeps its
+  percents shown, everything hidden unless it says. 0.40.0.
 - **Button, LinkButton and ButtonGroup.** A solid `destructive` readable on every surface, words that wrap, a wait
   with the app's words, a name asked of an icon's sizes, a disabled link dimmed, and a group joined or apart by
   `spacing`. 0.39.0.
