@@ -75,6 +75,23 @@ takes it, how a plain press stays on the page while a press with a modifier open
 of a link that does two things. Against it, the panel's own address in the URL, the app's router opening it, so a
 press and a new tab go to one place, though a new tab then opens the list with its panel rather than the asset's page.
 
+Decided:
+- A link may open a preview on a plain press, its `href` kept for a new tab, decided on 2026-11-17, as lists do: a
+  summary beside, the place kept, and Ctrl or Cmd with a click opening the whole page; a new tab, a copied link and
+  the name a screen reader hears stay right. Against the panel's own address, which sends a new tab to the list.
+- `onPreview`, a prop of our own, decided on 2026-11-17: on a plain press or Enter, the piece stops the browser and
+  the app's router and calls it; with Ctrl, Cmd, Shift or Alt the browser opens a new tab as always. Against React
+  Aria's props as `Link` passes them, which leaves each app to check the keys, and both, two ways to one thing.
+- On `TickerChip` and `Link` alike, decided on 2026-11-17, from code they share, so two links behave as one. Against
+  `TickerChip` alone until a screen asks.
+- No ARIA of ours, decided on 2026-11-17: it stays a link to its page, as its `href` says. The guidelines ask the
+  app's panel to be a named region that takes focus at its title and gives it back to the link on closing, and let
+  the app describe the preview by `aria-describedby`. Against words in the piece, which Moneta never has.
+- Its stories, on `TickerChip` and `Link`: `Preview`, a plain press and Enter calling `onPreview` with no navigation,
+  through the app's router too, and a press with a modifier left to the browser. Types: `onPreview` only with an
+  `href`. WCAG: 2.1.1 by Enter, 4.1.2 as a link today; 2.4.3, the panel's focus, is the app's. In 0.41.0, nothing
+  breaks.
+
 ## Overlays
 
 - Dialog, AlertDialog, and Sheet, whose `aria-label` stops at the layer behind and does not name its dialog. Dialog
