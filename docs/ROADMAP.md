@@ -9,7 +9,6 @@ known and what is still to ask, are in [`roadmap-notes.md`](roadmap-notes.md), r
 ## Next, in order
 
 1. **Actions and forms.** The pieces that act and take input, reviewed or made.
-    - PageHeader
     - Input, InputGroup, Textarea, Label, Field, NativeSelect, Select and SearchField
     - Checkbox, RadioGroup, Switch, Toggle, ToggleGroup and Slider
     - NumberField, DatePicker, DateRangePicker and TimeField
@@ -91,6 +90,8 @@ Each becomes an item when its time comes.
 
 ## Done
 
+- **PageHeader.** A page's head: its `h1` at 32/40 with a mark and a badge, what scopes it above, a description, and
+  actions that go under it when narrow. 0.42.0.
 - **A preview on TickerChip and Link.** `onPreview`, a plain press opening the app's own panel while the address
   opens the page in a new tab. 0.41.0.
 - **Hidden values by kind.** `hides` on `MonetaProvider`, so an app hides its money and quantities and keeps its

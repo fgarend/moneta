@@ -62,6 +62,7 @@ A piece with no gap listed may still have some.
 | `link` | reviewed | |
 | `moneta-provider` | reviewed | |
 | `native-select` | raw | **Edited:** default 36 px, `sm` 32 and `lg` 40, and no fill in dark, as in light |
+| `page-header` | reviewed | |
 | `pagination` | reviewed | |
 | `percent` | reviewed | |
 | `popover` | raw | **Code:** its title does not name it. **Edited:** its description a paragraph, at 14/24 |

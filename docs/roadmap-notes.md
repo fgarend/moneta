@@ -37,8 +37,7 @@ with each family. No reviewed piece has a default text, so shadcn's written stri
 
 ## Actions and forms
 
-- PageHeader, as an app's own draws it, its context, title and actions each in a row
-  that wraps, Input, InputGroup, whose addon, such as a currency's symbol, a screen
+- Input, InputGroup, whose addon, such as a currency's symbol, a screen
   reader does not read as part of the field's name, Textarea, Label, NativeSelect and Slider.
 - Field, which does not link its description or error, and decides the contrast of the control's border against
   the 3:1 of WCAG 1.4.11.

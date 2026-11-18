@@ -6,6 +6,17 @@ gets its number.
 
 ## [Unreleased]
 
+## [0.42.0] - 2026-11-18
+
+PageHeader, the head of a page: its title, what scopes it, a description and its actions.
+
+### Added
+
+- `PageHeader`, the head of a page: `PageTitle`, the page's `h1` at 32/40, which lays a mark and a badge with its
+  words and takes `isLoading` with your `loadingLabel`; `PageDescription`; `PageContext`, what scopes the page, above
+  the title; and `PageAction`, which goes under the description when narrow. Its page, and the guidelines' Page
+  header. To move, write it in place of your own page's head.
+
 ## [0.41.0] - 2026-11-18
 
 A preview on TickerChip and Link: a plain press opens your panel, and the address opens the page in a new tab.
@@ -726,7 +737,8 @@ and dark. `README.md` says how to install and use it.
 
 A rehearsal of the release's path, not meant to be installed. Use a later version.
 
-[Unreleased]: https://github.com/fgarend/moneta/compare/v0.41.0...HEAD
+[Unreleased]: https://github.com/fgarend/moneta/compare/v0.42.0...HEAD
+[0.42.0]: https://github.com/fgarend/moneta/compare/v0.41.0...v0.42.0
 [0.41.0]: https://github.com/fgarend/moneta/compare/v0.40.0...v0.41.0
 [0.40.0]: https://github.com/fgarend/moneta/compare/v0.39.0...v0.40.0
 [0.39.0]: https://github.com/fgarend/moneta/compare/v0.38.0...v0.39.0

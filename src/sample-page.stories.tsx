@@ -57,6 +57,12 @@ import {
 } from "./components/item.js";
 import { Link } from "./components/link.js";
 import { MonetaProvider } from "./components/moneta-provider.js";
+import {
+  PageAction,
+  PageDescription,
+  PageHeader,
+  PageTitle,
+} from "./components/page-header.js";
 import { Percent } from "./components/percent.js";
 import { Progress } from "./components/progress.js";
 import {
@@ -161,29 +167,28 @@ function Navigation() {
   );
 }
 
-function PageHeader() {
+// The page's head: its title and the day it shows, then its tools and its main action.
+function Head() {
   return (
-    <header className="flex flex-wrap items-end gap-3">
-      <div className="min-w-0 grow basis-60">
-        <p className="mb-2 text-xs text-muted-foreground">
-          Saturday, October 24
-        </p>
-        <h1 className="type-display">Overview</h1>
-      </div>
-      <Input
-        aria-label="Search payments"
-        className="w-60"
-        placeholder="Search payments"
-        size="lg"
-      />
-      <Button aria-label="Notices" size="icon-lg" variant="ghost">
-        <Bell />
-      </Button>
-      <Button size="lg" variant="gold">
-        <Plus />
-        New payment
-      </Button>
-    </header>
+    <PageHeader>
+      <PageTitle>Overview</PageTitle>
+      <PageDescription>Saturday, October 24</PageDescription>
+      <PageAction>
+        <Input
+          aria-label="Search payments"
+          className="w-60"
+          placeholder="Search payments"
+          size="lg"
+        />
+        <Button aria-label="Notices" size="icon-lg" variant="ghost">
+          <Bell />
+        </Button>
+        <Button size="lg" variant="gold">
+          <Plus />
+          New payment
+        </Button>
+      </PageAction>
+    </PageHeader>
   );
 }
 
@@ -391,7 +396,7 @@ function SamplePage() {
                   <span>Money / Overview</span>
                 </AppHeader>
                 <AppContent>
-                  <PageHeader />
+                  <Head />
                   <Totals />
                   <div className="grid gap-4 lg:grid-cols-3 lg:items-start">
                     <Payments />
