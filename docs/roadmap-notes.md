@@ -65,16 +65,6 @@ with each family. No reviewed piece has a default text, so shadcn's written stri
   library connects, as Adobe documents React Hook Form and Zod. A form's states, such as dirty or touched, stay with
   that library or the app.
 
-## A TickerChip that opens a panel
-
-Asked by an app on 2026-11-17, which puts a `TickerChip` in every column and sentence that names an asset: on a
-screen with a side panel, a press opens the asset's summary beside the list, without leaving it, while its `href`
-still opens the asset's page in a new tab and names where it goes to a screen reader. `TickerChip` takes `href` and
-passes nothing else, while `Link` passes React Aria's, `onPress` among them. To ask: its form, as `onPress` as `Link`
-takes it, how a plain press stays on the page while a press with a modifier opens a tab, and what the guidelines say
-of a link that does two things. Against it, the panel's own address in the URL, the app's router opening it, so a
-press and a new tab go to one place, though a new tab then opens the list with its panel rather than the asset's page.
-
 ## Overlays
 
 - Dialog, AlertDialog, and Sheet, whose `aria-label` stops at the layer behind and does not name its dialog. Dialog

@@ -193,6 +193,7 @@ pieces is in [`../pieces.md`](../pieces.md), and how a piece is analysed is in [
 - **Its mark optional, written in it:** an `IconTile` or an `Avatar` takes a circle of 20 px, 2 px in all round,
   through `IconTile`'s place, as `Item` gives a row's. **The company's `name` optional,** heard after the code.
 - **The change and the price outside,** as a `Percent` and an `Amount` the app writes beside it.
+- **`onPreview`,** as `Link`'s, below.
 
 ### Text
 
@@ -283,6 +284,10 @@ pieces is in [`../pieces.md`](../pieces.md), and how a piece is analysed is in [
 - **`isQuiet` shows the underline only on hover and keyboard focus,** for a link alone where its place says it is one.
 - **Disabled, it is dimmed to 50%,** as `Button` is, and React Aria draws it as a `span` out of the tab order.
 - **Its type asks for what it holds,** and it adds no icon and no words for a new tab, which are the app's.
+- **`onPreview` opens the app's preview on a plain press or Enter,** in place of going to its `href`, which a press
+  with Ctrl, Cmd, Shift or Alt still opens in a new tab, as `TickerChip`'s, from `#hooks/preview`. It stops the click
+  in its capture phase, where it sees the browser's own click before React Aria, so neither the browser nor the app's
+  router goes. Only with an `href`, and with no ARIA of its own: it stays a link to its page.
 
 ### Pagination
 
@@ -658,6 +663,11 @@ pieces is in [`../pieces.md`](../pieces.md), and how a piece is analysed is in [
 - **`ButtonGroup`'s `spacing` from the vocabulary,** so an app lays a row of separate actions with no class of its
   own; 0 by default, unlike `ToggleGroup`'s 2, as joining is what it always did.
 
+- **`onPreview` on `Link` and `TickerChip`,** as lists open a summary beside while a new tab opens the whole page, and
+  the keys a plain press means are easy to get wrong in each app. In the capture phase, as React Aria calls a piece's
+  `onClick` with a click of its own on Enter, and the browser's comes after, unstopped. **What it costs:** a link whose
+  plain press does not go where it says, which the app's panel makes up for by taking focus.
+
 ## Alternatives considered
 
 - **A part per piece for its icon,** `ItemMedia`, `StatMedia`, `EmptyMedia`, as shadcn's, each repeating the tile.
@@ -776,6 +786,10 @@ pieces is in [`../pieces.md`](../pieces.md), and how a piece is analysed is in [
   **Colours of its own when disabled,** more tokens for a state the guidelines advise against. **A joined group that
   stands up when narrow,** more code for more than three actions, which the guidelines advise against.
 
+- **The panel's own address,** as `?asset=FCTA3`, a press and a new tab going to one place, but a new tab to the
+  list. **React Aria's `onPress` and `onClick` passed on,** which leave each app to check the keys. **`onPreview` on
+  `TickerChip` alone,** two links behaving apart. **Words of ours saying a preview opens.**
+
 ## History
 
 - 2026-11-09: Written, with the conventions that cross pieces, and Section.
@@ -808,3 +822,4 @@ pieces is in [`../pieces.md`](../pieces.md), and how a piece is analysed is in [
 - 2026-11-17: TickerChip.
 - 2026-11-17: Text, and a card's content 12 px apart.
 - 2026-11-17: Button, LinkButton and ButtonGroup reviewed.
+- 2026-11-18: `onPreview` on Link and TickerChip.

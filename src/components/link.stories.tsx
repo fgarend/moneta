@@ -2,6 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 import { ExternalLinkIcon } from "lucide-react";
 import { RouterProvider } from "react-aria-components";
 import { expect, fn, userEvent, waitFor, within } from "storybook/test";
+import { checksPreview } from "../../.storybook/previews.js";
 import { Link } from "./link.js";
 
 const name = "the fee schedule";
@@ -205,12 +206,30 @@ const Disabled: Story = {
   },
 };
 
+// A press opens a summary beside, in the app's own panel, while its address opens the page in a new tab.
+const onPreview = fn();
+const Preview: Story = {
+  render: (args) => (
+    <RouterProvider navigate={navigate}>
+      <Link {...args} href={route} onPreview={onPreview} />
+    </RouterProvider>
+  ),
+  play: async ({ canvasElement }) => {
+    onPreview.mockClear();
+    navigate.mockClear();
+    const link = within(canvasElement).getByRole("link", { name });
+
+    await checksPreview(link, onPreview, navigate);
+  },
+};
+
 export default meta;
 export {
   Default,
   Disabled,
   Long,
   NewTab,
+  Preview,
   Quiet,
   WithRender,
   WithRouterProvider,

@@ -6,6 +6,7 @@ import {
   Link as LinkPrimitive,
   type LinkProps as LinkPrimitiveProps,
 } from "react-aria-components";
+import { type Previewed, previewOnClick } from "#hooks/preview";
 
 /**
  * A link in text or in a cell, through the app's router, underlined, in its text's size and weight.
@@ -14,6 +15,8 @@ import {
  *
  * - A link in a sentence, its words saying where it goes, read alone.
  * - A row's title in a table or a list, with `isQuiet`, where its place says it is a link.
+ * - A preview in your own panel, with `onPreview`, which a plain press opens while its `href` opens the page in a new
+ *   tab.
  *
  * **Not recommended**
  *
@@ -24,13 +27,14 @@ import {
 function Link({
   className,
   isQuiet = false,
+  onPreview,
   ...props
-}: Omit<LinkPrimitiveProps, "className" | "children"> & {
+}: Omit<LinkPrimitiveProps, "className" | "children" | "href"> & {
   className?: string;
   // A link with nothing in it has no name.
   children: NonNullable<LinkPrimitiveProps["children"]>;
   isQuiet?: boolean;
-}) {
+} & Previewed) {
   return (
     <LinkPrimitive
       className={cn(
@@ -40,6 +44,7 @@ function Link({
         className,
       )}
       data-slot="link"
+      onClickCapture={previewOnClick(onPreview)}
       {...props}
     />
   );
