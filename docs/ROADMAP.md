@@ -9,7 +9,6 @@ known and what is still to ask, are in [`roadmap-notes.md`](roadmap-notes.md), r
 ## Next, in order
 
 1. **Actions and forms.** The pieces that act and take input, reviewed or made.
-    - Field, Label, Input and Textarea, with TextField
     - InputGroup and SearchField
     - NativeSelect and Select
     - DateField in parts, its form deciding when it validates
@@ -93,6 +92,9 @@ Each becomes an item when its time comes.
 
 ## Done
 
+- **Field, Label, Input and Textarea, with TextField.** A field that links its label, description and error by
+  itself, an asterisk on what is required, an error heard with its field, read-only as a filled box, and a
+  `Textarea` that stops growing at about 10 lines. 0.43.0.
 - **PageHeader.** A page's head: its `h1` at 32/40 with a mark and a badge, what scopes it above, a description, and
   actions that go under it when narrow. 0.42.0.
 - **A preview on TickerChip and Link.** `onPreview`, a plain press opening the app's own panel while the address
