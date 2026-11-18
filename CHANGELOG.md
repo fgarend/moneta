@@ -6,6 +6,11 @@ gets its number.
 
 ## [Unreleased]
 
+## [0.39.0] - 2026-11-17
+
+Button, LinkButton and ButtonGroup reviewed: a solid destructive, words that wrap, a wait with your words, and a
+group joined or apart.
+
 ### Added
 
 - `Button`'s `isPending`, React Aria's, with `pendingLabel`, your words for the wait: the button keeps its focus and
@@ -701,7 +706,8 @@ and dark. `README.md` says how to install and use it.
 
 A rehearsal of the release's path, not meant to be installed. Use a later version.
 
-[Unreleased]: https://github.com/fgarend/moneta/compare/v0.38.0...HEAD
+[Unreleased]: https://github.com/fgarend/moneta/compare/v0.39.0...HEAD
+[0.39.0]: https://github.com/fgarend/moneta/compare/v0.38.0...v0.39.0
 [0.38.0]: https://github.com/fgarend/moneta/compare/v0.37.0...v0.38.0
 [0.37.0]: https://github.com/fgarend/moneta/compare/v0.36.0...v0.37.0
 [0.36.0]: https://github.com/fgarend/moneta/compare/v0.35.0...v0.36.0
