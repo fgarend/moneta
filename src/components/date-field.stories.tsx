@@ -214,6 +214,22 @@ const Disabled: Story = {
   },
 };
 
+// Read-only: a filled box with no border, as every field's.
+const ReadOnly: Story = {
+  tags: ["visual"],
+  render: () => (
+    <DateField defaultValue={day} isReadOnly={true} label={label} />
+  ),
+  play: async ({ canvasElement }) => {
+    const edge = getComputedStyle(box(canvasElement));
+
+    await expect(edge.backgroundColor).toBe(
+      colourOf("var(--muted)", canvasElement),
+    );
+    await expect(edge.borderTopColor).toBe("rgba(0, 0, 0, 0)");
+  },
+};
+
 // A value that is not an ISO day says so, rather than show a wrong day; a day that does not exist too.
 const NotIso: Story = {
   render: () => (
@@ -280,6 +296,7 @@ export {
   Invalid,
   InvalidByApp,
   NotIso,
+  ReadOnly,
   Sizes,
   Small,
   Typing,

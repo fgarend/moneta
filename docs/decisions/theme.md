@@ -46,7 +46,8 @@ The look Moneta has by default, which whoever uses it can replace. How an app re
   sentence and keeps its lines even; the body is interface text, a row's or a field's title and detail, one line by
   nature and dense, at 20 px, Tailwind's `leading-snug` and `leading-normal` left off the grid. Space, in multiples of 4 px: 8 to 12 within a group, 16 to 20 in a card, 16 between cards,
   40 between sections, and 40 to 48 around a page. Inside is smaller than between, so what belongs together reads together.
-- **One emphasis at each level.** 600 for titles and amounts of note, 500 for an amount in a row, 400 for the rest.
+- **One emphasis at each level.** 600 for titles and amounts of note, 500 for an amount in a row and a control's
+  name, as a button's words or a field's label, 400 for the rest.
 - **Six text styles, internal to the pieces:** `type-display`, `type-amount-lg`, `type-amount`, `type-title`,
   `type-paragraph` and `type-label`. They are `@utility`, as shadcn's guide says, and Tailwind writes only those a piece uses, so an app on
   `styles.css` reaches them through a piece. The rest of the scale is Tailwind's own steps.
@@ -259,3 +260,4 @@ The look Moneta has by default, which whoever uses it can replace. How an app re
   both modes.
 - 2026-11-16: Light's paper and lines in a true grey.
 - 2026-11-17: A paragraph's step, 14/24, and the body's titles and details at 20 px, on the grid.
+- 2026-11-18: A control's name at 500, as a field's label.

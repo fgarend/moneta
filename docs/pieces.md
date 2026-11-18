@@ -51,14 +51,14 @@ A piece with no gap listed may still have some.
 | `dialog` | raw | **Edited:** 16 px from each edge by `inset-x-4`, and React Aria's types are not exported, and its close button's name comes from `closeLabel`, by `aria-label`, and it sets `--surface`, and its description is a paragraph, at 14/24 |
 | `dropdown-menu` | raw | |
 | `empty` | raw | **Edited:** its description a paragraph, at 14/24 |
-| `field` | raw | **Code:** does not link its description or error, which its story does by hand. **Edited:** React Aria's `Group`, and its label, content and description at 20 px, on the grid |
+| `field` | reviewed | |
 | `hover-card` | raw | **Code:** its dialog has no name unless given `aria-label`. Opening by focus or hover is not checked |
 | `icon-tile` | reviewed | |
-| `input` | raw | **Edited:** default 36 px, `sm` 32 and `lg` 40, by a `size` in place of the input's own, its width in characters, and no fill in dark, as in light |
+| `input` | reviewed | |
 | `input-group` | raw | **Edited:** default 36 px, `sm` 32 and `lg` 40, its input as tall as the group, its addon is React Aria's `Group`, and pulls a button or `kbd` 4 or 2 px toward the edge, its button's height its own over `Button`'s least one, and no fill in dark, as in light |
 | `item` | reviewed | **Edited:** an icon is an `IconTile` in the item, which says its shape and size, and `ItemMedia` holds an image or an avatar. **Code:** `Item`'s `size` has `default` and `sm` the same, as shadcn's own file has them |
 | `kbd` | reviewed | **Edited:** `label`, a symbol's name in words, heard in its place; `KbdGroup` typed as the `kbd` it draws |
-| `label` | raw | |
+| `label` | reviewed | |
 | `link` | reviewed | |
 | `moneta-provider` | reviewed | |
 | `native-select` | raw | **Edited:** default 36 px, `sm` 32 and `lg` 40, and no fill in dark, as in light |
@@ -84,7 +84,8 @@ A piece with no gap listed may still have some.
 | `table` | reviewed | |
 | `tabs` | raw | **Edited:** default 36 px, `sm` 32 and `lg` 40 on `TabsList`, and its inactive text reads `muted-foreground`, as `foreground/60` is 3.89:1 on our `muted`, its trigger is as tall as its list, and `tabsListVariants` is not exported |
 | `text` | reviewed | |
-| `textarea` | raw | **Edited:** no fill in dark, as in light |
+| `text-field` | reviewed | |
+| `textarea` | reviewed | |
 | `ticker-chip` | reviewed | |
 | `timeline` | reviewed | |
 | `toggle` | raw | **Edited:** default 36 px, `sm` 32 and `lg` 40, `sm`'s text is 12 px, and `toggleVariants` is not exported |

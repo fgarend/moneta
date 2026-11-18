@@ -69,12 +69,13 @@ function backgrounds(element: Element): string[] {
   return layers;
 }
 
-function contrast(element: Element): number {
+// A colour painted over the backgrounds behind an element, against those backgrounds alone.
+function against(element: Element, colour: string): number {
   const under = backgrounds(element);
-  const text = painted([...under, getComputedStyle(element).color]);
-  const [light, dark] = [luminance(text), luminance(painted(under))].sort(
-    (a, b) => b - a,
-  );
+  const [light, dark] = [
+    luminance(painted([...under, colour])),
+    luminance(painted(under)),
+  ].sort((a, b) => b - a);
   return (
     Math.round(
       (((light ?? 0) + ambient) / ((dark ?? 0) + ambient)) * decimals,
@@ -82,4 +83,13 @@ function contrast(element: Element): number {
   );
 }
 
-export { contrast };
+function contrast(element: Element): number {
+  return against(element, getComputedStyle(element).color);
+}
+
+// An element's top edge against what it sits on, as WCAG 1.4.11 asks 3:1 of a control's boundary.
+function edgeContrast(element: Element): number {
+  return against(element, getComputedStyle(element).borderTopColor);
+}
+
+export { contrast, edgeContrast };

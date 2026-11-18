@@ -299,6 +299,26 @@ pieces is in [`../pieces.md`](../pieces.md), and how a piece is analysed is in [
   in its capture phase, where it sees the browser's own click before React Aria, so neither the browser nor the app's
   router goes. Only with an `href`, and with no ARIA of its own: it stays a link to its page.
 
+### Fields
+
+- **`TextField`, on React Aria's, holds the parts of `Field` and links them:** `FieldLabel` names its `Input` or
+  `Textarea`, and `FieldDescription` and `FieldError` describe it, with no `id` of the app's. It is laid out by
+  `Field`'s classes and `orientation`, from `#hooks/field`. `Field` lays out what has no field of React Aria around
+  it, and links nothing.
+- **`FieldDescription` is React Aria's `Text` in its `description` slot,** a `p`, so a field of React Aria links it
+  and elsewhere it is words under a title. **`FieldError`, inside such a field, is React Aria's,** shown only while the
+  field is invalid and linked to it, with no `alert`, its words or its `errors` list, or the browser's message with
+  neither; elsewhere it is an `alert`.
+- **`isRequired` draws an asterisk after the label,** in its colour, hidden from screen readers, from the field's
+  `data-required`; an invalid field turns its label to `--destructive`, and a disabled one to 50%.
+- **No `validationBehavior` of its own:** React Aria's `native` holds unless the `Form` around it says `aria`.
+- **A label, `Label` and `FieldLabel`, at 14/20 and 500,** as a control's words, its text laid as text so the
+  asterisk follows the last word. **A legend at 14/20 and 600,** a step below a card's title; its `label` variant at
+  500. **`FieldSeparator`'s words on `--surface`.**
+- **Read-only is a filled box with no border,** `--muted`, its text at full contrast, in `Input`, `Textarea` and
+  `DateField`. **`Textarea` grows with its text from 64 to 224 px,** about 10 lines, then scrolls in itself.
+- **`FieldLabel` draws no card,** which waits for ChoiceCard.
+
 ### Pagination
 
 - **shadcn's links to pages, named by the app,** as TypeScript asks: `aria-label` or `aria-labelledby` on its `nav`.
@@ -682,6 +702,16 @@ pieces is in [`../pieces.md`](../pieces.md), and how a piece is analysed is in [
   page, near the title it changes; **the mark and badge in `PageTitle`,** as `SectionTitle` lays a count. **What it
   costs:** a badge's words in the page's heading.
 
+- **`TextField` in parts linked by React Aria,** as an app forgets links written by hand and nothing catches it, and
+  parts keep what a label, a description or the box can hold; **a piece of its own beside `Field`,** as `Field` around
+  a `Switch` or a value would leave a label pointing at no box. **The error with no `alert`,** which breaks in on each
+  key and makes several errors fight, while a submit takes the focus to it. **An asterisk drawn from `isRequired`,** so
+  the mark and what a screen reader hears never part, in the label's colour, as red is the theme's one colour of an
+  error. **A filled box for read-only,** which does not ask to be typed in and keeps the form's line. **The form
+  deciding when a field validates,** as a value fixed in a field overrides its form. **What it costs:** two pieces for
+  one frame, and `DateField` apart until it opens in parts; an error that arrives while focus is elsewhere is heard
+  only when focus comes back; a read-only box under 3:1 against the page, whose text keeps its contrast.
+
 ## Alternatives considered
 
 - **A part per piece for its icon,** `ItemMedia`, `StatMedia`, `EmptyMedia`, as shadcn's, each repeating the tile.
@@ -808,6 +838,13 @@ pieces is in [`../pieces.md`](../pieces.md), and how a piece is analysed is in [
   actions,** away from the title. **A part beside the `h1` for a badge.** **448 px for the actions,** apart from a
   section. **The app's own `Skeleton` for a title that loads,** with a class of its own.
 
+- **shadcn's links by hand,** with `htmlFor`, `id` and `aria-describedby`. **One piece with props,** as `DateField`.
+  **`Field` as the text field,** or **one inside the other.** **shadcn's `alert`.** **Marking what is optional,**
+  GOV.UK's, **a word on what is required,** **an asterisk the app writes,** and **a red one.** **The same box for
+  read-only,** as shadcn's, and **plain text.** **A `Textarea` with no limit,** or **a fixed height.** **A fixed `aria`,**
+  as `DateField`'s. **A label at 13 and muted, or at 400.** **A legend at 15 and 600, or 16 and 500,** shadcn's.
+  **The card in `FieldLabel` reviewed now,** before the pieces it holds.
+
 ## History
 
 - 2026-11-09: Written, with the conventions that cross pieces, and Section.
@@ -842,3 +879,4 @@ pieces is in [`../pieces.md`](../pieces.md), and how a piece is analysed is in [
 - 2026-11-17: Button, LinkButton and ButtonGroup reviewed.
 - 2026-11-18: `onPreview` on Link and TickerChip.
 - 2026-11-18: PageHeader.
+- 2026-11-18: TextField, and Field, Label, Input and Textarea reviewed.

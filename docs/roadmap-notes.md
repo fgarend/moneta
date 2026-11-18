@@ -37,18 +37,24 @@ with each family. No reviewed piece has a default text, so shadcn's written stri
 
 ## Actions and forms
 
-- Input, InputGroup, whose addon, such as a currency's symbol, a screen
-  reader does not read as part of the field's name, Textarea, Label, NativeSelect and Slider.
-- Field, which does not link its description or error, and decides the contrast of the control's border against
-  the 3:1 of WCAG 1.4.11.
-- Select, and when to use it or NativeSelect.
+The fields' line in three steps, decided on 2026-11-18, as they share one box and one frame: Field, Label, Input
+and Textarea first, with `TextField`, as the frame decides how every field links its words, done in 0.43.0; then
+InputGroup and SearchField; then NativeSelect and Select. Against one step, too large, and a piece a step, which
+would decide the links with no field to try them on.
+
+The family:
+
+- InputGroup, whose addon, such as a currency's symbol, a screen reader does not read as part of the field's name,
+  and SearchField, the second step of the fields; NativeSelect and Select, and when to use each, the third; Slider.
+- `DateField` in parts, as `TextField`, and with no fixed `validationBehavior`, so its form decides, raised on
+  2026-11-18: a break for whoever uses it.
 - Checkbox, which draws a check when indeterminate, and RadioGroup, in a row as well, their items growing for their
   label, which today they do not. A visible label that is also their name and what a click takes, written in the
   guidelines, as a `FieldLabel` around the box and its words: an app asked on 2026-11-13, as it names each by
   `aria-label` and hides the words beside it, so a click on them checks nothing. Switch, Toggle, and ToggleGroup, weighing a segmented control, SegmentedControl,
   against a radio in line.
-- DateField came early, before Sidebar. SearchField, FilePicker, ChoiceCard, and `combobox` after a study like
-  Sidebar's.
+- DateField came early, before Sidebar. FilePicker, ChoiceCard, which takes the card `FieldLabel` drew around a
+  `Field` until 0.43.0, and `combobox` after a study like Sidebar's.
 - NumberField, DatePicker, DateRangePicker with presets such as the last 30 days, TimeField, a choice of many with
   removable chips, on React Aria's `TagGroup`, InputOTP, as `input-otp`, which brings a package of its own,
   CopyButton, which says it copied in a status message, and copies an amount through the way Money values takes,
@@ -62,7 +68,8 @@ with each family. No reviewed piece has a default text, so shadcn's written stri
   it is part of Toolbar, or whether it should exist at all, as it repeats the `Select`'s value.
 - To ask: forms, on React Aria's `Form`, with a server's errors through `validationErrors`, and how an app's form
   library connects, as Adobe documents React Hook Form and Zod. A form's states, such as dirty or touched, stay with
-  that library or the app.
+  that library or the app. A server's error arrives while focus is elsewhere, and `FieldError` is no `alert`, so it
+  is heard only when focus comes back to its field, unless the form says so.
 
 ## Overlays
 
