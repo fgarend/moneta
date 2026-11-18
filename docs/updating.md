@@ -94,6 +94,14 @@ gh api repos/<action>/commits/<tag> --jq .sha
 
 - **The actions in `.github/workflows/`,** at the same moments: a newer version. A pin is a
   commit, so a tag moved later changes nothing here.
+- **The advisories accepted in `pnpm-workspace.yaml`,** at the same moments: whether what ends each, as its comment
+  says, has come, such as a fixed version, which GitHub's advisory gives. One that has goes from `audit.ignore`, with
+  its line in the roadmap, in the commit that updates the dependency.
+
+  ```sh
+  gh api /advisories/<code> --jq '.vulnerabilities[] | "\(.package.name) \(.first_patched_version)"'
+  ```
+
 - **The year of `target` and `lib` in `tsconfig.json`.** It moves up once all of that year's
   features are widely available in Baseline. For ES2024, two are still missing, and each
   prints `high` once it is:
