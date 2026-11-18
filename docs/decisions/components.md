@@ -257,6 +257,23 @@ pieces is in [`../pieces.md`](../pieces.md), and how a piece is analysed is in [
   action lays several controls in a row,** 8 px apart, which wraps where they do not fit, as `CardAction` and
   `AppHeaderActions` do.
 
+### Button and ButtonGroup
+
+- **An action, on React Aria's `Button`, in the vocabulary's variants:** `default`, `gold` for the screen's main action,
+  once, `destructive`, `secondary`, `outline`, `ghost` and `link`, an action read as text. `LinkButton` takes them but
+  `link`, as a link drawn as text is a `Link`.
+- **`destructive` is solid:** `--destructive` under `--destructive-foreground`, white in light and graphite in dark,
+  80% on hover, at 4.5:1 or more on a card, the page and `--muted`, at rest and on hover.
+- **A least height, so words wrap when they do not fit,** centred and balanced: 36 px by default, 32 at `sm`, 40 at
+  `lg`, and 24 at `xs`, for a button inside another piece or beside a line of text, at the theme's radius. An icon's
+  sizes stay square and ask for a name, `aria-label` or `aria-labelledby`.
+- **`isPending`, React Aria's, with the app's `pendingLabel`:** still focusable, pressing and submitting nothing, a
+  spinner in place of its icon or before its words, its width kept with an icon, and the words heard with its name.
+- **Hover and disabled by React Aria's data attributes,** so a disabled `LinkButton`, a `span`, dims to 50% as a
+  `Button` does, and a hover never sticks to a touch.
+- **`ButtonGroup` joins or parts by the vocabulary's `spacing`,** 0 by default: one box, its buttons sharing the width
+  at one height, words wrapping when narrow, on one line; more, a box each that far apart, wrapping.
+
 ### Link
 
 - **A link in text or in a cell, on React Aria's `Link`,** with Tailwind's classes, as shadcn has none. It takes
@@ -629,6 +646,18 @@ pieces is in [`../pieces.md`](../pieces.md), and how a piece is analysed is in [
   and Grid. **What it costs:** an app still writes classes for its own layout, off any scale of ours; a title's
   inline emphasis is spaced as an item of its row.
 
+- **`destructive` solid,** as confirming what cannot be undone is a dialog's main action, with the weight of `default`
+  and `gold`, and shadcn's tint of 10 and 20% fell to 3.47:1 in dark on hover. A quiet destructive action, as a row's
+  "Remove", is a `ghost` or an `outline`. **What it costs:** a red that shouts, where `Badge` and `Alert` keep a tint.
+- **`link` kept on `Button`,** for an action read as text, as "Show all" beside a filter, as Chakra, Bootstrap,
+  Atlassian and Polaris keep one. **What it costs:** a button that looks like a link, which promises to go somewhere.
+- **Words that wrap,** as `nowrap` scrolls a page sideways at 320 px. **What it costs:** a button that wraps stands
+  taller than its neighbours.
+- **A name and a wait's words asked by TypeScript,** as axe sees only our stories, as `closeLabel` and `loadingLabel`.
+- **`isPending` in place of shadcn's `Spinner` in a disabled button,** which loses focus and says nothing.
+- **`ButtonGroup`'s `spacing` from the vocabulary,** so an app lays a row of separate actions with no class of its
+  own; 0 by default, unlike `ToggleGroup`'s 2, as joining is what it always did.
+
 ## Alternatives considered
 
 - **A part per piece for its icon,** `ItemMedia`, `StatMedia`, `EmptyMedia`, as shadcn's, each repeating the tile.
@@ -741,6 +770,12 @@ pieces is in [`../pieces.md`](../pieces.md), and how a piece is analysed is in [
   rows left once the pieces lay their own; **a `Text` piece,** for a colour the theme's class already gives; **a
   `count` on `SectionTitle`,** which Tabs and tables would each want again.
 
+- **shadcn's tint for `destructive`,** below 4.5:1 in dark, and **its words alone,** readable but light for a
+  confirmation. **`link` on both or neither,** a link drawn as text being a `Link`, and `ghost` a quiet action already.
+  **Leaving out `xs`,** which leaves an icon beside text no size. **Never wrapping, or an ellipsis,** which hides words.
+  **Colours of its own when disabled,** more tokens for a state the guidelines advise against. **A joined group that
+  stands up when narrow,** more code for more than three actions, which the guidelines advise against.
+
 ## History
 
 - 2026-11-09: Written, with the conventions that cross pieces, and Section.
@@ -772,3 +807,4 @@ pieces is in [`../pieces.md`](../pieces.md), and how a piece is analysed is in [
 - 2026-11-17: Timeline.
 - 2026-11-17: TickerChip.
 - 2026-11-17: Text, and a card's content 12 px apart.
+- 2026-11-17: Button, LinkButton and ButtonGroup reviewed.

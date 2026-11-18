@@ -8,7 +8,8 @@ The look Moneta has by default, which whoever uses it can replace. How an app re
 - **In light: grey paper,** white cards, a graphite sidebar and text, and one gold accent. The page is `#f9f9f9`, the
   sidebar `#303338`, text `#23262b`, and gold `#f0bd2a`; the paper and its lines are a true grey, and the text on the
   graphite's hue, which `test/theme.test.ts` holds, in shadcn's token names, plus `--gold`
-  and `--gold-foreground`, as shadcn has no slot for an accent that is neither `--primary` nor `--accent`.
+  and `--gold-foreground`, as shadcn has no slot for an accent that is neither `--primary` nor `--accent`, and
+  `--destructive-foreground`, the words on a solid red, which shadcn had before.
 - **Values are written in hex,** as shadcn's customization guide keeps them, and `test/theme.test.ts` holds the pairs
   every piece paints to 4.5:1 for text and 3:1 for the rest.
 - **The radius is shadcn's `small`,** `0.45rem`, chosen by the owner on shadcn/create.

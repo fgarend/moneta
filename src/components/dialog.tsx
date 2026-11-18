@@ -21,7 +21,6 @@ function DialogTrigger({ ...props }: DialogTriggerPrimitiveProps) {
 function DialogClose({
   className,
   variant = "outline",
-  size = "default",
   ...props
 }: ComponentProps<typeof Button>) {
   return (
@@ -29,7 +28,6 @@ function DialogClose({
       slot="close"
       data-slot="dialog-close"
       variant={variant}
-      size={size}
       className={cn(className)}
       {...props}
     />
@@ -91,12 +89,13 @@ function Dialog({
           {children}
           {showCloseButton ? (
             <DialogClose
+              // CloseButton gives a name whenever the button shows.
+              aria-label={closeLabel as string}
               variant="ghost"
               className="absolute top-2 right-2"
               size="icon-sm"
             >
               <XIcon />
-              <span className="sr-only">{closeLabel}</span>
             </DialogClose>
           ) : null}
         </DialogPrimitive>

@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { expect, within } from "storybook/test";
 import { settled } from "../../.storybook/settled.js";
-import { LinkButton } from "./button.js";
 import { HoverCard, HoverCardTrigger } from "./hover-card.js";
+import { Link } from "./link.js";
 
 const trigger = "Savings";
 const content = "Balance 1,250.00";
@@ -14,9 +14,7 @@ const meta = {
   args: {
     children: (
       <>
-        <LinkButton href="#savings" variant="link">
-          {trigger}
-        </LinkButton>
+        <Link href="#savings">{trigger}</Link>
         <HoverCard>{content}</HoverCard>
       </>
     ),
@@ -41,9 +39,7 @@ const Open: Story = {
   args: {
     children: (
       <>
-        <LinkButton href="#savings" variant="link">
-          {trigger}
-        </LinkButton>
+        <Link href="#savings">{trigger}</Link>
         <HoverCard aria-label={trigger} defaultOpen={true}>
           {content}
         </HoverCard>

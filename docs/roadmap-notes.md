@@ -37,13 +37,9 @@ with each family. No reviewed piece has a default text, so shadcn's written stri
 
 ## Actions and forms
 
-- Button's variants, ButtonGroup, PageHeader, as an app's own draws it, its context, title and actions each in a row
+- PageHeader, as an app's own draws it, its context, title and actions each in a row
   that wraps, Input, InputGroup, whose addon, such as a currency's symbol, a screen
   reader does not read as part of the field's name, Textarea, Label, NativeSelect and Slider.
-- Button's `destructive` below 4.5:1, which an app's axe found in a dialog on 2026-11-17: its red text on its own red
-  tint at 4.30 on a card in dark and 3.72 on `--muted`, and on hover 3.47 and 3.07; in light, on hover, 4.31 on the
-  page and 4.01 on `--accent`. Fixed in Button's review, for every variant, in both modes, at rest and on hover, on
-  each surface a button sits on, and the app told which version has it.
 - Field, which does not link its description or error, and decides the contrast of the control's border against
   the 3:1 of WCAG 1.4.11.
 - Select, and when to use it or NativeSelect.
@@ -65,13 +61,29 @@ with each family. No reviewed piece has a default text, so shadcn's written stri
 - A single chosen filter shown beside its `Select` as a chip whose ✕ sets it back to all, as an app asked on
   2026-11-15, today a button in a `Badge`, which never is pressed: whether `TagGroup`'s chips cover one chip, whether
   it is part of Toolbar, or whether it should exist at all, as it repeats the `Select`'s value.
-- Button's `link` variant, a button drawn as a link, and `LinkButton`'s, nearly a `Link` but 36 px tall and
-  padded, now that `Link` exists: whether each stays, changes or goes. `LinkButton`'s `disabled:` classes do not match
-  a disabled link, which React Aria draws as a `span`, so it is not dimmed; Pagination dims its own links since
-  2026-11-11.
 - To ask: forms, on React Aria's `Form`, with a server's errors through `validationErrors`, and how an app's form
   library connects, as Adobe documents React Hook Form and Zod. A form's states, such as dirty or touched, stay with
   that library or the app.
+
+## Hidden values by kind
+
+Asked by an app on 2026-11-17: with values hidden, its money and quantities go and its percents stay, with the bars
+of a share that say the same, as a percent alone, as 60% in one asset or +0.15% in a day, holds for any wealth. It
+asks that the app say which kinds hiding hides, as `hides={["amount", "quantity"]}`, everything when it says
+nothing, rather than a provider of its own around each percent, which the guidelines' one rule forbids. Against it,
+`docs/decisions/money.md`: a return on a known sum says what the money is, and whoever turns the mode on wants nothing
+read over their shoulder. It also takes Later's value shown while the rest are hidden, as "45% of the budget". To
+ask: whether, its form, by kind or by value, its default, and what the hooks and a chart's axis do.
+
+## A TickerChip that opens a panel
+
+Asked by an app on 2026-11-17, which puts a `TickerChip` in every column and sentence that names an asset: on a
+screen with a side panel, a press opens the asset's summary beside the list, without leaving it, while its `href`
+still opens the asset's page in a new tab and names where it goes to a screen reader. `TickerChip` takes `href` and
+passes nothing else, while `Link` passes React Aria's, `onPress` among them. To ask: its form, as `onPress` as `Link`
+takes it, how a plain press stays on the page while a press with a modifier opens a tab, and what the guidelines say
+of a link that does two things. Against it, the panel's own address in the URL, the app's router opening it, so a
+press and a new tab go to one place, though a new tab then opens the list with its panel rather than the asset's page.
 
 ## Overlays
 
@@ -192,8 +204,7 @@ With `check-release`'s rules for the numbers after it, as a change that breaks t
 - **pnpm's update notice.** `updateNotifier` turns it off.
 - **More for a value, when a screen asks.** Each comes with nothing broken, and was left out on 2026-11-10 as no
   screen needed it: a `unit` on `Quantity`, joined by a space that does not break, as in a sentence a quantity and
-  its unit may wrap apart; a value that stays shown while the rest are hidden, as "45% of the budget" says little;
-  the tone's colour kept while hidden, which says which way a value went, so only as the app's explicit choice; and a
+  its unit may wrap apart; the tone's colour kept while hidden, which says which way a value went, so only as the app's explicit choice; and a
   hook's `{ spoken: true }`, giving `hiddenLabel` in place of the dots for a text only screen readers hear.
 - **A table's virtualisation, resized columns and rows dragged.** Left out of Table on 2026-11-10: React Aria gives
   them only on its `grid`, and Table is a native `<table>`, so each would be code of our own or a dependency, as

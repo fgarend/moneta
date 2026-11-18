@@ -48,6 +48,8 @@ const pages: Record<string, string> = {
   "aspect-ratio": "AspectRatio",
   avatar: "Avatar",
   badge: "Badge",
+  button: "Button",
+  "button-group": "ButtonGroup",
   card: "Card",
   "date-field": "DateField",
   "date-time": "DateTime",

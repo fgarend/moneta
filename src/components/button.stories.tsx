@@ -1,21 +1,55 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { DownloadIcon } from "lucide-react";
-import { expect, within } from "storybook/test";
+import { DownloadIcon, SendIcon, Trash2Icon } from "lucide-react";
+import { expect, fn, userEvent, waitFor, within } from "storybook/test";
+import { contrast } from "../../.storybook/contrast.js";
+import { settled } from "../../.storybook/settled.js";
 import { height, scale, sizes } from "../../.storybook/sizes.js";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "./alert-dialog.js";
 import { Button, LinkButton } from "./button.js";
 
-// shadcn's Button and LinkButton, on React Aria, which tests their keyboard and press behaviour itself. Of WCAG 2.2, 4.1.2
-// (name, role, value) is checked here and by axe, and 1.4.3 (contrast) and 2.5.8 (target size) by axe at rest, in the light
-// theme. Not checked: 1.4.11 (contrast of its edges), 2.4.7 (focus visible), its other variants, and real screen readers.
+// Button and LinkButton, on React Aria, which tests their keyboard, press and the wait's announcement itself. Of WCAG
+// 2.2, 1.4.3 (contrast) is checked here on each surface at rest and on hover, and by axe in both modes, 2.5.8 (target
+// size) by the sizes, 4.1.2 (name, role, value) here, by axe and by TypeScript in test/button.test.ts, and 1.4.10 by a
+// long label; 1.4.12, 2.4.7 and forced colours by every story. Not checked: real screen readers.
 const label = "Pay";
 const defaultHeight = 36;
 // What --gold paints, as it is the one name here that shadcn does not have.
 const gold = "rgb(240, 189, 42)";
+const remove = "Delete the account";
+const keep = "Keep it";
+const removeTitle = "Delete this account?";
+const sending = "Sending";
+const download = "Download";
+const longLabel = "Transfer to the investment account";
+const minimum = 4.5;
+const dimmed = "0.5";
+const extraSmall = 24;
+// The surfaces a button sits on: a card, the page and a muted box.
+const surfaces = ["bg-card", "bg-background", "bg-muted"] as const;
+
+// A pointer moves before it arrives, which React Aria needs to count it as hovering, and the hover is tried again, as
+// Link's story says.
+async function hover(element: HTMLElement, check: () => Promise<void>) {
+  await userEvent.hover(document.body);
+  await waitFor(async () => {
+    await userEvent.hover(element);
+    await expect(element).toHaveAttribute("data-hovered", "true");
+    await check();
+  });
+  await userEvent.unhover(element);
+}
 
 const meta = {
   title: "Components/Form & Input/Button",
   component: Button,
-  tags: ["raw"],
   args: { children: label },
 } satisfies Meta<typeof Button>;
 
@@ -51,12 +85,210 @@ const Submit: Story = {
   },
 };
 
+// A disabled button and a disabled link drawn as one look alike, at half their opacity with nothing under the pointer,
+// though React Aria draws the link as a span.
 const Disabled: Story = {
-  args: { isDisabled: true },
+  render: () => (
+    <div className="flex gap-3">
+      <Button isDisabled={true}>{label}</Button>
+      <LinkButton href="#pay" isDisabled={true}>
+        {download}
+      </LinkButton>
+    </div>
+  ),
   play: async ({ canvasElement }) => {
-    const button = within(canvasElement).getByRole("button", { name: "Pay" });
+    const canvas = within(canvasElement);
+    const button = canvas.getByRole("button", { name: label });
+    const link = canvas.getByRole("link", { name: download });
 
     await expect(button).toBeDisabled();
+    for (const element of [button, link]) {
+      await expect(getComputedStyle(element).opacity).toBe(dimmed);
+      await expect(getComputedStyle(element).pointerEvents).toBe("none");
+    }
+  },
+};
+
+// Solid, the red under its own foreground, readable at rest and on hover on each surface a button sits on.
+const Destructive: Story = {
+  tags: ["visual"],
+  render: () => (
+    <div className="flex flex-col gap-3">
+      {surfaces.map((surface) => (
+        <div key={surface} className={`${surface} p-4`}>
+          <Button variant="destructive">
+            <Trash2Icon />
+            {remove}
+          </Button>
+        </div>
+      ))}
+    </div>
+  ),
+  play: async ({ canvasElement }) => {
+    const buttons = within(canvasElement).getAllByRole("button", {
+      name: remove,
+    });
+
+    await expect(buttons).toHaveLength(surfaces.length);
+    for (const button of buttons) {
+      await expect(contrast(button)).toBeGreaterThanOrEqual(minimum);
+      await hover(button, async () => {
+        await expect(contrast(button)).toBeGreaterThanOrEqual(minimum);
+      });
+    }
+  },
+};
+
+// A dialog's main action, on the dialog's own surface.
+const InDialog: Story = {
+  render: () => (
+    <AlertDialogTrigger>
+      <Button variant="outline">{remove}</Button>
+      <AlertDialog>
+        <AlertDialogHeader>
+          <AlertDialogTitle>{removeTitle}</AlertDialogTitle>
+        </AlertDialogHeader>
+        <AlertDialogFooter>
+          <AlertDialogCancel>{keep}</AlertDialogCancel>
+          <AlertDialogAction variant="destructive">{remove}</AlertDialogAction>
+        </AlertDialogFooter>
+      </AlertDialog>
+    </AlertDialogTrigger>
+  ),
+  play: async ({ canvasElement }) => {
+    await userEvent.click(
+      within(canvasElement).getByRole("button", { name: remove }),
+    );
+    const dialog = await within(document.body).findByRole("alertdialog", {
+      name: removeTitle,
+    });
+    await settled(dialog);
+    const action = within(dialog).getByRole("button", { name: remove });
+
+    await expect(contrast(action)).toBeGreaterThanOrEqual(minimum);
+    await hover(action, async () => {
+      await expect(contrast(action)).toBeGreaterThanOrEqual(minimum);
+    });
+  },
+};
+
+// Waiting on what it started: still focusable, pressing nothing, a spinner in place of its icon, its words and width
+// kept, and the app's words for the wait heard with its name.
+const Pending: Story = {
+  args: { onPress: fn() },
+  render: (args) => (
+    <div className="flex gap-3">
+      <Button isPending={true} onPress={args.onPress} pendingLabel={sending}>
+        <SendIcon />
+        {label}
+      </Button>
+      <Button>
+        <SendIcon />
+        {label}
+      </Button>
+      <Button
+        aria-label={download}
+        isPending={true}
+        pendingLabel={sending}
+        size="icon"
+        variant="outline"
+      >
+        <DownloadIcon />
+      </Button>
+    </div>
+  ),
+  play: async ({ args, canvasElement }) => {
+    const canvas = within(canvasElement);
+    const pending = canvas.getByRole("button", { name: `${label} ${sending}` });
+    const idle = canvas.getByRole("button", { name: label });
+
+    await expect(pending).toHaveAttribute("aria-disabled", "true");
+    // The spinner shows in place of the icon, which is still there, hidden.
+    await expect(
+      pending.querySelector("[data-slot=button-spinner]"),
+    ).toBeVisible();
+    await expect(
+      [...pending.querySelectorAll("svg")].filter(
+        (icon) => getComputedStyle(icon).display !== "none",
+      ),
+    ).toHaveLength(1);
+    await expect(pending).toHaveTextContent(label);
+    // In whole pixels, as Firefox lays the spinner a hundred-thousandth apart from the icon.
+    await expect(Math.round(pending.getBoundingClientRect().width)).toBe(
+      Math.round(idle.getBoundingClientRect().width),
+    );
+    // A name of the app's own gains the words too.
+    await expect(
+      canvas.getByRole("button", { name: `${download} ${sending}` }),
+    ).toHaveAttribute("aria-disabled", "true");
+    // A press reaches it, and focuses it, but does nothing.
+    await userEvent.click(pending);
+    await expect(args.onPress).not.toHaveBeenCalled();
+    await expect(pending).toHaveFocus();
+  },
+};
+
+// What it holds may be drawn from its state, as React Aria's children may.
+const FromState: Story = {
+  render: () => (
+    <Button isDisabled={true}>
+      {({ isDisabled }) => (isDisabled ? `${label} later` : label)}
+    </Button>
+  ),
+  play: async ({ canvasElement }) => {
+    await expect(
+      within(canvasElement).getByRole("button", { name: `${label} later` }),
+    ).toBeDisabled();
+  },
+};
+
+// Words longer than their place wrap rather than overflow, centred, while a short label keeps its one line.
+const LongLabel: Story = {
+  tags: ["visual"],
+  render: () => (
+    <div className="flex w-60 flex-col items-start gap-3">
+      <Button>{longLabel}</Button>
+      <Button variant="outline">{label}</Button>
+    </div>
+  ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const long = canvas.getByRole("button", { name: longLabel });
+    const short = canvas.getByRole("button", { name: label });
+
+    await expect(long.scrollWidth).toBe(long.clientWidth);
+    await expect(long.getBoundingClientRect().right).toBeLessThanOrEqual(
+      canvasElement.getBoundingClientRect().right,
+    );
+    await expect(height(long)).toBeGreaterThan(defaultHeight);
+    await expect(getComputedStyle(long).textAlign).toBe("center");
+    await expect(height(short)).toBe(defaultHeight);
+  },
+};
+
+// 24 px, for a button inside another piece or beside a line of text, at the theme's radius.
+const ExtraSmall: Story = {
+  tags: ["visual"],
+  render: () => (
+    <div className="flex items-center gap-3">
+      <Button size="xs">{label}</Button>
+      <Button aria-label={download} size="icon-xs" variant="ghost">
+        <DownloadIcon />
+      </Button>
+      <span className="rounded-md" data-testid="radius" />
+    </div>
+  ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const radius = getComputedStyle(canvas.getByTestId("radius")).borderRadius;
+
+    for (const button of [
+      canvas.getByRole("button", { name: label }),
+      canvas.getByRole("button", { name: download }),
+    ]) {
+      await expect(height(button)).toBe(extraSmall);
+      await expect(getComputedStyle(button).borderRadius).toBe(radius);
+    }
   },
 };
 
@@ -108,4 +340,18 @@ const Sizes: Story = {
 };
 
 export default meta;
-export { Default, Disabled, Gold, Link, MergesClasses, Sizes, Submit };
+export {
+  Default,
+  Destructive,
+  Disabled,
+  ExtraSmall,
+  FromState,
+  Gold,
+  InDialog,
+  Link,
+  LongLabel,
+  MergesClasses,
+  Pending,
+  Sizes,
+  Submit,
+};

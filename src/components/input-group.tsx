@@ -73,7 +73,7 @@ function InputGroupAddon({
 }
 
 const inputGroupButtonVariants = cva(
-  "flex items-center gap-2 text-sm shadow-none",
+  "flex min-h-0 items-center gap-2 text-sm shadow-none",
   {
     variants: {
       size: {
@@ -96,7 +96,10 @@ function InputGroupButton({
   variant = "ghost",
   size = "xs",
   ...props
-}: Omit<ComponentProps<typeof Button>, "size" | "type"> &
+}: Omit<
+  ComponentProps<typeof Button>,
+  "isPending" | "pendingLabel" | "size" | "type"
+> &
   VariantProps<typeof inputGroupButtonVariants> & {
     type?: "button" | "submit" | "reset";
   }) {
