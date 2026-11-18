@@ -6,6 +6,10 @@ gets its number.
 
 ## [Unreleased]
 
+## [0.40.0] - 2026-11-18
+
+Hidden values by kind: an app hides its money and quantities and keeps its percents shown.
+
 ### Added
 
 - `hides` on `MonetaProvider`, the kinds `isHidden` hides: `amount`, `percent` and `quantity`, all three unless you
@@ -712,7 +716,8 @@ and dark. `README.md` says how to install and use it.
 
 A rehearsal of the release's path, not meant to be installed. Use a later version.
 
-[Unreleased]: https://github.com/fgarend/moneta/compare/v0.39.0...HEAD
+[Unreleased]: https://github.com/fgarend/moneta/compare/v0.40.0...HEAD
+[0.40.0]: https://github.com/fgarend/moneta/compare/v0.39.0...v0.40.0
 [0.39.0]: https://github.com/fgarend/moneta/compare/v0.38.0...v0.39.0
 [0.38.0]: https://github.com/fgarend/moneta/compare/v0.37.0...v0.38.0
 [0.37.0]: https://github.com/fgarend/moneta/compare/v0.36.0...v0.37.0
