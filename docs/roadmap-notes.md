@@ -40,6 +40,10 @@ with each family. No reviewed piece has a default text, so shadcn's written stri
 - Button's variants, ButtonGroup, PageHeader, as an app's own draws it, its context, title and actions each in a row
   that wraps, Input, InputGroup, whose addon, such as a currency's symbol, a screen
   reader does not read as part of the field's name, Textarea, Label, NativeSelect and Slider.
+- Button's `destructive` below 4.5:1, which an app's axe found in a dialog on 2026-11-17: its red text on its own red
+  tint at 4.30 on a card in dark and 3.72 on `--muted`, and on hover 3.47 and 3.07; in light, on hover, 4.31 on the
+  page and 4.01 on `--accent`. Fixed in Button's review, for every variant, in both modes, at rest and on hover, on
+  each surface a button sits on, and the app told which version has it.
 - Field, which does not link its description or error, and decides the contrast of the control's border against
   the 3:1 of WCAG 1.4.11.
 - Select, and when to use it or NativeSelect.
@@ -172,6 +176,9 @@ With `check-release`'s rules for the numbers after it, as a change that breaks t
 - **Update bot.** Left out for now, as `docs/decisions/tooling.md` says.
 - **Storybook's accepted advisories.** Through a docgen plugin Storybook installs and our settings never load. They
   go when Storybook takes the plugin 0.9.1 or later, which has no `glob`, as `pnpm-workspace.yaml` says.
+- **picomatch's accepted advisory.** A ReDoS on a crafted glob, through 4.0.7, with no fixed version, which stopped
+  the release of 0.38.0 on 2026-11-17. Only the tools reach it, matching the globs of our own settings, and the package
+  has no path to it. It goes when picomatch publishes a fixed version, as `pnpm-workspace.yaml` says.
 - **Storybook's deprecated loader.** Every test run warns `DEP0205`, and it goes when Storybook moves. Vitest also
   warns of 11 `SIGTERM` listeners, with this many browser projects.
 - **The update command in `updating.md`.** On 2026-11-13, `pnpm add -D lucide-react` with no version said the
