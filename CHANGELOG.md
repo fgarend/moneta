@@ -6,6 +6,10 @@ gets its number.
 
 ## [Unreleased]
 
+## [0.43.1] - 2026-11-18
+
+The classes the hooks hold reach an app again, as a field's layout.
+
 ### Fixed
 
 - An app's Tailwind reads the classes the hooks hold, through `theme.css`: a field's layout, which 0.43.0 moved there,
@@ -774,7 +778,8 @@ and dark. `README.md` says how to install and use it.
 
 A rehearsal of the release's path, not meant to be installed. Use a later version.
 
-[Unreleased]: https://github.com/fgarend/moneta/compare/v0.43.0...HEAD
+[Unreleased]: https://github.com/fgarend/moneta/compare/v0.43.1...HEAD
+[0.43.1]: https://github.com/fgarend/moneta/compare/v0.43.0...v0.43.1
 [0.43.0]: https://github.com/fgarend/moneta/compare/v0.42.0...v0.43.0
 [0.42.0]: https://github.com/fgarend/moneta/compare/v0.41.0...v0.42.0
 [0.41.0]: https://github.com/fgarend/moneta/compare/v0.40.0...v0.41.0
