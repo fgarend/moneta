@@ -50,7 +50,8 @@ PageHeader's step, decided:
 - `PageAction` as `SectionAction`, decided on 2026-11-18: at the header's end, under the description below 384 px of
   the header's own width, its controls 8 px apart, wrapping. Against 448 px, which would part a page from a section.
 - `isLoading` on `PageTitle`, decided on 2026-11-18, with the app's `loadingLabel`, which TypeScript asks for: the
-  `h1` holds the words for screen readers and a shape of 40 px they skip, as a table's loading; the description and
+  `h1` holds the words for screen readers, and a shape of 40 px they skip stands beside it, as a heading holds no
+  block, as a table's loading; the description and
   the actions are the app's to leave out. Against the app's own `Skeleton`, with a class of its own.
 - `PageDescription` a `p` at `type-paragraph` in `--muted-foreground`, decided on 2026-11-18, 65 characters at most as
   `Text`, 8 px under the title; the header 40 px from the content, as `AppContent` lays its parts. Against the wider

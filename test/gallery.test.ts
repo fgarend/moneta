@@ -59,6 +59,7 @@ const pages: Record<string, string> = {
   kbd: "Kbd",
   link: "Link",
   "moneta-provider": "MonetaProvider",
+  "page-header": "PageHeader",
   pagination: "Pagination",
   percent: "Percent",
   quantity: "Quantity",

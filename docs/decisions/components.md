@@ -245,6 +245,16 @@ pieces is in [`../pieces.md`](../pieces.md), and how a piece is analysed is in [
 - **No `Heading` for the app:** every title comes from a piece, `Section`, `Card` or `ItemGroup`, with its size and
   weight; a title no piece covers is a missing piece, for the roadmap.
 
+### PageHeader
+
+- **The head of a page, in parts as `Section`'s:** `PageHeader`, a container; `PageContext`, what scopes the page, in a
+  row 8 px apart that wraps, 12 px above the title; `PageTitle`, always an `h1` at `type-display`, 32/40, laying a mark
+  at 40 px and a badge in a row with its words; `PageDescription`, a `p` at `type-paragraph`, muted, 65 characters at
+  most, 8 px under the title; and `PageAction`, level with the title at the end, under the description below 384 px
+  of the header's width, as `SectionAction`.
+- **`isLoading` with the app's `loadingLabel`** on `PageTitle`, which TypeScript asks for: an `h1` with the words, out
+  of sight, and a shape of 40 px beside it, which screen readers skip, as a heading holds no block.
+
 ### Section
 
 - **A titled part of a page, with no box,** whose parts follow `Card`'s header: `Section`, `SectionHeader`,
@@ -668,6 +678,10 @@ pieces is in [`../pieces.md`](../pieces.md), and how a piece is analysed is in [
   `onClick` with a click of its own on Enter, and the browser's comes after, unstopped. **What it costs:** a link whose
   plain press does not go where it says, which the app's panel makes up for by taking focus.
 
+- **`PageHeader` in parts,** as every piece, which an app's own drew by props; **`PageContext`** for what scopes the
+  page, near the title it changes; **the mark and badge in `PageTitle`,** as `SectionTitle` lays a count. **What it
+  costs:** a badge's words in the page's heading.
+
 ## Alternatives considered
 
 - **A part per piece for its icon,** `ItemMedia`, `StatMedia`, `EmptyMedia`, as shadcn's, each repeating the tile.
@@ -790,6 +804,10 @@ pieces is in [`../pieces.md`](../pieces.md), and how a piece is analysed is in [
   list. **React Aria's `onPress` and `onClick` passed on,** which leave each app to check the keys. **`onPreview` on
   `TickerChip` alone,** two links behaving apart. **Words of ours saying a preview opens.**
 
+- **Props for a page's head,** shorter, unlike every other piece. **A scope in the bar's tools or the page's
+  actions,** away from the title. **A part beside the `h1` for a badge.** **448 px for the actions,** apart from a
+  section. **The app's own `Skeleton` for a title that loads,** with a class of its own.
+
 ## History
 
 - 2026-11-09: Written, with the conventions that cross pieces, and Section.
@@ -823,3 +841,4 @@ pieces is in [`../pieces.md`](../pieces.md), and how a piece is analysed is in [
 - 2026-11-17: Text, and a card's content 12 px apart.
 - 2026-11-17: Button, LinkButton and ButtonGroup reviewed.
 - 2026-11-18: `onPreview` on Link and TickerChip.
+- 2026-11-18: PageHeader.

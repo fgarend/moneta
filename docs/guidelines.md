@@ -70,7 +70,7 @@ the version installed. It holds only what exists, and each reviewed piece adds i
   most, as a `TickerChip` or a `Badge`, sits in a sentence without opening its line.
 - **One emphasis at each level:** 600 for titles and amounts of note, 500 for an amount in a row, 400 for the rest.
 - **An app gets the scale through the pieces,** with no class of its own: `Section`'s and `Card`'s titles and
-  descriptions, `Table`'s header and `Amount` already read it. A page's title has no piece yet.
+  descriptions, `Table`'s header and `Amount` already read it, and a page's title is `PageTitle`.
 - **Secondary text outside a piece is `text-muted-foreground`,** the theme's class, as shadcn's typography shows it.
   Where a piece has a description, as `ItemDescription`, `CardDescription` or `SectionDescription`, it uses it.
 - **An app's own layout is Tailwind's,** `flex`, `grid` and `gap-*`, on the space scale above. Moneta has no Stack or
@@ -298,6 +298,19 @@ the version installed. It holds only what exists, and each reviewed piece adds i
   every link of the sidebar on every page.
 - **Each page draws an `AppHeader` and an `AppContent` in `AppMain`.** The bar holds the `SidebarTrigger`, the page's
   breadcrumb, and its tools in `AppHeaderActions`. The content holds the page's sections, 40 px apart.
+
+## Page header
+
+- **A page opens with a `PageHeader`,** first in its `AppContent`: its `PageTitle`, the page's one heading of level 1,
+  in your words that say which page it is, and a `PageDescription` of what it shows, in a sentence. The browser's tab
+  takes your `<title>` too.
+- **What scopes the whole page goes above the title, in `PageContext`,** as whose accounts or which period. Not a
+  label over the title, and not the way to the page, which is the `AppHeader`'s breadcrumb.
+- **A mark before the title and a state after it are written in `PageTitle`,** an `Avatar` or an `IconTile` at 40 px,
+  and a `Badge`, whose words join the heading.
+- **The page's actions go in `PageAction`,** the main one `gold`, once. They go under the description when narrow.
+- **While the title loads,** give `PageTitle` `isLoading` and your words for it in `loadingLabel`, and leave the
+  description and the actions out until it comes.
 - **`width="full"` on `AppContent` for a page that needs every column,** as a wide table; the rest stop at 1440 px.
 
 ## Sidebar

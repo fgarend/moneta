@@ -6,6 +6,13 @@ gets its number.
 
 ## [Unreleased]
 
+### Added
+
+- `PageHeader`, the head of a page: `PageTitle`, the page's `h1` at 32/40, which lays a mark and a badge with its
+  words and takes `isLoading` with your `loadingLabel`; `PageDescription`; `PageContext`, what scopes the page, above
+  the title; and `PageAction`, which goes under the description when narrow. Its page, and the guidelines' Page
+  header. To move, write it in place of your own page's head.
+
 ## [0.41.0] - 2026-11-18
 
 A preview on TickerChip and Link: a plain press opens your panel, and the address opens the page in a new tab.
