@@ -6,6 +6,10 @@ gets its number.
 
 ## [Unreleased]
 
+## [0.41.0] - 2026-11-18
+
+A preview on TickerChip and Link: a plain press opens your panel, and the address opens the page in a new tab.
+
 ### Added
 
 - `onPreview` on `Link` and `TickerChip`: a plain press or Enter opens your preview, as a summary in your own panel,
@@ -722,7 +726,8 @@ and dark. `README.md` says how to install and use it.
 
 A rehearsal of the release's path, not meant to be installed. Use a later version.
 
-[Unreleased]: https://github.com/fgarend/moneta/compare/v0.40.0...HEAD
+[Unreleased]: https://github.com/fgarend/moneta/compare/v0.41.0...HEAD
+[0.41.0]: https://github.com/fgarend/moneta/compare/v0.40.0...v0.41.0
 [0.40.0]: https://github.com/fgarend/moneta/compare/v0.39.0...v0.40.0
 [0.39.0]: https://github.com/fgarend/moneta/compare/v0.38.0...v0.39.0
 [0.38.0]: https://github.com/fgarend/moneta/compare/v0.37.0...v0.38.0
