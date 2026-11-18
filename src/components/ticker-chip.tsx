@@ -3,6 +3,7 @@
 import { cn } from "cn";
 import type { ReactNode } from "react";
 import { Link as LinkPrimitive } from "react-aria-components";
+import { type Previewed, previewOnClick } from "#hooks/preview";
 import { TilePlace } from "#hooks/tile";
 
 const chipTile = {
@@ -16,11 +17,13 @@ const chipTile = {
  *
  * **Use it for**
  * - An asset in a table's column or a sentence, its code in a pill that reads as one unit, linking to its page with
- *   `href`.
+ *   `href`. With none, the chip is text, as on the asset's own page.
  * - A mark where it tells something: the issuer's logo, as an `Avatar`, or the asset's type among mixed types, as an
  *   `IconTile` in its category's tint, written before the code. None where every asset shares a type. All with a
  *   mark, or all without, in one column or sentence.
  * - The company's `name`, which a screen reader hears after the code, where it is not written beside.
+ * - The asset's summary in your own panel, with `onPreview`, which a plain press opens while its `href` opens its page
+ *   in a new tab.
  * - The day's change or the price beside it, as a `Percent` or an `Amount`, in a column of their own in a table.
  *
  * **Not recommended**
@@ -31,12 +34,11 @@ const chipTile = {
  */
 function TickerChip({
   href,
+  onPreview,
   name,
   className,
   children,
-}: {
-  /** The asset's page, at the app's address. With none, the chip is text, as on the asset's own page. */
-  href?: string;
+}: Previewed & {
   /** The company's or the fund's name, which a screen reader hears after the code. */
   name?: string;
   className?: string;
@@ -59,7 +61,12 @@ function TickerChip({
       {content}
     </span>
   ) : (
-    <LinkPrimitive className={classes} data-slot="ticker-chip" href={href}>
+    <LinkPrimitive
+      className={classes}
+      data-slot="ticker-chip"
+      href={href}
+      onClickCapture={previewOnClick(onPreview)}
+    >
       {content}
     </LinkPrimitive>
   );

@@ -6,6 +6,12 @@ gets its number.
 
 ## [Unreleased]
 
+### Added
+
+- `onPreview` on `Link` and `TickerChip`: a plain press or Enter opens your preview, as a summary in your own panel,
+  in place of going to the `href`, which Ctrl, Cmd, Shift or Alt with a click still opens in a new tab. Only with an
+  `href`. The guidelines say how your panel takes focus and gives it back.
+
 ## [0.40.0] - 2026-11-18
 
 Hidden values by kind: an app hides its money and quantities and keeps its percents shown.

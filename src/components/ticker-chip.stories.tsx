@@ -1,9 +1,11 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { expect, within } from "storybook/test";
+import { expect, fn, within } from "storybook/test";
 import { funds, holdings } from "../../.storybook/data.js";
+import { checksPreview } from "../../.storybook/previews.js";
 import { Amount } from "./amount.js";
 import { Avatar, AvatarFallback, AvatarImage } from "./avatar.js";
 import { IconTile } from "./icon-tile.js";
+import { MonetaProvider } from "./moneta-provider.js";
 import { Percent } from "./percent.js";
 import { ScrollArea } from "./scroll-area.js";
 import {
@@ -245,5 +247,39 @@ const LongCode: Story = {
   },
 };
 
+// A press opens the asset's summary beside, in the app's own panel, while its address opens its page in a new tab.
+const onPreview = fn();
+const navigate = fn();
+const Preview: Story = {
+  render: () => (
+    <MonetaProvider navigate={navigate}>
+      <TickerChip
+        href={`#${stock?.ticker}`}
+        name={stock?.name}
+        onPreview={onPreview}
+      >
+        {stock?.ticker}
+      </TickerChip>
+    </MonetaProvider>
+  ),
+  play: async ({ canvasElement }) => {
+    onPreview.mockClear();
+    navigate.mockClear();
+    const link = within(canvasElement).getByRole("link");
+
+    await expect(link).toHaveAttribute("href", `#${stock?.ticker}`);
+    await checksPreview(link, onPreview, navigate);
+  },
+};
+
 export default meta;
-export { Default, InTable, InText, LongCode, Static, WithLogo, WithoutMark };
+export {
+  Default,
+  InTable,
+  InText,
+  LongCode,
+  Preview,
+  Static,
+  WithLogo,
+  WithoutMark,
+};

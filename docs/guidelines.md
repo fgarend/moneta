@@ -257,6 +257,9 @@ the version installed. It holds only what exists, and each reviewed piece adds i
   without in one column or sentence.
 - **Give the company's `name` where it is not written beside,** so a screen reader hears whose code it is.
 - **The change and the price go beside it,** as a `Percent` and an `Amount`, in their own columns in a table.
+- **A summary beside the list is `onPreview`,** on a `TickerChip` or a `Link`: a plain press opens your panel, and Ctrl
+  or Cmd with a click opens the page in a new tab. Your panel is a region named by its title, takes focus there, and
+  gives it back to the link on closing. Describe the preview by `aria-describedby` if your words should say it.
 
 ## Text
 
@@ -341,6 +344,7 @@ the version installed. It holds only what exists, and each reviewed piece adds i
 - **It goes through the app's router,** with `render` on each link or `navigate` and `useHref` on `MonetaProvider`.
 - **`isDisabled` dims it and takes it out of the tab order.** A text that says why is often better than a link that
   leads nowhere.
+- **A summary beside, in place of the page, is `onPreview`,** as Assets by code says.
 
 ## Dates
 
