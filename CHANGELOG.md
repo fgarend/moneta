@@ -6,6 +6,12 @@ gets its number.
 
 ## [Unreleased]
 
+### Fixed
+
+- An app's Tailwind reads the classes the hooks hold, through `theme.css`: a field's layout, which 0.43.0 moved there,
+  so a `Select` in a `Field` takes the field's width again, and two that never reached an app, a row's fill on hover
+  and when selected, in a table and a list, and a value's tone, gain and loss. To upgrade, nothing to write.
+
 ## [0.43.0] - 2026-11-18
 
 TextField, and Field, Label, Input and Textarea reviewed: a field that links its words by itself, an asterisk on what
