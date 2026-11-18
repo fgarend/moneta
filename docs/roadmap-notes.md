@@ -65,16 +65,6 @@ with each family. No reviewed piece has a default text, so shadcn's written stri
   library connects, as Adobe documents React Hook Form and Zod. A form's states, such as dirty or touched, stay with
   that library or the app.
 
-## Hidden values by kind
-
-Asked by an app on 2026-11-17: with values hidden, its money and quantities go and its percents stay, with the bars
-of a share that say the same, as a percent alone, as 60% in one asset or +0.15% in a day, holds for any wealth. It
-asks that the app say which kinds hiding hides, as `hides={["amount", "quantity"]}`, everything when it says
-nothing, rather than a provider of its own around each percent, which the guidelines' one rule forbids. Against it,
-`docs/decisions/money.md`: a return on a known sum says what the money is, and whoever turns the mode on wants nothing
-read over their shoulder. It also takes Later's value shown while the rest are hidden, as "45% of the budget". To
-ask: whether, its form, by kind or by value, its default, and what the hooks and a chart's axis do.
-
 ## A TickerChip that opens a panel
 
 Asked by an app on 2026-11-17, which puts a `TickerChip` in every column and sentence that names an asset: on a
@@ -104,7 +94,8 @@ press and a new tab go to one place, though a new tab then opens the list with i
 - Tabs, with a count in a tab and tools to the right of its list. Progress, Empty, and Skeleton, with one pattern
   for loading, error and empty. Spinner and Breadcrumb. Pagination moved to Table. Empty takes a page's "not found", as an app writes it in a
   `p` today, raised on 2026-11-17 with Text.
-- Collapsible and AllocationBar. StatGroup and IconTile moved to Display. `calendar` after a study like Sidebar's.
+- Collapsible and AllocationBar, which follows `hides`' `percent`, as a share's bar says what a percent does, decided
+  on 2026-11-17 with Hidden values by kind. StatGroup and IconTile moved to Display. `calendar` after a study like Sidebar's.
 - Link came early, before Sidebar.
 - Steps, Banner, and Meter, which says how much of a limit is used, unlike Progress, with a target's mark.
 - A bar of actions fixed at the foot of the page, a list virtualised for thousands of rows, on React Aria's
@@ -120,6 +111,9 @@ surface, under WCAG 1.4.11, and a table of the data beside each.
 - To ask: where `recharts` goes (recommended: an entry of its own).
 - To ask: a chart of one series, which the prototype draws in graphite rather than the first category; and past five
   or six series, the rest grouped into one, as Atlassian advises, drawn in a neutral.
+- While values are hidden, an axis or a label in money follows `hides`' `amount` through the hooks, decided on
+  2026-11-17 with Hidden values by kind. To weigh: a line of wealth over time says relative sizes, as "doubled in a
+  year", with no axis.
 
 ## Not to build, and to ask again
 

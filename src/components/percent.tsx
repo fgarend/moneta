@@ -39,7 +39,7 @@ function Percent({
   tone?: ValueTone;
 }) {
   const { locale } = useLocale();
-  const shown = useValue("Percent", {
+  const shown = useValue("Percent", "percent", {
     isEmpty: value === null,
     emptyLabel,
     size,

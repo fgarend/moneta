@@ -2,7 +2,7 @@
 // page's title. It holds no piece, so it stays apart from MonetaProvider. docs/decisions/money.md says why it is so.
 import { useCallback, useContext } from "react";
 import { useLocale } from "react-aria-components";
-import { MonetaContext } from "#hooks/moneta";
+import { type HiddenKind, isKindHidden, MonetaContext } from "#hooks/moneta";
 import {
   formatMoney,
   formatPercent,
@@ -15,16 +15,19 @@ import {
 // As the pieces' prop: "always" shows the plus of a change.
 type FormatOptions = { sign?: Sign };
 
-// The language React Aria speaks, and whether MonetaProvider hides values, which turns any text into dots. A text only
-// screen readers hear, as an aria-label, is the app's to word while values are hidden.
-function useFormatting(): { locale: string; isHidden: boolean } {
+// The language React Aria speaks, and whether MonetaProvider hides values of this kind, which turns any text into
+// dots. A text only screen readers hear, as an aria-label, is the app's to word while values are hidden.
+function useFormatting(kind: HiddenKind): {
+  locale: string;
+  isHidden: boolean;
+} {
   const { locale } = useLocale();
-  return { locale, isHidden: useContext(MonetaContext).isHidden === true };
+  return { locale, isHidden: isKindHidden(useContext(MonetaContext), kind) };
 }
 
 // The same text as Amount.
 function useFormatMoney(): (money: Money, options?: FormatOptions) => string {
-  const { locale, isHidden } = useFormatting();
+  const { locale, isHidden } = useFormatting("amount");
   return useCallback(
     (money, options) =>
       isHidden
@@ -39,7 +42,7 @@ function useFormatPercent(): (
   ratio: string,
   options?: FormatOptions,
 ) => string {
-  const { locale, isHidden } = useFormatting();
+  const { locale, isHidden } = useFormatting("percent");
   return useCallback(
     (ratio, options) =>
       isHidden ? hiddenText : formatPercent(locale, ratio, options?.sign),
@@ -52,7 +55,7 @@ function useFormatQuantity(): (
   value: string,
   options?: FormatOptions,
 ) => string {
-  const { locale, isHidden } = useFormatting();
+  const { locale, isHidden } = useFormatting("quantity");
   return useCallback(
     (value, options) =>
       isHidden ? hiddenText : formatQuantity(locale, value, options?.sign),

@@ -43,7 +43,7 @@ function Amount({
   hideCurrency?: boolean;
 }) {
   const { locale } = useLocale();
-  const shown = useValue("Amount", {
+  const shown = useValue("Amount", "amount", {
     isEmpty: value === null,
     emptyLabel,
     size,
